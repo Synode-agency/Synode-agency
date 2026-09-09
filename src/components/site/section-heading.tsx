@@ -14,25 +14,37 @@ export function SectionHeading({
   align?: "left" | "center";
   className?: string;
 }) {
+  const centered = align === "center";
   return (
     <Reveal
       className={cn(
-        "flex flex-col gap-5",
-        align === "center" && "items-center text-center",
+        "flex flex-col gap-6",
+        centered && "items-center text-center",
         className,
       )}
     >
-      <span className="inline-flex w-fit items-center rounded-full border border-border bg-secondary/40 px-4 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.22em] text-brand">
+      <span
+        className={cn(
+          "eyebrow inline-flex items-center gap-2.5 text-brand",
+          centered ? "justify-center" : "",
+        )}
+      >
+        <span className="h-px w-6 bg-brand/50" aria-hidden />
         {eyebrow}
       </span>
-      <h2 className="max-w-2xl text-balance text-3xl leading-[1.1] font-semibold sm:text-4xl lg:text-[2.75rem]">
+      <h2
+        className={cn(
+          "max-w-[20ch] text-3xl leading-[1.08] font-semibold text-balance sm:text-4xl lg:text-[2.9rem]",
+          centered && "max-w-[24ch]",
+        )}
+      >
         {title}
       </h2>
       {subtitle && (
         <p
           className={cn(
-            "max-w-2xl text-base leading-relaxed text-muted-foreground",
-            align === "center" && "mx-auto",
+            "max-w-xl text-[0.975rem] leading-[1.7] text-muted-foreground",
+            centered && "mx-auto",
           )}
         >
           {subtitle}

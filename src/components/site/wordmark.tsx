@@ -9,31 +9,31 @@ export function Wordmark({
 }) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <svg
-        width="26"
-        height="26"
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <rect width="32" height="32" rx="7" fill="#0B0F14" stroke="#1B242E" />
-        <path
-          d="M8 25V15a8 8 0 0 1 16 0v10"
-          stroke="var(--brand)"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-        <path
-          d="M16 25V13"
-          stroke="var(--brand-bright)"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-      </svg>
+      <span className="grid size-8 shrink-0 place-items-center rounded-[9px] border border-hairline bg-surface-2">
+        <svg
+          width="17"
+          height="17"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M6 26V15a10 10 0 0 1 20 0v11"
+            stroke="var(--brand)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M16 26V12"
+            stroke="var(--brand-bright)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+      </span>
       {withText && (
-        <span className="font-heading text-[1.05rem] font-bold tracking-[0.14em] text-foreground">
+        <span className="font-heading text-[0.95rem] font-bold tracking-[0.16em] text-foreground">
           99GATES
         </span>
       )}

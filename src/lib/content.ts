@@ -25,6 +25,8 @@ const fr = {
     nav: nav.fr,
     ctaLabel: "Nous contacter",
     langLabel: "Français",
+    tagline: "Automatisation, agents IA et solutions sur mesure pour les PME.",
+    footerNote: "Site en cours de finalisation — coordonnées à confirmer.",
   },
   hero: {
     titleLead: "Faites tourner votre entreprise",
@@ -189,6 +191,8 @@ const en = {
     nav: nav.en,
     ctaLabel: "Get in touch",
     langLabel: "English",
+    tagline: "Automation, AI agents and custom solutions for SMEs.",
+    footerNote: "Site being finalised — contact details to be confirmed.",
   },
   hero: {
     titleLead: "Run your business",

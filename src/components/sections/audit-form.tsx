@@ -13,8 +13,9 @@ type Errors = Partial<Record<Field, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const fieldClass =
-  "h-11 w-full rounded-lg border border-input bg-transparent px-3 text-base outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm";
+const control =
+  "w-full rounded-xl border border-hairline bg-white/[0.02] px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
+const controlH = "h-12";
 
 export function AuditForm({ locale }: { locale: Locale }) {
   const { contact } = getContent(locale);
@@ -74,9 +75,9 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="flex flex-col items-start gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-8">
+      <div className="flex flex-col items-start gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9">
         <CheckCircle2 className="size-8 text-brand" />
-        <h3 className="text-lg font-semibold">{f.sentTitle}</h3>
+        <h3 className="text-lg font-semibold tracking-tight">{f.sentTitle}</h3>
         <p className="text-sm leading-relaxed text-muted-foreground">
           {contact.success}
         </p>
@@ -89,7 +90,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 sm:p-8"
+      className="flex flex-col gap-5 rounded-2xl border border-hairline bg-surface p-7 sm:p-9"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <FieldWrap label={f.name} htmlFor="name" error={errors.name} required>
@@ -99,7 +100,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="name"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
-            className="h-11"
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
         <FieldWrap label={f.company} htmlFor="company">
@@ -107,7 +108,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             id="company"
             name="company"
             autoComplete="organization"
-            className="h-11"
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
       </div>
@@ -121,7 +122,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           autoComplete="email"
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? "email-error" : undefined}
-          className="h-11"
+          className={cn(control, controlH, "dark:bg-white/[0.02]")}
         />
       </FieldWrap>
 
@@ -130,7 +131,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           id="offer"
           name="offer"
           defaultValue={contact.offers[0]}
-          className={fieldClass}
+          className={cn(control, controlH)}
         >
           {contact.offers.map((o) => (
             <option key={o} value={o}>
@@ -146,7 +147,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             id="budget"
             name="budget"
             defaultValue={contact.budgets[0]}
-            className={fieldClass}
+            className={cn(control, controlH)}
           >
             {contact.budgets.map((b) => (
               <option key={b} value={b}>
@@ -160,7 +161,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             id="timeline"
             name="timeline"
             defaultValue={contact.timelines[0]}
-            className={fieldClass}
+            className={cn(control, controlH)}
           >
             {contact.timelines.map((t) => (
               <option key={t} value={t}>
@@ -184,14 +185,14 @@ export function AuditForm({ locale }: { locale: Locale }) {
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className="min-h-32"
+          className={cn(control, "min-h-36 py-3 dark:bg-white/[0.02]")}
         />
       </FieldWrap>
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-base font-medium text-brand-foreground transition-colors hover:bg-brand-bright disabled:opacity-60"
+        className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright disabled:opacity-60"
       >
         {status === "sending" ? (
           <>
@@ -206,7 +207,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         )}
       </button>
 
-      <p className="text-xs leading-relaxed text-muted-foreground/70">
+      <p className="text-[0.75rem] leading-relaxed text-muted-foreground/70">
         {contact.note}
       </p>
     </form>
@@ -227,11 +228,8 @@ function FieldWrap({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <label
-        htmlFor={htmlFor}
-        className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-muted-foreground"
-      >
+    <div className="flex flex-col gap-2">
+      <label htmlFor={htmlFor} className="eyebrow text-muted-foreground">
         {label}
         {required && <span className="ml-1 text-brand">*</span>}
       </label>

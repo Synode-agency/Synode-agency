@@ -8,6 +8,21 @@ Source de vérité pour toute évolution de la landing.
 > - `design-system/99gates/pages/landing.md` — écarts assumés vs MASTER (dark / émeraude / Space Grotesk)
 > - Ce fichier — le système **tel que réellement implémenté**
 
+## 0. Passe premium (refonte visuelle « site à 10 k$ »)
+
+Objectif : rendu d'agence tech professionnelle, direction artistique et textes conservés.
+
+- **Système de lignes fines** : tout est cadré au `--hairline` (`rgba(255,255,255,0.07)`). Bordures, dividers, grilles de cartes en `gap-px` sur fond `bg-hairline` (les cellules `bg-surface` laissent voir le trait). Rayon de base porté à `0.875rem`.
+- **Surfaces** : `--surface` `#0b0f13` (cartes au repos), `--surface-2` `#0f151b` (hover). Plus de `--card` opaque bleuté.
+- **Typo** : titre display agrandi (`clamp` jusqu'à ~4.75rem), tracking négatif (`-0.035em` sur h1, `-0.02em` sur h2). Gradient du display = blanc → blanc 62 % (plus « blanc chaud », plus de teinte menthe). Labels = utilitaire `.eyebrow` (JetBrains Mono 500, `0.2em`, uppercase) précédé d'un tiret émeraude `— `.
+- **Rythme vertical** : utilitaire `.section-y` (`py-24 sm:py-32 lg:py-40`) sur toutes les sections. Container `max-w-[76rem]`.
+- **Micro-détails agence** : numéros fantômes `.num-ghost` (watermark 6 %), cadres d'angle `.corner-frame` (panneau CTA), rail de connexion fin derrière les cartes Méthode, `.tnum` (chiffres tabulaires) sur toutes les données, sheen émeraude en haut des cartes Offre / Réalisations.
+- **Hover** : `.lift` / `.glow-hover` = translation `-3px` + bordure qui chauffe vers l'émeraude + halo doux, 220 ms `cubic-bezier(.22,1,.36,1)`.
+- **Header** : scroll-spy (soulignement émeraude animé sur la section active), toggle FR/EN en segments, hairline au scroll (`> 8px`).
+- **Footer** : 3 colonnes (marque + tagline / navigation / contact) + ligne légale.
+- **Contact** : champs `h-12`, `rounded-xl`, fond `white/[0.02]`, focus `ring-4 ring-brand/15`.
+- **Reveal** : fade + `translateY(14px)`, `0.65s`. Fallback `<noscript>` dans `layout.tsx` → contenu visible sans JS.
+
 ## 1. Positionnement → décisions
 
 | Entrée (master plan) | Décision design |

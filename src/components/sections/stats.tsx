@@ -5,18 +5,20 @@ export function Stats({ locale }: { locale: Locale }) {
   const { stats } = getContent(locale);
 
   return (
-    <section className="relative z-10 -mt-4 pb-4">
+    <section className="relative z-10 border-y border-hairline bg-surface/40">
       <div className="container-page">
-        <Reveal className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
+        <Reveal className="grid grid-cols-2 divide-x divide-y divide-hairline sm:grid-cols-4 sm:divide-y-0">
           {stats.map((s) => (
             <div
               key={s.label}
-              className="flex flex-col items-center gap-1.5 bg-card px-4 py-7 text-center"
+              className="flex flex-col gap-2 px-2 py-8 first:pl-0 sm:px-6 sm:py-10"
             >
-              <span className="font-heading text-2xl font-bold text-brand sm:text-[1.75rem]">
+              <span className="font-heading tnum text-[1.6rem] font-bold leading-none text-brand sm:text-[1.9rem]">
                 {s.value}
               </span>
-              <span className="text-sm text-muted-foreground">{s.label}</span>
+              <span className="text-[0.8rem] leading-snug text-muted-foreground">
+                {s.label}
+              </span>
             </div>
           ))}
         </Reveal>
