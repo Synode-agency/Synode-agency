@@ -1,0 +1,288 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+
+  --color-brand: var(--brand);
+  --color-brand-bright: var(--brand-bright);
+  --color-brand-dim: var(--brand-dim);
+  --color-brand-foreground: var(--brand-foreground);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* 99GATES — dark-only premium tech theme, emerald accent */
+:root,
+.dark {
+  --background: #05070a;
+  --foreground: #e9edf0;
+
+  --card: #0b0f14;
+  --card-foreground: #e9edf0;
+  --popover: #0b0f14;
+  --popover-foreground: #e9edf0;
+
+  --primary: #10b981;
+  --primary-foreground: #04120c;
+
+  --secondary: #11161c;
+  --secondary-foreground: #e9edf0;
+
+  --muted: #11161c;
+  --muted-foreground: #97a3af;
+
+  --accent: #0e1a16;
+  --accent-foreground: #6ee7b7;
+
+  --destructive: #f43f5e;
+
+  --border: #1b242e;
+  --input: #1b242e;
+  --ring: #34d399;
+
+  --brand: #10b981;
+  --brand-bright: #34d399;
+  --brand-dim: #0f3d30;
+  --brand-foreground: #04120c;
+
+  --chart-1: #10b981;
+  --chart-2: #34d399;
+  --chart-3: #5eead4;
+  --chart-4: #2dd4bf;
+  --chart-5: #059669;
+
+  --radius: 0.75rem;
+
+  --sidebar: #0b0f14;
+  --sidebar-foreground: #e9edf0;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #04120c;
+  --sidebar-accent: #0e1a16;
+  --sidebar-accent-foreground: #6ee7b7;
+  --sidebar-border: #1b242e;
+  --sidebar-ring: #34d399;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading tracking-tight;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: var(--brand-foreground);
+  }
+
+  /* Give fixed header room and offset anchor targets */
+  section[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Every interactive control gets a pointer cursor */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  label[for],
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Utilities specific to this site */
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .grain {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      color-mix(in oklab, var(--foreground) 9%, transparent) 1px,
+      transparent 0
+    );
+    background-size: 3.5rem 3.5rem;
+  }
+
+  .brand-glow {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--brand) 22%, transparent),
+      0 18px 60px -22px color-mix(in oklab, var(--brand) 45%, transparent);
+  }
+
+  /* Subtle emerald glow that fades in on hover — used on cards/badges.
+     Base keeps the same 2-layer shadow geometry (transparent) so only the
+     colour animates — avoids a janky transition from `none`. */
+  .glow-hover {
+    box-shadow:
+      0 0 0 1px transparent,
+      0 10px 44px -18px transparent;
+    transition:
+      border-color 250ms ease,
+      box-shadow 250ms ease;
+  }
+
+  .glow-hover:hover {
+    border-color: color-mix(in oklab, var(--brand) 40%, var(--border));
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--brand) 20%, transparent),
+      0 10px 44px -18px color-mix(in oklab, var(--brand) 42%, transparent);
+  }
+
+  .glow-hover:hover .glow-hover-num {
+    text-shadow: 0 0 24px color-mix(in oklab, var(--brand) 50%, transparent);
+  }
+
+  .text-gradient-brand {
+    background: linear-gradient(180deg, #f4f8f6 0%, #8ff0cf 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Slowly rotating emerald glow, sits behind the hero headline.
+     Rotation is done with transform (compositor-only) rather than an
+     animated @property angle, so the 64px blur is never repainted. */
+  .title-aura {
+    border-radius: 9999px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      var(--brand-dim) 85deg,
+      transparent 170deg,
+      color-mix(in oklab, var(--brand) 30%, transparent) 275deg,
+      transparent 360deg
+    );
+    filter: blur(64px);
+    opacity: 0.5;
+    will-change: transform;
+    animation: sg-spin 24s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .title-aura {
+      animation: none;
+      will-change: auto;
+    }
+  }
+}
+
+@keyframes sg-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal[data-shown="true"] {
+  animation: reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-shown="true"] {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}

@@ -1,0 +1,80 @@
+import type { Metadata } from "next";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+
+const fontHeading = Space_Grotesk({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const fontSans = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const fontMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+const siteUrl = "https://99gates.com";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    template: "%s — 99GATES",
+  },
+  description:
+    "Automatisation des processus, agents IA branchés sur vos données, logiciels et outils métier sur mesure. Nous mesurons le gain avant d'écrire une ligne de code.",
+  keywords: [
+    "automatisation",
+    "agents IA",
+    "intelligence artificielle",
+    "logiciel sur mesure",
+    "CRM",
+    "PME",
+    "indépendants",
+    "audit de processus",
+    "Belgique",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: siteUrl,
+    siteName: "99GATES",
+    title: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    description:
+      "Automatisation, agents IA, logiciels et outils métier sur mesure pour PME. Deux offres, séparément ou combinées.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    description:
+      "Automatisation, agents IA et solutions sur mesure pour PME et indépendants.",
+  },
+  alternates: {
+    canonical: siteUrl,
+    languages: { fr: `${siteUrl}/`, en: `${siteUrl}/en` },
+  },
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="fr"
+      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} h-full`}
+    >
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        {children}
+        <Toaster position="top-center" />
+      </body>
+    </html>
+  );
+}
