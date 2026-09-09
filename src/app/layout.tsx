@@ -71,6 +71,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="fr"
       className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} h-full`}
     >
+      <head>
+        <noscript>
+          {/* Scroll-reveal content stays visible without JS */}
+          <style>{`.reveal{opacity:1 !important;transform:none !important;animation:none !important}`}</style>
+        </noscript>
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
         <Toaster position="top-center" />

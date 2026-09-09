@@ -6,7 +6,7 @@ export function Problem({ locale }: { locale: Locale }) {
   const { problem } = getContent(locale);
 
   return (
-    <section id="probleme" className="border-t border-border py-20 sm:py-28">
+    <section id="probleme" className="section-y border-t border-hairline">
       <div className="container-page">
         <SectionHeading
           eyebrow={problem.eyebrow}
@@ -16,25 +16,33 @@ export function Problem({ locale }: { locale: Locale }) {
           className="mx-auto"
         />
 
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Reveal
+          delay={80}
+          className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-4"
+        >
           {problem.items.map((item, i) => (
-            <Reveal
+            <div
               key={item.title}
-              delay={i * 50}
-              className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-6"
+              className="group relative flex flex-col gap-3 overflow-hidden bg-surface p-7 transition-colors hover:bg-surface-2"
             >
-              <span className="font-mono text-sm text-muted-foreground/60">
+              <span
+                aria-hidden
+                className="num-ghost pointer-events-none absolute -right-3 -top-5 text-[5rem] transition-opacity group-hover:opacity-80"
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-base font-semibold leading-snug">
+              <span className="eyebrow tnum text-brand">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="relative text-[1.02rem] font-semibold leading-snug tracking-tight">
                 {item.title}
               </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
+              <p className="relative text-[0.875rem] leading-[1.65] text-muted-foreground">
                 {item.text}
               </p>
-            </Reveal>
+            </div>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

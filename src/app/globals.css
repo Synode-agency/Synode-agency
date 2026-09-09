@@ -16,6 +16,9 @@
   --color-brand-bright: var(--brand-bright);
   --color-brand-dim: var(--brand-dim);
   --color-brand-foreground: var(--brand-foreground);
+  --color-hairline: var(--hairline);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -59,36 +62,40 @@
 /* 99GATES — dark-only premium tech theme, emerald accent */
 :root,
 .dark {
-  --background: #05070a;
-  --foreground: #e9edf0;
+  --background: #050709;
+  --foreground: #eef1f3;
 
-  --card: #0b0f14;
-  --card-foreground: #e9edf0;
-  --popover: #0b0f14;
-  --popover-foreground: #e9edf0;
+  --surface: #0b0f13;
+  --surface-2: #0f151b;
+  --hairline: rgba(255, 255, 255, 0.07);
+
+  --card: #0b0f13;
+  --card-foreground: #eef1f3;
+  --popover: #0d1217;
+  --popover-foreground: #eef1f3;
 
   --primary: #10b981;
-  --primary-foreground: #04120c;
+  --primary-foreground: #03130c;
 
-  --secondary: #11161c;
-  --secondary-foreground: #e9edf0;
+  --secondary: #10161c;
+  --secondary-foreground: #eef1f3;
 
-  --muted: #11161c;
-  --muted-foreground: #97a3af;
+  --muted: #10161c;
+  --muted-foreground: #93a1ad;
 
-  --accent: #0e1a16;
+  --accent: #0d1a15;
   --accent-foreground: #6ee7b7;
 
   --destructive: #f43f5e;
 
-  --border: #1b242e;
-  --input: #1b242e;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
   --ring: #34d399;
 
   --brand: #10b981;
   --brand-bright: #34d399;
   --brand-dim: #0f3d30;
-  --brand-foreground: #04120c;
+  --brand-foreground: #03130c;
 
   --chart-1: #10b981;
   --chart-2: #34d399;
@@ -96,15 +103,15 @@
   --chart-4: #2dd4bf;
   --chart-5: #059669;
 
-  --radius: 0.75rem;
+  --radius: 0.875rem;
 
-  --sidebar: #0b0f14;
-  --sidebar-foreground: #e9edf0;
+  --sidebar: #0b0f13;
+  --sidebar-foreground: #eef1f3;
   --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #04120c;
-  --sidebar-accent: #0e1a16;
+  --sidebar-primary-foreground: #03130c;
+  --sidebar-accent: #0d1a15;
   --sidebar-accent-foreground: #6ee7b7;
-  --sidebar-border: #1b242e;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #34d399;
 
   color-scheme: dark;
@@ -124,15 +131,30 @@
     @apply bg-background text-foreground antialiased;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
   }
 
-  h1, h2, h3, h4 {
-    @apply font-heading tracking-tight;
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
     text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    letter-spacing: -0.035em;
   }
 
   p {
     text-wrap: pretty;
+  }
+
+  /* Tabular figures for anything data-like */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 
   ::selection {
@@ -142,7 +164,7 @@
 
   /* Give fixed header room and offset anchor targets */
   section[id] {
-    scroll-margin-top: 6rem;
+    scroll-margin-top: 5.5rem;
   }
 
   /* Every interactive control gets a pointer cursor */
@@ -156,6 +178,11 @@
 
   button:disabled {
     cursor: not-allowed;
+  }
+
+  :where(a, button, [role="button"], summary):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
   }
 }
 
@@ -175,57 +202,133 @@
 /* Utilities specific to this site */
 @layer utilities {
   .container-page {
-    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[76rem] px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Consistent vertical rhythm for every section */
+  .section-y {
+    @apply py-24 sm:py-32 lg:py-40;
   }
 
   .grain {
     background-image: radial-gradient(
       circle at 1px 1px,
-      color-mix(in oklab, var(--foreground) 9%, transparent) 1px,
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
       transparent 0
     );
-    background-size: 3.5rem 3.5rem;
+    background-size: 3.75rem 3.75rem;
+  }
+
+  /* Mono label / eyebrow */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Base card surface */
+  .surface-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  /* Premium hover: subtle lift + hairline warms toward emerald */
+  .lift {
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms ease,
+      background-color 220ms ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--brand) 32%, var(--hairline));
+    background-color: var(--surface-2);
   }
 
   .brand-glow {
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 22%, transparent),
-      0 18px 60px -22px color-mix(in oklab, var(--brand) 45%, transparent);
+      0 0 0 1px color-mix(in oklab, var(--brand) 24%, transparent),
+      0 22px 70px -26px color-mix(in oklab, var(--brand) 55%, transparent);
   }
 
-  /* Subtle emerald glow that fades in on hover — used on cards/badges.
-     Base keeps the same 2-layer shadow geometry (transparent) so only the
+  /* Subtle emerald glow that fades in on hover — cards / badges.
+     Base keeps the 2-layer shadow geometry (transparent) so only the
      colour animates — avoids a janky transition from `none`. */
   .glow-hover {
     box-shadow:
       0 0 0 1px transparent,
-      0 10px 44px -18px transparent;
+      0 12px 48px -20px transparent;
     transition:
-      border-color 250ms ease,
-      box-shadow 250ms ease;
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms ease,
+      box-shadow 220ms ease;
   }
 
   .glow-hover:hover {
-    border-color: color-mix(in oklab, var(--brand) 40%, var(--border));
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--brand) 42%, var(--hairline));
     box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 20%, transparent),
-      0 10px 44px -18px color-mix(in oklab, var(--brand) 42%, transparent);
+      0 0 0 1px color-mix(in oklab, var(--brand) 22%, transparent),
+      0 12px 48px -20px color-mix(in oklab, var(--brand) 44%, transparent);
   }
 
   .glow-hover:hover .glow-hover-num {
-    text-shadow: 0 0 24px color-mix(in oklab, var(--brand) 50%, transparent);
+    color: var(--brand-bright);
+    text-shadow: 0 0 26px color-mix(in oklab, var(--brand) 55%, transparent);
   }
 
+  /* White → translucent-white display gradient (premium, not tinted) */
   .text-gradient-brand {
-    background: linear-gradient(180deg, #f4f8f6 0%, #8ff0cf 120%);
+    background: linear-gradient(
+      177deg,
+      #ffffff 0%,
+      color-mix(in oklab, #ffffff 62%, transparent) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* Slowly rotating emerald glow, sits behind the hero headline.
-     Rotation is done with transform (compositor-only) rather than an
-     animated @property angle, so the 64px blur is never repainted. */
+  /* Decorative corner frame for the big CTA panel */
+  .corner-frame {
+    position: relative;
+  }
+  .corner-frame::before,
+  .corner-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid color-mix(in oklab, var(--brand) 55%, transparent);
+    pointer-events: none;
+  }
+  .corner-frame::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .corner-frame::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  /* Giant ghost index number watermark */
+  .num-ghost {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1;
+    color: color-mix(in oklab, var(--foreground) 6%, transparent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Slowly rotating emerald glow behind the hero headline (transform-only). */
   .title-aura {
     border-radius: 9999px;
     background: conic-gradient(
@@ -236,10 +339,10 @@
       color-mix(in oklab, var(--brand) 30%, transparent) 275deg,
       transparent 360deg
     );
-    filter: blur(64px);
-    opacity: 0.5;
+    filter: blur(70px);
+    opacity: 0.45;
     will-change: transform;
-    animation: sg-spin 24s linear infinite;
+    animation: sg-spin 26s linear infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -262,7 +365,7 @@
 @keyframes reveal-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -275,7 +378,7 @@
 }
 
 .reveal[data-shown="true"] {
-  animation: reveal-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: reveal-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

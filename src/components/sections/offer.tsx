@@ -8,7 +8,7 @@ export function Offer({ locale }: { locale: Locale }) {
   const { offer } = getContent(locale);
 
   return (
-    <section id="offre" className="border-t border-border py-20 sm:py-28">
+    <section id="offre" className="section-y border-t border-hairline">
       <div className="container-page">
         <SectionHeading
           eyebrow={offer.eyebrow}
@@ -18,49 +18,60 @@ export function Offer({ locale }: { locale: Locale }) {
           className="mx-auto"
         />
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-2">
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
           {offer.cards.map((card, i) => (
             <Reveal
               key={card.number}
-              delay={i * 80}
-              className="group flex flex-col gap-5 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-brand/40 sm:p-8"
+              delay={i * 90}
+              className="glow-hover relative flex flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-8 sm:p-9"
             >
-              <div className="flex items-center justify-between">
-                <span className="inline-flex size-11 items-center justify-center rounded-xl border border-border bg-background text-brand transition-colors group-hover:bg-brand-dim/40">
+              <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent"
+              />
+
+              <div className="flex items-start justify-between">
+                <span className="grid size-12 place-items-center rounded-xl border border-hairline bg-background text-brand">
                   <Icon name={card.icon} className="size-5" />
                 </span>
-                <span className="font-mono text-sm text-muted-foreground/60">
+                <span className="num-ghost tnum text-[3.25rem]">
                   {card.number}
                 </span>
               </div>
 
-              <div className="space-y-2">
-                <h3 className="text-xl font-semibold leading-snug">
-                  {card.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {card.forWho}
-                </p>
-              </div>
+              <h3 className="mt-6 text-[1.35rem] font-semibold leading-snug tracking-tight">
+                {card.title}
+              </h3>
+              <p className="mt-2.5 text-[0.9rem] leading-[1.7] text-muted-foreground">
+                {card.forWho}
+              </p>
 
-              <ul className="flex flex-col gap-2.5 border-t border-border pt-5">
+              <ul className="mt-6 flex flex-col gap-3 border-t border-hairline pt-6">
                 {card.includes.map((ex) => (
                   <li
                     key={ex}
-                    className="flex items-start gap-2.5 text-sm text-foreground/85"
+                    className="flex items-start gap-3 text-[0.875rem] text-foreground/85"
                   >
-                    <Check className="mt-0.5 size-4 shrink-0 text-brand" />
+                    <span className="mt-0.5 grid size-[1.1rem] shrink-0 place-items-center rounded-[5px] bg-brand/12 text-brand">
+                      <Check className="size-3" strokeWidth={2.5} />
+                    </span>
                     <span>{ex}</span>
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-auto rounded-lg bg-secondary/60 px-4 py-3 text-sm text-foreground/80">
-                <span className="font-medium text-brand">
-                  {offer.resultLabel} —{" "}
-                </span>
-                {card.result}
-              </p>
+              <div className="mt-auto flex gap-3 pt-7">
+                <span
+                  aria-hidden
+                  className="mt-0.5 w-0.5 shrink-0 rounded-full bg-brand/60"
+                />
+                <p className="text-[0.85rem] leading-[1.6] text-foreground/75">
+                  <span className="eyebrow mr-2 text-brand">
+                    {offer.resultLabel}
+                  </span>
+                  {card.result}
+                </p>
+              </div>
             </Reveal>
           ))}
         </div>

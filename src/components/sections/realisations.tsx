@@ -7,7 +7,7 @@ export function Realisations({ locale }: { locale: Locale }) {
   const { realisations } = getContent(locale);
 
   return (
-    <section id="realisations" className="border-t border-border py-20 sm:py-28">
+    <section id="realisations" className="section-y border-t border-hairline">
       <div className="container-page">
         <SectionHeading
           eyebrow={realisations.eyebrow}
@@ -17,51 +17,66 @@ export function Realisations({ locale }: { locale: Locale }) {
           className="mx-auto"
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {realisations.items.map((item, i) => (
             <Reveal
               key={item.code}
-              delay={i * 60}
-              className="group flex flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-brand/40"
+              delay={i * 70}
+              className="group glow-hover relative flex flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-7"
             >
-              <div className="flex items-start justify-between gap-3 border-b border-border pb-4">
-                <span className="font-mono text-xs leading-relaxed text-muted-foreground/70">
-                  {item.code} · {item.domain}
+              <span
+                aria-hidden
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              />
+
+              <div className="flex items-start justify-between gap-3">
+                <span className="eyebrow tnum text-muted-foreground/60">
+                  {item.code}
                 </span>
-                <span className="shrink-0 rounded-full border border-brand/40 px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-brand">
+                <span className="rounded-full border border-hairline px-2.5 py-1 font-mono text-[0.58rem] uppercase tracking-[0.16em] text-brand">
                   {realisations.badge}
                 </span>
               </div>
 
-              <h3 className="mt-5 text-lg font-semibold leading-snug">
+              <span className="mt-3 text-[0.72rem] leading-snug text-muted-foreground/70">
+                {item.domain}
+              </span>
+
+              <h3 className="mt-4 text-[1.1rem] font-semibold leading-snug tracking-tight">
                 {item.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-[0.85rem] leading-[1.65] text-muted-foreground">
                 {item.desc}
               </p>
 
-              <p className="mt-5 border-t border-border pt-4 font-mono text-xs text-muted-foreground/80">
-                {item.stack.join(" · ")}
-              </p>
-              <p className="mt-3 text-sm font-medium text-brand">
-                {item.result}
-              </p>
+              <div className="mt-auto space-y-3 border-t border-hairline pt-5">
+                <p className="font-mono text-[0.72rem] leading-relaxed text-muted-foreground/75">
+                  {item.stack.join("  ·  ")}
+                </p>
+                <p className="flex items-start gap-2 text-[0.82rem] font-medium text-brand">
+                  <span
+                    aria-hidden
+                    className="mt-1.5 size-1 shrink-0 rounded-full bg-brand"
+                  />
+                  {item.result}
+                </p>
+              </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-6 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-          <div className="max-w-2xl space-y-2">
-            <h3 className="text-xl font-semibold leading-snug">
+        <Reveal className="corner-frame mt-6 flex flex-col gap-6 rounded-2xl border border-brand/25 bg-gradient-to-br from-brand-dim/25 to-transparent p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+          <div className="max-w-2xl space-y-2.5">
+            <h3 className="text-[1.2rem] font-semibold leading-snug tracking-tight">
               {realisations.cta.title}
             </h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-[0.875rem] leading-[1.65] text-muted-foreground">
               {realisations.cta.body}
             </p>
           </div>
           <a
             href="#contact"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-base font-medium text-brand-foreground transition-colors hover:bg-brand-bright"
+            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright"
           >
             {realisations.cta.button}
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
