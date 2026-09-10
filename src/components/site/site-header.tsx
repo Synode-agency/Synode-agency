@@ -74,11 +74,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             : "border-transparent bg-transparent",
         )}
       >
-        <div className="container-page flex h-[4.25rem] items-center justify-between gap-4">
+        <div className="container-page flex h-[4.6rem] items-center justify-between gap-4">
           <a
             href="#top"
-            aria-label="99GATES — accueil"
-            className="rounded-md"
+            aria-label="Synode — accueil"
+            className="shrink-0 rounded-md"
           >
             <Wordmark />
           </a>
@@ -139,7 +139,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-x-0 top-[4.25rem] bottom-0 z-40 bg-background/98 backdrop-blur-xl md:hidden">
+        <div className="fixed inset-x-0 top-[4.6rem] bottom-0 z-40 bg-background/98 backdrop-blur-xl md:hidden">
           <nav className="container-page flex flex-col gap-1 py-8">
             {site.nav.map((item) => (
               <a

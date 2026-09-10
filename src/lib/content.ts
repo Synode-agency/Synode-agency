@@ -18,8 +18,8 @@ const fr = {
   locale: "fr" as Locale,
   htmlLang: "fr",
   site: {
-    name: "99GATES",
-    email: "hello@99gates.com",
+    name: "Synode",
+    email: "hello@synode.com",
     location: "Belgique",
     vat: "BE 0000.000.000",
     nav: nav.fr,
@@ -110,7 +110,7 @@ const fr = {
   realisations: {
     eyebrow: "Réalisations & démonstrateurs",
     title: "Des systèmes qui tournent, pas des promesses.",
-    body: "99GATES démarre son activité : plutôt que d'afficher des logos que nous n'avons pas encore le droit de montrer, voici quatre systèmes construits en interne — deux par offre — pour démontrer précisément ce que nous livrons.",
+    body: "Synode démarre son activité : plutôt que d'afficher des logos que nous n'avons pas encore le droit de montrer, voici quatre systèmes construits en interne — deux par offre — pour démontrer précisément ce que nous livrons.",
     badge: "Démonstrateur",
     items: [
       { code: "D/01", domain: "Automatisation & Agents IA", title: "Boîte partagée triée, qualifiée et répondue", desc: "Un agent lit les mails entrants d'une adresse info@, les classe, crée la fiche dans le CRM et rédige une réponse mise en attente de validation humaine.", stack: ["n8n", "API LLM", "Gmail API", "CRM"], result: "−3 h de tri par semaine · première réponse en 2 min" },
@@ -150,7 +150,7 @@ const fr = {
     title: "Dites-nous ce qui vous fait perdre du temps.",
     body: "Réponse sous 24 h ouvrées, avec un premier avis honnête : si votre besoin ne justifie pas un développement, nous vous le dirons.",
     info: [
-      { label: "E-mail", value: "hello@99gates.com", href: "mailto:hello@99gates.com" },
+      { label: "E-mail", value: "hello@synode.com", href: "mailto:hello@synode.com" },
       { label: "Interventions", value: "Belgique — sur place ou à distance", href: "" },
       { label: "Premier échange", value: "Audit d'une heure, gratuit", href: "" },
     ],
@@ -184,8 +184,8 @@ const en = {
   locale: "en" as Locale,
   htmlLang: "en",
   site: {
-    name: "99GATES",
-    email: "hello@99gates.com",
+    name: "Synode",
+    email: "hello@synode.com",
     location: "Belgium",
     vat: "BE 0000.000.000",
     nav: nav.en,
@@ -276,7 +276,7 @@ const en = {
   realisations: {
     eyebrow: "Work & demonstrators",
     title: "Systems that run, not promises.",
-    body: "99GATES is just getting started: rather than showing logos we're not yet allowed to display, here are four systems built in-house — two per offer — to show exactly what we deliver.",
+    body: "Synode is just getting started: rather than showing logos we're not yet allowed to display, here are four systems built in-house — two per offer — to show exactly what we deliver.",
     badge: "Demo",
     items: [
       { code: "D/01", domain: "Automation & AI agents", title: "Shared inbox sorted, qualified and answered", desc: "An agent reads incoming mail from an info@ address, classifies it, creates the CRM record and drafts a reply held for human approval.", stack: ["n8n", "LLM API", "Gmail API", "CRM"], result: "−3 h of sorting per week · first reply in 2 min" },
@@ -316,7 +316,7 @@ const en = {
     title: "Tell us what's eating your time.",
     body: "Reply within one business day, with an honest first take: if your need doesn't warrant a build, we'll say so.",
     info: [
-      { label: "E-mail", value: "hello@99gates.com", href: "mailto:hello@99gates.com" },
+      { label: "E-mail", value: "hello@synode.com", href: "mailto:hello@synode.com" },
       { label: "Coverage", value: "Belgium — on-site or remote", href: "" },
       { label: "First call", value: "One-hour audit, free", href: "" },
     ],

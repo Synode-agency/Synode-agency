@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "validation", fieldErrors }, { status: 422 });
   }
 
-  // TODO(99GATES): brancher l'envoi réel ici.
+  // TODO(Synode): brancher l'envoi réel ici.
   // Options : e-mail transactionnel (Resend), création d'un lead dans le CRM,
   // notification Slack/Telegram, ou insertion en base.
   // Pour l'instant on se contente de logger côté serveur.
