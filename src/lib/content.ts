@@ -29,8 +29,8 @@ const fr = {
     footerNote: "Site en cours de finalisation — coordonnées à confirmer.",
   },
   hero: {
-    titleLead: "Faites tourner votre entreprise",
-    titleAccent: "sans travail manuel",
+    titleLead: "Gérez votre entreprise",
+    titleAccent: "sans le superflu",
     subtitle:
       "Automatisation des processus, agents IA branchés sur vos données, logiciels et outils métier sur mesure. Nous mesurons le gain avant d'écrire une ligne de code.",
     primaryCta: "Demander un audit",

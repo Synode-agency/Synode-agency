@@ -28,7 +28,7 @@ const siteUrl = "https://99gates.com";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    default: "99GATES — Gérez votre entreprise sans le superflu",
     template: "%s — 99GATES",
   },
   description:
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: siteUrl,
     siteName: "99GATES",
-    title: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    title: "99GATES — Gérez votre entreprise sans le superflu",
     description:
       "Automatisation, agents IA, logiciels et outils métier sur mesure pour PME. Deux offres, séparément ou combinées.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "99GATES — Faites tourner votre entreprise sans travail manuel",
+    title: "99GATES — Gérez votre entreprise sans le superflu",
     description:
       "Automatisation, agents IA et solutions sur mesure pour PME et indépendants.",
   },
