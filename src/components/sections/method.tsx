@@ -1,7 +1,6 @@
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 import { getContent, type Locale } from "@/lib/content";
-import { cn } from "@/lib/utils";
 
 export function Method({ locale }: { locale: Locale }) {
   const { method } = getContent(locale);
@@ -30,12 +29,7 @@ export function Method({ locale }: { locale: Locale }) {
                 delay={i * 70}
                 className="glow-hover relative flex flex-col gap-3 rounded-2xl border border-hairline bg-surface p-7"
               >
-                <span
-                  className={cn(
-                    "glow-hover-num font-heading tnum text-[2.15rem] font-bold leading-none transition-colors",
-                    i === 0 ? "text-brand" : "text-muted-foreground/35",
-                  )}
-                >
+                <span className="glow-hover-num font-heading tnum text-[2.15rem] font-bold leading-none text-muted-foreground/35 transition-colors">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-1 text-[1rem] font-semibold tracking-tight">
