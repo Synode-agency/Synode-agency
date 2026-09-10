@@ -1,6 +1,6 @@
-# 99GATES — Design System (landing)
+# Synode — Design System (landing)
 
-Dérivé du *99GATES — Master Plan* et de la base de connaissances `ui-ux-pro-max`.
+Dérivé du *Synode — Master Plan* et de la base de connaissances `ui-ux-pro-max`.
 Source de vérité pour toute évolution de la landing.
 
 > **Fichiers liés :**

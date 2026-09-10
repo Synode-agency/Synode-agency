@@ -52,7 +52,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-hairline pt-6 text-[0.75rem] text-muted-foreground/60 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} 99GATES</span>
+          <span>© {new Date().getFullYear()} Synode</span>
           <span>{site.footerNote}</span>
         </div>
       </div>

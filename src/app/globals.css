@@ -59,7 +59,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* 99GATES — dark-only premium tech theme, emerald accent */
+/* Synode — dark-only premium tech theme, emerald accent */
 :root,
 .dark {
   --background: #050709;
