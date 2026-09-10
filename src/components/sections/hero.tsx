@@ -1,11 +1,11 @@
-import { ArrowRight, ArrowDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { SynapseField } from "@/components/site/synapse-field";
 import { Icon } from "@/components/site/icon";
 import { getContent, type Locale } from "@/lib/content";
 
 export function Hero({ locale }: { locale: Locale }) {
-  const { hero, site } = getContent(locale);
+  const { hero } = getContent(locale);
 
   return (
     <section
@@ -85,18 +85,6 @@ export function Hero({ locale }: { locale: Locale }) {
               </div>
             </div>
           ))}
-        </Reveal>
-
-        <Reveal
-          delay={220}
-          className="mt-14 flex items-center gap-3 text-muted-foreground/50"
-        >
-          <ArrowDown className="size-4 animate-bounce [animation-duration:2s]" />
-          <span className="eyebrow">
-            {locale === "fr" ? "Faites défiler" : "Scroll"}
-          </span>
-          <span className="h-px flex-1 bg-hairline" />
-          <span className="eyebrow tnum">{site.location}</span>
         </Reveal>
       </div>
     </section>
