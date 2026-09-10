@@ -1,7 +1,6 @@
 import { ArrowRight, ArrowDown } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { SynapseField } from "@/components/site/synapse-field";
-import { Magnetic } from "@/components/site/magnetic";
 import { Icon } from "@/components/site/icon";
 import { getContent, type Locale } from "@/lib/content";
 
@@ -43,15 +42,13 @@ export function Hero({ locale }: { locale: Locale }) {
           </p>
 
           <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Magnetic>
-              <a
-                href="#contact"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright brand-glow"
-              >
-                {hero.primaryCta}
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-            </Magnetic>
+            <a
+              href="#contact"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright brand-glow"
+            >
+              {hero.primaryCta}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
             <a
               href="#realisations"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[0.95rem] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
