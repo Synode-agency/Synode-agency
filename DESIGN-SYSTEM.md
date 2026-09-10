@@ -94,13 +94,9 @@ seul effet animé de la vue (règle skill : 1–2 max).
 - **Parallaxe** : le canvas dérive vers le bas (max 24 px) au scroll du hero — `transform` uniquement, rAF-batché, coupé sous reduced-motion. Prop `parallax` (défaut `0.05`, `0` = off).
 - Props : `density` (64), `linkDistance` (132), `pointerRadius` (190), `intensity` (1), `parallax` (0.05).
 
-### CTA magnétique — `Magnetic`
+### CTA magnétique — retiré
 
-`src/components/site/magnetic.tsx` : enveloppe **un seul** élément focal (le CTA primaire du hero) et l'attire vers le curseur.
-
-- Déplacement = offset curseur × `strength` (0.28), retour à zéro hors zone (`radius` 90 px).
-- `transition: transform 300ms cubic-bezier(.34,1.45,.5,1)` (léger dépassement élastique).
-- **`(pointer: fine)` uniquement** (jamais au toucher) + coupé sous `prefers-reduced-motion`. `will-change: transform`, handler `pointermove` rAF-batché.
+L'effet d'aimantation au curseur (`Magnetic`) a été supprimé sur demande du client. Les CTA gardent leur hover de couleur + le décalage de la flèche.
 
 ### Aura du titre — `.title-aura`
 
