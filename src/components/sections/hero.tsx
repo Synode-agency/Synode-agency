@@ -7,10 +7,6 @@ import { getContent, type Locale } from "@/lib/content";
 
 export function Hero({ locale }: { locale: Locale }) {
   const { hero, site } = getContent(locale);
-  const kicker =
-    locale === "fr"
-      ? ["Automatisation", "IA", "Sur mesure"]
-      : ["Automation", "AI", "Custom"];
 
   return (
     <section
@@ -28,15 +24,8 @@ export function Hero({ locale }: { locale: Locale }) {
 
       <div className="container-page">
         <Reveal className="flex max-w-4xl flex-col gap-7">
-          <span className="eyebrow flex items-center gap-3 text-muted-foreground">
-            <span className="h-px w-6 bg-brand/50" aria-hidden />
-            {kicker.map((k, i) => (
-              <span key={k} className="flex items-center gap-3">
-                {i > 0 && <span className="text-muted-foreground/30">·</span>}
-                <span className={i === 0 ? "text-brand" : undefined}>{k}</span>
-              </span>
-            ))}
-          </span>
+          {/* Spacer keeps the previous kicker's vertical rhythm above the title */}
+          <span aria-hidden className="block h-[33px]" />
 
           <div className="relative isolate w-fit">
             <div
