@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getContent, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-type Field = "name" | "email" | "company" | "offer" | "budget" | "timeline" | "message";
+type Field = "name" | "email" | "company" | "phone" | "timeline" | "message";
 type Errors = Partial<Record<Field, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,6 +29,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
     if (!data.name.trim()) e.name = f.errName;
     if (!data.email.trim()) e.email = f.errEmail;
     else if (!EMAIL_RE.test(data.email.trim())) e.email = f.errEmailInvalid;
+    if (!data.phone.trim()) e.phone = f.errPhone;
     if (!data.message.trim() || data.message.trim().length < 10)
       e.message = f.errMessage;
     return e;
@@ -41,8 +42,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
       company: String(fd.get("company") ?? ""),
-      offer: String(fd.get("offer") ?? ""),
-      budget: String(fd.get("budget") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
       timeline: String(fd.get("timeline") ?? ""),
       message: String(fd.get("message") ?? ""),
     };
@@ -113,64 +113,47 @@ export function AuditForm({ locale }: { locale: Locale }) {
         </FieldWrap>
       </div>
 
-      <FieldWrap label={f.email} htmlFor="email" error={errors.email} required>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          inputMode="email"
-          autoComplete="email"
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "email-error" : undefined}
-          className={cn(control, controlH, "dark:bg-white/[0.02]")}
-        />
-      </FieldWrap>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <FieldWrap label={f.email} htmlFor="email" error={errors.email} required>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            inputMode="email"
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+          />
+        </FieldWrap>
+        <FieldWrap label={f.phone} htmlFor="phone" error={errors.phone} required>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "phone-error" : undefined}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+          />
+        </FieldWrap>
+      </div>
 
-      <FieldWrap label={f.offer} htmlFor="offer">
+      <FieldWrap label={f.timeline} htmlFor="timeline">
         <select
-          id="offer"
-          name="offer"
-          defaultValue={contact.offers[0]}
-          className={cn(control, controlH)}
+          id="timeline"
+          name="timeline"
+          defaultValue={contact.timelines[0]}
+          className={cn(control, controlH, "[&>option]:text-black")}
         >
-          {contact.offers.map((o) => (
-            <option key={o} value={o}>
-              {o}
+          {contact.timelines.map((t) => (
+            <option key={t} value={t}>
+              {t}
             </option>
           ))}
         </select>
       </FieldWrap>
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap label={f.budget} htmlFor="budget">
-          <select
-            id="budget"
-            name="budget"
-            defaultValue={contact.budgets[0]}
-            className={cn(control, controlH)}
-          >
-            {contact.budgets.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
-            ))}
-          </select>
-        </FieldWrap>
-        <FieldWrap label={f.timeline} htmlFor="timeline">
-          <select
-            id="timeline"
-            name="timeline"
-            defaultValue={contact.timelines[0]}
-            className={cn(control, controlH)}
-          >
-            {contact.timelines.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </FieldWrap>
-      </div>
 
       <FieldWrap
         label={f.message}
