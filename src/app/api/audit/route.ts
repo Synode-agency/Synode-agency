@@ -6,8 +6,7 @@ type Payload = {
   name?: string;
   email?: string;
   company?: string;
-  offer?: string;
-  budget?: string;
+  phone?: string;
   timeline?: string;
   message?: string;
   locale?: string;
@@ -24,8 +23,7 @@ export async function POST(request: Request) {
   const name = (body.name ?? "").trim();
   const email = (body.email ?? "").trim();
   const company = (body.company ?? "").trim();
-  const offer = (body.offer ?? "").trim();
-  const budget = (body.budget ?? "").trim();
+  const phone = (body.phone ?? "").trim();
   const timeline = (body.timeline ?? "").trim();
   const message = (body.message ?? "").trim();
 
@@ -33,6 +31,7 @@ export async function POST(request: Request) {
   if (!name) fieldErrors.name = "required";
   if (!email) fieldErrors.email = "required";
   else if (!EMAIL_RE.test(email)) fieldErrors.email = "invalid";
+  if (!phone) fieldErrors.phone = "required";
   if (message.length < 10) fieldErrors.message = "too_short";
 
   if (Object.keys(fieldErrors).length > 0) {
@@ -47,8 +46,7 @@ export async function POST(request: Request) {
     name,
     email,
     company: company || "—",
-    offer: offer || "—",
-    budget: budget || "—",
+    phone,
     timeline: timeline || "—",
     locale: (body.locale ?? "fr").trim() || "fr",
     message,

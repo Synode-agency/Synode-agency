@@ -8,39 +8,30 @@ export function Problem({ locale }: { locale: Locale }) {
   return (
     <section id="probleme" className="section-y border-t border-hairline">
       <div className="container-page">
-        <SectionHeading
-          eyebrow={problem.eyebrow}
-          title={problem.title}
-          subtitle={problem.intro}
-        />
+        <div className="lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12 xl:gap-16">
+          <SectionHeading
+            eyebrow={problem.eyebrow}
+            title={problem.title}
+            subtitle={problem.intro}
+          />
 
-        <Reveal
-          delay={80}
-          className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-hairline bg-hairline md:grid-cols-2 lg:grid-cols-4"
-        >
-          {problem.items.map((item, i) => (
-            <div
-              key={item.title}
-              className="group relative flex flex-col gap-3 overflow-hidden bg-surface p-7 transition-colors hover:bg-surface-2"
-            >
-              <span
-                aria-hidden
-                className="num-ghost pointer-events-none absolute -right-3 -top-5 text-[5rem] transition-opacity group-hover:opacity-80"
+          <div className="mt-10 flex flex-col gap-4 lg:mt-0">
+            {problem.items.map((item, i) => (
+              <Reveal
+                key={item.title}
+                delay={80 + i * 70}
+                className="flex flex-col gap-1.5 overflow-hidden rounded-2xl border border-hairline bg-surface p-5 transition-colors hover:bg-surface-2"
               >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="eyebrow tnum text-brand">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="relative text-[1.02rem] font-semibold leading-snug tracking-tight">
-                {item.title}
-              </h3>
-              <p className="relative text-[0.875rem] leading-[1.65] text-muted-foreground">
-                {item.text}
-              </p>
-            </div>
-          ))}
-        </Reveal>
+                <h3 className="text-[0.95rem] font-semibold leading-snug tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="text-[0.83rem] leading-[1.6] text-muted-foreground">
+                  {item.text}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

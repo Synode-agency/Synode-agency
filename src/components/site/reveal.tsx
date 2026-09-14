@@ -8,11 +8,15 @@ export function Reveal({
   className,
   delay = 0,
   as: Tag = "div",
+  onMouseEnter,
+  onMouseLeave,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
   as?: React.ElementType;
+  onMouseEnter?: React.MouseEventHandler;
+  onMouseLeave?: React.MouseEventHandler;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   const [shown, setShown] = useState(false);
@@ -51,6 +55,8 @@ export function Reveal({
       data-shown={shown}
       style={{ animationDelay: shown ? `${delay}ms` : undefined }}
       className={cn("reveal", className)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {children}
     </Tag>
