@@ -42,12 +42,6 @@ const fr = {
       { icon: "ArrowLeftRight", title: "Outils métier & CRM", text: "Configurés, connectés, enfin exploités à leur potentiel." },
     ],
   },
-  stats: [
-    { value: "24 h", label: "délai de réponse" },
-    { value: "2", label: "offres combinables" },
-    { value: "100 %", label: "du code livré, chez vous" },
-    { value: "FR / EN", label: "projets bilingues" },
-  ],
   problem: {
     eyebrow: "01 / Le constat",
     title: "L'automatisation avance vite. Les entreprises, pas toujours.",
@@ -208,12 +202,6 @@ const en = {
       { icon: "ArrowLeftRight", title: "Business tools & CRM", text: "Configured, connected, finally used to their full potential." },
     ],
   },
-  stats: [
-    { value: "24 h", label: "response time" },
-    { value: "2", label: "combinable offers" },
-    { value: "100 %", label: "of the code delivered, on your side" },
-    { value: "FR / EN", label: "bilingual projects" },
-  ],
   problem: {
     eyebrow: "01 / The situation",
     title: "Automation moves fast. Companies, not always.",

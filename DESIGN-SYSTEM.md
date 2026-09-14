@@ -13,12 +13,12 @@ Source de vérité pour toute évolution de la landing.
 Objectif : rendu d'agence tech professionnelle, direction artistique et textes conservés.
 
 - **Système de lignes fines** : tout est cadré au `--hairline` (`rgba(255,255,255,0.07)`). Bordures, dividers, grilles de cartes en `gap-px` sur fond `bg-hairline` (les cellules `bg-surface` laissent voir le trait). Rayon de base porté à `0.875rem`.
-- **Surfaces** : `--surface` `#0b0f13` (cartes au repos), `--surface-2` `#0f151b` (hover). Plus de `--card` opaque bleuté.
-- **Typo** : titre display agrandi (`clamp` jusqu'à ~4.75rem), tracking négatif (`-0.035em` sur h1, `-0.02em` sur h2). Gradient du display = blanc → blanc 62 % (plus « blanc chaud », plus de teinte menthe). Labels = utilitaire `.eyebrow` (JetBrains Mono 500, `0.2em`, uppercase) précédé d'un tiret émeraude `— `.
+- **Surfaces** : `--surface` `#071e33` (cartes au repos), `--surface-2` `#0d2a45` (hover). Plus de `--card` opaque bleuté.
+- **Typo** : titre display agrandi (`clamp` jusqu'à ~4.75rem), tracking négatif (`-0.035em` sur h1, `-0.02em` sur h2). Gradient du display = blanc → blanc 62 % (plus « blanc chaud », plus de teinte menthe). Labels = utilitaire `.eyebrow` (JetBrains Mono 500, `0.2em`, uppercase) précédé d'un tiret bleu électrique `— `.
 - **Rythme vertical** : utilitaire `.section-y` (`py-24 sm:py-32 lg:py-40`) sur toutes les sections. Container `max-w-[76rem]`.
-- **Micro-détails agence** : numéros fantômes `.num-ghost` (watermark 6 %), cadres d'angle `.corner-frame` (panneau CTA), rail de connexion fin derrière les cartes Méthode, `.tnum` (chiffres tabulaires) sur toutes les données, sheen émeraude en haut des cartes Offre / Réalisations.
-- **Hover** : `.lift` / `.glow-hover` = translation `-3px` + bordure qui chauffe vers l'émeraude + halo doux, 220 ms `cubic-bezier(.22,1,.36,1)`.
-- **Header** : scroll-spy (soulignement émeraude animé sur la section active), toggle FR/EN en segments, hairline au scroll (`> 8px`).
+- **Micro-détails agence** : numéros fantômes `.num-ghost` (watermark 6 %), cadres d'angle `.corner-frame` (panneau CTA), rail de connexion fin derrière les cartes Méthode, `.tnum` (chiffres tabulaires) sur toutes les données, sheen bleu électrique en haut des cartes Offre / Réalisations.
+- **Hover** : `.lift` / `.glow-hover` = translation `-3px` + bordure qui chauffe vers le bleu électrique + halo doux, 220 ms `cubic-bezier(.22,1,.36,1)`.
+- **Header** : scroll-spy (soulignement bleu électrique animé sur la section active), toggle FR/EN en segments, hairline au scroll (`> 8px`).
 - **Footer** : 3 colonnes (marque + tagline / navigation / contact) + ligne légale.
 - **Contact** : champs `h-12`, `rounded-xl`, fond `white/[0.02]`, focus `ring-4 ring-brand/15`.
 - **Reveal** : fade + `translateY(14px)`, `0.65s`. Fallback `<noscript>` dans `layout.tsx` → contenu visible sans JS.
@@ -36,7 +36,7 @@ Objectif : rendu d'agence tech professionnelle, direction artistique et textes c
 
 ## 2. Style
 
-- **Base** : Dark Mode (OLED) + Swiss Minimalism. Fond near-black, grille, hiérarchie nette, un seul accent.
+- **Base** : Dark Mode (OLED) + Swiss Minimalism. Fond deep navy, grille, hiérarchie nette, un seul accent.
 - **Offre** : Bento Box Grid (cartes, `rounded-2xl`, hover `border-brand/40`).
 - **À éviter** (anti-patterns B2B) : dégradés violet/rose « IA », design joueur, ombres lourdes, effets 3D.
 
@@ -46,18 +46,18 @@ Thème **dark-only** (défini sur `:root` ET `.dark`, `color-scheme: dark`).
 
 | Token | Valeur | Usage |
 |---|---|---|
-| `--background` | `#05070A` | fond global |
-| `--foreground` | `#E9EDF0` | texte principal (~18:1) |
-| `--card` | `#0B0F14` | surfaces, cartes |
-| `--secondary` / `--muted` | `#11161C` | surfaces secondaires |
-| `--muted-foreground` | `#97A3AF` | texte secondaire (~7:1, AA) |
-| `--border` / `--input` | `#1B242E` | traits, champs |
-| `--primary` / `--brand` | `#10B981` | accent émeraude, CTA |
-| `--brand-bright` | `#34D399` | hover CTA, `--ring` |
-| `--brand-dim` | `#0F3D30` | halos, tints d'icônes |
-| `--primary-foreground` | `#04120C` | texte sur bouton émeraude (contraste fort) |
+| `--background` | `#011222` | fond global (deep navy, imposé par le client) |
+| `--foreground` | `#EEF3F8` | texte principal (~16:1) |
+| `--card` / `--surface` | `#071E33` | surfaces, cartes |
+| `--secondary` / `--muted` | `#0A2036` | surfaces secondaires |
+| `--muted-foreground` | `#8CA3B8` | texte secondaire (~6.7:1, AA) |
+| `--border` / `--input` | `rgba(255,255,255,.08)` | traits, champs (overlay blanc translucide) |
+| `--primary` / `--brand` | `#00A8F8` | bleu électrique (échantillonné sur le logo client), CTA |
+| `--brand-bright` | `#33BEFF` | hover CTA, `--ring` |
+| `--brand-dim` | `#0B2F49` | halos, tints d'icônes |
+| `--primary-foreground` | `#011222` | texte sur bouton bleu (~7.2:1, reprend le navy du fond) |
 | `--destructive` | `#F43F5E` | erreurs de formulaire |
-| `--radius` | `0.75rem` | rayon de base |
+| `--radius` | `0.875rem` | rayon de base |
 
 Utilitaires maison : `.container-page` (max-w-6xl), `.grain`, `.brand-glow`, `.text-gradient-brand`, `.reveal`.
 
@@ -76,7 +76,7 @@ Titres de section : `text-3xl sm:text-4xl`, `font-semibold`, `leading-[1.1]`, `t
 
 - Révélation au scroll : `IntersectionObserver` (`threshold 0.15`), fade + `translateY(18px)`, `0.6s cubic-bezier(.22,1,.36,1)`, stagger 50–70 ms par carte.
 - Hover cartes : `border` / `bg` transition, pas de layout shift.
-- `.glow-hover` (globals.css) : au survol, bordure émeraude + léger halo (`box-shadow` anneau 1px 20 % + flou 44 px 42 %), 250 ms ; base à `box-shadow` transparent de même géométrie pour une transition propre. Un enfant `.glow-hover-num` reçoit en plus un `text-shadow` émeraude. Utilisé sur les cartes de la section Méthode (les flèches entre cartes ont été retirées).
+- `.glow-hover` (globals.css) : au survol, bordure bleu électrique + léger halo (`box-shadow` anneau 1px 20 % + flou 44 px 42 %), 250 ms ; base à `box-shadow` transparent de même géométrie pour une transition propre. Un enfant `.glow-hover-num` reçoit en plus un `text-shadow` bleu électrique. Utilisé sur les cartes de la section Méthode (les flèches entre cartes ont été retirées).
 - **`prefers-reduced-motion`** : `scroll-behavior: auto`, animations neutralisées, `.reveal` forcé visible.
 - Header : `backdrop-blur` + bordure au scroll (`> 12px`).
 
@@ -100,15 +100,17 @@ L'effet d'aimantation au curseur (`Magnetic`) a été supprimé sur demande du c
 
 ### Aura du titre — `.title-aura`
 
-Dégradé conique émeraude flouté (`blur(64px)`, `opacity .5`, `--brand-dim` + `--brand`) derrière le `<h1>`, dans un conteneur `relative isolate`.
+Dégradé conique bleu électrique flouté (`blur(64px)`, `opacity .5`, `--brand-dim` + `--brand`) derrière le `<h1>`, dans un conteneur `relative isolate`.
 
 - Rotation via **`transform: rotate()`** (compositeur seul, le flou n'est jamais repeint) — pas d'`@property` animé. `sg-spin` 24 s linéaire.
 - `prefers-reduced-motion` → `animation: none`. `aria-hidden`, `-z-10`, `pointer-events: none`.
-- Émeraude uniquement (jamais violet/rose — anti-pattern MASTER).
+- Bleu électrique uniquement (jamais violet/rose — anti-pattern MASTER).
 
 ## 6. Structure des sections (`src/components/sections/`)
 
-`Hero` (+ 4 piliers) → `Stats` (bande 4 chiffres) → `Problem` (01, `border-t` en séparateur) → `Offer` (02, 2 offres) → `Method` (03) → `Realisations` (4 démonstrateurs + mini-CTA) → `Audience` (04 + carte « Nos règles ») → `CtaBand` → `Contact` (form enrichi) → footer.
+`Hero` (+ 4 piliers) → `Problem` (01, `border-t` en séparateur) → `Offer` (02, 2 offres) → `Method` (03) → `Realisations` (4 démonstrateurs + mini-CTA) → `Audience` (04 + carte « Nos règles ») → `CtaBand` → `Contact` (form enrichi) → footer.
+
+*(La bande de stats « 24h · 2 · 100% · FR/EN » entre le Hero et `Problem` a été retirée à la demande du client — `sections/stats.tsx` supprimé.)*
 
 Nav : Accueil `#top` · Offre `#offre` · Réalisations `#realisations` · bouton « Nous contacter » `#contact` · sélecteur **FR / EN**.
 
@@ -129,7 +131,7 @@ Chaque `section[id]` a `scroll-margin-top: 6rem` (compense le header fixe).
 
 ## 7. Accessibilité
 
-- Contrastes texte ≥ 4.5:1 (principal ~18:1, secondaire ~7:1) ; accent émeraude sur near-black ~8:1.
+- Contrastes texte ≥ 4.5:1 (principal ~16:1, secondaire ~6.7:1) ; accent bleu électrique sur le fond navy ~7.2:1.
 - Icônes décoratives : `aria-hidden` (via composant `Icon`).
 - Bouton menu mobile : label dynamique, `aria-expanded`, cible 44×44.
 - Formulaire : `<label>` visible par champ, erreurs `role="alert"` + `aria-describedby`, focus sur le 1er champ invalide, types (`email`, `inputMode`) + `autoComplete`.
