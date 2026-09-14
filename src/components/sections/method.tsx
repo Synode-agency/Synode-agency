@@ -11,8 +11,6 @@ export function Method({ locale }: { locale: Locale }) {
         <SectionHeading
           eyebrow={method.eyebrow}
           title={method.title}
-          align="center"
-          className="mx-auto"
         />
 
         <div className="relative mt-16">

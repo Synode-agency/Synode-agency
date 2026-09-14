@@ -12,8 +12,6 @@ export function Problem({ locale }: { locale: Locale }) {
           eyebrow={problem.eyebrow}
           title={problem.title}
           subtitle={problem.intro}
-          align="center"
-          className="mx-auto"
         />
 
         <Reveal

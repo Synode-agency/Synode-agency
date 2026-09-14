@@ -13,8 +13,6 @@ export function Realisations({ locale }: { locale: Locale }) {
           eyebrow={realisations.eyebrow}
           title={realisations.title}
           subtitle={realisations.body}
-          align="center"
-          className="mx-auto"
         />
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

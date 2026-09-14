@@ -14,8 +14,6 @@ export function Offer({ locale }: { locale: Locale }) {
           eyebrow={offer.eyebrow}
           title={offer.title}
           subtitle={offer.subtitle}
-          align="center"
-          className="mx-auto"
         />
 
         <div className="mt-16 grid gap-6 lg:grid-cols-2">

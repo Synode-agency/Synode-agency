@@ -51,9 +51,9 @@ export function SynapseField({
 
     // Resolve brand colours from the live theme tokens.
     const styles = getComputedStyle(document.documentElement);
-    const brand = (styles.getPropertyValue("--brand") || "#10b981").trim();
+    const brand = (styles.getPropertyValue("--brand") || "#00a8f8").trim();
     const brandBright =
-      (styles.getPropertyValue("--brand-bright") || "#34d399").trim();
+      (styles.getPropertyValue("--brand-bright") || "#33beff").trim();
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
