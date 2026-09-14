@@ -78,7 +78,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <a
             href="#top"
             aria-label="Synode — accueil"
-            className="shrink-0 rounded-md"
+            className="flex shrink-0 items-center rounded-md"
           >
             <Wordmark />
           </a>
