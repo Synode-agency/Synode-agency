@@ -204,10 +204,10 @@ const en = {
     intro:
       "Plenty of SMEs know there's a better way, without knowing what can actually be automated, which tools to pick, or whether to buy software or build it.",
     items: [
-      { title: "The same data entered several times", text: "Form, e-mail, CRM, invoicing: one entry should be enough." },
-      { title: "Tools that don't talk to each other", text: "We connect them rather than adding one more." },
-      { title: "Excel as the backbone", text: "Fragile, untraceable, impossible to scale." },
-      { title: "Client follow-up done by hand", text: "Missed reminders, scattered information, lost opportunities." },
+      { title: "Too many manual tasks", text: "Hours lost every week on repetitive tasks that could be automated." },
+      { title: "Scattered tools and data", text: "Information split across systems, double entry, and software that doesn't talk to each other." },
+      { title: "Follow-up still too manual", text: "Forgotten reminders, stalled files and lost opportunities." },
+      { title: "Hard to know what to automate", text: "You know you could be more efficient, but you don't know where to start." },
     ],
   },
   offer: {

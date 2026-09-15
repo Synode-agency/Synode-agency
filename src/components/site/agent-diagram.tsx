@@ -9,103 +9,129 @@ import { DraftLineIcon } from "@/components/site/draft-line-icon";
 import { LayersIcon } from "@/components/site/animated-icons/layers-icon";
 import { cn } from "@/lib/utils";
 
-interface DiagramNode {
+interface LineNode {
   id: string;
-  icon?: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string }>;
   x: number;
-  y: number;
-  path: string;
   delay: number;
   float: { x: number; y: number; duration: number; delay: number };
 }
 
-// Canvas is 564x410, the hub sits dead centre at (282, 205).
-const NODES: DiagramNode[] = [
+// Canvas is 700x100, one horizontal line, Synode dead centre at (350, 50).
+const CENTER_Y = 50;
+
+const LEFT_NODES: LineNode[] = [
   {
-    id: "clients",
+    id: "user",
     icon: Users,
-    x: 110,
-    y: 90,
-    path: "M 270 205 V 105 Q 270 90 255 90 H 110",
+    x: 30,
     delay: 0.1,
-    float: { x: 1.5, y: 2.5, duration: 3.1, delay: 0 },
+    float: { x: 1.5, y: 2, duration: 3.2, delay: 0 },
+  },
+  {
+    id: "form",
+    icon: DraftLineIcon,
+    x: 135,
+    delay: 0.2,
+    float: { x: -2, y: 2.4, duration: 3.6, delay: 0.3 },
   },
   {
     id: "claude",
     icon: ClaudeLogo,
-    x: 360,
-    y: 70,
-    path: "M 294 205 V 85 Q 294 70 309 70 H 360",
-    delay: 0.2,
-    float: { x: -2, y: 2, duration: 3.8, delay: 0.5 },
+    x: 240,
+    delay: 0.3,
+    float: { x: 2, y: -2, duration: 3.9, delay: 0.6 },
+  },
+];
+
+const RIGHT_NODES: LineNode[] = [
+  {
+    id: "gpt",
+    icon: OpenAILogo,
+    x: 460,
+    delay: 0.3,
+    float: { x: -1.5, y: 2, duration: 3.4, delay: 0.2 },
+  },
+  {
+    id: "data",
+    icon: LayersIcon,
+    x: 565,
+    delay: 0.4,
+    float: { x: 2, y: -2.5, duration: 3.7, delay: 0.5 },
   },
   {
     id: "gmail",
     icon: GmailLogo,
-    x: 110,
-    y: 320,
-    path: "M 270 205 V 305 Q 270 320 255 320 H 110",
-    delay: 0.3,
-    float: { x: 2, y: -2.5, duration: 4.2, delay: 0.2 },
-  },
-  {
-    id: "chatgpt",
-    icon: OpenAILogo,
-    x: 360,
-    y: 340,
-    path: "M 294 205 V 325 Q 294 340 309 340 H 360",
-    delay: 0.4,
-    float: { x: -1.5, y: -2, duration: 3.4, delay: 0.9 },
-  },
-  {
-    id: "draft",
-    icon: DraftLineIcon,
-    x: 160,
-    y: 205,
-    path: "M 250 205 H 160",
+    x: 670,
     delay: 0.5,
-    float: { x: 2, y: 2, duration: 3.6, delay: 0.35 },
-  },
-  {
-    id: "layers",
-    x: 480,
-    y: 205,
-    path: "M 314 205 H 480",
-    delay: 0.6,
-    float: { x: -2, y: -2.5, duration: 3.9, delay: 0.7 },
+    float: { x: -2, y: -2, duration: 4.1, delay: 0.8 },
   },
 ];
 
-function AnimatedPath({ d, id }: { d: string; id: string }) {
+/**
+ * A single flow segment whose glow travels back and forth along its length.
+ * The gradient is anchored spatially (not to the moving dash) so the line
+ * stays fully blue right up to the Synode end and only fades out toward the
+ * outer node — `centerAt` says which end of the `from`→`to` path that is.
+ */
+function FlowSegment({
+  from,
+  to,
+  id,
+  reverse,
+  centerAt,
+}: {
+  from: number;
+  to: number;
+  id: string;
+  reverse?: boolean;
+  centerAt: "start" | "end";
+}) {
+  const length = Math.abs(to - from);
+  // Keep the dash fully on the path at both ends of its travel — offsetting
+  // by the full length would let it slide half off the end and clip to
+  // nothing there instead of fading via the gradient like the other end.
+  const dashWidth = length * 0.15;
+  const travel = length - dashWidth;
   return (
     <>
       <path
-        d={d}
+        d={`M ${from} ${CENTER_Y} H ${to}`}
         stroke="currentColor"
         strokeWidth="1"
         fill="none"
         className="text-hairline"
       />
       <motion.path
-        d={d}
+        d={`M ${from} ${CENTER_Y} H ${to}`}
         stroke={`url(#${id})`}
         strokeWidth="2"
         fill="none"
-        strokeDasharray="40 160"
-        initial={{ strokeDashoffset: 200 }}
-        animate={{ strokeDashoffset: -200 }}
+        strokeDasharray={`${dashWidth} ${length * 1.7}`}
+        initial={{ strokeDashoffset: reverse ? -travel : 0 }}
+        animate={{ strokeDashoffset: reverse ? 0 : -travel }}
         transition={{
-          duration: 4,
+          duration: 2.4,
           repeat: Infinity,
-          ease: "linear",
-          delay: Math.random() * 2,
+          repeatType: "mirror",
+          ease: "easeInOut",
         }}
       />
       <defs>
-        <linearGradient id={id} gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="transparent" />
-          <stop offset="50%" stopColor="var(--brand)" stopOpacity="0.6" />
-          <stop offset="100%" stopColor="transparent" />
+        <linearGradient id={id} gradientUnits="userSpaceOnUse" x1={from} x2={to} y1={CENTER_Y} y2={CENTER_Y}>
+          {centerAt === "end" ? (
+            <>
+              <stop offset="0%" stopColor="var(--brand)" stopOpacity="1" />
+              <stop offset="55%" stopColor="var(--brand)" stopOpacity="1" />
+              <stop offset="100%" stopColor="transparent" />
+            </>
+          ) : (
+            <>
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="45%" stopColor="var(--brand)" stopOpacity="1" />
+              <stop offset="100%" stopColor="var(--brand)" stopOpacity="1" />
+            </>
+          )}
         </linearGradient>
       </defs>
     </>
@@ -113,33 +139,34 @@ function AnimatedPath({ d, id }: { d: string; id: string }) {
 }
 
 /**
- * Hero illustration: the Synode agent wired to a client and the tools it
- * connects for them (inbox, AI providers). Purely decorative — aria-hidden,
- * the hero copy next to it carries the actual message.
+ * Hero illustration: a single horizontal flow line — User, Formulaire and
+ * Claude feeding into Synode on the left, Synode reaching out to GPT, Data
+ * and Gmail on the right. Purely decorative — aria-hidden, the hero copy
+ * carries the actual message.
  */
 export function AgentDiagram({ className }: { className?: string }) {
-  const containerId = useId();
+  const uid = useId();
 
   return (
     <div
       aria-hidden
-      className={cn(
-        "relative aspect-[564/410] w-full max-w-[clamp(26rem,32vw,44rem)]",
-        className,
-      )}
+      className={cn("relative aspect-[7/1] w-full", className)}
     >
       {/* connectors */}
       <svg
-        viewBox="0 0 564 410"
+        viewBox="0 0 700 100"
         className="pointer-events-none absolute inset-0 h-full w-full"
+        preserveAspectRatio="none"
       >
-        {NODES.map((n) => (
-          <AnimatedPath key={n.id} d={n.path} id={`${containerId}-${n.id}`} />
-        ))}
+        <FlowSegment from={LEFT_NODES[0].x} to={350} id={`${uid}-left`} centerAt="end" />
+        <FlowSegment from={350} to={RIGHT_NODES[2].x} id={`${uid}-right`} reverse centerAt="start" />
       </svg>
 
       {/* centre node — the agent */}
-      <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+      <div
+        style={{ left: "50%", top: "50%" }}
+        className="absolute z-20 -translate-x-1/2 -translate-y-1/2"
+      >
         <div className="relative grid place-items-center">
           <motion.div
             className="absolute -inset-4 rounded-2xl border-2 border-brand/30"
@@ -156,8 +183,8 @@ export function AgentDiagram({ className }: { className?: string }) {
         </div>
       </div>
 
-      {/* satellite nodes — client + connected tools */}
-      {NODES.map((n) => {
+      {/* satellite nodes */}
+      {[...LEFT_NODES, ...RIGHT_NODES].map((n) => {
         const NodeIcon = n.icon;
         return (
           <motion.div
@@ -167,8 +194,8 @@ export function AgentDiagram({ className }: { className?: string }) {
             viewport={{ once: true }}
             transition={{ delay: n.delay }}
             style={{
-              left: `${(n.x / 564) * 100}%`,
-              top: `${(n.y / 410) * 100}%`,
+              left: `${(n.x / 700) * 100}%`,
+              top: `${(CENTER_Y / 100) * 100}%`,
             }}
             className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
           >
@@ -182,10 +209,10 @@ export function AgentDiagram({ className }: { className?: string }) {
                   delay: n.float.delay,
                 }}
               >
-                {n.id === "layers" ? (
+                {n.id === "data" ? (
                   <LayersIcon size={20} />
                 ) : (
-                  NodeIcon && <NodeIcon className="size-[clamp(1.15rem,1.2rem+0.25vw,1.5rem)]" />
+                  <NodeIcon className="size-[clamp(1.15rem,1.2rem+0.25vw,1.5rem)]" />
                 )}
               </motion.div>
             </div>
