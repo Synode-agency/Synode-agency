@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { AgentDiagram } from "@/components/site/agent-diagram";
+import { PillarsBand } from "@/components/sections/pillars-band";
 import Ferrofluid from "@/components/Ferrofluid";
 import { getContent, type Locale } from "@/lib/content";
 
@@ -10,7 +11,7 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-[calc(var(--hs)*10rem)] lg:pb-[calc(var(--hs)*6rem)]"
+      className="relative grid min-h-dvh grid-rows-[auto_1fr_auto] overflow-hidden"
     >
       {/* background — confined to the hero section only */}
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -32,8 +33,12 @@ export function Hero({ locale }: { locale: Locale }) {
         />
       </div>
 
-      <div className="container-page">
-        <div className="lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10 xl:gap-16">
+      {/* row 1 — reserves the space the fixed navbar sits over */}
+      <div aria-hidden className="h-[4.6rem]" />
+
+      {/* row 2 — main hero content, centered in the space left between navbar and services band */}
+      <div className="container-page self-center py-8">
+        <div className="lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-[clamp(2.5rem,2rem+2.5vw,5rem)]">
           <Reveal className="flex max-w-4xl flex-col gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
             {/* Spacer keeps the previous kicker's vertical rhythm above the title */}
             <span aria-hidden className="block h-[33px] lg:h-[calc(var(--hs)*33px)]" />
@@ -43,27 +48,27 @@ export function Hero({ locale }: { locale: Locale }) {
                 aria-hidden
                 className="title-aura pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10"
               />
-              <h1 className="max-w-[16ch] text-balance text-[2.7rem] leading-[1.02] font-semibold sm:text-[3.75rem] lg:text-[calc(var(--hs)*4.75rem)]">
+              <h1 className="max-w-[16ch] text-balance text-[2.7rem] leading-[1.02] font-semibold sm:text-[3.75rem] lg:text-[calc(var(--hs)*clamp(4.75rem,3.14rem+1.79vw,6rem))]">
                 <span className="text-gradient-brand">{hero.titleLead}</span>{" "}
                 <span className="text-gradient-accent">{hero.titleAccent}</span>
               </h1>
             </div>
 
-            <p className="max-w-xl text-[1.05rem] leading-[1.7] text-muted-foreground">
+            <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
               {hero.subtitle}
             </p>
 
             <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href="#contact"
-                className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground brand-glow"
+                className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
               >
                 {hero.primaryCta}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#realisations"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[0.95rem] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
               >
                 {hero.secondaryCta}
               </a>
@@ -75,6 +80,9 @@ export function Hero({ locale }: { locale: Locale }) {
           </Reveal>
         </div>
       </div>
+
+      {/* row 3 — services band, always the last thing inside the 100dvh hero */}
+      <PillarsBand locale={locale} />
     </section>
   );
 }

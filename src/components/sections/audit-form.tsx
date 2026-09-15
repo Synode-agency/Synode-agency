@@ -90,7 +90,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="flex flex-col gap-5 rounded-2xl border border-hairline bg-surface p-7 sm:p-9"
+      className="flex flex-col gap-5 rounded-2xl border border-hairline bg-surface p-[clamp(1.5rem,1.25rem+1.5vw,2.75rem)]"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <FieldWrap label={f.name} htmlFor="name" error={errors.name} required>
@@ -175,7 +175,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.95rem] font-medium text-brand-foreground disabled:opacity-60"
+        className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground disabled:opacity-60"
       >
         {status === "sending" ? (
           <>

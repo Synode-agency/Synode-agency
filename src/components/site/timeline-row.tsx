@@ -8,11 +8,11 @@ interface TimelineItem {
 
 function ChainText({ title, text }: TimelineItem) {
   return (
-    <div className="max-w-[15rem]">
-      <h3 className="font-archivo text-[16px] leading-[1.28] font-semibold text-pretty">
+    <div className="mx-auto max-w-[15rem]">
+      <h3 className="font-archivo text-[clamp(15px,0.35vw+14px,17px)] leading-[1.28] font-semibold text-pretty">
         {title}
       </h3>
-      <p className="mt-[7px] text-[13.5px] leading-[1.5] text-muted-foreground">
+      <p className="mt-[7px] text-[clamp(12.5px,0.3vw+11.5px,14.5px)] leading-[1.5] text-muted-foreground">
         {text}
       </p>
     </div>
@@ -22,7 +22,8 @@ function ChainText({ title, text }: TimelineItem) {
 /**
  * Numbered nodes for the Constat ("chain") and Méthode ("track") sections.
  * Chain: dots rest dashed/muted, light up (solid brand ring + glow) only
- * while their whole cell is hovered; text alternates above/below.
+ * while their whole cell is hovered; title + text alternate above/below the
+ * dot, each centered on it.
  * Track: dots rest solid brand (all four alike), light up the same way on
  * hover; text sits below every node, linked by a slow-pulsing gradient line.
  */
@@ -126,7 +127,7 @@ export function TimelineRow({
               <h3 className="font-archivo mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
                 {item.title}
               </h3>
-              <p className="mx-auto mt-[9px] max-w-[34ch] text-[15px] leading-[1.58] text-muted-foreground">
+              <p className="mx-auto mt-[9px] max-w-[34ch] text-[clamp(13.5px,0.35vw+12.5px,16px)] leading-[1.58] text-muted-foreground">
                 {item.text}
               </p>
             </div>

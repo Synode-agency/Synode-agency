@@ -92,7 +92,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   href={item.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "group relative rounded-md px-3 py-2 text-[0.9rem] transition-colors",
+                    "group relative rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                     isActive
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground",
@@ -114,7 +114,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[0.85rem] font-medium text-brand-foreground sm:inline-flex"
+              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />

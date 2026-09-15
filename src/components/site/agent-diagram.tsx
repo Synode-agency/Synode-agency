@@ -123,7 +123,10 @@ export function AgentDiagram({ className }: { className?: string }) {
   return (
     <div
       aria-hidden
-      className={cn("relative aspect-[564/410] w-full max-w-[36rem]", className)}
+      className={cn(
+        "relative aspect-[564/410] w-full max-w-[clamp(26rem,32vw,44rem)]",
+        className,
+      )}
     >
       {/* connectors */}
       <svg
@@ -148,7 +151,7 @@ export function AgentDiagram({ className }: { className?: string }) {
             alt=""
             width={96}
             height={96}
-            className="brand-glow size-16 rounded-[22%] sm:size-20"
+            className="brand-glow size-[clamp(3.5rem,3.6rem+1vw,5.5rem)] rounded-[22%]"
           />
         </div>
       </div>
@@ -169,7 +172,7 @@ export function AgentDiagram({ className }: { className?: string }) {
             }}
             className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="grid size-12 place-items-center rounded-xl border border-hairline bg-background text-foreground sm:size-14">
+            <div className="grid size-[clamp(2.75rem,2.9rem+0.7vw,4rem)] place-items-center rounded-xl border border-hairline bg-background text-foreground">
               <motion.div
                 animate={{ x: [0, n.float.x, 0], y: [0, -n.float.y, 0] }}
                 transition={{
@@ -182,7 +185,7 @@ export function AgentDiagram({ className }: { className?: string }) {
                 {n.id === "layers" ? (
                   <LayersIcon size={20} />
                 ) : (
-                  NodeIcon && <NodeIcon className="size-5 sm:size-6" />
+                  NodeIcon && <NodeIcon className="size-[clamp(1.15rem,1.2rem+0.25vw,1.5rem)]" />
                 )}
               </motion.div>
             </div>

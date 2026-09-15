@@ -40,7 +40,7 @@ export function RealisationsCarousel({
         {items.map((item) => (
           <div
             key={item.code}
-            className="group glow-hover relative flex w-full shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-7"
+            className="group glow-hover relative flex w-full shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-[clamp(1.25rem,1.1rem+1vw,2rem)]"
           >
             <span
               aria-hidden
@@ -60,10 +60,10 @@ export function RealisationsCarousel({
               {item.domain}
             </span>
 
-            <h3 className="mt-4 text-[1.1rem] font-semibold leading-snug tracking-tight">
+            <h3 className="mt-4 text-[length:var(--fs-h3)] font-semibold leading-snug tracking-tight">
               {item.title}
             </h3>
-            <p className="mt-3 text-[0.85rem] leading-[1.65] text-muted-foreground">
+            <p className="mt-3 text-[length:var(--fs-small)] leading-[1.65] text-muted-foreground">
               {item.desc}
             </p>
 

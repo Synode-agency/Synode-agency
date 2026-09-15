@@ -7,17 +7,17 @@ export function Contact({ locale }: { locale: Locale }) {
 
   return (
     <section id="contact" className="section-y border-t border-hairline">
-      <div className="container-page grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20">
+      <div className="container-page grid gap-14 lg:grid-cols-[0.82fr_1.18fr] lg:gap-[clamp(2.5rem,2rem+2.5vw,5.5rem)]">
         <div className="flex flex-col gap-9 lg:sticky lg:top-28 lg:self-start">
           <Reveal className="flex flex-col gap-6">
             <span className="eyebrow flex items-center gap-2.5 text-brand">
               <span className="h-px w-6 bg-brand/50" aria-hidden />
               {contact.eyebrow}
             </span>
-            <h2 className="max-w-[16ch] text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl lg:text-[2.9rem]">
+            <h2 className="max-w-[16ch] text-balance text-3xl font-semibold leading-[1.08] sm:text-4xl lg:text-[length:var(--fs-h2)]">
               {contact.title}
             </h2>
-            <p className="max-w-md text-[0.975rem] leading-[1.7] text-muted-foreground">
+            <p className="max-w-md text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
               {contact.body}
             </p>
           </Reveal>

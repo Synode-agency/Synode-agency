@@ -77,6 +77,19 @@
      fit without scrolling. */
   --hs: clamp(0.55, calc(100dvh / 570px - 0.649), 1);
 
+  /* Fluid layout tokens — scale spacing/type smoothly from small laptops
+     through 4K/ultra-wide monitors instead of freezing at a `lg:` cap. */
+  --container-max: 110rem; /* 1760px */
+  --space-section: clamp(4rem, 2.5rem + 4vw, 10rem);
+  --space-lg: clamp(2.5rem, 1.75rem + 2.5vw, 5rem);
+  --space-md: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
+  --space-sm: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
+  --fs-h2: clamp(2.9rem, 2.17rem + 1.15vw, 4rem);
+  --fs-h3: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+  --fs-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem);
+  --fs-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.95rem);
+  --fs-button: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+
   --background: #03060D;
   --foreground: #E9F0F8;
 
@@ -227,12 +240,15 @@
 /* Utilities specific to this site */
 @layer utilities {
   .container-page {
-    @apply mx-auto w-full max-w-[76rem] px-5 sm:px-8 lg:px-10;
+    width: min(100%, var(--container-max));
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
   }
 
-  /* Consistent vertical rhythm for every section */
+  /* Consistent vertical rhythm for every section — grows past the old
+     fixed lg: cap on large/ultra-wide monitors instead of freezing. */
   .section-y {
-    @apply py-24 sm:py-32 lg:py-40;
+    padding-block: var(--space-section);
   }
 
   .grain {
@@ -247,7 +263,7 @@
   /* Mono label / eyebrow */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: clamp(0.65rem, 0.62rem + 0.1vw, 0.8rem);
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -419,15 +435,15 @@
 
   /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
   .chain-dot {
-    width: 44px;
-    height: 44px;
+    width: clamp(2.5rem, 2.2rem + 1vw, 3.2rem);
+    height: clamp(2.5rem, 2.2rem + 1vw, 3.2rem);
     border-radius: 9999px;
     border: 1px dashed color-mix(in oklab, var(--foreground) 26%, transparent);
     background: var(--surface);
     display: grid;
     place-items: center;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: clamp(0.7rem, 0.65rem + 0.15vw, 0.85rem);
     color: var(--muted-foreground);
     transition:
       border-color 300ms ease,
@@ -448,15 +464,15 @@
   .track-dot {
     position: relative;
     z-index: 2;
-    width: 52px;
-    height: 52px;
+    width: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
+    height: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
     border-radius: 9999px;
     border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
     background: var(--method-pill);
     display: grid;
     place-items: center;
     font-family: var(--font-mono);
-    font-size: 15px;
+    font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1.05rem);
     color: var(--brand);
     transition:
       border-color 300ms ease,
@@ -477,7 +493,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 26px;
+    top: calc(clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem) / 2);
     height: 1px;
     background: linear-gradient(
       90deg,

@@ -14,7 +14,7 @@ export function Offer({ locale }: { locale: Locale }) {
           subtitle={offer.subtitle}
         />
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-[clamp(2.5rem,2rem+2vw,4.5rem)] grid gap-[clamp(1.25rem,1rem+1.5vw,2.5rem)] lg:grid-cols-2">
           {offer.cards.map((card, i) => (
             <OfferCard
               key={card.number}
