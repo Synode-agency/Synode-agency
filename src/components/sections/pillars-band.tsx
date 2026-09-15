@@ -18,14 +18,15 @@ import {
   ConnectIcon,
   type ConnectIconHandle,
 } from "@/components/site/animated-icons/connect-icon";
+import { getContent, type Locale } from "@/lib/content";
 
-interface PillarCardProps {
+interface PillarItemProps {
   icon: string;
   title: string;
   text: string;
 }
 
-export function PillarCard({ icon, title, text }: PillarCardProps) {
+function PillarItem({ icon, title, text }: PillarItemProps) {
   const zapRef = useRef<ZapIconHandle>(null);
   const botRef = useRef<BotIconHandle>(null);
   const commandLineRef = useRef<CommandLineIconHandle>(null);
@@ -47,11 +48,11 @@ export function PillarCard({ icon, title, text }: PillarCardProps) {
 
   return (
     <div
-      className="group flex flex-col gap-4 rounded-2xl border border-hairline bg-surface p-6 transition-colors hover:bg-surface-2"
+      className="group flex items-center gap-3 px-2 py-5 sm:px-6 lg:py-[calc(var(--hs)*1.25rem)]"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
-      <span className="grid size-9 place-items-center rounded-lg border border-hairline bg-background text-brand transition-colors group-hover:border-brand/40">
+      <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-hairline bg-surface text-brand transition-colors group-hover:border-brand/40">
         {icon === "Zap" ? (
           <ZapIcon ref={zapRef} size={17} />
         ) : icon === "Bot" ? (
@@ -64,14 +65,29 @@ export function PillarCard({ icon, title, text }: PillarCardProps) {
           <Icon name={icon} className="size-[1.05rem]" />
         )}
       </span>
-      <div className="space-y-2">
-        <h3 className="text-[0.95rem] font-semibold tracking-tight">
-          {title}
-        </h3>
-        <p className="text-[0.85rem] leading-[1.65] text-muted-foreground">
+      <div>
+        <h3 className="text-[0.85rem] font-semibold tracking-tight">{title}</h3>
+        <p className="text-[0.78rem] leading-[1.4] text-muted-foreground">
           {text}
         </p>
       </div>
     </div>
+  );
+}
+
+export function PillarsBand({ locale }: { locale: Locale }) {
+  const { hero } = getContent(locale);
+
+  return (
+    <section
+      aria-label={hero.pillars.map((p) => p.title).join(", ")}
+      className="border-y border-hairline bg-surface/60"
+    >
+      <div className="container-page grid sm:grid-cols-2 sm:divide-x sm:divide-hairline lg:grid-cols-4">
+        {hero.pillars.map((p) => (
+          <PillarItem key={p.title} icon={p.icon} title={p.title} text={p.text} />
+        ))}
+      </div>
+    </section>
   );
 }

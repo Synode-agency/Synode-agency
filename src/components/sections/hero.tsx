@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { AgentDiagram } from "@/components/site/agent-diagram";
-import { PillarCard } from "@/components/site/pillar-card";
 import Ferrofluid from "@/components/Ferrofluid";
 import { getContent, type Locale } from "@/lib/content";
 
@@ -11,10 +10,10 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <section
       id="top"
-      className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24"
+      className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pt-[calc(var(--hs)*10rem)] lg:pb-[calc(var(--hs)*6rem)]"
     >
-      {/* background — fixed so it stays put and shows through the whole page as content scrolls over it */}
-      <div aria-hidden className="fixed inset-0 -z-10">
+      {/* background — confined to the hero section only */}
+      <div aria-hidden className="absolute inset-0 -z-10">
         <Ferrofluid
           colors={["#00A8F8", "#00A8F8", "#00A8F8"]}
           speed={0.1}
@@ -26,7 +25,7 @@ export function Hero({ locale }: { locale: Locale }) {
           shimmer={1.5}
           glow={2}
           flowDirection="down"
-          opacity={0.1}
+          opacity={0.15}
           mouseInteraction
           mouseStrength={1}
           mouseRadius={0.35}
@@ -35,16 +34,16 @@ export function Hero({ locale }: { locale: Locale }) {
 
       <div className="container-page">
         <div className="lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-10 xl:gap-16">
-          <Reveal className="flex max-w-4xl flex-col gap-7">
+          <Reveal className="flex max-w-4xl flex-col gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
             {/* Spacer keeps the previous kicker's vertical rhythm above the title */}
-            <span aria-hidden className="block h-[33px]" />
+            <span aria-hidden className="block h-[33px] lg:h-[calc(var(--hs)*33px)]" />
 
             <div className="relative isolate w-fit">
               <div
                 aria-hidden
                 className="title-aura pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10"
               />
-              <h1 className="max-w-[16ch] text-balance text-[2.7rem] leading-[1.02] font-semibold sm:text-[3.75rem] lg:text-[4.75rem]">
+              <h1 className="max-w-[16ch] text-balance text-[2.7rem] leading-[1.02] font-semibold sm:text-[3.75rem] lg:text-[calc(var(--hs)*4.75rem)]">
                 <span className="text-gradient-brand">{hero.titleLead}</span>{" "}
                 <span className="text-gradient-accent">{hero.titleAccent}</span>
               </h1>
@@ -75,15 +74,6 @@ export function Hero({ locale }: { locale: Locale }) {
             <AgentDiagram />
           </Reveal>
         </div>
-
-        <Reveal
-          delay={140}
-          className="mt-16 grid gap-4 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {hero.pillars.map((p) => (
-            <PillarCard key={p.title} icon={p.icon} title={p.title} text={p.text} />
-          ))}
-        </Reveal>
       </div>
     </section>
   );
