@@ -38,11 +38,12 @@ export function Hero({ locale }: { locale: Locale }) {
 
       {/* row 2 — main hero content, centered in the space left between navbar and services band */}
       <div className="container-page self-center py-8">
-        <div className="lg:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-[clamp(2.5rem,2rem+2.5vw,5rem)]">
-          <Reveal className="flex max-w-4xl flex-col gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
-            {/* Spacer keeps the previous kicker's vertical rhythm above the title */}
-            <span aria-hidden className="block h-[33px] lg:h-[calc(var(--hs)*33px)]" />
+        <div className="mx-auto flex max-w-4xl flex-col items-center gap-7 text-center lg:gap-[calc(var(--hs)*1.75rem)]">
+          <Reveal className="hidden w-full sm:block">
+            <AgentDiagram />
+          </Reveal>
 
+          <Reveal delay={100} className="flex flex-col items-center gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
             <div className="relative isolate w-fit">
               <div
                 aria-hidden
@@ -54,11 +55,11 @@ export function Hero({ locale }: { locale: Locale }) {
               </h1>
             </div>
 
-            <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+            <p className="mx-auto max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
               {hero.subtitle}
             </p>
 
-            <div className="mt-1 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-1 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <a
                 href="#contact"
                 className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
@@ -73,10 +74,6 @@ export function Hero({ locale }: { locale: Locale }) {
                 {hero.secondaryCta}
               </a>
             </div>
-          </Reveal>
-
-          <Reveal delay={120} className="hidden lg:flex lg:justify-end">
-            <AgentDiagram />
           </Reveal>
         </div>
       </div>
