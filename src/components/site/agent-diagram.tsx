@@ -5,11 +5,13 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { Users } from "lucide-react";
 import { GmailLogo, ClaudeLogo, OpenAILogo } from "@/components/site/brand-icons";
+import { DraftLineIcon } from "@/components/site/draft-line-icon";
+import { LayersIcon } from "@/components/site/animated-icons/layers-icon";
 import { cn } from "@/lib/utils";
 
 interface DiagramNode {
   id: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon?: React.ComponentType<{ className?: string }>;
   x: number;
   y: number;
   path: string;
@@ -54,6 +56,23 @@ const NODES: DiagramNode[] = [
     path: "M 294 205 V 325 Q 294 340 309 340 H 360",
     delay: 0.4,
     float: { x: -1.5, y: -2, duration: 3.4, delay: 0.9 },
+  },
+  {
+    id: "draft",
+    icon: DraftLineIcon,
+    x: 160,
+    y: 205,
+    path: "M 250 205 H 160",
+    delay: 0.5,
+    float: { x: 2, y: 2, duration: 3.6, delay: 0.35 },
+  },
+  {
+    id: "layers",
+    x: 480,
+    y: 205,
+    path: "M 314 205 H 480",
+    delay: 0.6,
+    float: { x: -2, y: -2.5, duration: 3.9, delay: 0.7 },
   },
 ];
 
@@ -160,7 +179,11 @@ export function AgentDiagram({ className }: { className?: string }) {
                   delay: n.float.delay,
                 }}
               >
-                <NodeIcon className="size-5 sm:size-6" />
+                {n.id === "layers" ? (
+                  <LayersIcon size={20} />
+                ) : (
+                  NodeIcon && <NodeIcon className="size-5 sm:size-6" />
+                )}
               </motion.div>
             </div>
           </motion.div>
