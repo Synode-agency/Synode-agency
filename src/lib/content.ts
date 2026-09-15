@@ -48,10 +48,10 @@ const fr = {
     intro:
       "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé, quels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
     items: [
-      { title: "Les mêmes données encodées plusieurs fois", text: "Formulaire, e-mail, CRM, facturation : une seule saisie doit suffire." },
-      { title: "Des outils qui ne se parlent pas", text: "Nous les connectons plutôt que d'en ajouter un de plus." },
-      { title: "Excel comme colonne vertébrale", text: "Fragile, non traçable, impossible à faire grandir." },
-      { title: "Un suivi client fait à la main", text: "Relances oubliées, informations dispersées, opportunités perdues." },
+      { title: "Trop de tâches manuelles", text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées." },
+      { title: "Des outils et données dispersés", text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas." },
+      { title: "Un suivi encore trop manuel", text: "Relances oubliées, dossiers qui stagnent et opportunités perdues." },
+      { title: "Difficile de savoir quoi automatiser", text: "Vous savez que vous pourriez être plus efficace, mais vous ne savez pas par où commencer." },
     ],
   },
   offer: {

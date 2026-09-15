@@ -76,7 +76,7 @@ export function OfferCard({
       <div className="flex items-baseline justify-center gap-3.5">
         <span
           className={cn(
-            "font-archivo text-[28px] leading-[0.9] font-extrabold tracking-[-0.06em]",
+            "font-archivo text-[clamp(22px,1.6vw+16px,32px)] leading-[0.9] font-extrabold tracking-[-0.06em]",
             accentText,
           )}
         >
@@ -87,17 +87,17 @@ export function OfferCard({
         </h3>
       </div>
 
-      <p className="font-plex mx-auto mt-3.5 max-w-[40ch] text-[15px] leading-[1.58] text-secondary-foreground">
+      <p className="font-plex mx-auto mt-3.5 max-w-[40ch] text-[clamp(13px,0.5vw+12px,16px)] leading-[1.58] text-secondary-foreground">
         {forWho}
       </p>
 
-      <div className="mt-[18px] flex flex-wrap justify-center gap-[7px]">
+      <div className="mt-[clamp(14px,1vw+10px,22px)] flex flex-wrap justify-center gap-[clamp(6px,0.4vw+5px,10px)]">
         {chips.map((chip, i) => (
           <span
             key={chip}
             style={{ transitionDelay: hovered ? `${i * 42}ms` : "0ms" }}
             className={cn(
-              "font-plex rounded-full border px-3 py-[5px] text-[13px] transition-[transform,border-color,color] duration-300",
+              "font-plex rounded-full border px-3 py-[5px] text-[clamp(12px,0.3vw+11px,14px)] transition-[transform,border-color,color] duration-300",
               hovered
                 ? "-translate-y-[3px] border-brand/55 text-foreground"
                 : "translate-y-0 border-foreground/16 text-secondary-foreground",
@@ -116,13 +116,13 @@ export function OfferCard({
       >
         <div
           className={cn(
-            "font-mono text-[10.5px] tracking-[0.12em] uppercase",
+            "font-mono text-[clamp(9.5px,0.25vw+9px,11.5px)] tracking-[0.12em] uppercase",
             accentText,
           )}
         >
           {resultLabel}
         </div>
-        <p className="font-plex mt-[5px] text-[14.5px] leading-[1.5]">
+        <p className="font-plex mt-[5px] text-[clamp(13px,0.4vw+12px,15.5px)] leading-[1.5]">
           {result}
         </p>
       </div>

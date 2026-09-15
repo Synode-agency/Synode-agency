@@ -52,7 +52,7 @@ function PillarItem({ icon, title, text }: PillarItemProps) {
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
     >
-      <span className="grid size-9 shrink-0 place-items-center rounded-lg border border-hairline bg-surface text-brand transition-colors group-hover:border-brand/40">
+      <span className="grid size-[clamp(2rem,1.8rem+0.6vw,2.5rem)] shrink-0 place-items-center rounded-lg border border-hairline bg-surface text-brand transition-colors group-hover:border-brand/40">
         {icon === "Zap" ? (
           <ZapIcon ref={zapRef} size={17} />
         ) : icon === "Bot" ? (
@@ -66,8 +66,10 @@ function PillarItem({ icon, title, text }: PillarItemProps) {
         )}
       </span>
       <div>
-        <h3 className="text-[0.85rem] font-semibold tracking-tight">{title}</h3>
-        <p className="text-[0.78rem] leading-[1.4] text-muted-foreground">
+        <h3 className="text-[length:var(--fs-small)] font-semibold tracking-tight">
+          {title}
+        </h3>
+        <p className="text-[length:var(--fs-small)] leading-[1.4] text-muted-foreground">
           {text}
         </p>
       </div>
