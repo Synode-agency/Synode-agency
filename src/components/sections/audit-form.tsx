@@ -175,7 +175,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-4 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright disabled:opacity-60"
+        className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[0.95rem] font-medium text-brand-foreground disabled:opacity-60"
       >
         {status === "sending" ? (
           <>

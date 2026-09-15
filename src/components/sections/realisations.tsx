@@ -34,7 +34,7 @@ export function Realisations({ locale }: { locale: Locale }) {
           </div>
           <a
             href="#contact"
-            className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright"
+            className="group brand-gradient inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[0.95rem] font-medium text-brand-foreground"
           >
             {realisations.cta.button}
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

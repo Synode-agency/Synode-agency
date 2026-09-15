@@ -27,7 +27,7 @@ export function CtaBand({ locale }: { locale: Locale }) {
             </p>
             <a
               href="#contact"
-              className="group mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-[0.975rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright brand-glow"
+              className="group brand-gradient mt-2 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[0.975rem] font-medium text-brand-foreground brand-glow"
             >
               {ctaBand.button}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

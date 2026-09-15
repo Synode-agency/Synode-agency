@@ -70,7 +70,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         className={cn(
           "border-b transition-[background-color,border-color,backdrop-filter] duration-300",
           scrolled
-            ? "border-hairline bg-background/70 backdrop-blur-xl"
+            ? "border-hairline bg-glass-card backdrop-blur-xl"
             : "border-transparent bg-transparent",
         )}
       >
@@ -114,7 +114,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="group hidden items-center gap-1.5 rounded-full bg-brand px-4 py-2 text-[0.85rem] font-medium text-brand-foreground transition-colors hover:bg-brand-bright sm:inline-flex"
+              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[0.85rem] font-medium text-brand-foreground sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -154,7 +154,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="mt-4 inline-flex items-center justify-center gap-1.5 rounded-full bg-brand px-4 py-3.5 text-base font-medium text-brand-foreground"
+              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium text-brand-foreground"
             >
               {site.ctaLabel}
               <ArrowRight className="size-4" />
