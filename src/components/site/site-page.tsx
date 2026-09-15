@@ -5,7 +5,6 @@ import { Problem } from "@/components/sections/problem";
 import { Offer } from "@/components/sections/offer";
 import { Method } from "@/components/sections/method";
 import { Realisations } from "@/components/sections/realisations";
-import { Audience } from "@/components/sections/audience";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Contact } from "@/components/sections/contact";
 import type { Locale } from "@/lib/content";
@@ -20,7 +19,6 @@ export function SitePage({ locale }: { locale: Locale }) {
         <Offer locale={locale} />
         <Method locale={locale} />
         <Realisations locale={locale} />
-        <Audience locale={locale} />
         <CtaBand locale={locale} />
         <Contact locale={locale} />
       </main>

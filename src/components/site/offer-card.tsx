@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { Check } from "lucide-react";
+import { useRef, useState } from "react";
 import { Icon } from "@/components/site/icon";
 import { Reveal } from "@/components/site/reveal";
 import {
@@ -12,6 +11,7 @@ import {
   BlocksIcon,
   type BlocksIconHandle,
 } from "@/components/site/animated-icons/blocks-icon";
+import { cn } from "@/lib/utils";
 
 interface OfferCardProps {
   icon: string;
@@ -29,77 +29,130 @@ export function OfferCard({
   number,
   title,
   forWho,
-  includes,
+  includes: chips,
   result,
   resultLabel,
   delay,
 }: OfferCardProps) {
   const workflowRef = useRef<WorkflowIconHandle>(null);
   const blocksRef = useRef<BlocksIconHandle>(null);
+  const sheenRef = useRef<HTMLSpanElement>(null);
+  const [hovered, setHovered] = useState(false);
 
-  const handleEnter = () => {
+  // Offer 02 (Blocks / Solutions sur mesure) gets its own accent from the palette.
+  const isSecondary = icon === "Blocks";
+  const accentText = isSecondary ? "text-offer-accent-2" : "text-brand";
+
+  function handleMouseMove(event: React.MouseEvent<HTMLElement>) {
+    const card = event.currentTarget;
+    const r = card.getBoundingClientRect();
+    const dx = (event.clientX - (r.left + r.width / 2)) / r.width;
+    const dy = (event.clientY - (r.top + r.height / 2)) / r.height;
+    card.style.transform = `perspective(1100px) rotateY(${(dx * 2.4).toFixed(2)}deg) rotateX(${(-dy * 2.4).toFixed(2)}deg) translateY(-3px)`;
+  }
+
+  function handleMouseEnter() {
     workflowRef.current?.startAnimation();
     blocksRef.current?.startAnimation();
-  };
+    setHovered(true);
+    const sheen = sheenRef.current;
+    if (sheen) {
+      sheen.style.animation = "none";
+      void sheen.offsetWidth;
+      sheen.style.animation = "offer-sheen 0.95s ease-out";
+    }
+  }
 
-  const handleLeave = () => {
+  function handleMouseLeave(event: React.MouseEvent<HTMLElement>) {
     workflowRef.current?.stopAnimation();
     blocksRef.current?.stopAnimation();
-  };
+    setHovered(false);
+    event.currentTarget.style.transform = "none";
+  }
 
   return (
     <Reveal
       delay={delay}
-      className="glow-hover relative flex flex-col overflow-hidden rounded-2xl border border-hairline bg-surface p-8 sm:p-9"
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      className={cn(
+        "relative flex flex-col items-center overflow-hidden rounded-[18px] border p-[clamp(22px,2.6vw,32px)] text-center transition-[border-color] duration-300 hover:border-brand/50",
+        isSecondary ? "border-brand-deep/42" : "border-brand/30",
+      )}
+      style={{
+        background: isSecondary
+          ? "linear-gradient(165deg, rgba(30,95,216,0.15), rgba(8,14,26,0.85))"
+          : "linear-gradient(165deg, rgba(63,169,245,0.12), rgba(8,14,26,0.85))",
+      }}
     >
-      <span
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent"
-      />
+      <span ref={sheenRef} aria-hidden className="offer-sheen" />
 
-      <div className="flex items-start justify-between">
-        <span className="grid size-12 place-items-center rounded-xl border border-hairline bg-background text-brand">
-          {icon === "Workflow" ? (
-            <WorkflowIcon ref={workflowRef} size={20} />
-          ) : icon === "Blocks" ? (
-            <BlocksIcon ref={blocksRef} size={20} />
-          ) : (
-            <Icon name={icon} className="size-5" />
+      <span
+        className={cn(
+          "grid size-11 place-items-center rounded-xl border border-hairline bg-background",
+          accentText,
+        )}
+      >
+        {icon === "Workflow" ? (
+          <WorkflowIcon ref={workflowRef} size={20} />
+        ) : icon === "Blocks" ? (
+          <BlocksIcon ref={blocksRef} size={20} />
+        ) : (
+          <Icon name={icon} className="size-5" />
+        )}
+      </span>
+
+      <div className="mt-4 flex items-baseline justify-center gap-3.5">
+        <span
+          className={cn(
+            "font-archivo text-[28px] leading-[0.9] font-extrabold tracking-[-0.06em]",
+            accentText,
           )}
+        >
+          {number}
         </span>
-        <span className="num-ghost tnum text-[3.25rem]">{number}</span>
+        <h3 className="font-archivo text-[clamp(19px,2vw,24px)] font-bold tracking-[-0.032em]">
+          {title}
+        </h3>
       </div>
 
-      <h3 className="mt-6 text-[1.35rem] font-semibold leading-snug tracking-tight">
-        {title}
-      </h3>
-      <p className="mt-2.5 text-[0.9rem] leading-[1.7] text-muted-foreground">
+      <p className="font-plex mx-auto mt-3.5 max-w-[40ch] text-[15px] leading-[1.58] text-secondary-foreground">
         {forWho}
       </p>
 
-      <ul className="mt-6 flex flex-col gap-3 border-t border-hairline pt-6">
-        {includes.map((ex) => (
-          <li
-            key={ex}
-            className="flex items-start gap-3 text-[0.875rem] text-foreground/85"
+      <div className="mt-[18px] flex flex-wrap justify-center gap-[7px]">
+        {chips.map((chip, i) => (
+          <span
+            key={chip}
+            style={{ transitionDelay: hovered ? `${i * 42}ms` : "0ms" }}
+            className={cn(
+              "font-plex rounded-full border px-3 py-[5px] text-[13px] transition-[transform,border-color,color] duration-300",
+              hovered
+                ? "-translate-y-[3px] border-brand/55 text-foreground"
+                : "translate-y-0 border-foreground/16 text-secondary-foreground",
+            )}
           >
-            <span className="mt-0.5 grid size-[1.1rem] shrink-0 place-items-center rounded-[5px] bg-brand/12 text-brand">
-              <Check className="size-3" strokeWidth={2.5} />
-            </span>
-            <span>{ex}</span>
-          </li>
+            {chip}
+          </span>
         ))}
-      </ul>
+      </div>
 
-      <div className="mt-auto flex gap-3 pt-7">
-        <span
-          aria-hidden
-          className="mt-0.5 w-0.5 shrink-0 rounded-full bg-brand/60"
-        />
-        <p className="text-[0.85rem] leading-[1.6] text-foreground/75">
-          <span className="eyebrow mr-2 text-brand">{resultLabel}</span>
+      <div
+        className={cn(
+          "mx-auto mt-5 max-w-[34ch] border-t-2 pt-[13px]",
+          isSecondary ? "border-offer-accent-2" : "border-brand",
+        )}
+      >
+        <div
+          className={cn(
+            "font-mono text-[10.5px] tracking-[0.12em] uppercase",
+            accentText,
+          )}
+        >
+          {resultLabel}
+        </div>
+        <p className="font-plex mt-[5px] text-[14.5px] leading-[1.5]">
           {result}
         </p>
       </div>

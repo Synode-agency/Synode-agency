@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono, Archivo, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -18,6 +18,21 @@ const fontSans = Inter({
 
 const fontMono = JetBrains_Mono({
   variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+// Used specifically by the offer cards' Synode v7 design.
+const fontArchivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+});
+
+const fontPlexSans = IBM_Plex_Sans({
+  variable: "--font-plex",
   subsets: ["latin"],
   weight: ["400", "500"],
   display: "swap",
@@ -69,7 +84,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} h-full`}
+      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} ${fontArchivo.variable} ${fontPlexSans.variable} h-full`}
     >
       <head>
         <noscript>

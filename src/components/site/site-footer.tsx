@@ -16,7 +16,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           <nav className="flex flex-col gap-3">
-            <span className="eyebrow text-muted-foreground/50">Navigation</span>
+            <span className="eyebrow text-label-muted">Navigation</span>
             {site.nav.map((item) => (
               <a
                 key={item.href}
@@ -45,13 +45,13 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[0.875rem] text-muted-foreground">
               {site.location}
             </span>
-            <span className="font-mono text-[0.8rem] text-muted-foreground/70">
+            <span className="font-mono text-[0.8rem] text-text-mono">
               {site.vat}
             </span>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-hairline pt-6 text-[0.75rem] text-muted-foreground/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-3 border-t border-hairline pt-6 text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
           <span>{site.footerNote}</span>
         </div>

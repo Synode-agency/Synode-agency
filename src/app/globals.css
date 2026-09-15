@@ -11,11 +11,21 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-heading: var(--font-heading);
+  --font-archivo: var(--font-archivo);
+  --font-plex: var(--font-plex);
 
   --color-brand: var(--brand);
   --color-brand-bright: var(--brand-bright);
   --color-brand-dim: var(--brand-dim);
+  --color-brand-deep: var(--brand-deep);
   --color-brand-foreground: var(--brand-foreground);
+  --color-offer-accent-2: var(--offer-accent-2);
+  --color-title-gradient-end: var(--title-gradient-end);
+  --color-glass-card: var(--glass-card);
+  --color-method-pill: var(--method-pill);
+  --color-border-active: var(--border-active);
+  --color-text-mono: var(--text-mono);
+  --color-label-muted: var(--label-muted);
   --color-hairline: var(--hairline);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
@@ -59,61 +69,70 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Synode — dark-only premium tech theme, electric-blue accent
-   (brand blue sampled from the client logo: core #00A8F8) */
+/* Synode v7 — dark-only premium tech theme, electric-blue accent */
 :root,
 .dark {
-  --background: #011222;
-  --foreground: #eef3f8;
+  --background: #03060D;
+  --foreground: #E9F0F8;
 
-  --surface: #071e33;
-  --surface-2: #0d2a45;
-  --hairline: rgba(255, 255, 255, 0.07);
+  --surface: #060B14;
+  --surface-2: #0B1524;
+  --hairline: rgba(233, 240, 248, 0.1);
 
-  --card: #071e33;
-  --card-foreground: #eef3f8;
-  --popover: #0a2338;
-  --popover-foreground: #eef3f8;
+  --card: #060B14;
+  --card-foreground: #E9F0F8;
+  --popover: #080E1A;
+  --popover-foreground: #E9F0F8;
 
-  --primary: #00a8f8;
-  --primary-foreground: #011222;
+  --primary: #3FA9F5;
+  --primary-foreground: #03060D;
 
-  --secondary: #0a2036;
-  --secondary-foreground: #eef3f8;
+  --secondary: #0A121E;
+  --secondary-foreground: #B7C7DA;
 
-  --muted: #0a2036;
-  --muted-foreground: #8ca3b8;
+  --muted: #0A121E;
+  --muted-foreground: #8296B0;
 
-  --accent: #08243a;
-  --accent-foreground: #7dd3fc;
+  --accent: #0A1B2E;
+  --accent-foreground: #7FD4FF;
 
   --destructive: #f43f5e;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #33beff;
+  --border: rgba(233, 240, 248, 0.1);
+  --input: rgba(233, 240, 248, 0.1);
+  --ring: #3FA9F5;
 
-  --brand: #00a8f8;
-  --brand-bright: #33beff;
-  --brand-dim: #0b2f49;
-  --brand-foreground: #011222;
+  --brand: #3FA9F5;
+  --brand-bright: #7FD4FF;
+  --brand-dim: #102A4A;
+  --brand-deep: #1E5FD8;
+  --brand-foreground: #03060D;
 
-  --chart-1: #00a8f8;
-  --chart-2: #33beff;
-  --chart-3: #7dd3fc;
-  --chart-4: #38bdf8;
-  --chart-5: #0284c7;
+  /* Extra Synode v7 tokens without a pre-existing slot */
+  --offer-accent-2: #7FB6FF;
+  --title-gradient-end: #9FDBFF;
+  --glass-card: rgba(8, 14, 26, 0.82);
+  --method-pill: #070C16;
+  --border-active: rgba(63, 169, 245, 0.45);
+  --text-mono: #5E7794;
+  --label-muted: #6B87A8;
+
+  --chart-1: #3FA9F5;
+  --chart-2: #7FD4FF;
+  --chart-3: #9FDBFF;
+  --chart-4: #7FB6FF;
+  --chart-5: #1E5FD8;
 
   --radius: 0.875rem;
 
-  --sidebar: #071e33;
-  --sidebar-foreground: #eef3f8;
-  --sidebar-primary: #00a8f8;
-  --sidebar-primary-foreground: #011222;
-  --sidebar-accent: #08243a;
-  --sidebar-accent-foreground: #7dd3fc;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #33beff;
+  --sidebar: #060B14;
+  --sidebar-foreground: #E9F0F8;
+  --sidebar-primary: #3FA9F5;
+  --sidebar-primary-foreground: #03060D;
+  --sidebar-accent: #0A1B2E;
+  --sidebar-accent-foreground: #7FD4FF;
+  --sidebar-border: rgba(233, 240, 248, 0.1);
+  --sidebar-ring: #3FA9F5;
 
   color-scheme: dark;
 }
@@ -294,6 +313,26 @@
     color: transparent;
   }
 
+  /* Neon blue → light blue display gradient — hero title accent */
+  .text-gradient-accent {
+    background: linear-gradient(100deg, var(--brand), var(--title-gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Primary CTA fill: neon blue -> deep blue */
+  .brand-gradient {
+    background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+    transition:
+      filter 220ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .brand-gradient:hover {
+    filter: brightness(1.1);
+  }
+
   /* Decorative corner frame for the big CTA panel */
   .corner-frame {
     position: relative;
@@ -351,6 +390,127 @@
       animation: none;
       will-change: auto;
     }
+  }
+
+  /* Offer card sheen — diagonal light sweep replayed on hover via JS */
+  .offer-sheen {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      transparent 35%,
+      color-mix(in oklab, var(--brand) 15%, transparent) 50%,
+      transparent 65%
+    );
+    transform: translateX(-130%) skewX(-18deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .offer-sheen {
+      display: none;
+    }
+  }
+
+  /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
+  .chain-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    border: 1px dashed color-mix(in oklab, var(--foreground) 26%, transparent);
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted-foreground);
+    transition:
+      border-color 300ms ease,
+      color 300ms ease,
+      box-shadow 300ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .chain-node:hover .chain-dot {
+    border-color: var(--brand);
+    border-style: solid;
+    color: var(--foreground);
+    box-shadow: 0 0 26px color-mix(in oklab, var(--brand) 50%, transparent);
+    transform: scale(1.1);
+  }
+
+  /* Track node (Méthode) — solid brand ring at rest, same hover illumination as Constat */
+  .track-dot {
+    position: relative;
+    z-index: 2;
+    width: 52px;
+    height: 52px;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
+    background: var(--method-pill);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--brand);
+    transition:
+      border-color 300ms ease,
+      color 300ms ease,
+      box-shadow 300ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Same hover illumination as the Constat dots — border, glow, and pop */
+  .track-node:hover .track-dot {
+    border-color: var(--brand);
+    color: var(--foreground);
+    box-shadow: 0 0 26px color-mix(in oklab, var(--brand) 50%, transparent);
+    transform: scale(1.1);
+  }
+
+  .track-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 26px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--brand) 14%, transparent),
+      color-mix(in oklab, var(--brand) 55%, transparent),
+      color-mix(in oklab, var(--brand) 14%, transparent)
+    );
+    animation: syn-scan 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chain-dot {
+      transition: none;
+    }
+    .track-link {
+      animation: none;
+      opacity: 0.45;
+    }
+  }
+}
+
+@keyframes syn-scan {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes offer-sheen {
+  from {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+  to {
+    transform: translateX(330%) skewX(-18deg);
   }
 }
 
