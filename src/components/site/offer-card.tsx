@@ -1,16 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Icon } from "@/components/site/icon";
 import { Reveal } from "@/components/site/reveal";
-import {
-  WorkflowIcon,
-  type WorkflowIconHandle,
-} from "@/components/site/animated-icons/workflow-icon";
-import {
-  BlocksIcon,
-  type BlocksIconHandle,
-} from "@/components/site/animated-icons/blocks-icon";
 import { cn } from "@/lib/utils";
 
 interface OfferCardProps {
@@ -34,8 +25,6 @@ export function OfferCard({
   resultLabel,
   delay,
 }: OfferCardProps) {
-  const workflowRef = useRef<WorkflowIconHandle>(null);
-  const blocksRef = useRef<BlocksIconHandle>(null);
   const sheenRef = useRef<HTMLSpanElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -52,8 +41,6 @@ export function OfferCard({
   }
 
   function handleMouseEnter() {
-    workflowRef.current?.startAnimation();
-    blocksRef.current?.startAnimation();
     setHovered(true);
     const sheen = sheenRef.current;
     if (sheen) {
@@ -64,8 +51,6 @@ export function OfferCard({
   }
 
   function handleMouseLeave(event: React.MouseEvent<HTMLElement>) {
-    workflowRef.current?.stopAnimation();
-    blocksRef.current?.stopAnimation();
     setHovered(false);
     event.currentTarget.style.transform = "none";
   }
@@ -88,22 +73,7 @@ export function OfferCard({
     >
       <span ref={sheenRef} aria-hidden className="offer-sheen" />
 
-      <span
-        className={cn(
-          "grid size-11 place-items-center rounded-xl border border-hairline bg-background",
-          accentText,
-        )}
-      >
-        {icon === "Workflow" ? (
-          <WorkflowIcon ref={workflowRef} size={20} />
-        ) : icon === "Blocks" ? (
-          <BlocksIcon ref={blocksRef} size={20} />
-        ) : (
-          <Icon name={icon} className="size-5" />
-        )}
-      </span>
-
-      <div className="mt-4 flex items-baseline justify-center gap-3.5">
+      <div className="flex items-baseline justify-center gap-3.5">
         <span
           className={cn(
             "font-archivo text-[28px] leading-[0.9] font-extrabold tracking-[-0.06em]",

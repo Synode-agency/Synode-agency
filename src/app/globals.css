@@ -72,6 +72,11 @@
 /* Synode v7 — dark-only premium tech theme, electric-blue accent */
 :root,
 .dark {
+  /* Fluid hero scale: 1 on tall viewports, shrinks toward 0.55 on short
+     desktop windows (e.g. 13" laptops) so the hero + pillars band always
+     fit without scrolling. */
+  --hs: clamp(0.55, calc(100dvh / 570px - 0.649), 1);
+
   --background: #03060D;
   --foreground: #E9F0F8;
 
