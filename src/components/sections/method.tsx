@@ -8,7 +8,7 @@ export function Method({ locale }: { locale: Locale }) {
 
   return (
     <section id="methode" className="section-screen relative border-t border-hairline">
-      <div className="container-page flex flex-col items-center">
+      <div className="container-page">
         <SectionHeading
           eyebrow={method.eyebrow}
           title={method.title}
@@ -17,12 +17,12 @@ export function Method({ locale }: { locale: Locale }) {
 
         <Reveal
           delay={80}
-          className="mt-[calc(var(--ss)*1.75rem)] flex flex-wrap justify-center gap-2"
+          className="mt-[calc(var(--ss)*1.5rem)] flex flex-wrap gap-2"
         >
           {audience.sectors.map((sector) => (
             <span
               key={sector}
-              className="rounded-full border border-hairline bg-surface px-3.5 py-1.5 text-[0.8rem] text-foreground/80 transition-colors hover:border-brand/40 hover:text-foreground"
+              className="rounded-full border border-hairline bg-surface px-3.5 py-1.5 text-[0.8rem] text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
             >
               {sector}
             </span>

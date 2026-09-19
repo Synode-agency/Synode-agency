@@ -12,10 +12,10 @@ export function Faq({ locale }: { locale: Locale }) {
       id="faq"
       className="section-screen section-screen-with-footer relative border-t border-hairline"
     >
-      <div className="container-page">
+      <div className="container-page grid gap-x-[clamp(2rem,1.5rem+3vw,6rem)] gap-y-[calc(var(--ss)*2rem)] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start">
         <SectionHeading eyebrow={faq.eyebrow} title={faq.title} />
 
-        <Reveal className="mt-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.8vw,2.75rem))]">
+        <Reveal className="lg:pt-[calc(var(--ss)*1rem)]">
           <FaqAccordion items={faq.items} />
         </Reveal>
       </div>

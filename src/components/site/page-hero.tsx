@@ -2,7 +2,8 @@ import { Reveal } from "@/components/site/reveal";
 
 /**
  * Headline block shared by the standalone pages (Réalisations, Contact):
- * eyebrow, big title, lead paragraph, then a mono row of key facts.
+ * label over a rule, big headline, lead paragraph, then a row of key facts.
+ * Left-aligned like the rest of the site.
  */
 export function PageHero({
   eyebrow,
@@ -16,26 +17,23 @@ export function PageHero({
   stats?: readonly { label: string; value: string }[];
 }) {
   return (
-    <Reveal className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-      <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
-        <span className="h-px w-6 bg-brand/50" aria-hidden />
-        {eyebrow}
-      </span>
+    <Reveal className="flex flex-col">
+      <span className="eyebrow border-b border-hairline pb-3">{eyebrow}</span>
 
-      <h1 className="max-w-[18ch] text-balance text-[2.4rem] leading-[1.05] font-semibold sm:text-[3.25rem] lg:text-[length:var(--fs-h2)]">
+      <h1 className="mt-[clamp(1.25rem,1rem+1vw,2rem)] max-w-[17ch] text-balance text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em]">
         {title}
       </h1>
 
-      <p className="max-w-2xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+      <p className="mt-[clamp(1rem,0.85rem+0.6vw,1.5rem)] max-w-[58ch] text-[length:var(--fs-body)] leading-[1.65] text-muted-foreground">
         {body}
       </p>
 
       {stats && (
-        <dl className="mt-2 flex flex-wrap items-center justify-center gap-x-[clamp(1.25rem,1rem+1.5vw,3rem)] gap-y-2.5 font-mono text-[0.82rem]">
+        <dl className="mt-[clamp(1.5rem,1.25rem+1vw,2.5rem)] grid gap-x-8 gap-y-4 border-t border-hairline pt-5 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
-            <div key={stat.label} className="flex items-center gap-2">
-              <dt className="text-text-mono">{stat.label}</dt>
-              <dd className="text-foreground">{stat.value}</dd>
+            <div key={stat.label} className="flex flex-col gap-1">
+              <dt className="label-xs text-muted-foreground">{stat.label}</dt>
+              <dd className="text-[0.95rem] font-medium">{stat.value}</dd>
             </div>
           ))}
         </dl>

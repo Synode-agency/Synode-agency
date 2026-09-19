@@ -8,7 +8,7 @@ interface TimelineItem {
 function ChainText({ title, text }: TimelineItem) {
   return (
     <div className="mx-auto max-w-[15rem]">
-      <h3 className="font-archivo text-[clamp(15px,0.35vw+14px,17px)] leading-[1.28] font-semibold text-pretty">
+      <h3 className="font-heading text-[clamp(15px,0.35vw+14px,17px)] leading-[1.28] font-semibold text-pretty">
         {title}
       </h3>
       <p className="mt-[7px] text-[clamp(12.5px,0.3vw+11.5px,14.5px)] leading-[1.5] text-muted-foreground">
@@ -122,7 +122,7 @@ export function TimelineRow({
               <span className="track-dot tnum mx-auto">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="font-archivo mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
+              <h3 className="font-heading mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
                 {item.title}
               </h3>
               <p className="mx-auto mt-[9px] max-w-[34ch] text-[clamp(13.5px,0.35vw+12.5px,16px)] leading-[1.58] text-muted-foreground">

@@ -72,7 +72,7 @@ export function SectionPager() {
   return (
     <nav
       aria-label="Navigation par section"
-      className="group/pager fixed right-[clamp(0.75rem,0.5rem+0.8vw,1.5rem)] top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-1.5 rounded-full border border-hairline/60 bg-surface/40 px-1 py-2 opacity-45 backdrop-blur-sm transition-opacity duration-300 hover:opacity-100 focus-within:opacity-100 lg:flex"
+      className="group/pager fixed right-[clamp(0.75rem,0.5rem+0.8vw,1.5rem)] top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-1.5 rounded-full border border-hairline bg-surface px-1 py-2 opacity-55 transition-opacity duration-300 hover:opacity-100 focus-within:opacity-100 lg:flex"
     >
       <button
         type="button"
