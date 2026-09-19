@@ -1,23 +1,41 @@
 import type { Metadata } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono, Archivo, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { SiteBackground } from "@/components/site/site-background";
 
-/**
- * Two families, not five. Archivo carries the headlines at heavy weights and
- * tight tracking; Inter does everything else. The monospace is gone on
- * purpose: it read as a developer tool, and our reader runs an SME.
- */
-const fontHeading = Archivo({
+const fontHeading = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
 const fontSans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const fontMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+// Used specifically by the offer cards' Synode v7 design.
+const fontArchivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+});
+
+const fontPlexSans = IBM_Plex_Sans({
+  variable: "--font-plex",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -67,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`${fontHeading.variable} ${fontSans.variable} h-full`}
+      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} ${fontArchivo.variable} ${fontPlexSans.variable} h-full`}
     >
       <head>
         <noscript>
@@ -76,6 +94,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        {/* One fixed surface behind the whole site — every page scrolls over it */}
+        <SiteBackground />
         {children}
         <Toaster position="top-center" />
       </body>

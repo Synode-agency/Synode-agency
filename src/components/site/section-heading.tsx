@@ -1,68 +1,58 @@
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 
-/**
- * Section heading.
- *
- * The eyebrows in `content.ts` are written "02 / Notre offre". We split that
- * apart and set the index as a small blue number above a rule, magazine
- * style — one recurring, quiet ornament instead of a glowing pill.
- */
 export function SectionHeading({
   eyebrow,
   title,
   subtitle,
   subtitleNote,
-  align = "left",
+  align = "center",
   className,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
-  /** Secondary line under the subtitle, smaller and in brand blue. */
+  /** Secondary line under the subtitle: mono, smaller, brand blue. */
   subtitleNote?: string;
   align?: "left" | "center";
   className?: string;
 }) {
   const centered = align === "center";
-  const [index, label] = eyebrow.includes("/")
-    ? eyebrow.split("/").map((part) => part.trim())
-    : [null, eyebrow];
-
   return (
     <Reveal
       className={cn(
-        "flex flex-col",
+        "flex flex-col gap-6",
         centered && "items-center text-center",
         className,
       )}
     >
-      <div
-        className={cn("flex items-baseline gap-2.5", centered && "justify-center")}
+      <span
+        className={cn(
+          "eyebrow inline-flex items-center gap-2.5 text-brand",
+          centered ? "justify-center" : "",
+        )}
       >
-        {index && <span className="section-index">{index}</span>}
-        <span className="eyebrow">{label}</span>
-      </div>
-
+        <span className="h-px w-6 bg-brand/50" aria-hidden />
+        {eyebrow}
+      </span>
       <h2
         className={cn(
-          "mt-3 max-w-[18ch] text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance",
-          centered && "max-w-[20ch]",
+          "max-w-[20ch] text-3xl leading-[1.08] font-semibold text-balance sm:text-4xl lg:text-[length:var(--fs-h2)]",
+          centered && "max-w-[24ch]",
         )}
       >
         {title}
       </h2>
-
       {(subtitle || subtitleNote) && (
         <p
           className={cn(
-            "mt-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.6vw,1.4rem))] max-w-[52ch] text-[length:var(--fs-body)] leading-[1.65] text-muted-foreground sm:whitespace-pre-line",
+            "max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground sm:whitespace-pre-line",
             centered && "mx-auto",
           )}
         >
           {subtitle}
           {subtitleNote && (
-            <span className="mt-1.5 block text-[length:var(--fs-small)] font-medium text-brand">
+            <span className="mt-2 block font-mono text-[clamp(0.78rem,0.15vw+0.74rem,0.88rem)] tracking-[0.02em] text-brand">
               {subtitleNote}
             </span>
           )}

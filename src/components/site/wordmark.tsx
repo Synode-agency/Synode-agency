@@ -21,13 +21,7 @@ export function Wordmark({
   const isMark = variant === "mark";
 
   return (
-    <span
-      className={cn(
-        "inline-flex shrink-0 items-center",
-        isMark ? "gap-2.5" : "gap-3",
-        className,
-      )}
-    >
+    <span className={cn("inline-flex shrink-0 items-center", isMark ? "gap-2.5" : "gap-3", className)}>
       <Image
         src={isMark ? "/synode-mark.png" : "/synode-logo.png"}
         alt={withText ? "" : "Synode"}
@@ -46,9 +40,7 @@ export function Wordmark({
           width={822}
           height={232}
           priority
-          /* The asset is white lettering. `.wordmark-type` inverts it on a
-             light ground and leaves it alone inside an ink panel. */
-          className="wordmark-type h-[1.9rem] w-auto shrink-0"
+          className="h-[1.9rem] w-auto shrink-0"
         />
       )}
     </span>
