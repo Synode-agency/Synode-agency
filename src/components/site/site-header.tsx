@@ -10,24 +10,27 @@ import { getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /** Landing sections the scroll-spy underline follows. */
-const SPY_IDS = ["top", "probleme", "offre", "methode", "equipe", "conclusion", "faq"];
+const SPY_IDS = [
+  "top",
+  "probleme",
+  "offre",
+  "methode",
+  "equipe",
+  "conclusion",
+  "faq",
+];
+
+/** Sections painted on ink. Over those, the header bar inverts. */
+const INK_SECTIONS = new Set(["offre", "conclusion"]);
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("top");
 
   const home = homePath(locale);
   const onHome = pathname === home;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -65,6 +68,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     return pathname === normalised || pathname.startsWith(`${normalised}/`);
   };
 
+  /* The bar is a floating pill, ink by default. Over an ink section it flips
+     to light, otherwise it would vanish into the panel behind it. */
+  const onInk = onHome && INK_SECTIONS.has(active) && !open;
+
   const contactHref = path(locale, "/contact");
   const contactCurrent = pathname === contactHref;
 
@@ -87,19 +94,15 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={cn(
-          // Above the mobile panel, so the logo and the close button sit on
-          // top of it rather than being covered by it.
-          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
-          // While the mobile panel is open the bar goes fully transparent, so
-          // the panel's black reads as one surface with no seam under the logo.
-          scrolled && !open
-            ? "border-hairline bg-glass-card backdrop-blur-md"
-            : "border-transparent bg-transparent",
-        )}
-      >
-        <div className="container-page flex h-[4.6rem] items-center justify-between gap-4">
+      {/* Above the mobile panel, so the logo and the close button sit on top
+          of it rather than being covered by it. */}
+      <div className="relative z-10 px-[clamp(0.5rem,0.25rem+0.6vw,1rem)] pt-[clamp(0.5rem,0.25rem+0.6vw,1rem)]">
+        <div
+          className={cn(
+            "flex h-[3.5rem] items-center justify-between gap-4 rounded-full px-[clamp(0.85rem,0.6rem+0.8vw,1.5rem)] transition-colors duration-300",
+            onInk ? "bg-background text-foreground" : "panel-ink",
+          )}
+        >
           <NavLink
             href={home}
             locale={locale}

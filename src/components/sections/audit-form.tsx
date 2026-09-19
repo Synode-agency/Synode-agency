@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { getContent, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-type Field = "lastName" | "firstName" | "email" | "phone" | "timeline" | "message";
+type Field =
+  "lastName" | "firstName" | "email" | "phone" | "timeline" | "message";
 type Errors = Partial<Record<Field, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,7 +37,11 @@ function Select({
         name={id}
         aria-label={placeholderLabel}
         defaultValue={options[0]}
-        className={cn(control, controlH, "appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground")}
+        className={cn(
+          control,
+          controlH,
+          "appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground",
+        )}
       >
         {options.map((option) => (
           <option key={option} value={option}>
@@ -122,9 +127,19 @@ export function AuditForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
+    <form
+      ref={formRef}
+      onSubmit={onSubmit}
+      noValidate
+      className="flex flex-col gap-5"
+    >
       <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap label={f.lastName} htmlFor="lastName" error={errors.lastName} required>
+        <FieldWrap
+          label={f.lastName}
+          htmlFor="lastName"
+          error={errors.lastName}
+          required
+        >
           <Input
             id="lastName"
             name="lastName"
@@ -134,7 +149,12 @@ export function AuditForm({ locale }: { locale: Locale }) {
             className={cn(control, controlH)}
           />
         </FieldWrap>
-        <FieldWrap label={f.firstName} htmlFor="firstName" error={errors.firstName} required>
+        <FieldWrap
+          label={f.firstName}
+          htmlFor="firstName"
+          error={errors.firstName}
+          required
+        >
           <Input
             id="firstName"
             name="firstName"
@@ -147,7 +167,12 @@ export function AuditForm({ locale }: { locale: Locale }) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap label={f.email} htmlFor="email" error={errors.email} required>
+        <FieldWrap
+          label={f.email}
+          htmlFor="email"
+          error={errors.email}
+          required
+        >
           <Input
             id="email"
             name="email"
@@ -159,7 +184,12 @@ export function AuditForm({ locale }: { locale: Locale }) {
             className={cn(control, controlH)}
           />
         </FieldWrap>
-        <FieldWrap label={f.phone} htmlFor="phone" error={errors.phone} required>
+        <FieldWrap
+          label={f.phone}
+          htmlFor="phone"
+          error={errors.phone}
+          required
+        >
           <Input
             id="phone"
             name="phone"
@@ -175,10 +205,19 @@ export function AuditForm({ locale }: { locale: Locale }) {
       </div>
 
       <FieldWrap label={f.timeline} htmlFor="timeline">
-        <Select id="timeline" options={contact.timelines} placeholderLabel={f.timeline} />
+        <Select
+          id="timeline"
+          options={contact.timelines}
+          placeholderLabel={f.timeline}
+        />
       </FieldWrap>
 
-      <FieldWrap label={f.message} htmlFor="message" error={errors.message} required>
+      <FieldWrap
+        label={f.message}
+        htmlFor="message"
+        error={errors.message}
+        required
+      >
         <Textarea
           id="message"
           name="message"
@@ -238,7 +277,11 @@ function FieldWrap({
       </label>
       {children}
       {error && (
-        <p id={`${htmlFor}-error`} role="alert" className="text-xs font-medium text-destructive">
+        <p
+          id={`${htmlFor}-error`}
+          role="alert"
+          className="text-xs font-medium text-destructive"
+        >
           {error}
         </p>
       )}

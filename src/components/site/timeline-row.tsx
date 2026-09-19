@@ -69,7 +69,8 @@ export function TimelineRow({
         <Reveal
           className="chain-rail relative hidden overflow-x-clip sm:grid"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 170px), 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 170px), 1fr))",
           }}
         >
           {/* One rail for the whole row, with a glow travelling left to right. */}
@@ -108,7 +109,8 @@ export function TimelineRow({
         <Reveal
           className="hidden sm:grid"
           style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 178px), 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 178px), 1fr))",
             rowGap: "clamp(20px, 2.4vw, 34px)",
             columnGap: 0,
           }}

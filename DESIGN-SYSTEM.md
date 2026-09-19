@@ -42,6 +42,59 @@ forts du look « outil de développeur », alors que le lecteur est un patron de
 PME sans équipe IT. Les libellés de données passent par `.label-xs` :
 majuscules, interlettrage large, sans-serif.
 
+## Le rythme des sections
+
+Le site est découpé en **grands panneaux** (`.section-panel`), pas en un scroll
+continu. Chaque section alterne :
+
+| Section | Ton |
+| --- | --- |
+| Hero | page (blanc cassé) |
+| 01 Constat | blanc |
+| 02 Offre | **encre** |
+| 03 Méthode | page |
+| 04 Équipe | blanc |
+| CTA finale | **encre** |
+| FAQ + footer | page |
+
+Sur desktop, un panneau à l'intérieur d'une section plein écran est **encarté
+avec une gouttière et des coins arrondis** : il se lit comme une grosse carte.
+Sur les pages scrollables (Réalisations, Contact, légales), le même panneau
+reste une bande pleine largeur.
+
+## L'inversion de palette — `.panel-ink`
+
+C'est la pièce maîtresse du système. Toutes les couleurs du site passent par
+des variables CSS, donc **une seule classe suffit à réthémer tout un
+sous-arbre** :
+
+```css
+.panel-ink {
+  background: var(--ink);
+  --foreground: #f5f4f0;
+  --muted-foreground: rgba(245,244,240,.62);
+  --primary: #f5f4f0;          /* le bouton s'inverse */
+  --brand: #9db5ff;            /* le bleu s'éclaircit pour le contraste */
+}
+```
+
+Aucun composant n'a de variante sombre. `text-muted-foreground`,
+`border-hairline`, `btn-ink` : tout s'adapte tout seul.
+
+Deux tokens, `--ink` et `--ink-foreground`, existent **uniquement** pour que
+`background: var(--ink)` ne soit pas affecté par la redéfinition de
+`--foreground` dans la même règle.
+
+## Header
+
+Une **pastille flottante**, encre par défaut, arrondie et détachée des bords.
+Au-dessus d'une section encre (`offre`, `conclusion`) elle **s'inverse en
+clair**, sinon elle disparaîtrait dans le panneau. Le scroll-spy qui pilote
+déjà le soulignement de la navigation fournit l'information.
+
+Le mot-clé « Synode » du logo est un PNG en lettrage **blanc**. `.wordmark-type`
+l'inverse sur fond clair et le laisse tel quel dans un panneau encre.
+
 ## Les trois ornements
 
 Il n'y en a que trois, et ils reviennent partout :
@@ -126,13 +179,16 @@ de `<body>` un conteneur de défilement et casserait le scroll-snap.
   partir de `sm` seulement (`sm:whitespace-pre-line`). Sur mobile ils
   retombent en espaces.
 
-## Carrousel Réalisations
+## Page Réalisations — blocs alternés
 
-Deux mises en page, pas une qu'on rétrécit : carte portrait sous `lg`, carte
-paysage **60 % média / 40 % texte** à partir de `lg`. Le bloc média fait toute
-la hauteur de la carte, donc son bord haut s'aligne sur `D/xx` et son bord bas
-sur la ligne de résultat. **La hauteur du plateau est dictée par la colonne de
-texte**, pas par le média : c'est là que ça casse si un texte s'allonge.
+Le carrousel coverflow a été supprimé. **Il cachait trois projets sur quatre
+derrière une interaction**, alors que ce sont précisément les projets qui
+constituent l'argument d'une agence qui démarre.
+
+À la place, `realisations-list.tsx` : un index de saut en haut, puis **une
+bande par démo**, alternant blanc et blanc cassé, média et texte permutant de
+côté à chaque projet. Le média est un **16:9 pleine largeur de colonne**,
+assez grand pour qu'on regarde vraiment la vidéo.
 
 ## Mobile
 

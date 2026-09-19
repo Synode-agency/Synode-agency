@@ -36,7 +36,8 @@ export function NavLink({
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     // Leave modified clicks alone — new tab, new window, download.
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+      return;
     // Different route: let Next handle the navigation.
     if (pathname !== route) return;
 
@@ -53,7 +54,11 @@ export function NavLink({
     document
       .getElementById(hash)
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", `${route === "/" ? "" : route}#${hash}`);
+    window.history.replaceState(
+      null,
+      "",
+      `${route === "/" ? "" : route}#${hash}`,
+    );
   };
 
   return (

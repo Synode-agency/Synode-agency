@@ -61,7 +61,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <span>© {new Date().getFullYear()} Synode</span>
 
           <nav
-            aria-label={locale === "fr" ? "Informations légales" : "Legal information"}
+            aria-label={
+              locale === "fr" ? "Informations légales" : "Legal information"
+            }
             className="flex items-center gap-x-1.5 whitespace-nowrap text-[0.68rem] sm:text-[0.75rem]"
           >
             {legal.map((link, i) => (
