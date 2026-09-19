@@ -111,7 +111,7 @@ Deux sections quittent la landing pour leur propre route, **scrollables, sans co
 - Padding de carte `clamp(1.75rem,1.4rem+1.8vw,3rem)` et gouttière `clamp(1.25rem,1rem+1.4vw,2.25rem)`.
 - **Deux mises en page, pas une seule qu'on rétrécit.** En dessous de `lg`, carte portrait étroite (`w-[min(92vw,25rem)]`, média au-dessus, plateau `h-[38rem]`). À partir de `lg`, carte paysage (`w-[min(92vw,56rem)]`, plateau `h-[24rem]`). Entre les deux, une seule carte paysage laisserait une colonne de texte d'environ 240 px, trop étroite pour la description.
 - **Le bloc média fait toute la hauteur de la carte** (`lg:h-full`) : son bord haut s'aligne sur la ligne `D/xx` et son bord bas sur la ligne de résultat. Il n'a donc pas de ratio imposé, mais la hauteur du plateau est choisie pour qu'il reste proche du 16:9 (ratio ~1,6), afin qu'une vidéo en `object-contain` n'y laisse qu'une quinzaine de pixels de bandes.
-- **La hauteur du plateau est dictée par la colonne de texte, pas par le média.** C'est la contrainte serrée : à 40 % de largeur, la description tient sur 5 lignes et remplit presque toute la hauteur disponible. Sur `public/card-retravailler/cards-realisation.png`, elle débordait et sa dernière ligne était rognée par `overflow-hidden`. Si un texte s'allonge, c'est ici que ça casse en premier.
+- **La hauteur du plateau est dictée par la colonne de texte, pas par le média.** C'est la contrainte serrée : à 40 % de largeur, la description tient sur 5 lignes et remplit presque toute la hauteur disponible. Une version antérieure débordait et sa dernière ligne était rognée par `overflow-hidden`. Si un texte s'allonge, c'est ici que ça casse en premier.
 - **Pas de ligne d'outils.** Sous la description, seul le résultat apparaît. Le champ `stack` existe toujours dans `content.ts` mais n'est plus affiché : le visiteur veut savoir ce que ça lui rapporte, pas avec quoi c'est construit.
 - Le média est en `object-contain` : une capture d'écran ne doit jamais être recadrée.
 - Le domaine passe sur sa propre ligne plutôt que d'être tronqué, et la typo de la colonne reste d'un cran sous celle du reste du site.
@@ -135,7 +135,7 @@ Les quatre constats sont **équivalents, pas ordonnés** : ils ne portent donc a
 
 Les deux cartes occupent toute la largeur de `container-page` (`lg:grid-cols-2`), donc un **format paysage**. C'est ce format qui permet à la section de tenir sur un écran : une carte portrait pousse la hauteur.
 
-- Les 4 badges sont en `grid-cols-2` : deux par ligne, deux lignes, **chaque pastille remplissant sa cellule** pour que les quatre s'alignent sur une grille nette (référence : `public/card-retravailler/cards-offre.png`).
+- Les 4 badges sont en `grid-cols-2` : deux par ligne, deux lignes, **chaque pastille remplissant sa cellule** pour que les quatre s'alignent sur une grille nette.
 - `sm:whitespace-nowrap` : à partir de `sm`, un badge ne revient jamais à la ligne à l'intérieur de sa pastille (c'est ça qui donnait l'impression de quatre lignes). En dessous, la carte est trop étroite, donc on laisse le texte passer à la ligne plutôt que d'être coupé.
 - Padding de carte `px-[clamp(28px,3vw,52px)]` / `py-[calc(var(--ss)*clamp(30px,2.8vw,48px))]`.
 - **Toutes les respirations verticales sont indexées sur `--ss`** : padding de carte, hauteur des pastilles, marges du texte et du bloc Résultat. Elles s'ouvrent sur un grand écran et se referment sur un portable. C'est la seule chose qui tient la section dans son écran, la marge y est faible : toute hauteur ajoutée ici doit être `--ss`-indexée, jamais fixe.
