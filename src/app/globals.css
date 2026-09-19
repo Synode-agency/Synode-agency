@@ -470,64 +470,6 @@
     margin-top: calc(var(--ss) * var(--stack-gap, 2.5rem));
   }
 
-  /* Constat markers: the four problems are equal, so no numbers — a small
-     ink square on a plain rule. No pulse, no travelling glow. */
-  .chain-pip {
-    display: block;
-    width: 7px;
-    height: 7px;
-    background: var(--brand);
-    transition: transform 200ms ease;
-  }
-
-  .chain-node:hover .chain-pip {
-    transform: scale(1.4);
-  }
-
-  .chain-rail-line {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 1px;
-    transform: translateY(-50%);
-    background: var(--hairline);
-    pointer-events: none;
-  }
-
-  /* Méthode: numbered steps, outlined rather than filled. */
-  .track-dot {
-    position: relative;
-    z-index: 2;
-    width: clamp(2.5rem, 2.2rem + 1vw, 3.25rem);
-    height: clamp(2.5rem, 2.2rem + 1vw, 3.25rem);
-    border-radius: 9999px;
-    border: 1px solid var(--foreground);
-    background: var(--background);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1rem);
-    font-variant-numeric: tabular-nums;
-    color: var(--foreground);
-    transition: background-color 200ms ease, color 200ms ease;
-  }
-
-  .track-node:hover .track-dot {
-    background: var(--foreground);
-    color: var(--primary-foreground);
-  }
-
-  .track-link {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(clamp(2.5rem, 2.2rem + 1vw, 3.25rem) / 2);
-    height: 1px;
-    background: var(--hairline);
-    pointer-events: none;
-  }
 }
 
 @keyframes reveal-in {

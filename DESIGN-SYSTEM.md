@@ -139,6 +139,28 @@ cran. Pas de décollage, pas d'ombre, pas de bordure qui s'allume.
 Les bordures ne survivent que sur les **contrôles** (le pager, le bouton du
 menu mobile), où elles délimitent une zone cliquable.
 
+## Constat, Méthode, Équipe — trois grilles de cartes
+
+Le motif « rail horizontal avec des points » a disparu des sections 01 et 03.
+Il disait « séquence ordonnée », ce que les quatre constats ne sont pas, et il
+imposait une composition rigide.
+
+**01 Constat** — 4 cartes en 2×2. Chaque carte porte un court trait bleu qui
+**s'étend sur toute sa largeur au survol**. C'est la seule animation de la
+section, et elle marque la carte qu'on lit au lieu de décorer.
+
+**03 Méthode** — 4 cartes. Ces étapes-là **sont** ordonnées, donc le numéro
+reste : posé en grand et très pâle dans le coin de la carte, il porte la
+séquence sans qu'aucune ligne n'ait à relier les cartes.
+
+**04 Équipe** — le portrait occupe le haut de la carte et le prénom se pose
+dessus, sur un voile dégradé. Pour une agence de deux personnes sans logo
+client à montrer, **les visages sont la preuve** : ils méritent mieux qu'une
+vignette. La hauteur de l'image est indexée sur `--ss`, pas fixée par un
+ratio, sinon la section sort de son écran sur une fenêtre courte.
+
+`timeline-row.tsx` et tous les styles `chain-*` / `track-*` ont été supprimés.
+
 ## Cartes projet (Réalisations)
 
 Le motif des cas clients de we-are.be : **média en haut occupant l'essentiel
