@@ -1,15 +1,20 @@
+import Link from "next/link";
 import { Wordmark } from "./wordmark";
-import { getContent, type Locale } from "@/lib/content";
+import { NavLink } from "./nav-link";
+import { getContent, path, type Locale } from "@/lib/content";
+import { legalLinks } from "@/lib/legal";
 
 export function SiteFooter({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
+  const contactHref = path(locale, "/contact");
+  const legal = legalLinks(locale);
 
   return (
     <footer className="border-t border-hairline">
-      <div className="container-page py-[clamp(3rem,2.5rem+2.5vw,5.5rem)]">
+      <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1rem,0.85rem+0.6vw,1.6rem)]">
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex max-w-xs flex-col gap-4">
-            <Wordmark />
+            <Wordmark variant="mark" />
             <p className="text-[length:var(--fs-small)] leading-[1.65] text-muted-foreground">
               {site.tagline}
             </p>
@@ -18,20 +23,21 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <nav className="flex flex-col gap-3">
             <span className="eyebrow text-label-muted">Navigation</span>
             {site.nav.map((item) => (
-              <a
+              <NavLink
                 key={item.href}
                 href={item.href}
+                locale={locale}
                 className="w-fit text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.label}
-              </a>
+              </NavLink>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href={contactHref}
               className="w-fit text-[length:var(--fs-small)] text-brand transition-colors hover:text-brand-bright"
             >
               {site.ctaLabel}
-            </a>
+            </Link>
           </nav>
 
           <div className="flex flex-col gap-3">
@@ -51,9 +57,30 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-hairline pt-6 text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
-          <span>{site.footerNote}</span>
+
+          <nav
+            aria-label={locale === "fr" ? "Informations légales" : "Legal information"}
+            className="flex items-center gap-x-1.5 whitespace-nowrap text-[0.68rem] sm:text-[0.75rem]"
+          >
+            {legal.map((link, i) => (
+              <span key={link.slug} className="flex items-center gap-1.5">
+                {i > 0 && (
+                  <span aria-hidden className="text-text-mono/40">
+                    ·
+                  </span>
+                )}
+                <Link
+                  href={link.href}
+                  className="transition-colors hover:text-foreground"
+                >
+                  <span className="sm:hidden">{link.short}</span>
+                  <span className="hidden sm:inline">{link.label}</span>
+                </Link>
+              </span>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

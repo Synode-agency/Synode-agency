@@ -1,22 +1,37 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+/**
+ * Brand lockup.
+ *
+ * `variant="plate"` (default) uses the full logo — the rounded square plate
+ * with the S on it. `variant="mark"` uses the S cut out of that plate, with
+ * no square and no background: that is what the navbar shows, so the header
+ * stays light while the hero and footer keep the full logo.
+ */
 export function Wordmark({
   className,
   withText = true,
+  variant = "plate",
 }: {
   className?: string;
   withText?: boolean;
+  variant?: "plate" | "mark";
 }) {
+  const isMark = variant === "mark";
+
   return (
-    <span className={cn("inline-flex shrink-0 items-center gap-3", className)}>
+    <span className={cn("inline-flex shrink-0 items-center", isMark ? "gap-2.5" : "gap-3", className)}>
       <Image
-        src="/synode-logo.png"
+        src={isMark ? "/synode-mark.png" : "/synode-logo.png"}
         alt={withText ? "" : "Synode"}
-        width={112}
-        height={112}
+        width={isMark ? 202 : 112}
+        height={isMark ? 202 : 112}
         priority
-        className="size-12 shrink-0 rounded-[22%]"
+        className={cn(
+          "shrink-0",
+          isMark ? "size-10 object-contain" : "size-12 rounded-[22%]",
+        )}
       />
       {withText && (
         <Image

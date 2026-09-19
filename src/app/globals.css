@@ -77,6 +77,11 @@
      fit without scrolling. */
   --hs: clamp(0.55, calc(100dvh / 570px - 0.649), 1);
 
+  /* Same idea, applied to the full-screen landing sections: 1 on a tall
+     desktop, down to 0.62 on a short window, so a 100dvh section keeps its
+     whole content visible instead of clipping it. */
+  --ss: clamp(0.62, calc(100dvh / 900px), 1);
+
   /* Fluid layout tokens — scale spacing/type smoothly from small laptops
      through 4K/ultra-wide monitors instead of freezing at a `lg:` cap. */
   --container-max: 110rem; /* 1760px */
@@ -170,6 +175,10 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-feature-settings: "cv11", "ss01";
+    /* Nothing on this site is meant to scroll sideways. `clip` and not
+       `hidden`: `hidden` would turn <body> into a scroll container, and the
+       scroll-snap declared on <html> would stop working. */
+    overflow-x: clip;
   }
 
   h1,
@@ -203,6 +212,15 @@
   /* Give fixed header room and offset anchor targets */
   section[id] {
     scroll-margin-top: 5.5rem;
+  }
+
+  /* Full-screen sections already reserve the header height in their own top
+     padding, so the arrows should land them flush against the viewport top. */
+  @media (min-width: 1024px) {
+    .section-screen[id],
+    .screen-shell[id] {
+      scroll-margin-top: 0;
+    }
   }
 
   /* Every interactive control gets a pointer cursor */
@@ -243,6 +261,89 @@
     width: min(100%, var(--container-max));
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  /* Full-screen landing section (desktop only — mobile keeps natural flow so
+     tall content never gets clipped on a phone). The header is fixed, so the
+     top padding clears it and the content stays optically centred. */
+  .section-screen {
+    padding-block: var(--space-section);
+  }
+
+  @media (min-width: 1024px) {
+    .section-screen {
+      position: relative;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: calc(4.6rem + var(--ss) * 2.5rem) calc(var(--ss) * 3.5rem);
+    }
+
+    /* Sits with the footer inside one viewport: the pair shares 100dvh. */
+    .section-screen-with-footer {
+      min-height: auto;
+      flex: 1;
+    }
+
+    .screen-shell {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /* Static wash for the fixed background layer (`SiteBackground`).
+     Broad, low-contrast pools of brand blue that give the page depth without
+     any visible seam — the whole site scrolls over this one surface. */
+  .site-bg-wash {
+    background:
+      radial-gradient(
+        62% 44% at 18% 8%,
+        color-mix(in oklab, var(--brand) 6%, transparent) 0%,
+        transparent 68%
+      ),
+      radial-gradient(
+        54% 40% at 84% 30%,
+        color-mix(in oklab, var(--brand-deep) 7%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        70% 48% at 50% 100%,
+        color-mix(in oklab, var(--brand) 4%, transparent) 0%,
+        transparent 72%
+      );
+  }
+
+  /* Section snapping — one section per scroll gesture.
+     Enabled only while `SectionSnap` is mounted (landing page), only on
+     desktop, and only when the visitor hasn't asked for reduced motion.
+     Uses the browser's native snapping rather than hijacking the wheel, so
+     keyboard, trackpad inertia and screen readers keep working normally. */
+  @media (min-width: 1024px) {
+    html.snap-sections {
+      scroll-snap-type: y mandatory;
+    }
+
+    html.snap-sections #top,
+    html.snap-sections .section-screen,
+    html.snap-sections .screen-shell {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+  }
+
+  /* Never trap someone who asked for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html.snap-sections {
+      scroll-snap-type: none;
+    }
+  }
+
+  /* Spacing steps that shrink together with --ss, used inside full-screen
+     sections so the whole block breathes less on a short window. */
+  .stack-ss > * + * {
+    margin-top: calc(var(--ss) * var(--stack-gap, 2.5rem));
   }
 
   /* Consistent vertical rhythm for every section — grows past the old
@@ -434,30 +535,102 @@
   }
 
   /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
-  .chain-dot {
-    width: clamp(2.5rem, 2.2rem + 1vw, 3.2rem);
-    height: clamp(2.5rem, 2.2rem + 1vw, 3.2rem);
+  /* Constat pip — the four problems are equal, so no numbers: just a small
+     brand dot that breathes, each one offset from the next. */
+  .chain-pip {
+    position: relative;
+    display: block;
+    width: 8px;
+    height: 8px;
     border-radius: 9999px;
-    border: 1px dashed color-mix(in oklab, var(--foreground) 26%, transparent);
-    background: var(--surface);
-    display: grid;
-    place-items: center;
-    font-family: var(--font-mono);
-    font-size: clamp(0.7rem, 0.65rem + 0.15vw, 0.85rem);
-    color: var(--muted-foreground);
-    transition:
-      border-color 300ms ease,
-      color 300ms ease,
-      box-shadow 300ms ease,
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    background: var(--brand);
+    box-shadow: 0 0 10px color-mix(in oklab, var(--brand) 60%, transparent);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .chain-node:hover .chain-dot {
-    border-color: var(--brand);
-    border-style: solid;
-    color: var(--foreground);
-    box-shadow: 0 0 26px color-mix(in oklab, var(--brand) 50%, transparent);
-    transform: scale(1.1);
+  /* The halo carries the pulse so the hover scale above never fights it. */
+  .chain-pip::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--brand) 40%, transparent) 0%,
+      transparent 68%
+    );
+    animation: chain-pip-pulse 3.6s ease-in-out infinite;
+    animation-delay: var(--pip-delay, 0s);
+  }
+
+  .chain-node:hover .chain-pip {
+    transform: scale(1.45);
+  }
+
+  @keyframes chain-pip-pulse {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(0.75);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+
+  /* Rail linking the four pips, drawn once for the whole row. */
+  .chain-rail-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklab, var(--brand) 26%, transparent) 10%,
+      color-mix(in oklab, var(--brand) 26%, transparent) 90%,
+      transparent 100%
+    );
+  }
+
+  /* Glow sweeping the rail from left to right. */
+  .chain-rail-glow {
+    position: absolute;
+    top: 50%;
+    width: 24%;
+    height: 2px;
+    transform: translateY(-50%);
+    border-radius: 9999px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--brand) 85%, transparent),
+      transparent
+    );
+    box-shadow: 0 0 14px color-mix(in oklab, var(--brand) 45%, transparent);
+    animation: chain-rail-sweep 7s linear infinite;
+  }
+
+  @keyframes chain-rail-sweep {
+    0% {
+      left: -24%;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
   }
 
   /* Track node (Méthode) — solid brand ring at rest, same hover illumination as Constat */
@@ -506,13 +679,50 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .chain-dot {
+    .chain-pip,
+    .chain-pip::after,
+    .chain-rail-glow {
+      animation: none;
       transition: none;
+    }
+    .chain-rail-glow {
+      display: none;
     }
     .track-link {
       animation: none;
       opacity: 0.45;
     }
+  }
+}
+
+/* Hero service cards — a slow, staggered float so the band feels alive.
+   Each card sets --float-delay / --float-dur inline. */
+@keyframes card-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(var(--float-dist, 7px) * -1));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-float {
+    animation: card-float var(--float-dur, 6s) ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+    will-change: transform;
+  }
+}
+
+/* Travelling sheen along the accent bar at the bottom of each service card. */
+@keyframes bar-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  55%,
+  100% {
+    transform: translateX(300%);
   }
 }
 

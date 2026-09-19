@@ -169,7 +169,7 @@ export function AgentDiagram({ className }: { className?: string }) {
       >
         <div className="relative grid place-items-center">
           <motion.div
-            className="absolute -inset-4 rounded-2xl border-2 border-brand/30"
+            className="absolute -inset-2 rounded-2xl border-2 border-brand/30 sm:-inset-4"
             animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0, 0.4] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
@@ -178,7 +178,7 @@ export function AgentDiagram({ className }: { className?: string }) {
             alt=""
             width={96}
             height={96}
-            className="brand-glow size-[clamp(3.5rem,3.6rem+1vw,5.5rem)] rounded-[22%]"
+            className="brand-glow size-10 rounded-[22%] sm:size-[clamp(3.5rem,3.6rem+1vw,5.5rem)]"
           />
         </div>
       </div>
@@ -199,7 +199,7 @@ export function AgentDiagram({ className }: { className?: string }) {
             }}
             className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
           >
-            <div className="grid size-[clamp(2.75rem,2.9rem+0.7vw,4rem)] place-items-center rounded-xl border border-hairline bg-background text-foreground">
+            <div className="grid size-8 place-items-center rounded-lg border border-hairline bg-background text-foreground sm:size-[clamp(2.75rem,2.9rem+0.7vw,4rem)] sm:rounded-xl">
               <motion.div
                 animate={{ x: [0, n.float.x, 0], y: [0, -n.float.y, 0] }}
                 transition={{
@@ -210,9 +210,9 @@ export function AgentDiagram({ className }: { className?: string }) {
                 }}
               >
                 {n.id === "data" ? (
-                  <LayersIcon size={20} />
+                  <LayersIcon size={16} />
                 ) : (
-                  <NodeIcon className="size-[clamp(1.15rem,1.2rem+0.25vw,1.5rem)]" />
+                  <NodeIcon className="size-4 sm:size-[clamp(1.15rem,1.2rem+0.25vw,1.5rem)]" />
                 )}
               </motion.div>
             </div>
