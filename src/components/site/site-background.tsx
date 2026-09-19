@@ -44,8 +44,9 @@ export function SiteBackground() {
       {!reducedMotion && (
         // The shader is scaled to the viewport, so on a phone its bright cores
         // fill a much larger share of the screen than on a desktop and the
-        // background reads as lit up. Half the opacity below `md` evens it out.
-        <div className="absolute inset-0 opacity-25 md:opacity-100">
+        // background reads as lit up. The wrapper below `md` cancels the
+        // desktop value back down to the ~0.9% the phone was already at.
+        <div className="absolute inset-0 opacity-[0.146] md:opacity-100">
           <Ferrofluid
             paused={paused}
             colors={["#00A8F8", "#00A8F8", "#00A8F8"]}
@@ -58,7 +59,7 @@ export function SiteBackground() {
             shimmer={1.5}
             glow={2}
             flowDirection="down"
-            opacity={0.035}
+            opacity={0.06}
             mouseInteraction={false}
           />
         </div>
