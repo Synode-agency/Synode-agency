@@ -2,14 +2,12 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * Brand lockup. The variant follows the ground it sits on:
+ * Brand lockup.
  *
- * - `"plate"` (default) — the full logo, the rounded square with the S on it.
- *   Used on **light** grounds, where the dark plate reads cleanly. That is
- *   the navbar.
- * - `"mark"` — the S cut out of that plate, no square, no background. Used on
- *   **dark** grounds, where the plate would print a darker box on dark. That
- *   is the footer.
+ * `variant="plate"` (default) uses the full logo — the rounded square plate
+ * with the S on it. `variant="mark"` uses the S cut out of that plate, with
+ * no square and no background: that is what the navbar shows, so the header
+ * stays light while the hero and footer keep the full logo.
  */
 export function Wordmark({
   className,

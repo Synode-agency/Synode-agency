@@ -4,10 +4,9 @@ import { Reveal } from "./reveal";
 /**
  * Section heading.
  *
- * No label or tag above the title: we-are.be introduces every section with
- * the headline alone and lets size carry the hierarchy. The `eyebrow` prop
- * stays in the signature because the copy still holds those strings, and it
- * is used as the accessible name of the section.
+ * The eyebrows in `content.ts` are written "02 / Notre offre". We split that
+ * apart and set the index as a small blue number above a rule, magazine
+ * style — one recurring, quiet ornament instead of a glowing pill.
  */
 export function SectionHeading({
   eyebrow,
@@ -17,7 +16,7 @@ export function SectionHeading({
   align = "left",
   className,
 }: {
-  eyebrow?: string;
+  eyebrow: string;
   title: string;
   subtitle?: string;
   /** Secondary line under the subtitle, smaller and in brand blue. */
@@ -26,19 +25,28 @@ export function SectionHeading({
   className?: string;
 }) {
   const centered = align === "center";
+  const [index, label] = eyebrow.includes("/")
+    ? eyebrow.split("/").map((part) => part.trim())
+    : [null, eyebrow];
 
   return (
     <Reveal
-      aria-label={eyebrow}
       className={cn(
         "flex flex-col",
         centered && "items-center text-center",
         className,
       )}
     >
+      <div
+        className={cn("flex items-baseline gap-2.5", centered && "justify-center")}
+      >
+        {index && <span className="section-index">{index}</span>}
+        <span className="eyebrow">{label}</span>
+      </div>
+
       <h2
         className={cn(
-          "max-w-[18ch] text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance",
+          "mt-3 max-w-[18ch] text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance",
           centered && "max-w-[20ch]",
         )}
       >
@@ -48,7 +56,7 @@ export function SectionHeading({
       {(subtitle || subtitleNote) && (
         <p
           className={cn(
-            "mt-[clamp(0.9rem,0.75rem+0.6vw,1.4rem)] max-w-[52ch] text-[length:var(--fs-body)] leading-[1.65] text-muted-foreground sm:whitespace-pre-line",
+            "mt-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.6vw,1.4rem))] max-w-[52ch] text-[length:var(--fs-body)] leading-[1.65] text-muted-foreground sm:whitespace-pre-line",
             centered && "mx-auto",
           )}
         >

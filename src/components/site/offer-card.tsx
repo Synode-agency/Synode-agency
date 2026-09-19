@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/site/reveal";
 
 interface OfferCardProps {
@@ -61,7 +62,11 @@ export function OfferCard({
         ))}
       </ul>
 
-      <div className="mt-auto pt-[clamp(1.25rem,1rem+1vw,2rem)]">
+      <div
+        className={cn(
+          "mt-auto pt-[calc(var(--ss)*clamp(1.25rem,1rem+1vw,2rem))]",
+        )}
+      >
         <div className="label-xs text-muted-foreground">{resultLabel}</div>
         <p className="mt-1.5 max-w-[44ch] text-[clamp(0.9rem,0.3vw+0.84rem,1.05rem)] leading-[1.5] font-medium">
           {result}

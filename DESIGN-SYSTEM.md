@@ -1,67 +1,81 @@
 # Synode — système de design
 
-Conception calquée sur **we-are.be**. Points de restauration : `v1-fastonweb`
-(version claire précédente), `v0-dark` (première version sombre).
+Refonte claire, éditoriale. La version sombre précédente est figée sur le tag
+`v0-dark` si besoin de comparer.
 
 ## Le principe
 
-Le caractère vient de **l'échelle typographique, du blanc et de la
-photographie**, jamais d'un effet. Pas de dégradé, pas de lueur, pas d'ombre
-portée, pas de fond animé.
+Le caractère vient de **l'échelle typographique, du blanc et des filets**,
+jamais d'un effet. Pas de dégradé, pas de lueur, pas d'ombre portée, pas de
+fond animé. Si un élément a besoin d'un effet pour exister, c'est qu'il est
+mal composé.
 
-Ce qu'on a repris à we-are.be, point par point :
+Références qui ont guidé la refonte : **we-are.be** et **fastonweb.com** en
+premier, plasm-agency.com ensuite. Ce qu'on leur a repris, point par point :
 
-- **titre de section seul**, sans petit label ni tag au-dessus
-- **boutons noirs en pastille**, padding horizontal généreux
-- **navigation en minuscules**
-- **photos en cadrages rectangulaires** (pas de détourage, pas de disques)
-- cartes de service **remplies, sans bordure**, coins à 8 px
-- cartes de projet **à angles vifs**, image en haut
-- bandes pleine largeur alternant blanc et blanc cassé
-- tout **aligné à gauche**
+- bandes **pleine largeur**, pas de coins arrondis sur les sections
+- alternance de fonds clairs pour rythmer la page
+- **boutons en pastille**, padding horizontal généreux, remplissage sombre
+- titres **2,5 à 3 fois** la taille du texte courant
+- tout **aligné à gauche**, sauf les blocs de clôture
+- arrondis réservés aux **cartes et vignettes**
+- header pleine largeur : logo à gauche, liens au centre, CTA à droite
 
-## Logo
+## Couleurs (`globals.css`)
 
-La variante suit le fond :
-
-| Fond | Variante | Fichier |
+| Token | Valeur | Usage |
 | --- | --- | --- |
-| Clair (navbar) | `plate` | `synode-logo.png`, la plaque carrée complète |
-| Sombre (footer) | `mark` | `synode-mark.png`, le S seul, détouré |
+| `--background` | `#f5f4f0` | Blanc cassé **chaud**. Un gris neutre rend clinique. |
+| `--foreground` | `#14130f` | Noir chaud. Jamais `#000`. |
+| `--surface` | `#ffffff` | Cartes, posées sur le blanc cassé. C'est ce léger écart qui crée la profondeur, pas une ombre. |
+| `--surface-2` | `#ebe9e3` | Survols, aplats secondaires. |
+| `--hairline` | `rgba(20,19,15,.13)` | Tous les filets. |
+| `--primary` | `#1b4de0` | **L'action principale est bleue**, comme fastonweb utilise son turquoise : le bouton est le point de fuite de chaque section. |
+| `--brand` | `#1b4de0` | Bleu, **à très petite dose** : index de section, pastilles, un mot dans le titre du hero. |
 
-Sur fond sombre, la plaque imprimerait un carré plus foncé dans le noir ;
-c'est pour ça que le S détouré existe.
+Le bleu vif d'avant (`#3fa9f5`) a disparu du fond et des boutons. Il ne survit
+que dans le logo et dans ces quelques accents.
 
-Le mot « Synode » est un PNG en lettrage **blanc** : `.wordmark-type`
-l'inverse sur fond clair et le laisse tel quel dans un panneau encre.
+## Typographie
+
+**Deux familles, contre cinq avant.**
+
+- **Archivo** (`--font-heading`) : tous les titres, en 700/800, interlettrage
+  négatif (`-0.035em`) et interlignage serré (`0.98`).
+- **Inter** (`--font-sans`) : tout le reste.
+
+**Le monospace a été supprimé du site.** C'était un des marqueurs les plus
+forts du look « outil de développeur », alors que le lecteur est un patron de
+PME sans équipe IT. Les libellés de données passent par `.label-xs` :
+majuscules, interlettrage large, sans-serif.
 
 ## Le rythme des sections
 
-Sections à hauteur de contenu, scroll naturel. Bandes pleine largeur,
-**aucun coin arrondi sur les sections**.
+**Les sections sont à hauteur de contenu et la page scrolle normalement.**
+La version précédente épinglait chaque section à `100dvh` avec du scroll-snap ;
+fastonweb et we-are.be scrollent tous les deux naturellement, et c'est ce qui
+fait la différence entre « site d'agence » et « démo de produit ».
+
+Conséquences directes : `SectionSnap`, `SectionPager` et le token `--ss`
+comme facteur de compression ont disparu. `--ss` reste déclaré à `1` parce que
+l'échelle d'espacement s'en sert encore, mais **plus aucun texte n'est
+contraint en longueur** par la hauteur d'un écran.
+
+Le rythme se fait par alternance de fonds, et rien d'autre :
 
 | Section | Fond |
 | --- | --- |
 | Hero | blanc |
-| Services (les 4 piliers) | blanc cassé |
 | 01 Constat | blanc cassé |
 | 02 Offre | blanc |
 | 03 Méthode | blanc cassé |
 | 04 Équipe | blanc |
-| CTA finale | blanc cassé, carte blanche au centre |
+| CTA finale | blanc cassé, avec une **carte blanche** au centre |
 | FAQ | blanc |
 | Footer | **encre** |
 
-## Hero
-
-Leur modèle exact : titre à gauche, paragraphe, deux actions, et **les photos
-des personnes à droite**, en cadrages 4:5 décalés en hauteur. Leur hero montre
-leur équipe au bureau ; le nôtre montre Antonino et Killian. Même argument :
-on voit à qui on va parler avant d'avoir lu une ligne d'offre.
-
-**Conséquence : la section Équipe n'a plus de portraits.** Répéter les deux
-mêmes photographies sur une page se lit comme un oubli. Elle répond à la
-question suivante, qui fait quoi.
+Un seul aplat sombre, tout en bas. Les deux références évitent les ruptures
+de couleur fortes en milieu de page.
 
 ## L'inversion de palette — `.panel-ink`
 
