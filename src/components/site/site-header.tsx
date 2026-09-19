@@ -2,18 +2,25 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
-import { getContent, homePath, type Locale } from "@/lib/content";
+import { NavLink } from "./nav-link";
+import { getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const SPY_IDS = ["top", "offre", "realisations", "contact"];
+/** Landing sections the scroll-spy underline follows. */
+const SPY_IDS = ["top", "probleme", "offre", "methode", "equipe", "conclusion", "faq"];
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("top");
+
+  const home = homePath(locale);
+  const onHome = pathname === home;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -30,6 +37,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   }, [open]);
 
   useEffect(() => {
+    if (!onHome) return;
     const targets = SPY_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => !!el,
     );
@@ -45,7 +53,20 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     );
     targets.forEach((t) => io.observe(t));
     return () => io.disconnect();
-  }, []);
+  }, [onHome]);
+
+  /** A nav item is current when its route matches, or when the landing is
+   *  scrolled to the section it points at. */
+  const isCurrent = (href: string) => {
+    const [route, hash] = href.split("#");
+    const normalised = route === "" ? "/" : route.replace(/\/$/, "") || "/";
+    if (hash) return onHome && active === hash;
+    if (normalised === home) return onHome && active === "top";
+    return pathname === normalised || pathname.startsWith(`${normalised}/`);
+  };
+
+  const contactHref = path(locale, "/contact");
+  const contactCurrent = pathname === contactHref;
 
   const langLink = (target: Locale, code: string) => {
     const isActive = target === locale;
@@ -68,32 +89,39 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          "border-b transition-[background-color,border-color,backdrop-filter] duration-300",
-          scrolled
+          // Above the mobile panel, so the logo and the close button sit on
+          // top of it rather than being covered by it.
+          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          // While the mobile panel is open the bar goes fully transparent, so
+          // the panel's black reads as one surface with no seam under the logo.
+          scrolled && !open
             ? "border-hairline bg-glass-card backdrop-blur-xl"
             : "border-transparent bg-transparent",
         )}
       >
         <div className="container-page flex h-[4.6rem] items-center justify-between gap-4">
-          <a
-            href="#top"
+          <NavLink
+            href={home}
+            locale={locale}
+            onNavigate={() => setOpen(false)}
             aria-label="Synode — accueil"
             className="flex shrink-0 items-center rounded-md"
           >
-            <Wordmark />
-          </a>
+            <Wordmark variant="mark" />
+          </NavLink>
 
           <nav className="hidden items-center gap-1 md:flex">
             {site.nav.map((item) => {
-              const isActive = active === item.href.replace("#", "");
+              const current = isCurrent(item.href);
               return (
-                <a
+                <NavLink
                   key={item.href}
                   href={item.href}
-                  aria-current={isActive ? "true" : undefined}
+                  locale={locale}
+                  aria-current={current ? "page" : undefined}
                   className={cn(
                     "group relative rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
-                    isActive
+                    current
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground",
                   )}
@@ -102,23 +130,24 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   <span
                     className={cn(
                       "absolute inset-x-3 -bottom-px h-px origin-left bg-brand transition-transform duration-300",
-                      isActive ? "scale-x-100" : "scale-x-0",
+                      current ? "scale-x-100" : "scale-x-0",
                     )}
                     aria-hidden
                   />
-                </a>
+                </NavLink>
               );
             })}
           </nav>
 
           <div className="flex items-center gap-3">
-            <a
-              href="#contact"
+            <Link
+              href={contactHref}
+              aria-current={contactCurrent ? "page" : undefined}
               className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </Link>
 
             <div className="hidden items-center border-l border-hairline pl-3 font-mono text-[0.72rem] sm:flex">
               {langLink("fr", "FR")}
@@ -139,27 +168,28 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-x-0 top-[4.6rem] bottom-0 z-40 bg-background/98 backdrop-blur-xl md:hidden">
-          <nav className="container-page flex flex-col gap-1 py-8">
+        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[4.6rem] pb-8 md:hidden">
+          <nav className="container-page flex -translate-y-20 flex-col items-center gap-1">
             {site.nav.map((item) => (
-              <a
+              <NavLink
                 key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3.5 text-lg text-foreground/90 hover:bg-surface-2"
+                locale={locale}
+                onNavigate={() => setOpen(false)}
+                className="w-full rounded-lg px-3 py-3.5 text-center text-lg text-foreground/90 hover:bg-surface-2"
               >
                 {item.label}
-              </a>
+              </NavLink>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href={contactHref}
               onClick={() => setOpen(false)}
               className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium text-brand-foreground"
             >
               {site.ctaLabel}
               <ArrowRight className="size-4" />
-            </a>
-            <div className="mt-5 flex items-center gap-1 px-1 font-mono text-sm">
+            </Link>
+            <div className="mt-5 flex items-center justify-center gap-1 font-mono text-sm">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>

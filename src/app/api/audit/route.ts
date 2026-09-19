@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Payload = {
-  name?: string;
+  lastName?: string;
+  firstName?: string;
   email?: string;
-  company?: string;
   phone?: string;
   timeline?: string;
   message?: string;
@@ -20,15 +20,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }
 
-  const name = (body.name ?? "").trim();
+  const lastName = (body.lastName ?? "").trim();
+  const firstName = (body.firstName ?? "").trim();
   const email = (body.email ?? "").trim();
-  const company = (body.company ?? "").trim();
   const phone = (body.phone ?? "").trim();
   const timeline = (body.timeline ?? "").trim();
   const message = (body.message ?? "").trim();
 
   const fieldErrors: Record<string, string> = {};
-  if (!name) fieldErrors.name = "required";
+  if (!lastName) fieldErrors.lastName = "required";
+  if (!firstName) fieldErrors.firstName = "required";
   if (!email) fieldErrors.email = "required";
   else if (!EMAIL_RE.test(email)) fieldErrors.email = "invalid";
   if (!phone) fieldErrors.phone = "required";
@@ -43,9 +44,9 @@ export async function POST(request: Request) {
   // notification Slack/Telegram, ou insertion en base.
   // Pour l'instant on se contente de logger côté serveur.
   console.info("[audit] nouvelle demande", {
-    name,
+    lastName,
+    firstName,
     email,
-    company: company || "—",
     phone,
     timeline: timeline || "—",
     locale: (body.locale ?? "fr").trim() || "fr",

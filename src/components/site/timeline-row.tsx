@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/site/reveal";
-import { cn } from "@/lib/utils";
 
 interface TimelineItem {
   title: string;
@@ -20,10 +19,10 @@ function ChainText({ title, text }: TimelineItem) {
 }
 
 /**
- * Numbered nodes for the Constat ("chain") and Méthode ("track") sections.
- * Chain: dots rest dashed/muted, light up (solid brand ring + glow) only
- * while their whole cell is hovered; title + text alternate above/below the
- * dot, each centered on it.
+ * Nodes for the Constat ("chain") and Méthode ("track") sections.
+ * Chain: the four problems are equal, not ordered, so they carry no number —
+ * just a small pulsing brand pip on a rail whose glow sweeps left to right.
+ * Title + text alternate above/below the pip, each centered on it.
  * Track: dots rest solid brand (all four alike), light up the same way on
  * hover; text sits below every node, linked by a slow-pulsing gradient line.
  */
@@ -46,14 +45,13 @@ export function TimelineRow({
             delay={i * 70}
             className="flex items-start gap-4 rounded-2xl border border-hairline bg-surface p-5 text-left"
           >
-            <span
-              className={cn(
-                "tnum shrink-0",
-                variant === "chain" ? "chain-dot" : "track-dot",
-              )}
-            >
-              {String(i + 1).padStart(2, "0")}
-            </span>
+            {variant === "chain" ? (
+              <span aria-hidden className="chain-pip mt-[7px] shrink-0" />
+            ) : (
+              <span className="track-dot tnum shrink-0">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            )}
             <div>
               <h3 className="text-[0.95rem] font-semibold tracking-tight">
                 {item.title}
@@ -69,11 +67,14 @@ export function TimelineRow({
       {/* Desktop */}
       {variant === "chain" ? (
         <Reveal
-          className="hidden sm:grid"
+          className="chain-rail relative hidden overflow-x-clip sm:grid"
           style={{
             gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 170px), 1fr))",
           }}
         >
+          {/* One rail for the whole row, with a glow travelling left to right. */}
+          <span aria-hidden className="chain-rail-line" />
+          <span aria-hidden className="chain-rail-glow" />
           {items.map((item, i) => {
             const showAbove = i % 2 === 0;
             return (
@@ -82,20 +83,17 @@ export function TimelineRow({
                 className="chain-node relative grid grid-rows-[1fr_auto_1fr] px-1.5"
                 style={{ minHeight: "clamp(230px, 24vw, 280px)" }}
               >
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 top-1/2 border-t border-dashed"
-                  style={{ borderColor: "rgba(233, 240, 248, 0.16)" }}
-                />
                 <div className="row-start-1 self-end px-1 py-3.5 text-center">
                   {showAbove && (
                     <ChainText title={item.title} text={item.text} />
                   )}
                 </div>
                 <div className="row-start-2 z-[2] justify-self-center self-center">
-                  <span className="chain-dot tnum">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  <span
+                    aria-hidden
+                    className="chain-pip"
+                    style={{ ["--pip-delay" as string]: `${i * 0.55}s` }}
+                  />
                 </div>
                 <div className="row-start-3 self-start px-1 py-3.5 text-center">
                   {!showAbove && (

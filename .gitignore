@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Working screenshots used as design references — not site content, and
+# anything under public/ is served publicly once deployed.
+/public/screenshots/
+/public/card-retravailler/

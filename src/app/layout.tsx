@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono, Archivo, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { SiteBackground } from "@/components/site/site-background";
 
 const fontHeading = Space_Grotesk({
   variable: "--font-heading",
@@ -93,6 +94,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        {/* One fixed surface behind the whole site — every page scrolls over it */}
+        <SiteBackground />
         {children}
         <Toaster position="top-center" />
       </body>

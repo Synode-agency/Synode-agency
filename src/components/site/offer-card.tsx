@@ -62,7 +62,7 @@ export function OfferCard({
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
       className={cn(
-        "relative flex flex-col items-center overflow-hidden rounded-[18px] border p-[clamp(22px,2.6vw,32px)] text-center transition-[border-color] duration-300 hover:border-brand/50",
+        "relative flex flex-col items-center overflow-hidden rounded-[18px] border px-[clamp(28px,3vw,52px)] py-[calc(var(--ss)*clamp(30px,2.8vw,48px))] text-center transition-[border-color] duration-300 hover:border-brand/50",
         isSecondary ? "border-brand-deep/42" : "border-brand/30",
       )}
       style={{
@@ -87,17 +87,19 @@ export function OfferCard({
         </h3>
       </div>
 
-      <p className="font-plex mx-auto mt-3.5 max-w-[40ch] text-[clamp(13px,0.5vw+12px,16px)] leading-[1.58] text-secondary-foreground">
+      <p className="font-plex mx-auto mt-[calc(var(--ss)*clamp(12px,0.8vw+8px,18px))] max-w-[44ch] text-balance text-[clamp(13px,0.5vw+12px,16px)] leading-[1.58] text-secondary-foreground">
         {forWho}
       </p>
 
-      <div className="mt-[clamp(14px,1vw+10px,22px)] flex flex-wrap justify-center gap-[clamp(6px,0.4vw+5px,10px)]">
+      {/* Two per row, always: a 2x2 block, so exactly two rows of badges.
+          Each pill fills its cell, so the four line up on a clean grid. */}
+      <div className="mt-[calc(var(--ss)*clamp(16px,1.2vw+12px,26px))] grid w-full grid-cols-2 gap-[clamp(8px,0.5vw+6px,14px)]">
         {chips.map((chip, i) => (
           <span
             key={chip}
             style={{ transitionDelay: hovered ? `${i * 42}ms` : "0ms" }}
             className={cn(
-              "font-plex rounded-full border px-3 py-[5px] text-[clamp(12px,0.3vw+11px,14px)] transition-[transform,border-color,color] duration-300",
+              "font-plex grid place-items-center rounded-full border px-[clamp(12px,0.6vw+9px,18px)] py-[calc(var(--ss)*clamp(9px,0.4vw+7px,13px))] text-center text-balance sm:whitespace-nowrap text-[clamp(12px,0.3vw+11px,14px)] leading-tight transition-[transform,border-color,color] duration-300",
               hovered
                 ? "-translate-y-[3px] border-brand/55 text-foreground"
                 : "translate-y-0 border-foreground/16 text-secondary-foreground",
@@ -110,7 +112,7 @@ export function OfferCard({
 
       <div
         className={cn(
-          "mx-auto mt-5 max-w-[34ch] border-t-2 pt-[13px]",
+          "mx-auto mt-[calc(var(--ss)*clamp(20px,1.4vw+14px,30px))] max-w-[42ch] border-t-2 pt-[15px]",
           isSecondary ? "border-offer-accent-2" : "border-brand",
         )}
       >

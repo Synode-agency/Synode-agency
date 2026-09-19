@@ -5,12 +5,15 @@ export function SectionHeading({
   eyebrow,
   title,
   subtitle,
+  subtitleNote,
   align = "center",
   className,
 }: {
   eyebrow: string;
   title: string;
   subtitle?: string;
+  /** Secondary line under the subtitle: mono, smaller, brand blue. */
+  subtitleNote?: string;
   align?: "left" | "center";
   className?: string;
 }) {
@@ -40,14 +43,19 @@ export function SectionHeading({
       >
         {title}
       </h2>
-      {subtitle && (
+      {(subtitle || subtitleNote) && (
         <p
           className={cn(
-            "max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground",
+            "max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground sm:whitespace-pre-line",
             centered && "mx-auto",
           )}
         >
           {subtitle}
+          {subtitleNote && (
+            <span className="mt-2 block font-mono text-[clamp(0.78rem,0.15vw+0.74rem,0.88rem)] tracking-[0.02em] text-brand">
+              {subtitleNote}
+            </span>
+          )}
         </p>
       )}
     </Reveal>

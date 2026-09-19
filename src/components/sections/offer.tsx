@@ -6,15 +6,16 @@ export function Offer({ locale }: { locale: Locale }) {
   const { offer } = getContent(locale);
 
   return (
-    <section id="offre" className="section-y border-t border-hairline">
+    <section id="offre" className="section-screen relative border-t border-hairline">
       <div className="container-page">
         <SectionHeading
           eyebrow={offer.eyebrow}
           title={offer.title}
           subtitle={offer.subtitle}
+          subtitleNote={offer.subtitleNote}
         />
 
-        <div className="mt-[clamp(2.5rem,2rem+2vw,4.5rem)] grid gap-[clamp(1.25rem,1rem+1.5vw,2.5rem)] lg:grid-cols-2">
+        <div className="mt-[calc(var(--ss)*clamp(2rem,1.6rem+2vw,3.75rem))] grid gap-[clamp(1.25rem,1rem+1.5vw,2.5rem)] lg:grid-cols-2">
           {offer.cards.map((card, i) => (
             <OfferCard
               key={card.number}
@@ -30,6 +31,7 @@ export function Offer({ locale }: { locale: Locale }) {
           ))}
         </div>
       </div>
+
     </section>
   );
 }

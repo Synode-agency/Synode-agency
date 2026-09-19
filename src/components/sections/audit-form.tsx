@@ -1,21 +1,56 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { getContent, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-type Field = "name" | "email" | "company" | "phone" | "timeline" | "message";
+type Field = "lastName" | "firstName" | "email" | "phone" | "timeline" | "message";
 type Errors = Partial<Record<Field, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Deliberately loose: international formats vary too much to validate strictly.
+const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
   "w-full rounded-xl border border-hairline bg-white/[0.02] px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
 const controlH = "h-12";
+
+/** Native select styled like the inputs, with our own chevron. */
+function Select({
+  id,
+  options,
+  placeholderLabel,
+}: {
+  id: string;
+  options: readonly string[];
+  placeholderLabel: string;
+}) {
+  return (
+    <div className="relative">
+      <select
+        id={id}
+        name={id}
+        aria-label={placeholderLabel}
+        defaultValue={options[0]}
+        className={cn(control, controlH, "appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground")}
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      <ChevronDown
+        aria-hidden
+        className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+      />
+    </div>
+  );
+}
 
 export function AuditForm({ locale }: { locale: Locale }) {
   const { contact } = getContent(locale);
@@ -26,10 +61,11 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   function validate(data: Record<Field, string>): Errors {
     const e: Errors = {};
-    if (!data.name.trim()) e.name = f.errName;
+    if (!data.lastName.trim()) e.lastName = f.errLastName;
+    if (!data.firstName.trim()) e.firstName = f.errFirstName;
     if (!data.email.trim()) e.email = f.errEmail;
     else if (!EMAIL_RE.test(data.email.trim())) e.email = f.errEmailInvalid;
-    if (!data.phone.trim()) e.phone = f.errPhone;
+    if (!PHONE_RE.test(data.phone.trim())) e.phone = f.errPhone;
     if (!data.message.trim() || data.message.trim().length < 10)
       e.message = f.errMessage;
     return e;
@@ -39,9 +75,9 @@ export function AuditForm({ locale }: { locale: Locale }) {
     event.preventDefault();
     const fd = new FormData(event.currentTarget);
     const data: Record<Field, string> = {
-      name: String(fd.get("name") ?? ""),
+      lastName: String(fd.get("lastName") ?? ""),
+      firstName: String(fd.get("firstName") ?? ""),
       email: String(fd.get("email") ?? ""),
-      company: String(fd.get("company") ?? ""),
       phone: String(fd.get("phone") ?? ""),
       timeline: String(fd.get("timeline") ?? ""),
       message: String(fd.get("message") ?? ""),
@@ -75,10 +111,10 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="flex flex-col items-start gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9">
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9 text-center">
         <CheckCircle2 className="size-8 text-brand" />
         <h3 className="text-lg font-semibold tracking-tight">{f.sentTitle}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">
+        <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
           {contact.success}
         </p>
       </div>
@@ -86,28 +122,25 @@ export function AuditForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={onSubmit}
-      noValidate
-      className="flex flex-col gap-5 rounded-2xl border border-hairline bg-surface p-[clamp(1.5rem,1.25rem+1.5vw,2.75rem)]"
-    >
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap label={f.name} htmlFor="name" error={errors.name} required>
+        <FieldWrap label={f.lastName} htmlFor="lastName" error={errors.lastName} required>
           <Input
-            id="name"
-            name="name"
-            autoComplete="name"
-            aria-invalid={!!errors.name}
-            aria-describedby={errors.name ? "name-error" : undefined}
+            id="lastName"
+            name="lastName"
+            autoComplete="family-name"
+            aria-invalid={!!errors.lastName}
+            aria-describedby={errors.lastName ? "lastName-error" : undefined}
             className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
-        <FieldWrap label={f.company} htmlFor="company">
+        <FieldWrap label={f.firstName} htmlFor="firstName" error={errors.firstName} required>
           <Input
-            id="company"
-            name="company"
-            autoComplete="organization"
+            id="firstName"
+            name="firstName"
+            autoComplete="given-name"
+            aria-invalid={!!errors.firstName}
+            aria-describedby={errors.firstName ? "firstName-error" : undefined}
             className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
@@ -133,6 +166,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
+            placeholder="+32 4xx xx xx xx"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
             className={cn(control, controlH, "dark:bg-white/[0.02]")}
@@ -141,58 +175,44 @@ export function AuditForm({ locale }: { locale: Locale }) {
       </div>
 
       <FieldWrap label={f.timeline} htmlFor="timeline">
-        <select
-          id="timeline"
-          name="timeline"
-          defaultValue={contact.timelines[0]}
-          className={cn(control, controlH, "[&>option]:text-black")}
-        >
-          {contact.timelines.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
+        <Select id="timeline" options={contact.timelines} placeholderLabel={f.timeline} />
       </FieldWrap>
 
-      <FieldWrap
-        label={f.message}
-        htmlFor="message"
-        error={errors.message}
-        required
-      >
+      <FieldWrap label={f.message} htmlFor="message" error={errors.message} required>
         <Textarea
           id="message"
           name="message"
-          rows={5}
+          rows={6}
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(control, "min-h-36 py-3 dark:bg-white/[0.02]")}
+          className={cn(control, "min-h-44 py-3 dark:bg-white/[0.02]")}
         />
       </FieldWrap>
 
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground disabled:opacity-60"
-      >
-        {status === "sending" ? (
-          <>
-            <Loader2 className="size-4 animate-spin" />
-            {f.sending}
-          </>
-        ) : (
-          <>
-            {contact.submit}
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-          </>
-        )}
-      </button>
+      <div className="mt-2 flex flex-col items-center gap-4">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow disabled:opacity-60"
+        >
+          {status === "sending" ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              {f.sending}
+            </>
+          ) : (
+            <>
+              {contact.submit}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </>
+          )}
+        </button>
 
-      <p className="text-[0.75rem] leading-relaxed text-muted-foreground/70">
-        {contact.note}
-      </p>
+        <p className="mx-auto max-w-lg text-center text-[0.75rem] leading-relaxed text-muted-foreground/70 sm:whitespace-pre-line">
+          {contact.note}
+        </p>
+      </div>
     </form>
   );
 }
@@ -218,11 +238,7 @@ function FieldWrap({
       </label>
       {children}
       {error && (
-        <p
-          id={`${htmlFor}-error`}
-          role="alert"
-          className={cn("text-xs font-medium text-destructive")}
-        >
+        <p id={`${htmlFor}-error`} role="alert" className="text-xs font-medium text-destructive">
           {error}
         </p>
       )}

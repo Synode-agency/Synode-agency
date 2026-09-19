@@ -7,7 +7,7 @@ export function Method({ locale }: { locale: Locale }) {
   const { method, audience } = getContent(locale);
 
   return (
-    <section id="methode" className="section-y border-t border-hairline">
+    <section id="methode" className="section-screen relative border-t border-hairline">
       <div className="container-page flex flex-col items-center">
         <SectionHeading
           eyebrow={method.eyebrow}
@@ -15,7 +15,10 @@ export function Method({ locale }: { locale: Locale }) {
           subtitle={audience.body}
         />
 
-        <Reveal delay={80} className="mt-7 flex flex-wrap justify-center gap-2">
+        <Reveal
+          delay={80}
+          className="mt-[calc(var(--ss)*1.75rem)] flex flex-wrap justify-center gap-2"
+        >
           {audience.sectors.map((sector) => (
             <span
               key={sector}
@@ -26,8 +29,13 @@ export function Method({ locale }: { locale: Locale }) {
           ))}
         </Reveal>
 
-        <TimelineRow items={method.steps} variant="track" className="mt-20 w-full" />
+        <TimelineRow
+          items={method.steps}
+          variant="track"
+          className="mt-[calc(var(--ss)*clamp(2.5rem,2rem+2.5vw,5rem))] w-full"
+        />
       </div>
+
     </section>
   );
 }
