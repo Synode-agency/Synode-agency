@@ -46,10 +46,10 @@ export function SiteBackground() {
         // fill a much larger share of the screen than on a desktop and the
         // background reads as lit up. The wrapper below `md` cancels the
         // desktop value back down to the ~0.9% the phone was already at.
-        <div className="absolute inset-0 opacity-[0.146] md:opacity-100">
+        <div className="absolute inset-0 opacity-[0.2] md:opacity-100">
           <Ferrofluid
             paused={paused}
-            colors={["#00A8F8", "#00A8F8", "#00A8F8"]}
+            colors={["#0A7CE0", "#0A7CE0", "#0A7CE0"]}
             speed={0.1}
             scale={1.6}
             turbulence={1}
@@ -59,14 +59,14 @@ export function SiteBackground() {
             shimmer={1.5}
             glow={2}
             flowDirection="down"
-            opacity={0.06}
+            opacity={0.09}
             mouseInteraction={false}
           />
         </div>
       )}
 
       {/* Fine grain over the whole thing, so gradients never band. */}
-      <div className="grain absolute inset-0 opacity-[0.25]" />
+      <div className="grain absolute inset-0 opacity-[0.5]" />
     </div>
   );
 }

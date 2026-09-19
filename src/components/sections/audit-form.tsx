@@ -16,7 +16,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
-  "w-full rounded-xl border border-hairline bg-white/[0.02] px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
+  "w-full rounded-xl border border-hairline bg-surface px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
 const controlH = "h-12";
 
 /** Native select styled like the inputs, with our own chevron. */
@@ -131,7 +131,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="family-name"
             aria-invalid={!!errors.lastName}
             aria-describedby={errors.lastName ? "lastName-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
         <FieldWrap label={f.firstName} htmlFor="firstName" error={errors.firstName} required>
@@ -141,7 +141,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="given-name"
             aria-invalid={!!errors.firstName}
             aria-describedby={errors.firstName ? "firstName-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
       </div>
@@ -156,7 +156,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="email"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
         <FieldWrap label={f.phone} htmlFor="phone" error={errors.phone} required>
@@ -169,7 +169,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             placeholder="+32 4xx xx xx xx"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
       </div>
@@ -186,7 +186,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(control, "min-h-44 py-3 dark:bg-white/[0.02]")}
+          className={cn(control, "min-h-44 py-3")}
         />
       </FieldWrap>
 

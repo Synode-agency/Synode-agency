@@ -91,15 +91,25 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         className={cn(
           // Above the mobile panel, so the logo and the close button sit on
           // top of it rather than being covered by it.
-          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter,padding-top] duration-300",
+          // The hero is a card inset from the viewport, and the bar sits
+          // inside it. Matching that inset lines the logo up with the card's
+          // interior rather than with the window's edge.
+          "px-[var(--page-gutter)]",
+          // Once the bar detaches into its own glass strip there is no card
+          // to line up with any more, and keeping the top inset would leave
+          // its contents sitting low instead of centred.
+          scrolled && !open
+            ? "pt-0"
+            : "pt-[calc(var(--page-gutter-top)+var(--header-drop))]",
           // While the mobile panel is open the bar goes fully transparent, so
-          // the panel's black reads as one surface with no seam under the logo.
+          // the panel reads as one surface with no seam under the logo.
           scrolled && !open
             ? "border-hairline bg-glass-card backdrop-blur-xl"
             : "border-transparent bg-transparent",
         )}
       >
-        <div className="container-page flex h-[4.6rem] items-center justify-between gap-4">
+        <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
           <NavLink
             href={home}
             locale={locale}
@@ -149,7 +159,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <div className="hidden items-center border-l border-hairline pl-3 font-mono text-[0.72rem] sm:flex">
+            <div className="hidden items-center border-l border-hairline pl-3 text-[0.72rem] font-light tracking-[0.06em] sm:flex">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>
@@ -168,7 +178,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[4.6rem] pb-8 md:hidden">
+        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[calc(var(--header-h)+var(--page-gutter-top))] pb-8 md:hidden">
           <nav className="container-page flex -translate-y-20 flex-col items-center gap-1">
             {site.nav.map((item) => (
               <NavLink
@@ -189,7 +199,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               {site.ctaLabel}
               <ArrowRight className="size-4" />
             </Link>
-            <div className="mt-5 flex items-center justify-center gap-1 font-mono text-sm">
+            <div className="mt-5 flex items-center justify-center gap-1 text-sm font-light tracking-[0.06em]">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>

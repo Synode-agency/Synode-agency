@@ -38,37 +38,75 @@ const fr = {
     tagline: "Automatisation, agents IA et solutions sur mesure pour les PME.",
   },
   hero: {
-    titleLead: "Gérez votre entreprise",
-    titleAccent: "sans le superflu",
+    titleLead: "Votre entreprise évolue.",
+    titleAccent: "Vos outils aussi",
     subtitle:
-      "Automatisation des processus, agents IA branchés sur vos données, logiciels et outils métier sur mesure. Nous mesurons le gain avant d'écrire une ligne de code.",
+      "L'agence Synode automatise vos processus, les agents IA branchés sur vos données, développe vos logiciels et outils métier sur mesure. Nous simplifions votre quotidien.",
     primaryCta: "Demander un audit",
     secondaryCta: "Voir nos réalisations",
     pillars: [
       { icon: "Zap", title: "Automatisation", text: "Vos outils connectés bout à bout, zéro double encodage." },
       { icon: "Bot", title: "Agents IA", text: "Ils lisent, qualifient et agissent sur vos données, 24/7." },
       { icon: "AppWindow", title: "Logiciels sur mesure", text: "Applications web, outils internes, portails, dashboards." },
-      { icon: "ArrowLeftRight", title: "Outils métier & CRM", text: "Configurés, connectés, enfin exploités à leur potentiel." },
+      { icon: "ArrowLeftRight", title: "Site web & applications", text: "Une présence digitale sur mesure pour votre activité." },
     ],
+    /* Decorative interface mock in the hero. It is hidden from screen
+       readers, so none of this copy is ever read aloud: it exists to be
+       looked at, and to show the shape of what the agency delivers. */
+    mock: {
+      appName: "Synode",
+      nav: ["Accueil", "Projets", "Automatisations", "Agents IA", "Applications", "CRM", "Analyses"],
+      status: "Projet en cours",
+      title: "Votre projet, de l'idée aux résultats",
+      steps: [
+        "Besoin\nmétier",
+        "Automatisation\ndes processus",
+        "Agents IA\nsur vos données",
+        "Logiciel /\nApplication",
+        "Résultats\nmesurables",
+      ],
+      caseLabel: "Exemple de projet type",
+      caseQuote: "\u201C80 % de tâches administratives automatisées en 3 mois.\u201D",
+      caseTags: ["Automatisation", "Agents IA", "CRM"],
+      chartLabel: "Productivité",
+      chartValue: "+80 %",
+    },
   },
   problem: {
     eyebrow: "01 / Le constat",
-    title: "L'automatisation avance vite. Les entreprises, pas toujours.",
+    title: "L'automatisation et le digital avancent vite.\nLes entreprises, pas toujours.",
     intro:
-      "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé, quels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
+      "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé,\nquels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
+    /* Four columns, matching the design. The figures are illustrative and
+       carry no source: see `stat.value`. */
     items: [
-      { title: "Trop de tâches manuelles", text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées." },
-      { title: "Des outils et données dispersés", text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas." },
-      { title: "Un suivi encore trop manuel", text: "Relances oubliées, dossiers qui stagnent et opportunités perdues." },
-      { title: "Difficile de savoir quoi automatiser", text: "Vous savez que vous pourriez être plus efficace, mais vous ne savez pas par où commencer." },
+      {
+        title: "Trop de tâches manuelles",
+        text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées.",
+      },
+      {
+        title: "Des outils et données dispersés",
+        text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas.",
+      },
+      {
+        title: "Un suivi encore trop manuel",
+        text: "Relances oubliées, dossiers qui stagnent et opportunités perdues.",
+      },
+      {
+        title: "Une présence digitale en retrait",
+        text: "Un site vieillissant ou des services en ligne limités ne reflètent plus votre savoir-faire.",
+      },
     ],
   },
   offer: {
     eyebrow: "02 / Notre offre",
-    title: "Deux offres. Séparément ou combinées.",
+    title: "Deux offres au cœur. Une troisième au besoin.",
     subtitle: "La solution adaptée à votre problème, définie ensemble.",
     subtitleNote: "Tarifs sur devis.",
     resultLabel: "Résultat",
+    secondaryLabel: "En complément",
+    ctaPrimary: "Réserver un audit",
+    ctaSecondary: "Discuter de votre projet",
     cards: [
       {
         icon: "Workflow",
@@ -96,6 +134,19 @@ const fr = {
         ],
         result: "Un environnement de travail adapté à votre fonctionnement, plutôt que l'inverse.",
       },
+      {
+        icon: "Globe",
+        number: "03",
+        title: "Sites web & applications mobiles",
+        forWho: "Pour celles dont la vitrine en ligne ne reflète plus le niveau de service.",
+        includes: [
+          "Site vitrine",
+          "Application mobile",
+          "Refonte & performance",
+          "E-commerce",
+        ],
+        result: "Une présence en ligne à la hauteur de ce que vous livrez vraiment.",
+      },
     ],
   },
   method: {
@@ -111,15 +162,8 @@ const fr = {
   realisations: {
     eyebrow: "Réalisations & démonstrateurs",
     title: "Des systèmes qui tournent, pas des promesses.",
-    stats: [
-      { label: "Nombre", value: "4 systèmes" },
-      { label: "Statut", value: "Fonctionnels" },
-      { label: "Démonstration", value: "En visio, sur demande" },
-      { label: "Données", value: "Jeux de test" },
-    ],
     filterCta: "Parler du vôtre",
     body: "Synode démarre son activité : plutôt que d'afficher des logos que nous n'avons pas encore le droit de montrer, voici quatre systèmes construits en interne — deux par offre — pour démontrer précisément ce que nous livrons.",
-    badge: "Démo",
     items: [
       { code: "D/01", short: "Boîte partagée", domain: "Automatisation & Agents IA", title: "Boîte partagée triée, qualifiée et répondue", desc: "Un agent lit les mails entrants d'une adresse info@, les classe, crée la fiche dans le CRM et rédige une réponse mise en attente de validation humaine.", stack: ["n8n", "API LLM", "Gmail API", "CRM"], result: "−3 h de tri par semaine · première réponse en 2 min" },
       { code: "D/02", short: "Assistant documentaire", domain: "Automatisation & Agents IA", title: "Assistant interne sur 400 documents", desc: "Procédures, contrats et fiches techniques indexés. L'équipe pose sa question en langage naturel et reçoit une réponse sourcée, avec le passage exact.", stack: ["Python", "embeddings", "RAG", "Next.js"], result: "Aucune réponse sans source affichée" },
@@ -156,10 +200,6 @@ const fr = {
     eyebrow: "04 / Qui nous aidons",
     title: "Les entreprises qui n'ont pas d'équipe IT.",
     body: "PME et indépendants qui jonglent avec trop d'administratif,\ndes outils mal connectés et un suivi compliqué,\nsans savoir quoi automatiser en premier.",
-    sectors: [
-      "Immobilier", "Recrutement", "Construction & services techniques",
-      "Cabinets & bureaux de services", "Agences", "B2B", "Indépendants à fort volume",
-    ],
     rulesTitle: "Nos règles",
     rules: [
       "Comprendre le métier avant de proposer une technologie.",
@@ -172,12 +212,7 @@ const fr = {
     title: "Une heure pour voir ce qui peut changer.",
     body: "Nous chiffrons après l'audit, quand le périmètre est clair et le gain estimé.",
     button: "Réserver l'audit gratuit",
-    stats: [
-      { label: "Durée", value: "1 heure" },
-      { label: "Prix", value: "Gratuit" },
-      { label: "Livrable", value: "Premier avis écrit" },
-      { label: "Engagement", value: "Aucun" },
-    ],
+    note: "Un échange d'une heure, gratuit et sans engagement, dont vous repartez avec un premier avis écrit.",
   },
   faq: {
     eyebrow: "05 / Questions fréquentes",
@@ -268,27 +303,60 @@ const en = {
       { icon: "Zap", title: "Automation", text: "Your tools wired end to end, zero double entry." },
       { icon: "Bot", title: "AI agents", text: "They read, qualify and act on your data, 24/7." },
       { icon: "AppWindow", title: "Custom software", text: "Web apps, internal tools, portals, dashboards." },
-      { icon: "ArrowLeftRight", title: "Business tools & CRM", text: "Configured, connected, finally used to their full potential." },
+      { icon: "ArrowLeftRight", title: "Websites & applications", text: "A digital presence tailored to your business." },
     ],
+    mock: {
+      appName: "Synode",
+      nav: ["Home", "Projects", "Automations", "AI agents", "Applications", "CRM", "Analytics"],
+      status: "Project running",
+      title: "Your project, from idea to results",
+      steps: [
+        "Business\nneed",
+        "Process\nautomation",
+        "AI agents\non your data",
+        "Software /\nApplication",
+        "Measurable\nresults",
+      ],
+      caseLabel: "Example of a typical project",
+      caseQuote: "\u201C80% of admin tasks automated in 3 months.\u201D",
+      caseTags: ["Automation", "AI agents", "CRM"],
+      chartLabel: "Productivity",
+      chartValue: "+80%",
+    },
   },
   problem: {
     eyebrow: "01 / The situation",
-    title: "Automation moves fast. Companies, not always.",
+    title: "Automation and digital technology move fast. Companies, not always.",
     intro:
       "Plenty of SMEs know there's a better way, without knowing what can actually be automated, which tools to pick, or whether to buy software or build it.",
     items: [
-      { title: "Too many manual tasks", text: "Hours lost every week on repetitive tasks that could be automated." },
-      { title: "Scattered tools and data", text: "Information split across systems, double entry, and software that doesn't talk to each other." },
-      { title: "Follow-up still too manual", text: "Forgotten reminders, stalled files and lost opportunities." },
-      { title: "Hard to know what to automate", text: "You know you could be more efficient, but you don't know where to start." },
+      {
+        title: "Too many manual tasks",
+        text: "Hours lost every week on repetitive tasks that could be automated.",
+      },
+      {
+        title: "Scattered tools and data",
+        text: "Information split across systems, double entry, and software that doesn't talk to each other.",
+      },
+      {
+        title: "Follow-up still too manual",
+        text: "Forgotten reminders, stalled files and lost opportunities.",
+      },
+      {
+        title: "A digital presence falling behind",
+        text: "An outdated website or limited online services no longer reflect your expertise.",
+      },
     ],
   },
   offer: {
     eyebrow: "02 / What we offer",
-    title: "Two offers. On their own or combined.",
+    title: "Two core offers. A third when you need it.",
     subtitle: "The right solution for your problem, defined together.",
     subtitleNote: "Priced on quote.",
     resultLabel: "Outcome",
+    secondaryLabel: "On the side",
+    ctaPrimary: "Book an audit",
+    ctaSecondary: "Talk about your project",
     cards: [
       {
         icon: "Workflow",
@@ -316,6 +384,19 @@ const en = {
         ],
         result: "A work environment that fits how you operate, instead of the other way around.",
       },
+      {
+        icon: "Globe",
+        number: "03",
+        title: "Websites & mobile apps",
+        forWho: "For those whose online presence no longer matches the level of service.",
+        includes: [
+          "Marketing site",
+          "Mobile application",
+          "Rebuild & performance",
+          "E-commerce",
+        ],
+        result: "An online presence that matches what you actually deliver.",
+      },
     ],
   },
   method: {
@@ -331,15 +412,8 @@ const en = {
   realisations: {
     eyebrow: "Work & demonstrators",
     title: "Systems that run, not promises.",
-    stats: [
-      { label: "Count", value: "4 systems" },
-      { label: "Status", value: "Working" },
-      { label: "Walkthrough", value: "Over video, on request" },
-      { label: "Data", value: "Test sets" },
-    ],
     filterCta: "Talk about yours",
     body: "Synode is just getting started: rather than showing logos we're not yet allowed to display, here are four systems built in-house — two per offer — to show exactly what we deliver.",
-    badge: "Demo",
     items: [
       { code: "D/01", short: "Shared inbox", domain: "Automation & AI agents", title: "Shared inbox sorted, qualified and answered", desc: "An agent reads incoming mail from an info@ address, classifies it, creates the CRM record and drafts a reply held for human approval.", stack: ["n8n", "LLM API", "Gmail API", "CRM"], result: "−3 h of sorting per week · first reply in 2 min" },
       { code: "D/02", short: "Document assistant", domain: "Automation & AI agents", title: "Internal assistant over 400 documents", desc: "Procedures, contracts and spec sheets indexed. The team asks in plain language and gets a sourced answer, with the exact passage.", stack: ["Python", "embeddings", "RAG", "Next.js"], result: "No answer without a shown source" },
@@ -376,10 +450,6 @@ const en = {
     eyebrow: "04 / Who we help",
     title: "Companies with no IT team.",
     body: "SMEs and independents juggling too much admin,\npoorly connected tools and messy follow-up,\nwith no idea what to automate first.",
-    sectors: [
-      "Real estate", "Recruitment", "Construction & technical services",
-      "Firms & service offices", "Agencies", "B2B", "Independents with high volume",
-    ],
     rulesTitle: "Our rules",
     rules: [
       "Understand the business before proposing a technology.",
@@ -392,12 +462,7 @@ const en = {
     title: "One hour to see what could change.",
     body: "We quote after the audit, once the scope is clear and the gain estimated.",
     button: "Book the free audit",
-    stats: [
-      { label: "Length", value: "1 hour" },
-      { label: "Price", value: "Free" },
-      { label: "Deliverable", value: "First written take" },
-      { label: "Commitment", value: "None" },
-    ],
+    note: "A one-hour conversation, free and with no commitment, that you leave with a first written take.",
   },
   faq: {
     eyebrow: "05 / Frequently asked",

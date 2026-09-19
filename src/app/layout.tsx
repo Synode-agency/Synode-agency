@@ -1,32 +1,50 @@
 import type { Metadata } from "next";
-import { Archivo, Inter, Geist_Mono } from "next/font/google";
+import type { CSSProperties } from "react";
+import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import { SiteBackground } from "@/components/site/site-background";
 
 /**
- * Three faces, no more. Archivo for every heading (a neutral Swiss grotesque),
- * Inter for running text, Geist Mono for the numbered labels and small caps.
- * `--font-archivo` and `--font-plex` are kept as aliases so the offer cards'
- * existing classes keep resolving, they now point at the same two families.
+ * One sans for the whole site. The monospace that used to carry the small
+ * labels is gone: it read as terminal output, and wide letter-spacing on a
+ * light weight does the same job without the connotation.
+ * Inter carries both the headlines and the running text: at heavy weights
+ * with tight tracking it holds a display line, and it is the most neutral
+ * face available, which is what an agency site is after.
+ *
+ * `--font-heading`, `--font-archivo` and `--font-plex` all resolve to it,
+ * which keeps every existing class working without a second download.
  */
-const fontHeading = Archivo({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 const fontSans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const fontMono = Geist_Mono({
-  variable: "--font-mono",
+/**
+ * Used only for the names on the paper stack in the Constat. A grotesque
+ * like the body face, but drawn with deliberately uneven proportions and
+ * cut-in corners, so it carries character without the reading cost of a
+ * condensed or serif display face.
+ */
+const fontLabel = Bricolage_Grotesque({
+  variable: "--font-label",
   subsets: ["latin"],
+  weight: ["700"],
   display: "swap",
 });
+
+/**
+ * The heading slot, and the two aliases the offer cards still carry, all
+ * point at the one sans. Set on <html> rather than in the theme block, where
+ * `--font-heading: var(--font-sans)` on the same element would be a
+ * self-reference and resolve to nothing.
+ */
+const fontAliases = {
+  "--font-heading": fontSans.style.fontFamily,
+  "--font-archivo": fontSans.style.fontFamily,
+  "--font-plex": fontSans.style.fontFamily,
+} as CSSProperties;
 
 const siteUrl = "https://synode.com";
 
@@ -74,7 +92,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} h-full`}
+      className={`${fontSans.variable} ${fontLabel.variable} h-full`}
+      style={fontAliases}
     >
       <head>
         <noscript>
@@ -83,8 +102,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* One fixed surface behind the whole site — every page scrolls over it */}
-        <SiteBackground />
         {children}
         <Toaster position="top-center" />
       </body>

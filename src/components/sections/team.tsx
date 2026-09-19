@@ -22,7 +22,7 @@ export function Team({ locale }: { locale: Locale }) {
               className="group glow-hover flex flex-col items-center rounded-2xl border border-hairline bg-surface px-[clamp(1.25rem,1rem+1.5vw,2.5rem)] py-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.8vw,3rem))] text-center"
             >
               {/* Portrait, cropped to a disc with a brand ring */}
-              <span className="relative block size-[calc(var(--ss)*clamp(5.5rem,4.5rem+3vw,8rem))] shrink-0 overflow-hidden rounded-full border border-brand/35 bg-brand-dim/30 transition-[border-color,box-shadow] duration-300 group-hover:border-brand/70 group-hover:shadow-[0_0_34px_-6px_color-mix(in_oklab,var(--brand)_55%,transparent)]">
+              <span className="relative block size-[calc(var(--ss)*clamp(5.5rem,4.5rem+3vw,8rem))] shrink-0 overflow-hidden rounded-full border border-brand/35 bg-brand-dim/30 transition-colors duration-300 group-hover:border-brand">
                 <Image
                   src={member.photo}
                   alt={member.name}
@@ -39,7 +39,7 @@ export function Team({ locale }: { locale: Locale }) {
 
               <div className="mt-2 flex flex-col gap-1">
                 {member.roles.map((role) => (
-                  <span key={role} className="font-mono text-[0.8rem] text-brand">
+                  <span key={role} className="text-[0.8rem] font-light tracking-[0.04em] text-brand">
                     {role}
                   </span>
                 ))}

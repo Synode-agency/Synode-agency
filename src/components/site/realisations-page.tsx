@@ -22,7 +22,6 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
               eyebrow={realisations.eyebrow}
               title={realisations.title}
               body={realisations.body}
-              stats={realisations.stats}
             />
           </div>
         </section>
@@ -31,7 +30,6 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
           <div className="container-page">
             <RealisationsCarousel
               items={realisations.items}
-              badge={realisations.badge}
               filterCta={realisations.filterCta}
               contactHref={contactHref}
             />
@@ -40,7 +38,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
 
         <section className="pb-[var(--space-section)]">
           <div className="container-page">
-            <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/25 bg-gradient-to-br from-brand-dim/25 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[clamp(3rem,2.5rem+2.5vw,5rem)] text-center">
+            <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/30 bg-gradient-to-br from-brand-dim/70 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[clamp(3rem,2.5rem+2.5vw,5rem)] text-center">
               <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
                 <h2 className="text-balance text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem]">
                   {realisations.cta.title}

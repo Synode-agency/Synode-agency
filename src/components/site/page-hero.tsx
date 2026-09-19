@@ -31,7 +31,7 @@ export function PageHero({
       </p>
 
       {stats && (
-        <dl className="mt-2 flex flex-wrap items-center justify-center gap-x-[clamp(1.25rem,1rem+1.5vw,3rem)] gap-y-2.5 font-mono text-[0.82rem]">
+        <dl className="mt-2 flex flex-wrap items-center justify-center gap-x-[clamp(1.25rem,1rem+1.5vw,3rem)] gap-y-2.5 text-[0.82rem] font-light tracking-[0.03em]">
           {stats.map((stat) => (
             <div key={stat.label} className="flex items-center gap-2">
               <dt className="text-text-mono">{stat.label}</dt>

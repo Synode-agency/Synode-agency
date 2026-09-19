@@ -8,6 +8,7 @@ import {
   Boxes,
   Code2,
   Database,
+  Globe,
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
@@ -22,6 +23,7 @@ const map: Record<string, LucideIcon> = {
   Boxes,
   Code2,
   Database,
+  Globe,
   ShieldCheck,
 };
 

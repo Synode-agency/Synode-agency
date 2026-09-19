@@ -225,34 +225,45 @@ Le footer les liste en bas, à la place de l'ancienne note « Site en cours de f
 
 ## 3. Tokens (`src/app/globals.css`)
 
-Thème **dark-only** (défini sur `:root` ET `.dark`, `color-scheme: dark`).
+Thème **clair unique** (défini sur `:root` ET `.dark`, `color-scheme: light`).
+Il n'y a plus de classe `dark` sur `<html>` : ce bloc est le seul thème du site,
+et c'est lui seul qui décide de la couleur de tout le reste.
 
 | Token | Valeur | Usage |
 |---|---|---|
-| `--background` | `#011222` | fond global (deep navy, imposé par le client) |
-| `--foreground` | `#EEF3F8` | texte principal (~16:1) |
-| `--card` / `--surface` | `#071E33` | surfaces, cartes |
-| `--secondary` / `--muted` | `#0A2036` | surfaces secondaires |
-| `--muted-foreground` | `#8CA3B8` | texte secondaire (~6.7:1, AA) |
-| `--border` / `--input` | `rgba(255,255,255,.08)` | traits, champs (overlay blanc translucide) |
-| `--primary` / `--brand` | `#00A8F8` | bleu électrique (échantillonné sur le logo client), CTA |
-| `--brand-bright` | `#33BEFF` | hover CTA, `--ring` |
-| `--brand-dim` | `#0B2F49` | halos, tints d'icônes |
-| `--primary-foreground` | `#011222` | texte sur bouton bleu (~7.2:1, reprend le navy du fond) |
-| `--destructive` | `#F43F5E` | erreurs de formulaire |
+| `--background` | `#F6F7FA` | fond global (papier très légèrement froid) |
+| `--foreground` | `#0B1220` | texte principal, encre bleu nuit (~17:1) |
+| `--card` / `--surface` | `#FFFFFF` | surfaces, cartes |
+| `--surface-2` / `--secondary` / `--muted` | `#EDF1F7` | surfaces secondaires |
+| `--muted-foreground` | `#5A6B82` | texte secondaire (~5.9:1, AA) |
+| `--border` / `--input` / `--hairline` | `rgba(11,18,32,.12)` | traits, champs (overlay encre translucide) |
+| `--primary` / `--brand` | `#0A7CE0` | bleu électrique assombri pour rester lisible sur papier, CTA |
+| `--brand-bright` | `#3FA9F5` | le néon d'origine, réservé aux halos et aux hovers |
+| `--brand-dim` | `#CFE5FA` | fonds des encadrés bleus, tints d'icônes |
+| `--brand-hover` | `#0965B8` | survol des boutons (le bleu à plat n'a pas de dégradé à éclaircir) |
+| `--primary-foreground` | `#FFFFFF` | texte sur bouton bleu (~4.9:1) |
+| `--destructive` | `#D9304E` | erreurs de formulaire |
 | `--radius` | `0.875rem` | rayon de base |
 
-Utilitaires maison : `.container-page` (max-w-6xl), `.grain`, `.brand-glow`, `.text-gradient-brand`, `.reveal`.
+Utilitaires maison : `.container-page`, `.grain`, `.brand-glow`, `.reveal`, `.wordmark-type`.
+
+**Aucun dégradé sur les boutons ni sur le texte.** `.brand-gradient` est un aplat de `--brand`, `.text-gradient-brand` et `.text-gradient-accent` sont des couleurs pleines. Les noms de classes sont gardés pour ne pas toucher aux huit points d'appel, et pour pouvoir remettre un dégradé à un seul endroit si besoin. Les dégradés restants sont uniquement décoratifs : fond des encadrés bleus, ligne du Constat et son reflet, trait de la Méthode, balayage au survol des cartes offre.
+
+`.wordmark-type` inverse le PNG du logotype, qui est un lettrage blanc dessiné pour la version sombre. Remplacer l'image par une version encre sur transparent permettra de supprimer cette règle.
 
 ## 4. Typographie (`next/font/google`)
 
 | Rôle | Police | Variable |
 |---|---|---|
-| Titres (h1–h4) | **Archivo** (variable) | `--font-heading` |
-| Corps | **Inter** (variable) | `--font-sans` |
+| Titres (h1–h4) | **Manrope** (variable) | `--font-heading` |
+| Corps | **Manrope** (variable) | `--font-sans` |
 | Labels / eyebrows / workflow | **Geist Mono** (variable) | `--font-mono` |
 
-Trois familles, pas une de plus. `--font-archivo` et `--font-plex`, utilisées par les cartes offre, sont désormais de simples alias vers `--font-heading` et `--font-sans` : les classes existantes continuent de résoudre, sans charger de quatrième ni de cinquième police.
+Une seule famille pour tout le texte, plus la mono pour les labels. `--font-heading`,
+`--font-archivo` et `--font-plex` sont posées en style inline sur `<html>` et pointent
+toutes sur Manrope. Elles ne peuvent pas être aliasées dans `@theme inline` :
+`--font-heading: var(--font-sans)` sur le même élément est une auto-référence et ne
+résout rien.
 
 Eyebrows : mono, `uppercase`, `tracking-[0.2em]`, `text-brand`, pastille ● devant.
 Titres de section : `text-3xl sm:text-4xl`, `font-semibold`, `leading-[1.1]`, `text-balance`.
