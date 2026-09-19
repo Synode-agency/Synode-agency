@@ -14,7 +14,7 @@ Objectif : rendu d'agence tech professionnelle, direction artistique et textes c
 
 - **Système de lignes fines** : tout est cadré au `--hairline` (`rgba(255,255,255,0.07)`). Bordures, dividers, grilles de cartes en `gap-px` sur fond `bg-hairline` (les cellules `bg-surface` laissent voir le trait). Rayon de base porté à `0.875rem`.
 - **Surfaces** : `--surface` `#071e33` (cartes au repos), `--surface-2` `#0d2a45` (hover). Plus de `--card` opaque bleuté.
-- **Typo** : titre display agrandi (`clamp` jusqu'à ~4.75rem), tracking négatif (`-0.035em` sur h1, `-0.02em` sur h2). Gradient du display = blanc → blanc 62 % (plus « blanc chaud », plus de teinte menthe). Labels = utilitaire `.eyebrow` (JetBrains Mono 500, `0.2em`, uppercase) précédé d'un tiret bleu électrique `— `.
+- **Typo** : titre display agrandi (`clamp` jusqu'à ~4.75rem), tracking négatif (`-0.035em` sur h1, `-0.02em` sur h2). Gradient du display = blanc → blanc 62 % (plus « blanc chaud », plus de teinte menthe). Labels = utilitaire `.eyebrow` (Geist Mono 500, `0.2em`, uppercase) précédé d'un tiret bleu électrique `— `.
 - **Rythme vertical** : utilitaire `.section-y` (`py-24 sm:py-32 lg:py-40`) sur toutes les sections. Container `max-w-[76rem]`.
 - **Micro-détails agence** : numéros fantômes `.num-ghost` (watermark 6 %), cadres d'angle `.corner-frame` (panneau CTA), rail de connexion fin derrière les cartes Méthode, `.tnum` (chiffres tabulaires) sur toutes les données, sheen bleu électrique en haut des cartes Offre / Réalisations.
 - **Hover** : `.lift` / `.glow-hover` = translation `-3px` + bordure qui chauffe vers le bleu électrique + halo doux, 220 ms `cubic-bezier(.22,1,.36,1)`.
@@ -248,9 +248,11 @@ Utilitaires maison : `.container-page` (max-w-6xl), `.grain`, `.brand-glow`, `.t
 
 | Rôle | Police | Variable |
 |---|---|---|
-| Titres (h1–h4) | **Space Grotesk** 500/600/700 | `--font-heading` |
-| Corps | **Inter** | `--font-sans` |
-| Labels / eyebrows / workflow | **JetBrains Mono** 400/500 | `--font-mono` |
+| Titres (h1–h4) | **Archivo** (variable) | `--font-heading` |
+| Corps | **Inter** (variable) | `--font-sans` |
+| Labels / eyebrows / workflow | **Geist Mono** (variable) | `--font-mono` |
+
+Trois familles, pas une de plus. `--font-archivo` et `--font-plex`, utilisées par les cartes offre, sont désormais de simples alias vers `--font-heading` et `--font-sans` : les classes existantes continuent de résoudre, sans charger de quatrième ni de cinquième police.
 
 Eyebrows : mono, `uppercase`, `tracking-[0.2em]`, `text-brand`, pastille ● devant.
 Titres de section : `text-3xl sm:text-4xl`, `font-semibold`, `leading-[1.1]`, `text-balance`.

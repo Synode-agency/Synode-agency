@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono, Archivo, IBM_Plex_Sans } from "next/font/google";
+import { Archivo, Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteBackground } from "@/components/site/site-background";
 
-const fontHeading = Space_Grotesk({
+/**
+ * Three faces, no more. Archivo for every heading (a neutral Swiss grotesque),
+ * Inter for running text, Geist Mono for the numbered labels and small caps.
+ * `--font-archivo` and `--font-plex` are kept as aliases so the offer cards'
+ * existing classes keep resolving, they now point at the same two families.
+ */
+const fontHeading = Archivo({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -17,25 +22,9 @@ const fontSans = Inter({
   display: "swap",
 });
 
-const fontMono = JetBrains_Mono({
+const fontMono = Geist_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-// Used specifically by the offer cards' Synode v7 design.
-const fontArchivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  display: "swap",
-});
-
-const fontPlexSans = IBM_Plex_Sans({
-  variable: "--font-plex",
-  subsets: ["latin"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -85,7 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="fr"
-      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} ${fontArchivo.variable} ${fontPlexSans.variable} h-full`}
+      className={`dark ${fontHeading.variable} ${fontSans.variable} ${fontMono.variable} h-full`}
     >
       <head>
         <noscript>
