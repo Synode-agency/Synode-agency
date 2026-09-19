@@ -96,13 +96,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Above the mobile panel, so the logo and the close button sit on top
           of it rather than being covered by it. */}
-      <div className="relative z-10 px-[clamp(0.5rem,0.25rem+0.6vw,1rem)] pt-[clamp(0.5rem,0.25rem+0.6vw,1rem)]">
-        <div
-          className={cn(
-            "flex h-[3.5rem] items-center justify-between gap-4 rounded-full px-[clamp(0.85rem,0.6rem+0.8vw,1.5rem)] transition-colors duration-300",
-            onInk ? "bg-background text-foreground" : "panel-ink",
-          )}
-        >
+      <div
+        className={cn(
+          "relative z-10 transition-colors duration-300",
+          onInk ? "bg-background text-foreground" : "panel-ink",
+        )}
+      >
+        <div className="container-page relative flex h-[var(--header-h)] items-center justify-between gap-4">
           <NavLink
             href={home}
             locale={locale}
@@ -113,7 +113,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Wordmark variant="mark" />
           </NavLink>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
             {site.nav.map((item) => {
               const current = isCurrent(item.href);
               return (
@@ -171,7 +171,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[4.6rem] pb-8 md:hidden">
+        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[var(--header-h)] pb-8 md:hidden">
           <nav className="container-page flex -translate-y-20 flex-col items-center gap-1">
             {site.nav.map((item) => (
               <NavLink

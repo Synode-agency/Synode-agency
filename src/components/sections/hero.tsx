@@ -21,7 +21,7 @@ export function Hero({ locale }: { locale: Locale }) {
       className="relative grid min-h-dvh grid-rows-[auto_1fr_auto]"
     >
       {/* reserves the space the fixed navbar sits over */}
-      <div aria-hidden className="h-[4.6rem]" />
+      <div aria-hidden className="h-[var(--header-h)]" />
 
       <div className="container-page self-center py-8">
         <div className="grid gap-x-[clamp(2rem,1.5rem+3vw,6rem)] gap-y-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-end">

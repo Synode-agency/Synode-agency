@@ -12,7 +12,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[4.6rem]">
+      <main className="flex-1 pt-[var(--header-h)]">
         <section className="section-panel">
           <div className="container-page">
             <PageHero

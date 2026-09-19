@@ -10,9 +10,16 @@ jamais d'un effet. Pas de dégradé, pas de lueur, pas d'ombre portée, pas de
 fond animé. Si un élément a besoin d'un effet pour exister, c'est qu'il est
 mal composé.
 
-Références qui ont guidé la refonte : we-are.be, plasm-agency.com,
-fastonweb.com. Elles ont trois choses en commun, et c'est ce qu'on a repris :
-fond clair, titres énormes, beaucoup de blanc.
+Références qui ont guidé la refonte : **we-are.be** et **fastonweb.com** en
+premier, plasm-agency.com ensuite. Ce qu'on leur a repris, point par point :
+
+- bandes **pleine largeur**, pas de coins arrondis sur les sections
+- alternance de fonds clairs pour rythmer la page
+- **boutons en pastille**, padding horizontal généreux, remplissage sombre
+- titres **2,5 à 3 fois** la taille du texte courant
+- tout **aligné à gauche**, sauf les blocs de clôture
+- arrondis réservés aux **cartes et vignettes**
+- header pleine largeur : logo à gauche, liens au centre, CTA à droite
 
 ## Couleurs (`globals.css`)
 
@@ -57,10 +64,11 @@ continu. Chaque section alterne :
 | CTA finale | **encre** |
 | FAQ + footer | page |
 
-Sur desktop, un panneau à l'intérieur d'une section plein écran est **encarté
-avec une gouttière et des coins arrondis** : il se lit comme une grosse carte.
-Sur les pages scrollables (Réalisations, Contact, légales), le même panneau
-reste une bande pleine largeur.
+**Les panneaux sont des bandes pleine largeur, sans coins arrondis.** C'est
+le point sur lequel we-are.be et fastonweb sont les plus nets : leurs sections
+sont des blocs pleine largeur, et les arrondis sont réservés aux **cartes et
+aux vignettes**. Un panneau encarté aux coins ronds faisait « composant
+d'interface », pas « page ».
 
 ## L'inversion de palette — `.panel-ink`
 
@@ -87,8 +95,15 @@ Deux tokens, `--ink` et `--ink-foreground`, existent **uniquement** pour que
 
 ## Header
 
-Une **pastille flottante**, encre par défaut, arrondie et détachée des bords.
-Au-dessus d'une section encre (`offre`, `conclusion`) elle **s'inverse en
+**Bande rectangulaire pleine largeur**, encre, hauteur `--header-h`
+(`clamp(4.5rem, 3.8rem + 1.6vw, 5.75rem)`). Logo à gauche, navigation
+**centrée**, CTA en pastille à droite : c'est la disposition commune aux deux
+références.
+
+`--header-h` est le seul endroit où cette hauteur est écrite. Le hero, les
+pages scrollables et chaque section plein écran la réservent via ce token.
+
+Au-dessus d'une section encre (`offre`, `conclusion`) la bande **s'inverse en
 clair**, sinon elle disparaîtrait dans le panneau. Le scroll-spy qui pilote
 déjà le soulignement de la navigation fournit l'information.
 
