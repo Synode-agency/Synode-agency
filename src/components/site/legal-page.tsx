@@ -21,7 +21,7 @@ export function LegalPage({
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[4.6rem]">
+      <main className="flex-1 pt-[var(--header-h)]">
         <section className="section-panel">
           <div className="container-page">
             <Reveal className="mx-auto flex max-w-3xl flex-col gap-4">
