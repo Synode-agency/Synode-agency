@@ -52,7 +52,7 @@ export function RealisationsList({
             <Reveal
               key={item.code}
               delay={i * 80}
-              className="surface-card card-square lift flex flex-col overflow-hidden"
+              className="surface-card lift flex flex-col overflow-hidden"
             >
               {/* Media first and large: it is the argument, not an accent. */}
               <div className="relative aspect-video w-full shrink-0 bg-surface-2">

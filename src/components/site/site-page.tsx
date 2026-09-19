@@ -1,7 +1,6 @@
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Hero } from "@/components/sections/hero";
-import { ServicesBand } from "@/components/sections/services-band";
 import { Problem } from "@/components/sections/problem";
 import { Offer } from "@/components/sections/offer";
 import { Method } from "@/components/sections/method";
@@ -20,7 +19,6 @@ export function SitePage({ locale }: { locale: Locale }) {
       <SiteHeader locale={locale} />
       <main className="flex-1">
         <Hero locale={locale} />
-        <ServicesBand locale={locale} />
         <Problem locale={locale} />
         <Offer locale={locale} />
         <Method locale={locale} />
