@@ -20,10 +20,14 @@ export function SectionSnap() {
 
     const sync = () => {
       const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("#top, .section-screen, .screen-shell"),
+        document.querySelectorAll<HTMLElement>(
+          "#top, .section-screen, .screen-shell",
+        ),
       );
       // 2px of tolerance for sub-pixel rounding.
-      const allFit = sections.every((el) => el.offsetHeight <= window.innerHeight + 2);
+      const allFit = sections.every(
+        (el) => el.offsetHeight <= window.innerHeight + 2,
+      );
       root.classList.toggle("snap-sections", allFit);
     };
 

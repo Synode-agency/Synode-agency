@@ -38,7 +38,9 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 id={`faq-trigger-${i}`}
                 className={cn(
                   "flex w-full items-center justify-between gap-4 border-b border-hairline py-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.5vw,1.25rem))] text-left transition-colors duration-200",
-                  isOpen ? "text-foreground" : "text-foreground/85 hover:text-foreground",
+                  isOpen
+                    ? "text-foreground"
+                    : "text-foreground/85 hover:text-foreground",
                 )}
               >
                 <span className="text-[clamp(0.95rem,0.3vw+0.88rem,1.08rem)] font-semibold leading-snug tracking-tight text-pretty">

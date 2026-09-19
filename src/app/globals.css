@@ -95,6 +95,12 @@
   --background: #f5f4f0;
   --foreground: #14130f;
 
+  /* Literals for the ink panels. They must not be overridden by `.panel-ink`
+     itself, otherwise `background: var(--ink)` would resolve to the flipped
+     value and the panel would paint itself light. */
+  --ink: #14130f;
+  --ink-foreground: #f5f4f0;
+
   --surface: #ffffff;
   --surface-2: #ebe9e3;
   --hairline: rgba(20, 19, 15, 0.13);
@@ -262,10 +268,21 @@
   }
 
   /* Full-screen landing section (desktop only — mobile keeps natural flow so
-     tall content never gets clipped on a phone). The header is fixed, so the
-     top padding clears it and the content stays optically centred. */
+     tall content never gets clipped on a phone). The section is just the
+     envelope; the visible surface is the `.section-panel` inside it. */
   .section-screen {
+    padding-block: 0;
+  }
+
+  /* The panel is what carries the colour. Sections alternate between the
+     page background, white and ink, the way the reference agency sites cut
+     a page into big blocks instead of one continuous scroll. */
+  .section-panel {
     padding-block: var(--space-section);
+  }
+
+  .section-panel--surface {
+    background: var(--surface);
   }
 
   @media (min-width: 1024px) {
@@ -274,14 +291,26 @@
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      /* Clears the fixed header, then leaves a gutter so the panel reads as
+         an inset card rather than a full-bleed band. */
+      padding: calc(4.6rem + var(--gutter)) var(--gutter) var(--gutter);
+      --gutter: clamp(0.5rem, 0.25rem + 0.6vw, 1rem);
+    }
+
+    .section-screen > .section-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
-      padding-block: calc(4.6rem + var(--ss) * 2.5rem) calc(var(--ss) * 3.5rem);
+      border-radius: clamp(0.75rem, 0.4rem + 0.9vw, 1.5rem);
+      padding-block: calc(var(--ss) * 2.75rem);
     }
 
     /* Sits with the footer inside one viewport: the pair shares 100dvh. */
     .section-screen-with-footer {
       min-height: auto;
       flex: 1;
+      padding-bottom: 0;
     }
 
     .screen-shell {
@@ -289,6 +318,30 @@
       display: flex;
       flex-direction: column;
     }
+  }
+
+  /* Local palette flip. Every Tailwind colour utility on this site resolves
+     through a custom property, so redefining them here re-themes the whole
+     subtree — no per-component dark variants needed. */
+  .panel-ink {
+    background: var(--ink);
+    color: var(--ink-foreground);
+
+    --foreground: #f5f4f0;
+    --secondary-foreground: rgba(245, 244, 240, 0.8);
+    --muted-foreground: rgba(245, 244, 240, 0.62);
+    --hairline: rgba(245, 244, 240, 0.2);
+    --border: rgba(245, 244, 240, 0.2);
+    --border-active: rgba(245, 244, 240, 0.5);
+    --surface: rgba(245, 244, 240, 0.05);
+    --surface-2: rgba(245, 244, 240, 0.1);
+    --ring: #f5f4f0;
+
+    /* On ink the primary action inverts, and the accent has to lighten or it
+       fails contrast against the dark ground. */
+    --primary: #f5f4f0;
+    --primary-foreground: #14130f;
+    --brand: #9db5ff;
   }
 
   /* Consistent vertical rhythm for every section. */
@@ -341,6 +394,16 @@
 
   .lift:hover {
     border-color: var(--border-active);
+  }
+
+  /* The wordmark asset is white lettering: invert it on a light ground, and
+     leave it as-is inside an ink panel. */
+  .wordmark-type {
+    filter: invert(1);
+  }
+
+  .panel-ink .wordmark-type {
+    filter: none;
   }
 
   /* Primary action: solid ink. */

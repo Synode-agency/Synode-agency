@@ -78,7 +78,11 @@ export function SectionPager() {
         type="button"
         onClick={() => goTo(index - 1)}
         disabled={atStart}
-        aria-label={atStart ? "Section précédente" : `Aller à : ${SECTIONS[index - 1].label}`}
+        aria-label={
+          atStart
+            ? "Section précédente"
+            : `Aller à : ${SECTIONS[index - 1].label}`
+        }
         className={cn(button, "hover:-translate-y-0.5")}
       >
         <ChevronUp aria-hidden className="size-4" />
@@ -107,7 +111,9 @@ export function SectionPager() {
         type="button"
         onClick={() => goTo(index + 1)}
         disabled={atEnd}
-        aria-label={atEnd ? "Section suivante" : `Aller à : ${SECTIONS[index + 1].label}`}
+        aria-label={
+          atEnd ? "Section suivante" : `Aller à : ${SECTIONS[index + 1].label}`
+        }
         className={cn(button, "hover:translate-y-0.5")}
       >
         <ChevronDown aria-hidden className="size-4" />

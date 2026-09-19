@@ -7,7 +7,13 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /** Long-form legal page — scrollable, with a sibling-page rail on desktop. */
-export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug }) {
+export function LegalPage({
+  locale,
+  slug,
+}: {
+  locale: Locale;
+  slug: LegalSlug;
+}) {
   const doc = getLegalDoc(locale, slug);
   const links = legalLinks(locale);
   const updatedLabel = locale === "fr" ? "Mise à jour" : "Last updated";
@@ -16,7 +22,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
     <>
       <SiteHeader locale={locale} />
       <main className="flex-1 pt-[4.6rem]">
-        <section className="section-y">
+        <section className="section-panel">
           <div className="container-page">
             <Reveal className="mx-auto flex max-w-3xl flex-col gap-4">
               <span className="eyebrow border-b border-hairline pb-3">
@@ -55,7 +61,11 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
 
               <article className="min-w-0 flex-1 space-y-[clamp(1.75rem,1.5rem+1vw,2.75rem)]">
                 {doc.sections.map((section, i) => (
-                  <Reveal key={section.heading} delay={i * 40} className="space-y-3">
+                  <Reveal
+                    key={section.heading}
+                    delay={i * 40}
+                    className="space-y-3"
+                  >
                     <h2 className="text-[length:var(--fs-h3)] font-semibold tracking-tight">
                       {section.heading}
                     </h2>
