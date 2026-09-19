@@ -1,20 +1,19 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/site/reveal";
-import { NavLink } from "@/components/site/nav-link";
-import { getContent, homePath, path, type Locale } from "@/lib/content";
+import { getContent, path, type Locale } from "@/lib/content";
 
 /**
- * Hero, on the fastonweb model: a left-aligned text block with the visual
- * proof beside it.
+ * Hero on the we-are.be model: a left-aligned headline, the lead paragraph
+ * under it, the actions, and photographs of the people beside it.
  *
- * They put portfolio screenshots there. We have none yet, so the right column
- * carries the four services instead — real content rather than a placeholder,
- * and it puts the offer on the first screen.
+ * Their hero shows the team at their desks. Ours shows the two of us, in
+ * plain rectangular crops, staggered. That is the same argument: a visitor
+ * sees who they will actually be talking to before they read a word of offer.
  */
 export function Hero({ locale }: { locale: Locale }) {
-  const { hero } = getContent(locale);
-  const offerHref = `${homePath(locale)}#offre`;
+  const { hero, team } = getContent(locale);
 
   return (
     <section id="top" className="section-screen">
@@ -41,34 +40,46 @@ export function Hero({ locale }: { locale: Locale }) {
                 </Link>
                 <Link
                   href={path(locale, "/realisations")}
-                  className="btn-line inline-flex items-center justify-center rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full px-2 py-4 text-[length:var(--fs-button)] font-medium underline-offset-4 hover:underline"
                 >
                   {hero.secondaryCta}
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </Reveal>
 
+            {/* Staggered pair, the way their hero images sit at two heights. */}
             <Reveal
               delay={120}
-              className="grid gap-[clamp(0.6rem,0.5rem+0.5vw,1rem)] sm:grid-cols-2"
+              className="grid grid-cols-2 gap-[clamp(0.6rem,0.5rem+0.5vw,1rem)]"
             >
-              {hero.pillars.map((p, i) => (
-                <NavLink
-                  key={p.title}
-                  href={offerHref}
-                  locale={locale}
-                  className="surface-card lift group flex flex-col p-[clamp(1.1rem,0.9rem+0.8vw,1.5rem)]"
+              {team.members.map((member, i) => (
+                <figure
+                  key={member.name}
+                  className={
+                    i === 1 ? "lg:mt-[clamp(1.5rem,1rem+2vw,3.5rem)]" : ""
+                  }
                 >
-                  <span className="section-index">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h2 className="font-heading mt-2.5 text-[clamp(0.95rem,0.3vw+0.88rem,1.1rem)] leading-tight font-bold tracking-[-0.02em] transition-colors group-hover:text-brand">
-                    {p.title}
-                  </h2>
-                  <p className="mt-1.5 text-[clamp(0.8rem,0.2vw+0.76rem,0.88rem)] leading-[1.5] text-muted-foreground">
-                    {p.text}
-                  </p>
-                </NavLink>
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-surface-2">
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      width={1254}
+                      height={1254}
+                      sizes="(min-width: 1024px) 24vw, 45vw"
+                      priority={i === 0}
+                      className="size-full object-cover object-top"
+                    />
+                  </div>
+                  <figcaption className="mt-2.5 flex flex-col">
+                    <span className="text-[0.95rem] font-semibold tracking-tight">
+                      {member.name}
+                    </span>
+                    <span className="text-[0.8rem] leading-snug text-muted-foreground">
+                      {member.roles[0]}
+                    </span>
+                  </figcaption>
+                </figure>
               ))}
             </Reveal>
           </div>

@@ -99,7 +99,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             aria-label="Synode — accueil"
             className="flex shrink-0 items-center rounded-md"
           >
-            <Wordmark variant="mark" />
+            <Wordmark />
           </NavLink>
 
           <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
@@ -112,7 +112,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   locale={locale}
                   aria-current={current ? "page" : undefined}
                   className={cn(
-                    "group relative rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
+                    "nav-lower group relative rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                     current
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground",
@@ -135,7 +135,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               aria-current={contactCurrent ? "page" : undefined}
-              className="btn-ink group hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium sm:inline-flex"
+              className="btn-ink nav-lower group hidden items-center gap-1.5 rounded-full px-5 py-2.5 text-[length:var(--fs-button)] font-medium sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -168,7 +168,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                 href={item.href}
                 locale={locale}
                 onNavigate={() => setOpen(false)}
-                className="w-full rounded-lg px-3 py-3.5 text-center text-lg text-foreground/90 hover:bg-surface-2"
+                className="nav-lower w-full rounded-lg px-3 py-3.5 text-center text-lg text-foreground/90 hover:bg-surface-2"
               >
                 {item.label}
               </NavLink>
