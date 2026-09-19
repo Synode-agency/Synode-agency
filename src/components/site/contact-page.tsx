@@ -24,7 +24,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
             <Reveal
               delay={80}
-              className="mx-auto mt-[clamp(2.5rem,2rem+2.5vw,4.5rem)] w-full max-w-3xl rounded-3xl border border-hairline bg-surface/70 p-[clamp(1.5rem,1.25rem+2vw,3.5rem)]"
+              className="surface-card mt-[clamp(2.5rem,2rem+2.5vw,4.5rem)] w-full max-w-3xl p-[clamp(1.5rem,1.25rem+2vw,3rem)]"
             >
               <AuditForm locale={locale} />
             </Reveal>

@@ -24,7 +24,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
   const [open, setOpen] = useState(-1);
 
   return (
-    <div className="mx-auto w-full max-w-3xl">
+    <div className="w-full border-t border-hairline">
       {items.map((item, i) => {
         const isOpen = i === open;
         return (
@@ -37,8 +37,8 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 aria-controls={`faq-panel-${i}`}
                 id={`faq-trigger-${i}`}
                 className={cn(
-                  "flex w-full items-center justify-between gap-4 rounded-lg border-b border-hairline px-[clamp(1rem,0.8rem+0.8vw,1.5rem)] py-[calc(var(--ss)*clamp(0.85rem,0.7rem+0.5vw,1.15rem))] text-left transition-colors duration-300",
-                  isOpen ? "bg-surface-2" : "bg-surface hover:bg-surface-2",
+                  "flex w-full items-center justify-between gap-4 border-b border-hairline py-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.5vw,1.25rem))] text-left transition-colors duration-200",
+                  isOpen ? "text-foreground" : "text-foreground/85 hover:text-foreground",
                 )}
               >
                 <span className="text-[clamp(0.95rem,0.3vw+0.88rem,1.08rem)] font-semibold leading-snug tracking-tight text-pretty">
@@ -64,7 +64,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-[clamp(1rem,0.8rem+0.8vw,1.5rem)] py-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.6vw,1.35rem))] text-[clamp(0.85rem,0.2vw+0.8rem,0.95rem)] leading-[1.65] text-muted-foreground">
+                <p className="max-w-[62ch] pt-[calc(var(--ss)*0.9rem)] pb-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.5rem))] text-[clamp(0.85rem,0.2vw+0.8rem,0.95rem)] leading-[1.65] text-muted-foreground">
                   {item.a}
                 </p>
               </div>

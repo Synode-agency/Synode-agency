@@ -9,10 +9,7 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
   --font-heading: var(--font-heading);
-  --font-archivo: var(--font-archivo);
-  --font-plex: var(--font-plex);
 
   --color-brand: var(--brand);
   --color-brand-bright: var(--brand-bright);
@@ -69,95 +66,96 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Synode v7 — dark-only premium tech theme, electric-blue accent */
-:root,
-.dark {
-  /* Fluid hero scale: 1 on tall viewports, shrinks toward 0.55 on short
-     desktop windows (e.g. 13" laptops) so the hero + pillars band always
-     fit without scrolling. */
+/* Synode — light editorial theme.
+   Ink on warm off-white, blue used sparingly as an accent. The character
+   comes from type scale, whitespace and rules, not from effects. */
+:root {
+  /* Fluid hero scale: 1 on tall viewports, shrinks on short desktop windows
+     so the hero + services band always fit without scrolling. */
   --hs: clamp(0.55, calc(100dvh / 570px - 0.649), 1);
 
-  /* Same idea, applied to the full-screen landing sections: 1 on a tall
-     desktop, down to 0.62 on a short window, so a 100dvh section keeps its
-     whole content visible instead of clipping it. */
+  /* Same idea for the full-screen landing sections. */
   --ss: clamp(0.62, calc(100dvh / 900px), 1);
 
-  /* Fluid layout tokens — scale spacing/type smoothly from small laptops
-     through 4K/ultra-wide monitors instead of freezing at a `lg:` cap. */
-  --container-max: 110rem; /* 1760px */
+  --container-max: 90rem; /* 1440px — tighter than before, more margin */
   --space-section: clamp(4rem, 2.5rem + 4vw, 10rem);
   --space-lg: clamp(2.5rem, 1.75rem + 2.5vw, 5rem);
   --space-md: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
   --space-sm: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
-  --fs-h2: clamp(2.9rem, 2.17rem + 1.15vw, 4rem);
-  --fs-h3: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
+
+  /* Editorial scale: headlines carry the page, body stays quiet. */
+  --fs-display: clamp(2.75rem, 1.6rem + 4.6vw, 6rem);
+  --fs-h2: clamp(2.25rem, 1.5rem + 2.6vw, 4rem);
+  --fs-h3: clamp(1.15rem, 1rem + 0.6vw, 1.55rem);
   --fs-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem);
-  --fs-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.95rem);
+  --fs-small: clamp(0.82rem, 0.78rem + 0.2vw, 0.95rem);
   --fs-button: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
 
-  --background: #03060D;
-  --foreground: #E9F0F8;
+  /* Warm off-white, warm near-black. Neutral greys read cold and clinical. */
+  --background: #f5f4f0;
+  --foreground: #14130f;
 
-  --surface: #060B14;
-  --surface-2: #0B1524;
-  --hairline: rgba(233, 240, 248, 0.1);
+  --surface: #ffffff;
+  --surface-2: #ebe9e3;
+  --hairline: rgba(20, 19, 15, 0.13);
 
-  --card: #060B14;
-  --card-foreground: #E9F0F8;
-  --popover: #080E1A;
-  --popover-foreground: #E9F0F8;
+  --card: #ffffff;
+  --card-foreground: #14130f;
+  --popover: #ffffff;
+  --popover-foreground: #14130f;
 
-  --primary: #3FA9F5;
-  --primary-foreground: #03060D;
+  /* Primary action is ink, not blue: that is what reads "agency". */
+  --primary: #14130f;
+  --primary-foreground: #ffffff;
 
-  --secondary: #0A121E;
-  --secondary-foreground: #B7C7DA;
+  --secondary: #ebe9e3;
+  --secondary-foreground: #3b382f;
 
-  --muted: #0A121E;
-  --muted-foreground: #8296B0;
+  --muted: #ebe9e3;
+  --muted-foreground: #5f5c52;
 
-  --accent: #0A1B2E;
-  --accent-foreground: #7FD4FF;
+  --accent: #ebe9e3;
+  --accent-foreground: #14130f;
 
-  --destructive: #f43f5e;
+  --destructive: #b3261e;
 
-  --border: rgba(233, 240, 248, 0.1);
-  --input: rgba(233, 240, 248, 0.1);
-  --ring: #3FA9F5;
+  --border: rgba(20, 19, 15, 0.13);
+  --input: rgba(20, 19, 15, 0.2);
+  --ring: #14130f;
 
-  --brand: #3FA9F5;
-  --brand-bright: #7FD4FF;
-  --brand-dim: #102A4A;
-  --brand-deep: #1E5FD8;
-  --brand-foreground: #03060D;
+  /* Blue survives from the logo, but only in small doses. */
+  --brand: #1b4de0;
+  --brand-bright: #0f2fa0;
+  --brand-dim: #e7ebfb;
+  --brand-deep: #0f2fa0;
+  --brand-foreground: #ffffff;
 
-  /* Extra Synode v7 tokens without a pre-existing slot */
-  --offer-accent-2: #7FB6FF;
-  --title-gradient-end: #9FDBFF;
-  --glass-card: rgba(8, 14, 26, 0.82);
-  --method-pill: #070C16;
-  --border-active: rgba(63, 169, 245, 0.45);
-  --text-mono: #5E7794;
-  --label-muted: #6B87A8;
+  --offer-accent-2: #14130f;
+  --title-gradient-end: #14130f;
+  --glass-card: rgba(245, 244, 240, 0.9);
+  --method-pill: #ffffff;
+  --border-active: rgba(20, 19, 15, 0.38);
+  --text-mono: #6b675c;
+  --label-muted: #6b675c;
 
-  --chart-1: #3FA9F5;
-  --chart-2: #7FD4FF;
-  --chart-3: #9FDBFF;
-  --chart-4: #7FB6FF;
-  --chart-5: #1E5FD8;
+  --chart-1: #1b4de0;
+  --chart-2: #14130f;
+  --chart-3: #6b675c;
+  --chart-4: #0f2fa0;
+  --chart-5: #ebe9e3;
 
-  --radius: 0.875rem;
+  --radius: 0.5rem;
 
-  --sidebar: #060B14;
-  --sidebar-foreground: #E9F0F8;
-  --sidebar-primary: #3FA9F5;
-  --sidebar-primary-foreground: #03060D;
-  --sidebar-accent: #0A1B2E;
-  --sidebar-accent-foreground: #7FD4FF;
-  --sidebar-border: rgba(233, 240, 248, 0.1);
-  --sidebar-ring: #3FA9F5;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #14130f;
+  --sidebar-primary: #14130f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ebe9e3;
+  --sidebar-accent-foreground: #14130f;
+  --sidebar-border: rgba(20, 19, 15, 0.13);
+  --sidebar-ring: #14130f;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -293,26 +291,79 @@
     }
   }
 
-  /* Static wash for the fixed background layer (`SiteBackground`).
-     Broad, low-contrast pools of brand blue that give the page depth without
-     any visible seam — the whole site scrolls over this one surface. */
-  .site-bg-wash {
-    background:
-      radial-gradient(
-        62% 44% at 18% 8%,
-        color-mix(in oklab, var(--brand) 6%, transparent) 0%,
-        transparent 68%
-      ),
-      radial-gradient(
-        54% 40% at 84% 30%,
-        color-mix(in oklab, var(--brand-deep) 7%, transparent) 0%,
-        transparent 70%
-      ),
-      radial-gradient(
-        70% 48% at 50% 100%,
-        color-mix(in oklab, var(--brand) 4%, transparent) 0%,
-        transparent 72%
-      );
+  /* Consistent vertical rhythm for every section. */
+  .section-y {
+    padding-block: var(--space-section);
+  }
+
+  /* Small uppercase label. Sans, not mono: mono reads "developer tool", and
+     our reader is a business owner with no IT team. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: clamp(0.7rem, 0.67rem + 0.1vw, 0.78rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* Editorial section index: a big quiet number, the way a magazine numbers
+     its chapters. This is the one recurring ornament on the site. */
+  .section-index {
+    font-family: var(--font-heading);
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--brand);
+  }
+
+  /* Data-ish figures: uppercase sans with wide tracking replaces the old
+     monospace, which was a big part of the "AI product" read. */
+  .label-xs {
+    font-size: clamp(0.68rem, 0.65rem + 0.1vw, 0.76rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Base card surface: white on off-white, a hairline, no glow. */
+  .surface-card {
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  /* The only hover on a card: the hairline darkens. No lift, no shadow. */
+  .lift {
+    transition: border-color 220ms ease, background-color 220ms ease;
+  }
+
+  .lift:hover {
+    border-color: var(--border-active);
+  }
+
+  /* Primary action: solid ink. */
+  .btn-ink {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    transition: background-color 200ms ease;
+  }
+
+  .btn-ink:hover {
+    background: #2a2822;
+  }
+
+  /* Secondary action: a rule, nothing else. */
+  .btn-line {
+    border: 1px solid var(--foreground);
+    color: var(--foreground);
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  .btn-line:hover {
+    background: var(--foreground);
+    color: var(--primary-foreground);
   }
 
   /* Section snapping — one section per scroll gesture.
@@ -346,240 +397,20 @@
     margin-top: calc(var(--ss) * var(--stack-gap, 2.5rem));
   }
 
-  /* Consistent vertical rhythm for every section — grows past the old
-     fixed lg: cap on large/ultra-wide monitors instead of freezing. */
-  .section-y {
-    padding-block: var(--space-section);
-  }
-
-  .grain {
-    background-image: radial-gradient(
-      circle at 1px 1px,
-      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
-      transparent 0
-    );
-    background-size: 3.75rem 3.75rem;
-  }
-
-  /* Mono label / eyebrow */
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: clamp(0.65rem, 0.62rem + 0.1vw, 0.8rem);
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  /* Base card surface */
-  .surface-card {
-    background: var(--surface);
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius);
-  }
-
-  /* Premium hover: subtle lift + hairline warms toward electric-blue */
-  .lift {
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 220ms ease,
-      background-color 220ms ease;
-  }
-
-  .lift:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--brand) 32%, var(--hairline));
-    background-color: var(--surface-2);
-  }
-
-  .brand-glow {
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 24%, transparent),
-      0 22px 70px -26px color-mix(in oklab, var(--brand) 55%, transparent);
-  }
-
-  /* Subtle electric-blue glow that fades in on hover — cards / badges.
-     Base keeps the 2-layer shadow geometry (transparent) so only the
-     colour animates — avoids a janky transition from `none`. */
-  .glow-hover {
-    box-shadow:
-      0 0 0 1px transparent,
-      0 12px 48px -20px transparent;
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 220ms ease,
-      box-shadow 220ms ease;
-  }
-
-  .glow-hover:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--brand) 42%, var(--hairline));
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 22%, transparent),
-      0 12px 48px -20px color-mix(in oklab, var(--brand) 44%, transparent);
-  }
-
-  .glow-hover:hover .glow-hover-num {
-    color: var(--brand-bright);
-    text-shadow: 0 0 26px color-mix(in oklab, var(--brand) 55%, transparent);
-  }
-
-  /* White → translucent-white display gradient (premium, not tinted) */
-  .text-gradient-brand {
-    background: linear-gradient(
-      177deg,
-      #ffffff 0%,
-      color-mix(in oklab, #ffffff 62%, transparent) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* Neon blue → light blue display gradient — hero title accent */
-  .text-gradient-accent {
-    background: linear-gradient(100deg, var(--brand), var(--title-gradient-end));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* Primary CTA fill: neon blue -> deep blue */
-  .brand-gradient {
-    background: linear-gradient(135deg, var(--brand), var(--brand-deep));
-    transition:
-      filter 220ms ease,
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .brand-gradient:hover {
-    filter: brightness(1.1);
-  }
-
-  /* Decorative corner frame for the big CTA panel */
-  .corner-frame {
-    position: relative;
-  }
-  .corner-frame::before,
-  .corner-frame::after {
-    content: "";
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border: 1px solid color-mix(in oklab, var(--brand) 55%, transparent);
-    pointer-events: none;
-  }
-  .corner-frame::before {
-    top: -1px;
-    left: -1px;
-    border-right: 0;
-    border-bottom: 0;
-  }
-  .corner-frame::after {
-    bottom: -1px;
-    right: -1px;
-    border-left: 0;
-    border-top: 0;
-  }
-
-  /* Giant ghost index number watermark */
-  .num-ghost {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1;
-    color: color-mix(in oklab, var(--foreground) 6%, transparent);
-    font-variant-numeric: tabular-nums;
-  }
-
-  /* Slowly rotating electric-blue glow behind the hero headline (transform-only). */
-  .title-aura {
-    border-radius: 9999px;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      var(--brand-dim) 85deg,
-      transparent 170deg,
-      color-mix(in oklab, var(--brand) 30%, transparent) 275deg,
-      transparent 360deg
-    );
-    filter: blur(70px);
-    opacity: 0.45;
-    will-change: transform;
-    animation: sg-spin 26s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .title-aura {
-      animation: none;
-      will-change: auto;
-    }
-  }
-
-  /* Offer card sheen — diagonal light sweep replayed on hover via JS */
-  .offer-sheen {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      100deg,
-      transparent 35%,
-      color-mix(in oklab, var(--brand) 15%, transparent) 50%,
-      transparent 65%
-    );
-    transform: translateX(-130%) skewX(-18deg);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .offer-sheen {
-      display: none;
-    }
-  }
-
-  /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
-  /* Constat pip — the four problems are equal, so no numbers: just a small
-     brand dot that breathes, each one offset from the next. */
+  /* Constat markers: the four problems are equal, so no numbers — a small
+     ink square on a plain rule. No pulse, no travelling glow. */
   .chain-pip {
-    position: relative;
     display: block;
-    width: 8px;
-    height: 8px;
-    border-radius: 9999px;
+    width: 7px;
+    height: 7px;
     background: var(--brand);
-    box-shadow: 0 0 10px color-mix(in oklab, var(--brand) 60%, transparent);
-    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* The halo carries the pulse so the hover scale above never fights it. */
-  .chain-pip::after {
-    content: "";
-    position: absolute;
-    inset: -7px;
-    border-radius: 9999px;
-    background: radial-gradient(
-      circle,
-      color-mix(in oklab, var(--brand) 40%, transparent) 0%,
-      transparent 68%
-    );
-    animation: chain-pip-pulse 3.6s ease-in-out infinite;
-    animation-delay: var(--pip-delay, 0s);
+    transition: transform 200ms ease;
   }
 
   .chain-node:hover .chain-pip {
-    transform: scale(1.45);
+    transform: scale(1.4);
   }
 
-  @keyframes chain-pip-pulse {
-    0%,
-    100% {
-      opacity: 0.35;
-      transform: scale(0.75);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.25);
-    }
-  }
-
-  /* Rail linking the four pips, drawn once for the whole row. */
   .chain-rail-line {
     position: absolute;
     left: 0;
@@ -587,170 +418,42 @@
     top: 50%;
     height: 1px;
     transform: translateY(-50%);
+    background: var(--hairline);
     pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      color-mix(in oklab, var(--brand) 26%, transparent) 10%,
-      color-mix(in oklab, var(--brand) 26%, transparent) 90%,
-      transparent 100%
-    );
   }
 
-  /* Glow sweeping the rail from left to right. */
-  .chain-rail-glow {
-    position: absolute;
-    top: 50%;
-    width: 24%;
-    height: 2px;
-    transform: translateY(-50%);
-    border-radius: 9999px;
-    pointer-events: none;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      color-mix(in oklab, var(--brand) 85%, transparent),
-      transparent
-    );
-    box-shadow: 0 0 14px color-mix(in oklab, var(--brand) 45%, transparent);
-    animation: chain-rail-sweep 7s linear infinite;
-  }
-
-  @keyframes chain-rail-sweep {
-    0% {
-      left: -24%;
-      opacity: 0;
-    }
-    12% {
-      opacity: 1;
-    }
-    85% {
-      opacity: 1;
-    }
-    100% {
-      left: 100%;
-      opacity: 0;
-    }
-  }
-
-  /* Track node (Méthode) — solid brand ring at rest, same hover illumination as Constat */
+  /* Méthode: numbered steps, outlined rather than filled. */
   .track-dot {
     position: relative;
     z-index: 2;
-    width: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
-    height: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
+    width: clamp(2.5rem, 2.2rem + 1vw, 3.25rem);
+    height: clamp(2.5rem, 2.2rem + 1vw, 3.25rem);
     border-radius: 9999px;
-    border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
-    background: var(--method-pill);
+    border: 1px solid var(--foreground);
+    background: var(--background);
     display: grid;
     place-items: center;
-    font-family: var(--font-mono);
-    font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1.05rem);
-    color: var(--brand);
-    transition:
-      border-color 300ms ease,
-      color 300ms ease,
-      box-shadow 300ms ease,
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1rem);
+    font-variant-numeric: tabular-nums;
+    color: var(--foreground);
+    transition: background-color 200ms ease, color 200ms ease;
   }
 
-  /* Same hover illumination as the Constat dots — border, glow, and pop */
   .track-node:hover .track-dot {
-    border-color: var(--brand);
-    color: var(--foreground);
-    box-shadow: 0 0 26px color-mix(in oklab, var(--brand) 50%, transparent);
-    transform: scale(1.1);
+    background: var(--foreground);
+    color: var(--primary-foreground);
   }
 
   .track-link {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem) / 2);
+    top: calc(clamp(2.5rem, 2.2rem + 1vw, 3.25rem) / 2);
     height: 1px;
-    background: linear-gradient(
-      90deg,
-      color-mix(in oklab, var(--brand) 14%, transparent),
-      color-mix(in oklab, var(--brand) 55%, transparent),
-      color-mix(in oklab, var(--brand) 14%, transparent)
-    );
-    animation: syn-scan 5s ease-in-out infinite;
+    background: var(--hairline);
     pointer-events: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chain-pip,
-    .chain-pip::after,
-    .chain-rail-glow {
-      animation: none;
-      transition: none;
-    }
-    .chain-rail-glow {
-      display: none;
-    }
-    .track-link {
-      animation: none;
-      opacity: 0.45;
-    }
-  }
-}
-
-/* Hero service cards — a slow, staggered float so the band feels alive.
-   Each card sets --float-delay / --float-dur inline. */
-@keyframes card-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(calc(var(--float-dist, 7px) * -1));
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .card-float {
-    animation: card-float var(--float-dur, 6s) ease-in-out infinite;
-    animation-delay: var(--float-delay, 0s);
-    will-change: transform;
-  }
-}
-
-/* Travelling sheen along the accent bar at the bottom of each service card. */
-@keyframes bar-sweep {
-  0% {
-    transform: translateX(-100%);
-  }
-  55%,
-  100% {
-    transform: translateX(300%);
-  }
-}
-
-@keyframes syn-scan {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-@keyframes offer-sheen {
-  from {
-    transform: translateX(-130%) skewX(-18deg);
-  }
-  to {
-    transform: translateX(330%) skewX(-18deg);
-  }
-}
-
-@keyframes sg-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 

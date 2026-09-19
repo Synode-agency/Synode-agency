@@ -95,7 +95,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           // While the mobile panel is open the bar goes fully transparent, so
           // the panel's black reads as one surface with no seam under the logo.
           scrolled && !open
-            ? "border-hairline bg-glass-card backdrop-blur-xl"
+            ? "border-hairline bg-glass-card backdrop-blur-md"
             : "border-transparent bg-transparent",
         )}
       >
@@ -143,13 +143,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               aria-current={contactCurrent ? "page" : undefined}
-              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
+              className="btn-ink group hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <div className="hidden items-center border-l border-hairline pl-3 font-mono text-[0.72rem] sm:flex">
+            <div className="label-xs hidden items-center border-l border-hairline pl-3 sm:flex">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>
@@ -184,12 +184,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               onClick={() => setOpen(false)}
-              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium text-brand-foreground"
+              className="btn-ink mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium"
             >
               {site.ctaLabel}
               <ArrowRight className="size-4" />
             </Link>
-            <div className="mt-5 flex items-center justify-center gap-1 font-mono text-sm">
+            <div className="label-xs mt-5 flex items-center justify-center gap-1">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>

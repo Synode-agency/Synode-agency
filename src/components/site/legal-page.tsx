@@ -19,11 +19,10 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
         <section className="section-y">
           <div className="container-page">
             <Reveal className="mx-auto flex max-w-3xl flex-col gap-4">
-              <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
-                <span className="h-px w-6 bg-brand/50" aria-hidden />
+              <span className="eyebrow border-b border-hairline pb-3">
                 {updatedLabel} — {doc.updated}
               </span>
-              <h1 className="text-balance text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
+              <h1 className="text-balance text-[length:var(--fs-h2)] leading-[1] font-extrabold tracking-[-0.035em]">
                 {doc.title}
               </h1>
               <p className="max-w-2xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
@@ -35,7 +34,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
               {/* Sibling pages */}
               <nav
                 aria-label={locale === "fr" ? "Pages légales" : "Legal pages"}
-                className="flex shrink-0 flex-col gap-1 rounded-2xl border border-hairline bg-surface p-4 lg:sticky lg:top-28 lg:w-60"
+                className="surface-card flex shrink-0 flex-col gap-1 p-4 lg:sticky lg:top-28 lg:w-60"
               >
                 {links.map((link) => (
                   <Link
@@ -45,7 +44,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
                     className={cn(
                       "rounded-lg px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                       link.slug === slug
-                        ? "bg-brand-dim/50 font-medium text-foreground"
+                        ? "bg-surface-2 font-medium text-foreground"
                         : "text-muted-foreground hover:bg-surface-2 hover:text-foreground",
                     )}
                   >

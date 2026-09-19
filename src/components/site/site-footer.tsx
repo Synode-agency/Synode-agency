@@ -21,7 +21,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           <nav className="flex flex-col gap-3">
-            <span className="eyebrow text-label-muted">Navigation</span>
+            <span className="eyebrow">Navigation</span>
             {site.nav.map((item) => (
               <NavLink
                 key={item.href}
@@ -51,13 +51,13 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[length:var(--fs-small)] text-muted-foreground">
               {site.location}
             </span>
-            <span className="font-mono text-[length:var(--fs-small)] text-text-mono">
+            <span className="text-[length:var(--fs-small)] text-muted-foreground">
               {site.vat}
             </span>
           </div>
         </div>
 
-        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
 
           <nav
@@ -67,7 +67,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             {legal.map((link, i) => (
               <span key={link.slug} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <span aria-hidden className="text-text-mono/40">
+                  <span aria-hidden className="text-muted-foreground/40">
                     ·
                   </span>
                 )}

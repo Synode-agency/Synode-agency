@@ -16,7 +16,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
-  "w-full rounded-xl border border-hairline bg-white/[0.02] px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
+  "w-full rounded border border-input bg-surface px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-foreground/15 aria-invalid:border-destructive";
 const controlH = "h-12";
 
 /** Native select styled like the inputs, with our own chevron. */
@@ -111,7 +111,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9 text-center">
+      <div className="surface-card flex flex-col items-center gap-3 p-9 text-center">
         <CheckCircle2 className="size-8 text-brand" />
         <h3 className="text-lg font-semibold tracking-tight">{f.sentTitle}</h3>
         <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -131,7 +131,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="family-name"
             aria-invalid={!!errors.lastName}
             aria-describedby={errors.lastName ? "lastName-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
         <FieldWrap label={f.firstName} htmlFor="firstName" error={errors.firstName} required>
@@ -141,7 +141,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="given-name"
             aria-invalid={!!errors.firstName}
             aria-describedby={errors.firstName ? "firstName-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
       </div>
@@ -156,7 +156,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="email"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
         <FieldWrap label={f.phone} htmlFor="phone" error={errors.phone} required>
@@ -169,7 +169,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
             placeholder="+32 4xx xx xx xx"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
-            className={cn(control, controlH, "dark:bg-white/[0.02]")}
+            className={cn(control, controlH)}
           />
         </FieldWrap>
       </div>
@@ -186,7 +186,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(control, "min-h-44 py-3 dark:bg-white/[0.02]")}
+          className={cn(control, "min-h-44 py-3")}
         />
       </FieldWrap>
 
@@ -194,7 +194,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow disabled:opacity-60"
+          className="btn-ink group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium disabled:opacity-60"
         >
           {status === "sending" ? (
             <>

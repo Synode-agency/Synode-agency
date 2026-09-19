@@ -1,8 +1,5 @@
-"use client";
-
-import { useRef, useState } from "react";
-import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/site/reveal";
 
 interface OfferCardProps {
   icon: string;
@@ -15,8 +12,14 @@ interface OfferCardProps {
   delay: number;
 }
 
+/**
+ * One of the two offers.
+ *
+ * A white panel on the off-white page, a hairline, and a rule under the
+ * title. No tilt on mouse move, no sheen sweep, no glow: the card is read,
+ * not played with.
+ */
 export function OfferCard({
-  icon,
   number,
   title,
   forWho,
@@ -25,106 +28,45 @@ export function OfferCard({
   resultLabel,
   delay,
 }: OfferCardProps) {
-  const sheenRef = useRef<HTMLSpanElement>(null);
-  const [hovered, setHovered] = useState(false);
-
-  // Offer 02 (Blocks / Solutions sur mesure) gets its own accent from the palette.
-  const isSecondary = icon === "Blocks";
-  const accentText = isSecondary ? "text-offer-accent-2" : "text-brand";
-
-  function handleMouseMove(event: React.MouseEvent<HTMLElement>) {
-    const card = event.currentTarget;
-    const r = card.getBoundingClientRect();
-    const dx = (event.clientX - (r.left + r.width / 2)) / r.width;
-    const dy = (event.clientY - (r.top + r.height / 2)) / r.height;
-    card.style.transform = `perspective(1100px) rotateY(${(dx * 2.4).toFixed(2)}deg) rotateX(${(-dy * 2.4).toFixed(2)}deg) translateY(-3px)`;
-  }
-
-  function handleMouseEnter() {
-    setHovered(true);
-    const sheen = sheenRef.current;
-    if (sheen) {
-      sheen.style.animation = "none";
-      void sheen.offsetWidth;
-      sheen.style.animation = "offer-sheen 0.95s ease-out";
-    }
-  }
-
-  function handleMouseLeave(event: React.MouseEvent<HTMLElement>) {
-    setHovered(false);
-    event.currentTarget.style.transform = "none";
-  }
-
   return (
     <Reveal
       delay={delay}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
-      className={cn(
-        "relative flex flex-col items-center overflow-hidden rounded-[18px] border px-[clamp(28px,3vw,52px)] py-[calc(var(--ss)*clamp(30px,2.8vw,48px))] text-center transition-[border-color] duration-300 hover:border-brand/50",
-        isSecondary ? "border-brand-deep/42" : "border-brand/30",
-      )}
-      style={{
-        background: isSecondary
-          ? "linear-gradient(165deg, rgba(30,95,216,0.15), rgba(8,14,26,0.85))"
-          : "linear-gradient(165deg, rgba(63,169,245,0.12), rgba(8,14,26,0.85))",
-      }}
+      className="surface-card lift flex flex-col px-[clamp(1.5rem,1.2rem+1.6vw,2.75rem)] py-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.6vw,2.75rem))]"
     >
-      <span ref={sheenRef} aria-hidden className="offer-sheen" />
-
-      <div className="flex items-baseline justify-center gap-3.5">
-        <span
-          className={cn(
-            "font-archivo text-[clamp(22px,1.6vw+16px,32px)] leading-[0.9] font-extrabold tracking-[-0.06em]",
-            accentText,
-          )}
-        >
-          {number}
-        </span>
-        <h3 className="font-archivo text-[clamp(19px,2vw,24px)] font-bold tracking-[-0.032em]">
+      <div className="flex items-baseline gap-3 border-b border-hairline pb-4">
+        <span className="section-index">{number}</span>
+        <h3 className="font-heading text-[clamp(1.15rem,1vw+0.95rem,1.6rem)] leading-tight font-bold tracking-[-0.03em]">
           {title}
         </h3>
       </div>
 
-      <p className="font-plex mx-auto mt-[calc(var(--ss)*clamp(12px,0.8vw+8px,18px))] max-w-[44ch] text-balance text-[clamp(13px,0.5vw+12px,16px)] leading-[1.58] text-secondary-foreground">
+      <p className="mt-[calc(var(--ss)*clamp(1rem,0.8rem+0.7vw,1.5rem))] max-w-[44ch] text-[clamp(0.9rem,0.3vw+0.84rem,1.05rem)] leading-[1.6] text-secondary-foreground text-balance">
         {forWho}
       </p>
 
-      {/* Two per row, always: a 2x2 block, so exactly two rows of badges.
-          Each pill fills its cell, so the four line up on a clean grid. */}
-      <div className="mt-[calc(var(--ss)*clamp(16px,1.2vw+12px,26px))] grid w-full grid-cols-2 gap-[clamp(8px,0.5vw+6px,14px)]">
-        {chips.map((chip, i) => (
-          <span
+      {/* Two per row: a 2x2 block, so exactly two rows. */}
+      <ul className="mt-[calc(var(--ss)*clamp(1.1rem,0.9rem+0.8vw,1.75rem))] grid grid-cols-2 gap-x-6 gap-y-3">
+        {chips.map((chip) => (
+          <li
             key={chip}
-            style={{ transitionDelay: hovered ? `${i * 42}ms` : "0ms" }}
-            className={cn(
-              "font-plex grid place-items-center rounded-full border px-[clamp(12px,0.6vw+9px,18px)] py-[calc(var(--ss)*clamp(9px,0.4vw+7px,13px))] text-center text-balance sm:whitespace-nowrap text-[clamp(12px,0.3vw+11px,14px)] leading-tight transition-[transform,border-color,color] duration-300",
-              hovered
-                ? "-translate-y-[3px] border-brand/55 text-foreground"
-                : "translate-y-0 border-foreground/16 text-secondary-foreground",
-            )}
+            className="flex items-start gap-2.5 text-[clamp(0.82rem,0.2vw+0.78rem,0.92rem)] leading-snug text-foreground/85"
           >
+            <span
+              aria-hidden
+              className="mt-[0.5em] size-[5px] shrink-0 bg-brand"
+            />
             {chip}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <div
         className={cn(
-          "mx-auto mt-[calc(var(--ss)*clamp(20px,1.4vw+14px,30px))] max-w-[42ch] border-t-2 pt-[15px]",
-          isSecondary ? "border-offer-accent-2" : "border-brand",
+          "mt-auto pt-[calc(var(--ss)*clamp(1.25rem,1rem+1vw,2rem))]",
         )}
       >
-        <div
-          className={cn(
-            "font-mono text-[clamp(9.5px,0.25vw+9px,11.5px)] tracking-[0.12em] uppercase",
-            accentText,
-          )}
-        >
-          {resultLabel}
-        </div>
-        <p className="font-plex mt-[5px] text-[clamp(13px,0.4vw+12px,15.5px)] leading-[1.5]">
+        <div className="label-xs text-muted-foreground">{resultLabel}</div>
+        <p className="mt-1.5 max-w-[44ch] text-[clamp(0.9rem,0.3vw+0.84rem,1.05rem)] leading-[1.5] font-medium">
           {result}
         </p>
       </div>

@@ -12,7 +12,6 @@ export function Problem({ locale }: { locale: Locale }) {
           eyebrow={problem.eyebrow}
           title={problem.title}
           subtitle={problem.intro}
-          className="mx-auto"
         />
 
         <TimelineRow
