@@ -26,7 +26,7 @@ export function Team({ locale }: { locale: Locale }) {
               <Reveal
                 key={member.name}
                 delay={i * 110}
-                className="flex items-start gap-[clamp(1rem,0.8rem+1vw,1.75rem)] border-t border-hairline pt-6"
+                className="surface-card lift flex items-start gap-[clamp(1rem,0.8rem+1vw,1.75rem)] p-[clamp(1.25rem,1rem+1.2vw,2rem)]"
               >
                 <span className="relative block w-[calc(var(--ss)*clamp(5rem,4rem+3vw,7.5rem))] shrink-0 overflow-hidden rounded bg-surface-2">
                   <Image

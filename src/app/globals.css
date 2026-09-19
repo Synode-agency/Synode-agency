@@ -101,6 +101,10 @@
   --ink: #14130f;
   --ink-foreground: #f5f4f0;
 
+  /* Literal white, so `.section-panel--surface` can paint itself with it
+     while redefining --surface for the cards it contains. */
+  --paper: #ffffff;
+
   /* Header height, reserved by every page and by each full-screen section. */
   --header-h: clamp(4.5rem, 3.8rem + 1.6vw, 5.75rem);
 
@@ -284,8 +288,12 @@
     padding-block: var(--space-section);
   }
 
+  /* White band. Cards inside it cannot also be white, so --surface shifts to
+     a warm grey for the subtree — same local-override trick as `.panel-ink`. */
   .section-panel--surface {
-    background: var(--surface);
+    background: var(--paper);
+    --surface: #f1efe9;
+    --surface-2: #e8e5dd;
   }
 
   @media (min-width: 1024px) {
@@ -334,8 +342,8 @@
     --hairline: rgba(245, 244, 240, 0.2);
     --border: rgba(245, 244, 240, 0.2);
     --border-active: rgba(245, 244, 240, 0.5);
-    --surface: rgba(245, 244, 240, 0.05);
-    --surface-2: rgba(245, 244, 240, 0.1);
+    --surface: rgba(245, 244, 240, 0.08);
+    --surface-2: rgba(245, 244, 240, 0.13);
     --ring: #f5f4f0;
 
     /* On ink the primary action inverts, and the accent has to lighten or it
@@ -381,20 +389,21 @@
     text-transform: uppercase;
   }
 
-  /* Base card surface: white on off-white, a hairline, no glow. */
+  /* Card: a filled block, no border. That is the we-are.be signature — the
+     card is read as a surface, not as a framed box. The fill adapts to the
+     panel it sits in, so a card is never the same colour as its band. */
   .surface-card {
     background: var(--surface);
-    border: 1px solid var(--hairline);
     border-radius: var(--radius);
   }
 
-  /* The only hover on a card: the hairline darkens. No lift, no shadow. */
+  /* The only hover on a card: the fill shifts one step. No lift, no shadow. */
   .lift {
-    transition: border-color 220ms ease, background-color 220ms ease;
+    transition: background-color 220ms ease;
   }
 
   .lift:hover {
-    border-color: var(--border-active);
+    background: var(--surface-2);
   }
 
   /* The wordmark asset is white lettering: invert it on a light ground, and

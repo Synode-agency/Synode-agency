@@ -110,6 +110,41 @@ déjà le soulignement de la navigation fournit l'information.
 Le mot-clé « Synode » du logo est un PNG en lettrage **blanc**. `.wordmark-type`
 l'inverse sur fond clair et le laisse tel quel dans un panneau encre.
 
+## Les cartes — `.surface-card`
+
+Calquées sur we-are.be : **un bloc rempli, sans bordure**. La carte se lit
+comme une surface, pas comme une boîte encadrée.
+
+```css
+.surface-card { background: var(--surface); border-radius: var(--radius); }
+.lift:hover   { background: var(--surface-2); }   /* le seul survol */
+```
+
+**Le remplissage s'adapte à la bande qui la contient**, donc une carte n'est
+jamais de la même couleur que son fond :
+
+| Bande | `--surface` (la carte) |
+| --- | --- |
+| Page (blanc cassé) | blanc |
+| Blanche | gris chaud `#f1efe9` |
+| Encre | blanc à 8 % |
+
+C'est le même mécanisme de redéfinition locale que `.panel-ink`, et c'est
+pour ça que `--paper` existe : `.section-panel--surface` doit pouvoir se
+peindre en blanc tout en redéfinissant `--surface` pour ses enfants.
+
+Au survol, une carte fait **une seule chose** : son remplissage passe d'un
+cran. Pas de décollage, pas d'ombre, pas de bordure qui s'allume.
+
+Les bordures ne survivent que sur les **contrôles** (le pager, le bouton du
+menu mobile), où elles délimitent une zone cliquable.
+
+## Cartes projet (Réalisations)
+
+Le motif des cas clients de we-are.be : **média en haut occupant l'essentiel
+de la carte**, puis le tag, le titre, le texte. Deux par ligne et non quatre,
+parce que nos cartes portent une vidéo qu'on doit pouvoir regarder.
+
 ## Les trois ornements
 
 Il n'y en a que trois, et ils reviennent partout :
@@ -200,10 +235,8 @@ Le carrousel coverflow a été supprimé. **Il cachait trois projets sur quatre
 derrière une interaction**, alors que ce sont précisément les projets qui
 constituent l'argument d'une agence qui démarre.
 
-À la place, `realisations-list.tsx` : un index de saut en haut, puis **une
-bande par démo**, alternant blanc et blanc cassé, média et texte permutant de
-côté à chaque projet. Le média est un **16:9 pleine largeur de colonne**,
-assez grand pour qu'on regarde vraiment la vidéo.
+À la place, `realisations-list.tsx` : une **grille de cartes** sur le modèle
+des cas clients de we-are.be, deux par ligne, média 16:9 en haut de carte.
 
 ## Mobile
 

@@ -43,7 +43,7 @@ export function TimelineRow({
           <Reveal
             key={item.title}
             delay={i * 70}
-            className="flex items-start gap-4 rounded-2xl border border-hairline bg-surface p-5 text-left"
+            className="surface-card flex items-start gap-4 p-5 text-left"
           >
             {variant === "chain" ? (
               <span aria-hidden className="chain-pip mt-[7px] shrink-0" />

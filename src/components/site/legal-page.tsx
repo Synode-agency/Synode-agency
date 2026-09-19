@@ -40,7 +40,7 @@ export function LegalPage({
               {/* Sibling pages */}
               <nav
                 aria-label={locale === "fr" ? "Pages légales" : "Legal pages"}
-                className="surface-card flex shrink-0 flex-col gap-1 p-4 lg:sticky lg:top-28 lg:w-60"
+                className="surface-card flex shrink-0 flex-col gap-1 p-4 lg:sticky lg:top-32 lg:w-60"
               >
                 {links.map((link) => (
                   <Link
