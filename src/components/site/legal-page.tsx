@@ -7,13 +7,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /** Long-form legal page — scrollable, with a sibling-page rail on desktop. */
-export function LegalPage({
-  locale,
-  slug,
-}: {
-  locale: Locale;
-  slug: LegalSlug;
-}) {
+export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug }) {
   const doc = getLegalDoc(locale, slug);
   const links = legalLinks(locale);
   const updatedLabel = locale === "fr" ? "Mise à jour" : "Last updated";
@@ -21,14 +15,15 @@ export function LegalPage({
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[var(--header-h)]">
-        <section className="section-panel">
+      <main className="flex-1 pt-[4.6rem]">
+        <section className="section-y">
           <div className="container-page">
             <Reveal className="mx-auto flex max-w-3xl flex-col gap-4">
-              <span className="eyebrow border-b border-hairline pb-3">
+              <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
+                <span className="h-px w-6 bg-brand/50" aria-hidden />
                 {updatedLabel} — {doc.updated}
               </span>
-              <h1 className="text-balance text-[length:var(--fs-h2)] leading-[1] font-extrabold tracking-[-0.035em]">
+              <h1 className="text-balance text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
                 {doc.title}
               </h1>
               <p className="max-w-2xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
@@ -40,7 +35,7 @@ export function LegalPage({
               {/* Sibling pages */}
               <nav
                 aria-label={locale === "fr" ? "Pages légales" : "Legal pages"}
-                className="surface-card flex shrink-0 flex-col gap-1 p-4 lg:sticky lg:top-32 lg:w-60"
+                className="flex shrink-0 flex-col gap-1 rounded-2xl border border-hairline bg-surface p-4 lg:sticky lg:top-28 lg:w-60"
               >
                 {links.map((link) => (
                   <Link
@@ -50,7 +45,7 @@ export function LegalPage({
                     className={cn(
                       "rounded-lg px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                       link.slug === slug
-                        ? "bg-surface-2 font-medium text-foreground"
+                        ? "bg-brand-dim/50 font-medium text-foreground"
                         : "text-muted-foreground hover:bg-surface-2 hover:text-foreground",
                     )}
                   >
@@ -61,11 +56,7 @@ export function LegalPage({
 
               <article className="min-w-0 flex-1 space-y-[clamp(1.75rem,1.5rem+1vw,2.75rem)]">
                 {doc.sections.map((section, i) => (
-                  <Reveal
-                    key={section.heading}
-                    delay={i * 40}
-                    className="space-y-3"
-                  >
+                  <Reveal key={section.heading} delay={i * 40} className="space-y-3">
                     <h2 className="text-[length:var(--fs-h3)] font-semibold tracking-tight">
                       {section.heading}
                     </h2>

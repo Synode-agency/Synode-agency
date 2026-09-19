@@ -8,8 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getContent, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-type Field =
-  "lastName" | "firstName" | "email" | "phone" | "timeline" | "message";
+type Field = "lastName" | "firstName" | "email" | "phone" | "timeline" | "message";
 type Errors = Partial<Record<Field, string>>;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,7 +16,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
-  "w-full rounded border border-input bg-surface px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-foreground/15 aria-invalid:border-destructive";
+  "w-full rounded-xl border border-hairline bg-white/[0.02] px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
 const controlH = "h-12";
 
 /** Native select styled like the inputs, with our own chevron. */
@@ -37,11 +36,7 @@ function Select({
         name={id}
         aria-label={placeholderLabel}
         defaultValue={options[0]}
-        className={cn(
-          control,
-          controlH,
-          "appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground",
-        )}
+        className={cn(control, controlH, "appearance-none pr-10 [&>option]:bg-surface [&>option]:text-foreground")}
       >
         {options.map((option) => (
           <option key={option} value={option}>
@@ -116,7 +111,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="surface-card flex flex-col items-center gap-3 p-9 text-center">
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9 text-center">
         <CheckCircle2 className="size-8 text-brand" />
         <h3 className="text-lg font-semibold tracking-tight">{f.sentTitle}</h3>
         <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
@@ -127,52 +122,32 @@ export function AuditForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={onSubmit}
-      noValidate
-      className="flex flex-col gap-5"
-    >
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap
-          label={f.lastName}
-          htmlFor="lastName"
-          error={errors.lastName}
-          required
-        >
+        <FieldWrap label={f.lastName} htmlFor="lastName" error={errors.lastName} required>
           <Input
             id="lastName"
             name="lastName"
             autoComplete="family-name"
             aria-invalid={!!errors.lastName}
             aria-describedby={errors.lastName ? "lastName-error" : undefined}
-            className={cn(control, controlH)}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
-        <FieldWrap
-          label={f.firstName}
-          htmlFor="firstName"
-          error={errors.firstName}
-          required
-        >
+        <FieldWrap label={f.firstName} htmlFor="firstName" error={errors.firstName} required>
           <Input
             id="firstName"
             name="firstName"
             autoComplete="given-name"
             aria-invalid={!!errors.firstName}
             aria-describedby={errors.firstName ? "firstName-error" : undefined}
-            className={cn(control, controlH)}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <FieldWrap
-          label={f.email}
-          htmlFor="email"
-          error={errors.email}
-          required
-        >
+        <FieldWrap label={f.email} htmlFor="email" error={errors.email} required>
           <Input
             id="email"
             name="email"
@@ -181,15 +156,10 @@ export function AuditForm({ locale }: { locale: Locale }) {
             autoComplete="email"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
-            className={cn(control, controlH)}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
-        <FieldWrap
-          label={f.phone}
-          htmlFor="phone"
-          error={errors.phone}
-          required
-        >
+        <FieldWrap label={f.phone} htmlFor="phone" error={errors.phone} required>
           <Input
             id="phone"
             name="phone"
@@ -199,25 +169,16 @@ export function AuditForm({ locale }: { locale: Locale }) {
             placeholder="+32 4xx xx xx xx"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
-            className={cn(control, controlH)}
+            className={cn(control, controlH, "dark:bg-white/[0.02]")}
           />
         </FieldWrap>
       </div>
 
       <FieldWrap label={f.timeline} htmlFor="timeline">
-        <Select
-          id="timeline"
-          options={contact.timelines}
-          placeholderLabel={f.timeline}
-        />
+        <Select id="timeline" options={contact.timelines} placeholderLabel={f.timeline} />
       </FieldWrap>
 
-      <FieldWrap
-        label={f.message}
-        htmlFor="message"
-        error={errors.message}
-        required
-      >
+      <FieldWrap label={f.message} htmlFor="message" error={errors.message} required>
         <Textarea
           id="message"
           name="message"
@@ -225,7 +186,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(control, "min-h-44 py-3")}
+          className={cn(control, "min-h-44 py-3 dark:bg-white/[0.02]")}
         />
       </FieldWrap>
 
@@ -233,7 +194,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="btn-ink group inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium disabled:opacity-60"
+          className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow disabled:opacity-60"
         >
           {status === "sending" ? (
             <>
@@ -277,11 +238,7 @@ function FieldWrap({
       </label>
       {children}
       {error && (
-        <p
-          id={`${htmlFor}-error`}
-          role="alert"
-          className="text-xs font-medium text-destructive"
-        >
+        <p id={`${htmlFor}-error`} role="alert" className="text-xs font-medium text-destructive">
           {error}
         </p>
       )}

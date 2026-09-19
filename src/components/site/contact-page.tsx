@@ -12,8 +12,8 @@ export function ContactPage({ locale }: { locale: Locale }) {
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[var(--header-h)]">
-        <section className="section-panel">
+      <main className="flex-1 pt-[4.6rem]">
+        <section className="section-y">
           <div className="container-page">
             <PageHero
               eyebrow={contact.eyebrow}
@@ -21,14 +21,11 @@ export function ContactPage({ locale }: { locale: Locale }) {
               body={contact.body}
               stats={contact.stats}
             />
-          </div>
-        </section>
 
-        {/* The form gets its own white band, so it reads as the step to take
-            rather than as more page. */}
-        <section className="section-panel section-panel--surface">
-          <div className="container-page">
-            <Reveal className="mx-auto w-full max-w-2xl">
+            <Reveal
+              delay={80}
+              className="mx-auto mt-[clamp(2.5rem,2rem+2.5vw,4.5rem)] w-full max-w-3xl rounded-3xl border border-hairline bg-surface/70 p-[clamp(1.5rem,1.25rem+2vw,3.5rem)]"
+            >
               <AuditForm locale={locale} />
             </Reveal>
           </div>

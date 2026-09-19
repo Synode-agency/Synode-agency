@@ -10,24 +10,24 @@ import { getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /** Landing sections the scroll-spy underline follows. */
-const SPY_IDS = [
-  "top",
-  "probleme",
-  "offre",
-  "methode",
-  "equipe",
-  "conclusion",
-  "faq",
-];
+const SPY_IDS = ["top", "probleme", "offre", "methode", "equipe", "conclusion", "faq"];
 
 export function SiteHeader({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("top");
 
   const home = homePath(locale);
   const onHome = pathname === home;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -87,11 +87,19 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Above the mobile panel, so the logo and the close button sit on top
-          of it rather than being covered by it. */}
-      {/* Clean white bar with a hairline, the way both references do it. */}
-      <div className="relative z-10 border-b border-hairline bg-background/95 backdrop-blur-sm">
-        <div className="container-page relative flex h-[var(--header-h)] items-center justify-between gap-4">
+      <div
+        className={cn(
+          // Above the mobile panel, so the logo and the close button sit on
+          // top of it rather than being covered by it.
+          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter] duration-300",
+          // While the mobile panel is open the bar goes fully transparent, so
+          // the panel's black reads as one surface with no seam under the logo.
+          scrolled && !open
+            ? "border-hairline bg-glass-card backdrop-blur-xl"
+            : "border-transparent bg-transparent",
+        )}
+      >
+        <div className="container-page flex h-[4.6rem] items-center justify-between gap-4">
           <NavLink
             href={home}
             locale={locale}
@@ -102,7 +110,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Wordmark variant="mark" />
           </NavLink>
 
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1 md:flex">
             {site.nav.map((item) => {
               const current = isCurrent(item.href);
               return (
@@ -135,13 +143,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               aria-current={contactCurrent ? "page" : undefined}
-              className="btn-ink group hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium sm:inline-flex"
+              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <div className="label-xs hidden items-center border-l border-hairline pl-3 sm:flex">
+            <div className="hidden items-center border-l border-hairline pl-3 font-mono text-[0.72rem] sm:flex">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>
@@ -160,7 +168,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[var(--header-h)] pb-8 md:hidden">
+        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[4.6rem] pb-8 md:hidden">
           <nav className="container-page flex -translate-y-20 flex-col items-center gap-1">
             {site.nav.map((item) => (
               <NavLink
@@ -176,12 +184,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               onClick={() => setOpen(false)}
-              className="btn-ink mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium"
+              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium text-brand-foreground"
             >
               {site.ctaLabel}
               <ArrowRight className="size-4" />
             </Link>
-            <div className="label-xs mt-5 flex items-center justify-center gap-1">
+            <div className="mt-5 flex items-center justify-center gap-1 font-mono text-sm">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>

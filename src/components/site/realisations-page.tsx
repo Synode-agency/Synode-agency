@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
-import { RealisationsList } from "@/components/site/realisations-list";
+import { RealisationsCarousel } from "@/components/site/realisations-carousel";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /** Standalone Réalisations page — scrollable, no 100vh constraint. */
@@ -15,9 +15,9 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[var(--header-h)]">
-        <section className="section-panel">
-          <div className="container-page">
+      <main className="flex-1 pt-[4.6rem]">
+        <section>
+          <div className="container-page section-y">
             <PageHero
               eyebrow={realisations.eyebrow}
               title={realisations.title}
@@ -27,29 +27,35 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <RealisationsList
-          items={realisations.items}
-          badge={realisations.badge}
-          filterCta={realisations.filterCta}
-          contactHref={contactHref}
-        />
-
-        <section className="section-panel">
+        <section className="border-t border-hairline pb-[var(--space-section)] pt-[clamp(2.5rem,2rem+2.5vw,4.5rem)]">
           <div className="container-page">
-            <Reveal className="surface-card mx-auto flex max-w-3xl flex-col items-center gap-5 p-[clamp(2rem,1.5rem+2.5vw,4rem)] text-center">
-              <h2 className="text-balance text-[length:var(--fs-h2)] leading-[1] font-extrabold tracking-[-0.035em]">
-                {realisations.cta.title}
-              </h2>
-              <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.65] text-muted-foreground">
-                {realisations.cta.body}
-              </p>
-              <Link
-                href={contactHref}
-                className="btn-ink group mt-1 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium"
-              >
-                {realisations.cta.button}
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+            <RealisationsCarousel
+              items={realisations.items}
+              badge={realisations.badge}
+              filterCta={realisations.filterCta}
+              contactHref={contactHref}
+            />
+          </div>
+        </section>
+
+        <section className="pb-[var(--space-section)]">
+          <div className="container-page">
+            <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/25 bg-gradient-to-br from-brand-dim/25 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[clamp(3rem,2.5rem+2.5vw,5rem)] text-center">
+              <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
+                <h2 className="text-balance text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem]">
+                  {realisations.cta.title}
+                </h2>
+                <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+                  {realisations.cta.body}
+                </p>
+                <Link
+                  href={contactHref}
+                  className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
+                >
+                  {realisations.cta.button}
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
             </Reveal>
           </div>
         </section>

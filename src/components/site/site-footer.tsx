@@ -10,7 +10,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   const legal = legalLinks(locale);
 
   return (
-    <footer className="panel-ink">
+    <footer className="border-t border-hairline">
       <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1rem,0.85rem+0.6vw,1.6rem)]">
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex max-w-xs flex-col gap-4">
@@ -21,7 +21,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           <nav className="flex flex-col gap-3">
-            <span className="eyebrow">Navigation</span>
+            <span className="eyebrow text-label-muted">Navigation</span>
             {site.nav.map((item) => (
               <NavLink
                 key={item.href}
@@ -51,25 +51,23 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[length:var(--fs-small)] text-muted-foreground">
               {site.location}
             </span>
-            <span className="text-[length:var(--fs-small)] text-muted-foreground">
+            <span className="font-mono text-[length:var(--fs-small)] text-text-mono">
               {site.vat}
             </span>
           </div>
         </div>
 
-        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
 
           <nav
-            aria-label={
-              locale === "fr" ? "Informations légales" : "Legal information"
-            }
+            aria-label={locale === "fr" ? "Informations légales" : "Legal information"}
             className="flex items-center gap-x-1.5 whitespace-nowrap text-[0.68rem] sm:text-[0.75rem]"
           >
             {legal.map((link, i) => (
               <span key={link.slug} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <span aria-hidden className="text-muted-foreground/40">
+                  <span aria-hidden className="text-text-mono/40">
                     ·
                   </span>
                 )}
