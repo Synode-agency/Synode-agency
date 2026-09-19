@@ -10,7 +10,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   const legal = legalLinks(locale);
 
   return (
-    <footer className="border-t border-hairline">
+    <footer className="panel-ink">
       <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1rem,0.85rem+0.6vw,1.6rem)]">
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex max-w-xs flex-col gap-4">

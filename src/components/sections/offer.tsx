@@ -7,7 +7,7 @@ export function Offer({ locale }: { locale: Locale }) {
 
   return (
     <section id="offre" className="section-screen relative">
-      <div className="section-panel panel-ink">
+      <div className="section-panel section-panel--surface">
         <div className="container-page">
           <SectionHeading
             eyebrow={offer.eyebrow}

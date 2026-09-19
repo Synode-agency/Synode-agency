@@ -75,7 +75,9 @@
   --hs: clamp(0.55, calc(100dvh / 570px - 0.649), 1);
 
   /* Same idea for the full-screen landing sections. */
-  --ss: clamp(0.62, calc(100dvh / 900px), 1);
+  /* Sections are content-height now, so nothing has to be compressed to fit
+     a viewport. Kept as a token because the spacing scale still uses it. */
+  --ss: 1;
 
   --container-max: 90rem; /* 1440px — tighter than before, more margin */
   --space-section: clamp(3.5rem, 2.5rem + 3vw, 7rem);
@@ -104,6 +106,8 @@
   /* Literal white, so `.section-panel--surface` can paint itself with it
      while redefining --surface for the cards it contains. */
   --paper: #ffffff;
+  /* Light depth on cards, not a glow. */
+  --shadow-card: 0 1px 2px rgba(20, 19, 15, 0.04), 0 8px 24px -16px rgba(20, 19, 15, 0.18);
 
   /* Header height, reserved by every page and by each full-screen section. */
   --header-h: clamp(4.5rem, 3.8rem + 1.6vw, 5.75rem);
@@ -117,8 +121,8 @@
   --popover: #ffffff;
   --popover-foreground: #14130f;
 
-  /* Primary action is ink, not blue: that is what reads "agency". */
-  --primary: #14130f;
+  /* Primary action is the accent, the way fastonweb uses its teal. */
+  --primary: #1b4de0;
   --primary-foreground: #ffffff;
 
   --secondary: #ebe9e3;
@@ -157,7 +161,7 @@
   --chart-4: #0f2fa0;
   --chart-5: #ebe9e3;
 
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
   --sidebar: #ffffff;
   --sidebar-foreground: #14130f;
@@ -222,16 +226,7 @@
 
   /* Give fixed header room and offset anchor targets */
   section[id] {
-    scroll-margin-top: 5.5rem;
-  }
-
-  /* Full-screen sections already reserve the header height in their own top
-     padding, so the arrows should land them flush against the viewport top. */
-  @media (min-width: 1024px) {
-    .section-screen[id],
-    .screen-shell[id] {
-      scroll-margin-top: 0;
-    }
+    scroll-margin-top: calc(var(--header-h) + 1rem);
   }
 
   /* Every interactive control gets a pointer cursor */
@@ -274,59 +269,22 @@
     padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
   }
 
-  /* Full-screen landing section (desktop only — mobile keeps natural flow so
-     tall content never gets clipped on a phone). The section is just the
-     envelope; the visible surface is the `.section-panel` inside it. */
+  /* A section is a band of content, sized by what it contains. The previous
+     build pinned every section to 100dvh with scroll-snapping; fastonweb and
+     we-are.be both scroll normally, and so does this now. */
   .section-screen {
-    padding-block: 0;
+    position: relative;
   }
 
-  /* The panel is what carries the colour. Sections alternate between the
-     page background, white and ink, the way the reference agency sites cut
-     a page into big blocks instead of one continuous scroll. */
   .section-panel {
     padding-block: var(--space-section);
   }
 
-  /* White band. Cards inside it cannot also be white, so --surface shifts to
-     a warm grey for the subtree — same local-override trick as `.panel-ink`. */
+  /* Alternating grounds, the only rhythm device: white and warm grey. */
   .section-panel--surface {
     background: var(--paper);
     --surface: #f1efe9;
     --surface-2: #e8e5dd;
-  }
-
-  @media (min-width: 1024px) {
-    .section-screen {
-      position: relative;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      /* Clears the fixed header. No side gutter: the reference sites use
-         full-bleed bands, and reserve rounded corners for cards. */
-      padding-block: var(--header-h) 0;
-    }
-
-    .section-screen > .section-panel {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-block: calc(var(--ss) * 2.75rem);
-    }
-
-    /* Sits with the footer inside one viewport: the pair shares 100dvh. */
-    .section-screen-with-footer {
-      min-height: auto;
-      flex: 1;
-      padding-bottom: 0;
-    }
-
-    .screen-shell {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-    }
   }
 
   /* Local palette flip. Every Tailwind colour utility on this site resolves
@@ -394,7 +352,9 @@
      panel it sits in, so a card is never the same colour as its band. */
   .surface-card {
     background: var(--surface);
+    border: 1px solid var(--hairline);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
   }
 
   /* The only hover on a card: the fill shifts one step. No lift, no shadow. */
@@ -402,8 +362,15 @@
     transition: background-color 220ms ease;
   }
 
+  .lift {
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease;
+  }
+
   .lift:hover {
     background: var(--surface-2);
+    border-color: var(--border-active);
   }
 
   /* The wordmark asset is white lettering: invert it on a light ground, and
@@ -437,31 +404,6 @@
   .btn-line:hover {
     background: var(--foreground);
     color: var(--primary-foreground);
-  }
-
-  /* Section snapping — one section per scroll gesture.
-     Enabled only while `SectionSnap` is mounted (landing page), only on
-     desktop, and only when the visitor hasn't asked for reduced motion.
-     Uses the browser's native snapping rather than hijacking the wheel, so
-     keyboard, trackpad inertia and screen readers keep working normally. */
-  @media (min-width: 1024px) {
-    html.snap-sections {
-      scroll-snap-type: y mandatory;
-    }
-
-    html.snap-sections #top,
-    html.snap-sections .section-screen,
-    html.snap-sections .screen-shell {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-    }
-  }
-
-  /* Never trap someone who asked for less motion. */
-  @media (prefers-reduced-motion: reduce) {
-    html.snap-sections {
-      scroll-snap-type: none;
-    }
   }
 
   /* Spacing steps that shrink together with --ss, used inside full-screen

@@ -20,9 +20,6 @@ const SPY_IDS = [
   "faq",
 ];
 
-/** Sections painted on ink. Over those, the header bar inverts. */
-const INK_SECTIONS = new Set(["offre", "conclusion"]);
-
 export function SiteHeader({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
   const pathname = usePathname();
@@ -68,10 +65,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     return pathname === normalised || pathname.startsWith(`${normalised}/`);
   };
 
-  /* The bar is a floating pill, ink by default. Over an ink section it flips
-     to light, otherwise it would vanish into the panel behind it. */
-  const onInk = onHome && INK_SECTIONS.has(active) && !open;
-
   const contactHref = path(locale, "/contact");
   const contactCurrent = pathname === contactHref;
 
@@ -96,12 +89,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     <header className="fixed inset-x-0 top-0 z-50">
       {/* Above the mobile panel, so the logo and the close button sit on top
           of it rather than being covered by it. */}
-      <div
-        className={cn(
-          "relative z-10 transition-colors duration-300",
-          onInk ? "bg-background text-foreground" : "panel-ink",
-        )}
-      >
+      {/* Clean white bar with a hairline, the way both references do it. */}
+      <div className="relative z-10 border-b border-hairline bg-background/95 backdrop-blur-sm">
         <div className="container-page relative flex h-[var(--header-h)] items-center justify-between gap-4">
           <NavLink
             href={home}

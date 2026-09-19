@@ -34,9 +34,9 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
           contactHref={contactHref}
         />
 
-        <section className="section-panel panel-ink">
+        <section className="section-panel">
           <div className="container-page">
-            <Reveal className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
+            <Reveal className="surface-card mx-auto flex max-w-3xl flex-col items-center gap-5 p-[clamp(2rem,1.5rem+2.5vw,4rem)] text-center">
               <h2 className="text-balance text-[length:var(--fs-h2)] leading-[1] font-extrabold tracking-[-0.035em]">
                 {realisations.cta.title}
               </h2>
