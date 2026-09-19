@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Reveal } from "@/components/site/reveal";
-import { AgentDiagram } from "@/components/site/agent-diagram";
 import { PillarsBand } from "@/components/sections/pillars-band";
 import { getContent, path, type Locale } from "@/lib/content";
 
@@ -19,11 +18,7 @@ export function Hero({ locale }: { locale: Locale }) {
       {/* row 2 — main hero content, centered in the space left between navbar and services band */}
       <div className="container-page self-center py-8">
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-5 text-center sm:gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
-          <Reveal className="w-full">
-            <AgentDiagram />
-          </Reveal>
-
-          <Reveal delay={100} className="flex flex-col items-center gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
+          <Reveal className="flex flex-col items-center gap-7 lg:gap-[calc(var(--hs)*1.75rem)]">
             <div className="relative isolate w-fit">
               <div
                 aria-hidden
