@@ -31,7 +31,7 @@ export function OfferCard({
   return (
     <Reveal
       delay={delay}
-      className="surface-card lift flex flex-col px-[clamp(1.5rem,1.2rem+1.6vw,2.75rem)] py-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.6vw,2.75rem))]"
+      className="surface-card flex flex-col px-[clamp(1.5rem,1.2rem+1.6vw,2.75rem)] py-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.6vw,2.75rem))]"
     >
       <div className="flex items-baseline gap-3 border-b border-hairline pb-4">
         <span className="section-index">{number}</span>

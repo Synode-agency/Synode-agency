@@ -23,7 +23,7 @@ export function Method({ locale }: { locale: Locale }) {
             {audience.sectors.map((sector) => (
               <span
                 key={sector}
-                className="rounded-full border border-hairline bg-surface px-3.5 py-1.5 text-[0.8rem] text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
+                className="rounded-full bg-surface px-3.5 py-1.5 text-[0.8rem] text-foreground/80 transition-colors hover:bg-surface-2 hover:text-foreground"
               >
                 {sector}
               </span>
