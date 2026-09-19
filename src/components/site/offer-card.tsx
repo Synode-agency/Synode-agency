@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/site/reveal";
 
@@ -51,9 +52,10 @@ export function OfferCard({
             key={chip}
             className="flex items-start gap-2.5 text-[clamp(0.82rem,0.2vw+0.78rem,0.92rem)] leading-snug text-foreground/85"
           >
-            <span
+            <Check
               aria-hidden
-              className="mt-[0.5em] size-[5px] shrink-0 bg-brand"
+              className="mt-[0.15em] size-4 shrink-0 text-brand"
+              strokeWidth={2.5}
             />
             {chip}
           </li>

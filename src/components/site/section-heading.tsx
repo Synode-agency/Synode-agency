@@ -38,10 +38,7 @@ export function SectionHeading({
       )}
     >
       <div
-        className={cn(
-          "flex w-full items-baseline gap-3 border-b border-hairline pb-3",
-          centered && "justify-center",
-        )}
+        className={cn("flex items-baseline gap-2.5", centered && "justify-center")}
       >
         {index && <span className="section-index">{index}</span>}
         <span className="eyebrow">{label}</span>
@@ -49,7 +46,7 @@ export function SectionHeading({
 
       <h2
         className={cn(
-          "mt-[calc(var(--ss)*clamp(1.25rem,1rem+1vw,2rem))] max-w-[18ch] text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance",
+          "mt-3 max-w-[18ch] text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em] text-balance",
           centered && "max-w-[20ch]",
         )}
       >

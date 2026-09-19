@@ -18,7 +18,7 @@ export function Problem({ locale }: { locale: Locale }) {
 
   return (
     <section id="probleme" className="section-screen relative">
-      <div className="section-panel section-panel--surface">
+      <div className="section-panel">
         <div className="container-page">
           <SectionHeading
             eyebrow={problem.eyebrow}

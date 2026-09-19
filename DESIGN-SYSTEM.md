@@ -30,7 +30,7 @@ premier, plasm-agency.com ensuite. Ce qu'on leur a repris, point par point :
 | `--surface` | `#ffffff` | Cartes, posées sur le blanc cassé. C'est ce léger écart qui crée la profondeur, pas une ombre. |
 | `--surface-2` | `#ebe9e3` | Survols, aplats secondaires. |
 | `--hairline` | `rgba(20,19,15,.13)` | Tous les filets. |
-| `--primary` | `#14130f` | **L'action principale est encre, pas bleue.** C'est ce qui fait lire « agence » plutôt que « produit IA ». |
+| `--primary` | `#1b4de0` | **L'action principale est bleue**, comme fastonweb utilise son turquoise : le bouton est le point de fuite de chaque section. |
 | `--brand` | `#1b4de0` | Bleu, **à très petite dose** : index de section, pastilles, un mot dans le titre du hero. |
 
 Le bleu vif d'avant (`#3fa9f5`) a disparu du fond et des boutons. Il ne survit
@@ -51,24 +51,31 @@ majuscules, interlettrage large, sans-serif.
 
 ## Le rythme des sections
 
-Le site est découpé en **grands panneaux** (`.section-panel`), pas en un scroll
-continu. Chaque section alterne :
+**Les sections sont à hauteur de contenu et la page scrolle normalement.**
+La version précédente épinglait chaque section à `100dvh` avec du scroll-snap ;
+fastonweb et we-are.be scrollent tous les deux naturellement, et c'est ce qui
+fait la différence entre « site d'agence » et « démo de produit ».
 
-| Section | Ton |
+Conséquences directes : `SectionSnap`, `SectionPager` et le token `--ss`
+comme facteur de compression ont disparu. `--ss` reste déclaré à `1` parce que
+l'échelle d'espacement s'en sert encore, mais **plus aucun texte n'est
+contraint en longueur** par la hauteur d'un écran.
+
+Le rythme se fait par alternance de fonds, et rien d'autre :
+
+| Section | Fond |
 | --- | --- |
-| Hero | page (blanc cassé) |
-| 01 Constat | blanc |
-| 02 Offre | **encre** |
-| 03 Méthode | page |
+| Hero | blanc |
+| 01 Constat | blanc cassé |
+| 02 Offre | blanc |
+| 03 Méthode | blanc cassé |
 | 04 Équipe | blanc |
-| CTA finale | **encre** |
-| FAQ + footer | page |
+| CTA finale | blanc cassé, avec une **carte blanche** au centre |
+| FAQ | blanc |
+| Footer | **encre** |
 
-**Les panneaux sont des bandes pleine largeur, sans coins arrondis.** C'est
-le point sur lequel we-are.be et fastonweb sont les plus nets : leurs sections
-sont des blocs pleine largeur, et les arrondis sont réservés aux **cartes et
-aux vignettes**. Un panneau encarté aux coins ronds faisait « composant
-d'interface », pas « page ».
+Un seul aplat sombre, tout en bas. Les deux références évitent les ruptures
+de couleur fortes en milieu de page.
 
 ## L'inversion de palette — `.panel-ink`
 
@@ -95,7 +102,8 @@ Deux tokens, `--ink` et `--ink-foreground`, existent **uniquement** pour que
 
 ## Header
 
-**Bande rectangulaire pleine largeur**, encre, hauteur `--header-h`
+**Bande rectangulaire pleine largeur, blanche**, avec un filet en bas et un
+léger flou d'arrière-plan. Hauteur `--header-h`
 (`clamp(4.5rem, 3.8rem + 1.6vw, 5.75rem)`). Logo à gauche, navigation
 **centrée**, CTA en pastille à droite : c'est la disposition commune aux deux
 références.
@@ -103,12 +111,14 @@ références.
 `--header-h` est le seul endroit où cette hauteur est écrite. Le hero, les
 pages scrollables et chaque section plein écran la réservent via ce token.
 
-Au-dessus d'une section encre (`offre`, `conclusion`) la bande **s'inverse en
-clair**, sinon elle disparaîtrait dans le panneau. Le scroll-spy qui pilote
-déjà le soulignement de la navigation fournit l'information.
-
 Le mot-clé « Synode » du logo est un PNG en lettrage **blanc**. `.wordmark-type`
 l'inverse sur fond clair et le laisse tel quel dans un panneau encre.
+
+## Devices récurrents
+
+Trois, repris de fastonweb : les **coches** dans les listes de bénéfices, les
+**numéros** sur les étapes de la méthode, et les **filets** entre les blocs.
+Rien d'autre ne se répète.
 
 ## Les cartes — `.surface-card`
 
@@ -116,8 +126,12 @@ Calquées sur we-are.be : **un bloc rempli, sans bordure**. La carte se lit
 comme une surface, pas comme une boîte encadrée.
 
 ```css
-.surface-card { background: var(--surface); border-radius: var(--radius); }
-.lift:hover   { background: var(--surface-2); }   /* le seul survol */
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);      /* 8px, pas plus */
+  box-shadow: var(--shadow-card);    /* profondeur légère, pas une lueur */
+}
 ```
 
 **Le remplissage s'adapte à la bande qui la contient**, donc une carte n'est

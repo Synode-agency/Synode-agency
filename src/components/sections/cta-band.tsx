@@ -12,9 +12,9 @@ export function CtaBand({ locale }: { locale: Locale }) {
 
   return (
     <section id="conclusion" className="section-screen relative">
-      <div className="section-panel panel-ink">
+      <div className="section-panel">
         <div className="container-page">
-          <Reveal className="mx-auto flex max-w-3xl flex-col items-center gap-[calc(var(--ss)*1.35rem)] text-center">
+          <Reveal className="surface-card mx-auto flex max-w-3xl flex-col items-center gap-[calc(var(--ss)*1.35rem)] p-[clamp(2rem,1.5rem+2.5vw,4rem)] text-center">
             <h2 className="max-w-[16ch] text-balance text-[length:var(--fs-h2)] leading-[0.98] font-extrabold tracking-[-0.035em]">
               {ctaBand.title}
             </h2>
