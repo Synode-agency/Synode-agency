@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 
@@ -10,7 +11,7 @@ export function SectionHeading({
   className,
 }: {
   eyebrow: string;
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   /** Secondary line under the subtitle: mono, smaller, brand blue. */
   subtitleNote?: string;
@@ -52,7 +53,7 @@ export function SectionHeading({
         >
           {subtitle}
           {subtitleNote && (
-            <span className="mt-2 block font-mono text-[clamp(0.78rem,0.15vw+0.74rem,0.88rem)] tracking-[0.02em] text-brand">
+            <span className="mt-2 block text-[clamp(0.78rem,0.15vw+0.74rem,0.88rem)] font-light tracking-[0.06em] text-brand">
               {subtitleNote}
             </span>
           )}

@@ -51,7 +51,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[length:var(--fs-small)] text-muted-foreground">
               {site.location}
             </span>
-            <span className="font-mono text-[length:var(--fs-small)] text-text-mono">
+            <span className="text-[length:var(--fs-small)] font-light text-text-mono">
               {site.vat}
             </span>
           </div>

@@ -25,8 +25,12 @@ export function Wordmark({
       <Image
         src={isMark ? "/synode-mark.png" : "/synode-logo.png"}
         alt={withText ? "" : "Synode"}
-        width={isMark ? 202 : 112}
-        height={isMark ? 202 : 112}
+        /* These are the rendered size, not the file's own dimensions: Next
+           builds its srcset from them. The mark shows at 40px, so 80 covers
+           a 2x screen. Passing the source's 1254 would make it ship a
+           1920px-wide image for a logo in the navbar. */
+        width={isMark ? 80 : 112}
+        height={isMark ? 80 : 112}
         priority
         className={cn(
           "shrink-0",
@@ -40,7 +44,7 @@ export function Wordmark({
           width={822}
           height={232}
           priority
-          className="h-[1.9rem] w-auto shrink-0"
+          className="wordmark-type h-[1.9rem] w-auto shrink-0"
         />
       )}
     </span>

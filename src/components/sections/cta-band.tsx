@@ -17,7 +17,7 @@ export function CtaBand({ locale }: { locale: Locale }) {
             (the full page container), same border, same gradient. Only the
             vertical padding is scaled by --ss, because here the block shares
             its screen with the footer. */}
-        <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/25 bg-gradient-to-br from-brand-dim/25 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[calc(var(--ss)*clamp(3rem,2.5rem+2.5vw,5rem))] text-center">
+        <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/30 bg-gradient-to-br from-brand-dim/70 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[calc(var(--ss)*clamp(3rem,2.5rem+2.5vw,5rem))] text-center">
           <div className="mx-auto flex max-w-2xl flex-col items-center gap-[calc(var(--ss)*1.35rem)]">
             <h2 className="max-w-[18ch] text-balance text-[1.9rem] font-semibold leading-[1.1] sm:text-4xl lg:text-[calc(var(--ss)*var(--fs-h2))]">
               {ctaBand.title}
@@ -33,14 +33,9 @@ export function CtaBand({ locale }: { locale: Locale }) {
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <dl className="mt-[calc(var(--ss)*1rem)] flex flex-wrap items-center justify-center gap-x-[clamp(1.25rem,1rem+1.5vw,3rem)] gap-y-2.5 font-mono text-[0.82rem]">
-              {ctaBand.stats.map((stat) => (
-                <div key={stat.label} className="flex items-center gap-2">
-                  <dt className="text-text-mono">{stat.label}</dt>
-                  <dd className="text-foreground">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
+            <p className="mt-[calc(var(--ss)*0.75rem)] max-w-lg text-[0.82rem] font-light italic leading-relaxed text-muted-foreground">
+              <span aria-hidden className="text-brand">*</span> {ctaBand.note}
+            </p>
           </div>
         </Reveal>
       </div>

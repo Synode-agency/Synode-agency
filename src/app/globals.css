@@ -9,11 +9,12 @@
   --color-foreground: var(--foreground);
 
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  /* One family everywhere: <html> points --font-heading and the two legacy
+     aliases the offer cards use at the same sans, so these three stay plain
+     pass-throughs. */
   --font-heading: var(--font-heading);
-  /* Legacy aliases from the offer cards, now folded into the two main faces */
-  --font-archivo: var(--font-heading);
-  --font-plex: var(--font-sans);
+  --font-archivo: var(--font-archivo);
+  --font-plex: var(--font-plex);
 
   --color-brand: var(--brand);
   --color-brand-bright: var(--brand-bright);
@@ -70,7 +71,9 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Synode v7 — dark-only premium tech theme, electric-blue accent */
+/* Synode v7 — light theme, ink text on paper, electric-blue accent.
+   Every colour on the site resolves through these tokens, so this one block
+   is what flips the whole palette. */
 :root,
 .dark {
   /* Fluid hero scale: 1 on tall viewports, shrinks toward 0.55 on short
@@ -96,69 +99,84 @@
   --fs-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.95rem);
   --fs-button: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
 
-  --background: #03060D;
-  --foreground: #E9F0F8;
+  /* Ground and ink */
+  --background: #EEF0F4;
+  --foreground: #0B1220;
 
-  --surface: #060B14;
-  --surface-2: #0B1524;
-  --hairline: rgba(233, 240, 248, 0.1);
+  --surface: #FFFFFF;
+  --surface-2: #F1F4F9;
+  --hairline: rgba(11, 18, 32, 0.12);
 
-  --card: #060B14;
-  --card-foreground: #E9F0F8;
-  --popover: #080E1A;
-  --popover-foreground: #E9F0F8;
+  --card: #FFFFFF;
+  --card-foreground: #0B1220;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B1220;
 
-  --primary: #3FA9F5;
-  --primary-foreground: #03060D;
+  --primary: #0A7CE0;
+  --primary-foreground: #FFFFFF;
 
-  --secondary: #0A121E;
-  --secondary-foreground: #B7C7DA;
+  --secondary: #F1F4F9;
+  --secondary-foreground: #3A4B63;
 
-  --muted: #0A121E;
-  --muted-foreground: #8296B0;
+  --muted: #F1F4F9;
+  --muted-foreground: #5A6B82;
 
-  --accent: #0A1B2E;
-  --accent-foreground: #7FD4FF;
+  --accent: #E3EFFC;
+  --accent-foreground: #0B4B8C;
 
-  --destructive: #f43f5e;
+  --destructive: #d9304e;
 
-  --border: rgba(233, 240, 248, 0.1);
-  --input: rgba(233, 240, 248, 0.1);
-  --ring: #3FA9F5;
+  --border: rgba(11, 18, 32, 0.12);
+  --input: rgba(11, 18, 32, 0.16);
+  --ring: #0A7CE0;
 
-  --brand: #3FA9F5;
-  --brand-bright: #7FD4FF;
-  --brand-dim: #102A4A;
-  --brand-deep: #1E5FD8;
-  --brand-foreground: #03060D;
+  /* Electric blue, darkened just enough to stay readable as text on paper.
+     `--brand-bright` keeps the original neon, it is only ever used for
+     glows and hover states where contrast does not apply. */
+  --brand: #0A7CE0;
+  --brand-bright: #3FA9F5;
+  --brand-dim: #CFE5FA;
+  --brand-deep: #0B3FA8;
+  --brand-hover: #0965B8;
+  --brand-foreground: #FFFFFF;
 
   /* Extra Synode v7 tokens without a pre-existing slot */
-  --offer-accent-2: #7FB6FF;
-  --title-gradient-end: #9FDBFF;
-  --glass-card: rgba(8, 14, 26, 0.82);
-  --method-pill: #070C16;
-  --border-active: rgba(63, 169, 245, 0.45);
-  --text-mono: #5E7794;
-  --label-muted: #6B87A8;
+  --offer-accent-2: #1E5FD8;
+  --title-gradient-end: #3FA9F5;
+  --glass-card: rgba(255, 255, 255, 0.86);
+  --method-pill: #FFFFFF;
+  --border-active: rgba(10, 124, 224, 0.45);
+  --text-mono: #6C7D95;
+  --label-muted: #64778F;
 
-  --chart-1: #3FA9F5;
-  --chart-2: #7FD4FF;
-  --chart-3: #9FDBFF;
-  --chart-4: #7FB6FF;
-  --chart-5: #1E5FD8;
+  --chart-1: #0A7CE0;
+  --chart-2: #3FA9F5;
+  --chart-3: #7FB6FF;
+  --chart-4: #1E5FD8;
+  --chart-5: #0B3FA8;
 
   --radius: 0.875rem;
+  /* Gap between the viewport edge and the page's card blocks */
+  --page-gutter: 35px;
+  /* The top inset is deliberately smaller than the sides: the navbar lives in
+     that row, and 35px above it pushed the whole bar off-centre. */
+  --page-gutter-top: 20px;
+  /* Extra breathing room above the navbar while it sits inside the hero
+     card. It is dropped the moment the bar detaches on scroll, so the
+     detached strip keeps its contents centred. */
+  --header-drop: 10px;
+  --header-h: 4.6rem;
 
-  --sidebar: #060B14;
-  --sidebar-foreground: #E9F0F8;
-  --sidebar-primary: #3FA9F5;
-  --sidebar-primary-foreground: #03060D;
-  --sidebar-accent: #0A1B2E;
-  --sidebar-accent-foreground: #7FD4FF;
-  --sidebar-border: rgba(233, 240, 248, 0.1);
-  --sidebar-ring: #3FA9F5;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0B1220;
+  --sidebar-primary: #0A7CE0;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E3EFFC;
+  --sidebar-accent-foreground: #0B4B8C;
+  --sidebar-border: rgba(11, 18, 32, 0.12);
+  --sidebar-ring: #0A7CE0;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -175,7 +193,7 @@
     @apply bg-background text-foreground antialiased;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    font-feature-settings: "cv11", "ss01", "cv02", "cv03", "cv04";
+    font-feature-settings: "cv11", "ss01";
     /* Nothing on this site is meant to scroll sideways. `clip` and not
        `hidden`: `hidden` would turn <body> into a scroll container, and the
        scroll-snap declared on <html> would stop working. */
@@ -356,18 +374,1215 @@
   .grain {
     background-image: radial-gradient(
       circle at 1px 1px,
-      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      color-mix(in oklab, var(--foreground) 4%, transparent) 1px,
       transparent 0
     );
     background-size: 3.75rem 3.75rem;
   }
 
-  /* Mono label / eyebrow */
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: clamp(0.65rem, 0.62rem + 0.1vw, 0.8rem);
+  /* The wordmark PNG is white lettering, drawn for the dark version. On
+     paper it would be invisible, so it is inverted to ink. Swap the asset
+     for a dark-on-transparent one and this rule can go. */
+  .wordmark-type {
+    filter: invert(1);
+  }
+
+  /* Deep-blue panel for the Offer section, same shape as the hero card.
+     It re-declares the palette tokens rather than overriding class by
+     class, so everything inside it (headings, muted text, hairlines) turns
+     readable on blue with no per-component work.
+
+     Its own background is a literal and not `var(--surface)`: the rule
+     redefines --surface for its children, and reading it here would catch
+     that new value instead of the page's. */
+  .offer-panel {
+    --foreground: #ffffff;
+    /* 74% white came out at 4.3:1 against the lightest blue in the gradient,
+       just under AA for body text. 82% clears it at 4.9:1. */
+    --muted-foreground: rgb(255 255 255 / 0.82);
+    --secondary-foreground: rgb(255 255 255 / 0.88);
+    --hairline: rgb(255 255 255 / 0.22);
+    --border: rgb(255 255 255 / 0.22);
+    --surface: rgb(255 255 255 / 0.1);
+    --surface-2: rgb(255 255 255 / 0.16);
+    /* The hue of the "Réserver un audit" button, lifted until it is
+       readable on this ground. The button's own #0a7ce0 measures 1.56:1
+       against the top of the gradient, which is no contrast at all; this
+       lands at 4.39:1, right at the readable threshold. */
+    --brand: #a8d9fb;
+    --brand-bright: #d3ecff;
+    --offer-accent-2: #a8d9fb;
+
+    color: #ffffff;
+    background: linear-gradient(158deg, #1257c4 0%, #0b3fa8 46%, #0a2f80 100%);
+  }
+
+  /* White cards sitting on that panel. They put the page's own palette back,
+     so their contents are dark ink on white exactly as everywhere else. */
+  .offer-paper {
+    --foreground: #0b1220;
+    --muted-foreground: #5a6b82;
+    --secondary-foreground: #3a4b63;
+    --hairline: rgb(11 18 32 / 0.12);
+    --border: rgb(11 18 32 / 0.12);
+    --surface: #ffffff;
+    --surface-2: #f1f4f9;
+    --brand: #0a7ce0;
+    --brand-bright: #3fa9f5;
+    --offer-accent-2: #1e5fd8;
+
+    color: #0b1220;
+    background: #ffffff;
+  }
+
+  /* ------------------------------------------------------------------
+     The three offer cards. Two white ones side by side, then a translucent
+     panel across the full width for the service taken on by request.
+     ------------------------------------------------------------------ */
+  .offer-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.1rem, 0.9rem + 0.8vw, 1.75rem);
+    overflow: hidden;
+    border-radius: clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
+    border: 1px solid rgb(11 18 32 / 0.06);
+    padding: clamp(1.4rem, 1.1rem + 1.2vw, 2.25rem);
+    box-shadow: 0 1.6rem 3rem -2rem rgb(6 22 60 / 0.45);
+  }
+
+  .offer-head { display: flex; gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.25rem); }
+
+  .offer-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: clamp(2.9rem, 2.4rem + 1.4vw, 3.9rem);
+    height: clamp(2.9rem, 2.4rem + 1.4vw, 3.9rem);
+    border-radius: clamp(0.8rem, 0.6rem + 0.5vw, 1.15rem);
+    background: linear-gradient(150deg, #e8f1fd, #f4f8fe);
+    border: 1px solid rgb(10 124 224 / 0.1);
+    color: var(--brand);
+  }
+  .offer-icon svg { width: 45%; height: 45%; stroke-width: 1.7; }
+
+  .offer-head-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .offer-num {
+    font-size: clamp(1.3rem, 1rem + 0.9vw, 1.9rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--brand);
+  }
+  .offer-title {
+    font-size: clamp(1.05rem, 0.85rem + 0.7vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+  .offer-for {
+    margin-top: 0.5rem;
+    max-width: 34ch;
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  /* Two by two, each item on its own bordered row. */
+  .offer-chips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
+  }
+  .offer-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    padding: clamp(0.55rem, 0.45rem + 0.3vw, 0.8rem) clamp(0.7rem, 0.55rem + 0.4vw, 1rem);
+    border-radius: 999px;
+    border: 2px solid rgb(11 18 32 / 0.09);
+    font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.9rem);
+    line-height: 1.25;
+    color: var(--secondary-foreground);
+    transition: border-color 260ms ease, color 260ms ease;
+  }
+  .offer-chip svg {
+    flex: none;
+    width: 1.05rem;
+    height: 1.05rem;
+    stroke-width: 1.7;
+    color: var(--brand);
+  }
+  .offer-chip:hover {
+    border-color: rgb(10 124 224 / 0.45);
+    color: var(--foreground);
+  }
+
+  /* The outcome, set apart on its own pale ground. */
+  .offer-result {
+    display: flex;
+    gap: clamp(0.7rem, 0.55rem + 0.5vw, 1.1rem);
+    margin-top: auto;
+    padding: clamp(0.9rem, 0.75rem + 0.5vw, 1.35rem);
+    border-radius: clamp(0.8rem, 0.6rem + 0.5vw, 1.15rem);
+    background: #f2f7fd;
+  }
+  .offer-result-icon { flex: none; color: var(--brand); }
+  .offer-result-icon svg { width: 1.6rem; height: 1.6rem; stroke-width: 1.7; }
+  .offer-eyebrow {
+    display: block;
+    font-size: 0.68rem;
     font-weight: 500;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+  .offer-result-text {
+    margin-top: 0.4rem;
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    line-height: 1.5;
+  }
+
+  .offer-actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 0.6rem + 0.6vw, 1.5rem);
+    flex-wrap: wrap;
+  }
+
+  .offer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: clamp(0.7rem, 0.6rem + 0.35vw, 0.95rem) clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
+    border-radius: 999px;
+    background: var(--brand);
+    color: #fff;
+    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    font-weight: 600;
+    transition: background-color 240ms ease, transform 240ms ease;
+  }
+  .offer-cta svg { width: 1rem; height: 1rem; transition: transform 240ms ease; }
+  .offer-cta:hover { background: var(--brand-hover); }
+  .offer-cta:hover svg { transform: translateX(0.2rem); }
+
+  .offer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: clamp(0.82rem, 0.78rem + 0.18vw, 0.94rem);
+    font-weight: 500;
+    color: var(--brand);
+    transition: gap 240ms ease;
+  }
+  .offer-link svg { width: 0.95rem; height: 0.95rem; }
+  .offer-link:hover { gap: 0.55rem; }
+
+  /* --- the support card --- */
+  .offer-support {
+    display: grid;
+    gap: clamp(1.25rem, 1rem + 1.2vw, 2.5rem);
+    padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+    border-radius: clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
+    /* Stays on the panel rather than turning into a third white card: this
+       is a service taken on request, not one of the two on offer. */
+    border: 1px solid rgb(255 255 255 / 0.16);
+    background: rgb(255 255 255 / 0.07);
+  }
+  .offer-support-intro { display: flex; gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.25rem); }
+  .offer-icon--support {
+    background: rgb(255 255 255 / 0.12);
+    border-color: rgb(255 255 255 / 0.22);
+    color: #fff;
+  }
+  .offer-support .offer-eyebrow { color: rgb(255 255 255 / 0.66); }
+  .offer-support-title {
+    margin-top: 0.45rem;
+    font-size: clamp(1rem, 0.85rem + 0.6vw, 1.3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .offer-support-text {
+    margin-top: 0.45rem;
+    max-width: 52ch;
+    font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.94rem);
+    line-height: 1.55;
+    color: var(--muted-foreground);
+  }
+
+  .offer-support-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Wider than the gap between the badges themselves, so the button
+       reads as its own thing rather than as a fifth badge. */
+    gap: clamp(1rem, 0.8rem + 0.7vw, 1.6rem);
+  }
+  .offer-support-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .offer-support-chips li {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    font-size: clamp(0.7rem, 0.66rem + 0.14vw, 0.8rem);
+    line-height: 1.25;
+    color: var(--secondary-foreground);
+    transition: border-color 260ms ease, color 260ms ease;
+  }
+  .offer-support-chips li:hover {
+    border-color: rgb(255 255 255 / 0.55);
+    color: #ffffff;
+  }
+  /* White, with the real brand blue on it. `--brand` is the pale version
+     inside this panel, which would be unreadable on white. */
+  .offer-cta--ghost {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    color: #0a7ce0;
+    box-shadow: 0 0.7rem 1.6rem -0.9rem rgb(6 22 60 / 0.6);
+  }
+  .offer-cta--ghost:hover {
+    background: #eef5fd;
+    border-color: #eef5fd;
+  }
+
+  @media (min-width: 1024px) {
+    .offer-support {
+      /* The right column is sized to its contents, so it ends exactly where
+         the badge row ends and starts exactly where it starts. The divider
+         then has nowhere to drift: it follows the badges, with the same gap
+         on each side of it. One variable drives both gaps. */
+      --offer-divider-gap: clamp(1.25rem, 1rem + 1vw, 2.25rem);
+      grid-template-columns: minmax(0, 1fr) max-content;
+      column-gap: var(--offer-divider-gap);
+      align-items: center;
+    }
+    .offer-support-side {
+      align-items: stretch;
+      border-left: 1px solid rgb(255 255 255 / 0.16);
+      padding-left: var(--offer-divider-gap);
+    }
+    .offer-support-chips { flex-wrap: nowrap; }
+    .offer-support-chips li { white-space: nowrap; }
+    /* Flush with the right edge of the last badge. */
+    .offer-support-side .offer-cta { align-self: flex-end; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .offer-chip,
+    .offer-cta,
+    .offer-cta svg,
+    .offer-link { transition: none; }
+  }
+
+  /* Hero card fill: white at the top-left, drifting to the faintest blue at
+     the bottom-right. 5% of the brand colour is about as far as this can go
+     before it starts reading as a coloured panel rather than as white. */
+  .hero-card {
+    /* A plain rgba tint over the white rather than a `color-mix`: the
+       compiler emits a no-color-mix fallback for that function, and here the
+       fallback would paint the corner in full brand blue. */
+    background:
+      linear-gradient(
+        152deg,
+        rgb(10 124 224 / 0) 0%,
+        rgb(10 124 224 / 0) 38%,
+        rgb(10 124 224 / 0.06) 100%
+      ),
+      var(--surface);
+  }
+
+  /* ------------------------------------------------------------------
+     Hero stage: the product mock, the four service cards around it, and
+     the dashed connectors between them.
+
+     The whole thing is laid out on the source design's own 1140x988 grid.
+     `.hero-stage` keeps that ratio and becomes a query container, so every
+     size inside is a share of the stage rather than a share of the
+     viewport: the composition scales as one picture and never drifts.
+     ------------------------------------------------------------------ */
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .hero-stage {
+    position: relative;
+    container-type: inline-size;
+  }
+
+  /* Matching hues, straight from the design: blue, violet, green, amber. */
+  .pillar-card:nth-child(1) { --icon-tile: #dbeafe; --icon-border: #bfdbfe; --icon-ink: #1d4ed8; }
+  .pillar-card:nth-child(2) { --icon-tile: #f3e8ff; --icon-border: #e9d5ff; --icon-ink: #7e22ce; }
+  .pillar-card:nth-child(3) { --icon-tile: #dcfce7; --icon-border: #bbf7d0; --icon-ink: #15803d; }
+  .pillar-card:nth-child(4) { --icon-tile: #ffedd5; --icon-border: #fed7aa; --icon-ink: #c2410c; }
+
+  .pillar-icon-tile {
+    display: grid;
+    place-items: center;
+    flex: none;
+    border-radius: 0.7em;
+    border: 1px solid var(--icon-border);
+    color: var(--icon-ink);
+    background-color: var(--icon-tile);
+    transition: border-color 300ms ease;
+  }
+
+  .pillar-card {
+    position: relative;
+    display: flex;
+    /* Icon and text sit on the card's midline. The arrow is taken out of the
+       flow below, so it can hang in the corner without pulling the block it
+       is supposed to be centred against off-centre. */
+    align-items: center;
+    gap: 0.9em;
+    border-radius: 1em;
+    border: 1px solid var(--hairline);
+    background: var(--surface);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 320ms ease,
+      box-shadow 320ms ease;
+  }
+
+  .pillar-body { min-width: 0; flex: 1; }
+  .pillar-title { font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+  .pillar-text { color: var(--muted-foreground); line-height: 1.45; }
+  .pillar-arrow {
+    position: absolute;
+    color: var(--brand);
+    transition: transform 300ms ease;
+  }
+  .pillar-card:hover .pillar-arrow { transform: translateX(0.2em); }
+
+  /* Phone and tablet: no stage, just the mock over a 2x2 grid of cards. */
+  .pillar-deck {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+  .pillar-card { padding: 0.9rem; font-size: 0.82rem; }
+  .pillar-icon-tile { width: 2.2rem; height: 2.2rem; }
+  .pillar-icon-tile svg { width: 1.05rem; height: 1.05rem; }
+  .pillar-title { font-size: 0.9rem; }
+  .pillar-text { font-size: 0.76rem; margin-top: 0.25rem; }
+  .pillar-arrow { width: 0.9rem; height: 0.9rem; right: 0.9rem; bottom: 0.9rem; }
+  /* Room reserved in the text column so a last line never runs under it. */
+  .pillar-body { padding-right: 1.3rem; }
+
+  /* ---------------- The mock itself ---------------- */
+
+  .hero-app {
+    /* Flat, in-plane rotation: the panel turns on the page like a card on a
+       table, with no depth and no foreshortening. Positive tips the right
+       side down, negative lifts it. Zero means dead straight. */
+    --app-spin: 1deg;
+    /* One clock for the whole sequence. Every element below is a share of
+       it, so the beats can never drift apart. */
+    --app-loop: 14s;
+
+    display: flex;
+    overflow: hidden;
+    border-radius: 1.9em;
+    /* The thick pale-blue frame from the design. */
+    border: 0.85em solid #dce9f8;
+    background: #ffffff;
+    color: var(--foreground);
+    /* One size to rule the panel: everything below is in `em`. */
+    font-size: clamp(7px, 1.6cqw, 22px);
+    box-shadow: 0 2.2em 4.5em -1.8em rgb(11 18 32 / 0.28);
+  }
+
+  .hero-app-side {
+    flex: none;
+    width: 17em;
+    padding: 1.6em 1.2em;
+    background: #f7fafd;
+    border-right: 1px solid rgb(11 18 32 / 0.06);
+  }
+
+  .hero-app-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.55em;
+    font-size: 1.55em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.9em;
+  }
+  .hero-app-brand img { width: 1.3em; height: 1.3em; object-fit: contain; }
+
+  .hero-app-nav { display: grid; gap: 0.25em; position: relative; }
+
+  .hero-app-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 1.5em;
+    height: 1.5em;
+    color: #0b1220;
+    filter: drop-shadow(0 0.15em 0.3em rgb(11 18 32 / 0.35));
+    opacity: 0;
+    animation: hero-cursor var(--app-loop) cubic-bezier(0.4, 0, 0.15, 1) infinite both;
+  }
+  .hero-app-cursor svg { width: 100%; height: 100%; }
+  .hero-app-nav-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    padding: 0.6em 0.8em;
+    border-radius: 0.6em;
+    font-size: 1.05em;
+    color: #5a6b82;
+  }
+  .hero-app-nav-row svg { width: 1.15em; height: 1.15em; stroke-width: 1.7; }
+  .hero-app-nav-row.is-active {
+    font-weight: 500;
+    animation: hero-nav-select var(--app-loop) ease-out infinite both;
+  }
+
+  .hero-app-main {
+    flex: 1;
+    min-width: 0;
+    padding: 1.7em 1.8em 2.7em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-app-status {
+    position: absolute;
+    top: 1.5em;
+    right: 1.6em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.45em 0.9em;
+    border-radius: 999px;
+    background: #f2f6fb;
+    font-size: 0.95em;
+    color: #3a4b63;
+  }
+  .hero-app-status i {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 999px;
+    background: #22c55e;
+    animation: hero-app-blip 2.4s ease-in-out infinite;
+  }
+
+  .hero-app-title {
+    animation: hero-app-appear var(--app-loop) cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+    animation-delay: 1.9s;
+    font-size: 1.85em;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    max-width: 20ch;
+    margin-bottom: 0.9em;
+  }
+
+  .hero-app-flow {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.4em;
+    margin-bottom: 1.5em;
+  }
+  .hero-app-step {
+    text-align: center;
+    position: relative;
+    /* Each step takes a full two seconds to arrive but they start only
+       0.34s apart, so five long fades overlap into one continuous wave
+       rather than five separate beats. */
+    animation: hero-app-appear var(--app-loop) cubic-bezier(0.33, 0, 0.2, 1) infinite both;
+    animation-delay: calc(2.5s + var(--s) * 0.34s);
+  }
+  /* Arrow between steps, drawn on every item but the first. */
+  .hero-app-step + .hero-app-step::before {
+    content: "";
+    position: absolute;
+    top: 1.8em;
+    left: -0.9em;
+    width: 1em;
+    height: 1px;
+    background: #9aa8bd;
+  }
+  .hero-app-step + .hero-app-step::after {
+    content: "";
+    position: absolute;
+    top: 1.5em;
+    left: 0.1em;
+    width: 0.42em;
+    height: 0.42em;
+    border-top: 1px solid #9aa8bd;
+    border-right: 1px solid #9aa8bd;
+    transform: rotate(45deg);
+  }
+
+  .hero-app-step-disc {
+    display: grid;
+    place-items: center;
+    width: 3.6em;
+    height: 3.6em;
+    margin: 0 auto 0.7em;
+    border-radius: 999px;
+    background: #e9f2fd;
+    color: #0a7ce0;
+    /* A slow wash of blue that follows the step in and drains back out. */
+    animation: hero-app-step-wash var(--app-loop) ease-in-out infinite both;
+    animation-delay: calc(2.5s + var(--s) * 0.34s);
+  }
+  .hero-app-step-disc svg { width: 1.6em; height: 1.6em; stroke-width: 1.7; }
+  .hero-app-step-label {
+    display: block;
+    white-space: pre-line;
+    font-size: 0.98em;
+    line-height: 1.3;
+    color: #3a4b63;
+  }
+
+  .hero-app-bottom {
+    animation: hero-app-appear var(--app-loop) cubic-bezier(0.22, 1, 0.36, 1) infinite both;
+    animation-delay: 5.1s;
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 1.2em;
+  }
+  .hero-app-case,
+  .hero-app-chart {
+    border: 1px solid rgb(11 18 32 / 0.08);
+    border-radius: 0.8em;
+    padding: 1em 1.1em;
+  }
+  .hero-app-case-label { font-size: 1.05em; font-weight: 600; }
+  .hero-app-case-quote {
+    margin-top: 0.55em;
+    font-size: 1.15em;
+    line-height: 1.35;
+    color: #3a4b63;
+  }
+  .hero-app-tags { display: flex; flex-wrap: wrap; gap: 0.45em; margin-top: 0.9em; }
+  .hero-app-tags span {
+    padding: 0.35em 0.8em;
+    border-radius: 999px;
+    background: #eef4fc;
+    font-size: 0.9em;
+    color: #3a4b63;
+  }
+
+  .hero-app-chart { display: flex; flex-direction: column; }
+  .hero-app-chart-label { font-size: 1em; color: #5a6b82; }
+  .hero-app-chart-value {
+    font-size: 1.9em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #0a7ce0;
+    line-height: 1.1;
+  }
+  .hero-app-chart svg { width: 100%; height: 4.2em; margin-top: auto; overflow: visible; }
+  .hero-app-chart-line {
+    stroke-dasharray: 320;
+    animation: hero-app-draw var(--app-loop) cubic-bezier(0.33, 0, 0.2, 1) infinite both;
+    animation-delay: 5.6s;
+  }
+  .hero-app-chart-area {
+    opacity: 0;
+    animation: hero-app-fade var(--app-loop) ease-out infinite both;
+    animation-delay: 6.1s;
+  }
+
+  @keyframes hero-app-blip {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  /* The pointer: in from off-panel, over to Projets, a press, then away.
+     All percentages are of --app-loop (14s). */
+  @keyframes hero-cursor {
+    0% { opacity: 0; transform: translate(11.5em, 13em) scale(1); }
+    3% { opacity: 1; }
+    9% { transform: translate(6.4em, 4.1em) scale(1); }
+    10.5% { transform: translate(6.4em, 4.1em) scale(0.78); }
+    12.5% { transform: translate(6.4em, 4.1em) scale(1); }
+    22% { opacity: 1; transform: translate(6.4em, 4.1em) scale(1); }
+    30% { opacity: 0; transform: translate(9em, 8em) scale(1); }
+    100% { opacity: 0; transform: translate(11.5em, 13em) scale(1); }
+  }
+
+  /* Highlights on the click, at 10.5% of the loop, and holds. */
+  @keyframes hero-nav-select {
+    0%, 10% { background: transparent; color: #5a6b82; }
+    13%, 92% { background: #e6f0fd; color: #0a7ce0; }
+    100% { background: transparent; color: #5a6b82; }
+  }
+
+  /* The one arrival used by the title, the five steps and the lower cards.
+     Fourteen percent of the loop is close to two seconds of easing: long
+     enough that overlapping copies read as a single movement. */
+  @keyframes hero-app-appear {
+    0% { opacity: 0; transform: translateY(0.55em); }
+    14%, 88% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: translateY(0.3em); }
+  }
+
+  @keyframes hero-app-step-wash {
+    0% { background: #eef3f9; color: #93a5bc; }
+    16%, 84% { background: #e9f2fd; color: #0a7ce0; }
+    100% { background: #eef3f9; color: #93a5bc; }
+  }
+
+  @keyframes hero-app-draw {
+    0% { stroke-dashoffset: 320; }
+    26%, 88% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 320; }
+  }
+
+  @keyframes hero-app-fade {
+    0% { opacity: 0; }
+    22%, 88% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  /* Under the stage breakpoint the panel is only as wide as a phone. The
+     sidebar and the chart cost the most width for the least meaning, so
+     they are dropped and what remains gets a readable size. */
+  @media (max-width: 1023px) {
+    .hero-app { font-size: clamp(7.5px, 2.5cqw, 12px); }
+    .hero-app-side { display: none; }
+    .hero-app-chart { display: none; }
+    .hero-app-bottom { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (min-width: 768px) {
+    /* Each half of the headline holds its own line. */
+    .hero-heading > span { white-space: nowrap; }
+  }
+
+  /* ---------------- Stage layout, from lg up ---------------- */
+
+  @media (min-width: 1024px) {
+    .hero-composition {
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      gap: 2rem;
+    }
+    .hero-visual { max-width: none; }
+
+    .hero-stage {
+      aspect-ratio: 1140 / 760;
+      width: 100%;
+      /* The cards overhang the box by about 5% of its height on each side,
+         so the budget below already accounts for them. The 300px is what
+         the hero card spends before the stage gets a say: its own insets,
+         the navbar row, the vertical padding and a safety margin. */
+      max-width: min(100%, calc((100dvh - 315px) * 1.36));
+      margin-inline: auto;
+    }
+
+    .hero-stage-panel {
+      position: absolute;
+      left: 0;
+      top: calc(12% - 20px);
+      width: 100%;
+      height: calc(76% + 20px);
+      z-index: 1;
+    }
+    /* Lifted above the four cards while hovered, so the panel grows over
+       them rather than being clipped by them. */
+    .hero-stage-panel:hover { z-index: 5; }
+
+    .hero-stage-panel .hero-app {
+      width: 100%;
+      height: 100%;
+      transform: rotate(var(--app-spin));
+      transform-origin: 50% 50%;
+      transition:
+        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 420ms ease;
+      border-width: 1.15cqw;
+      border-radius: 2.4cqw;
+      box-shadow: 0 3cqw 6cqw -2.2cqw rgb(11 18 32 / 0.3);
+    }
+
+    .hero-stage-panel:hover .hero-app {
+      transform: rotate(var(--app-spin)) scale(1.035);
+      box-shadow: 0 4cqw 8cqw -2.4cqw rgb(11 18 32 / 0.34);
+    }
+
+    /* Cards sit above the panel and the connectors. */
+    .hero-stage .pillar-deck {
+      display: block;
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .hero-stage .pillar-card {
+      position: absolute;
+      pointer-events: auto;
+      padding: 1.6cqw 1.8cqw;
+      font-size: 1cqw;
+      gap: 1.2cqw;
+      border-radius: 1.3cqw;
+      /* The cards sit flat, above a tilted panel. The shadow is what sells
+         that: small and light, but present. */
+      box-shadow: 0 1.4cqw 2.8cqw -1.1cqw rgb(11 18 32 / 0.2);
+    }
+    .hero-stage .pillar-icon-tile { width: 4.8cqw; height: 4.8cqw; border-radius: 1.1cqw; }
+    .hero-stage .pillar-icon-tile svg { width: 2.4cqw; height: 2.4cqw; }
+    .hero-stage .pillar-title { font-size: 2cqw; }
+    .hero-stage .pillar-text { font-size: 1.5cqw; margin-top: 0.4cqw; }
+    .hero-stage .pillar-arrow { width: 1.8cqw; height: 1.8cqw; right: 1.8cqw; bottom: 1.5cqw; }
+    .hero-stage .pillar-body { padding-right: 2.6cqw; }
+
+    /* Each pair stays centred on the stage, and both pairs now sit over the
+       panel's edges: the top pair drops onto it, the bottom pair rises into
+       it. The panel spans 19.5% to 75.5% of the stage's height. */
+    .hero-stage .pillar-card:nth-child(1) { left: 13%; top: calc(-5.15% - 40px); width: 35%; }
+    .hero-stage .pillar-card:nth-child(2) { left: 52%; top: calc(-4.55% - 40px); width: 35%; }
+    .hero-stage .pillar-card:nth-child(3) { left: 8%; top: calc(90% + 10px); width: 38%; }
+    .hero-stage .pillar-card:nth-child(4) { left: 54%; top: calc(89.2% + 10px); width: 38%; }
+
+    .hero-stage .pillar-card:hover {
+      transform: translateY(-0.6cqw);
+      border-color: color-mix(in oklab, var(--icon-ink) 45%, transparent);
+    }
+    .hero-stage .pillar-card:hover .pillar-icon-tile {
+      border-color: var(--icon-ink);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-composition { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 2.5rem; }
+  }
+
+  /* Nothing here is load-bearing, so under reduced motion it all just stops
+     on its finished frame. */
+  @media (prefers-reduced-motion: reduce) {
+    .pillar-card,
+    .hero-stage-panel .hero-app,
+    .hero-app-status i,
+    .hero-app-title,
+    .hero-app-step,
+    .hero-app-step-disc,
+    .hero-app-bottom,
+    .hero-app-chart-line,
+    .hero-app-chart-area,
+    .hero-app-nav-row.is-active {
+      animation: none;
+      transition: none;
+    }
+    .hero-app-chart-line { stroke-dashoffset: 0; }
+    .hero-app-chart-area { opacity: 1; }
+    .hero-app-nav-row.is-active { background: #e6f0fd; color: #0a7ce0; }
+    .hero-app-cursor { display: none; }
+  }
+
+  /* ------------------------------------------------------------------
+     Constat: a full-width introduction, then four columns. No card frames
+     any more, the columns sit straight on the page background; each one is
+     an illustration, a numbered rule, a title, a paragraph and a figure.
+     ------------------------------------------------------------------ */
+  .problem-content {
+    position: relative;
+    margin-inline: var(--page-gutter);
+    padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  .problem-heading { width: 100%; text-align: left; }
+  .problem-heading > h2,
+  .problem-heading > p { max-width: none; width: 100%; text-wrap: pretty; }
+  .problem-heading > p { white-space: pre-line; }
+
+  .problem-deck {
+    position: relative;
+    display: grid;
+    gap: 2.5rem 1.75rem;
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto 1rem;
+    max-width: 86rem;
+  }
+
+  .problem-col { position: relative; min-width: 0; }
+
+  /* --- the parts of a column --- */
+  .problem-visual {
+    position: relative;
+    height: 11.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .problem-index {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--card-ink);
+  }
+  /* The tile that replaced the 01..04 counters: the column's colour as a
+     solid, its glyph knocked out in white. */
+  .problem-icon {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    flex: none;
+    border-radius: 0.8rem;
+    background: var(--card-ink);
+    color: #fff;
+  }
+  .problem-icon svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.8; }
+  .problem-index i {
+    display: block;
+    width: 2.25rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
+  }
+
+  .problem-title {
+    margin-top: 0.9rem;
+    font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.3rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  .problem-text {
+    margin-top: 0.6rem;
+    font-size: clamp(0.85rem, 0.2vw + 0.8rem, 0.95rem);
+    line-height: 1.55;
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 640px) {
+    .problem-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 1024px) {
+    .problem-deck { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(1.25rem, 2vw, 2.5rem); }
+    .problem-visual { height: 14rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .problem-col { transition: none; }
+  }
+
+  /* ------------------------------------------------------------------
+     The four illustrations. Everything is drawn from boxes and glyphs, so
+     it stays crisp at any size and downloads nothing.
+     ------------------------------------------------------------------ */
+  .pv {
+    position: absolute;
+    inset: 0;
+    /* Parts of each drawing are sized in rem and parts in percentages, so
+       shrinking the box alone would only move half of it. Scaling the whole
+       thing keeps every proportion intact. */
+    transform: scale(0.92);
+    transform-origin: center;
+  }
+
+  /* 01 — the same five things, redone by hand. Same row language as the
+     follow-up list in column 03, so the two read as one family. */
+  .pv--manual {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0 4%;
+  }
+
+  /* A soft red pool behind the list, wider than the rows so it is not
+     simply covered by them. */
+  .pv--manual::before {
+    content: "";
+    position: absolute;
+    left: 0%;
+    top: -26%;
+    width: 112%;
+    height: 132%;
+    z-index: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      rgb(185 28 28 / 0.1) 0%,
+      rgb(185 28 28 / 0.055) 52%,
+      transparent 82%
+    );
+  }
+  .pv--manual .pv-row { position: relative; z-index: 1; }
+
+  /* The one thing that sets these rows apart from column 03's: the name,
+     in the display face, and the red repeat glyph on the right saying this
+     is done again every week. */
+  .pv-row-name {
+    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #b91c1c;
+  }
+  .pv-row-repeat {
+    display: grid;
+    place-items: center;
+    flex: none;
+    color: rgb(185 28 28 / 0.5);
+  }
+  .pv-row-repeat svg { width: 0.85rem; height: 0.85rem; stroke-width: 2; }
+  .problem-col:hover .pv-row-repeat svg {
+    transform: rotate(-180deg);
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 02 — tools that never got wired together */
+  .pv-wires {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .pv-wires path {
+    stroke: rgb(29 78 216 / 0.34);
+    stroke-width: 1.6;
+    stroke-dasharray: 4 5;
+    stroke-linecap: round;
+  }
+
+  /* Tiles are placed by their centre, so they land exactly on the ends of
+     the lines above. */
+  .pv-tile {
+    --tile: 2.7rem;
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--tile);
+    height: var(--tile);
+    margin: calc(var(--tile) / -2) 0 0 calc(var(--tile) / -2);
+    border-radius: 0.75rem;
+    border: 1px solid rgb(11 18 32 / 0.08);
+    background: #fff;
+    box-shadow: 0 8px 20px -14px rgb(11 18 32 / 0.5);
+    transition:
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 280ms ease,
+      background-color 280ms ease,
+      box-shadow 280ms ease;
+  }
+  .pv-tile svg { width: 1.45rem; height: 1.45rem; }
+
+  /* Under the cursor a tile grows and turns red: the tool you point at is
+     the one that is not wired to the others. */
+  .pv-tile:hover {
+    transform: scale(1.2);
+    border-color: rgb(220 38 38 / 0.55);
+    background: #fef7f7;
+    box-shadow: 0 12px 26px -14px rgb(220 38 38 / 0.45);
+    z-index: 6;
+  }
+
+  .pv-tile--0 { left: 50%; top: 17%; }
+  .pv-tile--1 { left: 82.3%; top: 39.8%; }
+  .pv-tile--2 { left: 70%; top: 76.7%; }
+  .pv-tile--3 { left: 30%; top: 76.7%; }
+  .pv-tile--4 { left: 17.7%; top: 39.8%; }
+
+  .pv-cross {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -0.875rem 0 0 -0.875rem;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: #fee2e2;
+    color: #dc2626;
+  }
+  .pv-cross svg { width: 1rem; height: 1rem; stroke-width: 2.4; }
+
+  /* 03 — a follow-up list nobody works through */
+  .pv--followup { display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; padding: 0 4%; }
+  /* Four rows, sized to fill the box without spilling out of it: the sum
+     below lands about 9px short of the area the scale leaves them. */
+  .pv--manual { gap: 0.4rem; }
+  .pv--manual .pv-row { padding: 0.4rem 0.7rem; }
+  .pv--manual .pv-row-icon { width: 1.7rem; height: 1.7rem; }
+  .pv--manual .pv-row-icon svg { width: 1.1rem; height: 1.1rem; }
+  .pv--manual .pv-row-body i { font-size: 0.62rem; }
+  .pv--manual .pv-row-repeat svg { width: 0.95rem; height: 0.95rem; }
+  .pv-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgb(11 18 32 / 0.06);
+    background: #fff;
+    box-shadow: 0 8px 20px -16px rgb(11 18 32 / 0.5);
+  }
+  /* The one that is late reads as the problem, not as another line. */
+  .pv-row--alert {
+    border-color: rgb(220 38 38 / 0.2);
+    background: #fefafa;
+  }
+  .pv-row--alert:hover {
+    border-color: rgb(220 38 38 / 0.5);
+    background: #fdefef;
+  }
+  .pv-row--alert:hover .pv-row-flag { transform: scale(1.12); }
+  .pv-row--faded { opacity: 0.45; box-shadow: none; }
+  .pv-row-icon {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: none;
+    color: #64748b;
+  }
+  .pv-row-icon svg { width: 1rem; height: 1rem; stroke-width: 1.8; }
+  .pv-row-icon--done {
+    border-radius: 999px;
+    background: #16a34a;
+    color: #fff;
+  }
+  .pv-row-body { min-width: 0; flex: 1; }
+  .pv-row-body b { display: block; font-size: 0.66rem; font-weight: 600; }
+  .pv-row-body i {
+    display: block;
+    font-style: normal;
+    font-size: 0.6rem;
+    color: #94a3b8;
+  }
+  .pv-row--alert .pv-row-body i { color: #dc2626; }
+  .pv-row-flag { color: #dc2626; flex: none; }
+  .pv-row-flag svg { width: 1rem; height: 1rem; }
+  .pv-row-dot {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    border-radius: 999px;
+    background: rgb(11 18 32 / 0.08);
+  }
+  .pv-row-dot--lead { width: 1.25rem; height: 1.25rem; }
+
+  /* 04 — a site that has stopped keeping up */
+  .pv--site { display: grid; place-items: center; }
+  .pv-window {
+    position: relative;
+    display: block;
+    width: 96%;
+    border-radius: 0.7rem;
+    border: 1px solid rgb(11 18 32 / 0.07);
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 14px 30px -20px rgb(11 18 32 / 0.5);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease;
+  }
+  .pv--site:hover .pv-window {
+    transform: scale(1.045);
+    box-shadow: 0 20px 38px -20px rgb(11 18 32 / 0.55);
+  }
+  .pv-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.28rem;
+    padding: 0.45rem 0.6rem;
+    border-bottom: 1px solid rgb(11 18 32 / 0.06);
+  }
+  .pv-window-bar i {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: #cbd5e1;
+  }
+  .pv-window-bar i:nth-child(1) { background: #f87171; }
+  .pv-window-bar i:nth-child(2) { background: #fbbf24; }
+  .pv-window-bar i:nth-child(3) { background: #4ade80; }
+  .pv-window-url {
+    flex: 1;
+    height: 0.5rem;
+    margin-left: 0.5rem;
+    border-radius: 999px;
+    background: rgb(11 18 32 / 0.06);
+  }
+  .pv-window-body {
+    display: grid;
+    /* The right pane stretches to whatever the left column ends up being,
+       so the loading block is as tall as the image plus its two lines. */
+    grid-template-columns: 1.35fr 1fr;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 0.65rem;
+  }
+  .pv-window-col { display: flex; flex-direction: column; }
+  .pv-window-pane {
+    display: grid;
+    place-items: center;
+    border-radius: 0.45rem;
+    background: rgb(11 18 32 / 0.05);
+    color: rgb(11 18 32 / 0.2);
+  }
+  .pv-window-col .pv-window-pane { height: 5.4rem; }
+  .pv-window-pane--load { height: auto; }
+
+  /* Two bars under the image: a short heavy one and a long light one, which
+     is enough for the eye to read "a title and a paragraph". */
+  .pv-window-line {
+    display: block;
+    height: 0.3rem;
+    margin-top: 0.5rem;
+    border-radius: 999px;
+    background: rgb(11 18 32 / 0.07);
+  }
+  .pv-window-line--title {
+    width: 58%;
+    height: 0.45rem;
+    background: rgb(11 18 32 / 0.13);
+  }
+  .pv-window-pane svg { width: 1.8rem; height: 1.8rem; stroke-width: 1.6; }
+  .pv-spinner {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    border: 3px solid rgb(11 18 32 / 0.1);
+    border-top-color: rgb(126 34 206 / 0.5);
+    animation: pv-spin 1.6s linear infinite;
+  }
+  @keyframes pv-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pv-spinner { animation: none; }
+    .pv-tile,
+    .pv-window,
+    .pv-row,
+    .pv-row-flag,
+    .pv-row-repeat svg { transition: none; transform: none; }
+  }
+
+  /* Small caps label / eyebrow. Sans, light: the monospace it used to be
+     read as terminal output, which is exactly the note the site is trying
+     not to hit. The wide tracking is what carries it now. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: clamp(0.66rem, 0.62rem + 0.12vw, 0.82rem);
+    font-weight: 300;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
   }
 
@@ -398,62 +1613,45 @@
       0 22px 70px -26px color-mix(in oklab, var(--brand) 55%, transparent);
   }
 
-  /* Subtle electric-blue glow that fades in on hover — cards / badges.
-     Base keeps the 2-layer shadow geometry (transparent) so only the
-     colour animates — avoids a janky transition from `none`. */
+  /* Hover state for cards and badges. It used to be a blue glow; the border
+     carries it now. A coloured edge reads as a deliberate choice, a halo
+     reads as a screensaver. */
   .glow-hover {
-    box-shadow:
-      0 0 0 1px transparent,
-      0 12px 48px -20px transparent;
     transition:
       transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 220ms ease,
-      box-shadow 220ms ease;
+      border-color 220ms ease;
   }
 
   .glow-hover:hover {
     transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--brand) 42%, var(--hairline));
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 22%, transparent),
-      0 12px 48px -20px color-mix(in oklab, var(--brand) 44%, transparent);
+    border-color: color-mix(in oklab, var(--brand) 55%, var(--hairline));
   }
 
   .glow-hover:hover .glow-hover-num {
-    color: var(--brand-bright);
-    text-shadow: 0 0 26px color-mix(in oklab, var(--brand) 55%, transparent);
+    color: var(--brand);
   }
 
-  /* White → translucent-white display gradient (premium, not tinted) */
+  /* The two display "gradients" are now flat fills. The class names stay so
+     the call sites do not have to change, and so a gradient can be put back
+     in one place if it is ever wanted again. */
   .text-gradient-brand {
-    background: linear-gradient(
-      177deg,
-      #ffffff 0%,
-      color-mix(in oklab, #ffffff 62%, transparent) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--foreground);
   }
 
-  /* Neon blue → light blue display gradient — hero title accent */
   .text-gradient-accent {
-    background: linear-gradient(100deg, var(--brand), var(--title-gradient-end));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--brand);
   }
 
-  /* Primary CTA fill: neon blue -> deep blue */
+  /* Primary CTA fill: one flat electric blue, no gradient. */
   .brand-gradient {
-    background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+    background: var(--brand);
     transition:
-      filter 220ms ease,
+      background-color 220ms ease,
       transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .brand-gradient:hover {
-    filter: brightness(1.1);
+    background: var(--brand-hover);
   }
 
   /* Decorative corner frame for the big CTA panel */
@@ -503,7 +1701,7 @@
       transparent 360deg
     );
     filter: blur(70px);
-    opacity: 0.45;
+    opacity: 0.3;
     will-change: transform;
     animation: sg-spin 26s linear infinite;
   }
@@ -545,7 +1743,6 @@
     height: 8px;
     border-radius: 9999px;
     background: var(--brand);
-    box-shadow: 0 0 10px color-mix(in oklab, var(--brand) 60%, transparent);
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -613,7 +1810,6 @@
       color-mix(in oklab, var(--brand) 85%, transparent),
       transparent
     );
-    box-shadow: 0 0 14px color-mix(in oklab, var(--brand) 45%, transparent);
     animation: chain-rail-sweep 7s linear infinite;
   }
 
@@ -645,21 +1841,19 @@
     background: var(--method-pill);
     display: grid;
     place-items: center;
-    font-family: var(--font-mono);
     font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1.05rem);
+    font-weight: 300;
     color: var(--brand);
     transition:
       border-color 300ms ease,
       color 300ms ease,
-      box-shadow 300ms ease,
       transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   /* Same hover illumination as the Constat dots — border, glow, and pop */
   .track-node:hover .track-dot {
     border-color: var(--brand);
-    color: var(--foreground);
-    box-shadow: 0 0 26px color-mix(in oklab, var(--brand) 50%, transparent);
+    color: var(--brand);
     transform: scale(1.1);
   }
 
@@ -774,9 +1968,65 @@
   animation: reveal-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
+/* Directional variants, used by the two hero columns: they slide in from the
+   side they sit on rather than rising. Longer and softer than the default
+   reveal, because the travel is much greater. */
+@keyframes reveal-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-72px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(72px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.reveal-left[data-shown="true"] {
+  animation: reveal-in-left 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-right[data-shown="true"] {
+  animation: reveal-in-right 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes reveal-in-up {
+  from { opacity: 0; transform: translateY(52px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-up[data-shown="true"] {
+  animation: reveal-in-up 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* A slower entrance for the Constat heading and its four columns. Each
+   column takes 1.6s and they start 190ms apart, so four long rises overlap
+   into one continuous movement instead of four separate arrivals. */
+.problem-heading.reveal-left[data-shown="true"] {
+  animation-duration: 2.2s;
+}
+
+.problem-col.reveal-up[data-shown="true"] {
+  animation-duration: 1.6s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .reveal[data-shown="true"] {
+  .reveal[data-shown="true"],
+  .reveal-left[data-shown="true"],
+  .reveal-up[data-shown="true"],
+  .reveal-right[data-shown="true"] {
     opacity: 1;
     animation: none;
     transform: none;

@@ -39,12 +39,10 @@ function depthStyle(offset: number): React.CSSProperties {
 
 export function RealisationsCarousel({
   items,
-  badge,
   filterCta,
   contactHref,
 }: {
   items: readonly RealisationItem[];
-  badge: string;
   filterCta: string;
   contactHref: string;
 }) {
@@ -130,7 +128,7 @@ export function RealisationsCarousel({
               className={cn(
                 "absolute inset-y-0 left-1/2 flex w-[min(92vw,25rem)] -translate-x-1/2 flex-col gap-[clamp(1.25rem,1rem+1.4vw,2.25rem)] overflow-hidden rounded-[1.4rem] border bg-surface p-[clamp(1.75rem,1.4rem+1.8vw,3rem)] transition-[transform,opacity,border-color] duration-500 ease-[cubic-bezier(.22,1,.36,1)] lg:w-[min(92vw,56rem)] lg:flex-row lg:items-stretch",
                 isActive
-                  ? "border-brand/40 shadow-[0_30px_90px_-40px_color-mix(in_oklab,var(--brand)_70%,transparent)]"
+                  ? "border-brand/55"
                   : "cursor-pointer border-hairline",
               )}
             >
@@ -162,7 +160,7 @@ export function RealisationsCarousel({
                         className="absolute inset-x-6 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-brand/45 to-transparent"
                       />
                       <span aria-hidden className="absolute inset-0 grid place-items-center">
-                        <span className="grid size-10 place-items-center rounded-md border border-brand/40 bg-surface font-mono text-[0.68rem] text-brand">
+                        <span className="grid size-10 place-items-center rounded-md border border-brand/40 bg-surface text-[0.68rem] font-light text-brand">
                           {item.code.replace("D/", "")}
                         </span>
                       </span>
@@ -183,15 +181,10 @@ export function RealisationsCarousel({
               </div>
 
               <div className="flex min-w-0 flex-col text-left lg:w-[40%] lg:shrink-0 lg:pr-2">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="eyebrow tnum text-muted-foreground/60">
-                    {item.code}
-                  </span>
-                  <span className="shrink-0 rounded-full border border-hairline px-2 py-[3px] font-mono text-[0.55rem] uppercase tracking-[0.16em] text-brand">
-                    {badge}
-                  </span>
-                </div>
-                <p className="mt-1.5 font-mono text-[0.7rem] leading-snug text-muted-foreground/60">
+                <span className="eyebrow tnum block text-muted-foreground/60">
+                  {item.code}
+                </span>
+                <p className="mt-1.5 text-[0.72rem] font-light leading-snug tracking-[0.04em] text-muted-foreground/70">
                   {item.domain}
                 </p>
 
