@@ -1,7 +1,22 @@
 import Image from "next/image";
+import {
+  BarChart3,
+  Heart,
+  Lightbulb,
+  Target,
+  Users,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 import { getContent, type Locale } from "@/lib/content";
+
+/** Badge glyph per member, in the order the cards read. */
+const BADGE_ICONS: LucideIcon[] = [Lightbulb, BarChart3];
+
+/** Glyph per value, in the order the strip reads. */
+const VALUE_ICONS: LucideIcon[] = [Users, Target, Zap, Heart];
 
 export function Team({ locale }: { locale: Locale }) {
   const { team } = getContent(locale);
@@ -9,50 +24,96 @@ export function Team({ locale }: { locale: Locale }) {
   return (
     <section
       id="equipe"
-      className="section-screen relative border-t border-hairline"
+      className="relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
     >
-      <div className="container-page flex flex-col items-center">
-        <SectionHeading eyebrow={team.eyebrow} title={team.title} subtitle={team.body} />
-
-        <div className="mt-[calc(var(--ss)*clamp(2rem,1.5rem+2vw,4rem))] grid w-full max-w-5xl gap-[clamp(1rem,0.8rem+1.2vw,2rem)] sm:grid-cols-2">
-          {team.members.map((member, i) => (
-            <Reveal
-              key={member.name}
-              delay={i * 110}
-              className="group glow-hover flex flex-col items-center rounded-2xl border border-hairline bg-surface px-[clamp(1.25rem,1rem+1.5vw,2.5rem)] py-[calc(var(--ss)*clamp(1.75rem,1.4rem+1.8vw,3rem))] text-center"
-            >
-              {/* Portrait, cropped to a disc with a brand ring */}
-              <span className="relative block size-[calc(var(--ss)*clamp(5.5rem,4.5rem+3vw,8rem))] shrink-0 overflow-hidden rounded-full border border-brand/35 bg-brand-dim/30 transition-colors duration-300 group-hover:border-brand">
-                <Image
-                  src={member.photo}
-                  alt={member.name}
-                  width={1254}
-                  height={1254}
-                  sizes="(min-width: 1024px) 8rem, 6rem"
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </span>
-
-              <h3 className="mt-[calc(var(--ss)*1.25rem)] text-[length:var(--fs-h3)] font-semibold tracking-tight">
-                {member.name}
-              </h3>
-
-              <div className="mt-2 flex flex-col gap-1">
-                {member.roles.map((role) => (
-                  <span key={role} className="text-[0.8rem] font-light tracking-[0.04em] text-brand">
-                    {role}
+      <div className="team-panel section-screen overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)]">
+        <div className="container-page">
+          <SectionHeading
+            eyebrow={team.eyebrow}
+            title={team.title
+              .split(new RegExp(`(${team.titleAccent}|\n)`))
+              .map((part, index) =>
+                part === team.titleAccent ? (
+                  <span key={index} className="text-brand">
+                    {part}
                   </span>
-                ))}
-              </div>
+                ) : part === "\n" ? (
+                  <br key={index} />
+                ) : (
+                  part
+                ),
+              )}
+            subtitle={
+              <>
+                {team.body}
+                <span className="team-body-note">{team.bodyNote}</span>
+              </>
+            }
+            align="left"
+            className="team-heading reveal-left"
+          />
 
-              <p className="mt-[calc(var(--ss)*1.25rem)] max-w-[38ch] text-[length:var(--fs-small)] leading-[1.65] text-muted-foreground">
-                {member.text}
-              </p>
-            </Reveal>
-          ))}
+          <div className="team-deck">
+            {team.members.map((member, i) => {
+              const Badge = BADGE_ICONS[i % BADGE_ICONS.length];
+              const badgeSide = i === 0 ? "start" : "end";
+              return (
+                <Reveal
+                  key={member.name}
+                  delay={120 + i * 240}
+                  className={`team-card ${i === 0 ? "reveal-left" : "reveal-right"}`}
+                >
+                  <div className="team-card-top">
+                    <span className="team-card-badge" data-side={badgeSide}>
+                      <span className="team-card-badge-tile" aria-hidden>
+                        <Badge />
+                      </span>
+                      <b>{member.badge.label}</b>
+                      <i>{member.badge.sub}</i>
+                    </span>
+
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      width={member.photoSize.width}
+                      height={member.photoSize.height}
+                      sizes="(min-width: 1024px) 34rem, 90vw"
+                      className="team-card-portrait"
+                    />
+                  </div>
+
+                  <div className="team-card-body">
+                    <h3 className="team-card-name">{member.name}</h3>
+                    <p className="team-card-position">{team.position}</p>
+                    <p className="team-card-role">{member.role}</p>
+                    <span aria-hidden className="team-card-rule" />
+                    <p className="team-card-text">{member.text}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+
+          </div>
+
+          <Reveal delay={900} className="team-values">
+            {team.values.map((value, i) => {
+              const Glyph = VALUE_ICONS[i % VALUE_ICONS.length];
+              return (
+                <span key={value.strong} className="team-value">
+                  <span className="team-value-tile" aria-hidden>
+                    <Glyph />
+                  </span>
+                  <span className="team-value-copy">
+                    <i>{value.label}</i>
+                    <b>{value.strong}</b>
+                  </span>
+                </span>
+              );
+            })}
+          </Reveal>
+
         </div>
       </div>
-
     </section>
   );
 }

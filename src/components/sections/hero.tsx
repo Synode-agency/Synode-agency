@@ -34,13 +34,13 @@ export function Hero({ locale }: { locale: Locale }) {
                   aria-hidden
                   className="title-aura pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10"
                 />
-                <h1 className="hero-heading text-[2.5rem] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem))]">
+                <h1 className="hero-heading text-[2.5rem] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.45vw,3rem)]">
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
                 </h1>
               </div>
 
-              <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+              <p className="max-w-[56ch] text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
                 {hero.subtitle}
               </p>
 
@@ -61,10 +61,12 @@ export function Hero({ locale }: { locale: Locale }) {
               </div>
             </Reveal>
 
-            {/* Product mock framed by the four service cards. */}
-            <Reveal delay={120} className="reveal-right hero-visual">
+            {/* Product mock framed by the four service cards. Not a Reveal:
+                the mock and the four cards come in one by one on load, from
+                CSS, after the copy on the left has started moving. */}
+            <div className="hero-visual">
               <HeroStage locale={locale} />
-            </Reveal>
+            </div>
           </div>
         </div>
       </div>

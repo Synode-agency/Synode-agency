@@ -33,7 +33,7 @@ export function Wordmark({
         height={isMark ? 80 : 112}
         priority
         className={cn(
-          "shrink-0",
+          "wordmark-part shrink-0",
           isMark ? "size-10 object-contain" : "size-12 rounded-[22%]",
         )}
       />
@@ -44,7 +44,7 @@ export function Wordmark({
           width={822}
           height={232}
           priority
-          className="wordmark-type h-[1.9rem] w-auto shrink-0"
+          className="wordmark-part wordmark-type h-[1.9rem] w-auto shrink-0"
         />
       )}
     </span>

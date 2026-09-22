@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 
 interface TimelineItem {
@@ -18,20 +19,28 @@ function ChainText({ title, text }: TimelineItem) {
   );
 }
 
+function stepNumber(i: number) {
+  return String(i + 1).padStart(2, "0");
+}
+
 /**
  * Nodes for the Constat ("chain") and Méthode ("track") sections.
  * Chain: the four problems are equal, not ordered, so they carry no number —
  * just a small pulsing brand pip on a rail whose glow sweeps left to right.
  * Title + text alternate above/below the pip, each centered on it.
- * Track: dots rest solid brand (all four alike), light up the same way on
- * hover; text sits below every node, linked by a slow-pulsing gradient line.
+ * Track: the four steps are ordered, so they read left to right — a plain
+ * brand glyph per step (no bubble), the number riding next to the title in
+ * the display face, and a long thin brand arrow pointing to the next step.
  */
 export function TimelineRow({
   items,
+  icons,
   variant,
   className,
 }: {
   items: readonly TimelineItem[];
+  /** One glyph per item; used by the track variant. */
+  icons?: readonly LucideIcon[];
   variant: "chain" | "track";
   className?: string;
 }) {
@@ -39,29 +48,37 @@ export function TimelineRow({
     <div className={className}>
       {/* Mobile: simple stacked list */}
       <div className="flex flex-col gap-4 sm:hidden">
-        {items.map((item, i) => (
-          <Reveal
-            key={item.title}
-            delay={i * 70}
-            className="flex items-start gap-4 rounded-2xl border border-hairline bg-surface p-5 text-left"
-          >
-            {variant === "chain" ? (
-              <span aria-hidden className="chain-pip mt-[7px] shrink-0" />
-            ) : (
-              <span className="track-dot tnum shrink-0">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-            )}
-            <div>
-              <h3 className="text-[0.95rem] font-semibold tracking-tight">
-                {item.title}
-              </h3>
-              <p className="mt-1.5 text-[0.83rem] leading-[1.6] text-muted-foreground">
-                {item.text}
-              </p>
-            </div>
-          </Reveal>
-        ))}
+        {items.map((item, i) => {
+          const Glyph = icons?.[i];
+          return (
+            <Reveal
+              key={item.title}
+              delay={i * 70}
+              className="flex items-start gap-4 rounded-2xl border border-hairline bg-surface p-5 text-left"
+            >
+              {variant === "chain" ? (
+                <span aria-hidden className="chain-pip mt-[7px] shrink-0" />
+              ) : (
+                Glyph && (
+                  <span aria-hidden className="track-icon mt-[3px] shrink-0">
+                    <Glyph />
+                  </span>
+                )
+              )}
+              <div>
+                <h3 className="text-[0.95rem] font-semibold tracking-tight">
+                  {variant === "track" && (
+                    <span className="track-num">{stepNumber(i)}</span>
+                  )}
+                  {item.title}
+                </h3>
+                <p className="mt-1.5 text-[0.83rem] leading-[1.6] text-muted-foreground">
+                  {item.text}
+                </p>
+              </div>
+            </Reveal>
+          );
+        })}
       </div>
 
       {/* Desktop */}
@@ -105,32 +122,34 @@ export function TimelineRow({
           })}
         </Reveal>
       ) : (
-        <Reveal
-          className="hidden sm:grid"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 178px), 1fr))",
-            rowGap: "clamp(20px, 2.4vw, 34px)",
-            columnGap: 0,
-          }}
-        >
-          {items.map((item, i) => (
-            <div
-              key={item.title}
-              className="track-node relative px-[clamp(10px,1.2vw,17px)] text-center"
-            >
-              <span aria-hidden className="track-link" />
-              <span className="track-dot tnum mx-auto">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="font-archivo mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
-                {item.title}
-              </h3>
-              <p className="mx-auto mt-[9px] max-w-[34ch] text-[clamp(13.5px,0.35vw+12.5px,16px)] leading-[1.58] text-muted-foreground">
-                {item.text}
-              </p>
-            </div>
-          ))}
-        </Reveal>
+        <div className="track-row hidden sm:grid">
+          {items.map((item, i) => {
+            const Glyph = icons?.[i];
+            return (
+              <Reveal
+                key={item.title}
+                delay={200 + i * 180}
+                className="track-node reveal-up"
+              >
+                {i < items.length - 1 && (
+                  <span aria-hidden className="track-arrow" />
+                )}
+                {Glyph && (
+                  <span aria-hidden className="track-icon">
+                    <Glyph />
+                  </span>
+                )}
+                <h3 className="track-title font-archivo mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
+                  <span className="track-num">{stepNumber(i)}</span>
+                  {item.title}
+                </h3>
+                <p className="mt-[9px] max-w-[34ch] text-[clamp(13.5px,0.35vw+12.5px,16px)] leading-[1.58] text-muted-foreground">
+                  {item.text}
+                </p>
+              </Reveal>
+            );
+          })}
+        </div>
       )}
     </div>
   );

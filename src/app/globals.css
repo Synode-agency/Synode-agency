@@ -90,6 +90,14 @@
      through 4K/ultra-wide monitors instead of freezing at a `lg:` cap. */
   --container-max: 110rem; /* 1760px */
   --space-section: clamp(4rem, 2.5rem + 4vw, 10rem);
+  /* Desktop: the one gap between two sections, measured from the last thing
+     one section draws to the first thing the next one draws. Each section
+     carries half of it above and half below, so every seam comes out the
+     same. */
+  --space-between: 150px;
+  /* The closing CTA gets a wider seam than the rest: arriving on it should
+     feel like a break in the page, not like the eighth section in a row. */
+  --space-before-cta: 240px;
   --space-lg: clamp(2.5rem, 1.75rem + 2.5vw, 5rem);
   --space-md: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
   --space-sm: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
@@ -195,8 +203,8 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "cv11", "ss01";
     /* Nothing on this site is meant to scroll sideways. `clip` and not
-       `hidden`: `hidden` would turn <body> into a scroll container, and the
-       scroll-snap declared on <html> would stop working. */
+       `hidden`: `hidden` would turn <body> into a scroll container, which
+       shifts where fixed and sticky elements anchor. */
     overflow-x: clip;
   }
 
@@ -205,7 +213,11 @@
   h3,
   h4 {
     @apply font-heading;
-    text-wrap: balance;
+    /* Headings are never balanced on this site. The rule is that a headline
+       breaks where the copy says it breaks, identically from a laptop to a
+       4K screen; a balancer re-splits the lines as a function of the
+       available width, which is exactly what it must not do. Measures are
+       set in `ch` and the breaks are written into the text. */
     letter-spacing: -0.02em;
   }
 
@@ -233,12 +245,12 @@
     scroll-margin-top: 5.5rem;
   }
 
-  /* Full-screen sections already reserve the header height in their own top
-     padding, so the arrows should land them flush against the viewport top. */
+  /* Sections no longer reserve the header height in their own top padding,
+     so an anchor has to stop short of it or the heading lands underneath. */
   @media (min-width: 1024px) {
     .section-screen[id],
     .screen-shell[id] {
-      scroll-margin-top: 0;
+      scroll-margin-top: calc(var(--header-h) + var(--page-gutter-top));
     }
   }
 
@@ -276,10 +288,26 @@
 
 /* Utilities specific to this site */
 @layer utilities {
+  /* The page column. Every section resolves to the same left edge at every
+     width: capped at --container-max, centred, inset from the viewport by
+     the same gutter the cards use, and carrying the same inner padding.
+
+     Inside a card the gutter is already spent by the card itself, so the
+     column there takes the card's full width instead of insetting twice. */
   .container-page {
-    width: min(100%, var(--container-max));
+    width: min(calc(100% - var(--page-gutter) * 2), var(--container-max));
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  /* Inside an inset card the page gutter has already been paid by the card
+     itself, so the column must not subtract it a second time. The Offre is
+     not in that list any more: its band is full-bleed, so its contents take
+     the ordinary column and land on the same left edge as every other
+     section. */
+  .hero-card .container-page,
+  .team-panel .container-page {
+    width: min(100%, var(--container-max));
   }
 
   /* Full-screen landing section (desktop only — mobile keeps natural flow so
@@ -292,72 +320,66 @@
   @media (min-width: 1024px) {
     .section-screen {
       position: relative;
-      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-block: calc(4.6rem + var(--ss) * 2.5rem) calc(var(--ss) * 3.5rem);
+      padding-block: calc(var(--space-between) / 2);
     }
 
-    /* Sits with the footer inside one viewport: the pair shares 100dvh. */
+    /* A full-bleed band has no section padding around it, so it carries the
+       whole seam itself: half of it above, half below, plus its own
+       breathing room inside. */
+    .offer-panel.section-screen,
+    .faq-panel.section-screen {
+      padding-block: calc(var(--space-between) / 2 + var(--space-section) / 2);
+    }
+
+    /* Every seam on the page is --space-between of empty ground, and a
+       section is centred in the one it sits in: as much air above its first
+       line as below its last. Half of a seam normally comes from each
+       neighbour, so the default above is right — but two neighbours pay
+       nothing at all and the section has to cover the whole gap itself:
+
+         - the Offre is a full-bleed band, so its padding is *inside* the
+           blue and contributes no white ground at all, above or below;
+         - the hero card and the Équipe panel are inset cards, whose own
+           outer gutter already lays down part of the seam.
+
+       Each rule below is that arithmetic, and nothing else. */
+
+    /* Under the hero card, whose bottom gutter covers part of the seam.
+       Below: the Offre band pays nothing, so the Constat covers it all. */
+    #probleme.section-screen {
+      padding-top: calc(var(--space-between) - var(--page-gutter));
+      padding-bottom: var(--space-between);
+    }
+
+    /* Under the Offre band, which pays nothing: the whole seam above.
+       Below: the Équipe panel's outer gutter covers its usual half. */
+    #methode.section-screen {
+      padding-top: var(--space-between);
+    }
+
+    /* Above: the section before already laid down its half of a normal seam,
+       so this one makes up the difference to the wider one.
+       Below: the FAQ is a band and pays nothing, so the CTA covers it all. */
+    #conclusion.section-screen {
+      padding-top: calc(var(--space-before-cta) - var(--space-between) / 2);
+      padding-bottom: var(--space-between);
+    }
+
+    /* The FAQ band and the footer still travel together, but neither
+       stretches: the band ends where the footer's white surface begins. */
     .section-screen-with-footer {
       min-height: auto;
-      flex: 1;
     }
 
     .screen-shell {
-      min-height: 100dvh;
       display: flex;
       flex-direction: column;
     }
   }
 
-  /* Static wash for the fixed background layer (`SiteBackground`).
-     Broad, low-contrast pools of brand blue that give the page depth without
-     any visible seam — the whole site scrolls over this one surface. */
-  .site-bg-wash {
-    background:
-      radial-gradient(
-        62% 44% at 18% 8%,
-        color-mix(in oklab, var(--brand) 6%, transparent) 0%,
-        transparent 68%
-      ),
-      radial-gradient(
-        54% 40% at 84% 30%,
-        color-mix(in oklab, var(--brand-deep) 7%, transparent) 0%,
-        transparent 70%
-      ),
-      radial-gradient(
-        70% 48% at 50% 100%,
-        color-mix(in oklab, var(--brand) 4%, transparent) 0%,
-        transparent 72%
-      );
-  }
-
-  /* Section snapping — one section per scroll gesture.
-     Enabled only while `SectionSnap` is mounted (landing page), only on
-     desktop, and only when the visitor hasn't asked for reduced motion.
-     Uses the browser's native snapping rather than hijacking the wheel, so
-     keyboard, trackpad inertia and screen readers keep working normally. */
-  @media (min-width: 1024px) {
-    html.snap-sections {
-      scroll-snap-type: y mandatory;
-    }
-
-    html.snap-sections #top,
-    html.snap-sections .section-screen,
-    html.snap-sections .screen-shell {
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
-    }
-  }
-
-  /* Never trap someone who asked for less motion. */
-  @media (prefers-reduced-motion: reduce) {
-    html.snap-sections {
-      scroll-snap-type: none;
-    }
-  }
 
   /* Spacing steps that shrink together with --ss, used inside full-screen
      sections so the whole block breathes less on a short window. */
@@ -415,6 +437,1826 @@
 
     color: #ffffff;
     background: linear-gradient(158deg, #1257c4 0%, #0b3fa8 46%, #0a2f80 100%);
+  }
+
+  /* The team sits on a panel the same shape as the offer's, painted like the
+     hero card: white with the same faint brand tint drifting into the bottom
+     corner. The two blocks that frame the page are the same material; the
+     offer panel in between is the one that breaks it. The member cards drop
+     to --surface-2 so they still read against it. */
+  /* The footer is its own surface: plain white, edge to edge. No rule along
+     the top — every surface it meets is a different colour already, so a
+     hairline only added a third line between two that were doing the job.
+     Its contents sit in the ordinary page column, so the logo lines up with
+     the navbar's at the other end. */
+  .site-footer {
+    background: #ffffff;
+  }
+
+  /* The FAQ card: one flat, barely-there blue. The page's normal dark ink
+     stays readable on it, so the deep blue remains the Offre's alone.
+     The tokens are the light palette nudged towards the blue, so the rules
+     of the list hold against a tinted ground rather than against white —
+     they are the only structure the list has, so they must not fade out. */
+  .faq-panel {
+    --hairline: color-mix(in oklab, var(--brand) 28%, transparent);
+    --border: color-mix(in oklab, var(--brand) 28%, transparent);
+    --surface: #ffffff;
+    --surface-2: #eaf1fb;
+
+    background: #f5f8fd;
+  }
+
+  .team-panel {
+    --surface: #f1f4f9;
+
+    background:
+      linear-gradient(
+        152deg,
+        rgb(10 124 224 / 0) 0%,
+        rgb(10 124 224 / 0) 38%,
+        rgb(10 124 224 / 0.06) 100%
+      ),
+      #ffffff;
+  }
+
+  /* Left-aligned page hero (Réalisations): once there is room for the whole
+     headline on one line, the column is sized by that line and the paragraph
+     is handed the same measure — it declares width:0 so it adds nothing to
+     the intrinsic size, then fills the column back up. Doubled class for
+     specificity over the utility classes on the same element. */
+  @media (min-width: 1280px) {
+    .page-hero-left.page-hero-left {
+      display: grid;
+      grid-template-columns: max-content;
+      justify-items: start;
+      width: max-content;
+      max-width: 100%;
+    }
+
+    .page-hero-left > h1 {
+      max-width: none;
+      white-space: nowrap;
+    }
+
+    .page-hero-left > p {
+      width: 0;
+      min-width: 100%;
+      /* Takes the title's measure, but never more than it can hold without
+         rewrapping: past this the line count would change with the screen. */
+      max-width: 86ch;
+    }
+  }
+
+  /* The two ways to reach us, under the contact headline. */
+  /* Stacked, and both as wide as the wider of the two: the block is sized
+     by its content, the items stretch to fill it. */
+  .contact-facts {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .contact-fact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.65rem 1rem 0.65rem 0.7rem;
+    border-radius: 0.9rem;
+    border: 1px solid var(--hairline);
+    background: color-mix(in oklab, var(--surface) 80%, transparent);
+    transition:
+      border-color 300ms ease,
+      background-color 300ms ease;
+  }
+
+  .contact-fact:hover {
+    border-color: color-mix(in oklab, var(--brand) 45%, transparent);
+    background: var(--surface);
+  }
+
+  .contact-fact-tile {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    aspect-ratio: 1;
+    border-radius: 0.65rem;
+    background: color-mix(in oklab, var(--brand) 12%, #ffffff);
+    color: var(--brand);
+  }
+
+  .contact-fact-tile > svg {
+    width: 50%;
+    height: 50%;
+    stroke-width: 2;
+  }
+
+  .contact-fact-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .contact-fact-copy > i {
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-mono);
+  }
+
+  .contact-fact-copy > b {
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .faq-heading > h2 { max-width: none; }
+  .faq-heading > p { max-width: none; }
+
+  /* The second sentence of the offer title is the service we take on when
+     asked, not one of the two we lead with. It is set back accordingly. */
+  .offer-title-soft {
+    opacity: 0.5;
+  }
+
+  .offer-heading > h2 { max-width: none; }
+  .offer-heading > p { max-width: 58ch; }
+
+  .team-panel {
+    --team-deck-max: 62rem;
+  }
+
+  .team-heading > h2 { max-width: none; }
+  .team-heading > p { max-width: 58ch; }
+
+  /* The aside about the hair sits on its own line under the paragraph, set
+     apart from it in italic and in the brand blue. */
+  .team-body-note {
+    display: block;
+    margin-top: 0.2rem;
+    font-style: italic;
+    color: var(--brand);
+  }
+
+  .team-deck {
+    display: grid;
+    gap: clamp(1rem, 0.8rem + 1.2vw, 2rem);
+    /* The pair is narrower than the heading above it: two portraits blown up
+       to the full page width read as stock photography. The strip of values
+       under them is bound to the same width. */
+    max-width: var(--team-deck-max);
+    /* The extra clamp is the height the heads rise out of the cards. */
+    margin-top: calc(
+      var(--ss) * clamp(1.75rem, 1.4rem + 1.6vw, 3rem) + clamp(28px, 3.4vw, 58px)
+    );
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .team-deck {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* One member card: the portrait sits on a pale brand disc at the top, the
+     white block underneath carries the name and the paragraph. */
+  .team-card {
+    --portrait-rise: clamp(28px, 3.4vw, 58px);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+    border: 1px solid var(--hairline);
+    background: linear-gradient(180deg, #f6f9fd 0%, #eef4fc 100%);
+  }
+
+  .team-card-top {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: clamp(200px, 20vw, 280px);
+  }
+
+  /* The disc behind the head. Sized off the photo well rather than the card
+     width, so it never reaches an edge — the card clips nothing, otherwise
+     the heads could not rise out of it. */
+  .team-card-top::before {
+    content: "";
+    position: absolute;
+    bottom: 4%;
+    left: 50%;
+    height: 82%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--brand) 13%, transparent);
+  }
+
+  /* Taller than the well it sits in, so the skull breaks the card's top edge
+     while the shoulders run on down behind the white block. */
+  .team-card-portrait {
+    position: relative;
+    z-index: 1;
+    height: calc(100% + var(--portrait-rise));
+    margin-top: calc(var(--portrait-rise) * -1);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+  }
+
+  .team-card-badge {
+    position: absolute;
+    top: clamp(14px, 1.6vw, 24px);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 8.5rem;
+    font-size: clamp(0.58rem, 0.12vw + 0.55rem, 0.66rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .team-card-badge[data-side="start"] {
+    left: clamp(14px, 1.6vw, 24px);
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .team-card-badge[data-side="end"] {
+    right: clamp(14px, 1.6vw, 24px);
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .team-card-badge > b {
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .team-card-badge > i {
+    font-style: normal;
+    line-height: 1.5;
+  }
+
+  .team-card-badge-tile {
+    display: grid;
+    place-items: center;
+    width: clamp(2.5rem, 0.8vw + 2.2rem, 3.1rem);
+    aspect-ratio: 1;
+    margin-bottom: 0.65rem;
+    border-radius: clamp(0.7rem, 0.4vw + 0.6rem, 0.95rem);
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgb(11 18 32 / 0.06);
+    color: var(--brand);
+  }
+
+  .team-card-badge-tile > svg {
+    width: 45%;
+    height: 45%;
+    stroke-width: 2;
+  }
+
+  .team-card-body {
+    position: relative;
+    z-index: 2;
+    margin: calc(clamp(1.9rem, 2.4vw, 2.9rem) * -1) clamp(0.6rem, 0.8vw, 1rem)
+      clamp(0.6rem, 0.8vw, 1rem);
+    padding: clamp(1.25rem, 1rem + 1vw, 2rem) clamp(1.1rem, 0.9rem + 1vw, 2.25rem)
+      clamp(1.4rem, 1.1rem + 1vw, 2.1rem);
+    border-radius: clamp(1rem, 0.8vw + 0.8rem, 1.4rem);
+    background: #ffffff;
+    text-align: center;
+  }
+
+  .team-card-name {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .team-card-position {
+    margin-top: 0.15rem;
+    font-size: clamp(0.9rem, 0.2vw + 0.85rem, 1.05rem);
+    font-weight: 500;
+    color: var(--brand);
+  }
+
+  .team-card-role {
+    margin-top: 0.2rem;
+    font-size: clamp(0.74rem, 0.12vw + 0.72rem, 0.82rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .team-card-rule {
+    display: block;
+    width: 2.25rem;
+    height: 2px;
+    margin: 0.85rem auto;
+    border-radius: 9999px;
+    background: var(--brand);
+  }
+
+  .team-card-text {
+    font-size: var(--fs-small);
+    line-height: 1.65;
+    color: var(--muted-foreground);
+  }
+
+  /* The four values, in one strip under the pair of cards. */
+  .team-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 0.6rem + 0.8vw, 1.5rem);
+    max-width: var(--team-deck-max);
+    margin-top: calc(clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem) + 20px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .team-values {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .team-value + .team-value {
+      border-left: 1px solid var(--hairline);
+    }
+  }
+
+  .team-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.6rem, 0.5rem + 0.4vw, 0.9rem);
+    padding-inline: clamp(0.5rem, 1vw, 1.25rem);
+  }
+
+  .team-value-tile {
+    display: grid;
+    place-items: center;
+    width: clamp(2.2rem, 0.7vw + 2rem, 2.75rem);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
+    background: color-mix(in oklab, var(--brand) 10%, #ffffff);
+    color: var(--brand);
+  }
+
+  .team-value-tile > svg {
+    width: 46%;
+    height: 46%;
+    stroke-width: 2;
+  }
+
+  .team-value-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    font-size: var(--fs-small);
+  }
+
+  .team-value-copy > i {
+    font-style: normal;
+    color: var(--muted-foreground);
+  }
+
+  .team-value-copy > b {
+    font-weight: 600;
+  }
+
+  .team-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 0.6rem + 0.8vw, 1.5rem);
+    max-width: var(--team-deck-max);
+    margin-top: calc(clamp(1.5rem, 1.2rem + 1.2vw, 2.5rem) + 20px);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .team-values {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .team-value + .team-value {
+      border-left: 1px solid var(--hairline);
+    }
+  }
+
+  .team-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.6rem, 0.5rem + 0.4vw, 0.9rem);
+    padding-inline: clamp(0.5rem, 1vw, 1.25rem);
+  }
+
+  .team-value-tile {
+    display: grid;
+    place-items: center;
+    width: clamp(2.2rem, 0.7vw + 2rem, 2.75rem);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
+    background: color-mix(in oklab, var(--brand) 10%, #ffffff);
+    color: var(--brand);
+  }
+
+  .team-value-tile > svg {
+    width: 46%;
+    height: 46%;
+    stroke-width: 2;
+  }
+
+  .team-value-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    font-size: var(--fs-small);
+  }
+
+  .team-value-copy > i {
+    font-style: normal;
+    color: var(--muted-foreground);
+  }
+
+  .team-value-copy > b {
+    font-weight: 600;
+  }
+
+  /* ------------------------------------------------------------------
+     Réalisations: three category tabs, then a row where the chosen project
+     is open at 16:9 with its write-up and the others wait as thumbnails.
+     The open/close move is a flex-basis transition — no measuring, and it
+     animates in both directions.
+     ------------------------------------------------------------------ */
+  /* The Réalisations hero: the pitch on the left, the three domains on the
+     right. One column until there is room for two. */
+  .works-hero-grid {
+    display: grid;
+    gap: clamp(2.5rem, 2rem + 2.5vw, 4.5rem);
+    width: 100%;
+  }
+
+  /* Two columns, and from 1440px up the panes take half the row.
+
+     Half exactly is only possible once the other half still holds the
+     headline's first line and the paragraph's 62-character measure: below
+     about 1400px it does not, and the copy on the left would recompose,
+     which the whole site forbids. So between 1180px and 1440px the right
+     column ramps up on a fraction of the window instead, and lands on half
+     right where half becomes affordable. Nothing is written in pixels: both
+     tracks are proportions, so they follow any screen.
+
+     Checked at every step from 1180px to 4K — the left column never drops
+     under what its own copy needs. */
+  @media (min-width: 1180px) {
+    .works-hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, clamp(24rem, 75vw - 31rem, 40rem));
+      align-items: center;
+      gap: clamp(3rem, 1.5rem + 4vw, 7rem);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .works-hero-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* ---- The domain stack ---- */
+  .works-deck {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .works-tab-in {
+    display: flex;
+  }
+
+  .works-deck-card {
+    position: relative;
+    display: grid;
+    width: 100%;
+    padding: 0.95rem 1.1rem 0.95rem 1.35rem;
+    border-radius: clamp(0.85rem, 0.5vw + 0.72rem, 1.15rem);
+    border: 1px solid var(--hairline);
+    background: color-mix(in oklab, var(--surface) 40%, transparent);
+    text-align: left;
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+      border-color 420ms ease,
+      background-color 420ms ease,
+      box-shadow 420ms ease,
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* One ink per domain, the same three-colour logic as the gallery header. */
+  .works-deck-card[data-ink="0"] { --tab-tile: #dbeafe; --tab-border: #bfdbfe; --tab-ink: #1d4ed8; }
+  .works-deck-card[data-ink="1"] { --tab-tile: #f3e8ff; --tab-border: #e9d5ff; --tab-ink: #7e22ce; }
+  .works-deck-card[data-ink="2"] { --tab-tile: #dcfce7; --tab-border: #bbf7d0; --tab-ink: #15803d; }
+
+  .works-deck-card:hover {
+    background: color-mix(in oklab, var(--surface) 80%, transparent);
+    border-color: color-mix(in oklab, var(--tab-ink) 30%, transparent);
+    transform: translateX(4px);
+  }
+
+  /* The open pane: its own colour washing in from the left edge, lifted off
+     the two closed ones by a shadow rather than by a heavier border. */
+  .works-deck-card[data-on="true"] {
+    padding-bottom: 1.15rem;
+    border-color: color-mix(in oklab, var(--tab-ink) 34%, transparent);
+    background:
+      linear-gradient(
+        104deg,
+        color-mix(in oklab, var(--tab-tile) 85%, #ffffff) 0%,
+        #ffffff 62%
+      );
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--tab-ink) 9%, transparent),
+      0 26px 50px -30px color-mix(in oklab, var(--tab-ink) 55%, transparent);
+    transform: none;
+  }
+
+  /* The bar down the left edge, drawn from the top when the pane opens. */
+  .works-deck-edge {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--tab-ink);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-edge {
+    transform: scaleY(1);
+  }
+
+  /* The drawing runs off the right edge, clipped by the pane. Closed, it is
+     a hint; open, it comes forward and settles. */
+  .works-deck-motif {
+    position: absolute;
+    top: 50%;
+    right: -1.6rem;
+    width: 7.5rem;
+    height: 7.5rem;
+    color: var(--tab-ink);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) translateX(1.25rem) scale(0.9);
+    transition:
+      opacity 520ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-deck-card:hover .works-deck-motif {
+    opacity: 0.08;
+    transform: translateY(-50%) translateX(0.5rem) scale(0.95);
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-motif {
+    opacity: 0.16;
+    transform: translateY(-50%) translateX(0) scale(1);
+  }
+
+  .works-deck-head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .works-deck-tile {
+    display: grid;
+    place-items: center;
+    width: 2.15rem;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 0.55rem;
+    border: 1px solid var(--tab-border);
+    background: var(--tab-tile);
+    color: var(--tab-ink);
+    transition:
+      background-color 420ms ease,
+      color 420ms ease,
+      border-color 420ms ease,
+      box-shadow 420ms ease;
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-tile {
+    border-color: transparent;
+    background: var(--tab-ink);
+    color: #ffffff;
+    box-shadow: 0 10px 20px -12px color-mix(in oklab, var(--tab-ink) 85%, transparent);
+  }
+
+  .works-deck-tile > svg {
+    width: 50%;
+    height: 50%;
+    stroke-width: 2;
+  }
+
+  .works-deck-label {
+    min-width: 0;
+    font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.06rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--muted-foreground);
+    transition: color 420ms ease;
+  }
+
+  .works-deck-card:hover .works-deck-label {
+    color: var(--foreground);
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-label {
+    color: var(--tab-ink);
+  }
+
+  /* The number closes the row on the right, in the domain's ink. It is the
+     only thing the closed panes keep of their colour. */
+  .works-deck-index {
+    margin-left: auto;
+    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--tab-ink);
+    opacity: 0.45;
+    transition: opacity 420ms ease;
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-index {
+    opacity: 1;
+  }
+
+  /* 0fr to 1fr: the pane opens to whatever its copy needs, with no height
+     measured in JS and nothing to keep in sync. */
+  .works-deck-fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-fold {
+    grid-template-rows: 1fr;
+  }
+
+  .works-deck-fold-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 340ms ease;
+  }
+
+  .works-deck-card[data-on="true"] .works-deck-fold-inner {
+    padding-top: 0.75rem;
+    opacity: 1;
+    transition-delay: 120ms;
+  }
+
+  .works-deck-note {
+    max-width: 30ch;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--muted-foreground);
+  }
+
+  .works-deck-count {
+    padding: 0.22rem 0.6rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--tab-ink) 12%, #ffffff);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tab-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .works-deck-card,
+    .works-deck-edge,
+    .works-deck-motif,
+    .works-deck-fold,
+    .works-deck-fold-inner {
+      transition: none;
+    }
+  }
+
+  /* ---- The project being read, then the controls ---- */
+  /* Two zones, kept well apart: the project, and the row that changes it. */
+  .works {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.25rem, 1.5rem + 2.4vw, 4rem);
+    /* The demo and its write-up read as one object: centred on the page
+       rather than stretched across the full container. */
+    width: min(100%, 76rem);
+    margin-inline: auto;
+  }
+
+  /* One ink per domain, declared on the gallery itself so the picker cards
+     inside inherit it: the border of the selected card is the only place
+     the domain's colour still shows down here. */
+  .works[data-ink="0"] { --works-ink: #1d4ed8; --works-tile: #dbeafe; }
+  .works[data-ink="1"] { --works-ink: #7e22ce; --works-tile: #f3e8ff; }
+  .works[data-ink="2"] { --works-ink: #15803d; --works-tile: #dcfce7; }
+
+  /* A single child since the closed project cards moved out of the row; it
+     is kept as the element that takes focus for the arrow keys. */
+  .works-row {
+    outline: none;
+  }
+
+  /* ---- The project being read: demo and write-up, no frame ---- */
+  .works-open {
+    display: grid;
+    gap: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
+    align-items: center;
+  }
+
+
+
+  @media (min-width: 1000px) {
+    .works-open {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: clamp(1rem, 0.8rem + 0.8vw, 1.75rem);
+    }
+  }
+
+  .work-media {
+    position: relative;
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: clamp(0.9rem, 0.5vw + 0.75rem, 1.25rem);
+    background: linear-gradient(155deg, #0f1f3d, #16325f 55%, #0b1f44);
+    box-shadow: 0 30px 60px -45px rgb(11 18 32 / 0.6);
+    transition:
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms ease;
+  }
+
+  video.work-media {
+    display: block;
+    object-fit: cover;
+    background: #0b1f44;
+  }
+
+  /* The wash that stands in for the still frame until the demos are shot. */
+  .work-media-fill {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        90% 70% at 25% 20%,
+        rgb(255 255 255 / 0.16),
+        transparent 65%
+      ),
+      radial-gradient(
+        80% 80% at 80% 90%,
+        color-mix(in oklab, var(--brand) 40%, transparent),
+        transparent 70%
+      );
+  }
+
+  .works-play {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: clamp(2.75rem, 3.4vw, 3.75rem);
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--brand);
+    box-shadow: 0 16px 36px -20px rgb(0 0 0 / 0.65);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-play > svg {
+    width: 42%;
+    height: 42%;
+    fill: currentColor;
+    margin-left: 6%;
+  }
+
+  .works-pending {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(0.7rem, 1.2vw, 1.25rem);
+    transform: translateX(-50%);
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.14);
+    border: 1px solid rgb(255 255 255 / 0.22);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .work-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .works-panel-index {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--text-mono);
+  }
+
+  .works-panel-domain {
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--muted-foreground);
+  }
+
+  .works-panel-title {
+    margin-top: 0.25rem;
+    font-size: clamp(1rem, 0.3vw + 0.92rem, 1.22rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-wrap: pretty;
+  }
+
+  .works-panel-desc {
+    max-width: 48ch;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+  }
+
+  .works-panel-result {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .works-panel-result > svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--brand);
+    stroke-width: 2.5;
+  }
+
+  /* ---- Under the row ---- */
+  /* A little more than the common gap above the controls: they are a
+     different kind of thing from the project they switch between. */
+  .works-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 0.6rem + 1.2vw, 2rem);
+    /* The run, the arrows and the cards are one block of controls: they sit
+       closer to each other than to the project above them. */
+    margin-top: calc(clamp(2.25rem, 1.5rem + 2.4vw, 4rem) * -0.55);
+  }
+
+  .works-nav-btn {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    border: 1px solid var(--hairline);
+    color: var(--foreground);
+    transition:
+      border-color 300ms ease,
+      color 300ms ease;
+  }
+
+  .works-nav-btn:hover:not(:disabled) {
+    border-color: color-mix(in oklab, var(--brand) 45%, transparent);
+    color: var(--brand);
+  }
+
+  .works-nav-btn:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* The strip of pickers. Equal columns and a cap on each one, so two
+     projects do not stretch into two enormous cards where three sit at a
+     comfortable width. */
+  .works-strip {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(0.75rem, 0.6rem + 0.5vw, 1.15rem);
+  }
+
+  /* On a narrow window three cards at their full width would push the page
+     sideways, so the strip becomes a scroller between the two arrows. */
+  @media (max-width: 767px) {
+    .works-strip {
+      justify-content: start;
+      min-width: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .works-stamp {
+      flex: 0 0 14rem;
+    }
+
+    .works-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .works-stamp {
+      scroll-snap-align: start;
+    }
+  }
+
+  /* One card per project: the still on the left, the name and what it does
+     on the right. The unselected ones are quieter, never hidden — they are
+     what tells the visitor there is more than one project here. */
+  .works-stamp {
+    /* Equal share of the row, never wider than its own copy needs. */
+    flex: 1 1 0;
+    max-width: 23rem;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.7rem, 0.6rem + 0.35vw, 1rem);
+    padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.85rem);
+    border-radius: clamp(0.8rem, 0.5vw + 0.68rem, 1.1rem);
+    border: 1px solid var(--hairline);
+    background: color-mix(in oklab, #ffffff 55%, transparent);
+    text-align: left;
+    cursor: pointer;
+    transition:
+      border-color 300ms ease,
+      background-color 300ms ease,
+      box-shadow 300ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-stamp:hover {
+    background: #ffffff;
+    border-color: color-mix(in oklab, var(--works-ink, var(--brand)) 35%, transparent);
+    transform: translateY(-2px);
+  }
+
+  /* Two pixels rather than one, in the domain's own ink: the border is the
+     only thing that says which project is playing, so it has to carry the
+     colour of the domain the gallery is showing. Box-sizing keeps the card
+     the same size, so the extra pixel shifts nothing. */
+  .works-stamp.is-on {
+    background: #ffffff;
+    border-width: 2px;
+    border-color: var(--works-ink, var(--brand));
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--works-ink, var(--brand)) 14%, transparent),
+      0 18px 38px -28px rgb(7 12 24 / 0.5);
+  }
+
+  .works-stamp-shot {
+    position: relative;
+    display: block;
+    width: clamp(4.5rem, 7vw, 6.5rem);
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 0.55rem;
+    /* A pale blue bed rather than a black frame: the stills sit on paper,
+       and a dark rectangle behind them read as a hole in the page. */
+    border: 1px solid color-mix(in oklab, var(--brand) 18%, transparent);
+    background: color-mix(in oklab, var(--brand) 8%, #ffffff);
+    opacity: 0.75;
+    transition: opacity 300ms ease;
+  }
+
+  .works-stamp:hover .works-stamp-shot,
+  .works-stamp.is-on .works-stamp-shot {
+    opacity: 1;
+  }
+
+  .works-stamp-shot > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .works-stamp-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .works-stamp-num {
+    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text-mono);
+    transition: color 300ms ease;
+  }
+
+  .works-stamp.is-on .works-stamp-num {
+    color: var(--works-ink, var(--brand));
+  }
+
+  .works-stamp-name {
+    font-size: clamp(0.92rem, 0.25vw + 0.86rem, 1.05rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--muted-foreground);
+    transition: color 300ms ease;
+  }
+
+  .works-stamp:hover .works-stamp-name,
+  .works-stamp.is-on .works-stamp-name {
+    color: var(--foreground);
+  }
+
+  .works-stamp-tag {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--muted-foreground);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ---- The run: every project, grouped by domain ---- */
+  /* Seven bars in three named families, one of them lit. It replaces a band
+     that announced the next domain in words: that had to be read and
+     understood, while this is taken in at a glance — you can see how far
+     the page goes, where you are in it, and that the projects after yours
+     belong to something else. Each bar jumps to its project. */
+  .works-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(1.1rem, 0.8rem + 1.2vw, 2.25rem);
+  }
+
+  .works-track-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .works-track-group[data-ink="0"] { --run-ink: #1d4ed8; }
+  .works-track-group[data-ink="1"] { --run-ink: #7e22ce; }
+  .works-track-group[data-ink="2"] { --run-ink: #15803d; }
+
+  .works-track-name {
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mono);
+    transition: color 320ms ease;
+  }
+
+  .works-track-group[data-here="true"] .works-track-name {
+    color: var(--run-ink);
+  }
+
+  .works-track-bars {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  /* The hit area is the whole height of the row; only the rule inside it is
+     drawn, so a 3px bar is still comfortable to click. */
+  .works-track-bar {
+    position: relative;
+    width: clamp(1.6rem, 2.4vw, 2.6rem);
+    height: 0.85rem;
+    cursor: pointer;
+  }
+
+  .works-track-bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    border-radius: 9999px;
+    background: var(--hairline);
+    transform: translateY(-50%);
+    transition:
+      background-color 320ms ease,
+      height 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .works-track-group[data-here="true"] .works-track-bar::after {
+    background: color-mix(in oklab, var(--run-ink) 28%, transparent);
+  }
+
+  .works-track-bar:hover::after {
+    background: color-mix(in oklab, var(--run-ink) 55%, transparent);
+  }
+
+  .works-track-bar[data-on="true"]::after {
+    height: 5px;
+    background: var(--run-ink);
+  }
+
+  @media (max-width: 640px) {
+    .works-track-name {
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+    }
+
+    .works-track-bar {
+      width: 1.35rem;
+    }
+  }
+
+  .works-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.75rem);
+    border-radius: clamp(0.85rem, 0.5vw + 0.7rem, 1.15rem);
+    border: 1px dashed color-mix(in oklab, var(--brand) 35%, transparent);
+    background: color-mix(in oklab, var(--surface) 55%, transparent);
+    max-width: 46rem;
+    font-size: var(--fs-body);
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .works-empty-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--brand);
+    transition: gap 300ms ease;
+  }
+
+  .works-empty-cta:hover {
+    gap: 0.75rem;
+  }
+
+  /* The launch deal in three steps, beside the closing CTA: one rail, a
+     node per step. */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.85rem, 0.7rem + 0.5vw, 1.35rem);
+  }
+
+  .flow-step {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: clamp(0.7rem, 0.6rem + 0.4vw, 1rem);
+    border-radius: clamp(0.8rem, 0.5vw + 0.65rem, 1.1rem);
+    border: 1px solid color-mix(in oklab, var(--brand) 22%, transparent);
+    background: color-mix(in oklab, var(--surface) 72%, transparent);
+  }
+
+  /* The rail: a segment between one node and the next. */
+  .flow-step + .flow-step::before {
+    content: "";
+    position: absolute;
+    left: calc(clamp(0.7rem, 0.6rem + 0.4vw, 1rem) + 1.25rem);
+    bottom: 100%;
+    width: 1px;
+    height: clamp(0.85rem, 0.7rem + 0.5vw, 1.35rem);
+    background: color-mix(in oklab, var(--brand) 45%, transparent);
+  }
+
+  .flow-tile {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 0.7rem;
+    background: color-mix(in oklab, var(--brand) 12%, #ffffff);
+    color: var(--brand);
+  }
+
+  /* On the deep blue panel the tile's own brand blue is the panel's pale
+     blue, which would put pale on pale. Back to white and the page's blue. */
+  .offer-panel .flow-tile {
+    background: #ffffff;
+    color: #0a7ce0;
+  }
+
+  .flow-tile > svg {
+    width: 48%;
+    height: 48%;
+    stroke-width: 2;
+  }
+
+  .flow-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .flow-copy > b {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .flow-copy > i {
+    font-style: normal;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--muted-foreground);
+  }
+
+  /* The mark and the type are two objects in one link: hovering either one
+     lifts that one alone. Each carries the transition itself, so neither
+     reacts to the other being pointed at. */
+  .wordmark-part {
+    transform-origin: center;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .wordmark-part:hover {
+    transform: scale(1.12);
+  }
+
+  /* ------------------------------------------------------------------
+     Closing CTA: copy on the left, a picture of the free hour on the right.
+     ------------------------------------------------------------------ */
+  .cta-composition {
+    display: grid;
+    gap: clamp(2rem, 1.5rem + 3vw, 4.5rem);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-composition {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .cta-copy {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.1rem, 0.9rem + 0.8vw, 1.75rem);
+  }
+
+  .cta-title {
+    /* Wide enough for the longest line written into the copy, so the only
+       breaks are the ones in the text. */
+    max-width: 28ch;
+    white-space: pre-line;
+    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  /* On the one scale the whole site shares from lg up. */
+  @media (min-width: 1024px) {
+    .cta-title {
+      font-size: var(--fs-h2);
+    }
+  }
+
+  .cta-body {
+    max-width: none;
+    white-space: pre-line;
+    font-size: var(--fs-body);
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  .cta-note {
+    max-width: 46ch;
+    font-size: 0.82rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+    white-space: pre-line;
+    color: var(--muted-foreground);
+  }
+
+  /* ---- The diagram ---- */
+  .audit-diagram {
+    position: relative;
+    display: grid;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  /* A single tilted square, blurred until it is only a glow. It gives the
+     block a ground to sit on — without it the cards float on bare page —
+     and it is deliberately faint: it should be felt, never identified.
+     From md up only, where the box is wide enough to contain the blur. */
+  .audit-diagram::before {
+    content: "";
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 62%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) rotate(16deg);
+    border-radius: 18%;
+    background: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--brand) 70%, transparent),
+      color-mix(in oklab, var(--brand-deep) 55%, transparent)
+    );
+    opacity: 0.13;
+    filter: blur(46px);
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .audit-diagram::before {
+      display: block;
+    }
+  }
+
+  .audit-wires,
+  .audit-dot {
+    display: none;
+  }
+
+  .audit-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: clamp(0.85rem, 0.7rem + 0.5vw, 1.15rem);
+    border-radius: clamp(0.9rem, 0.6vw + 0.75rem, 1.25rem);
+    border: 1px solid var(--hairline);
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    box-shadow: 0 18px 40px -34px rgb(11 18 32 / 0.55);
+  }
+
+  .audit-glyph {
+    display: grid;
+    place-items: center;
+    width: clamp(2.4rem, 0.8vw + 2.1rem, 3rem);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
+    background: color-mix(in oklab, var(--brand) 12%, #ffffff);
+    color: var(--brand);
+  }
+
+  .audit-glyph > svg {
+    width: 52%;
+    height: 52%;
+    stroke-width: 2;
+  }
+
+  .audit-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .audit-lines > b {
+    font-size: clamp(0.82rem, 0.2vw + 0.78rem, 0.95rem);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 768px) {
+    .audit-lines {
+      min-width: 6.5rem;
+    }
+  }
+
+  /* The two grey rules standing in for a line of detail. */
+  .audit-lines > i {
+    height: 5px;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--brand) 14%, var(--surface-2));
+  }
+
+  .audit-lines > i:first-of-type { width: 78%; }
+  .audit-lines > i:last-of-type { width: 46%; }
+
+  .audit-mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    width: clamp(3.75rem, 5vw, 5.25rem);
+    aspect-ratio: 1;
+    border-radius: clamp(1rem, 0.8vw + 0.85rem, 1.5rem);
+    border: 1px solid var(--hairline);
+    background: #ffffff;
+    box-shadow: 0 20px 45px -30px rgb(11 18 32 / 0.6);
+  }
+
+  .audit-mark > img {
+    position: relative;
+    z-index: 1;
+    width: 58%;
+    height: auto;
+  }
+
+  /* Three white rings widening out from the middle. They are the first
+     thing in the box, so the wires and the mark both cross over them, and
+     a touch of blur keeps them from reading as drawn circles. */
+  .audit-halo {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(clamp(9rem, 15vw, 13rem) + 6px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.75);
+    background: radial-gradient(
+      circle,
+      transparent 0 34%,
+      rgb(255 255 255 / 0.4) 52%,
+      transparent 72%
+    );
+    filter: blur(0.7px);
+    opacity: 0.75;
+    pointer-events: none;
+  }
+
+  .audit-halo::before,
+  .audit-halo::after {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.85);
+  }
+
+  .audit-halo::before { inset: 15.4%; }
+
+  .audit-halo::after { inset: 32.4%; }
+
+  /* A breath of brand blue right behind the tile — it should register
+     without ever being read as a shape. */
+  .audit-glow {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: clamp(5.5rem, 9vw, 8rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--brand) 22%, transparent) 0%,
+      color-mix(in oklab, var(--brand) 10%, transparent) 45%,
+      transparent 72%
+    );
+    filter: blur(9px);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  /* The call tile: one big pane, two small ones, and the control bar. */
+  .audit-card--visio {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.6rem;
+  }
+
+  .audit-visio {
+    display: grid;
+    grid-template-columns: 1fr 0.32fr;
+    gap: 0.45rem;
+  }
+
+  .audit-visio-main,
+  .audit-visio-side > i {
+    display: block;
+    border-radius: 0.6rem;
+    background: linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--brand) 18%, var(--surface-2)),
+      var(--surface-2)
+    );
+  }
+
+  .audit-visio-main { aspect-ratio: 4 / 3; }
+
+  .audit-visio-side {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .audit-visio-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .audit-visio-bar > b {
+    display: grid;
+    place-items: center;
+    width: clamp(1.7rem, 0.5vw + 1.55rem, 2.1rem);
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    border: 1px solid var(--hairline);
+    background: #ffffff;
+    color: var(--brand);
+  }
+
+  .audit-visio-bar > b > svg {
+    width: 50%;
+    height: 50%;
+    stroke-width: 2;
+  }
+
+  .audit-visio-bar > b[data-hang="true"] {
+    border-color: transparent;
+    background: var(--destructive);
+    color: #ffffff;
+  }
+
+  /* ---- From md up the cards take their places around the mark ---- */
+  @media (min-width: 768px) {
+    .audit-diagram {
+      display: block;
+      aspect-ratio: 880 / 470;
+    }
+
+    .audit-wires {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      stroke: color-mix(in oklab, var(--brand) 45%, transparent);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .audit-dot {
+      display: block;
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      margin: -4px 0 0 -4px;
+      border-radius: 9999px;
+      background: var(--brand);
+    }
+
+    .audit-halo,
+    .audit-glow {
+      display: block;
+    }
+
+    /* Nothing moves until the block has arrived and had a moment to be
+       read: the entrance is one event, the diagram coming alive another. */
+    @media (prefers-reduced-motion: no-preference) {
+      .cta-visual[data-shown="true"] .audit-mark {
+        animation: audit-breathe 5s ease-in-out 2s infinite;
+      }
+
+      .cta-visual[data-shown="true"] .audit-halo {
+        animation: audit-swell 6.5s ease-in-out 2s infinite;
+      }
+
+      .cta-visual[data-shown="true"] .audit-glow {
+        animation: audit-glow-pulse 8s ease-in-out 2s infinite;
+      }
+    }
+
+    @keyframes audit-breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.16); }
+    }
+
+    @keyframes audit-swell {
+      0%, 100% { transform: translate(-50%, -50%) scale(0.94); opacity: 0.55; }
+      50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.9; }
+    }
+
+    @keyframes audit-glow-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.4; }
+      50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.8; }
+    }
+
+    .audit-card,
+    .audit-mark {
+      position: absolute;
+    }
+
+    /* Each card is centred on the height its wire leaves from, so the dot
+       always lands on the middle of its edge rather than behind it. */
+    /* Each card is as wide as its own label needs, not a share of the box:
+       a fixed width broke "Un échange d'une heure" over four lines. */
+    /* Each card is as wide as its own label needs, up to the point where
+       the wire leaves: past 30% it would swallow its own dot. */
+    .audit-card {
+      width: max-content;
+      max-width: 30%;
+    }
+
+    .audit-card--call {
+      left: 0;
+      top: 29%;
+      transform: translateY(-50%);
+    }
+
+    .audit-card--slot {
+      left: 0;
+      top: 71%;
+      transform: translateY(-50%);
+    }
+
+    .audit-card--visio {
+      right: 0;
+      top: 28%;
+      width: 30%;
+      transform: translateY(-50%);
+    }
+
+    .audit-card--result {
+      right: 0;
+      top: 72%;
+      transform: translateY(-50%);
+    }
+
+    .audit-mark {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(4rem, 6.5vw, 6rem);
+    }
+
+  }
+
+  /* ---- The diagram comes alive ----
+     The wires draw from their dot inward, one at a time and out of order, so
+     it reads as four separate connections rather than one flash. They start
+     when the block is revealed, not on page load. The mark and its rings
+     breathe underneath, slowly and barely. */
+  @media (prefers-reduced-motion: no-preference) {
+    .audit-wires path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+
+    /* The block is left alone for `--audit-wait` after it appears, then the
+       four wires draw one after the other and the whole sequence is over
+       within `--audit-span`. It used to run until 4.45s, by which point a
+       visitor scrolling at a normal pace was already past the section. */
+    .cta-visual {
+      --audit-wait: 2000ms;
+      --audit-draw: 700ms;
+      /* Three gaps between four wires; the last one ends the sequence
+         exactly 1.5s after the wait. */
+      --audit-step: 265ms;
+    }
+
+    .cta-visual[data-shown="true"] .audit-wires path {
+      animation: audit-draw var(--audit-draw) cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .cta-visual[data-shown="true"] .audit-wires path:nth-child(1) { animation-delay: var(--audit-wait); }
+    .cta-visual[data-shown="true"] .audit-wires path:nth-child(4) { animation-delay: calc(var(--audit-wait) + var(--audit-step)); }
+    .cta-visual[data-shown="true"] .audit-wires path:nth-child(3) { animation-delay: calc(var(--audit-wait) + var(--audit-step) * 2); }
+    .cta-visual[data-shown="true"] .audit-wires path:nth-child(2) { animation-delay: calc(var(--audit-wait) + var(--audit-step) * 3); }
+
+    /* Each dot lands just before the wire that leaves it. */
+    .audit-dot {
+      opacity: 0;
+    }
+
+    .cta-visual[data-shown="true"] .audit-dot {
+      animation: audit-dot-in 300ms ease both;
+    }
+
+    /* nth-child, not nth-of-type: the cards are spans too, so counting by
+       element type would never reach the dots. Children 4 to 7 are the
+       dots, in the order call, slot, visio, result. */
+    .cta-visual[data-shown="true"] .audit-dot:nth-child(4) { animation-delay: calc(var(--audit-wait) - 80ms); }
+    .cta-visual[data-shown="true"] .audit-dot:nth-child(7) { animation-delay: calc(var(--audit-wait) - 80ms + var(--audit-step)); }
+    .cta-visual[data-shown="true"] .audit-dot:nth-child(6) { animation-delay: calc(var(--audit-wait) - 80ms + var(--audit-step) * 2); }
+    .cta-visual[data-shown="true"] .audit-dot:nth-child(5) { animation-delay: calc(var(--audit-wait) - 80ms + var(--audit-step) * 3); }
+  }
+
+  @keyframes audit-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes audit-dot-in {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ------------------------------------------------------------------
+     FAQ list on the page ground.
+     ------------------------------------------------------------------ */
+  /* The FAQ is a list on the page ground, not a stack of cards: one
+     hairline per row, nothing to draw a box. The top rule closes the list
+     above the first question so it reads as one block. */
+  .faq-list {
+    border-top: 1px solid var(--hairline);
+  }
+
+  .faq-item {
+    position: relative;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .faq-trigger {
+    background: transparent;
+    cursor: pointer;
+    transition: color 250ms ease;
+  }
+
+  .faq-item:hover .faq-question,
+  .faq-item[data-open="true"] .faq-question {
+    color: var(--brand);
+  }
+
+  .faq-question {
+    transition: color 250ms ease;
+  }
+
+  /* The open row is marked by a short brand rule in the left margin rather
+     than by a filled row, which would turn the list back into a stack of
+     boxes inside a box. */
+  .faq-item::before {
+    content: "";
+    position: absolute;
+    left: -1.25rem;
+    top: calc(var(--ss) * 1.15rem);
+    width: 2px;
+    height: 1.15em;
+    background: var(--brand);
+    opacity: 0;
+    transform: scaleY(0.4);
+    transform-origin: top;
+    transition:
+      opacity 250ms ease,
+      transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-item[data-open="true"]::before {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  @media (max-width: 1023px) {
+    .faq-item::before {
+      display: none;
+    }
+  }
+
+  /* A native select's options are drawn by the OS: the panel's translucent
+     --surface would leave white text on a white list. */
+  .offer-panel select option {
+    background: #0b2f80;
+    color: #ffffff;
   }
 
   /* White cards sitting on that panel. They put the page's own palette back,
@@ -1069,6 +2911,13 @@
     .hero-heading > span { white-space: nowrap; }
   }
 
+  /* The headline is scaled by --hs, which reads the window's HEIGHT, while
+     the column holding it is a share of the window's WIDTH. On a tall
+     external monitor --hs saturates at 1 and the line outgrows its column,
+     which is how the full stop ended up under the app panel. The 2.9vw and
+     3.5rem ceilings on the lg font size hold it to the column's own growth
+     — neither one bites at laptop sizes, where --hs is well under 1. */
+
   /* ---------------- Stage layout, from lg up ---------------- */
 
   @media (min-width: 1024px) {
@@ -1084,8 +2933,11 @@
       /* The cards overhang the box by about 5% of its height on each side,
          so the budget below already accounts for them. The 300px is what
          the hero card spends before the stage gets a say: its own insets,
-         the navbar row, the vertical padding and a safety margin. */
-      max-width: min(100%, calc((100dvh - 315px) * 1.36));
+         the navbar row, the vertical padding and a safety margin.
+         The 92% keeps a sliver of its column free on very wide screens,
+         where the height budget alone would let the stage fill the column
+         edge to edge and meet the headline coming the other way. */
+      max-width: min(92%, calc((100dvh - 315px) * 1.36));
       margin-inline: auto;
     }
 
@@ -1196,14 +3048,50 @@
      ------------------------------------------------------------------ */
   .problem-content {
     position: relative;
-    margin-inline: var(--page-gutter);
+    width: min(calc(100% - var(--page-gutter) * 2), var(--container-max));
+    margin-inline: auto;
     padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  /* Titles keep the breaks written into the copy and nothing else: the
+     balancer rewraps by available width, which is exactly what made the
+     composition drift from one screen to the next. Measures below are in
+     characters so they scale with the type. */
+  .problem-heading > h2,
+  .method-heading > h2,
+  .offer-heading > h2,
+  .team-heading > h2,
+  .faq-heading > h2,
+  .page-hero-title {
+    text-wrap: wrap;
   }
 
   .problem-heading { width: 100%; text-align: left; }
   .problem-heading > h2,
   .problem-heading > p { max-width: none; width: 100%; text-wrap: pretty; }
   .problem-heading > p { white-space: pre-line; }
+
+  /* Méthode sits on the same left edge as the Constat and the Offre. */
+  .method-content {
+    position: relative;
+    width: min(calc(100% - var(--page-gutter) * 2), var(--container-max));
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  .method-heading { width: 100%; text-align: left; }
+  .method-heading > h2 { max-width: none; }
+  .method-heading > p { max-width: 64ch; }
+
+  /* Title and paragraph share one measure, so the paragraph turns on the
+     same right-hand edge the title does. The title used to be held on a
+     single line and the paragraph sized off it, which only worked while the
+     title was short enough to fit one. */
+  @media (min-width: 1024px) {
+    .method-content .method-heading > p {
+      max-width: 64ch;
+    }
+  }
 
   .problem-deck {
     position: relative;
@@ -1713,24 +3601,8 @@
     }
   }
 
-  /* Offer card sheen — diagonal light sweep replayed on hover via JS */
-  .offer-sheen {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      100deg,
-      transparent 35%,
-      color-mix(in oklab, var(--brand) 15%, transparent) 50%,
-      transparent 65%
-    );
-    transform: translateX(-130%) skewX(-18deg);
-  }
 
   @media (prefers-reduced-motion: reduce) {
-    .offer-sheen {
-      display: none;
-    }
   }
 
   /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
@@ -1830,47 +3702,99 @@
     }
   }
 
-  /* Track node (Méthode) — solid brand ring at rest, same hover illumination as Constat */
-  .track-dot {
+  /* Méthode — the four steps are ordered, so they read left to right: a bare
+     brand glyph per step (no bubble), the number riding next to the title in
+     the display face, and one long thin brand arrow pointing to the step
+     after it. Everything in the node is flush left. */
+  .track-row {
+    --track-pad: clamp(10px, 1.2vw, 17px);
+    --track-gap: clamp(40px, 7vw, 150px);
+    --track-icon: clamp(26px, 2.2vw, 32px);
+    /* Same clearance either side, so the arrow is centred between two glyphs. */
+    --track-arrow-inset: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 178px), 1fr));
+    row-gap: clamp(20px, 2.4vw, 34px);
+    column-gap: var(--track-gap);
+  }
+
+  /* Wide enough for the four steps to hold one row: pin the column count so
+     the grid can never wrap and leave an arrow pointing at nothing, and let
+     the gutters — and so the arrows — run long. */
+  @media (min-width: 1200px) {
+    .track-row {
+      --track-gap: clamp(56px, 5vw, 120px);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .track-node {
     position: relative;
-    z-index: 2;
-    width: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
-    height: clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem);
-    border-radius: 9999px;
-    border: 1px solid color-mix(in oklab, var(--brand) 40%, transparent);
-    background: var(--method-pill);
-    display: grid;
-    place-items: center;
-    font-size: clamp(0.85rem, 0.78rem + 0.2vw, 1.05rem);
-    font-weight: 300;
-    color: var(--brand);
-    transition:
-      border-color 300ms ease,
-      color 300ms ease,
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    padding-inline: var(--track-pad) 0;
+    text-align: left;
   }
 
-  /* Same hover illumination as the Constat dots — border, glow, and pop */
-  .track-node:hover .track-dot {
-    border-color: var(--brand);
+  .track-icon {
+    display: block;
     color: var(--brand);
-    transform: scale(1.1);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .track-link {
+  .track-icon > svg {
+    width: var(--track-icon);
+    height: var(--track-icon);
+    stroke-width: 1.4;
+  }
+
+  .track-node:hover .track-icon {
+    transform: translateY(-2px);
+  }
+
+  /* Runs from the edge of one glyph to the edge of the next, level with
+     their middle: it leaves a logo and points at the following one, so it
+     spans the rest of the column plus the whole gutter.
+     Only drawn once the four steps are guaranteed to sit on one row —
+     narrower than that the grid wraps and an arrow would point at nothing. */
+  .track-arrow {
+    display: none;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(clamp(2.9rem, 2.5rem + 1.2vw, 3.75rem) / 2);
+    top: calc(var(--track-icon) / 2);
+    left: calc(var(--track-pad) + var(--track-icon) + var(--track-arrow-inset));
+    right: calc(
+      (var(--track-gap) + var(--track-pad)) * -1 + var(--track-arrow-inset)
+    );
     height: 1px;
     background: linear-gradient(
       90deg,
-      color-mix(in oklab, var(--brand) 14%, transparent),
-      color-mix(in oklab, var(--brand) 55%, transparent),
-      color-mix(in oklab, var(--brand) 14%, transparent)
+      color-mix(in oklab, var(--brand) 20%, transparent),
+      color-mix(in oklab, var(--brand) 75%, transparent)
     );
-    animation: syn-scan 5s ease-in-out infinite;
     pointer-events: none;
+  }
+
+  .track-arrow::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid var(--brand);
+    border-right: 1px solid var(--brand);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  @media (min-width: 1200px) {
+    .track-arrow {
+      display: block;
+    }
+  }
+
+  .track-num {
+    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--brand);
+    margin-right: 0.55ch;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1883,9 +3807,8 @@
     .chain-rail-glow {
       display: none;
     }
-    .track-link {
-      animation: none;
-      opacity: 0.45;
+    .track-icon {
+      transition: none;
     }
   }
 }
@@ -1931,14 +3854,6 @@
   }
 }
 
-@keyframes offer-sheen {
-  from {
-    transform: translateX(-130%) skewX(-18deg);
-  }
-  to {
-    transform: translateX(330%) skewX(-18deg);
-  }
-}
 
 @keyframes sg-spin {
   from {
@@ -1964,13 +3879,27 @@
   opacity: 0;
 }
 
-.reveal[data-shown="true"] {
-  animation: reveal-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+/* Two durations for the whole site, and no third one.
+   An element is a single thing arriving: a line, a card, a question, a step.
+   A block is a whole column, or a section's header with its content.
+   Everything that used to sit between the two read as slowness rather than
+   as intent, so the in-between values are gone. */
+:root {
+  --anim-element: 0.7s;
+  --anim-block: 1s;
+  --anim-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Directional variants, used by the two hero columns: they slide in from the
-   side they sit on rather than rising. Longer and softer than the default
-   reveal, because the travel is much greater. */
+/* No `opacity: 1` here on purpose. An entrance with a delay shows the
+   element's normal state while it waits, so a visible shown-state would
+   flash the element in, hide it again on the animation's first frame and
+   bring it back. The base `.reveal` opacity of 0 is what covers the wait. */
+.reveal[data-shown="true"] {
+  animation: reveal-in var(--anim-element) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Directional variants: they slide in from the side they sit on rather than
+   rising. These carry whole blocks, so they take the longer of the two. */
 @keyframes reveal-in-left {
   from {
     opacity: 0;
@@ -1994,11 +3923,11 @@
 }
 
 .reveal-left[data-shown="true"] {
-  animation: reveal-in-left 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: reveal-in-left var(--anim-block) var(--anim-ease) forwards;
 }
 
 .reveal-right[data-shown="true"] {
-  animation: reveal-in-right 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: reveal-in-right var(--anim-block) var(--anim-ease) forwards;
 }
 
 @keyframes reveal-in-up {
@@ -2007,18 +3936,48 @@
 }
 
 .reveal-up[data-shown="true"] {
-  animation: reveal-in-up 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: reveal-in-up var(--anim-element) var(--anim-ease) both;
 }
 
-/* A slower entrance for the Constat heading and its four columns. Each
-   column takes 1.6s and they start 190ms apart, so four long rises overlap
-   into one continuous movement instead of four separate arrivals. */
-.problem-heading.reveal-left[data-shown="true"] {
-  animation-duration: 2.2s;
+/* Single things riding a directional keyframe: they take the element
+   duration, not the block one. */
+.flow-step.reveal-right[data-shown="true"],
+.works-tab-in.reveal-left[data-shown="true"],
+.page-hero-step.reveal-left[data-shown="true"],
+.team-card.reveal-left[data-shown="true"],
+.team-card.reveal-right[data-shown="true"] {
+  animation-duration: var(--anim-element);
 }
 
-.problem-col.reveal-up[data-shown="true"] {
-  animation-duration: 1.6s;
+/* The hero is above the fold, so its right-hand side needs no observer: the
+   pieces come in on load, one after the other, once the copy on the left has
+   set off. `backwards` and not `forwards`, so the cards keep their hover
+   lift once they have landed. */
+@keyframes hero-piece-in {
+  from {
+    opacity: 0;
+    transform: translate3d(54px, 12px, 0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-stage-panel {
+    animation: hero-piece-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation-delay: 0.6s;
+  }
+
+  .hero-stage .pillar-card {
+    animation: hero-piece-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  .hero-stage .pillar-card:nth-child(1) { animation-delay: 1.25s; }
+  .hero-stage .pillar-card:nth-child(2) { animation-delay: 1.45s; }
+  .hero-stage .pillar-card:nth-child(3) { animation-delay: 1.65s; }
+  .hero-stage .pillar-card:nth-child(4) { animation-delay: 1.85s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2030,5 +3989,24 @@
     opacity: 1;
     animation: none;
     transform: none;
+  }
+}
+
+/* From lg up, every title on the site is set at the hero's size. The hero
+   caps its headline so the line can never outgrow its column, and matching
+   that cap everywhere gives the page one scale. Each title keeps its own
+   line breaks and accents — only the size changes. Below lg the fluid clamp
+   stands, since 2.45vw of a phone is a few pixels.
+
+   Deliberately unlayered: the token is declared in an unlayered :root, and
+   anything inside @layer utilities would lose to it. */
+@media (min-width: 1024px) {
+  :root,
+  .dark {
+    --fs-h2: min(
+      calc(var(--hs) * clamp(3.5rem, 2.3rem + 1.5vw, 4.25rem)),
+      2.45vw,
+      3rem
+    );
   }
 }

@@ -68,6 +68,22 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const contactHref = path(locale, "/contact");
   const contactCurrent = pathname === contactHref;
 
+  /**
+   * The other language, on the page the visitor is actually reading — not
+   * back to the home page. FR lives at the root, EN under /en, so the switch
+   * is a matter of swapping that prefix. On the landing page the scroll-spy
+   * already knows which section is in view, so the section comes along too.
+   */
+  const localeHref = (target: Locale) => {
+    const bare = pathname.startsWith("/en")
+      ? pathname.slice(3) || "/"
+      : pathname;
+    const prefix = target === "fr" ? "" : "/en";
+    const route = bare === "/" ? prefix || "/" : `${prefix}${bare}`;
+    const hash = onHome && active && active !== "top" ? `#${active}` : "";
+    return `${route}${hash}`;
+  };
+
   const langLink = (target: Locale, code: string) => {
     const isActive = target === locale;
     return isActive ? (
@@ -76,7 +92,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </span>
     ) : (
       <Link
-        href={homePath(target)}
+        href={localeHref(target)}
         prefetch
         className="rounded-md px-2 py-1 text-muted-foreground/70 transition-colors hover:text-foreground"
       >
@@ -92,10 +108,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           // Above the mobile panel, so the logo and the close button sit on
           // top of it rather than being covered by it.
           "relative z-10 border-b transition-[background-color,border-color,backdrop-filter,padding-top] duration-300",
-          // The hero is a card inset from the viewport, and the bar sits
-          // inside it. Matching that inset lines the logo up with the card's
-          // interior rather than with the window's edge.
-          "px-[var(--page-gutter)]",
+          // No horizontal padding here. The bar used to repeat the page
+          // gutter so it would line up with the hero card's interior, but
+          // the .container-page inside already subtracts that gutter, so the
+          // 35px were being paid twice: below roughly 1900px the logo and
+          // the FR/EN switch sat one gutter further in than every section
+          // heading on the page. Without it the bar takes the same column as
+          // the sections, and the two edges match at every width.
           // Once the bar detaches into its own glass strip there is no card
           // to line up with any more, and keeping the top inset would leave
           // its contents sitting low instead of centred.
@@ -114,7 +133,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             href={home}
             locale={locale}
             onNavigate={() => setOpen(false)}
-            aria-label="Synode — accueil"
+            aria-label={site.homeLabel}
             className="flex shrink-0 items-center rounded-md"
           >
             <Wordmark variant="mark" />
@@ -137,10 +156,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   )}
                 >
                   {item.label}
+                  {/* The rule belongs to the current tab; pointing at another
+                      one draws it there faintly, as if it were about to move. */}
                   <span
                     className={cn(
-                      "absolute inset-x-3 -bottom-px h-px origin-left bg-brand transition-transform duration-300",
-                      current ? "scale-x-100" : "scale-x-0",
+                      "absolute inset-x-3 top-px h-0.5 origin-left rounded-full bg-brand transition-[transform,opacity] duration-300",
+                      current
+                        ? "scale-x-100 opacity-100"
+                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40 group-focus-visible:scale-x-100 group-focus-visible:opacity-40",
                     )}
                     aria-hidden
                   />
@@ -168,7 +191,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               type="button"
               onClick={() => setOpen((v) => !v)}
               className="grid size-10 place-items-center rounded-lg border border-hairline text-foreground md:hidden"
-              aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-label={open ? site.menuClose : site.menuOpen}
               aria-expanded={open}
             >
               {open ? <X className="size-5" /> : <Menu className="size-5" />}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Reveal } from "@/components/site/reveal";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { getContent, path, type Locale } from "@/lib/content";
@@ -10,17 +11,21 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   const legal = legalLinks(locale);
 
   return (
-    <footer className="border-t border-hairline">
-      <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1rem,0.85rem+0.6vw,1.6rem)]">
+    /* A white band running the full width of the window, like the navbar at
+       the other end: the page ground is a light grey-blue, so the footer
+       reads as its own surface rather than as more page. Same on every
+       route — the component is shared. */
+    <footer className="site-footer">
+      <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1.5rem,1.2rem+0.8vw,2.25rem)]">
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
-          <div className="flex max-w-xs flex-col gap-4">
+          <Reveal className="reveal-left flex max-w-xs flex-col gap-4">
             <Wordmark variant="mark" />
             <p className="text-[length:var(--fs-small)] leading-[1.65] text-muted-foreground">
               {site.tagline}
             </p>
-          </div>
+          </Reveal>
 
-          <nav className="flex flex-col gap-3">
+          <Reveal as="nav" delay={140} className="reveal-right flex flex-col gap-3">
             <span className="eyebrow text-label-muted">Navigation</span>
             {site.nav.map((item) => (
               <NavLink
@@ -38,9 +43,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             >
               {site.ctaLabel}
             </Link>
-          </nav>
+          </Reveal>
 
-          <div className="flex flex-col gap-3">
+          <Reveal delay={280} className="reveal-right flex flex-col gap-3">
             <span className="eyebrow text-muted-foreground/50">Contact</span>
             <a
               href={`mailto:${site.email}`}
@@ -54,9 +59,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[length:var(--fs-small)] font-light text-text-mono">
               {site.vat}
             </span>
-          </div>
+          </Reveal>
         </div>
 
+        {/* No entrance on this row: it is the last thing on the page, and the
+            observer's bottom margin means it can sit in view without ever
+            counting as visible, which left it hidden for good. */}
         <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
 

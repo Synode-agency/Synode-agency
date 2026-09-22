@@ -23,7 +23,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
                 <span className="h-px w-6 bg-brand/50" aria-hidden />
                 {updatedLabel} — {doc.updated}
               </span>
-              <h1 className="text-balance text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
+              <h1 className="text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
                 {doc.title}
               </h1>
               <p className="max-w-2xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">

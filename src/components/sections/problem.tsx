@@ -14,7 +14,7 @@ export function Problem({ locale }: { locale: Locale }) {
   const { problem } = getContent(locale);
 
   return (
-    <section id="probleme" className="section-screen relative border-t border-hairline">
+    <section id="probleme" className="section-screen relative">
       <div className="problem-content">
         <SectionHeading
           eyebrow={problem.eyebrow}

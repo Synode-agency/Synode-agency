@@ -16,8 +16,8 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
-  "w-full rounded-xl border border-hairline bg-surface px-3.5 text-[0.9rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
-const controlH = "h-12";
+  "w-full rounded-xl border border-hairline bg-surface px-3 text-[0.82rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
+const controlH = "h-10";
 
 /** Native select styled like the inputs, with our own chevron. */
 function Select({
@@ -122,8 +122,8 @@ export function AuditForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-3.5">
+      <div className="grid gap-3.5 sm:grid-cols-2">
         <FieldWrap label={f.lastName} htmlFor="lastName" error={errors.lastName} required>
           <Input
             id="lastName"
@@ -146,7 +146,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         </FieldWrap>
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-3.5 sm:grid-cols-2">
         <FieldWrap label={f.email} htmlFor="email" error={errors.email} required>
           <Input
             id="email"
@@ -182,11 +182,11 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <Textarea
           id="message"
           name="message"
-          rows={6}
+          rows={3}
           placeholder={f.messagePlaceholder}
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={cn(control, "min-h-44 py-3")}
+          className={cn(control, "min-h-20 py-2")}
         />
       </FieldWrap>
 
@@ -194,7 +194,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow disabled:opacity-60"
+          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#ffffff] px-6 py-3 text-[0.9rem] font-medium text-[#0b3fa8] transition-colors hover:bg-[#eef4fc] disabled:opacity-60"
         >
           {status === "sending" ? (
             <>
