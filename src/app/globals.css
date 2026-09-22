@@ -319,6 +319,7 @@
      tall content never gets clipped on a phone). The header is fixed, so the
      top padding clears it and the content stays optically centred. */
   .section-screen {
+    position: relative;
     padding-block: var(--space-section);
   }
 
@@ -3098,8 +3099,62 @@
     }
   }
 
-  .problem-deck {
+  /* ---- The chapter numerals ---- */
+  /* One oversized number per section, alternating left and right so the
+     page zigzags down instead of running along a single edge. All five are
+     set in the same very condensed face: at this opacity it is the
+     silhouette that carries, and one strong silhouette repeated reads as a
+     system, where five different ones read as five accidents. */
+  .chapter-mark {
+    position: absolute;
+    z-index: 0;
+    top: var(--chapter-top, clamp(-4.5rem, -3vw, -1.75rem));
+    font-family: var(--font-chapter), var(--font-label), var(--font-sans), sans-serif;
+    font-size: clamp(9rem, 19vw, 19rem);
+    font-weight: 400;
+    line-height: 0.72;
+    letter-spacing: 0;
+    color: var(--chapter-ink, var(--brand));
+    opacity: var(--chapter-alpha, 0.09);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .chapter-mark[data-side="left"] {
+    left: clamp(-0.5rem, 0.5vw, 1.25rem);
+  }
+
+  .chapter-mark[data-side="right"] {
+    right: clamp(-0.5rem, 0.5vw, 1.25rem);
+  }
+
+  /* 02 is the only one on a dark ground: white, and a shade stronger, since
+     white on deep blue carries less than blue on paper at equal opacity. */
+  .chapter-mark[data-n="2"] {
+    --chapter-ink: #ffffff;
+    --chapter-alpha: 0.11;
+  }
+
+  /* Inside a panel the numeral cannot hang above the top edge — the panel
+     clips it — so it sits just within instead. */
+  .offer-panel > .chapter-mark,
+  .team-panel > .chapter-mark,
+  .faq-panel > .chapter-mark {
+    --chapter-top: clamp(1rem, 2.2vw, 2.75rem);
+  }
+
+  /* Everything in front of the numeral. */
+  .problem-heading,
+  .problem-deck,
+  .method-content > *:not(.chapter-mark),
+  .offer-panel .container-page,
+  .team-panel .container-page,
+  .faq-panel .container-page {
     position: relative;
+    z-index: 1;
+  }
+
+  .problem-deck {
     display: grid;
     gap: 2.5rem 1.75rem;
     margin: clamp(2.5rem, 5vw, 4.5rem) auto 1rem;
@@ -3134,12 +3189,20 @@
     color: #fff;
   }
   .problem-icon svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.8; }
+  /* The rule beside the glyph runs the full width of the column rather than
+     stopping after 2rem. The four inks are declared per column but were only
+     ever visible on a 2.6rem tile; stretched across the column they finally
+     read as a system, and the deck stops being four grey blocks. */
   .problem-index i {
     display: block;
-    width: 2.25rem;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.45;
+    flex: 1;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      90deg,
+      currentColor,
+      color-mix(in oklab, currentColor 15%, transparent)
+    );
   }
 
   .problem-title {
@@ -3156,6 +3219,53 @@
     color: var(--muted-foreground);
   }
 
+  /* The way out of the problem, in the column's own colour. It is what
+     turns four descriptions into four questions with an answer, and it is
+     the only place on the landing page where the Constat leads anywhere. */
+  .problem-answer {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 0.4rem;
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid color-mix(in oklab, var(--card-ink) 22%, transparent);
+  }
+
+  .problem-answer > i {
+    flex-basis: 100%;
+    font-style: normal;
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mono);
+  }
+
+  .problem-answer > b {
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--card-ink);
+    transition: opacity 250ms ease;
+  }
+
+  .problem-answer > svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    align-self: center;
+    color: var(--card-ink);
+    transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .problem-answer:hover > svg {
+    transform: translate(2px, -2px);
+  }
+
+  .problem-answer:hover > b {
+    opacity: 0.75;
+  }
+
   @media (min-width: 640px) {
     .problem-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
@@ -3163,6 +3273,16 @@
   @media (min-width: 1024px) {
     .problem-deck { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(1.25rem, 2vw, 2.5rem); }
     .problem-visual { height: 14rem; }
+
+    /* Staggered, not flush: four columns levelled at the top read as one
+       block of boxes, which is what made this section look like every
+       other one. A steady slope, each column a step lower than the one
+       before, turns the row into a movement — and it runs the same way as
+       the entrance, which arrives left to right. Nothing about the text measure changes, so the copy
+       composes exactly as before. */
+    .problem-col:nth-child(2) { margin-top: clamp(0.75rem, 1.1vw, 1.35rem); }
+    .problem-col:nth-child(3) { margin-top: clamp(1.5rem, 2.2vw, 2.7rem); }
+    .problem-col:nth-child(4) { margin-top: clamp(2.25rem, 3.3vw, 4.05rem); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3736,6 +3856,90 @@
     position: relative;
     padding-inline: var(--track-pad) 0;
     text-align: left;
+  }
+
+  /* The whole step is the target, not just its title: pointing anywhere in
+     the column opens it. */
+  .track-step {
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 320ms ease;
+  }
+
+  .track-step[data-on="true"] {
+    opacity: 1;
+  }
+
+  .track-step:hover {
+    opacity: 1;
+  }
+
+  /* The open step is marked under its title rather than around it: a box
+     would cut the arrows that run through the row. */
+  .track-step .track-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.4rem;
+  }
+
+  .track-step .track-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 9999px;
+    background: var(--brand);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .track-step[data-on="true"] .track-title::after {
+    transform: scaleX(1);
+  }
+
+  .track-step[data-on="true"] .track-icon {
+    transform: translateY(-2px);
+  }
+
+  /* The one paragraph the four steps share. */
+  .method-detail {
+    position: relative;
+    margin-top: clamp(1.5rem, 1.2rem + 1.4vw, 2.75rem);
+    padding-left: clamp(1rem, 0.8rem + 0.8vw, 1.75rem);
+  }
+
+  .method-detail-rule {
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    bottom: 0.15em;
+    width: 2px;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--brand) 45%, transparent);
+  }
+
+  .method-detail-text {
+    max-width: 58ch;
+    font-size: clamp(0.95rem, 0.3vw + 0.88rem, 1.15rem);
+    line-height: 1.7;
+    color: var(--muted-foreground);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .method-detail-text {
+      animation: method-detail-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+  }
+
+  @keyframes method-detail-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
   }
 
   .track-icon {

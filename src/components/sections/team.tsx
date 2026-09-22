@@ -9,6 +9,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
+import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { getContent, type Locale } from "@/lib/content";
 
@@ -27,6 +28,8 @@ export function Team({ locale }: { locale: Locale }) {
       className="relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
     >
       <div className="team-panel section-screen overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)]">
+        <ChapterMark n={4} side="right" />
+
         <div className="container-page">
           <SectionHeading
             eyebrow={team.eyebrow}
