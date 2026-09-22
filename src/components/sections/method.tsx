@@ -1,10 +1,7 @@
-import { ClipboardList, LineChart, Search, Wrench } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
-import { TimelineRow } from "@/components/site/timeline-row";
+import { ChapterMark } from "@/components/site/chapter-mark";
+import { MethodTrack } from "@/components/site/method-track";
 import { getContent, type Locale } from "@/lib/content";
-
-/** One glyph per step, in the order the track reads. */
-const STEP_ICONS = [Search, ClipboardList, Wrench, LineChart];
 
 /** The one word the title turns on, per locale. */
 const TITLE_ACCENT: Record<Locale, string> = {
@@ -19,6 +16,8 @@ export function Method({ locale }: { locale: Locale }) {
   return (
     <section id="methode" className="section-screen relative">
       <div className="method-content">
+        <ChapterMark n={3} side="left" />
+
         <SectionHeading
           eyebrow={method.eyebrow}
           title={method.title
@@ -39,10 +38,8 @@ export function Method({ locale }: { locale: Locale }) {
           className="method-heading reveal-left"
         />
 
-        <TimelineRow
-          items={method.steps}
-          icons={STEP_ICONS}
-          variant="track"
+        <MethodTrack
+          steps={method.steps}
           className="mt-[calc(var(--ss)*clamp(2.5rem,2rem+2.5vw,5rem))] w-full"
         />
       </div>

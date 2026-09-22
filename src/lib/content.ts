@@ -76,6 +76,7 @@ const fr = {
   },
   problem: {
     eyebrow: "01 / Le constat",
+    answerLabel: "Ce qu'on y répond",
     title: "L'automatisation et le digital avancent vite.\nLes entreprises, pas toujours.",
     intro:
       "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé,\nquels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
@@ -85,18 +86,22 @@ const fr = {
       {
         title: "Trop de tâches manuelles",
         text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées.",
+        answer: "Automatisation & Agents IA",
       },
       {
         title: "Des outils et données dispersés",
         text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas.",
+        answer: "Solutions sur mesure",
       },
       {
         title: "Un suivi encore trop manuel",
         text: "Relances oubliées, dossiers qui stagnent et opportunités perdues.",
+        answer: "Automatisation & Agents IA",
       },
       {
         title: "Une présence digitale en retrait",
         text: "Un site vieillissant ou des services en ligne limités ne reflètent plus votre savoir-faire.",
+        answer: "Sites web & applications",
       },
     ],
   },
@@ -373,6 +378,7 @@ const en = {
   },
   problem: {
     eyebrow: "01 / The situation",
+    answerLabel: "What we answer with",
     title: "Automation and digital technology move fast. Companies, not always.",
     intro:
       "Plenty of SMEs know there's a better way, without knowing what can actually be automated, which tools to pick, or whether to buy software or build it.",
@@ -380,18 +386,22 @@ const en = {
       {
         title: "Too many manual tasks",
         text: "Hours lost every week on repetitive tasks that could be automated.",
+        answer: "Automation & AI agents",
       },
       {
         title: "Scattered tools and data",
         text: "Information split across systems, double entry, and software that doesn't talk to each other.",
+        answer: "Custom solutions",
       },
       {
         title: "Follow-up still too manual",
         text: "Forgotten reminders, stalled files and lost opportunities.",
+        answer: "Automation & AI agents",
       },
       {
         title: "A digital presence falling behind",
         text: "An outdated website or limited online services no longer reflect your expertise.",
+        answer: "Websites & apps",
       },
     ],
   },

@@ -1,4 +1,5 @@
 import { SectionHeading } from "@/components/site/section-heading";
+import { ChapterMark } from "@/components/site/chapter-mark";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { getContent, type Locale } from "@/lib/content";
 
@@ -17,6 +18,8 @@ export function Faq({ locale }: { locale: Locale }) {
   return (
     <section id="faq" className="relative">
       <div className="faq-panel section-screen section-screen-with-footer overflow-hidden">
+        <ChapterMark n={5} side="left" />
+
         <div className="container-page">
           <SectionHeading
             eyebrow={faq.eyebrow}

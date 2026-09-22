@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Bricolage_Grotesque, Inter } from "next/font/google";
+import { Bebas_Neue, Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -34,6 +34,20 @@ const fontLabel = Bricolage_Grotesque({
 });
 
 /**
+ * The face of the five chapter numerals on the landing page.
+ *
+ * Very condensed and very tall, which is what makes an "01" read as a shape
+ * rather than as two digits at the opacity these are set in. One weight, and
+ * the only glyphs ever drawn are the digits 0 to 5.
+ */
+const fontChapter = Bebas_Neue({
+  variable: "--font-chapter",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
+/**
  * The heading slot, and the two aliases the offer cards still carry, all
  * point at the one sans. Set on <html> rather than in the theme block, where
  * `--font-heading: var(--font-sans)` on the same element would be a
@@ -62,7 +76,12 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
   return (
     <html
       lang={lang}
-      className={`${fontSans.variable} ${fontLabel.variable} h-full`}
+      className={[
+        fontSans.variable,
+        fontLabel.variable,
+        fontChapter.variable,
+        "h-full",
+      ].join(" ")}
       style={fontAliases}
     >
       <head>

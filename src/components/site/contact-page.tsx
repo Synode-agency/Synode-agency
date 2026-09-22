@@ -1,10 +1,11 @@
-import { Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Clock3, Mail, Phone } from "lucide-react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
 import { AuditForm } from "@/components/sections/audit-form";
 import { getContent, type Locale } from "@/lib/content";
+import styles from "./contact-page.module.css";
 
 /** Standalone contact page — scrollable, the form is the whole point. */
 export function ContactPage({ locale }: { locale: Locale }) {
@@ -24,8 +25,9 @@ export function ContactPage({ locale }: { locale: Locale }) {
               className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]"
             />
 
-            <div className="container-page relative z-10 flex flex-1 items-center pt-[clamp(1.5rem,2.5vw,3.5rem)] pb-[clamp(3rem,5vw,6rem)]">
-              <div className="grid w-full items-center gap-[clamp(2rem,1.5rem+3vw,4.5rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
+            <div className={`container-page relative z-10 ${styles.content}`}>
+              <div className={styles.grid}>
+                <div className={styles.intro}>
                 <PageHero
                   eyebrow={contact.eyebrow}
                   title={contact.title}
@@ -34,14 +36,14 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   align="left"
                   stagger
                   action={
-                    <div className="contact-facts">
+                    <div className={styles.facts}>
                       {contact.info.slice(0, 2).map((item, i) => {
                         const Glyph = i === 0 ? Mail : Phone;
                         return (
                           <a
                             key={item.label}
                             href={item.href}
-                            className="contact-fact"
+                            className={styles.fact}
                           >
                             <span className="contact-fact-tile" aria-hidden>
                               <Glyph />
@@ -50,17 +52,28 @@ export function ContactPage({ locale }: { locale: Locale }) {
                               <i>{item.label}</i>
                               <b>{item.value}</b>
                             </span>
+                            <ArrowUpRight className={styles.linkArrow} aria-hidden />
                           </a>
                         );
                       })}
                     </div>
                   }
                 />
+                <div className={styles.promise}>
+                  <Clock3 aria-hidden />
+                  <span>{locale === "fr" ? "Un premier échange pour y voir clair." : "A first conversation to find clarity."}</span>
+                </div>
+                </div>
 
                 <Reveal
                   delay={520}
-                  className="offer-panel reveal-right w-full max-w-xl justify-self-end overflow-hidden rounded-3xl px-[clamp(1.25rem,1rem+1.4vw,2.25rem)] py-[clamp(1.85rem,1.4rem+2vw,3.25rem)]"
+                  className={`reveal-right ${styles.panel}`}
                 >
+                  <div className={styles.formHeading}>
+                    <span className={styles.formEyebrow}>{locale === "fr" ? "FAISONS LE PREMIER PAS" : "LET’S TAKE THE FIRST STEP"}</span>
+                    <h2>{locale === "fr" ? "Parlons de votre besoin." : "Tell us what you need."}</h2>
+                    <p>{locale === "fr" ? "Quelques mots suffisent pour commencer." : "A few words are all it takes to start."}</p>
+                  </div>
                   <AuditForm locale={locale} />
                 </Reveal>
               </div>

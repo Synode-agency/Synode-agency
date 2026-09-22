@@ -1,5 +1,7 @@
-import { Clock3, Globe, Network, Repeat2, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Clock3, Globe, Network, Repeat2, type LucideIcon } from "lucide-react";
+import Link from "next/link";
 import { SectionHeading } from "@/components/site/section-heading";
+import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { ProblemVisual } from "@/components/site/problem-visuals";
 import { getContent, type Locale } from "@/lib/content";
@@ -16,6 +18,8 @@ export function Problem({ locale }: { locale: Locale }) {
   return (
     <section id="probleme" className="section-screen relative">
       <div className="problem-content">
+        <ChapterMark n={1} side="left" />
+
         <SectionHeading
           eyebrow={problem.eyebrow}
           title={locale === "fr"
@@ -52,6 +56,15 @@ export function Problem({ locale }: { locale: Locale }) {
 
                 <h3 className="problem-title">{item.title}</h3>
                 <p className="problem-text">{item.text}</p>
+
+                {/* Each problem says what answers it and links to the offer.
+                    The section used to describe four difficulties and stop
+                    there, with nothing tying it to the rest of the page. */}
+                <Link href="#offre" className="problem-answer">
+                  <i>{problem.answerLabel}</i>
+                  <b>{item.answer}</b>
+                  <ArrowUpRight aria-hidden />
+                </Link>
               </Reveal>
             );
           })}

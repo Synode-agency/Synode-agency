@@ -1,5 +1,6 @@
 import { SectionHeading } from "@/components/site/section-heading";
 import { OfferCard } from "@/components/site/offer-card";
+import { ChapterMark } from "@/components/site/chapter-mark";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /**
@@ -26,6 +27,8 @@ export function Offer({ locale }: { locale: Locale }) {
   return (
     <section id="offre" className="relative">
       <div className="offer-panel section-screen overflow-hidden">
+        <ChapterMark n={2} side="right" />
+
         <div className="container-page">
           <SectionHeading
             eyebrow={offer.eyebrow}
