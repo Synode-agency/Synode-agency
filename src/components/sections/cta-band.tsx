@@ -1,43 +1,57 @@
+import { Fragment } from "react";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Reveal } from "@/components/site/reveal";
+import { AuditDiagram } from "@/components/site/audit-diagram";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /**
- * Closing CTA, on its own screen. It used to share one with the footer; the
- * FAQ took that slot when it was added between the two.
+ * Closing CTA. No frame any more: the copy and the button sit on the page
+ * ground on the left, and the picture of what the free hour is sits on the
+ * right, the same two-column shape as the hero.
  */
 export function CtaBand({ locale }: { locale: Locale }) {
   const { ctaBand } = getContent(locale);
 
   return (
-    <section id="conclusion" className="section-screen relative border-t border-hairline">
+    <section id="conclusion" className="section-screen relative">
       <div className="container-page">
-        {/* Same blue framed block as the Réalisations closing CTA: same width
-            (the full page container), same border, same gradient. Only the
-            vertical padding is scaled by --ss, because here the block shares
-            its screen with the footer. */}
-        <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/30 bg-gradient-to-br from-brand-dim/70 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[calc(var(--ss)*clamp(3rem,2.5rem+2.5vw,5rem))] text-center">
-          <div className="mx-auto flex max-w-2xl flex-col items-center gap-[calc(var(--ss)*1.35rem)]">
-            <h2 className="max-w-[18ch] text-balance text-[1.9rem] font-semibold leading-[1.1] sm:text-4xl lg:text-[calc(var(--ss)*var(--fs-h2))]">
-              {ctaBand.title}
+        <div className="cta-composition">
+          <Reveal className="reveal-left cta-copy">
+            <h2 className="cta-title">
+              {/* The line breaks live in the copy and `pre-line` keeps them,
+                  so only the accent has to be split out here. */}
+              {ctaBand.title.split(ctaBand.titleAccent).map((part, i, all) => (
+                <Fragment key={i}>
+                  {part}
+                  {i < all.length - 1 && (
+                    <span className="text-brand">{ctaBand.titleAccent}</span>
+                  )}
+                </Fragment>
+              ))}
             </h2>
-            <p className="max-w-lg text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
-              {ctaBand.body}
-            </p>
+            <p className="cta-body">{ctaBand.body}</p>
+
             <Link
               href={path(locale, "/contact")}
-              className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
+              className="group brand-gradient inline-flex w-fit items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
             >
               {ctaBand.button}
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <p className="mt-[calc(var(--ss)*0.75rem)] max-w-lg text-[0.82rem] font-light italic leading-relaxed text-muted-foreground">
-              <span aria-hidden className="text-brand">*</span> {ctaBand.note}
+            <p className="cta-note">
+              <span aria-hidden className="text-brand">
+                *
+              </span>{" "}
+              {ctaBand.note}
             </p>
-          </div>
-        </Reveal>
+          </Reveal>
+
+          <Reveal delay={480} className="reveal-right cta-visual">
+            <AuditDiagram copy={ctaBand.diagram} />
+          </Reveal>
+        </div>
       </div>
     </section>
   );

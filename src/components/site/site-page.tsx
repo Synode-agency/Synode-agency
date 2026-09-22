@@ -7,25 +7,17 @@ import { Method } from "@/components/sections/method";
 import { Team } from "@/components/sections/team";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Faq } from "@/components/sections/faq";
-import { SectionPager } from "@/components/site/section-pager";
-import { SectionSnap } from "@/components/site/section-snap";
 import type { Locale } from "@/lib/content";
 
 /**
- * Landing page. Every section fills one viewport on desktop; the FAQ shares
- * its screen with the footer. Réalisations and the contact form live on their
- * own routes.
- *
- * A single `SectionPager` on the right edge moves between sections in both
- * directions — there is no per-section arrow. `SectionSnap` makes one scroll
- * gesture land on one section.
+ * Landing page. One continuous scroll: the sections are spaced by
+ * `--space-between` rather than sized to the viewport. Réalisations and the
+ * contact form live on their own routes.
  */
 export function SitePage({ locale }: { locale: Locale }) {
   return (
     <>
       <SiteHeader locale={locale} />
-      <SectionSnap />
-      <SectionPager />
       <main className="flex-1">
         <Hero locale={locale} />
         <Problem locale={locale} />

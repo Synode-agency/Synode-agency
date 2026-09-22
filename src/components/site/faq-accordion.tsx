@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
 interface FaqItem {
@@ -16,6 +17,9 @@ interface FaqItem {
  * with the footer, and several answers open at once would push past the fold.
  * Everything starts closed: the visitor opens what they actually want to read.
  *
+ * On the page ground rather than in cards: one hairline per row, the question
+ * in full ink, the answer in the muted grey the rest of the site uses.
+ *
  * The open/close animation uses `grid-template-rows: 0fr -> 1fr`, which
  * animates to the content's natural height without measuring it in JS.
  */
@@ -24,52 +28,51 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
   const [open, setOpen] = useState(-1);
 
   return (
-    <div className="mx-auto w-full max-w-3xl">
+    <div className="faq-list mx-auto flex w-full max-w-3xl flex-col">
       {items.map((item, i) => {
         const isOpen = i === open;
         return (
-          <div key={item.q}>
-            <h3>
-              <button
-                type="button"
-                onClick={() => setOpen(isOpen ? -1 : i)}
-                aria-expanded={isOpen}
-                aria-controls={`faq-panel-${i}`}
-                id={`faq-trigger-${i}`}
+          <Reveal key={item.q} delay={150 + i * 150} className="reveal-up">
+            <div className="faq-item" data-open={isOpen}>
+              <h3>
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${i}`}
+                  id={`faq-trigger-${i}`}
+                  className="faq-trigger flex w-full items-center justify-between gap-6 py-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.4rem))] text-left"
+                >
+                  <span className="faq-question text-[clamp(1rem,0.35vw+0.92rem,1.2rem)] font-semibold leading-snug tracking-tight">
+                    {item.q}
+                  </span>
+                  <ChevronDown
+                    aria-hidden
+                    className={cn(
+                      "size-5 shrink-0 transition-[transform,color] duration-300",
+                      isOpen ? "rotate-180 text-brand" : "text-muted-foreground",
+                    )}
+                  />
+                </button>
+              </h3>
+
+              <div
+                id={`faq-panel-${i}`}
+                role="region"
+                aria-labelledby={`faq-trigger-${i}`}
                 className={cn(
-                  "flex w-full items-center justify-between gap-4 rounded-lg border-b border-hairline px-[clamp(1rem,0.8rem+0.8vw,1.5rem)] py-[calc(var(--ss)*clamp(0.85rem,0.7rem+0.5vw,1.15rem))] text-left transition-colors duration-300",
-                  isOpen ? "bg-surface-2" : "bg-surface hover:bg-surface-2",
+                  "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
               >
-                <span className="text-[clamp(0.95rem,0.3vw+0.88rem,1.08rem)] font-semibold leading-snug tracking-tight text-pretty">
-                  {item.q}
-                </span>
-                <ChevronDown
-                  aria-hidden
-                  className={cn(
-                    "size-5 shrink-0 transition-[transform,color] duration-300",
-                    isOpen ? "rotate-180 text-brand" : "text-muted-foreground",
-                  )}
-                />
-              </button>
-            </h3>
-
-            <div
-              id={`faq-panel-${i}`}
-              role="region"
-              aria-labelledby={`faq-trigger-${i}`}
-              className={cn(
-                "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
-                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-              )}
-            >
-              <div className="overflow-hidden">
-                <p className="px-[clamp(1rem,0.8rem+0.8vw,1.5rem)] py-[calc(var(--ss)*clamp(0.9rem,0.75rem+0.6vw,1.35rem))] text-[clamp(0.85rem,0.2vw+0.8rem,0.95rem)] leading-[1.65] text-muted-foreground">
-                  {item.a}
-                </p>
+                <div className="overflow-hidden">
+                  <p className="faq-answer max-w-[62ch] pb-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.5rem))] pr-10 text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+                    {item.a}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         );
       })}
     </div>

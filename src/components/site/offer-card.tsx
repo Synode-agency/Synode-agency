@@ -33,6 +33,8 @@ interface OfferCardProps {
   ctaSecondary: string;
   contactHref: string;
   delay: number;
+  /** Side the card slides in from; omitted it just fades up. */
+  enter?: "left" | "right";
   /**
    * `lead` for the two offers the agency is built on, `support` for the one
    * it takes on when a client asks. The support card is a translucent panel
@@ -67,6 +69,7 @@ export function OfferCard({
   ctaSecondary,
   contactHref,
   delay,
+  enter,
   emphasis = "lead",
   supportLabel,
 }: OfferCardProps) {
@@ -107,7 +110,13 @@ export function OfferCard({
   }
 
   return (
-    <Reveal delay={delay} className="offer-paper offer-card">
+    <Reveal
+      delay={delay}
+      className={cn(
+        "offer-paper offer-card",
+        enter === "left" ? "reveal-left" : enter === "right" ? "reveal-right" : undefined,
+      )}
+    >
       <div className="offer-head">
         <span className="offer-icon">
           <HeadIcon />

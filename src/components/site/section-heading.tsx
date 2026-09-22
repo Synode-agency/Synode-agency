@@ -12,7 +12,7 @@ export function SectionHeading({
 }: {
   eyebrow: string;
   title: ReactNode;
-  subtitle?: string;
+  subtitle?: ReactNode;
   /** Secondary line under the subtitle: mono, smaller, brand blue. */
   subtitleNote?: string;
   align?: "left" | "center";
@@ -38,7 +38,7 @@ export function SectionHeading({
       </span>
       <h2
         className={cn(
-          "max-w-[20ch] text-3xl leading-[1.08] font-semibold text-balance sm:text-4xl lg:text-[length:var(--fs-h2)]",
+          "max-w-[20ch] text-3xl leading-[1.08] font-semibold sm:text-4xl lg:text-[length:var(--fs-h2)]",
           centered && "max-w-[24ch]",
         )}
       >

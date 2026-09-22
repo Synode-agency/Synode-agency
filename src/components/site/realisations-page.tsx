@@ -1,10 +1,13 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { PageHero } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
-import { RealisationsCarousel } from "@/components/site/realisations-carousel";
+import { WorksProvider } from "@/components/site/works-context";
+import { WorksTabs } from "@/components/site/works-tabs";
+import { WorksList } from "@/components/site/works-list";
+import { PublishFlow } from "@/components/site/publish-flow";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /** Standalone Réalisations page — scrollable, no 100vh constraint. */
@@ -12,52 +15,112 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
   const { realisations } = getContent(locale);
   const contactHref = path(locale, "/contact");
 
+  /* How many projects each domain holds, counted once here rather than in
+     the client component that draws the track. */
+  const counts = realisations.categories.reduce<Record<string, number>>(
+    (acc, c) => {
+      acc[c.id] = realisations.items.filter((i) => i.category === c.id).length;
+      return acc;
+    },
+    {},
+  );
+
   return (
     <>
       <SiteHeader locale={locale} />
-      <main className="flex-1 pt-[4.6rem]">
-        <section>
-          <div className="container-page section-y">
-            <PageHero
-              eyebrow={realisations.eyebrow}
-              title={realisations.title}
-              body={realisations.body}
+      <WorksProvider initial={realisations.categories[0].id}>
+      <main className="flex-1">
+        {/* Same card as the home hero: it fills the screen and the fixed
+            navbar sits inside it, over the spacer that reserves its height. */}
+        <section className="relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
+          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
+            <div
+              aria-hidden
+              className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]"
             />
+
+            {/* Two columns, like every other section: the pitch on the left,
+                and on the right the three domains as a track the visitor can
+                pick from. The headline no longer holds on one line in half a
+                column, so its break is written into the copy. */}
+            <div className="container-page relative z-10 flex flex-1 items-center py-[clamp(2rem,3vw,4.5rem)]">
+              <div className="works-hero-grid">
+                <PageHero
+                  eyebrow={realisations.eyebrow}
+                  title={realisations.title}
+                  titleAccent={realisations.titleAccent}
+                  body={realisations.body}
+                  align="left"
+                  action={
+                    <Link
+                      href="#projets"
+                      className="group brand-gradient inline-flex w-fit items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
+                    >
+                      {realisations.scrollCta}
+                      <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
+                    </Link>
+                  }
+                />
+
+                <WorksTabs
+                  categories={realisations.categories}
+                  counts={counts}
+                  countLabel={realisations.worksCount}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="border-t border-hairline pb-[var(--space-section)] pt-[clamp(2.5rem,2rem+2.5vw,4.5rem)]">
+        <section id="projets" className="pb-[var(--space-section)] pt-[clamp(2.5rem,2rem+2.5vw,4.5rem)] lg:pb-[var(--space-between)]">
           <div className="container-page">
-            <RealisationsCarousel
+            <WorksList
               items={realisations.items}
+              categories={realisations.categories}
+              emptyCategory={realisations.emptyCategory}
+              videoPending={realisations.videoPending}
+              countLabel={realisations.worksCount}
+              prevLabel={realisations.worksPrev}
+              nextLabel={realisations.worksNext}
               filterCta={realisations.filterCta}
               contactHref={contactHref}
             />
           </div>
         </section>
 
-        <section className="pb-[var(--space-section)]">
-          <div className="container-page">
-            <Reveal className="corner-frame relative overflow-hidden rounded-3xl border border-brand/30 bg-gradient-to-br from-brand-dim/70 to-transparent px-[clamp(1.5rem,1.25rem+2vw,3.5rem)] py-[clamp(3rem,2.5rem+2.5vw,5rem)] text-center">
-              <div className="mx-auto flex max-w-2xl flex-col items-center gap-5">
-                <h2 className="text-balance text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem]">
-                  {realisations.cta.title}
-                </h2>
-                <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
-                  {realisations.cta.body}
-                </p>
-                <Link
-                  href={contactHref}
-                  className="group brand-gradient mt-1 inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
-                >
-                  {realisations.cta.button}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+        {/* Closing band, not a card: the deep blue runs the full width of the
+            window, the same way the Offre does on the landing page, and its
+            contents take the ordinary page column so they land on the same
+            left edge as the projects above. */}
+        <section className="relative">
+          <div className="offer-panel section-screen overflow-hidden">
+            <div className="container-page">
+              <div className="relative grid gap-[clamp(2rem,1.5rem+2.5vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+                <Reveal className="reveal-left flex flex-col items-start gap-5 text-left">
+                  <h2 className="text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem] lg:text-[length:var(--fs-h2)]">
+                    {realisations.cta.title}
+                  </h2>
+                  <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+                    {realisations.cta.body}
+                  </p>
+                  <Link
+                    href={contactHref}
+                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-[length:var(--fs-button)] font-medium text-[#0b1220] transition-colors hover:bg-white/90"
+                  >
+                    {realisations.cta.button}
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </Reveal>
+
+                {/* No reveal on the wrapper: each step brings itself in, and
+                    a fade on the list would flatten the sequence. */}
+                <PublishFlow steps={realisations.cta.steps} />
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
       </main>
+      </WorksProvider>
       <SiteFooter locale={locale} />
     </>
   );
