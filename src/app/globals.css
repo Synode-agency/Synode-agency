@@ -154,7 +154,12 @@
   --glass-card: rgba(255, 255, 255, 0.86);
   --method-pill: #FFFFFF;
   --border-active: rgba(10, 124, 224, 0.45);
-  --text-mono: #6C7D95;
+  /* The small tracked labels: the family names under the project run, the
+     legal line in the footer, the numbers on the picker cards. At #6C7D95
+     it measured 3.68:1 against the page ground, under the 4.5:1 that text
+     this small needs. Same hue, taken down until it clears it on the
+     lightest surface it is ever set on. */
+  --text-mono: #5F6E84;
   --label-muted: #64778F;
 
   --chart-1: #0A7CE0;

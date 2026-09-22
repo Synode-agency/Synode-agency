@@ -124,6 +124,8 @@ Fait : `lang` correct par langue via deux layouts racine, `sitemap.xml` avec les
 - [ ] Vérifier que `contact@synode-agency.com` existe avant de publier
 - [ ] Contrôle accessibilité et performance (Lighthouse)
 
+> Contrastes vérifiés au calcul : corps de texte 4,77:1 sur le fond de page, petites étiquettes 4,54:1, bleu et violet des domaines au-dessus de 6:1. Le vert `#15803d` est à 4,40:1 sur le fond de page, juste sous la barre AA — il n'est utilisé que sur des surfaces blanches, où il passe à 5,02:1. À ne pas poser sur le gris de page.
+
 ## 9. Mise en ligne
 
 - [ ] Hébergement : Vercel, offre gratuite suffisante
