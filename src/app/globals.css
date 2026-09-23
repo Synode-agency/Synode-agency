@@ -197,6 +197,78 @@
   color-scheme: light;
 }
 
+/* ---------------------------------------------------------------------------
+   Mobile — les jetons qui ne descendent pas tout seuls.
+
+   Le desktop est figé : ce bloc ne redéfinit des jetons que sous 768px, le
+   `:root` ci-dessus reste la valeur par défaut au-dessus du seuil et n'est
+   touché nulle part ailleurs.
+
+   Ne concerne que `--page-gutter`. Les autres jetons desktop ne fuient pas
+   jusqu'ici, et c'est délibéré : `--space-between`, `--space-before-cta` et
+   `--fs-h2` ne sont consommés que dans des blocs `min-width: 1024px` ou des
+   classes `lg:`. Vérifié règle par règle. Ne pas les recopier ici « au cas
+   où », ils n'auraient aucun effet et laisseraient croire le contraire.
+
+   Sur téléphone il n'y a plus de gouttière du tout : les sections en carte
+   deviennent des bandes blanches pleine largeur (voir `.page-shell` plus
+   bas), et la marge latérale est portée par un seul endroit, le padding de
+   `.container-page`. Une seule source pour le bord gauche, donc toutes les
+   sections tombent au même endroit, en carte ou non — c'est la règle du
+   desktop, tenue avec un mécanisme plus simple.
+
+   Avant : 35px de gouttière + 20px de colonne = 110px perdus sur un 390,
+   soit 28% de l'écran. Après : 40px, et 350px de contenu.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  :root,
+  .dark {
+    --page-gutter: 0px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Mobile — plus de cartes.
+
+   Quatre sections sont dessinées comme une carte blanche posée sur le fond
+   gris de la page, et portent pour cela la classe `.page-shell` : le hero de
+   l'accueil, le panneau Équipe, et les heros de Réalisations et de Contact.
+
+   Sur un téléphone la carte coûte deux fois. Son retrait mange la largeur,
+   et son coin arrondi comme sa bordure ne se lisent plus à cette taille :
+   on ne voit pas une carte, on voit une page mal cadrée. Sous 768px elles
+   deviennent donc des bandes blanches pleine largeur.
+
+   Le dégradé bleu de la carte tombe avec elle. Sur 1760px c'est une lumière
+   dans un angle, sur 390px il ne reste que le bord le plus teinté, qui se
+   lit comme une salissure.
+
+   Volontairement hors de tout `@layer` : les paddings à neutraliser sont des
+   utilitaires Tailwind, et une règle non layerisée passe devant sans avoir à
+   parier sur l'ordre des couches.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* La coquille ne fait plus rien : la gouttière vaut 0, et le retrait du
+     haut qui dégageait la navbar n'a plus lieu d'être puisque le blanc
+     monte jusqu'en haut de l'écran. */
+  .page-shell {
+    padding: 0;
+  }
+
+  .hero-card,
+  .team-panel {
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
+  }
+
+  /* La hauteur soustrayait le retrait de la carte. Il n'y en a plus, donc
+     le hero prend l'écran entier. */
+  .hero-card {
+    min-height: 100dvh;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -308,6 +380,16 @@
     width: min(calc(100% - var(--page-gutter) * 2), var(--container-max));
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 1rem + 1.8vw, 4rem);
+  }
+
+  /* Sur téléphone la gouttière vaut 0, donc ce padding est à lui seul la
+     marge latérale du site. Toutes les sections s'y alignent, celles en
+     carte comme les autres. 20px : la marge de contenu habituelle sur iOS,
+     et le seuil sous lequel un texte a l'air collé au bord de l'écran. */
+  @media (max-width: 767px) {
+    .container-page {
+      padding-inline: 1.25rem;
+    }
   }
 
   /* Inside an inset card the page gutter has already been paid by the card
@@ -2417,11 +2499,6 @@
     stroke-width: 1.7;
     color: var(--brand);
   }
-  .offer-chip:hover {
-    border-color: rgb(10 124 224 / 0.45);
-    color: var(--foreground);
-  }
-
   /* ------------------------------------------------------------------
      One light for the twelve badges of the three offers.
      ------------------------------------------------------------------
@@ -2593,10 +2670,6 @@
     line-height: 1.25;
     color: var(--secondary-foreground);
     transition: border-color 260ms ease, color 260ms ease;
-  }
-  .offer-support-chips li:hover {
-    border-color: rgb(255 255 255 / 0.55);
-    color: #ffffff;
   }
   /* White, with the real brand blue on it. `--brand` is the pale version
      inside this panel, which would be unreadable on white. */
@@ -3066,9 +3139,8 @@
       height: calc(76% + 20px);
       z-index: 1;
     }
-    /* Lifted above the four cards while hovered, so the panel grows over
-       them rather than being clipped by them. */
-    .hero-stage-panel:hover { z-index: 5; }
+    /* Pas de survol : le diagramme n'est pas cliquable. Les quatre cartes
+       autour de lui le sont, elles gardent le leur. */
 
     .hero-stage-panel .hero-app {
       width: 100%;
@@ -3081,11 +3153,6 @@
       border-width: 1.15cqw;
       border-radius: 2.4cqw;
       box-shadow: 0 3cqw 6cqw -2.2cqw rgb(11 18 32 / 0.3);
-    }
-
-    .hero-stage-panel:hover .hero-app {
-      transform: rotate(var(--app-spin)) scale(1.035);
-      box-shadow: 0 4cqw 8cqw -2.4cqw rgb(11 18 32 / 0.34);
     }
 
     /* Cards sit above the panel and the connectors. */
@@ -3473,11 +3540,6 @@
     color: rgb(185 28 28 / 0.5);
   }
   .pv-row-repeat svg { width: 0.85rem; height: 0.85rem; stroke-width: 2; }
-  .problem-col:hover .pv-row-repeat svg {
-    transform: rotate(-180deg);
-    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
   /* 02 — tools that never got wired together */
   .pv-wires {
     position: absolute;
@@ -3513,16 +3575,6 @@
       box-shadow 280ms ease;
   }
   .pv-tile svg { width: 1.45rem; height: 1.45rem; }
-
-  /* Under the cursor a tile grows and turns red: the tool you point at is
-     the one that is not wired to the others. */
-  .pv-tile:hover {
-    transform: scale(1.2);
-    border-color: rgb(220 38 38 / 0.55);
-    background: #fef7f7;
-    box-shadow: 0 12px 26px -14px rgb(220 38 38 / 0.45);
-    z-index: 6;
-  }
 
   .pv-tile--0 { left: 50%; top: 17%; }
   .pv-tile--1 { left: 82.3%; top: 39.8%; }
@@ -3636,11 +3688,6 @@
     border-color: rgb(220 38 38 / 0.2);
     background: #fefafa;
   }
-  .pv-row--alert:hover {
-    border-color: rgb(220 38 38 / 0.5);
-    background: #fdefef;
-  }
-  .pv-row--alert:hover .pv-row-flag { transform: scale(1.12); }
   .pv-row--faded { opacity: 0.45; box-shadow: none; }
   .pv-row-icon {
     display: grid;
@@ -3690,10 +3737,6 @@
     transition:
       transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 320ms ease;
-  }
-  .pv--site:hover .pv-window {
-    transform: scale(1.045);
-    box-shadow: 0 20px 38px -20px rgb(11 18 32 / 0.55);
   }
   .pv-window-bar {
     display: flex;
@@ -3886,34 +3929,6 @@
     line-height: 1;
     color: color-mix(in oklab, var(--foreground) 6%, transparent);
     font-variant-numeric: tabular-nums;
-  }
-
-  /* Slowly rotating electric-blue glow behind the hero headline (transform-only). */
-  .title-aura {
-    border-radius: 9999px;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      var(--brand-dim) 85deg,
-      transparent 170deg,
-      color-mix(in oklab, var(--brand) 30%, transparent) 275deg,
-      transparent 360deg
-    );
-    filter: blur(70px);
-    opacity: 0.3;
-    will-change: transform;
-    animation: sg-spin 26s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .title-aura {
-      animation: none;
-      will-change: auto;
-    }
-  }
-
-
-  @media (prefers-reduced-motion: reduce) {
   }
 
   /* Chain node (Constat) — dashed muted dot at rest, brand ring + glow while the cell is hovered */
@@ -4249,15 +4264,6 @@
   }
 }
 
-
-@keyframes sg-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes reveal-in {
   from {

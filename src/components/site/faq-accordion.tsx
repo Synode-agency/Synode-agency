@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
 
 interface FaqItem {
@@ -32,7 +31,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
       {items.map((item, i) => {
         const isOpen = i === open;
         return (
-          <Reveal key={item.q} delay={150 + i * 150} className="reveal-up">
+          <div key={item.q}>
             <div className="faq-item" data-open={isOpen}>
               <h3>
                 <button
@@ -72,7 +71,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 </div>
               </div>
             </div>
-          </Reveal>
+          </div>
         );
       })}
     </div>

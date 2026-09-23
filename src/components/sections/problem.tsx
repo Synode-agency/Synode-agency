@@ -34,7 +34,11 @@ export function Problem({ locale }: { locale: Locale }) {
           {problem.items.map((item, index) => (
               <Reveal
                 key={item.title}
-                delay={150 + index * 190}
+                /* Même délai pour les quatre : ce sont des pairs.
+                   Les décaler affirmerait un ordre de lecture qui
+                   n'existe pas. Le titre passe d'abord, elles
+                   arrivent ensuite, en un bloc. */
+                delay={120}
                 className="problem-col reveal-up"
                 style={
                   { "--card-ink": COLUMN_INK[index % 4] } as React.CSSProperties
