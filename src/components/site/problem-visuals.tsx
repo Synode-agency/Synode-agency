@@ -1,18 +1,26 @@
 import {
   AlertCircle,
-  BarChart3,
   Check,
-  FileText,
   ImageIcon,
   Mail,
-  Phone,
   RefreshCw,
   Table2,
   X,
 } from "lucide-react";
+import {
+  BarChartIcon,
+  FileIcon,
+  PhoneLinearIcon,
+} from "@/components/site/icons";
 
 /**
  * The four illustrations above the Constat columns.
+ *
+ * One light walks all thirteen items of the first three, in order: the four
+ * rows of column 01, the five tools of column 02, the four rows of column
+ * 03, then round again. Each element carries its rank in that run as
+ * `--pv-i`, which is what lets three separate drawings share one sequence
+ * without a single nth-child rule.
  *
  * All decorative, all hidden from assistive technology: the column's title,
  * paragraph and figure already say everything they say. They are drawn from
@@ -23,15 +31,19 @@ import {
 /** 01 — the same five things, redone by hand every week. */
 function ManualTasks() {
   const tasks = [
-    { Icon: FileText, name: "Factures", note: "Saisies une par une" },
-    { Icon: BarChart3, name: "Rapports", note: "Copiés-collés" },
+    { Icon: FileIcon, name: "Factures", note: "Saisies une par une" },
+    { Icon: BarChartIcon, name: "Rapports", note: "Copiés-collés" },
     { Icon: Table2, name: "Tableaux", note: "Mis à jour à la main" },
     { Icon: Mail, name: "Emails", note: "Rédigés un par un" },
   ];
   return (
     <div className="pv pv--manual">
-      {tasks.map(({ Icon, name, note }) => (
-        <span key={name} className="pv-row">
+      {tasks.map(({ Icon, name, note }, i) => (
+        <span
+          key={name}
+          className="pv-row pv-flash"
+          style={{ "--pv-i": i } as React.CSSProperties}
+        >
           <span className="pv-row-icon">
             <Icon />
           </span>
@@ -142,7 +154,11 @@ function ScatteredTools() {
       </svg>
 
       {tools.map((Mark, i) => (
-        <span key={i} className={`pv-tile pv-tile--${i}`}>
+        <span
+          key={i}
+          className={`pv-tile pv-flash pv-tile--${i}`}
+          style={{ "--pv-i": 4 + i } as React.CSSProperties}
+        >
           <Mark />
         </span>
       ))}
@@ -158,7 +174,7 @@ function ScatteredTools() {
 function StalledFollowUp() {
   return (
     <div className="pv pv--followup">
-      <span className="pv-row pv-row--alert">
+      <span className="pv-row pv-flash pv-row--alert" style={{ "--pv-i": 9 } as React.CSSProperties}>
         <span className="pv-row-icon">
           <Mail />
         </span>
@@ -171,9 +187,9 @@ function StalledFollowUp() {
         </span>
       </span>
 
-      <span className="pv-row">
+      <span className="pv-row pv-flash" style={{ "--pv-i": 10 } as React.CSSProperties}>
         <span className="pv-row-icon">
-          <Phone />
+          <PhoneLinearIcon />
         </span>
         <span className="pv-row-body">
           <b>Suivi proposition</b>
@@ -182,7 +198,7 @@ function StalledFollowUp() {
         <span className="pv-row-dot" />
       </span>
 
-      <span className="pv-row">
+      <span className="pv-row pv-flash" style={{ "--pv-i": 11 } as React.CSSProperties}>
         <span className="pv-row-icon pv-row-icon--done">
           <Check />
         </span>
@@ -191,7 +207,7 @@ function StalledFollowUp() {
         </span>
       </span>
 
-      <span className="pv-row pv-row--faded">
+      <span className="pv-row pv-flash pv-row--faded" style={{ "--pv-i": 12 } as React.CSSProperties}>
         <span className="pv-row-dot pv-row-dot--lead" />
         <span className="pv-row-body">
           <b>Rappel RDV</b>

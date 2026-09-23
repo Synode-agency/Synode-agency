@@ -1,18 +1,20 @@
 import Image from "next/image";
 import {
-  BarChart3,
   Boxes,
   Folder,
   Grid3x3,
   Home,
-  Lightbulb,
   LineChart,
-  Settings,
-  Sparkles,
   Users,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
+import {
+  AutomationOutlineIcon,
+  GraphIncreaseIcon,
+  LampOutlineIcon,
+  RobotLineIcon,
+} from "@/components/site/icons";
 import { getContent, type Locale } from "@/lib/content";
 
 /** Sidebar rows, in the order the copy lists them. */
@@ -27,7 +29,7 @@ const NAV_ICONS: LucideIcon[] = [
 ];
 
 /** The five stages of the flow, left to right. */
-const STEP_ICONS: LucideIcon[] = [Lightbulb, Settings, Sparkles, Boxes, BarChart3];
+const STEP_ICONS = [LampOutlineIcon, AutomationOutlineIcon, RobotLineIcon, Boxes, GraphIncreaseIcon];
 
 /**
  * The product mock at the centre of the hero.
@@ -88,7 +90,7 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
             pulse that runs along the row. */}
         <ol className="hero-app-flow">
           {mock.steps.map((step, i) => {
-            const StepIcon = STEP_ICONS[i] ?? Lightbulb;
+            const StepIcon = STEP_ICONS[i] ?? LampOutlineIcon;
             return (
               <li
                 key={step}

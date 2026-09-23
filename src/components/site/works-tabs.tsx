@@ -1,6 +1,11 @@
 "use client";
 
-import { Bot, Code2, Smartphone, type LucideIcon } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import {
+  CodeOutlinedIcon,
+  RobotLineIcon,
+  WebPageIcon,
+} from "@/components/site/icons";
 import { Reveal } from "@/components/site/reveal";
 import { useWorks } from "@/components/site/works-context";
 
@@ -12,7 +17,13 @@ interface Category {
   note: string;
 }
 
-const CATEGORY_ICONS: Record<string, LucideIcon> = { Bot, Code2, Smartphone };
+type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
+
+const CATEGORY_ICONS: Record<string, Glyph> = {
+  Bot: RobotLineIcon,
+  Code2: CodeOutlinedIcon,
+  Smartphone: WebPageIcon,
+};
 
 /**
  * A drawing per domain, bleeding off the right edge of the open pane.
@@ -79,7 +90,7 @@ export function WorksTabs({
        thing without lying about the structure. */
     <div className="works-deck">
       {categories.map((c, i) => {
-        const Glyph = CATEGORY_ICONS[c.icon] ?? Bot;
+        const Glyph = CATEGORY_ICONS[c.icon] ?? RobotLineIcon;
         const isOn = c.id === category;
         return (
           <Reveal

@@ -20,13 +20,12 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
           <div className="container-page">
             <Reveal className="mx-auto flex max-w-3xl flex-col gap-4">
               <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
-                <span className="h-px w-6 bg-brand/50" aria-hidden />
                 {updatedLabel} — {doc.updated}
               </span>
               <h1 className="text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
                 {doc.title}
               </h1>
-              <p className="max-w-2xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+              <p className="max-w-2xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
                 {doc.intro}
               </p>
             </Reveal>
@@ -64,7 +63,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
                       <p
                         key={paragraph}
                         className={cn(
-                          "max-w-[68ch] text-[length:var(--fs-small)] leading-[1.75]",
+                          "max-w-[68ch] text-[length:var(--fs-small)] leading-[var(--lh-body)]",
                           // Anything still holding a placeholder is called out
                           // so it cannot quietly ship as final copy.
                           paragraph.includes("TODO")

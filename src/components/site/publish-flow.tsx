@@ -1,4 +1,8 @@
-import { Check, PenLine, Tag } from "lucide-react";
+import {
+  DoneIcon,
+  PencilLineIcon,
+  PricetagOutlineIcon,
+} from "@/components/site/icons";
 import { Reveal } from "@/components/site/reveal";
 
 /**
@@ -11,7 +15,7 @@ export function PublishFlow({
 }: {
   steps: readonly { label: string; sub: string }[];
 }) {
-  const icons = [PenLine, Tag, Check];
+  const icons = [PencilLineIcon, PricetagOutlineIcon, DoneIcon];
 
   return (
     <ol className="flow" aria-label="Étapes">
@@ -23,6 +27,7 @@ export function PublishFlow({
             as="li"
             delay={220 + i * 220}
             className="flow-step reveal-right"
+            style={{ "--flow-i": i } as React.CSSProperties}
           >
             <span className="flow-tile" aria-hidden>
               <Glyph />

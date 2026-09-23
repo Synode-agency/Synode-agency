@@ -33,7 +33,6 @@ export function SectionHeading({
           centered ? "justify-center" : "",
         )}
       >
-        <span className="h-px w-6 bg-brand/50" aria-hidden />
         {eyebrow}
       </span>
       <h2
@@ -47,7 +46,7 @@ export function SectionHeading({
       {(subtitle || subtitleNote) && (
         <p
           className={cn(
-            "max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground sm:whitespace-pre-line",
+            "max-w-xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground sm:whitespace-pre-line",
             centered && "mx-auto",
           )}
         >

@@ -1,13 +1,10 @@
-import { ArrowUpRight, Clock3, Globe, Network, Repeat2, type LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { ProblemVisual } from "@/components/site/problem-visuals";
 import { getContent, type Locale } from "@/lib/content";
-
-/** One glyph per problem, in the order the columns read. */
-const COLUMN_ICONS: LucideIcon[] = [Repeat2, Network, Clock3, Globe];
 
 /** Ink per column, in the design's order. */
 const COLUMN_INK = ["#b91c1c", "#1d4ed8", "#15803d", "#7e22ce"];
@@ -34,9 +31,7 @@ export function Problem({ locale }: { locale: Locale }) {
         />
 
         <div className="problem-deck">
-          {problem.items.map((item, index) => {
-            const Glyph = COLUMN_ICONS[index % COLUMN_ICONS.length];
-            return (
+          {problem.items.map((item, index) => (
               <Reveal
                 key={item.title}
                 delay={150 + index * 190}
@@ -47,10 +42,11 @@ export function Problem({ locale }: { locale: Locale }) {
               >
                 <ProblemVisual index={index} />
 
+                {/* A dot, not a glyph in a coloured square: the column's
+                    colour is all this row has to say, and the site had
+                    reached the point where every block opened on an icon. */}
                 <span className="problem-index">
-                  <span className="problem-icon" aria-hidden>
-                    <Glyph />
-                  </span>
+                  <span className="problem-dot" aria-hidden />
                   <i />
                 </span>
 
@@ -66,8 +62,7 @@ export function Problem({ locale }: { locale: Locale }) {
                   <ArrowUpRight aria-hidden />
                 </Link>
               </Reveal>
-            );
-          })}
+          ))}
         </div>
       </div>
     </section>

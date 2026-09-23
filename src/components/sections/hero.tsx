@@ -40,7 +40,7 @@ export function Hero({ locale }: { locale: Locale }) {
                 </h1>
               </div>
 
-              <p className="max-w-[56ch] text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+              <p className="max-w-[56ch] text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
                 {hero.subtitle}
               </p>
 

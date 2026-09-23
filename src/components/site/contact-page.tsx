@@ -1,4 +1,9 @@
-import { ArrowUpRight, Clock3, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
+import {
+  PencilLineIcon,
+  PhoneLinearIcon,
+  TimeLineIcon,
+} from "@/components/site/icons";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { PageHero } from "@/components/site/page-hero";
@@ -38,7 +43,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   action={
                     <div className={styles.facts}>
                       {contact.info.slice(0, 2).map((item, i) => {
-                        const Glyph = i === 0 ? Mail : Phone;
+                        const Glyph = i === 0 ? Mail : PhoneLinearIcon;
                         return (
                           <a
                             key={item.label}
@@ -60,7 +65,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   }
                 />
                 <div className={styles.promise}>
-                  <Clock3 aria-hidden />
+                  <TimeLineIcon aria-hidden />
                   <span>{locale === "fr" ? "Un premier échange pour y voir clair." : "A first conversation to find clarity."}</span>
                 </div>
                 </div>
@@ -69,6 +74,8 @@ export function ContactPage({ locale }: { locale: Locale }) {
                   delay={520}
                   className={`reveal-right ${styles.panel}`}
                 >
+                  <PencilLineIcon aria-hidden className={styles.panelMark} />
+
                   <div className={styles.formHeading}>
                     <span className={styles.formEyebrow}>{locale === "fr" ? "FAISONS LE PREMIER PAS" : "LET’S TAKE THE FIRST STEP"}</span>
                     <h2>{locale === "fr" ? "Parlons de votre besoin." : "Tell us what you need."}</h2>

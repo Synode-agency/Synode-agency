@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, Check, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, Play } from "lucide-react";
+import { DoneIcon } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/site/reveal";
 import { useWorks } from "@/components/site/works-context";
@@ -71,6 +72,12 @@ export function WorksList({
   const [index, setIndex] = useState(0);
   const [shownCategory, setShownCategory] = useState(category);
   const rowRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  /* Told apart from a pause the visitor asked for: scrolling away pauses
+     the demo too, and without this the video would refuse to start again
+     when they came back, thinking they had stopped it themselves. */
+  const autoPausing = useRef(false);
+  const stoppedByVisitor = useRef(false);
 
   /* A domain picked up in the hero opens on its first project. Adjusted
      during render rather than in an effect, so the row never shows the
@@ -94,6 +101,63 @@ export function WorksList({
       setShownCategory(nextCategory);
     }
   };
+
+  /* The demo starts on its own once it is in front of the visitor, and
+     stops when it leaves. A project page that waits for a click on a play
+     button shows a still image to everyone who does not click.
+
+     Muted, because no browser will autoplay a video with sound. The
+     controls are still there, so anyone who wants the sound turns it on.
+     Nothing starts for a visitor who asked for less motion. */
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    stoppedByVisitor.current = false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Set on the element as well as in the markup: React does not always
+    // reflect `muted` as an attribute, and an unmuted video is blocked.
+    el.muted = true;
+
+    const onPause = () => {
+      if (autoPausing.current) {
+        autoPausing.current = false;
+        return;
+      }
+      if (!el.ended) stoppedByVisitor.current = true;
+    };
+    const onPlay = () => {
+      stoppedByVisitor.current = false;
+    };
+    el.addEventListener("pause", onPause);
+    el.addEventListener("play", onPlay);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            if (!stoppedByVisitor.current) {
+              // A refused autoplay is not an error worth surfacing: the
+              // visitor still has the controls.
+              void el.play().catch(() => {});
+            }
+          } else if (!el.paused) {
+            autoPausing.current = true;
+            el.pause();
+          }
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+
+    return () => {
+      io.disconnect();
+      el.removeEventListener("pause", onPause);
+      el.removeEventListener("play", onPlay);
+    };
+  }, [active?.code]);
 
   // Arrow keys drive the row once it has focus.
   useEffect(() => {
@@ -140,11 +204,13 @@ export function WorksList({
           <Reveal className="works-media-in reveal-left">
             {active.video ? (
               <video
+                ref={videoRef}
                 className="work-media"
                 src={active.video}
                 poster={active.poster}
                 preload="metadata"
                 controls
+                muted
                 playsInline
                 aria-label={active.title}
               />
@@ -170,7 +236,7 @@ export function WorksList({
             <p className="works-panel-desc">{active.desc}</p>
 
             <p className="works-panel-result">
-              <Check aria-hidden />
+              <DoneIcon aria-hidden />
               {active.result}
             </p>
           </Reveal>
