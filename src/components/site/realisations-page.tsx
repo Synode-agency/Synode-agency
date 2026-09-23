@@ -32,7 +32,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
       <main className="flex-1">
         {/* Same card as the home hero: it fills the screen and the fixed
             navbar sits inside it, over the spacer that reserves its height. */}
-        <section className="relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
+        <section className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
           <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
             <div
               aria-hidden

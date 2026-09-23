@@ -10,7 +10,7 @@ export function Team({ locale }: { locale: Locale }) {
   return (
     <section
       id="equipe"
-      className="relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
+      className="page-shell relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
     >
       <div className="team-panel section-screen overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)]">
         <ChapterMark n={4} side="right" />

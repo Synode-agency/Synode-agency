@@ -1,7 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { HeroStage } from "@/components/site/hero-stage";
-import { Reveal } from "@/components/site/reveal";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /**
@@ -20,20 +19,18 @@ export function Hero({ locale }: { locale: Locale }) {
   const { hero } = getContent(locale);
 
   return (
-    <section id="top" className="relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
+    <section id="top" className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
       <div className="relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden hero-card rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
         {/* Reserves the row the fixed navbar sits over */}
         <div aria-hidden className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]" />
 
         <div className="container-page relative z-10 flex flex-1 items-center py-[clamp(2rem,3vw,4.5rem)] lg:py-[clamp(1.25rem,1.6vw,2.5rem)]">
           <div className="hero-composition mx-auto grid w-full max-w-[104rem] items-center gap-10">
-            {/* Left column — the pitch */}
-            <Reveal className="reveal-left flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
+            {/* Left column — the pitch. Pas de Reveal : c'est la première
+                chose à l'écran. Un titre qui apparaît en fondu retarde le
+                message et fait passer le site pour lent. */}
+            <div className="flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
               <div className="relative isolate w-fit">
-                <div
-                  aria-hidden
-                  className="title-aura pointer-events-none absolute -inset-x-28 -inset-y-20 -z-10"
-                />
                 <h1 className="hero-heading text-[2.5rem] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.45vw,3rem)]">
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
@@ -59,7 +56,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   {hero.secondaryCta}
                 </Link>
               </div>
-            </Reveal>
+            </div>
 
             {/* Product mock framed by the four service cards. Not a Reveal:
                 the mock and the four cards come in one by one on load, from

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Reveal } from "@/components/site/reveal";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { getContent, path, type Locale } from "@/lib/content";
@@ -18,14 +17,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="site-footer">
       <div className="container-page pt-[clamp(2.5rem,2rem+2vw,4.5rem)] pb-[clamp(1.5rem,1.2rem+0.8vw,2.25rem)]">
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
-          <Reveal className="reveal-left flex max-w-xs flex-col gap-4">
+          <div className="flex max-w-xs flex-col gap-4">
             <Wordmark variant="mark" />
             <p className="text-[length:var(--fs-small)] leading-[var(--lh-body)] text-muted-foreground">
               {site.tagline}
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal as="nav" delay={140} className="reveal-right flex flex-col gap-3">
+          <nav className="flex flex-col gap-3">
             <span className="eyebrow text-label-muted">Navigation</span>
             {site.nav.map((item) => (
               <NavLink
@@ -43,9 +42,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             >
               {site.ctaLabel}
             </Link>
-          </Reveal>
+          </nav>
 
-          <Reveal delay={280} className="reveal-right flex flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <span className="eyebrow text-muted-foreground/50">Contact</span>
             <a
               href={`mailto:${site.email}`}
@@ -59,7 +58,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <span className="text-[length:var(--fs-small)] font-light text-text-mono">
               {site.vat}
             </span>
-          </Reveal>
+          </div>
         </div>
 
         {/* No entrance on this row: it is the last thing on the page, and the

@@ -15,9 +15,35 @@ Depuis un téléphone : `http://<ip-du-mac>:3000`.
 | `src/lib/content.ts` | Tout le texte du site, FR + EN |
 | `src/lib/legal.ts` | Les 4 pages légales |
 | `src/app/api/audit/route.ts` | Réception du formulaire |
+| `src/app/globals.css` | Toute la mise en page et les animations |
 | `DESIGN-SYSTEM.md` | Les décisions de design, à lire avant de toucher à la mise en page |
 
-Le design desktop est fini. Restent le mobile, le contenu, la plomberie et la mise en ligne.
+## Le dépôt
+
+Le projet vit dans `Synode-agency/Synode-agency`, dépôt **privé** de l'organisation
+GitHub (`origin`). L'ancien dépôt personnel `Killian-Sn/Synode-agency` reste
+joignable en local sous le remote `killian`, il n'est plus la référence.
+
+Une seule branche, `main`. Les versions précédentes sont retrouvables par tag :
+
+| Tag | Ce que c'est |
+| --- | --- |
+| `v2-clair-desktop` | La refonte claire, desktop terminé le 23/09/2026 |
+| `v2-dark-archivo` | L'étape intermédiaire, typo Archivo |
+| `v1-fastonweb` | La version « fastonweb » |
+| `v0-dark` | Le design sombre bleu électrique d'origine |
+
+`git checkout <tag>` pour revoir une version, `git checkout main` pour revenir.
+Ne jamais ramener `main` en arrière : chaque refonte a été construite par-dessus
+la précédente, l'historique contient déjà tout.
+
+## Règle de travail en cours
+
+**Le desktop est figé depuis le 22/09/2026.** Tout le reste du chantier est du
+mobile. Concrètement : écrire dans des `@media (max-width: …)`, ne pas toucher aux
+jetons de `:root` ni aux blocs `@media (min-width: …)` existants. Si un correctif
+mobile impose de changer une valeur partagée, en parler avant de l'appliquer :
+l'alignement desktop a été validé écran par écran, du portable au 4K.
 
 ---
 
@@ -95,12 +121,12 @@ Tout le texte actuel est à reprendre. Il tient la maquette mais n'a jamais ét�
 **Landing**
 
 - [ ] Hero : titre, sous-titre, 2 boutons
-- [ ] 01 Constat : titre, intro, les 4 constats
-- [ ] 02 Offre : titre, sous-titre, et par offre : la phrase « pour qui », les badges, la phrase Résultat
-- [ ] 03 Méthode : titre, paragraphe « qui nous aidons », les secteurs, les 4 étapes
-- [ ] 04 Équipe : titre, chapeau, nos 2 présentations
+- [ ] Constat : titre, intro, les 4 constats
+- [ ] Offre : titre, sous-titre, et par offre : la phrase « pour qui », les badges, la phrase Résultat
+- [ ] Méthode : titre, paragraphe « qui nous aidons », les secteurs, les 4 étapes
+- [ ] Équipe : titre, chapeau, nos 2 présentations
 - [ ] CTA « Une heure pour voir ce qui peut changer » : titre, phrase, bouton, note en astérisque
-- [ ] 05 FAQ : les 5 questions et réponses
+- [ ] FAQ : les 5 questions et réponses
 - [ ] Footer : tagline
 
 **Page Réalisations** — titre, chapeau, les 3 catégories (libellé long, nom court affiché sous les barres du parcours, phrase de présentation), les 7 projets (nom court, résumé de 3-4 mots, titre, description, résultat), l'encadré bleu de fin
@@ -128,10 +154,33 @@ Fait : `lang` correct par langue via deux layouts racine, `sitemap.xml` avec les
 
 ## 9. Mise en ligne
 
-- [ ] Hébergement : Vercel, offre gratuite suffisante
-- [ ] Brancher le domaine et forcer le HTTPS
+Hébergement : **Vercel**, branché sur le dépôt de l'organisation. Le déploiement
+est déclenché par un `git push` sur `main`, il n'y a rien à téléverser.
+
+- [ ] Installer l'application GitHub Vercel **sur l'organisation** `Synode-agency`
+      (elle n'y est pas par défaut, tant qu'elle n'y est pas le dépôt n'apparaît
+      pas dans la liste d'import de Vercel). Antonino est admin de l'organisation,
+      il peut valider lui-même.
+- [ ] Importer `Synode-agency/Synode-agency`. La racine du dépôt est la racine de
+      l'application Next, il n'y a pas de sous-dossier à indiquer, et **aucune
+      variable d'environnement** n'est nécessaire aujourd'hui : le code n'en lit
+      aucune.
+- [ ] Vérifier le premier déploiement sur l'URL `*.vercel.app` avant de brancher
+      le domaine
+- [ ] Brancher `synode-agency.com` et forcer le HTTPS
 - [ ] Vérifier une dernière fois les 4 pages légales en ligne
 - [ ] Soumettre le `sitemap.xml` dans la Google Search Console
+
+> ⚠️ **L'offre gratuite de Vercel (Hobby) est réservée à un usage non commercial.**
+> Un site d'agence qui démarche des clients n'en relève pas. Compter l'offre Pro
+> au moment de brancher le domaine, ou choisir un autre hébergeur.
+
+> ⚠️ Le dépôt est privé, le site déployé sera public. Tant que les points 2, 3 et 5
+> ne sont pas réglés, mettre en ligne expose les `TODO` des mentions légales, un
+> formulaire qui n'envoie rien et des démonstrations fabriquées.
+
+> La clé d'API du service d'e-mails se met dans les variables d'environnement de
+> Vercel, **jamais dans le dépôt**.
 
 ## 10. Prise de rendez-vous (optionnel)
 
