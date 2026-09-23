@@ -4,28 +4,40 @@
   align-items: center;
   padding-block: clamp(2rem, 4vw, 5rem) clamp(3rem, 5vw, 6rem);
 }
+/* Not two equal halves: the form is the point of this page and it was the
+   narrower thing on it. It takes 56% of the row now, on a wider grid and a
+   tighter gutter — about 140px more than before on a large screen, a fifth
+   again on a laptop. The left column keeps well over what its own copy
+   needs: the headline's first line runs to 419px at its largest and the
+   column never drops under 478px. */
 .grid {
   display: grid;
   width: 100%;
-  max-width: 1240px;
+  max-width: 1340px;
   margin-inline: auto;
   align-items: center;
-  gap: clamp(2.5rem, 5vw, 6rem);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 3.5vw, 4.5rem);
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
 }
 .intro { min-width: 0; }
+/* Two lines, and two only. The accent below is forced onto its own line,
+   so the whole job here is making sure the first line never wraps in a
+   column that is half the grid, about 534px at its narrowest. At the old
+   size it did not fit at any width — 683px of text in 534px of column on a
+   small laptop, 1033px on a 4K — so the title arrived on three lines
+   everywhere. And no balancer: it re-splits by available width, which is
+   exactly what the rest of the site forbids. */
 .intro h1 {
-  font-size: clamp(2.6rem, 3.8vw, 4.6rem);
-  line-height: 1.06;
-  letter-spacing: -0.055em;
-  text-wrap: balance;
+  font-size: clamp(1.85rem, 2.7vw, 2.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
 }
 .intro h1 br { display: none; }
 .intro h1 span { display: block; }
 .intro :global(.page-hero-body) {
   max-width: 34ch;
   font-size: clamp(1rem, 1.25vw, 1.2rem);
-  line-height: 1.65;
+  line-height: var(--lh-body);
 }
 .facts { display: grid; gap: 0.25rem; margin-top: 0.75rem; max-width: 100%; }
 .fact {
@@ -51,7 +63,12 @@
   font-size: 0.8rem;
 }
 .promise svg { width: 1rem; height: 1rem; color: var(--brand); flex-shrink: 0; }
+/* The form is the page. It carries a drawn mark of its own in the top
+   corner, cut by the panel, and a short brand stroke at the head — enough
+   to make it read as a thing that was designed rather than as a stack of
+   fields on a tinted rectangle. */
 .panel {
+  position: relative;
   min-width: 0;
   width: 100%;
   padding: clamp(1.25rem, 2.6vw, 2.75rem);
@@ -59,6 +76,36 @@
   border-radius: 1.75rem;
   background: #f1f6fd;
   box-shadow: 0 20px 60px -40px rgb(28 69 123 / 0.25);
+  overflow: hidden;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  left: clamp(1.25rem, 2.6vw, 2.75rem);
+  top: 0;
+  width: 3.25rem;
+  height: 4px;
+  border-radius: 0 0 9999px 9999px;
+  background: var(--brand);
+}
+
+.panelMark {
+  position: absolute;
+  top: -1.75rem;
+  right: -1.75rem;
+  width: 11rem;
+  height: 11rem;
+  color: var(--brand);
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+}
+
+.formHeading,
+.panel form {
+  position: relative;
+  z-index: 1;
 }
 .formHeading { margin-bottom: 1.75rem; }
 .formEyebrow { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; color: var(--brand); }
@@ -70,7 +117,7 @@
 .panel form textarea { background: white; border-radius: 0.75rem; border-color: #d5e0ed; font-size: 0.875rem; }
 .panel form input,
 .panel form select { height: 2.9rem; }
-.panel form textarea { min-height: 6.5rem; }
+.panel form textarea { min-height: 7.5rem; }
 .panel form [aria-invalid="true"] { border-color: var(--destructive); }
 .panel form button[type="submit"] { width: 100%; background: var(--brand); color: white; border-radius: 0.8rem; min-height: 3rem; }
 .panel form button[type="submit"]:hover { background: #096bc1; }

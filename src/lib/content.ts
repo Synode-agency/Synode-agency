@@ -75,7 +75,7 @@ const fr = {
     },
   },
   problem: {
-    eyebrow: "01 / Le constat",
+    eyebrow: "Le constat",
     answerLabel: "Ce qu'on y répond",
     title: "L'automatisation et le digital avancent vite.\nLes entreprises, pas toujours.",
     intro:
@@ -106,7 +106,7 @@ const fr = {
     ],
   },
   offer: {
-    eyebrow: "02 / Notre offre",
+    eyebrow: "Notre offre",
     title: "Deux offres au cœur. Une troisième au besoin.",
     /** Set back in the title: it is not what we lead with. */
     titleSoft: "Une troisième au besoin.",
@@ -159,7 +159,7 @@ const fr = {
     ],
   },
   method: {
-    eyebrow: "03 / Méthode & qui nous aidons",
+    eyebrow: "Méthode & qui nous aidons",
     title: "Nous aidons les entreprises à simplifier\nce qui les ralentit.",
     steps: [
       { title: "Audit & analyse", text: "Comprendre votre fonctionnement, vos outils et vos points de friction. Première heure offerte." },
@@ -206,13 +206,11 @@ const fr = {
     },
   },
   team: {
-    eyebrow: "04 / L'équipe",
-    title: "La team Synode.\nBeaucoup d'idées, peu de cheveux.",
+    eyebrow: "L'équipe",
+    title: "La team Synode.\nDeux expertises, un même objectif.",
     /** The word the title turns brand blue. */
     titleAccent: "Synode",
     body: "Deux profils complémentaires pour transformer vos besoins en automatisations, outils et solutions digitales sur mesure.",
-    /** Runs on its own line, right under the body. */
-    bodyNote: "Bon… pour les cheveux, on ne promet rien.",
     position: "Co-fondateur",
     members: [
       {
@@ -240,7 +238,7 @@ const fr = {
     ],
   },
   audience: {
-    eyebrow: "04 / Qui nous aidons",
+    eyebrow: "Qui nous aidons",
     title: "Les entreprises qui n'ont pas d'équipe IT.",
     body: "Synode accompagne les entreprises et les indépendants qui perdent du temps dans l'administratif, jonglent avec plusieurs outils et ne savent pas toujours quoi automatiser, connecter ou développer en priorité.",
     rulesTitle: "Nos règles",
@@ -265,7 +263,7 @@ const fr = {
     },
   },
   faq: {
-    eyebrow: "05 / Questions fréquentes",
+    eyebrow: "Questions fréquentes",
     title: "Ce qu'on nous demande avant de signer.",
     body: "Les mêmes questions reviennent toujours.\nVoici l'essentiel avant notre premier échange.",
     items: [
@@ -377,7 +375,7 @@ const en = {
     },
   },
   problem: {
-    eyebrow: "01 / The situation",
+    eyebrow: "The situation",
     answerLabel: "What we answer with",
     title: "Automation and digital technology move fast. Companies, not always.",
     intro:
@@ -406,7 +404,7 @@ const en = {
     ],
   },
   offer: {
-    eyebrow: "02 / What we offer",
+    eyebrow: "What we offer",
     title: "Two core offers. A third when you need it.",
     titleSoft: "A third when you need it.",
     subtitle: "The right solution for your problem, defined together.",
@@ -458,7 +456,7 @@ const en = {
     ],
   },
   method: {
-    eyebrow: "03 / Method & who we help",
+    eyebrow: "Method & who we help",
     title: "We help companies simplify\nwhat slows them down.",
     steps: [
       { title: "Audit & analysis", text: "Understand how you work, your tools and your friction points. First hour on us." },
@@ -505,11 +503,10 @@ const en = {
     },
   },
   team: {
-    eyebrow: "04 / The team",
-    title: "The Synode team.\nPlenty of ideas, not much hair.",
+    eyebrow: "The team",
+    title: "The Synode team.\nTwo skill sets, one goal.",
     titleAccent: "Synode",
     body: "Two complementary profiles to turn your needs into automations, tools and custom digital solutions.",
-    bodyNote: "Well… no promises about the hair.",
     position: "Co-founder",
     members: [
       {
@@ -537,7 +534,7 @@ const en = {
     ],
   },
   audience: {
-    eyebrow: "04 / Who we help",
+    eyebrow: "Who we help",
     title: "Companies with no IT team.",
     body: "Synode works with companies and independents who lose time on admin, juggle several tools and don't always know what to automate, connect or build first.",
     rulesTitle: "Our rules",
@@ -562,7 +559,7 @@ const en = {
     },
   },
   faq: {
-    eyebrow: "05 / Frequently asked",
+    eyebrow: "Frequently asked",
     title: "What people ask us before signing.",
     body: "The same questions always come up.\nHere is what matters before we first talk.",
     items: [

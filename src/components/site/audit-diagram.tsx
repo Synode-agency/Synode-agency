@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { BarChart3, CalendarDays, Mic, Phone, PhoneOff, Video } from "lucide-react";
+import { Mic, PhoneOff } from "lucide-react";
+import {
+  CalendarIcon,
+  GraphIncreaseIcon,
+  PhoneLinearIcon,
+  ScreenIcon,
+} from "@/components/site/icons";
 
 interface DiagramCopy {
   call: string;
@@ -47,7 +53,7 @@ export function AuditDiagram({ copy }: { copy: DiagramCopy }) {
       {/* Left: what you do */}
       <span className="audit-card audit-card--call">
         <span className="audit-glyph">
-          <Phone />
+          <PhoneLinearIcon />
         </span>
         <span className="audit-lines">
           <b>{copy.call}</b>
@@ -58,7 +64,7 @@ export function AuditDiagram({ copy }: { copy: DiagramCopy }) {
 
       <span className="audit-card audit-card--slot">
         <span className="audit-glyph">
-          <CalendarDays />
+          <CalendarIcon />
         </span>
         <span className="audit-lines">
           <b>{copy.slot}</b>
@@ -86,7 +92,7 @@ export function AuditDiagram({ copy }: { copy: DiagramCopy }) {
             <Mic />
           </b>
           <b>
-            <Video />
+            <ScreenIcon />
           </b>
           <b data-hang="true">
             <PhoneOff />
@@ -96,7 +102,7 @@ export function AuditDiagram({ copy }: { copy: DiagramCopy }) {
 
       <span className="audit-card audit-card--result">
         <span className="audit-glyph" data-tone="chart">
-          <BarChart3 />
+          <GraphIncreaseIcon />
         </span>
         <span className="audit-lines">
           <b>{copy.result}</b>

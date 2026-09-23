@@ -1,23 +1,8 @@
 import Image from "next/image";
-import {
-  BarChart3,
-  Heart,
-  Lightbulb,
-  Target,
-  Users,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { getContent, type Locale } from "@/lib/content";
-
-/** Badge glyph per member, in the order the cards read. */
-const BADGE_ICONS: LucideIcon[] = [Lightbulb, BarChart3];
-
-/** Glyph per value, in the order the strip reads. */
-const VALUE_ICONS: LucideIcon[] = [Users, Target, Zap, Heart];
 
 export function Team({ locale }: { locale: Locale }) {
   const { team } = getContent(locale);
@@ -46,19 +31,13 @@ export function Team({ locale }: { locale: Locale }) {
                   part
                 ),
               )}
-            subtitle={
-              <>
-                {team.body}
-                <span className="team-body-note">{team.bodyNote}</span>
-              </>
-            }
+            subtitle={team.body}
             align="left"
             className="team-heading reveal-left"
           />
 
           <div className="team-deck">
             {team.members.map((member, i) => {
-              const Badge = BADGE_ICONS[i % BADGE_ICONS.length];
               const badgeSide = i === 0 ? "start" : "end";
               return (
                 <Reveal
@@ -67,10 +46,11 @@ export function Team({ locale }: { locale: Locale }) {
                   className={`team-card ${i === 0 ? "reveal-left" : "reveal-right"}`}
                 >
                   <div className="team-card-top">
-                    <span className="team-card-badge" data-side={badgeSide}>
-                      <span className="team-card-badge-tile" aria-hidden>
-                        <Badge />
-                      </span>
+                    <span
+                      className="team-card-badge"
+                      data-side={badgeSide}
+                      style={{ "--team-i": i } as React.CSSProperties}
+                    >
                       <b>{member.badge.label}</b>
                       <i>{member.badge.sub}</i>
                     </span>
@@ -99,20 +79,18 @@ export function Team({ locale }: { locale: Locale }) {
           </div>
 
           <Reveal delay={900} className="team-values">
-            {team.values.map((value, i) => {
-              const Glyph = VALUE_ICONS[i % VALUE_ICONS.length];
-              return (
-                <span key={value.strong} className="team-value">
-                  <span className="team-value-tile" aria-hidden>
-                    <Glyph />
-                  </span>
+            {team.values.map((value, i) => (
+                <span
+                  key={value.strong}
+                  className="team-value"
+                  style={{ "--team-i": i } as React.CSSProperties}
+                >
                   <span className="team-value-copy">
                     <i>{value.label}</i>
                     <b>{value.strong}</b>
                   </span>
                 </span>
-              );
-            })}
+            ))}
           </Reveal>
 
         </div>

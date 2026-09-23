@@ -1,25 +1,26 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
-  Bot,
   ChevronRight,
-  Code2,
-  Database,
-  FileText,
   Gauge,
-  Globe,
   Mail,
-  Monitor,
-  Search,
-  Settings,
-  Smartphone,
-  Sparkles,
-  Target,
   Users,
-  type LucideIcon,
 } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 import { Reveal } from "@/components/site/reveal";
+import {
+  AutomationOutlineIcon,
+  BarChartIcon,
+  CodeOutlinedIcon,
+  ConnectIcon,
+  FileIcon,
+  PhoneLinearIcon,
+  RobotLineIcon,
+  WebIcon,
+  ZoomIcon,
+} from "@/components/site/icons";
+
+type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
 import { cn } from "@/lib/utils";
 
 interface OfferCardProps {
@@ -45,17 +46,11 @@ interface OfferCardProps {
   supportLabel?: string;
 }
 
-/** Header glyph, one per offer, in the order the cards read. */
-const HEAD_ICONS: LucideIcon[] = [Bot, Monitor, Globe];
-
-/** Glyph beside the outcome line. */
-const RESULT_ICONS: LucideIcon[] = [BarChart3, Target, Gauge];
-
 /** One glyph per item inside each offer's list. */
-const CHIP_ICONS: LucideIcon[][] = [
-  [Settings, Sparkles, FileText, Mail],
-  [Code2, Database, BarChart3, Users],
-  [Globe, Smartphone, Gauge, Search],
+const CHIP_ICONS: Glyph[][] = [
+  [AutomationOutlineIcon, RobotLineIcon, FileIcon, Mail],
+  [CodeOutlinedIcon, ConnectIcon, BarChartIcon, Users],
+  [WebIcon, PhoneLinearIcon, Gauge, ZoomIcon],
 ];
 
 export function OfferCard({
@@ -74,17 +69,12 @@ export function OfferCard({
   supportLabel,
 }: OfferCardProps) {
   const index = Math.max(0, Number(number) - 1);
-  const HeadIcon = HEAD_ICONS[index] ?? Bot;
-  const ResultIcon = RESULT_ICONS[index] ?? Target;
   const chipIcons = CHIP_ICONS[index] ?? CHIP_ICONS[0];
 
   if (emphasis === "support") {
     return (
       <Reveal delay={delay} className="offer-support">
         <div className="offer-support-intro">
-          <span className="offer-icon offer-icon--support">
-            <HeadIcon />
-          </span>
           <div>
             <span className="offer-eyebrow">{supportLabel}</span>
             <h3 className="offer-support-title">{title}</h3>
@@ -95,9 +85,17 @@ export function OfferCard({
         </div>
 
         <div className="offer-support-side">
+          {/* The badges of all three offers are lit by one travelling light,
+              so each carries its rank in the whole run rather than its rank
+              in its own card. This is the third card: 8, 9, 10, 11. */}
           <ul className="offer-support-chips">
-            {chips.map((chip) => (
-              <li key={chip}>{chip}</li>
+            {chips.map((chip, i) => (
+              <li
+                key={chip}
+                style={{ "--chip-i": index * 4 + i } as React.CSSProperties}
+              >
+                {chip}
+              </li>
             ))}
           </ul>
           <Link href={contactHref} className="offer-cta offer-cta--ghost">
@@ -118,9 +116,6 @@ export function OfferCard({
       )}
     >
       <div className="offer-head">
-        <span className="offer-icon">
-          <HeadIcon />
-        </span>
         <div className="min-w-0">
           <div className="offer-head-line">
             <b className="offer-num">{number}</b>
@@ -134,7 +129,11 @@ export function OfferCard({
         {chips.map((chip, i) => {
           const ChipIcon = chipIcons[i % chipIcons.length];
           return (
-            <li key={chip} className="offer-chip">
+            <li
+              key={chip}
+              className="offer-chip"
+              style={{ "--chip-i": index * 4 + i } as React.CSSProperties}
+            >
               <ChipIcon />
               <span>{chip}</span>
             </li>
@@ -143,9 +142,6 @@ export function OfferCard({
       </ul>
 
       <div className="offer-result">
-        <span className="offer-result-icon">
-          <ResultIcon />
-        </span>
         <div>
           <span className="offer-eyebrow">{resultLabel}</span>
           <p className="offer-result-text">{result}</p>

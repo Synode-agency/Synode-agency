@@ -104,6 +104,11 @@
   --fs-h2: clamp(2.9rem, 2.17rem + 1.15vw, 4rem);
   --fs-h3: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
   --fs-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem);
+  /* One leading for every paragraph on the site. It was set case by case
+     between 1.6 and 1.75, so no two blocks of running text sat the same
+     way; and at 1.7 the lines drifted apart enough that a paragraph read
+     as a list. */
+  --lh-body: 1.4;
   --fs-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.95rem);
   --fs-button: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
 
@@ -598,15 +603,6 @@
   .team-heading > h2 { max-width: none; }
   .team-heading > p { max-width: 58ch; }
 
-  /* The aside about the hair sits on its own line under the paragraph, set
-     apart from it in italic and in the brand blue. */
-  .team-body-note {
-    display: block;
-    margin-top: 0.2rem;
-    font-style: italic;
-    color: var(--brand);
-  }
-
   .team-deck {
     display: grid;
     gap: clamp(1rem, 0.8rem + 1.2vw, 2rem);
@@ -712,23 +708,72 @@
     line-height: 1.5;
   }
 
-  .team-card-badge-tile {
-    display: grid;
-    place-items: center;
-    width: clamp(2.5rem, 0.8vw + 2.2rem, 3.1rem);
-    aspect-ratio: 1;
-    margin-bottom: 0.65rem;
-    border-radius: clamp(0.7rem, 0.4vw + 0.6rem, 0.95rem);
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgb(11 18 32 / 0.06);
-    color: var(--brand);
+
+  /* ------------------------------------------------------------------
+     The team labels light up in turn.
+     ------------------------------------------------------------------
+     Two runs, independent of each other: the two badges over the heads
+     trade the light back and forth, and the four values below pass it
+     along. Three seconds each, held for the whole step rather than
+     blinked, so there is always exactly one lit in each run — it is handed
+     over, not switched on and off.
+
+     It is the words that light, because the tiles they used to light are
+     gone: a glyph in a rounded square over each head and beside each value
+     was four more icons on a page that had one at the head of every block.
+     Colour carries the run now, which costs no shape at all. */
+  .team-card-badge,
+  .team-value {
+    --team-step: 3s;
   }
 
-  .team-card-badge-tile > svg {
-    width: 45%;
-    height: 45%;
-    stroke-width: 2;
+  .team-card-badge > b,
+  .team-value-copy > b {
+    transition: color 400ms ease;
   }
+
+  /* Two labels, a 6s round: up at 0.25s, held to 2.75s, back at 3s. */
+  @keyframes team-lit-2 {
+    0%,
+    50%,
+    100% {
+      color: var(--foreground);
+    }
+    4.2%,
+    45.8% {
+      color: var(--brand);
+    }
+  }
+
+  /* Four labels, a 12s round, the same 3s of light. */
+  @keyframes team-lit-4 {
+    0%,
+    25%,
+    100% {
+      color: var(--foreground);
+    }
+    2.1%,
+    22.9% {
+      color: var(--brand);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .team-card-badge > b {
+      animation: team-lit-2 calc(var(--team-step) * 2) linear infinite;
+      animation-delay: calc(var(--team-i, 0) * var(--team-step));
+    }
+
+    /* The four values start 1.4s into the badges' round. Their 12s divides
+       evenly by the badges' 6s, so without this the first value and the
+       first badge would light together every twelve seconds, for as long as
+       the page is open. */
+    .team-value-copy > b {
+      animation: team-lit-4 calc(var(--team-step) * 4) linear infinite;
+      animation-delay: calc(1.4s + var(--team-i, 0) * var(--team-step));
+    }
+  }
+
 
   .team-card-body {
     position: relative;
@@ -774,7 +819,7 @@
 
   .team-card-text {
     font-size: var(--fs-small);
-    line-height: 1.65;
+    line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
@@ -807,22 +852,7 @@
     padding-inline: clamp(0.5rem, 1vw, 1.25rem);
   }
 
-  .team-value-tile {
-    display: grid;
-    place-items: center;
-    width: clamp(2.2rem, 0.7vw + 2rem, 2.75rem);
-    aspect-ratio: 1;
-    flex-shrink: 0;
-    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
-    background: color-mix(in oklab, var(--brand) 10%, #ffffff);
-    color: var(--brand);
-  }
 
-  .team-value-tile > svg {
-    width: 46%;
-    height: 46%;
-    stroke-width: 2;
-  }
 
   .team-value-copy {
     display: flex;
@@ -868,22 +898,7 @@
     padding-inline: clamp(0.5rem, 1vw, 1.25rem);
   }
 
-  .team-value-tile {
-    display: grid;
-    place-items: center;
-    width: clamp(2.2rem, 0.7vw + 2rem, 2.75rem);
-    aspect-ratio: 1;
-    flex-shrink: 0;
-    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
-    background: color-mix(in oklab, var(--brand) 10%, #ffffff);
-    color: var(--brand);
-  }
 
-  .team-value-tile > svg {
-    width: 46%;
-    height: 46%;
-    stroke-width: 2;
-  }
 
   .team-value-copy {
     display: flex;
@@ -1623,7 +1638,7 @@
     background: color-mix(in oklab, var(--surface) 55%, transparent);
     max-width: 46rem;
     font-size: var(--fs-body);
-    line-height: 1.7;
+    line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
@@ -1658,6 +1673,52 @@
     border-radius: clamp(0.8rem, 0.5vw + 0.65rem, 1.1rem);
     border: 1px solid color-mix(in oklab, var(--brand) 22%, transparent);
     background: color-mix(in oklab, var(--surface) 72%, transparent);
+  }
+
+  /* The three steps light up in turn, two seconds each, so the block beside
+     the closing call to action is not the one still thing on the page.
+     The ring is laid over the step: `::before` is already the rail joining
+     one node to the next, and the border is what the ring is drawn against.
+     Held for the whole step rather than blinked, so exactly one of the
+     three is lit at any moment — handed over, not switched on and off. */
+  .flow-step {
+    --flow-step-ms: 2s;
+    --flow-lit: var(--brand);
+  }
+
+  /* On the deep blue panel only white reads, the same as the tiles above. */
+  .offer-panel .flow-step { --flow-lit: #ffffff; }
+
+  .flow-step::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    border: 1px solid var(--flow-lit);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Up at 0.25s, held to 1.75s, gone at 2s — as shares of the 6s round. */
+  @keyframes flow-lit {
+    0%,
+    33.34%,
+    100% {
+      opacity: 0;
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--flow-lit) 0%, transparent);
+    }
+    4.2%,
+    29.2% {
+      opacity: 1;
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--flow-lit) 16%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .flow-step::after {
+      animation: flow-lit calc(var(--flow-step-ms) * 3) linear infinite;
+      animation-delay: calc(var(--flow-i, 0) * var(--flow-step-ms));
+    }
   }
 
   /* The rail: a segment between one node and the next. */
@@ -1770,7 +1831,7 @@
     max-width: none;
     white-space: pre-line;
     font-size: var(--fs-body);
-    line-height: 1.7;
+    line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
@@ -1779,7 +1840,7 @@
     font-size: 0.82rem;
     font-style: italic;
     font-weight: 300;
-    line-height: 1.7;
+    line-height: var(--lh-body);
     white-space: pre-line;
     color: var(--muted-foreground);
   }
@@ -2301,18 +2362,6 @@
 
   .offer-head { display: flex; gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.25rem); }
 
-  .offer-icon {
-    display: grid;
-    place-items: center;
-    flex: none;
-    width: clamp(2.9rem, 2.4rem + 1.4vw, 3.9rem);
-    height: clamp(2.9rem, 2.4rem + 1.4vw, 3.9rem);
-    border-radius: clamp(0.8rem, 0.6rem + 0.5vw, 1.15rem);
-    background: linear-gradient(150deg, #e8f1fd, #f4f8fe);
-    border: 1px solid rgb(10 124 224 / 0.1);
-    color: var(--brand);
-  }
-  .offer-icon svg { width: 45%; height: 45%; stroke-width: 1.7; }
 
   .offer-head-line {
     display: flex;
@@ -2348,6 +2397,7 @@
     gap: clamp(0.5rem, 0.4rem + 0.3vw, 0.75rem);
   }
   .offer-chip {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -2372,6 +2422,74 @@
     color: var(--foreground);
   }
 
+  /* ------------------------------------------------------------------
+     One light for the twelve badges of the three offers.
+     ------------------------------------------------------------------
+     It starts on "Workflows & intégrations", walks the four badges of the
+     first offer, carries on into the second, then into the third, and comes
+     back round to the first. A single light, never two at once: each badge
+     holds it for a second, and the pulse is cut to fit inside that second
+     so the handover is clean.
+
+     Each badge carries its rank in the whole run as `--chip-i`, written on
+     the element itself, which is what lets twelve badges spread over three
+     separate cards share one sequence without a single nth-child rule.
+
+     The light rides a ring laid over the badge, never its own border: the
+     border answers the pointer, and an animation on it would win, so the
+     badges would stop reacting to hover while the run went past. */
+  .offer-chip,
+  .offer-support-chips li {
+    --chip-step: 1s;
+    --chip-count: 12;
+  }
+
+  /* On white paper, the real brand blue — the same one the hover uses.
+     `--brand` is the pale version inside this panel and would barely show. */
+  .offer-chip { --chip-lit: #0a7ce0; }
+
+  /* The third card sits straight on the deep blue, where only white reads. */
+  .offer-support-chips li { position: relative; --chip-lit: #ffffff; }
+
+  .offer-chip::after,
+  .offer-support-chips li::after {
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+    border-style: solid;
+    border-color: var(--chip-lit);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .offer-chip::after { inset: -2px; border-width: 2px; }
+  .offer-support-chips li::after { inset: -1px; border-width: 1px; }
+
+  /* One second of light in a run of twelve: up at 0.18s, held to 0.8s,
+     gone at 1s — as shares of the 12s the whole run takes. */
+  @keyframes offer-chip-flash {
+    0%,
+    8.34%,
+    100% {
+      opacity: 0;
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--chip-lit) 0%, transparent);
+    }
+    1.5%,
+    6.7% {
+      opacity: 1;
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--chip-lit) 16%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .offer-chip::after,
+    .offer-support-chips li::after {
+      animation: offer-chip-flash calc(var(--chip-step) * var(--chip-count))
+        linear infinite;
+      animation-delay: calc(var(--chip-i, 0) * var(--chip-step));
+    }
+  }
+
   /* The outcome, set apart on its own pale ground. */
   .offer-result {
     display: flex;
@@ -2381,8 +2499,6 @@
     border-radius: clamp(0.8rem, 0.6rem + 0.5vw, 1.15rem);
     background: #f2f7fd;
   }
-  .offer-result-icon { flex: none; color: var(--brand); }
-  .offer-result-icon svg { width: 1.6rem; height: 1.6rem; stroke-width: 1.7; }
   .offer-eyebrow {
     display: block;
     font-size: 0.68rem;
@@ -2444,11 +2560,6 @@
     background: rgb(255 255 255 / 0.07);
   }
   .offer-support-intro { display: flex; gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.25rem); }
-  .offer-icon--support {
-    background: rgb(255 255 255 / 0.12);
-    border-color: rgb(255 255 255 / 0.22);
-    color: #fff;
-  }
   .offer-support .offer-eyebrow { color: rgb(255 255 255 / 0.66); }
   .offer-support-title {
     margin-top: 0.45rem;
@@ -3012,6 +3123,18 @@
     .hero-stage .pillar-card:nth-child(3) { left: 8%; top: calc(90% + 10px); width: 38%; }
     .hero-stage .pillar-card:nth-child(4) { left: 54%; top: calc(89.2% + 10px); width: 38%; }
 
+    /* The ring the round lights up. It sits over the card's edge, is drawn
+       in that card's own colour, and is invisible until its turn. */
+    .hero-stage .pillar-card::after {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      border: 1px solid var(--icon-ink);
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .hero-stage .pillar-card:hover {
       transform: translateY(-0.6cqw);
       border-color: color-mix(in oklab, var(--icon-ink) 45%, transparent);
@@ -3176,19 +3299,18 @@
     gap: 0.6rem;
     color: var(--card-ink);
   }
-  /* The tile that replaced the 01..04 counters: the column's colour as a
-     solid, its glyph knocked out in white. */
-  .problem-icon {
-    display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
+  /* A dot in the column's colour, and nothing else. It was a 2.6rem tile
+     with a glyph knocked out of it, which made four more icons on a page
+     that already had one at the head of every block. The rule beside it
+     carries the colour across the column; the dot is where it starts. */
+  .problem-dot {
+    width: 0.7rem;
+    height: 0.7rem;
     flex: none;
-    border-radius: 0.8rem;
+    border-radius: 9999px;
     background: var(--card-ink);
-    color: #fff;
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--card-ink) 14%, transparent);
   }
-  .problem-icon svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.8; }
   /* The rule beside the glyph runs the full width of the column rather than
      stopping after 2rem. The four inks are declared per column but were only
      ever visible on a 2.6rem tile; stretched across the column they finally
@@ -3423,6 +3545,70 @@
     color: #dc2626;
   }
   .pv-cross svg { width: 1rem; height: 1rem; stroke-width: 2.4; }
+
+  /* ------------------------------------------------------------------
+     The Constat drawings light up, one item at a time.
+     ------------------------------------------------------------------
+     One light for all thirteen: the four rows of column 01, then the five
+     tools of column 02, then the four rows of column 03, then round again.
+     It used to be three separate rounds, which meant three lights burning
+     at once in three columns — read as blinking rather than as a sequence.
+
+     Each item carries its rank in the run as `--pv-i`, written on the
+     element itself, so three drawings built from three different markups
+     share one sequence with a single rule.
+
+     The light rides a ring laid over the item, never the item's own border
+     or background. Both already answer the pointer, and an animation would
+     beat them: the drawings would stop reacting to the cursor for as long
+     as the run went past. */
+  .pv-flash {
+    --pv-alert: #b91c1c;
+    /* One item lit at a time, and exactly one: a step of 1s with a pulse
+       cut to fit inside it, so the light is handed over rather than
+       shared. Thirteen items, so the run takes thirteen seconds. */
+    --pv-step: 1s;
+    --pv-count: 13;
+  }
+  /* No `position` here. The rows are already relative and the tiles are
+     absolute — both are containing blocks the ring can hang off. Declaring
+     `relative` on the shared class beat the tiles' `absolute`, since both
+     are single class selectors and this one comes later in the file, and
+     the five tools fell out of their ring back into normal flow. */
+
+  .pv-flash::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    border-radius: inherit;
+    border: 1px solid var(--pv-alert);
+    background: color-mix(in oklab, var(--pv-alert) 6%, transparent);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Up at 0.18s, held to 0.8s, gone at 1s — as shares of the 13s run. */
+  @keyframes pv-flash {
+    0%,
+    7.7%,
+    100% {
+      opacity: 0;
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--pv-alert) 0%, transparent);
+    }
+    1.4%,
+    6.15% {
+      opacity: 1;
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--pv-alert) 13%, transparent);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pv-flash::after {
+      animation: pv-flash calc(var(--pv-step) * var(--pv-count)) linear infinite;
+      animation-delay: calc(var(--pv-i, 0) * var(--pv-step));
+    }
+  }
 
   /* 03 — a follow-up list nobody works through */
   .pv--followup { display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; padding: 0 4%; }
@@ -3927,7 +4113,7 @@
   .method-detail-text {
     max-width: 58ch;
     font-size: clamp(0.95rem, 0.3vw + 0.88rem, 1.15rem);
-    line-height: 1.7;
+    line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
@@ -4179,14 +4365,76 @@
     animation-delay: 0.6s;
   }
 
+  /* Once the four cards have landed, a light goes round the deck: each
+     border lights up in its own colour, one after the other, then the round
+     rests and starts again. It is the only thing that keeps the hero alive
+     after the entrance is over — until now everything went still except the
+     mock at the centre.
+
+     Two animations on the same element, so each card carries its own
+     entrance and its own place in the round. The two `animation-delay`
+     values below are in that order: when the card arrives, and when its
+     turn in the round comes. */
   .hero-stage .pillar-card {
     animation: hero-piece-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    /* How long a card stays at full strength. It sets the pace of the whole
+       round on its own: the four turns are one hold apart, and the loop is
+       four holds long, so the first card comes back round exactly when a
+       fifth would have followed the fourth. No seam, and no pause. */
+    --pillar-hold: 2s;
+    --pillar-loop: calc(var(--pillar-hold) * 4);
+    /* The round only starts once the last card has finished arriving. */
+    --pillar-start: 2.75s;
   }
 
   .hero-stage .pillar-card:nth-child(1) { animation-delay: 1.25s; }
   .hero-stage .pillar-card:nth-child(2) { animation-delay: 1.45s; }
   .hero-stage .pillar-card:nth-child(3) { animation-delay: 1.65s; }
   .hero-stage .pillar-card:nth-child(4) { animation-delay: 1.85s; }
+
+  /* The round runs on the ring, never on the card. The card is painted once
+     and stays: only the ring laid over its edge fades in and out. Putting
+     this on the card itself would fade the card, since what the round
+     animates is an opacity. */
+  .hero-stage .pillar-card::after {
+    animation: pillar-glow var(--pillar-loop) ease-in-out infinite;
+  }
+
+  .hero-stage .pillar-card:nth-child(1)::after { animation-delay: var(--pillar-start); }
+  .hero-stage .pillar-card:nth-child(2)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 1); }
+  .hero-stage .pillar-card:nth-child(3)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 2); }
+  .hero-stage .pillar-card:nth-child(4)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 3); }
+
+  /* The light is a ring laid over the card rather than the card's own
+     border, for two reasons: animating the border would beat the hover
+     state, which also sets a border colour, and the opacity the round rides
+     on belongs to the ring alone — on the card it would make the card
+     itself come and go. */
+  /* One card's pulse, in percentages of the 8s loop: 0.35s to come up, then
+     the 2s of `--pillar-hold` at full strength, then 0.5s to fade out, so
+     2.85s in all. Dark for the rest of the loop, which is when the other
+     three take their turn.
+     If the hold changes, these three stops move with it: they are
+     0.35 / 4h, (0.35 + h) / 4h and (0.85 + h) / 4h. */
+  @keyframes pillar-glow {
+    0%,
+    100% {
+      opacity: 0;
+      box-shadow: 0 0 0 0 color-mix(in oklab, var(--icon-ink) 0%, transparent);
+    }
+    4.4% {
+      opacity: 1;
+      box-shadow: 0 0 0 0.45cqw color-mix(in oklab, var(--icon-ink) 20%, transparent);
+    }
+    29.4% {
+      opacity: 1;
+      box-shadow: 0 0 0 0.45cqw color-mix(in oklab, var(--icon-ink) 20%, transparent);
+    }
+    35.6% {
+      opacity: 0;
+      box-shadow: 0 0 0 0.9cqw color-mix(in oklab, var(--icon-ink) 0%, transparent);
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

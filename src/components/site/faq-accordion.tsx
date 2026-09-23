@@ -66,7 +66,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 )}
               >
                 <div className="overflow-hidden">
-                  <p className="faq-answer max-w-[62ch] pb-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.5rem))] pr-10 text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+                  <p className="faq-answer max-w-[62ch] pb-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.5rem))] pr-10 text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
                     {item.a}
                   </p>
                 </div>

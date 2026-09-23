@@ -4,21 +4,14 @@ import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
 import { Icon } from "@/components/site/icon";
 import {
-  ZapIcon,
-  type ZapIconHandle,
-} from "@/components/site/animated-icons/zap-icon";
-import {
-  BotIcon,
-  type BotIconHandle,
-} from "@/components/site/animated-icons/bot-icon";
+  AutomationOutlineIcon,
+  RobotLineIcon,
+  WebPageIcon,
+} from "@/components/site/icons";
 import {
   CommandLineIcon,
   type CommandLineIconHandle,
 } from "@/components/site/animated-icons/command-line-icon";
-import {
-  ConnectIcon,
-  type ConnectIconHandle,
-} from "@/components/site/animated-icons/connect-icon";
 import { NavLink } from "@/components/site/nav-link";
 import { getContent, homePath, type Locale } from "@/lib/content";
 
@@ -41,24 +34,10 @@ function PillarCard({
   index,
   total,
 }: PillarCardProps) {
-  const zapRef = useRef<ZapIconHandle>(null);
-  const botRef = useRef<BotIconHandle>(null);
   const commandLineRef = useRef<CommandLineIconHandle>(null);
-  const connectRef = useRef<ConnectIconHandle>(null);
 
-  const handleEnter = () => {
-    zapRef.current?.startAnimation();
-    botRef.current?.startAnimation();
-    commandLineRef.current?.startAnimation();
-    connectRef.current?.startAnimation();
-  };
-
-  const handleLeave = () => {
-    zapRef.current?.stopAnimation();
-    botRef.current?.stopAnimation();
-    commandLineRef.current?.stopAnimation();
-    connectRef.current?.stopAnimation();
-  };
+  const handleEnter = () => commandLineRef.current?.startAnimation();
+  const handleLeave = () => commandLineRef.current?.stopAnimation();
 
   return (
     <NavLink
@@ -76,15 +55,17 @@ function PillarCard({
       }
       className="pillar-card group"
     >
+      {/* Three of the four pillars are drawn icons now. Only "Logiciels sur
+          mesure" keeps its animated glyph, which draws itself on hover. */}
       <span className="pillar-icon-tile">
         {icon === "Zap" ? (
-          <ZapIcon ref={zapRef} size={18} />
+          <AutomationOutlineIcon className="size-[1.15rem]" aria-hidden />
         ) : icon === "Bot" ? (
-          <BotIcon ref={botRef} size={18} />
+          <RobotLineIcon className="size-[1.15rem]" aria-hidden />
         ) : icon === "AppWindow" ? (
           <CommandLineIcon ref={commandLineRef} size={18} />
         ) : icon === "ArrowLeftRight" ? (
-          <ConnectIcon ref={connectRef} size={18} />
+          <WebPageIcon className="size-[1.15rem]" aria-hidden />
         ) : (
           <Icon name={icon} className="size-[1.1rem]" />
         )}

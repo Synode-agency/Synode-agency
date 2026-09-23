@@ -20,7 +20,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
           <Reveal className="reveal-left flex max-w-xs flex-col gap-4">
             <Wordmark variant="mark" />
-            <p className="text-[length:var(--fs-small)] leading-[1.65] text-muted-foreground">
+            <p className="text-[length:var(--fs-small)] leading-[var(--lh-body)] text-muted-foreground">
               {site.tagline}
             </p>
           </Reveal>

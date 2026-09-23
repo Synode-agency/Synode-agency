@@ -73,7 +73,6 @@ export function PageHero({
     >
       <Line i={0} stagger={stagger}>
         <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
-          <span className="h-px w-6 bg-brand/50" aria-hidden />
           {eyebrow}
         </span>
       </Line>
@@ -106,7 +105,7 @@ export function PageHero({
       </Line>
 
       <Line i={2} stagger={stagger}>
-        <p className="page-hero-body max-w-[62ch] whitespace-pre-line text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+        <p className="page-hero-body max-w-[62ch] whitespace-pre-line text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
           {body}
         </p>
       </Line>

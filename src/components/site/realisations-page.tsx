@@ -100,7 +100,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
                   <h2 className="text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem] lg:text-[length:var(--fs-h2)]">
                     {realisations.cta.title}
                   </h2>
-                  <p className="max-w-xl text-[length:var(--fs-body)] leading-[1.7] text-muted-foreground">
+                  <p className="max-w-xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
                     {realisations.cta.body}
                   </p>
                   <Link
