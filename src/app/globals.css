@@ -4473,3 +4473,263 @@
     );
   }
 }
+
+/* ===========================================================================
+   MOBILE — deuxième passe, 24/09/2026.
+
+   Tout ce qui suit vit sous 768px, hors de tout `@layer` pour passer devant
+   les utilitaires Tailwind et les règles layerisées sans parier sur l'ordre
+   des couches. Le desktop n'est concerné par aucune de ces règles.
+   =========================================================================== */
+
+/* Le panneau du mock porte un Reveal, mais uniquement comme détecteur de
+   scroll : il pose `data-shown` et rien d'autre. Sans cette neutralisation il
+   partirait de l'invisible et jouerait le fondu maison, y compris sur
+   desktop, qui n'en a jamais eu. */
+.hero-stage-panel.reveal,
+.hero-stage-panel.reveal[data-shown="true"] {
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes hero-mock-in {
+  from { opacity: 0; transform: translateY(0.55em); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 767px) {
+  /* ---------- Hero : le mock ne tourne plus en boucle ----------
+     Les huit animations du logiciel sont réglées sur une horloge de 14s qui
+     repart indéfiniment. Sur téléphone elles sont coupées net : le mock est
+     une image d'interface, pas une démo qui rejoue toute seule. */
+  .hero-app-cursor,
+  .hero-app-nav-row.is-active,
+  .hero-app-status i,
+  .hero-app-title,
+  .hero-app-step,
+  .hero-app-step-disc,
+  .hero-app-bottom,
+  .hero-app-chart-line,
+  .hero-app-chart-area {
+    animation: none;
+  }
+
+  /* La courbe du graphe partait de l'invisible : c'était l'animation qui la
+     rallumait. Sans boucle, il faut lui donner son état final. Le curseur,
+     lui, garde son `opacity: 0` de base et ne revient pas : une souris
+     dessinée sur un écran tactile ne veut rien dire. */
+  .hero-app-chart-area { opacity: 1; }
+
+  /* À la place de la boucle : une seule arrivée, au scroll, en cascade. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-stage-panel[data-shown="true"] .hero-app-title,
+    .hero-stage-panel[data-shown="true"] .hero-app-step,
+    .hero-stage-panel[data-shown="true"] .hero-app-bottom {
+      animation: hero-mock-in var(--anim-element) var(--anim-ease) both;
+    }
+    .hero-stage-panel[data-shown="true"] .hero-app-title {
+      animation-delay: 80ms;
+    }
+    /* `--s` est le rang de l'étape, déjà posé sur chacune. */
+    .hero-stage-panel[data-shown="true"] .hero-app-step {
+      animation-delay: calc(240ms + var(--s, 0) * 90ms);
+    }
+    .hero-stage-panel[data-shown="true"] .hero-app-bottom {
+      animation-delay: 760ms;
+    }
+  }
+
+  /* Le titre du mock sur une ligne. Ce n'est pas la place qui manquait mais
+     le plafond de 20ch, qui le coupait en deux bien avant le bord. */
+  .hero-app-title {
+    max-width: none;
+    font-size: 1.5em;
+    white-space: nowrap;
+  }
+
+  /* ---------- Hero : les quatre services l'un sous l'autre ---------- */
+  .pillar-deck {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* ---------- Constat : de l'air entre les quatre blocs ----------
+     En une colonne, 2,5rem ne suffisaient plus à séparer le visuel d'un bloc
+     du texte du suivant : les deux se lisaient comme un seul ensemble. */
+  .problem-deck {
+    gap: 4rem 1.75rem;
+  }
+
+  /* ---------- Équipe : deux colonnes, le bloc centré ----------
+     Deux colonnes de 1fr occupaient toute la largeur : chaque tuile était
+     alors centrée dans une moitié d'écran, et « Vision long terme » ne
+     pouvait pas tomber en face de « Passion du développement », qui n'a pas
+     la même longueur.
+
+     Des colonnes calées sur leur contenu règlent les deux choses d'un coup.
+     Chaque colonne fait exactement la largeur de sa tuile la plus large, les
+     deux tuiles d'une même colonne partagent donc le même bord gauche ; et
+     la grille, devenue plus étroite que la page, se centre. Le bloc fait
+     190px de large sur les 350px d'un iPhone, il reste 80px de chaque côté. */
+  .team-values {
+    grid-template-columns: max-content max-content;
+    justify-content: space-between;
+  }
+
+  /* La colonne de gauche se cale sur le bord gauche de la carte, celle de
+     droite sur son bord droit. Les deux colonnes sont larges comme leur
+     tuile la plus longue, donc « Vision » tombe en face de « Passion » et
+     le « t » de « développement » finit exactement où finit la carte. */
+  .team-value {
+    justify-content: flex-start;
+    padding-inline: 0;
+  }
+
+  .team-values > .team-value:nth-child(even) {
+    justify-content: flex-end;
+  }
+
+  .team-values > .team-value:nth-child(even) .team-value-copy {
+    text-align: right;
+  }
+
+  /* ---------- Une seule taille de titre sur toute la page ----------
+     Le titre du CTA avait sa propre échelle, calée sur le desktop. Il
+     reprend celle de `SectionHeading` : sur téléphone, tous les titres de
+     section ont le même corps, un cran sous celui du hero. La valeur est
+     celle qui empêche « de signer. » de rester seul sur une troisième
+     ligne dans le titre de la FAQ, qui est le plus long de la page. */
+  .cta-title {
+    font-size: clamp(1.05rem, 6.4vw, 2.5rem);
+  }
+
+  /* ---------- CTA : les retours à la ligne sont écrits pour le desktop ----
+     Le titre et les deux paragraphes gardent leurs `\n` en `pre-line`. Sur
+     une colonne de téléphone, une ligne déjà coupée court se recoupe une
+     seconde fois et le bloc part sur trois ou quatre lignes. Le texte
+     reprend son cours normal et se répartit tout seul. */
+  .cta-title,
+  .cta-body,
+  .cta-note {
+    white-space: normal;
+  }
+
+  /* ---------- CTA : trois rectangles, rien d'autre ----------
+     La marque Synode au centre et la fausse fenêtre de visioconférence
+     tenaient debout grâce aux fils qui les reliaient, et ces fils sont déjà
+     retirés sous 768px. Restent les trois cartes qui portent le propos. */
+  .audit-mark,
+  .audit-card--visio {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   MOBILE — titres et paragraphes centrés.
+
+   Sur une colonne de 350px, un titre de deux lignes et son chapeau alignés à
+   gauche laissent un bord droit très irrégulier, et la page se lit comme une
+   suite de blocs posés dans un coin. Centrés, chaque section retrouve un axe.
+
+   L'étiquette de section reste à gauche : c'est elle qui marque le début du
+   bloc, et c'est le seul repère fixe d'une page dont tout le reste est
+   maintenant centré. Elle n'est donc pas touchée ici, uniquement le `h2` et
+   le paragraphe qui le suit.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .section-heading > h2,
+  .section-heading > p {
+    text-align: center;
+  }
+
+  /* Le hero et le CTA n'ont pas d'en-tête de section : leur colonne est
+     composée à la main. Elle se centre en entier, boutons compris. Un bouton
+     resté à gauche sous un titre centré ne se lit pas comme un choix, il se
+     lit comme un oubli. */
+  .hero-copy,
+  .cta-copy {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   La seconde voix des titres — toutes largeurs.
+
+   Marquée par un `^` dans la copie (voir `src/lib/lines.tsx`). Elle prend sa
+   propre ligne, dans un corps réduit : la première proposition porte le
+   constat, la seconde le nuance, et le titre le dit au lieu de l'aplatir sur
+   deux lignes de même poids.
+
+   Le rapport de 0,62 vient du téléphone, où il était une contrainte : avec
+   des titres à 32px dans une colonne de 350px, c'est la valeur qui ramène la
+   plus longue des trois secondes voix — « Deux expertises, un même
+   objectif. » — sur une seule ligne avec au moins 20px de marge sur un écran
+   de 320px. Le desktop reprend le même rapport, non par nécessité mais pour
+   que l'effet soit le même d'un bout à l'autre de la gamme.
+
+   Le `^` ouvrant un bloc, un `\n` juste avant ferait une ligne vide. Les
+   titres concernés n'en portent donc plus.
+   --------------------------------------------------------------------------- */
+.title-aside {
+  display: block;
+  margin-top: 0.15em;
+  /* Desktop : aucun titre de section n'y est bridé en largeur, la seconde
+     voix a donc toute la place. Le rapport n'est plus une contrainte de
+     composition mais un choix de hiérarchie, et il se resserre : assez
+     grand pour être une phrase du titre, assez petit pour rester dessous. */
+  font-size: 0.72em;
+}
+
+/* Téléphone : là, c'est bien une contrainte. 0,62 est la valeur qui ramène
+   la plus longue des trois secondes voix sur une seule ligne avec au moins
+   20px de marge sur un écran de 320px. */
+@media (max-width: 767px) {
+  .title-aside {
+    font-size: 0.62em;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   MOBILE — les pages Réalisations et Contact.
+
+   Elles suivent l'accueil : les en-têtes — titre de page, titre du CTA,
+   leurs paragraphes et leurs boutons — sur l'axe de la page. Le panneau
+   d'un projet reste à gauche, c'est du contenu et non un en-tête, mais il
+   gagne de l'air : ses éléments étaient tous à la même distance les uns
+   des autres et se lisaient comme un seul pavé au lieu de quatre
+   informations distinctes.
+   --------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Seuls les en-têtes sont centrés : un titre de page ou de section
+     annonce un bloc, il tient sur l'axe. Le panneau d'un projet est du
+     contenu — un rang, un domaine, un titre, deux paragraphes — et le
+     contenu se lit à gauche. */
+  .page-hero-copy,
+  .works-cta-copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Le panneau d'un projet porte quatre informations de nature différente :
+     son rang dans la série, à quel domaine il appartient et comment il
+     s'appelle, ce qu'il fait, ce qu'il a donné. Une gouttière unique de
+     7px les mettait toutes sur le même plan. Le rang se détache, le domaine
+     et le titre se rapprochent au point de ne faire qu'un bloc, et les deux
+     paragraphes respirent. */
+  .work-copy {
+    gap: 0;
+  }
+
+  .works-panel-domain {
+    margin-top: 1.1rem;
+  }
+
+  .works-panel-title {
+    margin-top: 0.15rem;
+  }
+
+  .works-panel-desc,
+  .works-panel-result {
+    margin-top: 0.9rem;
+  }
+}

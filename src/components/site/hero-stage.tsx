@@ -1,4 +1,5 @@
 import { HeroAppMock } from "@/components/site/hero-app-mock";
+import { Reveal } from "@/components/site/reveal";
 import { PillarsBand } from "@/components/sections/pillars-band";
 import type { Locale } from "@/lib/content";
 
@@ -15,9 +16,14 @@ import type { Locale } from "@/lib/content";
 export function HeroStage({ locale }: { locale: Locale }) {
   return (
     <div className="hero-stage">
-      <div className="hero-stage-panel">
+      {/* Reveal sert uniquement de détecteur : il pose data-shown quand le
+          mock entre à l'écran. Il n'anime rien par lui-même, le fondu de
+          `.reveal` est neutralisé sur ce panneau. C'est ce qui permet au
+          mock de jouer ses éléments une seule fois sur téléphone, au
+          moment du scroll, au lieu de tourner en boucle. */}
+      <Reveal className="hero-stage-panel">
         <HeroAppMock locale={locale} />
-      </div>
+      </Reveal>
 
       <PillarsBand locale={locale} />
     </div>

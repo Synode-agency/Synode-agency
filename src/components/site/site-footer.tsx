@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import Link from "next/link";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
@@ -20,7 +21,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <div className="flex max-w-xs flex-col gap-4">
             <Wordmark variant="mark" />
             <p className="text-[length:var(--fs-small)] leading-[var(--lh-body)] text-muted-foreground">
-              {site.tagline}
+              {renderLines(site.tagline)}
             </p>
           </div>
 

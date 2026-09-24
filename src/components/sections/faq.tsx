@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
 import { FaqAccordion } from "@/components/site/faq-accordion";
@@ -23,7 +24,7 @@ export function Faq({ locale }: { locale: Locale }) {
         <div className="container-page">
           <SectionHeading
             eyebrow={faq.eyebrow}
-            title={faq.title}
+            title={renderLines(faq.title)}
             subtitle={faq.body}
             align="left"
             className="faq-heading reveal-left"

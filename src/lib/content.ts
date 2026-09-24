@@ -77,7 +77,7 @@ const fr = {
   problem: {
     eyebrow: "Le constat",
     answerLabel: "Ce qu'on y répond",
-    title: "L'automatisation et le digital avancent vite.\nLes entreprises, pas toujours.",
+    title: "L'automatisation et le digital avancent vite. ^Les entreprises, pas toujours.",
     intro:
       "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé,\nquels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
     /* Four columns, matching the design. The figures are illustrative and
@@ -107,7 +107,7 @@ const fr = {
   },
   offer: {
     eyebrow: "Notre offre",
-    title: "Deux offres au cœur. Une troisième au besoin.",
+    title: "Deux offres au cœur. ^Une troisième au besoin.",
     /** Set back in the title: it is not what we lead with. */
     titleSoft: "Une troisième au besoin.",
     subtitle: "La solution adaptée à votre problème, définie ensemble.",
@@ -170,7 +170,7 @@ const fr = {
   },
   realisations: {
     eyebrow: "Réalisations & démonstrateurs",
-    title: "Des systèmes qui tournent,\npas des promesses.",
+    title: "Des systèmes qui tournent, ^pas des promesses.",
     titleAccent: "systèmes",
     filterCta: "Parler du vôtre",
     scrollCta: "Voir nos réalisations",
@@ -207,7 +207,11 @@ const fr = {
   },
   team: {
     eyebrow: "L'équipe",
-    title: "La team Synode.\nDeux expertises, un même objectif.",
+    /* Le second retour n'est rendu que sous 768px (voir team.tsx) : sur
+       téléphone le titre tient sur trois lignes, sur desktop sur deux.
+       L'espace avant « un » est ce qui recolle la ligne quand le <br>
+       est masqué. */
+    title: "La team Synode. ^Deux expertises, un même objectif.",
     /** The word the title turns brand blue. */
     titleAccent: "Synode",
     body: "Deux profils complémentaires pour transformer vos besoins en automatisations, outils et solutions digitales sur mesure.",
