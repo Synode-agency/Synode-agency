@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import Image from "next/image";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
@@ -18,19 +19,7 @@ export function Team({ locale }: { locale: Locale }) {
         <div className="container-page">
           <SectionHeading
             eyebrow={team.eyebrow}
-            title={team.title
-              .split(new RegExp(`(${team.titleAccent}|\n)`))
-              .map((part, index) =>
-                part === team.titleAccent ? (
-                  <span key={index} className="text-brand">
-                    {part}
-                  </span>
-                ) : part === "\n" ? (
-                  <br key={index} />
-                ) : (
-                  part
-                ),
-              )}
+            title={renderLines(team.title, [team.titleAccent])}
             subtitle={team.body}
             align="left"
             className="team-heading reveal-left"

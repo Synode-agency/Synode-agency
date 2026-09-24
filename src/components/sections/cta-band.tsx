@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { renderLines } from "@/lib/lines";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Reveal } from "@/components/site/reveal";
@@ -19,16 +19,10 @@ export function CtaBand({ locale }: { locale: Locale }) {
         <div className="cta-composition">
           <Reveal className="reveal-left cta-copy">
             <h2 className="cta-title">
-              {/* The line breaks live in the copy and `pre-line` keeps them,
-                  so only the accent has to be split out here. */}
-              {ctaBand.title.split(ctaBand.titleAccent).map((part, i, all) => (
-                <Fragment key={i}>
-                  {part}
-                  {i < all.length - 1 && (
-                    <span className="text-brand">{ctaBand.titleAccent}</span>
-                  )}
-                </Fragment>
-              ))}
+              {/* Les coupes passent par les marqueurs de `renderLines` : le
+                  desktop et le téléphone ne coupent pas au même endroit, ce
+                  que `pre-line` ne savait pas exprimer. */}
+              {renderLines(ctaBand.title, [ctaBand.titleAccent])}
             </h2>
             <p className="cta-body">{ctaBand.body}</p>
 

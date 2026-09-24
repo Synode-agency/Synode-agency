@@ -96,8 +96,8 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
           <div className="offer-panel section-screen overflow-hidden">
             <div className="container-page">
               <div className="relative grid gap-[clamp(2rem,1.5rem+2.5vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-                <Reveal className="reveal-left flex flex-col items-start gap-5 text-left">
-                  <h2 className="text-[1.75rem] font-semibold leading-[1.12] sm:text-[2.25rem] lg:text-[length:var(--fs-h2)]">
+                <Reveal className="works-cta-copy reveal-left flex flex-col items-start gap-5 text-left">
+                  <h2 className="text-[clamp(1.05rem,6.4vw,2.5rem)] font-semibold leading-[1.12] sm:text-[2.25rem] lg:text-[length:var(--fs-h2)]">
                     {realisations.cta.title}
                   </h2>
                   <p className="max-w-xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">

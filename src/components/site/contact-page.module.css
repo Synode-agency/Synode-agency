@@ -130,6 +130,24 @@
 }
 @media (max-width: 639px) {
   .panel form input, .panel form select, .panel form textarea { font-size: 1rem; }
-  .intro h1 { font-size: clamp(2rem, 8.5vw, 3rem); }
-  .linkArrow { margin-left: 0; }
+
+  /* Même corps que les titres de page et de section ailleurs sur le site.
+     Ce fichier avait sa propre échelle, 33px là où « Des systèmes qui
+     tournent » est à 25px : le titre arrivait sur trois lignes, avec une
+     coupe après « fait ». Le plafond de 16ch hérité du palier au-dessus
+     tombe aussi, il recoupait la première ligne bien avant le bord. */
+  .intro h1 {
+    max-width: none;
+    font-size: clamp(1.05rem, 6.4vw, 2.5rem);
+  }
+
+  /* Les deux lignes de contact sont centrées avec le reste de l'en-tête,
+     mais leur contenu se lit à gauche : un libellé gris au-dessus de sa
+     valeur n'est pas un titre. */
+  .facts { text-align: left; }
+
+  /* La flèche était posée juste après le texte, donc sa place dépendait de
+     la longueur de celui-ci : celle du téléphone tombait bien avant celle
+     de l'e-mail. Repoussée au bord droit, les deux s'alignent. */
+  .linkArrow { margin-left: auto; }
 }

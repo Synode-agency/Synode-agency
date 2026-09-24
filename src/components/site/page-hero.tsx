@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/site/reveal";
 import { cn } from "@/lib/utils";
@@ -52,16 +53,12 @@ export function PageHero({
 }) {
   const centered = align === "center";
 
-  /* The accent is copy, not a pattern: a "." in it would otherwise match any
-     character and colour the wrong slice of the title. */
-  const accentPattern = titleAccent?.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
   const Frame = stagger ? "div" : Reveal;
 
   return (
     <Frame
       className={cn(
-        "flex flex-col gap-6",
+        "page-hero-copy flex flex-col gap-6",
         centered
           ? "mx-auto max-w-[62ch] items-center text-center"
           : cn(
@@ -80,33 +77,17 @@ export function PageHero({
       <Line i={1} stagger={stagger}>
         <h1
           className={cn(
-          "page-hero-title text-[2.4rem] leading-[1.05] font-semibold sm:text-[3.25rem] lg:text-[length:var(--fs-h2)]",
+          "page-hero-title text-[clamp(1.05rem,6.4vw,2.5rem)] leading-[1.05] font-semibold sm:text-[3.25rem] lg:text-[length:var(--fs-h2)]",
             centered ? "max-w-[18ch]" : "max-w-none",
           )}
         >
-        {title
-          .split(
-            titleAccent
-              ? new RegExp(`(${accentPattern}|\n)`)
-              : /(\n)/,
-          )
-          .map((part, i) =>
-            part === "\n" ? (
-              <br key={i} />
-            ) : part === titleAccent ? (
-              <span key={i} className="text-brand">
-                {part}
-              </span>
-            ) : (
-              part
-            ),
-          )}
+        {renderLines(title, titleAccent ? [titleAccent] : [])}
         </h1>
       </Line>
 
       <Line i={2} stagger={stagger}>
-        <p className="page-hero-body max-w-[62ch] whitespace-pre-line text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
-          {body}
+        <p className="page-hero-body max-w-[62ch] text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
+          {renderLines(body)}
         </p>
       </Line>
 

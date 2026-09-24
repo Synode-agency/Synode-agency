@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import { SectionHeading } from "@/components/site/section-heading";
 import { OfferCard } from "@/components/site/offer-card";
 import { ChapterMark } from "@/components/site/chapter-mark";
@@ -32,18 +33,7 @@ export function Offer({ locale }: { locale: Locale }) {
         <div className="container-page">
           <SectionHeading
             eyebrow={offer.eyebrow}
-            title={offer.title
-              .split(offer.titleSoft)
-              .flatMap((part, index) =>
-                index === 0
-                  ? [part]
-                  : [
-                      <span key={index} className="offer-title-soft">
-                        {offer.titleSoft}
-                      </span>,
-                      part,
-                    ],
-              )}
+            title={renderLines(offer.title, [offer.titleSoft], "offer-title-soft")}
             subtitle={offer.subtitle}
             subtitleNote={offer.subtitleNote}
             align="left"

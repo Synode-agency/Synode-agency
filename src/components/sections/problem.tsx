@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -19,12 +20,12 @@ export function Problem({ locale }: { locale: Locale }) {
 
         <SectionHeading
           eyebrow={problem.eyebrow}
-          title={locale === "fr"
-            ? problem.title.split(/(automatisation|digital|\n)/).map((part, index) =>
-                (part === "automatisation" || part === "digital") ? <span key={index} className="text-brand">{part}</span>
-                  : part === "\n" ? <br key={index} /> : part,
-              )
-            : problem.title}
+          title={renderLines(
+            problem.title,
+            /* « L' » fait partie du mot peint : couper l'article du nom
+               laissait une lettre noire collée à un mot bleu. */
+            locale === "fr" ? ["L'automatisation", "digital"] : [],
+          )}
           subtitle={problem.intro}
           align="left"
           className="problem-heading reveal-left"

@@ -1,3 +1,4 @@
+import { renderLines } from "@/lib/lines";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
 import { MethodTrack } from "@/components/site/method-track";
@@ -20,19 +21,7 @@ export function Method({ locale }: { locale: Locale }) {
 
         <SectionHeading
           eyebrow={method.eyebrow}
-          title={method.title
-            .split(new RegExp(`(${accent}|\n)`))
-            .map((part, index) =>
-              part === accent ? (
-                <span key={index} className="text-brand">
-                  {part}
-                </span>
-              ) : part === "\n" ? (
-                <br key={index} />
-              ) : (
-                part
-              ),
-            )}
+          title={renderLines(method.title, [accent])}
           subtitle={audience.body}
           align="left"
           className="method-heading reveal-left"

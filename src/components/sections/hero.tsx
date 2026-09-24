@@ -29,9 +29,9 @@ export function Hero({ locale }: { locale: Locale }) {
             {/* Left column — the pitch. Pas de Reveal : c'est la première
                 chose à l'écran. Un titre qui apparaît en fondu retarde le
                 message et fait passer le site pour lent. */}
-            <div className="flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
+            <div className="hero-copy flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
               <div className="relative isolate w-fit">
-                <h1 className="hero-heading text-[2.5rem] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.45vw,3rem)]">
+                <h1 className="hero-heading text-[clamp(1.5rem,8.2vw,2.5rem)] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.45vw,3rem)]">
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
                 </h1>
