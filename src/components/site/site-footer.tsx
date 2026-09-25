@@ -65,12 +65,12 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         {/* No entrance on this row: it is the last thing on the page, and the
             observer's bottom margin means it can sit in view without ever
             counting as visible, which left it hidden for good. */}
-        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[0.75rem] text-text-mono sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-[clamp(1.75rem,1.5rem+1vw,2.75rem)] flex flex-col gap-2.5 border-t border-hairline pt-[clamp(1rem,0.85rem+0.6vw,1.6rem)] text-[length:var(--fs-micro)] text-text-mono sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Synode</span>
 
           <nav
             aria-label={locale === "fr" ? "Informations légales" : "Legal information"}
-            className="flex items-center gap-x-1.5 whitespace-nowrap text-[0.68rem] sm:text-[0.75rem]"
+            className="flex items-center gap-x-1.5 whitespace-nowrap text-[length:var(--fs-micro)] sm:text-[length:var(--fs-micro)]"
           >
             {legal.map((link, i) => (
               <span key={link.slug} className="flex items-center gap-1.5">

@@ -24,7 +24,7 @@ export function Team({
       id="equipe"
       className="page-shell relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
     >
-      <div className="team-panel section-screen overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)]">
+      <div className="team-panel section-screen overflow-hidden rounded-[var(--r-lg)]">
         {!headless && <ChapterMark n={4} side="right" />}
 
         <div className="container-page">

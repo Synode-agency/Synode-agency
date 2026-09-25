@@ -77,7 +77,7 @@ export function PageHero({
       <Line i={1} stagger={stagger}>
         <h1
           className={cn(
-          "page-hero-title text-[clamp(1.05rem,6.4vw,2.5rem)] leading-[1.05] font-semibold sm:text-[3.25rem] lg:text-[length:var(--fs-h2)]",
+          "page-hero-title text-[length:var(--fs-h2)] leading-[1.06] font-semibold",
             centered ? "max-w-[18ch]" : "max-w-none",
           )}
         >

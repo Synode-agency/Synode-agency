@@ -123,7 +123,7 @@ export function MethodTrack({
             <Reveal
               key={step.title}
               delay={i * 70}
-              className="flex items-start gap-4 rounded-2xl border border-hairline bg-surface p-5 text-left"
+              className="flex items-start gap-4 rounded-[var(--r-sm)] border border-hairline bg-surface p-5 text-left"
             >
               {Glyph && (
                 <span aria-hidden className="track-icon mt-[3px] shrink-0">
@@ -131,13 +131,13 @@ export function MethodTrack({
                 </span>
               )}
               <div>
-                <h3 className="text-[0.95rem] font-semibold tracking-tight">
+                <h3 className="text-[length:var(--fs-small)] font-semibold tracking-tight">
                   <span className="track-num">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   {step.title}
                 </h3>
-                <p className="mt-1.5 text-[0.83rem] leading-[var(--lh-body)] text-muted-foreground">
+                <p className="mt-1.5 text-[length:var(--fs-label)] leading-[var(--lh-body)] text-muted-foreground">
                   {step.text}
                 </p>
               </div>
@@ -178,7 +178,7 @@ export function MethodTrack({
                     <Glyph />
                   </span>
                 )}
-                <h3 className="track-title font-archivo mt-[18px] text-[clamp(18px,1.9vw,21px)] font-semibold">
+                <h3 className="track-title font-archivo mt-[18px] text-[length:var(--fs-h4)] font-semibold">
                   <span className="track-num">
                     {String(i + 1).padStart(2, "0")}
                   </span>

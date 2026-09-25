@@ -44,8 +44,14 @@ const SERVICE_ICONS: Record<string, Glyph> = {
 };
 
 /**
- * Nos services : les deux familles, chacune dans son propre panneau, et
- * leurs douze prestations nommées une par une.
+ * Nos services : les deux familles et leurs douze prestations, nommées une
+ * par une.
+ *
+ * Aucune carte. Le titre de la famille tient la colonne de gauche, ses six
+ * prestations s'alignent à droite, séparées par un filet. Douze cartes
+ * bordées posaient douze surfaces de plus sur une page qui en avait déjà
+ * beaucoup, et c'est le nom de la prestation qu'on doit regarder, pas la
+ * boîte autour.
  *
  * Il n'existe pas de page qui les rassemble, et c'est délibéré : une page
  * d'index n'aurait rien dit de plus que cette section, et aurait mis une
@@ -71,64 +77,55 @@ export function ServicesBand({ locale }: { locale: Locale }) {
 
         <div className="services-families">
           {services.families.map((family, f) => (
-            <Reveal
-              key={family.slug}
-              delay={80 + f * 120}
-              className="services-family reveal-up"
-            >
-              <div className="services-family-head">
+            <div key={family.slug} className="services-family">
+              <Reveal className="reveal-left services-family-head">
                 <span aria-hidden className="services-family-num">
                   {String(f + 1).padStart(2, "0")}
                 </span>
-
-                <div className="services-family-copy">
-                  <h3
-                    id={`famille-${family.slug}`}
-                    className="services-family-title"
-                  >
-                    {family.title}
-                  </h3>
-                  <p className="services-family-lead">{family.lead}</p>
-                </div>
-
-                {/* Le compte, au bout d'un filet : il dit d'un coup d'œil
-                    combien de portes s'ouvrent sous ce titre. */}
+                <h3
+                  id={`famille-${family.slug}`}
+                  className="services-family-title"
+                >
+                  {family.title}
+                </h3>
+                <p className="services-family-lead">{family.lead}</p>
                 <span aria-hidden className="services-family-count">
-                  <i />
                   {family.items.length} {services.countLabel}
                 </span>
-              </div>
+              </Reveal>
 
+              {/* Une liste, pas une grille de cartes. Douze cartes bordées
+                  posaient douze surfaces sur une page qui en avait déjà
+                  beaucoup ; un filet entre deux lignes suffit à les séparer,
+                  et le nom de la prestation redevient ce qu'on regarde. */}
               <ul
-                className="services-grid"
+                className="services-list"
                 aria-labelledby={`famille-${family.slug}`}
               >
-                {family.items.map((item) => {
+                {family.items.map((item, i) => {
                   const Glyph = SERVICE_ICONS[item.slug];
                   return (
                     <li key={item.slug}>
-                      <Link
-                        href={path(locale, `/services/${item.slug}`)}
-                        className="service-card"
-                      >
-                        <span aria-hidden className="service-card-tile">
-                          {Glyph && <Glyph />}
-                        </span>
-
-                        <span className="service-card-copy">
-                          <b className="service-card-title">{item.title}</b>
-                          <i className="service-card-lead">{item.lead}</i>
-                        </span>
-
-                        <span aria-hidden className="service-card-go">
-                          <ArrowRight />
-                        </span>
-                      </Link>
+                      <Reveal delay={40 + i * 40} className="reveal-up">
+                        <Link
+                          href={path(locale, `/services/${item.slug}`)}
+                          className="service-row"
+                        >
+                          <span aria-hidden className="service-row-icon">
+                            {Glyph && <Glyph />}
+                          </span>
+                          <span className="service-row-copy">
+                            <b className="service-row-title">{item.title}</b>
+                            <i className="service-row-lead">{item.lead}</i>
+                          </span>
+                          <ArrowRight aria-hidden className="service-row-go" />
+                        </Link>
+                      </Reveal>
                     </li>
                   );
                 })}
               </ul>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

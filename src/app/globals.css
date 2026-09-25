@@ -94,23 +94,47 @@
      one section draws to the first thing the next one draws. Each section
      carries half of it above and half below, so every seam comes out the
      same. */
-  --space-between: 150px;
+  --space-between: 200px;
   /* The closing CTA gets a wider seam than the rest: arriving on it should
      feel like a break in the page, not like the eighth section in a row. */
-  --space-before-cta: 240px;
+  --space-before-cta: 300px;
   --space-lg: clamp(2.5rem, 1.75rem + 2.5vw, 5rem);
   --space-md: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
   --space-sm: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
-  --fs-h2: clamp(2.9rem, 2.17rem + 1.15vw, 4rem);
-  --fs-h3: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
-  --fs-body: clamp(0.95rem, 0.9rem + 0.3vw, 1.15rem);
+  /* -------------------------------------------------------------------
+     L'ÉCHELLE TYPOGRAPHIQUE — huit valeurs, et pas une neuvième.
+
+     Il y en avait cinquante-six, écrites une par une au fil des sections.
+     Personne ne compte, mais tout le monde sent que deux textes voisins ne
+     sont pas du même corps : c'est ce qui fait qu'une page ne semble pas
+     finie sans qu'on sache dire pourquoi.
+
+     Règle : aucune taille ne s'écrit en dur dans un composant. Si une
+     valeur manque, c'est l'échelle qu'on corrige, pas la règle locale.
+     Deux exceptions légitimes, et deux seulement : le mock du hero et les
+     illustrations du constat, qui sont des dessins mis à l'échelle de leur
+     conteneur et dont les `em` internes ne sont pas de la typographie de
+     page.
+
+     `--fs-display` est nouveau, et il corrige une inversion : le titre du
+     hero sortait 62 % PLUS PETIT que les titres de section sur un écran de
+     1024px, parce qu'il était plafonné par la largeur de sa colonne. Le
+     titre principal d'une page ne peut pas être le plus petit.
+     ------------------------------------------------------------------- */
+  --fs-display: clamp(2.125rem, 1.4rem + 2.6vw, 4.25rem);
+  --fs-h2: clamp(1.6rem, 1.15rem + 2.2vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
+  --fs-h4: clamp(1.05rem, 1rem + 0.25vw, 1.25rem);
+  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
   /* One leading for every paragraph on the site. It was set case by case
      between 1.6 and 1.75, so no two blocks of running text sat the same
      way; and at 1.7 the lines drifted apart enough that a paragraph read
      as a list. */
   --lh-body: 1.4;
-  --fs-small: clamp(0.8rem, 0.76rem + 0.2vw, 0.95rem);
-  --fs-button: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
+  --fs-small: 0.875rem;
+  --fs-label: 0.8rem;
+  --fs-micro: 0.75rem;
+  --fs-button: 0.9375rem;
 
   /* Ground and ink */
   --background: #EEF0F4;
@@ -173,7 +197,22 @@
   --chart-4: #1E5FD8;
   --chart-5: #0B3FA8;
 
-  --radius: 0.875rem;
+  /* -------------------------------------------------------------------
+     LES RAYONS — quatre valeurs, et pas une cinquième.
+
+     Il y en avait trente-huit. Un œil ne compte pas les coins, mais il voit
+     que deux voisins ne sont pas du même arrondi.
+
+     Un contenu prend toujours un rayon plus petit que son contenant :
+     une tuile dans une carte, une carte dans un panneau.
+     ------------------------------------------------------------------- */
+  --r-xs: 0.5rem;      /* 8px  — tuiles, puces, éléments de navigation */
+  --r-sm: 0.875rem;    /* 14px — cartes */
+  --r-lg: 1.5rem;      /* 24px — panneaux et grandes surfaces */
+  --r-pill: 9999px;    /* pastilles d'état, points, boutons ronds */
+
+  /* Alias historique : les composants shadcn le lisent. */
+  --radius: var(--r-sm);
   /* Gap between the viewport edge and the page's card blocks */
   --page-gutter: 35px;
   /* The top inset is deliberately smaller than the sides: the navbar lives in
@@ -666,7 +705,7 @@
     align-items: center;
     gap: 0.7rem;
     padding: 0.65rem 1rem 0.65rem 0.7rem;
-    border-radius: 0.9rem;
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline);
     background: color-mix(in oklab, var(--surface) 80%, transparent);
     transition:
@@ -684,7 +723,7 @@
     place-items: center;
     width: 2.1rem;
     aspect-ratio: 1;
-    border-radius: 0.65rem;
+    border-radius: var(--r-xs);
     background: color-mix(in oklab, var(--brand) 12%, #ffffff);
     color: var(--brand);
   }
@@ -703,14 +742,14 @@
 
   .contact-fact-copy > i {
     font-style: normal;
-    font-size: 0.72rem;
+    font-size: var(--fs-micro);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-mono);
   }
 
   .contact-fact-copy > b {
-    font-size: 0.92rem;
+    font-size: var(--fs-small);
     font-weight: 500;
   }
 
@@ -761,7 +800,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    border-radius: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+    border-radius: var(--r-lg);
     border: 1px solid var(--hairline);
     background: linear-gradient(180deg, #f6f9fd 0%, #eef4fc 100%);
   }
@@ -785,7 +824,7 @@
     height: 82%;
     aspect-ratio: 1;
     transform: translateX(-50%);
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: color-mix(in oklab, var(--brand) 13%, transparent);
   }
 
@@ -810,7 +849,7 @@
     flex-direction: column;
     gap: 2px;
     max-width: 8.5rem;
-    font-size: clamp(0.58rem, 0.12vw + 0.55rem, 0.66rem);
+    font-size: var(--fs-micro);
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--muted-foreground);
@@ -912,7 +951,7 @@
       clamp(0.6rem, 0.8vw, 1rem);
     padding: clamp(1.25rem, 1rem + 1vw, 2rem) clamp(1.1rem, 0.9rem + 1vw, 2.25rem)
       clamp(1.4rem, 1.1rem + 1vw, 2.1rem);
-    border-radius: clamp(1rem, 0.8vw + 0.8rem, 1.4rem);
+    border-radius: var(--r-sm);
     background: #ffffff;
     text-align: center;
   }
@@ -925,14 +964,14 @@
 
   .team-card-position {
     margin-top: 0.15rem;
-    font-size: clamp(0.9rem, 0.2vw + 0.85rem, 1.05rem);
+    font-size: var(--fs-body);
     font-weight: 500;
     color: var(--brand);
   }
 
   .team-card-role {
     margin-top: 0.2rem;
-    font-size: clamp(0.74rem, 0.12vw + 0.72rem, 0.82rem);
+    font-size: var(--fs-label);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted-foreground);
@@ -943,7 +982,7 @@
     width: 2.25rem;
     height: 2px;
     margin: 0.85rem auto;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: var(--brand);
   }
 
@@ -1102,7 +1141,7 @@
     display: grid;
     width: 100%;
     padding: 0.95rem 1.1rem 0.95rem 1.35rem;
-    border-radius: clamp(0.85rem, 0.5vw + 0.72rem, 1.15rem);
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline);
     background: color-mix(in oklab, var(--surface) 40%, transparent);
     text-align: left;
@@ -1137,9 +1176,6 @@
         color-mix(in oklab, var(--tab-tile) 85%, #ffffff) 0%,
         #ffffff 62%
       );
-    box-shadow:
-      0 0 0 3px color-mix(in oklab, var(--tab-ink) 9%, transparent),
-      0 26px 50px -30px color-mix(in oklab, var(--tab-ink) 55%, transparent);
     transform: none;
   }
 
@@ -1200,7 +1236,7 @@
     width: 2.15rem;
     aspect-ratio: 1;
     flex-shrink: 0;
-    border-radius: 0.55rem;
+    border-radius: var(--r-xs);
     border: 1px solid var(--tab-border);
     background: var(--tab-tile);
     color: var(--tab-ink);
@@ -1215,7 +1251,6 @@
     border-color: transparent;
     background: var(--tab-ink);
     color: #ffffff;
-    box-shadow: 0 10px 20px -12px color-mix(in oklab, var(--tab-ink) 85%, transparent);
   }
 
   .works-deck-tile > svg {
@@ -1226,7 +1261,7 @@
 
   .works-deck-label {
     min-width: 0;
-    font-size: clamp(0.95rem, 0.2vw + 0.9rem, 1.06rem);
+    font-size: var(--fs-body);
     font-weight: 600;
     line-height: 1.25;
     letter-spacing: -0.01em;
@@ -1247,7 +1282,7 @@
   .works-deck-index {
     margin-left: auto;
     font-family: var(--font-label), var(--font-sans), sans-serif;
-    font-size: 0.85rem;
+    font-size: var(--fs-small);
     font-style: normal;
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -1292,16 +1327,16 @@
 
   .works-deck-note {
     max-width: 30ch;
-    font-size: 0.85rem;
+    font-size: var(--fs-small);
     line-height: 1.55;
     color: var(--muted-foreground);
   }
 
   .works-deck-count {
     padding: 0.22rem 0.6rem;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: color-mix(in oklab, var(--tab-ink) 12%, #ffffff);
-    font-size: 0.66rem;
+    font-size: var(--fs-micro);
     font-weight: 500;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1367,9 +1402,8 @@
     width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: clamp(0.9rem, 0.5vw + 0.75rem, 1.25rem);
+    border-radius: var(--r-sm);
     background: linear-gradient(155deg, #0f1f3d, #16325f 55%, #0b1f44);
-    box-shadow: 0 30px 60px -45px rgb(11 18 32 / 0.6);
     transition:
       transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 400ms ease;
@@ -1404,7 +1438,7 @@
     place-items: center;
     width: clamp(2.75rem, 3.4vw, 3.75rem);
     aspect-ratio: 1;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: rgb(255 255 255 / 0.92);
     color: var(--brand);
     box-shadow: 0 16px 36px -20px rgb(0 0 0 / 0.65);
@@ -1424,10 +1458,10 @@
     bottom: clamp(0.7rem, 1.2vw, 1.25rem);
     transform: translateX(-50%);
     padding: 0.3rem 0.75rem;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: rgb(255 255 255 / 0.14);
     border: 1px solid rgb(255 255 255 / 0.22);
-    font-size: 0.72rem;
+    font-size: var(--fs-micro);
     letter-spacing: 0.04em;
     color: #ffffff;
     white-space: nowrap;
@@ -1441,20 +1475,20 @@
   }
 
   .works-panel-index {
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     letter-spacing: 0.08em;
     color: var(--text-mono);
   }
 
   .works-panel-domain {
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     letter-spacing: 0.04em;
     color: var(--muted-foreground);
   }
 
   .works-panel-title {
     margin-top: 0.25rem;
-    font-size: clamp(1rem, 0.3vw + 0.92rem, 1.22rem);
+    font-size: var(--fs-h4);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -1463,7 +1497,7 @@
 
   .works-panel-desc {
     max-width: 48ch;
-    font-size: 0.8rem;
+    font-size: var(--fs-label);
     line-height: 1.6;
     color: var(--muted-foreground);
   }
@@ -1473,7 +1507,7 @@
     align-items: flex-start;
     gap: 0.5rem;
     margin-top: 0.2rem;
-    font-size: 0.82rem;
+    font-size: var(--fs-label);
     line-height: 1.5;
   }
 
@@ -1504,7 +1538,7 @@
     place-items: center;
     width: 2.6rem;
     aspect-ratio: 1;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     border: 1px solid var(--hairline);
     color: var(--foreground);
     transition:
@@ -1567,7 +1601,7 @@
     align-items: center;
     gap: clamp(0.7rem, 0.6rem + 0.35vw, 1rem);
     padding: clamp(0.6rem, 0.5rem + 0.3vw, 0.85rem);
-    border-radius: clamp(0.8rem, 0.5vw + 0.68rem, 1.1rem);
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline);
     background: color-mix(in oklab, #ffffff 55%, transparent);
     text-align: left;
@@ -1593,9 +1627,6 @@
     background: #ffffff;
     border-width: 2px;
     border-color: var(--works-ink, var(--brand));
-    box-shadow:
-      0 0 0 3px color-mix(in oklab, var(--works-ink, var(--brand)) 14%, transparent),
-      0 18px 38px -28px rgb(7 12 24 / 0.5);
   }
 
   .works-stamp-shot {
@@ -1605,7 +1636,7 @@
     aspect-ratio: 16 / 9;
     flex-shrink: 0;
     overflow: hidden;
-    border-radius: 0.55rem;
+    border-radius: var(--r-xs);
     /* A pale blue bed rather than a black frame: the stills sit on paper,
        and a dark rectangle behind them read as a hole in the page. */
     border: 1px solid color-mix(in oklab, var(--brand) 18%, transparent);
@@ -1634,7 +1665,7 @@
 
   .works-stamp-num {
     font-family: var(--font-label), var(--font-sans), sans-serif;
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--text-mono);
@@ -1646,7 +1677,7 @@
   }
 
   .works-stamp-name {
-    font-size: clamp(0.92rem, 0.25vw + 0.86rem, 1.05rem);
+    font-size: var(--fs-body);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.01em;
@@ -1660,7 +1691,7 @@
   }
 
   .works-stamp-tag {
-    font-size: 0.78rem;
+    font-size: var(--fs-micro);
     line-height: 1.35;
     color: var(--muted-foreground);
     overflow: hidden;
@@ -1692,7 +1723,7 @@
   .works-track-group[data-ink="2"] { --run-ink: #15803d; }
 
   .works-track-name {
-    font-size: 0.66rem;
+    font-size: var(--fs-micro);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1725,7 +1756,7 @@
     right: 0;
     top: 50%;
     height: 3px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: var(--hairline);
     transform: translateY(-50%);
     transition:
@@ -1748,7 +1779,7 @@
 
   @media (max-width: 640px) {
     .works-track-name {
-      font-size: 0.58rem;
+      font-size: var(--fs-micro);
       letter-spacing: 0.08em;
     }
 
@@ -1763,7 +1794,7 @@
     align-items: flex-start;
     gap: 1rem;
     padding: clamp(1.5rem, 1.2rem + 1.5vw, 2.75rem);
-    border-radius: clamp(0.85rem, 0.5vw + 0.7rem, 1.15rem);
+    border-radius: var(--r-sm);
     border: 1px dashed color-mix(in oklab, var(--brand) 35%, transparent);
     background: color-mix(in oklab, var(--surface) 55%, transparent);
     max-width: 46rem;
@@ -1776,7 +1807,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--brand);
     transition: gap 300ms ease;
@@ -1800,7 +1831,7 @@
     align-items: center;
     gap: 0.9rem;
     padding: clamp(0.7rem, 0.6rem + 0.4vw, 1rem);
-    border-radius: clamp(0.8rem, 0.5vw + 0.65rem, 1.1rem);
+    border-radius: var(--r-sm);
     border: 1px solid color-mix(in oklab, var(--brand) 22%, transparent);
     background: color-mix(in oklab, var(--surface) 72%, transparent);
   }
@@ -1868,7 +1899,7 @@
     width: 2.5rem;
     aspect-ratio: 1;
     flex-shrink: 0;
-    border-radius: 0.7rem;
+    border-radius: var(--r-xs);
     background: color-mix(in oklab, var(--brand) 12%, #ffffff);
     color: var(--brand);
   }
@@ -1894,14 +1925,14 @@
   }
 
   .flow-copy > b {
-    font-size: 0.95rem;
+    font-size: var(--fs-body);
     font-weight: 600;
     letter-spacing: -0.01em;
   }
 
   .flow-copy > i {
     font-style: normal;
-    font-size: 0.8rem;
+    font-size: var(--fs-label);
     line-height: 1.45;
     color: var(--muted-foreground);
   }
@@ -1944,7 +1975,7 @@
        breaks are the ones in the text. */
     max-width: 28ch;
     white-space: pre-line;
-    font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3.4rem);
+    font-size: var(--fs-h2);
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.02em;
@@ -1967,7 +1998,7 @@
 
   .cta-note {
     max-width: 46ch;
-    font-size: 0.82rem;
+    font-size: var(--fs-label);
     font-style: italic;
     font-weight: 300;
     line-height: var(--lh-body);
@@ -2023,7 +2054,7 @@
     align-items: center;
     gap: 0.9rem;
     padding: clamp(0.85rem, 0.7rem + 0.5vw, 1.15rem);
-    border-radius: clamp(0.9rem, 0.6vw + 0.75rem, 1.25rem);
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline);
     background: color-mix(in oklab, var(--surface) 92%, transparent);
     box-shadow: 0 18px 40px -34px rgb(11 18 32 / 0.55);
@@ -2035,7 +2066,7 @@
     width: clamp(2.4rem, 0.8vw + 2.1rem, 3rem);
     aspect-ratio: 1;
     flex-shrink: 0;
-    border-radius: clamp(0.65rem, 0.4vw + 0.55rem, 0.9rem);
+    border-radius: var(--r-xs);
     background: color-mix(in oklab, var(--brand) 12%, #ffffff);
     color: var(--brand);
   }
@@ -2055,7 +2086,7 @@
   }
 
   .audit-lines > b {
-    font-size: clamp(0.82rem, 0.2vw + 0.78rem, 0.95rem);
+    font-size: var(--fs-small);
     font-weight: 500;
     line-height: 1.35;
   }
@@ -2069,7 +2100,7 @@
   /* The two grey rules standing in for a line of detail. */
   .audit-lines > i {
     height: 5px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: color-mix(in oklab, var(--brand) 14%, var(--surface-2));
   }
 
@@ -2083,7 +2114,7 @@
     justify-self: center;
     width: clamp(3.75rem, 5vw, 5.25rem);
     aspect-ratio: 1;
-    border-radius: clamp(1rem, 0.8vw + 0.85rem, 1.5rem);
+    border-radius: var(--r-sm);
     border: 1px solid var(--hairline);
     background: #ffffff;
     box-shadow: 0 20px 45px -30px rgb(11 18 32 / 0.6);
@@ -2107,7 +2138,7 @@
     width: calc(clamp(9rem, 15vw, 13rem) + 6px);
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     border: 1px solid rgb(255 255 255 / 0.75);
     background: radial-gradient(
       circle,
@@ -2124,7 +2155,7 @@
   .audit-halo::after {
     content: "";
     position: absolute;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     border: 1px solid rgb(255 255 255 / 0.85);
   }
 
@@ -2142,7 +2173,7 @@
     width: clamp(5.5rem, 9vw, 8rem);
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--brand) 22%, transparent) 0%,
@@ -2170,7 +2201,7 @@
   .audit-visio-main,
   .audit-visio-side > i {
     display: block;
-    border-radius: 0.6rem;
+    border-radius: var(--r-xs);
     background: linear-gradient(
       150deg,
       color-mix(in oklab, var(--brand) 18%, var(--surface-2)),
@@ -2197,7 +2228,7 @@
     place-items: center;
     width: clamp(1.7rem, 0.5vw + 1.55rem, 2.1rem);
     aspect-ratio: 1;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     border: 1px solid var(--hairline);
     background: #ffffff;
     color: var(--brand);
@@ -2239,7 +2270,7 @@
       width: 8px;
       height: 8px;
       margin: -4px 0 0 -4px;
-      border-radius: 9999px;
+      border-radius: var(--r-pill);
       background: var(--brand);
     }
 
@@ -2484,10 +2515,9 @@
     flex-direction: column;
     gap: clamp(1.1rem, 0.9rem + 0.8vw, 1.75rem);
     overflow: hidden;
-    border-radius: clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
+    border-radius: var(--r-lg);
     border: 1px solid rgb(11 18 32 / 0.06);
     padding: clamp(1.4rem, 1.1rem + 1.2vw, 2.25rem);
-    box-shadow: 0 1.6rem 3rem -2rem rgb(6 22 60 / 0.45);
   }
 
   .offer-head { display: flex; gap: clamp(0.8rem, 0.6rem + 0.6vw, 1.25rem); }
@@ -2500,14 +2530,14 @@
     flex-wrap: wrap;
   }
   .offer-num {
-    font-size: clamp(1.3rem, 1rem + 0.9vw, 1.9rem);
+    font-size: var(--fs-h3);
     font-weight: 800;
     letter-spacing: -0.05em;
     line-height: 1;
     color: var(--brand);
   }
   .offer-title {
-    font-size: clamp(1.05rem, 0.85rem + 0.7vw, 1.4rem);
+    font-size: var(--fs-h3);
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1.2;
@@ -2515,7 +2545,7 @@
   .offer-for {
     margin-top: 0.5rem;
     max-width: 34ch;
-    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    font-size: var(--fs-small);
     line-height: 1.5;
     color: var(--muted-foreground);
   }
@@ -2533,9 +2563,9 @@
     gap: 0.6rem;
     min-width: 0;
     padding: clamp(0.55rem, 0.45rem + 0.3vw, 0.8rem) clamp(0.7rem, 0.55rem + 0.4vw, 1rem);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 2px solid rgb(11 18 32 / 0.09);
-    font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.9rem);
+    font-size: var(--fs-small);
     line-height: 1.25;
     color: var(--secondary-foreground);
     transition: border-color 260ms ease, color 260ms ease;
@@ -2621,12 +2651,12 @@
     gap: clamp(0.7rem, 0.55rem + 0.5vw, 1.1rem);
     margin-top: auto;
     padding: clamp(0.9rem, 0.75rem + 0.5vw, 1.35rem);
-    border-radius: clamp(0.8rem, 0.6rem + 0.5vw, 1.15rem);
+    border-radius: var(--r-sm);
     background: #f2f7fd;
   }
   .offer-eyebrow {
     display: block;
-    font-size: 0.68rem;
+    font-size: var(--fs-micro);
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -2634,7 +2664,7 @@
   }
   .offer-result-text {
     margin-top: 0.4rem;
-    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    font-size: var(--fs-small);
     line-height: 1.5;
   }
 
@@ -2650,10 +2680,10 @@
     align-items: center;
     gap: 0.6rem;
     padding: clamp(0.7rem, 0.6rem + 0.35vw, 0.95rem) clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--brand);
     color: #fff;
-    font-size: clamp(0.85rem, 0.8rem + 0.2vw, 0.98rem);
+    font-size: var(--fs-small);
     font-weight: 600;
     transition: background-color 240ms ease, transform 240ms ease;
   }
@@ -2665,7 +2695,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    font-size: clamp(0.82rem, 0.78rem + 0.18vw, 0.94rem);
+    font-size: var(--fs-small);
     font-weight: 500;
     color: var(--brand);
     transition: gap 240ms ease;
@@ -2678,7 +2708,7 @@
     display: grid;
     gap: clamp(1.25rem, 1rem + 1.2vw, 2.5rem);
     padding: clamp(1.25rem, 1rem + 1vw, 2rem);
-    border-radius: clamp(1.1rem, 0.9rem + 0.7vw, 1.6rem);
+    border-radius: var(--r-lg);
     /* Stays on the panel rather than turning into a third white card: this
        is a service taken on request, not one of the two on offer. */
     border: 1px solid rgb(255 255 255 / 0.16);
@@ -2688,7 +2718,7 @@
   .offer-support .offer-eyebrow { color: rgb(255 255 255 / 0.66); }
   .offer-support-title {
     margin-top: 0.45rem;
-    font-size: clamp(1rem, 0.85rem + 0.6vw, 1.3rem);
+    font-size: var(--fs-h4);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -2696,7 +2726,7 @@
   .offer-support-text {
     margin-top: 0.45rem;
     max-width: 52ch;
-    font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.94rem);
+    font-size: var(--fs-small);
     line-height: 1.55;
     color: var(--muted-foreground);
   }
@@ -2712,9 +2742,9 @@
   .offer-support-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .offer-support-chips li {
     padding: 0.45rem 0.85rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 1px solid rgb(255 255 255 / 0.2);
-    font-size: clamp(0.7rem, 0.66rem + 0.14vw, 0.8rem);
+    font-size: var(--fs-label);
     line-height: 1.25;
     color: var(--secondary-foreground);
     transition: border-color 260ms ease, color 260ms ease;
@@ -2725,7 +2755,6 @@
     background: #ffffff;
     border: 1px solid #ffffff;
     color: #0a7ce0;
-    box-shadow: 0 0.7rem 1.6rem -0.9rem rgb(6 22 60 / 0.6);
   }
   .offer-cta--ghost:hover {
     background: #eef5fd;
@@ -2850,201 +2879,148 @@
     gap: 0.75rem;
     margin-top: 1.25rem;
   }
-  .pillar-card { padding: 0.9rem; font-size: 0.82rem; }
+  .pillar-card { padding: 0.9rem; font-size: var(--fs-label); }
   .pillar-icon-tile { width: 2.2rem; height: 2.2rem; }
   .pillar-icon-tile svg { width: 1.05rem; height: 1.05rem; }
-  .pillar-title { font-size: 0.9rem; }
-  .pillar-text { font-size: 0.76rem; margin-top: 0.25rem; }
+  .pillar-title { font-size: var(--fs-small); }
+  .pillar-text { font-size: var(--fs-label); margin-top: 0.25rem; }
   .pillar-arrow { width: 0.9rem; height: 0.9rem; right: 0.9rem; bottom: 0.9rem; }
   /* Room reserved in the text column so a last line never runs under it. */
   .pillar-body { padding-right: 1.3rem; }
 
   /* ---------------- Nos services ----------------
-     Deux familles, chacune dans son panneau, six prestations chacune. La
-     section est longue à dessein : c'est elle qui remplace la page d'index,
-     et le point de la refonte est qu'un visiteur n'ait plus à deviner ce que
-     recouvre « Automatisation ». */
+     Deux familles, douze prestations, et aucune carte.
+
+     Le titre de la famille tient la colonne de gauche, ses six prestations
+     s'alignent à droite, séparées par un filet. Douze cartes bordées
+     posaient douze surfaces de plus sur une page qui en comptait déjà une
+     vingtaine, et c'est le nom de la prestation qu'on doit regarder, pas la
+     boîte autour. */
   .services-families {
     display: grid;
-    gap: clamp(1.25rem, 2vw, 2rem);
+    gap: clamp(3rem, 6vw, 5.5rem);
     margin-top: calc(var(--ss) * clamp(2rem, 1.6rem + 2vw, 3.75rem));
   }
 
-  /* Le panneau d'une famille. Blanc très dilué plutôt qu'opaque : il doit
-     rassembler ses six cartes sans devenir une carte de plus, sinon on
-     empile deux niveaux de surface qui se battent. */
-  .services-family {
-    padding: clamp(1.25rem, 2.2vw, 2.5rem);
-    background: color-mix(in oklab, var(--surface) 52%, transparent);
-    border: 1px solid color-mix(in oklab, var(--foreground) 6%, transparent);
-    border-radius: clamp(1.25rem, 1vw + 1rem, 2rem);
-  }
+  .services-family { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
 
   .services-family-head {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: clamp(0.75rem, 1.2vw, 1.15rem);
-    flex-wrap: wrap;
+    gap: 0.4rem;
   }
 
+  /* Le numéro n'est plus une tuile : un chiffre en bleu, dans la face des
+     numéros de chapitre, suffit à ouvrir le bloc. */
   .services-family-num {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 0.75rem;
-    background: var(--accent);
+    font-family: var(--font-chapter), var(--font-sans), sans-serif;
+    font-size: var(--fs-h3);
+    line-height: 1;
+    letter-spacing: 0.04em;
     color: var(--brand);
-    font-size: 0.9rem;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
   }
-
-  .services-family-copy { flex: 1 1 18rem; min-width: 0; }
 
   .services-family-title {
-    font-size: clamp(1.35rem, 0.6vw + 1.2rem, 1.9rem);
+    font-size: var(--fs-h2);
     font-weight: 600;
     letter-spacing: -0.02em;
-    line-height: 1.15;
+    line-height: 1.1;
   }
 
   .services-family-lead {
-    margin-top: 0.3rem;
-    max-width: 56ch;
+    max-width: 34ch;
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
-  /* Le compte, au bout d'un filet qui le rattache au titre. */
   .services-family-count {
-    display: none;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.7rem;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
+    margin-top: 0.35rem;
+    font-size: var(--fs-label);
+    font-weight: 300;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--brand);
-    white-space: nowrap;
-  }
-  .services-family-count i {
-    display: block;
-    width: 2.5rem;
-    height: 1px;
-    background: color-mix(in oklab, var(--brand) 40%, transparent);
+    color: var(--text-mono);
   }
 
-  .services-grid {
+  .services-list {
     display: grid;
-    gap: clamp(0.65rem, 1vw, 1rem);
-    margin-top: clamp(1.25rem, 2.2vw, 1.85rem);
+    margin: 0;
     padding: 0;
     list-style: none;
+    border-top: 1px solid var(--hairline);
   }
+  .services-list > li { border-bottom: 1px solid var(--hairline); }
 
-  /* Une prestation : sa tuile d'icône, son nom, ce qu'elle règle, et la
-     flèche qui mène à sa page. Rien de plus — le détail est sur la page,
-     c'est tout l'intérêt d'en avoir une. */
-  .service-card {
-    display: flex;
+  /* Une ligne. Pas de fond, pas de bordure, pas de bouton : le filet en
+     dessous suffit, et toute la ligne est le lien. */
+  .service-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: clamp(0.75rem, 1vw, 1rem);
-    height: 100%;
-    padding: clamp(0.9rem, 1.2vw, 1.15rem);
-    background: var(--surface);
-    border: 1px solid var(--hairline);
-    border-radius: 1rem;
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 220ms ease;
-  }
-  .service-card:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--brand) 55%, var(--hairline));
+    gap: clamp(0.85rem, 1.4vw, 1.35rem);
+    padding: clamp(0.9rem, 1.4vw, 1.25rem) 0;
+    transition: color 220ms ease;
   }
 
-  .service-card-tile {
-    flex: none;
+  .service-row-icon {
     display: grid;
     place-items: center;
-    width: 2.9rem;
-    height: 2.9rem;
-    border-radius: 0.85rem;
-    background: var(--accent);
+    width: 1.5rem;
     color: var(--brand);
   }
-  .service-card-tile svg {
+  .service-row-icon svg {
     width: 1.35rem;
     height: 1.35rem;
-    stroke-width: 1.7;
+    stroke-width: 1.6;
   }
 
-  .service-card-copy {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
+  .service-row-copy { min-width: 0; display: grid; gap: 0.1rem; }
 
-  .service-card-title {
-    font-size: 0.95rem;
+  .service-row-title {
+    font-size: var(--fs-h4);
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.25;
   }
 
-  .service-card-lead {
+  .service-row-lead {
     font-style: normal;
-    font-size: 0.82rem;
-    line-height: 1.4;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
-  /* Le bouton rond. Pâle au repos, plein au survol : la carte entière est
-     le lien, il ne fait qu'en montrer la sortie. */
-  .service-card-go {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--brand);
+  .service-row-go {
+    width: 1rem;
+    height: 1rem;
+    color: var(--text-mono);
     transition:
-      background-color 220ms ease,
-      color 220ms ease,
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .service-card-go svg { width: 0.9rem; height: 0.9rem; }
-  .service-card:hover .service-card-go {
-    background: var(--brand);
-    color: var(--brand-foreground);
-    transform: translateX(2px);
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 220ms ease;
   }
 
-  @media (min-width: 720px) {
-    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service-row:hover .service-row-title { color: var(--brand); }
+  .service-row:hover .service-row-go {
+    color: var(--brand);
+    transform: translateX(3px);
   }
-  @media (min-width: 1100px) {
-    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    /* Le compte ne s'affiche qu'une fois qu'il a sa place au bout du filet,
-       aligné sur le titre. En dessous il passerait sous le texte et se
-       lirait comme une ligne de plus. */
-    .services-family-count {
-      display: flex;
-      margin-top: 0.55rem;
+
+  /* Le titre de la famille passe à gauche et la liste à droite : la section
+     tient alors sur moitié moins de hauteur, et le titre reste en vis-à-vis
+     de ses prestations au lieu de disparaître au-dessus. */
+  @media (min-width: 900px) {
+    .services-family {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr);
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card,
-    .service-card-go { transition: none; }
+    .service-row,
+    .service-row-go { transition: none; }
   }
 
   /* ---------------- Le mock ----------------
@@ -3184,7 +3160,7 @@
     align-items: center;
     gap: 0.5em;
     padding: 0.5em 0.9em;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #e7f7ee;
     color: #15803d;
     font-size: 0.95em;
@@ -3196,7 +3172,7 @@
   .hero-app-status i {
     width: 0.55em;
     height: 0.55em;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #22c55e;
   }
 
@@ -3227,7 +3203,7 @@
     place-items: center;
     width: 4.4em;
     height: 4.4em;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #e9f2fd;
     color: #0a7ce0;
     animation: hero-app-step-wash 0.9s ease-out 1 both;
@@ -3243,7 +3219,7 @@
     place-items: center;
     width: 1.6em;
     height: 1.6em;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #22c55e;
     color: #ffffff;
     box-shadow: 0 0 0 0.25em #ffffff;
@@ -3327,7 +3303,7 @@
   .hero-app-doc b { font-size: 0.9em; font-weight: 600; color: #5a6b82; }
   .hero-app-doc i {
     height: 0.34em;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #dde5ef;
   }
   .hero-app-doc i:nth-of-type(2) { width: 78%; }
@@ -3705,7 +3681,7 @@
     padding: clamp(1.3rem, 2vw, 2rem);
     background: var(--surface);
     border: 1px solid var(--hairline);
-    border-radius: var(--radius);
+    border-radius: var(--r-sm);
     overflow: hidden;
   }
 
@@ -3714,7 +3690,7 @@
   /* --- L'illustration, et la tache de couleur derrière elle --- */
   .problem-visual {
     position: relative;
-    height: 10.5rem;
+    height: 12.5rem;
     min-width: 0;
   }
 
@@ -3728,7 +3704,7 @@
     width: 15rem;
     height: 15rem;
     transform: translate(-50%, -50%);
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--card-ink) 20%, transparent) 0%,
@@ -3744,14 +3720,14 @@
     display: block;
     width: 0.7rem;
     height: 0.7rem;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: var(--card-ink);
     box-shadow: 0 0 0 4px color-mix(in oklab, var(--card-ink) 14%, transparent);
   }
 
   .problem-title {
     margin-top: 1.4rem;
-    font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.3rem);
+    font-size: var(--fs-h4);
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.25;
@@ -3759,7 +3735,7 @@
   .problem-text {
     margin-top: 0.6rem;
     max-width: 34ch;
-    font-size: clamp(0.85rem, 0.2vw + 0.8rem, 0.95rem);
+    font-size: var(--fs-small);
     line-height: 1.55;
     color: var(--muted-foreground);
   }
@@ -3779,7 +3755,7 @@
     flex-basis: 100%;
     margin-bottom: 0.3rem;
     font-style: normal;
-    font-size: 0.64rem;
+    font-size: var(--fs-micro);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -3787,7 +3763,7 @@
   }
 
   .problem-answer > b {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
     font-weight: 600;
     line-height: 1.3;
     color: var(--card-ink);
@@ -3819,7 +3795,7 @@
        titre, trois lignes de texte, un lien et une illustration n'entre pas
        dans un quart de page. */
     .problem-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .problem-visual { height: 11.5rem; }
+    .problem-visual { height: 14rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3848,7 +3824,7 @@
     width: min(100%, 12.5rem);
     margin-inline: auto;
     padding: 0.95rem 0.9rem;
-    border-radius: 0.85rem;
+    border-radius: var(--r-xs);
     background: #ffffff;
     box-shadow: 0 0.9rem 2rem -1rem rgb(11 18 32 / 0.28);
   }
@@ -3859,7 +3835,7 @@
     align-items: center;
     gap: 0.6rem;
     padding: 0.28rem 0.3rem;
-    border-radius: 0.4rem;
+    border-radius: var(--r-xs);
   }
 
   /* Le repère de gauche : un point, une pastille, ou rien. */
@@ -3867,7 +3843,7 @@
     flex: none;
     width: 0.5rem;
     height: 0.5rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: color-mix(in oklab, var(--card-ink) 55%, #ffffff);
   }
 
@@ -3877,7 +3853,7 @@
     place-items: center;
     width: 1.1rem;
     height: 1.1rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
   }
   .pv-mark svg { width: 0.72rem; height: 0.72rem; stroke-width: 3; }
   .pv-mark--alert { background: #dc2626; color: #ffffff; }
@@ -3895,7 +3871,7 @@
   .pv-row-bars i {
     display: block;
     height: 0.3rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #e8edf4;
   }
   .pv-row-bars i:last-child { width: 62%; background: #eef2f7; }
@@ -3925,7 +3901,7 @@
     height: 7.5rem;
     transform: translate(-50%, -50%);
     border: 1.5px dashed color-mix(in oklab, var(--card-ink) 28%, transparent);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
   }
 
   .pv-tile {
@@ -3936,7 +3912,7 @@
     width: var(--tile);
     height: var(--tile);
     margin: calc(var(--tile) / -2) 0 0 calc(var(--tile) / -2);
-    border-radius: 0.8rem;
+    border-radius: var(--r-xs);
     border: 1px solid rgb(11 18 32 / 0.06);
     background: #fff;
     box-shadow: 0 0.6rem 1.4rem -0.8rem rgb(11 18 32 / 0.45);
@@ -3987,7 +3963,7 @@
   .pv-bubble i {
     display: block;
     height: 0.3rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #e8edf4;
   }
   .pv-bubble i:last-child { width: 58%; background: #eef2f7; }
@@ -4002,10 +3978,10 @@
     min-width: 1.35rem;
     height: 1.35rem;
     padding-inline: 0.35rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--card-ink);
     color: #ffffff;
-    font-size: 0.72rem;
+    font-size: var(--fs-micro);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
     box-shadow: 0 0 0 0.2rem var(--surface);
@@ -4054,7 +4030,7 @@
      not to hit. The wide tracking is what carries it now. */
   .eyebrow {
     font-family: var(--font-sans);
-    font-size: clamp(0.66rem, 0.62rem + 0.12vw, 0.82rem);
+    font-size: var(--fs-label);
     font-weight: 300;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -4064,7 +4040,7 @@
   .surface-card {
     background: var(--surface);
     border: 1px solid var(--hairline);
-    border-radius: var(--radius);
+    border-radius: var(--r-sm);
   }
 
   /* Premium hover: subtle lift + hairline warms toward electric-blue */
@@ -4081,11 +4057,6 @@
     background-color: var(--surface-2);
   }
 
-  .brand-glow {
-    box-shadow:
-      0 0 0 1px color-mix(in oklab, var(--brand) 24%, transparent),
-      0 22px 70px -26px color-mix(in oklab, var(--brand) 55%, transparent);
-  }
 
   /* Hover state for cards and badges. It used to be a blue glow; the border
      carries it now. A coloured edge reads as a deliberate choice, a halo
@@ -4171,7 +4142,7 @@
     display: block;
     width: 8px;
     height: 8px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: var(--brand);
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -4181,7 +4152,7 @@
     content: "";
     position: absolute;
     inset: -7px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: radial-gradient(
       circle,
       color-mix(in oklab, var(--brand) 40%, transparent) 0%,
@@ -4232,7 +4203,7 @@
     width: 24%;
     height: 2px;
     transform: translateY(-50%);
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     pointer-events: none;
     background: linear-gradient(
       90deg,
@@ -4325,7 +4296,7 @@
     right: 0;
     bottom: 0;
     height: 2px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: var(--brand);
     transform: scaleX(0);
     transform-origin: left;
@@ -4353,13 +4324,13 @@
     top: 0.15em;
     bottom: 0.15em;
     width: 2px;
-    border-radius: 9999px;
+    border-radius: var(--r-pill);
     background: color-mix(in oklab, var(--brand) 45%, transparent);
   }
 
   .method-detail-text {
     max-width: 58ch;
-    font-size: clamp(0.95rem, 0.3vw + 0.88rem, 1.15rem);
+    font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--muted-foreground);
   }

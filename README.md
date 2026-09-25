@@ -59,7 +59,9 @@ vides plutôt que du texte inventé. **Ils s'affichent en clair sur le site** et
 doivent être remplis ou retirés avant toute mise en ligne.
 
 - [ ] Landing, deux sections réservées : **résultats mesurés** et **outils
-      gratuits** (`landing` dans `content.ts`)
+      gratuits** (`landing` dans `content.ts`). Elles ne s'affichent **qu'en
+      développement** : la page publiée n'en montre rien. Retirer la garde
+      `NODE_ENV` dans `reserved.tsx` le jour où le contenu existe.
 - [ ] Les **12 pages de service** n'ont que leur coquille. Le gabarit se valide
       sur une prestation, puis s'applique aux onze autres, en FR et en EN
 - [ ] Le formulaire de la page contact et le calendrier Cal.com : **en dernier**,

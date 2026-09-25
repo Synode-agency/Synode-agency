@@ -42,7 +42,7 @@ export function SectionHeading({
              même échelle que les autres titres de section, un cran sous le
              titre du hero qui reste le titre principal. Aucune coupe n'est écrite
              à la main ici, le texte se répartit tout seul. */
-          "max-w-none text-[clamp(1.05rem,6.4vw,2.5rem)] leading-[1.08] font-semibold sm:max-w-[20ch] sm:text-4xl lg:text-[length:var(--fs-h2)]",
+          "max-w-none text-[length:var(--fs-h2)] leading-[1.08] font-semibold sm:max-w-[26ch]",
           centered && "sm:max-w-[24ch]",
         )}
       >
@@ -60,7 +60,7 @@ export function SectionHeading({
               les largeurs ou à aucune. */}
           {typeof subtitle === "string" ? renderLines(subtitle) : subtitle}
           {subtitleNote && (
-            <span className="mt-2 block text-[clamp(0.78rem,0.15vw+0.74rem,0.88rem)] font-light tracking-[0.06em] text-brand">
+            <span className="mt-2 block text-[length:var(--fs-small)] font-light tracking-[0.06em] text-brand">
               {subtitleNote}
             </span>
           )}

@@ -8,9 +8,7 @@ import { renderLines } from "@/lib/lines";
  *
  * Elle porte son vrai en-tête, donc la page a déjà son rythme définitif : le
  * jour où le contenu arrive, il remplace le bloc en pointillés sans rien
- * déplacer. C'est délibérément visible : un emplacement vide se confond avec
- * un bug, un emplacement qui dit ce qu'il attend est une tâche posée là où
- * elle ira.
+ * déplacer.
  */
 export function ReservedSection({
   id,
@@ -19,6 +17,13 @@ export function ReservedSection({
   id: string;
   copy: { eyebrow: string; title: string; text: string; note: string };
 }) {
+  /* Elle ne s'affiche qu'en développement. Un bloc en pointillés qui annonce
+     « à écrire » est une liste de tâches utile pour nous, et un chantier en
+     cours pour un visiteur : la place reste réservée dans le code, la page
+     publiée n'en montre rien. Le jour où le contenu arrive, on retire cette
+     garde et la section prend sa place sans rien déplacer. */
+  if (process.env.NODE_ENV === "production") return null;
+
   return (
     <section id={id} className="section-screen relative">
       <div className="container-page flex flex-col gap-[clamp(1.5rem,3vw,2.5rem)]">

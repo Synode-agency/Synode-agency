@@ -24,7 +24,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
             grows with the form rather than being pinned to one screen: the
             page is meant to scroll here. */}
         <section className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
-          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
+          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
             <div
               aria-hidden
               className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]"
