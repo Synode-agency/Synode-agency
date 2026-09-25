@@ -121,8 +121,19 @@
      1024px, parce qu'il était plafonné par la largeur de sa colonne. Le
      titre principal d'une page ne peut pas être le plus petit.
      ------------------------------------------------------------------- */
-  --fs-display: clamp(2.125rem, 1.4rem + 2.6vw, 4.25rem);
-  --fs-h2: clamp(1.6rem, 1.15rem + 2.2vw, 3.25rem);
+  /* Le plafond est arithmétique, pas esthétique. La coupe du titre étant
+     écrite, la contrainte n'est plus la longueur totale mais celle de sa
+     première moitié : « L'agence qui fait travailler l'IA » doit tenir sur
+     une ligne dans une colonne qui vaut la moitié de la page.
+
+     Anodina est nettement plus étroite qu'Inter — cette moitié y fait ~10,3
+     em contre 13,6 — donc le corps peut remonter. 3,5vw laisse 14 % de marge
+     sur un 1024px, qui est le cas le plus serré, et davantage au-dessus. */
+  --fs-display: clamp(2.125rem, 3.5vw, 4.25rem);
+  /* Suit `--fs-display` d'un cran en dessous. Sa pente a été abaissée avec
+     lui : un titre de section plus gros que le titre de la page est
+     l'inversion qu'on venait de corriger. */
+  --fs-h2: clamp(1.6rem, 1rem + 1.7vw, 2.75rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
   --fs-h4: clamp(1.05rem, 1rem + 0.25vw, 1.25rem);
   --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
@@ -380,6 +391,9 @@
   h3,
   h4 {
     @apply font-heading;
+    /* La famille n'a ni 500 ni 600 : le navigateur prend le fichier réel le
+       plus proche plutôt que d'épaissir des contours. */
+    font-synthesis-weight: none;
     /* Headings are never balanced on this site. The rule is that a headline
        breaks where the copy says it breaks, identically from a laptop to a
        4K screen; a balancer re-splits the lines as a function of the
@@ -1281,7 +1295,7 @@
      only thing the closed panes keep of their colour. */
   .works-deck-index {
     margin-left: auto;
-    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-size: var(--fs-small);
     font-style: normal;
     font-weight: 700;
@@ -1664,7 +1678,7 @@
   }
 
   .works-stamp-num {
-    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-size: var(--fs-micro);
     font-weight: 700;
     letter-spacing: 0.02em;
@@ -2888,139 +2902,352 @@
   /* Room reserved in the text column so a last line never runs under it. */
   .pillar-body { padding-right: 1.3rem; }
 
-  /* ---------------- Nos services ----------------
-     Deux familles, douze prestations, et aucune carte.
+  /* Services : en-tête compact et cartes arrondies du graphisme initial. */
+  #services > .chapter-mark {
+    --chapter-top: clamp(1rem, 3vw, 3rem);
+  }
 
-     Le titre de la famille tient la colonne de gauche, ses six prestations
-     s'alignent à droite, séparées par un filet. Douze cartes bordées
-     posaient douze surfaces de plus sur une page qui en comptait déjà une
-     vingtaine, et c'est le nom de la prestation qu'on doit regarder, pas la
-     boîte autour. */
+  #services .services-heading {
+    container-type: inline-size;
+    position: relative;
+    gap: clamp(0.875rem, 1.2vw, 1.25rem);
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #services .services-heading h2 {
+    width: 100%;
+    max-width: 48ch;
+    font-size: var(--fs-display);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  /* Même échelle que la hero, avec une longueur de ligne adaptée
+     au titre Services et un retour équilibré sur grand écran. */
+  @media (min-width: 1024px) {
+    #services .services-heading h2 {
+      --services-hero-gap: 2rem;
+      --services-hero-scale: var(--hs);
+      font-size: min(calc(var(--services-hero-scale) * (min(100cqi - 2px, 104rem) - var(--services-hero-gap)) / 2 * 0.077), 4.5rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    #services .services-heading h2 { --services-hero-gap: 2.5rem; }
+  }
+
+  @media (min-width: 1200px) and (max-width: 1600px) and (max-height: 940px) {
+    #services .services-heading h2 { --services-hero-scale: 1; }
+  }
+
+  #services .services-heading > p {
+    width: 100%;
+    max-width: 72ch;
+    text-wrap: pretty;
+    font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
+    line-height: 1.6;
+  }
+
+  #services .services-families {
+    margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
+  }
+
   .services-families {
     display: grid;
-    gap: clamp(3rem, 6vw, 5.5rem);
+    gap: clamp(1.25rem, 2vw, 2rem);
     margin-top: calc(var(--ss) * clamp(2rem, 1.6rem + 2vw, 3.75rem));
   }
 
-  .services-family { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); }
-
-  .services-family-head {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
+  /* Le panneau d'une famille. Blanc très dilué plutôt qu'opaque : il doit
+     rassembler ses six cartes sans devenir une carte de plus, sinon on
+     empile deux niveaux de surface qui se battent. */
+  .services-family {
+    padding: clamp(1.25rem, 2.2vw, 2.5rem);
+    background: color-mix(in oklab, var(--surface) 52%, transparent);
+    border: 1px solid color-mix(in oklab, var(--foreground) 6%, transparent);
+    border-radius: clamp(1.25rem, 1vw + 1rem, 2rem);
   }
 
-  /* Le numéro n'est plus une tuile : un chiffre en bleu, dans la face des
-     numéros de chapitre, suffit à ouvrir le bloc. */
-  .services-family-num {
-    font-family: var(--font-chapter), var(--font-sans), sans-serif;
-    font-size: var(--fs-h3);
-    line-height: 1;
-    letter-spacing: 0.04em;
+  .services-family-automatisation {
+    --brand: #7040b8;
+    --accent: #eee6fa;
+  }
+
+  .services-family-agents-ia {
+    --brand: #172d54;
+    --accent: #e5ebf4;
+  }
+
+  .services-family-icon svg { width: 1.4rem; height: 1.4rem; }
+
+  .services-family .service-card {
+    background: var(--surface);
+    color: var(--foreground);
+    border-color: var(--brand);
+  }
+
+  .services-family .service-card-lead { color: var(--muted-foreground); }
+
+  .services-family .service-card-tile,
+  .services-family .service-card-go {
+    background: transparent;
     color: var(--brand);
   }
 
+  .services-family .service-card:hover,
+  .services-family .service-card:focus-visible {
+    border-color: var(--brand);
+  }
+
+  .services-family .service-card:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 3px;
+  }
+
+  .services-family .service-card:hover .service-card-go {
+    background: #ffffff;
+    color: var(--brand);
+  }
+
+  .services-family-head {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(0.75rem, 1.2vw, 1.15rem);
+    flex-wrap: wrap;
+  }
+
+  .services-family-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 0.75rem;
+    background: var(--accent);
+    color: var(--brand);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .services-family-copy { flex: 1 1 18rem; min-width: 0; }
+
   .services-family-title {
-    font-size: var(--fs-h2);
+    font-size: clamp(1.35rem, 0.6vw + 1.2rem, 1.9rem);
     font-weight: 600;
     letter-spacing: -0.02em;
-    line-height: 1.1;
+    line-height: 1.15;
   }
 
   .services-family-lead {
-    max-width: 34ch;
+    margin-top: 0.3rem;
+    max-width: 56ch;
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
+  /* Le compte, au bout d'un filet qui le rattache au titre. */
   .services-family-count {
-    margin-top: 0.35rem;
-    font-size: var(--fs-label);
-    font-weight: 300;
-    letter-spacing: 0.22em;
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--text-mono);
+    color: var(--brand);
+    white-space: nowrap;
+  }
+  .services-family-count i {
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: color-mix(in oklab, var(--brand) 40%, transparent);
   }
 
-  .services-list {
+  .services-grid {
     display: grid;
-    margin: 0;
+    gap: clamp(0.65rem, 1vw, 1rem);
+    margin-top: clamp(1.25rem, 2.2vw, 1.85rem);
     padding: 0;
     list-style: none;
-    border-top: 1px solid var(--hairline);
   }
-  .services-list > li { border-bottom: 1px solid var(--hairline); }
 
-  /* Une ligne. Pas de fond, pas de bordure, pas de bouton : le filet en
-     dessous suffit, et toute la ligne est le lien. */
-  .service-row {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+  /* Une prestation : sa tuile d'icône, son nom, ce qu'elle règle, et la
+     flèche qui mène à sa page. Rien de plus — le détail est sur la page,
+     c'est tout l'intérêt d'en avoir une. */
+  .service-card {
+    display: flex;
     align-items: center;
-    gap: clamp(0.85rem, 1.4vw, 1.35rem);
-    padding: clamp(0.9rem, 1.4vw, 1.25rem) 0;
-    transition: color 220ms ease;
+    gap: clamp(0.75rem, 1vw, 1rem);
+    height: 100%;
+    padding: clamp(0.9rem, 1.2vw, 1.15rem);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 1rem;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms ease;
+  }
+  .service-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--brand) 55%, var(--hairline));
   }
 
-  .service-row-icon {
+  .service-card-tile {
+    flex: none;
     display: grid;
     place-items: center;
-    width: 1.5rem;
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 0.85rem;
+    background: var(--accent);
     color: var(--brand);
   }
-  .service-row-icon svg {
+  .service-card-tile svg {
     width: 1.35rem;
     height: 1.35rem;
-    stroke-width: 1.6;
+    stroke-width: 1.7;
   }
 
-  .service-row-copy { min-width: 0; display: grid; gap: 0.1rem; }
+  .service-card-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
 
-  .service-row-title {
-    font-size: var(--fs-h4);
+  .service-card-title {
+    font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     line-height: 1.25;
   }
 
-  .service-row-lead {
+  .service-card-lead {
     font-style: normal;
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
+    font-size: 0.82rem;
+    line-height: 1.4;
     color: var(--muted-foreground);
   }
 
-  .service-row-go {
-    width: 1rem;
-    height: 1rem;
-    color: var(--text-mono);
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 220ms ease;
-  }
-
-  .service-row:hover .service-row-title { color: var(--brand); }
-  .service-row:hover .service-row-go {
+  /* Le bouton rond. Pâle au repos, plein au survol : la carte entière est
+     le lien, il ne fait qu'en montrer la sortie. */
+  .service-card-go {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: var(--accent);
     color: var(--brand);
-    transform: translateX(3px);
+    transition:
+      background-color 220ms ease,
+      color 220ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .service-card-go svg { width: 0.9rem; height: 0.9rem; }
+  .service-card:hover .service-card-go {
+    background: var(--brand);
+    color: var(--brand-foreground);
+    transform: translateX(2px);
   }
 
-  /* Le titre de la famille passe à gauche et la liste à droite : la section
-     tient alors sur moitié moins de hauteur, et le titre reste en vis-à-vis
-     de ses prestations au lieu de disparaître au-dessus. */
-  @media (min-width: 900px) {
-    .services-family {
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr);
-      gap: clamp(2rem, 4vw, 4rem);
-      align-items: start;
+  @media (min-width: 720px) {
+    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* Le compte ne s'affiche qu'une fois qu'il a sa place au bout du filet,
+       aligné sur le titre. En dessous il passerait sous le texte et se
+       lirait comme une ligne de plus. */
+    .services-family-count {
+      display: flex;
+      margin-top: 0.55rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-row,
-    .service-row-go { transition: none; }
+    .service-card,
+    .service-card-go { transition: none; }
+  }
+
+  /* ---------------- La pile des trois systèmes ----------------
+     Les trois sont empilés, le premier devant. Les suivants sont décalés
+     vers le haut et légèrement réduits : leur bord dépasse, donc on voit
+     qu'il y en a d'autres avant même que le premier ait fini.
+
+     Quand une carte devient active, sa profondeur passe à 0 : elle descend
+     et reprend sa taille pleine, par-dessus la précédente. Le glissement est
+     une transition sur `transform`, pas une animation — c'est un changement
+     d'état, il doit pouvoir être interrompu. */
+  .hero-systems {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-system {
+    position: absolute;
+    inset: 0;
+    transform: translateY(calc(var(--depth) * -4%))
+      scale(calc(1 - var(--depth) * 0.05));
+    /* Depuis le haut : une carte du dessous reste alignée par son bord
+       supérieur, donc c'est bien son bord qui dépasse et pas un cadre
+       centré plus petit. */
+    transform-origin: 50% 0%;
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* La carte qui passe devant ne se contente pas de grandir : elle se
+     soulève, dépasse un peu sa place, puis se pose. C'est ce léger
+     dépassement qui donne le poids — sans lui, deux transformations
+     interpolées en ligne droite se lisent comme un fondu enchaîné, pas
+     comme un objet qui passe par-dessus un autre. */
+  .hero-system[data-enter="true"] {
+    animation: hero-card-front 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes hero-card-front {
+    0% {
+      transform: translateY(-4%) scale(0.95);
+    }
+    /* Le soulèvement : elle décolle de la pile avant de descendre. */
+    38% {
+      transform: translateY(-5.5%) scale(1.02);
+    }
+    /* Elle dépasse sa place d'un cheveu, puis revient. */
+    72% {
+      transform: translateY(0.8%) scale(1.012);
+    }
+    100% {
+      transform: none;
+    }
+  }
+
+  /* Le contenu remonté ne doit pas créer de boîte : la carte reste le seul
+     bloc, et le mock continue de la remplir à 100 %. */
+  .hero-system-slot { display: contents; }
+
+  /* Les cartes qui ne jouent pas reculent avec un léger retard — le temps
+     d'être recouvertes par celle qui passe devant. Sans ce délai, celle qui
+     vient de jouer partirait vers le fond en même temps que la nouvelle
+     descend, et on verrait les deux se croiser.
+
+     Le retard ne concerne pas la carte entrante : elle est animée par
+     `hero-card-front`, et une animation ignore `transition-delay`. */
+  .hero-system { transition-delay: 240ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-system { transition: none; }
+    .hero-system[data-enter="true"] { animation: none; }
   }
 
   /* ---------------- Le mock ----------------
@@ -3037,6 +3264,13 @@
      le panneau s'échelonne d'un bloc. */
 
   .hero-app {
+    /* L'encre du système. Bleu, violet, vert : trois teintes neutres, aucune
+       qui se lise comme une alerte. Le rouge est réservé au Constat sur ce
+       site, et un système « impayés » en rouge se lirait comme un problème
+       plutôt que comme sa solution. */
+    --sys-ink: var(--brand);
+    --sys-tint: color-mix(in oklab, var(--sys-ink) 12%, #ffffff);
+
     /* Rotation à plat, dans le plan de la page. */
     --app-spin: 1deg;
     /* Le temps que met le curseur à arriver et à cliquer. Tout le reste de
@@ -3059,14 +3293,19 @@
     box-shadow: 0 2.2em 4.5em -1.8em rgb(11 18 32 / 0.28);
   }
 
-  /* Rien ne bouge tant que le panneau n'est pas à l'écran, et rien ne rejoue
-     ensuite : chaque animation ne compte qu'un seul tour. */
+  .hero-system:nth-child(2) .hero-app { --sys-ink: #7e22ce; }
+  .hero-system:nth-child(3) .hero-app { --sys-ink: #15803d; }
+
+  /* Rien ne bouge tant que la carte n'est pas celle qui joue, et rien ne
+     rejoue ensuite : chaque animation ne compte qu'un seul tour. Les deux
+     cartes en attente restent donc figées sur leur première image, ce qui
+     est exactement ce qu'on veut voir dépasser derrière la première. */
   .hero-app,
   .hero-app * {
     animation-play-state: paused;
   }
-  .hero-stage-panel[data-shown="true"] .hero-app,
-  .hero-stage-panel[data-shown="true"] .hero-app * {
+  .hero-system[data-play="true"] .hero-app,
+  .hero-system[data-play="true"] .hero-app * {
     animation-play-state: running;
   }
 
@@ -3204,8 +3443,8 @@
     width: 4.4em;
     height: 4.4em;
     border-radius: var(--r-pill);
-    background: #e9f2fd;
-    color: #0a7ce0;
+    background: var(--sys-tint);
+    color: var(--sys-ink);
     animation: hero-app-step-wash 0.9s ease-out 1 both;
     animation-delay: calc(var(--app-lead) + 0.9s + var(--s) * 0.75s);
   }
@@ -3317,14 +3556,14 @@
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    color: #0a7ce0;
+    color: var(--sys-ink);
     font-variant-numeric: tabular-nums;
   }
 
   .hero-app-chart {
     display: block;
     margin-top: auto;
-    color: #0a7ce0;
+    color: var(--sys-ink);
   }
   .hero-app-chart svg { width: 100%; height: 3.6em; overflow: visible; }
 
@@ -3357,7 +3596,7 @@
 
   @keyframes hero-nav-select {
     from { background: transparent; color: #5a6b82; }
-    to { background: #e8f1fd; color: #0a7ce0; font-weight: 600; }
+    to { background: var(--sys-tint); color: var(--sys-ink); font-weight: 600; }
   }
 
   @keyframes hero-app-appear {
@@ -3368,9 +3607,9 @@
   /* Le disque ne change pas de couleur : il s'entoure d'un anneau qui se
      déploie puis retombe. L'étape est franchie, elle ne chauffe pas. */
   @keyframes hero-app-step-wash {
-    0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgb(10 124 224 / 0); }
-    45% { transform: scale(1.04); box-shadow: 0 0 0 0.5em rgb(10 124 224 / 0.2); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(10 124 224 / 0); }
+    0% { transform: scale(0.9); box-shadow: 0 0 0 0 transparent; }
+    45% { transform: scale(1.04); box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--sys-ink) 20%, transparent); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
   }
 
   @keyframes hero-app-arrow-in {
@@ -3408,19 +3647,38 @@
     .hero-app-bottom { grid-template-columns: minmax(0, 1fr); }
   }
 
-  @media (min-width: 768px) {
-    /* Each half of the headline holds its own line. */
-    .hero-heading > span { white-space: nowrap; }
-  }
-
-  /* The headline is scaled by --hs, which reads the window's HEIGHT, while
-     the column holding it is a share of the window's WIDTH. On a tall
-     external monitor --hs saturates at 1 and the line outgrows its column,
-     which is how the full stop ended up under the app panel. The 2.9vw and
-     3.5rem ceilings on the lg font size hold it to the column's own growth
-     — neither one bites at laptop sizes, where --hs is well under 1. */
+  /* ⚠ Il y avait ici un `white-space: nowrap` sur les deux lignes du titre,
+     posé du temps où chacune devait tenir sur une seule ligne. Avec un titre
+     devenu plus grand que sa colonne sur un grand écran, il empêchait tout
+     retour à la ligne : le texte sortait de sa colonne et passait sous le
+     mock. Le titre se replie maintenant de lui-même, ce pour quoi
+     `--fs-display` a été dimensionné. Ne pas le remettre. */
 
   /* ---------------- Stage layout, from lg up ---------------- */
+
+    /* ---------------- Le titre du hero ----------------
+     À partir de `lg`, sa taille se calcule sur la largeur de SA COLONNE et
+     non sur celle de l'écran. C'est ce qui règle le problème pour de bon :
+     la colonne vaut la moitié de la page, mais cette moitié dépend de la
+     gouttière, du plafond de `--container-max` et de l'écart entre les deux
+     blocs — trois valeurs qui ne varient pas au même rythme que `vw`. Une
+     taille en `vw` était donc juste au milieu de la gamme et fausse aux deux
+     bouts : trop grande sur 1024px, trop grande sur 1920px, et la première
+     ligne se repliait.
+
+     `7.7cqi` = la largeur de la colonne divisée par la longueur de la
+     première ligne (~12,3 em en Anodina), moins 5 % de marge. Le rapport est
+     donc le même à toutes les largeurs, par construction.
+
+     ⚠ La marge est passée de 10 à 5 % pour grossir le titre. C'est le
+     maximum : au-delà, la première ligne se replie et le titre repasse sur
+     trois lignes. Ne pas monter sans raccourcir la copie d'abord.
+
+     Si la copie du titre change, c'est cette valeur qu'il faut recalculer,
+     et elle seule. */
+  .hero-copy {
+    container-type: inline-size;
+  }
 
   @media (min-width: 1024px) {
     /* Deux colonnes égales. Le mock occupait auparavant les deux tiers de la
@@ -3550,8 +3808,8 @@
     }
     .hero-app-cursor { display: none; }
     .hero-app-nav-row.is-active {
-      background: #e8f1fd;
-      color: #0a7ce0;
+      background: var(--sys-tint);
+      color: var(--sys-ink);
       font-weight: 600;
     }
   }
@@ -3618,7 +3876,7 @@
     position: absolute;
     z-index: 0;
     top: var(--chapter-top, clamp(-4.5rem, -3vw, -1.75rem));
-    font-family: var(--font-chapter), var(--font-label), var(--font-sans), sans-serif;
+    font-family: var(--font-chapter), var(--font-sans), sans-serif;
     font-size: clamp(9rem, 19vw, 19rem);
     font-weight: 400;
     line-height: 0.72;
@@ -4403,7 +4661,7 @@
   }
 
   .track-num {
-    font-family: var(--font-label), var(--font-sans), sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--brand);
@@ -4677,6 +4935,29 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Le titre du hero sur un portable 13 pouces.
+
+   `--hs` lit la HAUTEUR de la fenêtre et resserre le hero pour qu'il tienne
+   sur un écran sans défilement. Sur un 13 pouces il tombe autour de 0,79 et
+   rabote le titre de 21 % : il sort à 38px au lieu de 48.
+
+   Or ce n'est pas le titre qui contraint la hauteur, c'est le mock. À droite,
+   la pile est plus haute que la colonne de texte — environ 300px contre 275.
+   Le titre peut donc reprendre sa pleine taille sans que le hero déborde.
+
+   Le plafond reste 7,7cqi, celui qui garde la première ligne sur une seule
+   ligne : on récupère ce que `--hs` prenait, pas un pixel de plus.
+
+   Hors de tout `@layer` pour passer devant l'utilitaire Tailwind qui porte
+   la taille par défaut.
+   --------------------------------------------------------------------------- */
+@media (min-width: 1200px) and (max-width: 1600px) and (max-height: 940px) {
+  .hero-heading {
+    font-size: min(7.7cqi, 4.5rem);
+  }
+}
+
 /* ===========================================================================
    MOBILE — deuxième passe, 24/09/2026.
 
@@ -4684,16 +4965,6 @@
    les utilitaires Tailwind et les règles layerisées sans parier sur l'ordre
    des couches. Le desktop n'est concerné par aucune de ces règles.
    =========================================================================== */
-
-/* Le panneau du mock porte un Reveal, mais uniquement comme détecteur de
-   scroll : il pose `data-shown` et rien d'autre. Sans cette neutralisation il
-   partirait de l'invisible et jouerait le fondu maison, y compris sur
-   desktop, qui n'en a jamais eu. */
-.hero-stage-panel.reveal,
-.hero-stage-panel.reveal[data-shown="true"] {
-  opacity: 1;
-  animation: none;
-}
 
 @media (max-width: 767px) {
   /* ---------- Hero : le mock ne tourne plus en boucle ----------
@@ -4898,4 +5169,36 @@
   .works-panel-result {
     margin-top: 0.9rem;
   }
+}
+
+/* Catalogue de services : même carte, description développée. */
+.services-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding-block: 0.6rem;
+}
+.services-more svg { width: 1rem; height: 1rem; }
+.services-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+.services-more:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 4px; }
+.services-catalog { margin-top: 0; }
+.services-catalog .service-card { align-items: flex-start; }
+.services-catalog .service-card-lead { font-size: 0.9375rem; line-height: 1.65; }
+.services-catalog .service-card-copy { gap: 0.65rem; }
+.services-family-title { scroll-margin-top: calc(var(--header-h) + 2rem); }
+
+/* Only newly disclosed automation cards animate; the first six stay still. */
+.services-grid-expanded > li:nth-child(n + 7) {
+  animation: service-card-enter 180ms ease-out both;
+}
+@keyframes service-card-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-grid-expanded > li:nth-child(n + 7) { animation: none; }
 }

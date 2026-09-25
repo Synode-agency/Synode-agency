@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { legalSlugs } from "@/lib/legal";
 import { getContent } from "@/lib/content";
-import { siteUrl } from "./site-shell";
+import { siteUrl } from "@/lib/site-url";
 
 /** Every route, each one paired with its translation so Google knows the
  *  two versions are the same page in two languages. */
@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const pages: { path: string; priority: number }[] = [
     { path: "", priority: 1 },
+    { path: "/services", priority: 0.9 },
     ...serviceSlugs.map((slug) => ({
       path: `/services/${slug}`,
       priority: 0.7,

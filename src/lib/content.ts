@@ -50,7 +50,7 @@ const fr = {
   /* ------------------------------------------------------------------
      Les services.
 
-     Deux familles, six prestations chacune. Les douze sont listées dans la
+     Deux familles, huit prestations chacune. Les seize sont listées dans la
      section « Nos services » de l'accueil ; il n'y a pas de page qui les
      rassemble, elles y sont déjà. Chaque prestation a en revanche sa page,
      `/services/<slug>`, et le slug est le même en français et en anglais :
@@ -62,15 +62,12 @@ const fr = {
      validé sur une prestation.
      ------------------------------------------------------------------ */
   services: {
-    eyebrow: "Nos services",
-    /* Une seule taille, un seul souffle. Le titre compte les prestations
-       parce que c'est précisément ce qu'on nous reprochait de ne pas faire :
-       annoncer « de l'automatisation » sans jamais dire quoi. Douze, c'est
-       vérifiable, et ça promet le résultat que le dirigeant cherche. */
-    title: "Douze façons de vous rendre du temps.",
-    titleAccent: "de vous rendre du temps",
-    body: "Deux familles, douze prestations. Chacune règle une perte de temps précise, et chacune a sa page.",
+    eyebrow: "Services",
+    title: "Des solutions d’automatisation & agents IA pour connecter, simplifier et accélérer vos processus métier",
+    titleAccent: "d’automatisation & agents IA",
+    body: "De l’automatisation de processus aux agents IA, en passant par les intégrations et les outils métier sur mesure, nos services s’adaptent aux différentes étapes du fonctionnement de votre entreprise.",
     countLabel: "services",
+    familyLabel: "Famille",
     detailEyebrow: "Service",
     backLabel: "Tous les services",
     ctaLabel: "Réserver un audit",
@@ -80,12 +77,14 @@ const fr = {
         title: "Automatisation",
         lead: "Vos outils se parlent, et le travail répétitif disparaît.",
         items: [
-          { slug: "workflows-integrations", title: "Workflows & intégrations", lead: "Vos outils connectés bout à bout, fini le double encodage." },
-          { slug: "traitement-documents", title: "Traitement de documents", lead: "Factures, devis, contrats : lus, extraits, classés." },
-          { slug: "relances-suivis", title: "Relances & suivis automatiques", lead: "Impayés, propositions, rendez-vous : plus rien ne passe à la trappe." },
-          { slug: "tableaux-de-bord", title: "Tableaux de bord & rapports", lead: "Vos chiffres rassemblés, mis à jour et envoyés tout seuls." },
-          { slug: "portails-outils-internes", title: "Portails & outils internes", lead: "L'écran sur mesure quand aucun logiciel existant ne convient." },
-          { slug: "synchronisation-crm", title: "Synchronisation CRM & données", lead: "Un seul dossier client, à jour partout, sans ressaisie." },
+          { slug: "workflows-integrations", title: "Automatisation des processus & intégrations", lead: "Connectez vos logiciels et automatisez vos processus métier pour éviter les doubles saisies et faire circuler les données automatiquement entre vos outils.", summary: "Connectez vos logiciels et automatisez les étapes répétitives de vos processus. Les informations circulent automatiquement entre vos outils, sans ressaisie inutile.", description: "Nous relions vos logiciels pour déclencher les bonnes actions à chaque étape de votre activité : création d’un client, transmission d’une commande ou mise à jour d’un dossier. Les intégrations utilisent les API disponibles et vos règles métier, avec des contrôles pour repérer les erreurs de synchronisation. Vous réduisez les doubles saisies tout en gardant la maîtrise du processus." },
+          { slug: "traitement-documents", title: "Documents, devis & facturation", lead: "Automatisez le traitement de documents, devis et factures : extraction des données, génération, classement et envoi selon vos règles métier.", summary: "Automatisez la création, le traitement et le classement de vos documents. Devis, factures et données suivent automatiquement le bon circuit.", description: "Le traitement de documents automatise les étapes répétitives autour des devis, factures et pièces justificatives. Les données utiles sont extraites, vérifiées puis transmises à vos outils de gestion ; les fichiers peuvent être générés, classés et envoyés selon vos règles. Une validation humaine peut être conservée avant un envoi ou lorsqu’une information doit être confirmée." },
+          { slug: "emails-demandes", title: "Emails, demandes & communication", lead: "L’automatisation des emails, formulaires et demandes clients permet de les trier, de les transmettre et de déclencher les bonnes actions.", summary: "Automatisez le tri et le traitement de vos emails, formulaires et demandes clients. Chaque message peut déclencher automatiquement la bonne action.", description: "L’automatisation des emails et des demandes centralise les messages reçus via vos boîtes mail et formulaires. Selon leur objet, leur origine ou les informations renseignées, ils sont classés, transmis au bon interlocuteur et associés à une action de suivi. Vous structurez le traitement des demandes clients sans devoir déplacer chaque information à la main." },
+          { slug: "relances-suivis", title: "Relances, rendez-vous & suivis", lead: "Automatisez vos relances, rappels et suivis pour les devis, factures, paiements, rendez-vous et dossiers en attente.", summary: "Automatisez vos rappels, relances et suivis pour les devis, paiements, rendez-vous ou dossiers en attente. Rien ne passe à la trappe.", description: "Nous construisons des scénarios de relance adaptés aux devis sans réponse, aux factures en attente et aux rendez-vous à confirmer. Le calendrier, le canal et les conditions d’arrêt sont définis avec vous : une réponse ou un paiement peut interrompre la séquence. Les équipes retrouvent l’historique du suivi et interviennent lorsque le dossier le nécessite." },
+          { slug: "synchronisation-crm", title: "Automatisation commerciale & CRM", lead: "L’automatisation CRM simplifie la gestion des prospects, opportunités et données clients pour fluidifier votre suivi commercial et garder vos informations à jour.", summary: "Automatisez la gestion de vos prospects, opportunités et données CRM. Vos équipes disposent d’informations toujours à jour pour mieux suivre leurs clients.", description: "L’automatisation commerciale et l’automatisation CRM relient vos formulaires, échanges clients et outils de vente. Elles permettent de créer ou mettre à jour les fiches prospects, d’attribuer les opportunités et de déclencher les tâches de suivi. Les règles de synchronisation et de détection des doublons sont adaptées à votre organisation pour conserver des données commerciales exploitables." },
+          { slug: "administration-operations", title: "Administration & opérations internes", lead: "Automatisez les tâches administratives, validations, créations de dossiers et processus internes qui ralentissent vos équipes au quotidien.", summary: "Automatisez les tâches administratives qui ralentissent vos équipes. Création de dossiers, validations et processus internes peuvent suivre automatiquement vos règles.", description: "Nous automatisons les circuits administratifs qui passent aujourd’hui par des emails, fichiers et ressaisies : création de dossiers, demandes de validation, attribution de tâches ou notifications internes. Chaque étape suit les responsabilités et conditions propres à votre entreprise. Les exceptions restent visibles et les décisions qui nécessitent une approbation demeurent sous contrôle humain." },
+          { slug: "tableaux-de-bord", title: "Données, rapports & tableaux de bord", lead: "Centralisez vos données et automatisez la mise à jour de vos tableaux de bord, indicateurs et rapports à partir de vos différents outils.", summary: "Centralisez vos données et automatisez la mise à jour de vos indicateurs. Vos rapports et tableaux de bord restent à jour sans compilation manuelle.", description: "Vos données sont regroupées depuis les outils pertinents pour alimenter des tableaux de bord et rapports métier. Nous définissons avec vous les indicateurs, les sources et la fréquence de mise à jour, puis automatisons la collecte et les calculs. Vos équipes consultent une vue cohérente de l’activité et peuvent repérer les écarts sans reconstruire leurs fichiers de reporting." },
+          { slug: "portails-outils-internes", title: "Portails & outils métier automatisés", lead: "Créez des portails clients, outils internes et interfaces métier sur mesure pour centraliser vos données, automatisations et processus dans un seul environnement.", summary: "Créez des portails clients et outils internes adaptés à votre manière de travailler. Centralisez vos données, vos processus et vos automatisations dans un seul environnement.", description: "Un portail client ou un outil métier sur mesure rassemble les informations et actions utiles à un processus précis. Consultation de dossiers, dépôt de documents, suivi de demandes ou validations : l’interface est reliée à vos outils et automatisations. Les accès sont définis par rôle afin que chaque utilisateur dispose des informations nécessaires à son travail." },
         ],
       },
       {
@@ -93,17 +92,19 @@ const fr = {
         title: "Agents IA",
         lead: "Des assistants qui lisent, répondent et agissent sur vos données.",
         items: [
-          { slug: "agent-telephonique", title: "Agent téléphonique", lead: "Il décroche quand vous ne pouvez pas, qualifie et prend rendez-vous." },
-          { slug: "agent-conversationnel", title: "Agent conversationnel", lead: "Sur votre site, WhatsApp ou par e-mail, dans votre langue métier." },
-          { slug: "qualification-prospects", title: "Qualification de prospects", lead: "Les demandes entrantes triées et notées avant que vous les lisiez." },
-          { slug: "assistant-documentaire", title: "Assistant documentaire", lead: "Il répond sur vos propres documents, en citant d'où vient la réponse." },
-          { slug: "support-interne", title: "Agent de support interne", lead: "Vos équipes obtiennent la procédure exacte, sans déranger personne." },
-          { slug: "agent-prospection", title: "Agent de prospection", lead: "Il identifie les entreprises cibles, les qualifie et prépare le contact." },
+          { slug: "agent-telephonique", title: "Agent téléphonique IA", lead: "Un agent IA capable de répondre aux appels, comprendre les demandes, qualifier les prospects et prendre des rendez-vous automatiquement.", summary: "Accueillez les appels, qualifiez les demandes et préparez la prise de rendez-vous.", description: "Un agent téléphonique IA peut accueillir les appels, identifier le motif de la demande et recueillir les informations utiles avant un transfert ou une prise de rendez-vous. Les scénarios sont définis selon vos horaires, votre activité et les connexions possibles à votre agenda ou CRM. Les demandes complexes sont orientées vers un interlocuteur humain selon les règles convenues." },
+          { slug: "agent-conversationnel", title: "Agent conversationnel IA", lead: "Un agent d’intelligence artificielle disponible sur votre site, WhatsApp ou par email pour répondre aux questions, guider vos clients et faciliter le support client.", summary: "Répondez aux questions clients sur votre site ou vos canaux de messagerie avec un agent IA.", description: "Un agent conversationnel IA accompagne vos visiteurs et clients sur les canaux retenus, comme votre site, WhatsApp ou l’email. Il répond à partir des informations que vous validez, guide vers les ressources utiles et peut déclencher des actions autorisées dans vos outils. Le périmètre des réponses et le passage au support client humain sont définis dès la conception." },
+          { slug: "qualification-prospects", title: "Agent de qualification de prospects", lead: "Analysez automatiquement les demandes entrantes afin d’identifier les besoins, qualifier les prospects et aider vos équipes commerciales à prioriser les opportunités.", summary: "Analysez les demandes entrantes et aidez vos commerciaux à prioriser les prospects pertinents.", description: "Cet agent de qualification de prospects analyse les demandes entrantes et structure les informations utiles : besoin exprimé, contexte, délai et critères de votre équipe commerciale. Il aide à prioriser les opportunités et à préparer une réponse pertinente. Les critères sont explicites et ajustables ; vos équipes gardent la décision finale sur le traitement des prospects." },
+          { slug: "assistant-documentaire", title: "Assistant documentaire IA", lead: "Interrogez vos documents, procédures et bases de connaissances grâce à un assistant IA capable de rechercher et synthétiser les informations utiles.", summary: "Retrouvez et synthétisez les informations de vos documents grâce à un assistant IA.", description: "Un assistant documentaire IA permet de rechercher une réponse dans vos documents, procédures et bases de connaissances en langage naturel. Il retrouve les passages pertinents et synthétise les informations, avec des références aux sources lorsque le contenu le permet. Le périmètre documentaire et les droits d’accès sont définis pour que les réponses restent adaptées aux utilisateurs autorisés." },
+          { slug: "support-interne", title: "Agent de support interne IA", lead: "Aidez vos équipes à retrouver rapidement des procédures, informations métier et réponses internes à partir de votre documentation.", summary: "Aidez vos équipes à trouver les procédures et réponses utiles dans votre documentation interne.", description: "L’agent de support interne IA aide vos collaborateurs à retrouver les procédures, consignes et informations métier déjà présentes dans votre documentation. Il oriente vers la bonne ressource et peut préparer une demande pour l’équipe compétente lorsque la réponse manque. Cette assistance réduit les recherches répétitives tout en laissant les cas particuliers aux personnes responsables." },
+          { slug: "agent-prospection", title: "Agent de prospection IA", lead: "Identifiez, analysez et qualifiez des entreprises ou prospects grâce à un agent IA conçu pour préparer et structurer votre prospection commerciale.", summary: "Identifiez des entreprises cibles et préparez votre prospection commerciale avec un agent IA.", description: "Un agent de prospection IA aide à repérer des entreprises correspondant à vos critères et à structurer les informations utiles à votre démarche commerciale. Il peut analyser les sources autorisées, préparer des fiches de qualification et proposer des angles de prise de contact. Les résultats sont soumis à vos contrôles ; les envois et décisions commerciales restent encadrés par vos règles." },
+          { slug: "agent-email-demandes", title: "Agent email & demandes IA", lead: "Analysez automatiquement vos emails et demandes entrantes pour les classer, extraire les informations importantes et préparer les actions adaptées.", summary: "Classez les emails, extrayez les informations utiles et préparez des réponses à valider.", description: "Cet agent IA analyse le sens des emails et demandes entrantes pour en extraire les éléments utiles, proposer une catégorie et préparer la suite du traitement. Il peut résumer un échange, suggérer une réponse ou alimenter un dossier dans vos outils. Les messages sensibles ou incertains sont orientés vers une validation humaine selon les conditions définies avec votre équipe." },
+          { slug: "agent-commercial", title: "Agent commercial IA", lead: "Un assistant IA pour résumer les échanges clients, préparer les rendez-vous, enrichir le CRM et suggérer les prochaines actions commerciales.", summary: "Résumez les échanges clients, préparez les rendez-vous et suggérez les prochaines actions commerciales.", description: "L’agent commercial IA accompagne vos équipes dans la préparation et le suivi des échanges clients. À partir des données autorisées, il peut résumer une conversation, préparer un rendez-vous, suggérer une mise à jour du CRM et proposer les prochaines actions. Les recommandations restent vérifiables et les engagements envers vos clients sont validés par vos commerciaux." },
         ],
       },
     ],
     /* Ce que chaque page de service dira. Rédigé à l'étape suivante, une
-       prestation d'abord, puis les onze autres sur le même gabarit. */
+       prestation d'abord, puis les autres sur le même gabarit. */
     detailPlaceholder: "Le détail de cette prestation est en cours de rédaction.",
   },
 
@@ -130,10 +131,10 @@ const fr = {
     },
   },
   hero: {
-    titleLead: "L'agence qui fait travailler l'IA",
-    titleAccent: "pour votre business.",
+    titleLead: "Des processus plus intelligents",
+    titleAccent: "grâce à l’automatisation et aux agents IA",
     subtitle:
-      "L'agence Synode automatise vos processus, les agents IA branchés sur vos données, développe vos logiciels et outils métier sur mesure. Nous simplifions votre quotidien.",
+      "Synode conçoit des solutions d’automatisation, des agents IA et des outils métier sur mesure pour connecter vos outils, automatiser les tâches répétitives et faire gagner du temps à vos équipes.",
     primaryCta: "Demander un audit",
     secondaryCta: "Voir nos réalisations",
     pillars: [
@@ -145,23 +146,60 @@ const fr = {
     /* Decorative interface mock in the hero. It is hidden from screen
        readers, so none of this copy is ever read aloud: it exists to be
        looked at, and to show the shape of what the agency delivers. */
-    mock: {
-      appName: "Synode",
-      badge: "Automatisé",
-      nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
-      title: "Votre activité,\nplus simple avec Synode",
-      steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
-      caseLabel: "Exemple concret",
-      caseText: "Un client demande un devis. Synode classe la demande, prépare le devis et relance automatiquement.",
-      caseEmphasis: ["devis", "relance"],
-      docLabel: "Devis",
-      gainLabel: "Temps gagné",
-      /* ⚠ PLACEHOLDER. Chiffre non mesuré, et c'est celui qu'affiche
-         atta-ai.com. À remplacer par une valeur constatée chez un vrai
-         client, ou à retirer, avant toute mise en ligne. Point bloquant
-         n° 0 du README. */
-      gainValue: "+6 h / semaine",
-    },
+    /* ------------------------------------------------------------------
+       Les trois systèmes du hero. Même structure, trois contenus : la barre
+       latérale, le titre, le badge, trois étapes, deux cartes. Ils se jouent
+       l'un après l'autre, puis la pile s'arrête sur le dernier.
+
+       ⚠ Les trois valeurs `gainValue` sont des PLACEHOLDERS. Aucune n'est
+       mesurée, et « +6 h / semaine » est le chiffre qu'affiche atta-ai.com.
+       À remplacer par des valeurs constatées chez de vrais clients, ou à
+       retirer, avant toute mise en ligne. Point bloquant n° 0 du README.
+       ------------------------------------------------------------------ */
+    systems: [
+      {
+        id: "demandes",
+        appName: "Synode",
+        badge: "Automatisé",
+        nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
+        title: "Votre activité,\nplus simple avec Synode",
+        steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
+        caseLabel: "Exemple concret",
+        caseText: "Un client demande un devis. Synode classe la demande, prépare le devis et relance automatiquement.",
+        caseEmphasis: ["devis", "relance"],
+        docLabel: "Devis",
+        gainLabel: "Temps gagné",
+        gainValue: "+6 h / semaine",
+      },
+      {
+        id: "impayes",
+        appName: "Synode",
+        badge: "Suivi actif",
+        nav: ["Factures en retard", "Relances", "Paiements", "Clients"],
+        title: "Vos impayés,\nmieux suivis avec Synode",
+        steps: ["Facture échue", "Relance envoyée", "Paiement suivi"],
+        caseLabel: "Exemple concret",
+        caseText: "Une facture dépasse l'échéance. Synode détecte le retard, envoie une relance et suit le paiement automatiquement.",
+        caseEmphasis: ["relance", "suit le paiement"],
+        docLabel: "Facture",
+        gainLabel: "Temps gagné",
+        gainValue: "+4 h / semaine",
+      },
+      {
+        id: "planning",
+        appName: "Synode",
+        badge: "Organisé",
+        nav: ["Rendez-vous", "Confirmations", "Disponibilités", "Notifications"],
+        title: "Votre planning,\nplus fluide avec Synode",
+        steps: ["Créneau choisi", "Rendez-vous confirmé", "Rappel envoyé"],
+        caseLabel: "Exemple concret",
+        caseText: "Un prospect choisit un créneau. Synode vérifie les disponibilités, confirme le rendez-vous et envoie le rappel automatiquement.",
+        caseEmphasis: ["disponibilités", "rappel"],
+        docLabel: "Agenda",
+        gainLabel: "Temps gagné",
+        gainValue: "+5 h / semaine",
+      },
+    ],
   },
   problem: {
     eyebrow: "Le constat",
@@ -448,10 +486,11 @@ const en = {
      between both languages on purpose. */
   services: {
     eyebrow: "Our services",
-    title: "Twelve ways to give you your time back.",
+    title: "Sixteen ways to give you your time back.",
     titleAccent: "give you your time back",
-    body: "Two families, twelve services. Each one solves a specific kind of wasted time, and each one has its own page.",
+    body: "Two families, sixteen services. Each one solves a specific kind of wasted time, and each one has its own page.",
     countLabel: "services",
+    familyLabel: "Family",
     detailEyebrow: "Service",
     backLabel: "All services",
     ctaLabel: "Book an audit",
@@ -461,12 +500,14 @@ const en = {
         title: "Automation",
         lead: "Your tools talk to each other, and the repetitive work disappears.",
         items: [
-          { slug: "workflows-integrations", title: "Workflows & integrations", lead: "Your tools wired end to end, no more double entry." },
-          { slug: "traitement-documents", title: "Document processing", lead: "Invoices, quotes, contracts: read, extracted, filed." },
-          { slug: "relances-suivis", title: "Automatic follow-ups", lead: "Unpaid invoices, proposals, appointments: nothing slips." },
-          { slug: "tableaux-de-bord", title: "Dashboards & reports", lead: "Your figures gathered, refreshed and sent on their own." },
-          { slug: "portails-outils-internes", title: "Portals & internal tools", lead: "The custom screen when no existing software fits." },
-          { slug: "synchronisation-crm", title: "CRM & data sync", lead: "One customer record, current everywhere, typed once." },
+          { slug: "workflows-integrations", title: "Process automation & integrations", lead: "Connect your software and automate business processes to eliminate duplicate entry and move data automatically between your tools.", summary: "Connect your software and automate business processes to eliminate duplicate entry.", description: "Connect your software around real business events: a new customer, an order or a case update. Integrations use available APIs and your business rules, with checks to detect synchronisation errors. Reduce duplicate entry while keeping control over the workflow." },
+          { slug: "traitement-documents", title: "Documents, quotes & invoicing", lead: "Automate document, quote and invoice processing: extract data, generate files, organise them and send them according to your business rules.", summary: "Automate document processing, quote creation and invoicing workflows.", description: "Automate repetitive work around quotes, invoices and supporting documents. Extract and check key data before sending it to your management tools, and generate, file or send documents according to your rules. Keep human approval before sending or when information needs confirmation." },
+          { slug: "emails-demandes", title: "Emails, requests & communication", lead: "Automate the sorting and routing of emails, forms and customer requests, and trigger the right actions.", summary: "Sort emails and customer requests, then trigger the right actions in your tools.", description: "Centralise requests from email inboxes and forms. Sort and route messages by topic, source or submitted information, then create the appropriate follow-up task. Structure customer communication without manually moving every piece of information between tools." },
+          { slug: "relances-suivis", title: "Follow-ups, appointments & reminders", lead: "Automate reminders and follow-ups for quotes, invoices, payments, appointments and pending cases.", summary: "Schedule quote follow-ups, payment reminders and appointment notifications.", description: "Build follow-up sequences for unanswered quotes, pending invoices and appointments. Define timing, channels and stop conditions together: a reply or payment can end a sequence. Your team keeps access to the history and handles cases that need personal attention." },
+          { slug: "synchronisation-crm", title: "Sales & CRM automation", lead: "Automate lead, opportunity and CRM data management to simplify sales follow-up and keep your records current.", summary: "Connect sales tools to your CRM to keep leads and opportunities up to date.", description: "Connect forms, customer conversations and sales tools to create or update CRM records, assign opportunities and trigger follow-up tasks. Synchronisation and duplicate detection follow your organisation’s rules. Keep useful sales data available without repetitive manual updates." },
+          { slug: "administration-operations", title: "Administration & internal operations", lead: "Automate administrative tasks, approvals, case creation and internal processes that slow your teams down.", summary: "Automate approvals, case creation and repetitive administrative tasks.", description: "Automate administrative workflows such as case creation, approval requests, task assignment and internal notifications. Each step follows your responsibilities and business conditions. Exceptions remain visible, and decisions requiring approval stay under human control." },
+          { slug: "tableaux-de-bord", title: "Data, reports & dashboards", lead: "Centralise your data and automatically update dashboards, metrics and reports from your different tools.", summary: "Centralise data and automatically refresh metrics, reports and dashboards.", description: "Bring relevant data sources together to populate business dashboards and reports. Define metrics, sources and refresh schedules, then automate collection and calculations. Teams get a consistent view of activity without rebuilding reporting spreadsheets." },
+          { slug: "portails-outils-internes", title: "Automated portals & business tools", lead: "Build custom client portals, internal tools and business interfaces to bring data, automation and processes together.", summary: "Bring data and processes together in a custom client portal or business tool.", description: "Create a custom client portal or business tool around a specific workflow. Case tracking, document uploads, requests and approvals connect to your existing software and automations. Role-based access gives each user the information needed for their work." },
         ],
       },
       {
@@ -474,12 +515,14 @@ const en = {
         title: "AI agents",
         lead: "Assistants that read, answer and act on your data.",
         items: [
-          { slug: "agent-telephonique", title: "Voice agent", lead: "It picks up when you can't, qualifies and books the meeting." },
-          { slug: "agent-conversationnel", title: "Chat agent", lead: "On your site, WhatsApp or email, in your own vocabulary." },
-          { slug: "qualification-prospects", title: "Lead qualification", lead: "Incoming requests sorted and scored before you read them." },
-          { slug: "assistant-documentaire", title: "Document assistant", lead: "It answers from your own documents, and cites where from." },
-          { slug: "support-interne", title: "Internal support agent", lead: "Your teams get the exact procedure without interrupting anyone." },
-          { slug: "agent-prospection", title: "Prospecting agent", lead: "It finds target companies, qualifies them and prepares the outreach." },
+          { slug: "agent-telephonique", title: "AI voice agent", lead: "An AI agent that answers calls, understands requests, qualifies leads and books appointments automatically.", summary: "Answer calls, qualify requests and help customers book appointments.", description: "An AI voice agent can answer calls, identify the request and collect useful information before transferring the caller or booking an appointment. Scenarios reflect your hours, business and available calendar or CRM integrations. Complex requests go to a human under agreed rules." },
+          { slug: "agent-conversationnel", title: "AI conversational agent", lead: "An AI agent on your website, WhatsApp or email to answer questions, guide customers and support customer service.", summary: "Answer customer questions on your website or messaging channels with an AI agent.", description: "An AI conversational agent guides customers on selected channels such as your website, WhatsApp or email. It uses approved information, points to useful resources and can trigger authorised actions in your tools. Define answer boundaries and handover to human customer support from the start." },
+          { slug: "qualification-prospects", title: "Lead qualification agent", lead: "Analyse incoming requests to identify needs, qualify leads and help your sales team prioritise opportunities.", summary: "Analyse incoming enquiries and help sales teams prioritise relevant leads.", description: "Analyse incoming enquiries and organise the information your sales team needs: requirements, context, timing and qualification criteria. Help prioritise opportunities and prepare relevant responses. Criteria remain explicit and adjustable, with final decisions made by your team." },
+          { slug: "assistant-documentaire", title: "AI document assistant", lead: "Search your documents, procedures and knowledge bases with an AI assistant that finds and summarises useful information.", summary: "Find and summarise information in your documents with an AI assistant.", description: "Search documents, procedures and knowledge bases using natural language. The assistant retrieves relevant passages and summarises information with source references where the content allows. Define the document scope and access rights for authorised users." },
+          { slug: "support-interne", title: "AI internal support agent", lead: "Help your teams quickly find procedures, business information and internal answers in your documentation.", summary: "Help teams find procedures and answers in your internal documentation.", description: "Help employees find procedures, guidance and business information in your internal documentation. The agent points to the right resource and can prepare a request for the relevant team when an answer is missing. Specific cases remain with the responsible people." },
+          { slug: "agent-prospection", title: "AI prospecting agent", lead: "Identify, analyse and qualify companies or leads with an AI agent that prepares and structures your sales prospecting.", summary: "Identify target companies and prepare sales prospecting with an AI agent.", description: "Identify companies matching your criteria and organise information for sales prospecting. The agent can analyse authorised sources, prepare qualification records and suggest contact angles. Your team reviews results, with outreach and sales decisions governed by your rules." },
+          { slug: "agent-email-demandes", title: "AI email & request agent", lead: "Automatically analyse incoming emails and requests to categorise them, extract key information and prepare the right actions.", summary: "Sort emails, extract key information and prepare replies for review.", description: "Analyse the meaning of incoming emails and requests to extract key information, suggest a category and prepare next steps. Summarise conversations, draft replies or populate records in your tools. Sensitive or uncertain messages go through human review under agreed conditions." },
+          { slug: "agent-commercial", title: "AI sales agent", lead: "An AI assistant to summarise customer conversations, prepare meetings, enrich your CRM and suggest next sales actions.", summary: "Summarise customer conversations, prepare meetings and suggest next sales actions.", description: "Help sales teams prepare and follow up on customer conversations. Using authorised data, the assistant can summarise exchanges, prepare meetings, suggest CRM updates and propose next actions. Recommendations remain reviewable, and customer commitments are approved by your team." },
         ],
       },
     ],
@@ -514,20 +557,52 @@ const en = {
       { icon: "AppWindow", title: "Custom software", text: "Web apps, internal tools, portals, dashboards." },
       { icon: "ArrowLeftRight", title: "Websites & applications", text: "A digital presence tailored to your business." },
     ],
-    mock: {
-      appName: "Synode",
-      badge: "Automated",
-      nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
-      title: "Your business,\nsimpler with Synode",
-      steps: ["Request received", "Quote sent", "Automatic follow-up"],
-      caseLabel: "A concrete example",
-      caseText: "A client asks for a quote. Synode files the request, drafts the quote and follows up on its own.",
-      caseEmphasis: ["quote", "follows up"],
-      docLabel: "Quote",
-      gainLabel: "Time saved",
-      /* ⚠ PLACEHOLDER — see the French block. */
-      gainValue: "+6 h / week",
-    },
+    /* See the French block for how this is structured, and for the warning
+       on the three `gainValue` placeholders. */
+    systems: [
+      {
+        id: "demandes",
+        appName: "Synode",
+        badge: "Automated",
+        nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
+        title: "Your business,\nsimpler with Synode",
+        steps: ["Request received", "Quote sent", "Automatic follow-up"],
+        caseLabel: "A concrete example",
+        caseText: "A client asks for a quote. Synode files the request, drafts the quote and follows up on its own.",
+        caseEmphasis: ["quote", "follows up"],
+        docLabel: "Quote",
+        gainLabel: "Time saved",
+        gainValue: "+6 h / week",
+      },
+      {
+        id: "impayes",
+        appName: "Synode",
+        badge: "Tracking on",
+        nav: ["Overdue invoices", "Reminders", "Payments", "Clients"],
+        title: "Your unpaid invoices,\ntracked with Synode",
+        steps: ["Invoice overdue", "Reminder sent", "Payment tracked"],
+        caseLabel: "A concrete example",
+        caseText: "An invoice goes past its due date. Synode spots the delay, sends a reminder and tracks the payment on its own.",
+        caseEmphasis: ["reminder", "tracks the payment"],
+        docLabel: "Invoice",
+        gainLabel: "Time saved",
+        gainValue: "+4 h / week",
+      },
+      {
+        id: "planning",
+        appName: "Synode",
+        badge: "Organised",
+        nav: ["Appointments", "Confirmations", "Availability", "Notifications"],
+        title: "Your schedule,\nsmoother with Synode",
+        steps: ["Slot picked", "Appointment confirmed", "Reminder sent"],
+        caseLabel: "A concrete example",
+        caseText: "A prospect picks a slot. Synode checks availability, confirms the appointment and sends the reminder on its own.",
+        caseEmphasis: ["availability", "reminder"],
+        docLabel: "Calendar",
+        gainLabel: "Time saved",
+        gainValue: "+5 h / week",
+      },
+    ],
   },
   problem: {
     eyebrow: "The situation",

@@ -1,19 +1,41 @@
 import Image from "next/image";
 import { Fragment, type ComponentType, type SVGProps } from "react";
-import { Bell, Folder, Mail } from "lucide-react";
+import {
+  Bell,
+  CalendarCheck,
+  Clock,
+  CreditCard,
+  Folder,
+  Mail,
+  Send,
+  Users,
+} from "lucide-react";
 import { CalendarIcon, FileIcon } from "@/components/site/icons";
-import { getContent, type Locale } from "@/lib/content";
+import type { getContent } from "@/lib/content";
 
 /* Le jeu mélange des glyphes lucide et les icônes dessinées du dossier
    `public/svg-icons`, qui n'ont pas le même type. Le dénominateur commun est
    un composant SVG. */
 type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
 
-/** Les quatre entrées de la barre latérale, dans l'ordre de la copie. */
-const NAV_ICONS: Glyph[] = [Mail, FileIcon, CalendarIcon, Folder];
+type System = ReturnType<typeof getContent>["hero"]["systems"][number];
 
-/** Les trois temps du flux, de gauche à droite. */
-const STEP_ICONS: Glyph[] = [Mail, FileIcon, Bell];
+/**
+ * Les icônes des trois systèmes, dans l'ordre de la copie. Elles vivent ici
+ * et non dans `content.ts` : une icône est de la mise en forme, pas du
+ * contenu, et la traduction n'a rien à en dire.
+ */
+const NAV_ICONS: Glyph[][] = [
+  [Mail, FileIcon, CalendarIcon, Folder],
+  [Clock, Send, CreditCard, Users],
+  [CalendarIcon, Mail, Clock, Bell],
+];
+
+const STEP_ICONS: Glyph[][] = [
+  [Mail, FileIcon, Bell],
+  [FileIcon, Send, CreditCard],
+  [CalendarIcon, CalendarCheck, Bell],
+];
 
 /**
  * Le mock du logiciel, au centre du hero.
@@ -28,8 +50,18 @@ const STEP_ICONS: Glyph[] = [Mail, FileIcon, Bell];
  * unités de conteneur, donc le panneau entier s'échelonne d'un bloc avec le
  * plateau au lieu de se recomposer à chaque point de rupture.
  */
-export function HeroAppMock({ locale }: { locale: Locale }) {
-  const { mock } = getContent(locale).hero;
+export function HeroAppMock({
+  system,
+  index,
+}: {
+  system: System;
+  index: number;
+}) {
+  const navIcons = NAV_ICONS[index] ?? NAV_ICONS[0];
+  const stepIcons = STEP_ICONS[index] ?? STEP_ICONS[0];
+  /* Un dégradé par système : trois `<defs>` portant le même identifiant dans
+     la même page, et les trois courbes prendraient celui du premier. */
+  const gradientId = `hero-gain-${system.id}`;
 
   /* Les deux mots que le texte met en avant. Ils viennent de la copie et non
      du balisage, pour que la traduction puisse en choisir d'autres. */
@@ -60,12 +92,12 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
       <aside className="hero-app-side">
         <div className="hero-app-brand">
           <Image src="/synode-mark.png" alt="" width={48} height={48} />
-          <span>{mock.appName}</span>
+          <span>{system.appName}</span>
         </div>
 
         <nav className="hero-app-nav">
-          {mock.nav.map((label, i) => {
-            const Glyph = NAV_ICONS[i];
+          {system.nav.map((label, i) => {
+            const Glyph = navIcons[i];
             return (
               <span
                 key={label}
@@ -85,7 +117,7 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
       <div className="hero-app-main">
         <div className="hero-app-head">
           <h3 className="hero-app-title">
-            {mock.title.split("\n").map((line, i, all) => (
+            {system.title.split("\n").map((line, i, all) => (
               <Fragment key={i}>
                 {line}
                 {i < all.length - 1 && <br />}
@@ -96,7 +128,7 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
           {/* L'état du système, en vert : ce qui tourne tourne. */}
           <span className="hero-app-status">
             <i />
-            {mock.badge}
+            {system.badge}
           </span>
         </div>
 
@@ -104,8 +136,8 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
             s'allume : c'est la séquence qui raconte l'automatisation, pas
             les trois icônes prises séparément. */}
         <div className="hero-app-flow">
-          {mock.steps.map((label, i) => {
-            const Glyph = STEP_ICONS[i];
+          {system.steps.map((label, i) => {
+            const Glyph = stepIcons[i];
             return (
               <Fragment key={label}>
                 {i > 0 && (
@@ -162,12 +194,12 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
         {/* --------------------------- Deux cartes ---------------------- */}
         <div className="hero-app-bottom">
           <div className="hero-app-card hero-app-example">
-            <span className="hero-app-card-title">{mock.caseLabel}</span>
-            <p>{emphasise(mock.caseText, mock.caseEmphasis)}</p>
+            <span className="hero-app-card-title">{system.caseLabel}</span>
+            <p>{emphasise(system.caseText, system.caseEmphasis)}</p>
 
             {/* Le devis, posé de travers derrière le texte. */}
             <span className="hero-app-doc">
-              <b>{mock.docLabel}</b>
+              <b>{system.docLabel}</b>
               <i />
               <i />
               <i />
@@ -175,15 +207,15 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
           </div>
 
           <div className="hero-app-card hero-app-gain">
-            <span className="hero-app-card-title">{mock.gainLabel}</span>
-            <span className="hero-app-chart-value">{mock.gainValue}</span>
+            <span className="hero-app-card-title">{system.gainLabel}</span>
+            <span data-placeholder className="hero-app-chart-value">{system.gainValue}</span>
 
             <span className="hero-app-chart">
               <svg viewBox="0 0 120 44" fill="none" preserveAspectRatio="none">
                 <path
                   className="hero-app-chart-area"
                   d="M0 36C14 36 20 30 32 27s16 4 28 1 18-16 34-20 26-4 26-4V44H0z"
-                  fill="url(#heroGain)"
+                  fill={`url(#${gradientId})`}
                 />
                 <path
                   className="hero-app-chart-line"
@@ -193,9 +225,9 @@ export function HeroAppMock({ locale }: { locale: Locale }) {
                   strokeLinecap="round"
                 />
                 <defs>
-                  <linearGradient id="heroGain" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#0a7ce0" stopOpacity="0.22" />
-                    <stop offset="100%" stopColor="#0a7ce0" stopOpacity="0" />
+                  <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="currentColor" stopOpacity="0.22" />
+                    <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
                   </linearGradient>
                 </defs>
               </svg>
