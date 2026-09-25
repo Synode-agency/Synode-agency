@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Headset, Target, UserCheck } from "lucide-react";
+import { ArrowRight, ClipboardList, Headset, Mail, Target, UserCheck, BriefcaseBusiness } from "lucide-react";
 import type { ComponentType, SVGProps } from "react";
 import { SectionHeading } from "@/components/site/section-heading";
 import { ChapterMark } from "@/components/site/chapter-mark";
+import { ServiceGrid } from "@/components/site/service-grid";
 import { Reveal } from "@/components/site/reveal";
 import { renderLines } from "@/lib/lines";
 import {
@@ -41,30 +42,19 @@ const SERVICE_ICONS: Record<string, Glyph> = {
   "assistant-documentaire": ZoomIcon,
   "support-interne": Headset,
   "agent-prospection": Target,
+  "emails-demandes": Mail,
+  "administration-operations": ClipboardList,
+  "agent-email-demandes": Mail,
+  "agent-commercial": BriefcaseBusiness,
 };
 
-/**
- * Nos services : les deux familles et leurs douze prestations, nommées une
- * par une.
- *
- * Aucune carte. Le titre de la famille tient la colonne de gauche, ses six
- * prestations s'alignent à droite, séparées par un filet. Douze cartes
- * bordées posaient douze surfaces de plus sur une page qui en avait déjà
- * beaucoup, et c'est le nom de la prestation qu'on doit regarder, pas la
- * boîte autour.
- *
- * Il n'existe pas de page qui les rassemble, et c'est délibéré : une page
- * d'index n'aurait rien dit de plus que cette section, et aurait mis une
- * porte de plus entre le visiteur et la prestation qu'il cherche. Chaque
- * carte mène directement à sa page. La famille, elle, ne mène nulle part —
- * elle est un intitulé, pas une destination.
- */
+/** Aperçu de six services par domaine sur la page d’accueil. */
 export function ServicesBand({ locale }: { locale: Locale }) {
   const { services } = getContent(locale);
 
   return (
     <section id="services" className="section-screen relative">
-      <ChapterMark n={1} side="right" />
+      <ChapterMark n={1} side="left" />
 
       <div className="container-page">
         <SectionHeading
@@ -72,63 +62,78 @@ export function ServicesBand({ locale }: { locale: Locale }) {
           title={renderLines(services.title, [services.titleAccent])}
           subtitle={services.body}
           align="left"
-          className="reveal-left"
+          className="reveal-left services-heading"
         />
 
-        <div className="services-families">
-          {services.families.map((family, f) => (
-            <div key={family.slug} className="services-family">
-              <Reveal className="reveal-left services-family-head">
-                <span aria-hidden className="services-family-num">
-                  {String(f + 1).padStart(2, "0")}
-                </span>
-                <h3
-                  id={`famille-${family.slug}`}
-                  className="services-family-title"
-                >
-                  {family.title}
-                </h3>
-                <p className="services-family-lead">{family.lead}</p>
-                <span aria-hidden className="services-family-count">
-                  {family.items.length} {services.countLabel}
-                </span>
-              </Reveal>
+        <ServiceFamilies locale={locale} />
+      </div>
+    </section>
+  );
+}
 
-              {/* Une liste, pas une grille de cartes. Douze cartes bordées
-                  posaient douze surfaces sur une page qui en avait déjà
-                  beaucoup ; un filet entre deux lignes suffit à les séparer,
-                  et le nom de la prestation redevient ce qu'on regarde. */}
-              <ul
-                className="services-list"
-                aria-labelledby={`famille-${family.slug}`}
+/** Shared cards: six on the homepage, the full catalogue on Services. */
+export function ServiceFamilies({ locale, expanded = false }: { locale: Locale; expanded?: boolean }) {
+  const { services } = getContent(locale);
+  return (
+        <div className={`services-families${expanded ? " services-catalog" : ""}`}>
+          {services.families.map((family, f) => {
+            const FamilyHeading = expanded ? "h2" : "h3";
+            return (
+            <Reveal
+              key={family.slug}
+              delay={80 + f * 120}
+              className={`services-family services-family-${family.slug} reveal-up`}
+            >
+              <div className="services-family-head">
+                <span aria-hidden className="services-family-icon">
+                  {family.slug === "automatisation" ? <NetworkIcon /> : <RobotLineIcon />}
+                </span>
+
+                <div className="services-family-copy">
+                  <FamilyHeading
+                    id={`famille-${family.slug}`}
+                    className="services-family-title"
+                  >
+                    {family.title}
+                  </FamilyHeading>
+                  <p className="services-family-lead">{family.lead}</p>
+                </div>
+
+              </div>
+
+              <ServiceGrid
+                labelledBy={`famille-${family.slug}`}
+                collapsible={!expanded}
+                locale={locale}
               >
-                {family.items.map((item, i) => {
+                {family.items.map((item) => {
                   const Glyph = SERVICE_ICONS[item.slug];
                   return (
                     <li key={item.slug}>
-                      <Reveal delay={40 + i * 40} className="reveal-up">
-                        <Link
-                          href={path(locale, `/services/${item.slug}`)}
-                          className="service-row"
-                        >
-                          <span aria-hidden className="service-row-icon">
-                            {Glyph && <Glyph />}
-                          </span>
-                          <span className="service-row-copy">
-                            <b className="service-row-title">{item.title}</b>
-                            <i className="service-row-lead">{item.lead}</i>
-                          </span>
-                          <ArrowRight aria-hidden className="service-row-go" />
-                        </Link>
-                      </Reveal>
+                      <Link
+                        href={path(locale, `/services/${item.slug}`)}
+                        className="service-card"
+                      >
+                        <span aria-hidden className="service-card-tile">
+                          {Glyph && <Glyph />}
+                        </span>
+
+                        <div className="service-card-copy">
+                          {expanded ? <h3 className="service-card-title">{item.title}</h3> : <b className="service-card-title">{item.title}</b>}
+                          <p className="service-card-lead">{expanded ? item.description : item.summary}</p>
+                        </div>
+
+                        <span aria-hidden className="service-card-go">
+                          <ArrowRight />
+                        </span>
+                      </Link>
                     </li>
                   );
                 })}
-              </ul>
-            </div>
-          ))}
+              </ServiceGrid>
+
+            </Reveal>
+          ); })}
         </div>
-      </div>
-    </section>
   );
 }

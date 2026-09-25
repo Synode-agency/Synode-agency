@@ -31,8 +31,22 @@ export function Hero({ locale }: { locale: Locale }) {
                 chose à l'écran. Un titre qui apparaît en fondu retarde le
                 message et fait passer le site pour lent. */}
             <div className="hero-copy flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
-              <div className="relative isolate w-fit">
-                <h1 className="hero-heading text-[length:var(--fs-display)] leading-[1.04] font-semibold lg:text-[calc(var(--hs)*var(--fs-display))]">
+              {/* Plus de `w-fit` : il faisait prendre au titre la largeur de
+                  son contenu, donc il ne revenait jamais à la ligne et
+                  débordait de sa colonne. Il n'était là que pour la lueur
+                  qui tournait derrière le titre, retirée depuis. */}
+              <div className="relative isolate">
+                <h1 className="hero-heading text-[length:var(--fs-display)] leading-[1.04] font-semibold lg:text-[min(calc(var(--hs)*7.7cqi),4.5rem)]">
+                  {/* Chaque moitié tient sa ligne. Laissé libre, le titre se
+                      coupait là où la largeur le décidait : après « l'IA » sur
+                      un grand écran, après « votre » sur un 13 pouces, ce qui
+                      laissait « business. » seul en bas. La coupe est donc
+                      écrite, et elle tombe au même endroit partout.
+
+                      Pas de `white-space: nowrap` avec : si une moitié ne
+                      tient pas, elle se replie au lieu de sortir de sa
+                      colonne. C'est exactement ce qui débordait sous le mock
+                      avant. */}
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
                 </h1>

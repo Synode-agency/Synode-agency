@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { InnerPage } from "@/components/site/inner-page";
 import { Placeholder } from "@/components/site/placeholder";
-import { getContent, homePath, path, type Locale } from "@/lib/content";
+import { getContent, path, type Locale } from "@/lib/content";
 
 /** Retrouve une prestation et sa famille à partir du seul slug. */
 export function findService(locale: Locale, slug: string) {
@@ -57,7 +57,7 @@ export function ServiceDetailPage({
         />
 
         <Link
-          href={`${homePath(locale)}#services`}
+          href={path(locale, "/services")}
           className="inline-flex w-fit items-center gap-2 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="size-3.5" />

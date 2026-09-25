@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Bebas_Neue, Bricolage_Grotesque, Inter } from "next/font/google";
+import { Bebas_Neue } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -14,32 +15,33 @@ import { Toaster } from "@/components/ui/sonner";
  * `--font-heading`, `--font-archivo` and `--font-plex` all resolve to it,
  * which keeps every existing class working without a second download.
  */
-const fontSans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 /**
- * Used only for the names on the paper stack in the Constat. A grotesque
- * like the body face, but drawn with deliberately uneven proportions and
- * cut-in corners, so it carries character without the reading cost of a
- * condensed or serif display face.
- */
-const fontLabel = Bricolage_Grotesque({
-  variable: "--font-label",
-  subsets: ["latin"],
-  weight: ["700"],
-  display: "swap",
-});
-
-/**
- * The face of the five chapter numerals on the landing page.
+ * La police du site : Anodina, déposée dans `src/fonts`.
  *
- * Very condensed and very tall, which is what makes an "01" read as a shape
- * rather than as two digits at the opacity these are set in. One weight, and
- * the only glyphs ever drawn are the digits 0 to 5.
+ * Une seule famille pour tout, titres et texte courant — c'est le principe
+ * posé depuis le début : la différence entre un titre et un paragraphe se
+ * fait par la taille et la graisse, jamais par un changement de police.
+ *
+ * Quatre fichiers statiques sur les cinq fournis. L'ExtraLight (250) n'est
+ * pas déclaré : aucune règle du site ne descend sous 300, et un poids
+ * déclaré est un poids préchargé.
+ *
+ * La famille n'a ni 500 ni 600, alors que le site en demande. Ce n'est pas
+ * un problème : le navigateur choisit le fichier réel le plus proche — 500
+ * tombe sur 400, 600 sur 700 — donc aucun faux gras n'est fabriqué. Les
+ * éléments en 600 sortiront simplement un cran plus gras que prévu.
  */
+const fontSans = localFont({
+  src: [
+    { path: "../fonts/Anodina-Light.woff2", weight: "300", style: "normal" },
+    { path: "../fonts/Anodina-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../fonts/Anodina-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/Anodina-ExtraBold.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
+});
+
 const fontChapter = Bebas_Neue({
   variable: "--font-chapter",
   subsets: ["latin"],
@@ -59,7 +61,8 @@ const fontAliases = {
   "--font-plex": fontSans.style.fontFamily,
 } as CSSProperties;
 
-export const siteUrl = "https://synode-agency.com";
+/* `siteUrl` a déménagé dans `@/lib/site-url` : voir le commentaire là-bas. */
+export { siteUrl } from "@/lib/site-url";
 
 /**
  * The document shell, shared by the two root layouts.
@@ -78,7 +81,6 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
       lang={lang}
       className={[
         fontSans.variable,
-        fontLabel.variable,
         fontChapter.variable,
         "h-full",
       ].join(" ")}
@@ -101,8 +103,10 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
           {/* La séquence du mock est en pause tant que `data-shown` n'est pas
               posé, et c'est JavaScript qui le pose. Sans lui, le mock
               resterait figé sur sa première image, donc vide : ici il
-              s'affiche directement terminé. */}
-          <style>{`.hero-app,.hero-app *{animation:none !important;opacity:1 !important}.hero-app-cursor{display:none !important}.hero-app-nav-row.is-active{background:#e8f1fd;color:#0a7ce0;font-weight:600}`}</style>
+              s'affiche directement terminé, et seule la première carte de
+              la pile est montrée puisque rien ne peut faire glisser les
+              suivantes. */}
+          <style>{`.hero-app,.hero-app *{animation:none !important;opacity:1 !important}.hero-app-cursor{display:none !important}.hero-system:not(:first-child){display:none !important}.hero-app-nav-row.is-active{background:var(--sys-tint);color:var(--sys-ink);font-weight:600}`}</style>
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">

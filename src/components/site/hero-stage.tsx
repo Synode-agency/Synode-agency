@@ -1,29 +1,31 @@
 import { HeroAppMock } from "@/components/site/hero-app-mock";
-import { Reveal } from "@/components/site/reveal";
-import type { Locale } from "@/lib/content";
+import { HeroSystems } from "@/components/site/hero-systems";
+import { getContent, type Locale } from "@/lib/content";
 
 /**
- * Côté droit du hero : le mock du logiciel, seul.
- *
- * Les quatre cartes de service qui l'encadraient ont été retirées — elles
- * répétaient ce que la section Services dit désormais en détail, et le hero
- * n'a pas à vendre quatre choses avant d'avoir dit ce qu'on fait.
+ * Côté droit du hero : la pile des trois systèmes Synode.
  *
  * Le plateau garde son rôle de conteneur de requête : tout ce qui vit dans
- * le mock est dimensionné en `cqw`, donc la composition entière s'échelonne
+ * un mock est dimensionné en `cqw`, donc la composition entière s'échelonne
  * comme une image au lieu de se disloquer aux largeurs intermédiaires.
+ *
+ * Le contenu est lu ici, côté serveur, et les trois mocks sont passés en
+ * enfants au pilote. Celui-ci est le seul morceau client : il ne connaît
+ * que le nombre de cartes et l'ordre, pas leur contenu, donc aucune copie ne
+ * part dans le paquet JavaScript.
  */
 export function HeroStage({ locale }: { locale: Locale }) {
+  const { hero } = getContent(locale);
+
   return (
     <div className="hero-stage">
-      {/* Reveal sert uniquement de détecteur : il pose data-shown quand le
-          mock entre à l'écran. Il n'anime rien par lui-même, le fondu de
-          `.reveal` est neutralisé sur ce panneau. C'est ce qui permet au
-          mock de jouer ses éléments une seule fois sur téléphone, au
-          moment du scroll, au lieu de tourner en boucle. */}
-      <Reveal className="hero-stage-panel">
-        <HeroAppMock locale={locale} />
-      </Reveal>
+      <div className="hero-stage-panel">
+        <HeroSystems>
+          {hero.systems.map((system, i) => (
+            <HeroAppMock key={system.id} system={system} index={i} />
+          ))}
+        </HeroSystems>
+      </div>
     </div>
   );
 }
