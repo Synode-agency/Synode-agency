@@ -1,119 +1,59 @@
-import {
-  AlertCircle,
-  Check,
-  ImageIcon,
-  Mail,
-  RefreshCw,
-  Table2,
-  X,
-} from "lucide-react";
-import {
-  BarChartIcon,
-  FileIcon,
-  PhoneLinearIcon,
-} from "@/components/site/icons";
+import { AlertCircle, Check } from "lucide-react";
 
 /**
- * The four illustrations above the Constat columns.
+ * Les quatre illustrations des cartes du Constat.
  *
- * One light walks all thirteen items of the first three, in order: the four
- * rows of column 01, the five tools of column 02, the four rows of column
- * 03, then round again. Each element carries its rank in that run as
- * `--pv-i`, which is what lets three separate drawings share one sequence
- * without a single nth-child rule.
+ * Volontairement muettes : des barres grises plutôt que des libellés. À la
+ * taille où elles s'affichent, un texte réel ne se lirait pas, et un texte
+ * qu'on ne lit pas se regarde comme du bruit. Réduites à leur forme, elles
+ * disent la même chose d'un coup d'œil — une liste, des outils éparpillés,
+ * un suivi en souffrance, un site qui a vieilli.
  *
- * All decorative, all hidden from assistive technology: the column's title,
- * paragraph and figure already say everything they say. They are drawn from
- * plain elements rather than shipped as images, so they stay sharp at any
- * size and cost nothing to download.
+ * Une seule lumière parcourt les neuf éléments des trois premières, dans
+ * l'ordre : les trois lignes de la première, les trois outils de la
+ * deuxième, les trois lignes de la troisième, puis elle recommence. Chaque
+ * élément porte son rang dans `--pv-i`, ce qui permet à trois dessins
+ * séparés de partager une seule séquence sans une seule règle `nth-child`.
+ *
+ * Tout est décoratif et masqué aux technologies d'assistance : le titre et
+ * le texte de la carte disent déjà tout.
  */
 
-/** 01 — the same five things, redone by hand every week. */
-function ManualTasks() {
-  const tasks = [
-    { Icon: FileIcon, name: "Factures", note: "Saisies une par une" },
-    { Icon: BarChartIcon, name: "Rapports", note: "Copiés-collés" },
-    { Icon: Table2, name: "Tableaux", note: "Mis à jour à la main" },
-    { Icon: Mail, name: "Emails", note: "Rédigés un par un" },
-  ];
+/** Une ligne de liste : un repère, puis deux barres. */
+function Row({
+  rank,
+  lead,
+}: {
+  rank: number;
+  lead: React.ReactNode;
+}) {
   return (
-    <div className="pv pv--manual">
-      {tasks.map(({ Icon, name, note }, i) => (
-        <span
-          key={name}
-          className="pv-row pv-flash"
-          style={{ "--pv-i": i } as React.CSSProperties}
-        >
-          <span className="pv-row-icon">
-            <Icon />
-          </span>
-          <span className="pv-row-body">
-            <b className="pv-row-name">{name}</b>
-            <i>{note}</i>
-          </span>
-          <span className="pv-row-repeat">
-            <RefreshCw />
-          </span>
-        </span>
+    <span
+      className="pv-row pv-flash"
+      style={{ "--pv-i": rank } as React.CSSProperties}
+    >
+      {lead}
+      <span className="pv-row-bars">
+        <i />
+        <i />
+      </span>
+    </span>
+  );
+}
+
+/** 01 — les mêmes gestes, refaits à la main chaque semaine. */
+function ManualTasks() {
+  return (
+    <div className="pv pv--card">
+      {[0, 1, 2].map((i) => (
+        <Row key={i} rank={i} lead={<span className="pv-dot" />} />
       ))}
     </div>
   );
 }
 
-/**
- * The five tools, as their own marks. Simplified on purpose: at 40px a
- * faithful trace would turn to mud, and these read instantly at that size.
- */
-function NotionMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden>
-      <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" fill="#fff" stroke="#111" strokeWidth="1.4" />
-      <path d="M8.8 16.2V8.4l6.4 7.4V8.4" fill="none" stroke="#111" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function OneDriveMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden>
-      <path
-        d="M8.1 19h9.4a3.3 3.3 0 0 0 .5-6.6 5.2 5.2 0 0 0-9.7-1.8A3.9 3.9 0 0 0 8.1 19z"
-        fill="#0364B8"
-      />
-      <path
-        d="M8.1 19h9.4a3.3 3.3 0 0 0 3-2.1H8.1a3.9 3.9 0 0 1-3.7-2.7A3.9 3.9 0 0 0 8.1 19z"
-        fill="#0078D4"
-      />
-    </svg>
-  );
-}
-
-function DriveMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden>
-      {/* The triangle split three ways from its centre, as the real mark is. */}
-      <path d="M12 3 17 11.5 12 14.3 7 11.5z" fill="#FFBA00" />
-      <path d="M7 11.5 12 14.3 12 20 2 20z" fill="#00AC47" />
-      <path d="M17 11.5 22 20 12 20 12 14.3z" fill="#0066DA" />
-      <path d="M2 20 7 11.5 12 14.3 12 20z" fill="#00AC47" />
-    </svg>
-  );
-}
-
-function ExcelMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="3" fill="#107C41" />
-      <path
-        d="M8.8 8.4 15.2 15.6M15.2 8.4 8.8 15.6"
-        stroke="#fff"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
+/* Les trois outils, réduits à leur marque. Simplifiés à dessein : à cette
+   taille un tracé fidèle tournerait à la bouillie. */
 function GmailMark() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden>
@@ -124,128 +64,100 @@ function GmailMark() {
   );
 }
 
-/** 02 — tools that should be wired together, and are not. */
+function NotionMark() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden>
+      <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" fill="#fff" stroke="#111" strokeWidth="1.4" />
+      <path d="M8.8 16.2V8.4l6.4 7.4V8.4" fill="none" stroke="#111" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function DriveMark() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden>
+      {/* Le triangle coupé en trois depuis son centre, comme la vraie marque. */}
+      <path d="M12 3 17 11.5 12 14.3 7 11.5z" fill="#FFBA00" />
+      <path d="M7 11.5 12 14.3 12 20 2 20z" fill="#00AC47" />
+      <path d="M17 11.5 22 20 12 20 12 14.3z" fill="#0066DA" />
+      <path d="M2 20 7 11.5 12 14.3 12 20z" fill="#00AC47" />
+    </svg>
+  );
+}
+
+/** 02 — des outils qui devraient être reliés, et ne le sont pas. */
 function ScatteredTools() {
-  const tools = [NotionMark, OneDriveMark, DriveMark, ExcelMark, GmailMark];
+  const tools = [GmailMark, NotionMark, DriveMark];
   return (
     <div className="pv pv--tools">
-      {/* The ring joins every tool to its neighbours, the spokes run to the
-          centre. `non-scaling-stroke` keeps the dashes even, whatever the
-          column's proportions do to the viewBox. */}
-      <svg
-        className="pv-wires"
-        viewBox="0 0 100 100"
-        fill="none"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        {/* The ring: each edge bows outward by a different amount, so the
-            five curves never look stamped from the same template. */}
-        <path
-          vectorEffect="non-scaling-stroke"
-          d="M50 17 Q71.5 21.2 82.3 39.8 M82.3 39.8 Q82.8 60.4 70 76.7 M70 76.7 Q50 87.2 30 76.7 M30 76.7 Q16.7 60.5 17.7 39.8 M17.7 39.8 Q28.2 20.8 50 17"
-        />
-        {/* The spokes: each swings to one side rather than running straight
-            to the middle, alternating direction around the circle. */}
-        <path
-          vectorEffect="non-scaling-stroke"
-          d="M50 17 Q44 33.5 50 50 M82.3 39.8 Q68.3 51.6 50 50 M70 76.7 Q64.4 60.1 50 50 M30 76.7 Q34.8 59.5 50 50 M17.7 39.8 Q31.7 51.6 50 50"
-        />
-      </svg>
+      {/* Une scène carrée de taille fixe. Sans elle, le triangle de logos est
+          placé en pourcentages d'une boîte dont la largeur change avec la
+          carte : il s'aplatissait pendant que le cercle, lui, gardait son
+          diamètre en rem, et les deux ne coïncidaient plus. */}
+      <span className="pv-stage">
+        {/* Le cercle pointillé : la liaison qui devrait exister. */}
+        <span aria-hidden className="pv-orbit" />
 
-      {tools.map((Mark, i) => (
-        <span
-          key={i}
-          className={`pv-tile pv-flash pv-tile--${i}`}
-          style={{ "--pv-i": 4 + i } as React.CSSProperties}
-        >
-          <Mark />
-        </span>
-      ))}
-
-      <span className="pv-cross">
-        <X />
+        {tools.map((Mark, i) => (
+          <span
+            key={i}
+            className={`pv-tile pv-flash pv-tile--${i}`}
+            style={{ "--pv-i": 3 + i } as React.CSSProperties}
+          >
+            <Mark />
+          </span>
+        ))}
       </span>
     </div>
   );
 }
 
-/** 03 — a follow-up list nobody works through. */
+/** 03 — une liste de suivi que personne ne déroule. */
 function StalledFollowUp() {
   return (
-    <div className="pv pv--followup">
-      <span className="pv-row pv-flash pv-row--alert" style={{ "--pv-i": 9 } as React.CSSProperties}>
-        <span className="pv-row-icon">
-          <Mail />
-        </span>
-        <span className="pv-row-body">
-          <b>Relancer le client X</b>
-          <i>En retard de 5 jours</i>
-        </span>
-        <span className="pv-row-flag">
-          <AlertCircle />
-        </span>
-      </span>
-
-      <span className="pv-row pv-flash" style={{ "--pv-i": 10 } as React.CSSProperties}>
-        <span className="pv-row-icon">
-          <PhoneLinearIcon />
-        </span>
-        <span className="pv-row-body">
-          <b>Suivi proposition</b>
-          <i>Non planifié</i>
-        </span>
-        <span className="pv-row-dot" />
-      </span>
-
-      <span className="pv-row pv-flash" style={{ "--pv-i": 11 } as React.CSSProperties}>
-        <span className="pv-row-icon pv-row-icon--done">
-          <Check />
-        </span>
-        <span className="pv-row-body">
-          <b>Devis à envoyer</b>
-        </span>
-      </span>
-
-      <span className="pv-row pv-flash pv-row--faded" style={{ "--pv-i": 12 } as React.CSSProperties}>
-        <span className="pv-row-dot pv-row-dot--lead" />
-        <span className="pv-row-body">
-          <b>Rappel RDV</b>
-        </span>
-      </span>
+    <div className="pv pv--card">
+      <Row
+        rank={6}
+        lead={
+          <span className="pv-mark pv-mark--alert">
+            <AlertCircle />
+          </span>
+        }
+      />
+      <Row
+        rank={7}
+        lead={
+          <span className="pv-mark pv-mark--done">
+            <Check />
+          </span>
+        }
+      />
+      <Row rank={8} lead={<span className="pv-mark pv-mark--idle" />} />
     </div>
   );
 }
 
-/** 04 — a site that has stopped keeping up. */
-function AgingSite() {
+/** 04 — des demandes entrantes que personne n'a encore ouvertes. */
+function WaitingRequests() {
   return (
-    <div className="pv pv--site">
-      <span className="pv-window">
-        <span className="pv-window-bar">
+    <div className="pv pv--inbox">
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="pv-bubble pv-flash"
+          style={{ "--pv-i": 9 + i } as React.CSSProperties}
+        >
           <i />
           <i />
-          <i />
-          <span className="pv-window-url" />
         </span>
-        <span className="pv-window-body">
-          <span className="pv-window-col">
-            <span className="pv-window-pane">
-              <ImageIcon />
-            </span>
-            <span className="pv-window-line pv-window-line--title" />
-            <span className="pv-window-line" />
-          </span>
-          <span className="pv-window-pane pv-window-pane--load">
-            <span className="pv-spinner" />
-          </span>
-        </span>
-      </span>
+      ))}
+      {/* Le compteur qui ne redescend pas. */}
+      <span className="pv-badge">3</span>
     </div>
   );
 }
 
-const VISUALS = [ManualTasks, ScatteredTools, StalledFollowUp, AgingSite];
+const VISUALS = [ManualTasks, ScatteredTools, StalledFollowUp, WaitingRequests];
 
 export function ProblemVisual({ index }: { index: number }) {
   const Visual = VISUALS[index % VISUALS.length];

@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ScreenIcon } from "@/components/site/icons";
 import { HeroStage } from "@/components/site/hero-stage";
 import { getContent, path, type Locale } from "@/lib/content";
 
@@ -31,7 +32,7 @@ export function Hero({ locale }: { locale: Locale }) {
                 message et fait passer le site pour lent. */}
             <div className="hero-copy flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
               <div className="relative isolate w-fit">
-                <h1 className="hero-heading text-[clamp(1.5rem,8.2vw,2.5rem)] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.45vw,3rem)]">
+                <h1 className="hero-heading text-[clamp(1.5rem,8.2vw,2.5rem)] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.8vw,3.6rem)]">
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
                 </h1>
@@ -47,12 +48,24 @@ export function Hero({ locale }: { locale: Locale }) {
                   className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
                 >
                   {hero.primaryCta}
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  {/* La flèche avance : le bouton mène ailleurs. */}
+                  <ArrowRight
+                    aria-hidden
+                    className="size-4 transition-transform group-hover:translate-x-0.5"
+                  />
                 </Link>
                 <Link
                   href={path(locale, "/realisations")}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
                 >
+                  {/* L'écran plutôt qu'une flèche : ce bouton ne fait pas
+                      avancer dans un parcours, il ouvre des démonstrations
+                      qui se regardent. L'icône est posée avant le texte pour
+                      que les deux boutons ne se répondent pas en miroir. */}
+                  <ScreenIcon
+                    aria-hidden
+                    className="size-4 text-brand transition-transform group-hover:-translate-y-px"
+                  />
                   {hero.secondaryCta}
                 </Link>
               </div>

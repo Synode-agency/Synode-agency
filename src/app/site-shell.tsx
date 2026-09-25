@@ -98,6 +98,11 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
         <noscript>
           {/* Scroll-reveal content stays visible without JS */}
           <style>{`.reveal{opacity:1 !important;transform:none !important;animation:none !important}`}</style>
+          {/* La séquence du mock est en pause tant que `data-shown` n'est pas
+              posé, et c'est JavaScript qui le pose. Sans lui, le mock
+              resterait figé sur sa première image, donc vide : ici il
+              s'affiche directement terminé. */}
+          <style>{`.hero-app,.hero-app *{animation:none !important;opacity:1 !important}.hero-app-cursor{display:none !important}.hero-app-nav-row.is-active{background:#e8f1fd;color:#0a7ce0;font-weight:600}`}</style>
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
