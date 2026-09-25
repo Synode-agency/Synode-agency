@@ -21,7 +21,7 @@ export function Hero({ locale }: { locale: Locale }) {
 
   return (
     <section id="top" className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
-      <div className="relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden hero-card rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
+      <div className="relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden hero-card rounded-[var(--r-lg)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
         {/* Reserves the row the fixed navbar sits over */}
         <div aria-hidden className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]" />
 
@@ -32,7 +32,7 @@ export function Hero({ locale }: { locale: Locale }) {
                 message et fait passer le site pour lent. */}
             <div className="hero-copy flex flex-col items-start gap-6 text-left lg:gap-[calc(var(--hs)*1.6rem)]">
               <div className="relative isolate w-fit">
-                <h1 className="hero-heading text-[clamp(1.5rem,8.2vw,2.5rem)] leading-[1.02] font-semibold sm:text-[3.4rem] lg:text-[min(calc(var(--hs)*clamp(3.5rem,2.3rem+1.5vw,4.25rem)),2.8vw,3.6rem)]">
+                <h1 className="hero-heading text-[length:var(--fs-display)] leading-[1.04] font-semibold lg:text-[calc(var(--hs)*var(--fs-display))]">
                   <span className="block text-gradient-brand">{hero.titleLead}</span>
                   <span className="block text-gradient-accent">{hero.titleAccent}</span>
                 </h1>
@@ -45,7 +45,7 @@ export function Hero({ locale }: { locale: Locale }) {
               <div className="mt-1 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
                 <Link
                   href={path(locale, "/contact")}
-                  className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
+                  className="group brand-gradient inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-brand-foreground"
                 >
                   {hero.primaryCta}
                   {/* La flèche avance : le bouton mène ailleurs. */}
@@ -56,7 +56,7 @@ export function Hero({ locale }: { locale: Locale }) {
                 </Link>
                 <Link
                   href={path(locale, "/realisations")}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
+                  className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] border border-hairline px-6 py-3.5 text-[length:var(--fs-button)] font-medium text-foreground transition-colors hover:border-brand/40 hover:bg-surface-2"
                 >
                   {/* L'écran plutôt qu'une flèche : ce bouton ne fait pas
                       avancer dans un parcours, il ouvre des démonstrations

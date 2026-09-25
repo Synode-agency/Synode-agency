@@ -16,7 +16,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\d][\d\s().-]{6,}$/;
 
 const control =
-  "w-full rounded-xl border border-hairline bg-surface px-3 text-[0.82rem] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
+  "w-full rounded-[var(--r-sm)] border border-hairline bg-surface px-3 text-[length:var(--fs-label)] text-foreground outline-none transition-colors placeholder:text-muted-foreground/60 focus-visible:border-brand/60 focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-destructive";
 const controlH = "h-10";
 
 /** Native select styled like the inputs, with our own chevron. */
@@ -111,10 +111,10 @@ export function AuditForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-2xl border border-brand/30 bg-brand-dim/20 p-9 text-center">
+      <div className="flex flex-col items-center gap-3 rounded-[var(--r-sm)] border border-brand/30 bg-brand-dim/20 p-9 text-center">
         <CheckCircle2 className="size-8 text-brand" />
-        <h3 className="text-lg font-semibold tracking-tight">{f.sentTitle}</h3>
-        <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+        <h3 className="text-[length:var(--fs-h4)] font-semibold tracking-tight">{f.sentTitle}</h3>
+        <p className="max-w-md text-[length:var(--fs-small)] leading-relaxed text-muted-foreground">
           {contact.success}
         </p>
       </div>
@@ -194,7 +194,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#ffffff] px-6 py-3 text-[0.9rem] font-medium text-[#0b3fa8] transition-colors hover:bg-[#eef4fc] disabled:opacity-60"
+          className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-[#ffffff] px-6 py-3 text-[length:var(--fs-small)] font-medium text-[#0b3fa8] transition-colors hover:bg-[#eef4fc] disabled:opacity-60"
         >
           {status === "sending" ? (
             <>
@@ -209,7 +209,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
           )}
         </button>
 
-        <p className="mx-auto max-w-lg text-center text-[0.75rem] leading-relaxed text-muted-foreground/70 sm:whitespace-pre-line">
+        <p className="mx-auto max-w-lg text-center text-[length:var(--fs-micro)] leading-relaxed text-muted-foreground/70 sm:whitespace-pre-line">
           {contact.note}
         </p>
       </div>
@@ -238,7 +238,7 @@ function FieldWrap({
       </label>
       {children}
       {error && (
-        <p id={`${htmlFor}-error`} role="alert" className="text-xs font-medium text-destructive">
+        <p id={`${htmlFor}-error`} role="alert" className="text-[length:var(--fs-micro)] font-medium text-destructive">
           {error}
         </p>
       )}

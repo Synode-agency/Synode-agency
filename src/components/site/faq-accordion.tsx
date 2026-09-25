@@ -42,7 +42,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                   id={`faq-trigger-${i}`}
                   className="faq-trigger flex w-full items-center justify-between gap-6 py-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.4rem))] text-left"
                 >
-                  <span className="faq-question text-[clamp(1rem,0.35vw+0.92rem,1.2rem)] font-semibold leading-snug tracking-tight">
+                  <span className="faq-question text-[length:var(--fs-h4)] font-semibold leading-snug tracking-tight">
                     {item.q}
                   </span>
                   <ChevronDown

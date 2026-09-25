@@ -33,7 +33,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
         {/* Same card as the home hero: it fills the screen and the fixed
             navbar sits inside it, over the spacer that reserves its height. */}
         <section className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
-          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
+          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
             <div
               aria-hidden
               className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]"
@@ -54,7 +54,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
                   action={
                     <Link
                       href="#projets"
-                      className="group brand-gradient inline-flex w-fit items-center justify-center gap-2 rounded-full px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground brand-glow"
+                      className="group brand-gradient inline-flex w-fit items-center justify-center gap-2 rounded-[var(--r-pill)] px-7 py-4 text-[length:var(--fs-button)] font-medium text-brand-foreground"
                     >
                       {realisations.scrollCta}
                       <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
@@ -97,7 +97,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
             <div className="container-page">
               <div className="relative grid gap-[clamp(2rem,1.5rem+2.5vw,4rem)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
                 <Reveal className="works-cta-copy reveal-left flex flex-col items-start gap-5 text-left">
-                  <h2 className="text-[clamp(1.05rem,6.4vw,2.5rem)] font-semibold leading-[1.12] sm:text-[2.25rem] lg:text-[length:var(--fs-h2)]">
+                  <h2 className="text-[length:var(--fs-h2)] font-semibold leading-[1.12]">
                     {realisations.cta.title}
                   </h2>
                   <p className="max-w-xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
@@ -105,7 +105,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
                   </p>
                   <Link
                     href={contactHref}
-                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-[length:var(--fs-button)] font-medium text-[#0b1220] transition-colors hover:bg-white/90"
+                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-white px-7 py-4 text-[length:var(--fs-button)] font-medium text-[#0b1220] transition-colors hover:bg-white/90"
                   >
                     {realisations.cta.button}
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

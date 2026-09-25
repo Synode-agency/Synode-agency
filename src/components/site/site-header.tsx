@@ -110,14 +110,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const langLink = (target: Locale, code: string) => {
     const isActive = target === locale;
     return isActive ? (
-      <span className="rounded-md bg-surface-2 px-2 py-1 font-semibold text-foreground">
+      <span className="rounded-[var(--r-xs)] bg-surface-2 px-2 py-1 font-semibold text-foreground">
         {code}
       </span>
     ) : (
       <Link
         href={localeHref(target)}
         prefetch
-        className="rounded-md px-2 py-1 text-muted-foreground/70 transition-colors hover:text-foreground"
+        className="rounded-[var(--r-xs)] px-2 py-1 text-muted-foreground/70 transition-colors hover:text-foreground"
       >
         {code}
       </Link>
@@ -157,7 +157,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             locale={locale}
             onNavigate={() => setOpen(false)}
             aria-label={site.homeLabel}
-            className="flex shrink-0 items-center rounded-md"
+            className="flex shrink-0 items-center rounded-[var(--r-xs)]"
           >
             <Wordmark variant="mark" />
           </NavLink>
@@ -171,7 +171,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                    one draws it there faintly, as if it were about to move. */
                 <span
                   className={cn(
-                    "absolute inset-x-3 top-px h-0.5 origin-left rounded-full bg-brand transition-[transform,opacity] duration-300",
+                    "absolute inset-x-3 top-px h-0.5 origin-left rounded-[var(--r-pill)] bg-brand transition-[transform,opacity] duration-300",
                     current
                       ? "scale-x-100 opacity-100"
                       : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40 group-focus-visible:scale-x-100 group-focus-visible:opacity-40",
@@ -198,7 +198,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                       aria-expanded={open}
                       aria-controls="nav-services"
                       className={cn(
-                        "group relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
+                        "group relative inline-flex items-center gap-1 rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                         current || open
                           ? "text-foreground"
                           : "text-muted-foreground hover:text-foreground",
@@ -244,7 +244,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                                     href={path(locale, `/services/${sub.slug}`)}
                                     locale={locale}
                                     onNavigate={() => setMenu(null)}
-                                    className="block rounded-md px-2.5 py-1.5 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
+                                    className="block rounded-[var(--r-xs)] px-2.5 py-1.5 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
                                   >
                                     {sub.title}
                                   </NavLink>
@@ -266,7 +266,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   locale={locale}
                   aria-current={current ? "page" : undefined}
                   className={cn(
-                    "group relative rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
+                    "group relative rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                     current
                       ? "text-foreground"
                       : "text-muted-foreground hover:text-foreground",
@@ -283,13 +283,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               aria-current={contactCurrent ? "page" : undefined}
-              className="group brand-gradient hidden items-center gap-1.5 rounded-full px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
+              className="group brand-gradient hidden items-center gap-1.5 rounded-[var(--r-pill)] px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
             >
               {site.ctaLabel}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
             </Link>
 
-            <div className="hidden items-center border-l border-hairline pl-3 text-[0.72rem] font-light tracking-[0.06em] sm:flex">
+            <div className="hidden items-center border-l border-hairline pl-3 text-[length:var(--fs-micro)] font-light tracking-[0.06em] sm:flex">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>
@@ -297,7 +297,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
-              className="grid size-10 place-items-center rounded-lg border border-hairline text-foreground md:hidden"
+              className="grid size-10 place-items-center rounded-[var(--r-xs)] border border-hairline text-foreground md:hidden"
               aria-label={open ? site.menuClose : site.menuOpen}
               aria-expanded={open}
             >
@@ -318,7 +318,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                     href={item.href}
                     locale={locale}
                     onNavigate={() => setOpen(false)}
-                    className="block w-full rounded-lg px-3 py-3 text-center text-lg text-foreground/90 hover:bg-surface-2"
+                    className="block w-full rounded-[var(--r-xs)] px-3 py-3 text-center text-[length:var(--fs-h4)] text-foreground/90 hover:bg-surface-2"
                   >
                     {item.label}
                   </NavLink>
@@ -341,7 +341,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                                   href={path(locale, `/services/${sub.slug}`)}
                                   locale={locale}
                                   onNavigate={() => setOpen(false)}
-                                  className="block rounded-md px-3 py-2 text-center text-[0.95rem] text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+                                  className="block rounded-[var(--r-xs)] px-3 py-2 text-center text-[length:var(--fs-small)] text-muted-foreground hover:bg-surface-2 hover:text-foreground"
                                 >
                                   {sub.title}
                                 </NavLink>
@@ -358,12 +358,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Link
               href={contactHref}
               onClick={() => setOpen(false)}
-              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-3.5 text-base font-medium text-brand-foreground"
+              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-[var(--r-pill)] px-4 py-3.5 text-[length:var(--fs-body)] font-medium text-brand-foreground"
             >
               {site.ctaLabel}
               <ArrowRight className="size-4" />
             </Link>
-            <div className="mt-5 flex items-center justify-center gap-1 text-sm font-light tracking-[0.06em]">
+            <div className="mt-5 flex items-center justify-center gap-1 text-[length:var(--fs-small)] font-light tracking-[0.06em]">
               {langLink("fr", "FR")}
               {langLink("en", "EN")}
             </div>

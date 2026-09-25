@@ -24,7 +24,7 @@ export function Placeholder({
   return (
     <div
       data-placeholder
-      className="rounded-[var(--radius)] border border-dashed border-[color-mix(in_oklab,var(--brand)_35%,transparent)] bg-[color-mix(in_oklab,var(--brand)_4%,transparent)] px-[clamp(1.1rem,2.2vw,2rem)] py-[clamp(1.4rem,2.6vw,2.4rem)]"
+      className="rounded-[var(--r-sm)] border border-dashed border-[color-mix(in_oklab,var(--brand)_35%,transparent)] bg-[color-mix(in_oklab,var(--brand)_4%,transparent)] px-[clamp(1.1rem,2.2vw,2rem)] py-[clamp(1.4rem,2.6vw,2.4rem)]"
     >
       <span className="eyebrow text-brand">{label}</span>
       <p className="mt-2 max-w-[56ch] text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">

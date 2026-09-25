@@ -22,7 +22,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
               <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
                 {updatedLabel} — {doc.updated}
               </span>
-              <h1 className="text-[2.1rem] leading-[1.08] font-semibold sm:text-[2.9rem]">
+              <h1 className="text-[length:var(--fs-h2)] leading-[1.08] font-semibold sm:text-[length:var(--fs-h2)]">
                 {doc.title}
               </h1>
               <p className="max-w-2xl text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
@@ -34,7 +34,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
               {/* Sibling pages */}
               <nav
                 aria-label={locale === "fr" ? "Pages légales" : "Legal pages"}
-                className="flex shrink-0 flex-col gap-1 rounded-2xl border border-hairline bg-surface p-4 lg:sticky lg:top-28 lg:w-60"
+                className="flex shrink-0 flex-col gap-1 rounded-[var(--r-sm)] border border-hairline bg-surface p-4 lg:sticky lg:top-28 lg:w-60"
               >
                 {links.map((link) => (
                   <Link
@@ -42,7 +42,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
                     href={link.href}
                     aria-current={link.slug === slug ? "page" : undefined}
                     className={cn(
-                      "rounded-lg px-3 py-2 text-[length:var(--fs-small)] transition-colors",
+                      "rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                       link.slug === slug
                         ? "bg-brand-dim/50 font-medium text-foreground"
                         : "text-muted-foreground hover:bg-surface-2 hover:text-foreground",
@@ -67,7 +67,7 @@ export function LegalPage({ locale, slug }: { locale: Locale; slug: LegalSlug })
                           // Anything still holding a placeholder is called out
                           // so it cannot quietly ship as final copy.
                           paragraph.includes("TODO")
-                            ? "rounded-lg border border-dashed border-destructive/40 bg-destructive/5 px-3.5 py-2.5 text-destructive/90"
+                            ? "rounded-[var(--r-xs)] border border-dashed border-destructive/40 bg-destructive/5 px-3.5 py-2.5 text-destructive/90"
                             : "text-muted-foreground",
                         )}
                       >
