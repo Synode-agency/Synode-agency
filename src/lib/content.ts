@@ -11,16 +11,23 @@ export const path = (locale: Locale, sub = "/") => {
   return `${prefix}${sub}`;
 };
 
+/* La navigation. « Services » porte un menu déroulant dont les entrées sont
+   construites à partir de `services.families` : une seule source pour le menu
+   et pour les pages, donc un service ajouté à la liste apparaît partout. */
 const nav = {
   fr: [
     { href: "/", label: "Accueil" },
-    { href: "/#offre", label: "Offre" },
+    { href: "/#services", label: "Services", menu: "services" },
     { href: "/realisations", label: "Réalisations" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/equipe", label: "La team" },
   ],
   en: [
     { href: "/en", label: "Home" },
-    { href: "/en#offre", label: "Offer" },
+    { href: "/en#services", label: "Services", menu: "services" },
     { href: "/en/realisations", label: "Work" },
+    { href: "/en/faq", label: "FAQ" },
+    { href: "/en/equipe", label: "The team" },
   ],
 } as const;
 
@@ -33,11 +40,94 @@ const fr = {
     location: "Bruxelles, Belgique",
     vat: "BE 0000.000.000",
     nav: nav.fr,
-    ctaLabel: "Nous contacter",
+    ctaLabel: "Réserver un audit",
     homeLabel: "Synode, accueil",
     menuOpen: "Ouvrir le menu",
     menuClose: "Fermer le menu",
     tagline: "Automatisation, agents IA et solutions sur mesure pour les PME.",
+  },
+
+  /* ------------------------------------------------------------------
+     Les services.
+
+     Deux familles, six prestations chacune. Les douze sont listées dans la
+     section « Nos services » de l'accueil ; il n'y a pas de page qui les
+     rassemble, elles y sont déjà. Chaque prestation a en revanche sa page,
+     `/services/<slug>`, et le slug est le même en français et en anglais :
+     le sélecteur de langue ne fait que remplacer le préfixe `/en`, une
+     traduction des URL le casserait.
+
+     `lead` est la phrase du menu déroulant et de la carte. Le contenu
+     détaillé de chaque page arrive à l'étape suivante, une fois le gabarit
+     validé sur une prestation.
+     ------------------------------------------------------------------ */
+  services: {
+    eyebrow: "Nos services",
+    /* Une seule taille, un seul souffle. Le titre compte les prestations
+       parce que c'est précisément ce qu'on nous reprochait de ne pas faire :
+       annoncer « de l'automatisation » sans jamais dire quoi. Douze, c'est
+       vérifiable, et ça promet le résultat que le dirigeant cherche. */
+    title: "Douze façons de vous rendre du temps.",
+    titleAccent: "de vous rendre du temps",
+    body: "Deux familles, douze prestations. Chacune règle une perte de temps précise, et chacune a sa page.",
+    countLabel: "services",
+    detailEyebrow: "Service",
+    backLabel: "Tous les services",
+    ctaLabel: "Réserver un audit",
+    families: [
+      {
+        slug: "automatisation",
+        title: "Automatisation",
+        lead: "Vos outils se parlent, et le travail répétitif disparaît.",
+        items: [
+          { slug: "workflows-integrations", title: "Workflows & intégrations", lead: "Vos outils connectés bout à bout, fini le double encodage." },
+          { slug: "traitement-documents", title: "Traitement de documents", lead: "Factures, devis, contrats : lus, extraits, classés." },
+          { slug: "relances-suivis", title: "Relances & suivis automatiques", lead: "Impayés, propositions, rendez-vous : plus rien ne passe à la trappe." },
+          { slug: "tableaux-de-bord", title: "Tableaux de bord & rapports", lead: "Vos chiffres rassemblés, mis à jour et envoyés tout seuls." },
+          { slug: "portails-outils-internes", title: "Portails & outils internes", lead: "L'écran sur mesure quand aucun logiciel existant ne convient." },
+          { slug: "synchronisation-crm", title: "Synchronisation CRM & données", lead: "Un seul dossier client, à jour partout, sans ressaisie." },
+        ],
+      },
+      {
+        slug: "agents-ia",
+        title: "Agents IA",
+        lead: "Des assistants qui lisent, répondent et agissent sur vos données.",
+        items: [
+          { slug: "agent-telephonique", title: "Agent téléphonique", lead: "Il décroche quand vous ne pouvez pas, qualifie et prend rendez-vous." },
+          { slug: "agent-conversationnel", title: "Agent conversationnel", lead: "Sur votre site, WhatsApp ou par e-mail, dans votre langue métier." },
+          { slug: "qualification-prospects", title: "Qualification de prospects", lead: "Les demandes entrantes triées et notées avant que vous les lisiez." },
+          { slug: "assistant-documentaire", title: "Assistant documentaire", lead: "Il répond sur vos propres documents, en citant d'où vient la réponse." },
+          { slug: "support-interne", title: "Agent de support interne", lead: "Vos équipes obtiennent la procédure exacte, sans déranger personne." },
+          { slug: "agent-prospection", title: "Agent de prospection", lead: "Il identifie les entreprises cibles, les qualifie et prépare le contact." },
+        ],
+      },
+    ],
+    /* Ce que chaque page de service dira. Rédigé à l'étape suivante, une
+       prestation d'abord, puis les onze autres sur le même gabarit. */
+    detailPlaceholder: "Le détail de cette prestation est en cours de rédaction.",
+  },
+
+  /* ------------------------------------------------------------------
+     Les deux sections de la landing dont nous n'avons pas encore la
+     matière. Leur place est réservée et leur intention écrite ; le contenu
+     arrive quand il existe. Rien n'est inventé.
+
+     ⚠ Ces blocs s'affichent en clair sur le site. Ils doivent être remplis
+     ou retirés avant la mise en ligne — c'est un point bloquant du README.
+     ------------------------------------------------------------------ */
+  landing: {
+    results: {
+      eyebrow: "Résultats",
+      title: "Ce que ça change,\n^en chiffres.",
+      text: "Ici : des chiffres mesurés chez de vrais clients, chacun rattaché à un projet et à une date.",
+      note: "Aucun chiffre tant qu'il n'est pas mesuré.",
+    },
+    tools: {
+      eyebrow: "Outils gratuits",
+      title: "Des outils à utiliser\n^sans nous parler.",
+      text: "Ici : un ou deux outils libres d'accès, sans inscription. Un calculateur de temps administratif, une checklist de conformité.",
+      note: "À construire. C'est ce qui fait trouver le site sans acheter de publicité.",
+    },
   },
   hero: {
     titleLead: "L'agence qui fait travailler l'IA",
@@ -57,21 +147,20 @@ const fr = {
        looked at, and to show the shape of what the agency delivers. */
     mock: {
       appName: "Synode",
-      nav: ["Accueil", "Projets", "Automatisations", "Agents IA", "Applications", "CRM", "Analyses"],
-      status: "Projet en cours",
-      title: "Votre projet, de l'idée aux résultats",
-      steps: [
-        "Besoin\nmétier",
-        "Automatisation\ndes processus",
-        "Agents IA\nsur vos données",
-        "Logiciel /\nApplication",
-        "Résultats\nmesurables",
-      ],
-      caseLabel: "Exemple de projet type",
-      caseQuote: "\u201C80 % de tâches administratives automatisées en 3 mois.\u201D",
-      caseTags: ["Automatisation", "Agents IA", "CRM"],
-      chartLabel: "Productivité",
-      chartValue: "+80 %",
+      badge: "Automatisé",
+      nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
+      title: "Votre activité,\nplus simple avec Synode",
+      steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
+      caseLabel: "Exemple concret",
+      caseText: "Un client demande un devis. Synode classe la demande, prépare le devis et relance automatiquement.",
+      caseEmphasis: ["devis", "relance"],
+      docLabel: "Devis",
+      gainLabel: "Temps gagné",
+      /* ⚠ PLACEHOLDER. Chiffre non mesuré, et c'est celui qu'affiche
+         atta-ai.com. À remplacer par une valeur constatée chez un vrai
+         client, ou à retirer, avant toute mise en ligne. Point bloquant
+         n° 0 du README. */
+      gainValue: "+6 h / semaine",
     },
   },
   problem: {
@@ -82,26 +171,34 @@ const fr = {
       "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé,\nquels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
     /* Four columns, matching the design. The figures are illustrative and
        carry no source: see `stat.value`. */
+    /* Trois constats, et chacun renvoie à la prestation précise qui le règle
+       plutôt qu'à une famille entière. C'est ce qui fait la différence entre
+       « on fait de l'automatisation » et « voici ce qu'on fait de votre
+       problème ». Les `slug` pointent vers `/services/<slug>`. */
     items: [
       {
         title: "Trop de tâches manuelles",
         text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées.",
-        answer: "Automatisation & Agents IA",
+        answer: "Workflows & intégrations",
+        slug: "workflows-integrations",
       },
       {
         title: "Des outils et données dispersés",
         text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas.",
-        answer: "Solutions sur mesure",
+        answer: "Synchronisation CRM & données",
+        slug: "synchronisation-crm",
       },
       {
         title: "Un suivi encore trop manuel",
         text: "Relances oubliées, dossiers qui stagnent et opportunités perdues.",
-        answer: "Automatisation & Agents IA",
+        answer: "Relances & suivis automatiques",
+        slug: "relances-suivis",
       },
       {
-        title: "Une présence digitale en retrait",
-        text: "Un site vieillissant ou des services en ligne limités ne reflètent plus votre savoir-faire.",
-        answer: "Sites web & applications",
+        title: "Des demandes qui attendent",
+        text: "Appels manqués, messages sans réponse et devis qui traînent : le client, lui, ne rappelle pas.",
+        answer: "Agent téléphonique",
+        slug: "agent-telephonique",
       },
     ],
   },
@@ -340,11 +437,69 @@ const en = {
     location: "Brussels, Belgium",
     vat: "BE 0000.000.000",
     nav: nav.en,
-    ctaLabel: "Get in touch",
+    ctaLabel: "Book an audit",
     homeLabel: "Synode, home",
     menuOpen: "Open the menu",
     menuClose: "Close the menu",
     tagline: "Automation, AI agents and custom solutions for SMEs.",
+  },
+
+  /* See the French block above for how this is structured. Slugs are shared
+     between both languages on purpose. */
+  services: {
+    eyebrow: "Our services",
+    title: "Twelve ways to give you your time back.",
+    titleAccent: "give you your time back",
+    body: "Two families, twelve services. Each one solves a specific kind of wasted time, and each one has its own page.",
+    countLabel: "services",
+    detailEyebrow: "Service",
+    backLabel: "All services",
+    ctaLabel: "Book an audit",
+    families: [
+      {
+        slug: "automatisation",
+        title: "Automation",
+        lead: "Your tools talk to each other, and the repetitive work disappears.",
+        items: [
+          { slug: "workflows-integrations", title: "Workflows & integrations", lead: "Your tools wired end to end, no more double entry." },
+          { slug: "traitement-documents", title: "Document processing", lead: "Invoices, quotes, contracts: read, extracted, filed." },
+          { slug: "relances-suivis", title: "Automatic follow-ups", lead: "Unpaid invoices, proposals, appointments: nothing slips." },
+          { slug: "tableaux-de-bord", title: "Dashboards & reports", lead: "Your figures gathered, refreshed and sent on their own." },
+          { slug: "portails-outils-internes", title: "Portals & internal tools", lead: "The custom screen when no existing software fits." },
+          { slug: "synchronisation-crm", title: "CRM & data sync", lead: "One customer record, current everywhere, typed once." },
+        ],
+      },
+      {
+        slug: "agents-ia",
+        title: "AI agents",
+        lead: "Assistants that read, answer and act on your data.",
+        items: [
+          { slug: "agent-telephonique", title: "Voice agent", lead: "It picks up when you can't, qualifies and books the meeting." },
+          { slug: "agent-conversationnel", title: "Chat agent", lead: "On your site, WhatsApp or email, in your own vocabulary." },
+          { slug: "qualification-prospects", title: "Lead qualification", lead: "Incoming requests sorted and scored before you read them." },
+          { slug: "assistant-documentaire", title: "Document assistant", lead: "It answers from your own documents, and cites where from." },
+          { slug: "support-interne", title: "Internal support agent", lead: "Your teams get the exact procedure without interrupting anyone." },
+          { slug: "agent-prospection", title: "Prospecting agent", lead: "It finds target companies, qualifies them and prepares the outreach." },
+        ],
+      },
+    ],
+    detailPlaceholder: "The detail of this service is being written.",
+  },
+
+  /* See the French block. Same three reserved sections. */
+  landing: {
+    results: {
+      eyebrow: "Results",
+      title: "What it changes,\n^in numbers.",
+      text: "Here: figures measured at real clients, each tied to a project and a date.",
+      note: "No figure until it is measured.",
+    },
+    tools: {
+      eyebrow: "Free tools",
+      title: "Tools you can use\n^without talking to us.",
+      text: "Here: one or two openly available tools, no sign-up. An admin-time calculator, a compliance checklist.",
+      note: "To be built. This is what gets the site found without buying ads.",
+    },
   },
   hero: {
     titleLead: "The agency that puts AI to work",
@@ -361,21 +516,17 @@ const en = {
     ],
     mock: {
       appName: "Synode",
-      nav: ["Home", "Projects", "Automations", "AI agents", "Applications", "CRM", "Analytics"],
-      status: "Project running",
-      title: "Your project, from idea to results",
-      steps: [
-        "Business\nneed",
-        "Process\nautomation",
-        "AI agents\non your data",
-        "Software /\nApplication",
-        "Measurable\nresults",
-      ],
-      caseLabel: "Example of a typical project",
-      caseQuote: "\u201C80% of admin tasks automated in 3 months.\u201D",
-      caseTags: ["Automation", "AI agents", "CRM"],
-      chartLabel: "Productivity",
-      chartValue: "+80%",
+      badge: "Automated",
+      nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
+      title: "Your business,\nsimpler with Synode",
+      steps: ["Request received", "Quote sent", "Automatic follow-up"],
+      caseLabel: "A concrete example",
+      caseText: "A client asks for a quote. Synode files the request, drafts the quote and follows up on its own.",
+      caseEmphasis: ["quote", "follows up"],
+      docLabel: "Quote",
+      gainLabel: "Time saved",
+      /* ⚠ PLACEHOLDER — see the French block. */
+      gainValue: "+6 h / week",
     },
   },
   problem: {
@@ -388,22 +539,26 @@ const en = {
       {
         title: "Too many manual tasks",
         text: "Hours lost every week on repetitive tasks that could be automated.",
-        answer: "Automation & AI agents",
+        answer: "Workflows & integrations",
+        slug: "workflows-integrations",
       },
       {
         title: "Scattered tools and data",
         text: "Information split across systems, double entry, and software that doesn't talk to each other.",
-        answer: "Custom solutions",
+        answer: "CRM & data sync",
+        slug: "synchronisation-crm",
       },
       {
         title: "Follow-up still too manual",
         text: "Forgotten reminders, stalled files and lost opportunities.",
-        answer: "Automation & AI agents",
+        answer: "Automatic follow-ups",
+        slug: "relances-suivis",
       },
       {
-        title: "A digital presence falling behind",
-        text: "An outdated website or limited online services no longer reflect your expertise.",
-        answer: "Websites & apps",
+        title: "Requests left waiting",
+        text: "Missed calls, unanswered messages and quotes that drag on. The client does not call back.",
+        answer: "Voice agent",
+        slug: "agent-telephonique",
       },
     ],
   },

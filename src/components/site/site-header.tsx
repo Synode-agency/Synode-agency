@@ -1,23 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 /** Landing sections the scroll-spy underline follows. */
-const SPY_IDS = ["top", "probleme", "offre", "methode", "equipe", "conclusion", "faq"];
+/** Les sections de la landing que suit le soulignement au scroll.
+ *  « offre », « equipe » et « faq » n'y sont plus : ce sont des pages. */
+const SPY_IDS = ["top", "services", "probleme", "methode", "conclusion"];
 
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const { site } = getContent(locale);
+  const { site, services } = getContent(locale);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("top");
+  /* Le menu déroulant de Services. `null` = fermé. */
+  const [menu, setMenu] = useState<string | null>(null);
+  const menuWrap = useRef<HTMLDivElement | null>(null);
 
   const home = homePath(locale);
   const onHome = pathname === home;
@@ -35,6 +40,24 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  /* Un menu déroulant se ferme à l'Échap et au clic dehors, sans quoi il
+     reste ouvert derrière la page sur laquelle on vient de partir. */
+  useEffect(() => {
+    if (!menu) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenu(null);
+    };
+    const onDown = (e: PointerEvent) => {
+      if (!menuWrap.current?.contains(e.target as Node)) setMenu(null);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onDown);
+    };
+  }, [menu]);
 
   useEffect(() => {
     if (!onHome) return;
@@ -139,9 +162,103 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             <Wordmark variant="mark" />
           </NavLink>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1 md:flex" ref={menuWrap}>
             {site.nav.map((item) => {
               const current = isCurrent(item.href);
+              const hasMenu = "menu" in item && item.menu === "services";
+              const rule = (
+                /* The rule belongs to the current tab; pointing at another
+                   one draws it there faintly, as if it were about to move. */
+                <span
+                  className={cn(
+                    "absolute inset-x-3 top-px h-0.5 origin-left rounded-full bg-brand transition-[transform,opacity] duration-300",
+                    current
+                      ? "scale-x-100 opacity-100"
+                      : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40 group-focus-visible:scale-x-100 group-focus-visible:opacity-40",
+                  )}
+                  aria-hidden
+                />
+              );
+
+              if (hasMenu) {
+                const open = menu === "services";
+                return (
+                  /* Le survol ouvre, comme on l'attend d'un menu de navigation,
+                     mais le bouton reste un vrai bouton : au clavier et au
+                     toucher, Entrée ou un appui suffisent. */
+                  <div
+                    key={item.href}
+                    className="relative"
+                    onMouseEnter={() => setMenu("services")}
+                    onMouseLeave={() => setMenu(null)}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setMenu(open ? null : "services")}
+                      aria-expanded={open}
+                      aria-controls="nav-services"
+                      className={cn(
+                        "group relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[length:var(--fs-small)] transition-colors",
+                        current || open
+                          ? "text-foreground"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        aria-hidden
+                        className={cn(
+                          "size-3.5 transition-transform duration-300",
+                          open && "rotate-180",
+                        )}
+                      />
+                      {rule}
+                    </button>
+
+                    {/* Le panneau commence exactement au bas du bouton, et
+                        l'écart avec la carte est un padding transparent, pas
+                        une position décalée. C'est ce qui permet de descendre
+                        jusqu'aux liens : un vrai écart aurait fait sortir la
+                        souris de la zone survolée, et le menu se serait fermé
+                        avant qu'on puisse cliquer quoi que ce soit. */}
+                    <div
+                      id="nav-services"
+                      hidden={!open}
+                      className="absolute top-full left-1/2 z-40 w-[min(46rem,calc(100vw-4rem))] -translate-x-1/2 pt-2"
+                    >
+                      <div className="surface-card grid gap-5 p-5 shadow-[0_28px_70px_-40px_rgb(11_18_32/0.45)] sm:grid-cols-2">
+                        {services.families.map((family) => (
+                          <div key={family.slug}>
+                            {/* La famille n'est pas un lien : il n'existe pas
+                                de page qui la rassemble, les douze prestations
+                                sont sur l'accueil et chacune a la sienne. Un
+                                intitulé cliquable qui ramène là d'où l'on
+                                vient est pire que pas de lien du tout. */}
+                            <span className="eyebrow block text-brand">
+                              {family.title}
+                            </span>
+                            <ul className="mt-2.5 grid list-none gap-0.5 p-0">
+                              {family.items.map((sub) => (
+                                <li key={sub.slug}>
+                                  <NavLink
+                                    href={path(locale, `/services/${sub.slug}`)}
+                                    locale={locale}
+                                    onNavigate={() => setMenu(null)}
+                                    className="block rounded-md px-2.5 py-1.5 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
+                                  >
+                                    {sub.title}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <NavLink
                   key={item.href}
@@ -156,17 +273,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                   )}
                 >
                   {item.label}
-                  {/* The rule belongs to the current tab; pointing at another
-                      one draws it there faintly, as if it were about to move. */}
-                  <span
-                    className={cn(
-                      "absolute inset-x-3 top-px h-0.5 origin-left rounded-full bg-brand transition-[transform,opacity] duration-300",
-                      current
-                        ? "scale-x-100 opacity-100"
-                        : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40 group-focus-visible:scale-x-100 group-focus-visible:opacity-40",
-                    )}
-                    aria-hidden
-                  />
+                  {rule}
                 </NavLink>
               );
             })}
@@ -201,19 +308,53 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-0 flex flex-col justify-center bg-background pt-[calc(var(--header-h)+var(--page-gutter-top))] pb-8 md:hidden">
-          <nav className="container-page flex -translate-y-20 flex-col items-center gap-1">
-            {site.nav.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                locale={locale}
-                onNavigate={() => setOpen(false)}
-                className="w-full rounded-lg px-3 py-3.5 text-center text-lg text-foreground/90 hover:bg-surface-2"
-              >
-                {item.label}
-              </NavLink>
-            ))}
+        <div className="fixed inset-0 z-0 flex flex-col overflow-y-auto bg-background pt-[calc(var(--header-h)+var(--page-gutter-top))] pb-8 md:hidden">
+          <nav className="container-page flex max-h-full flex-col items-center gap-1 overflow-y-auto">
+            {site.nav.map((item) => {
+              const hasMenu = "menu" in item && item.menu === "services";
+              return (
+                <div key={item.href} className="w-full">
+                  <NavLink
+                    href={item.href}
+                    locale={locale}
+                    onNavigate={() => setOpen(false)}
+                    className="block w-full rounded-lg px-3 py-3 text-center text-lg text-foreground/90 hover:bg-surface-2"
+                  >
+                    {item.label}
+                  </NavLink>
+
+                  {/* Sur téléphone le déroulant n'a pas lieu d'être : rien ne
+                      survole, et un menu dans un menu se referme sans qu'on
+                      sache pourquoi. Les douze prestations sont simplement
+                      posées sous leur famille, en plus petit. */}
+                  {hasMenu && (
+                    <div className="mb-1 flex flex-col gap-3 px-2 pb-1">
+                      {services.families.map((family) => (
+                        <div key={family.slug}>
+                          <span className="eyebrow block text-center text-brand">
+                            {family.title}
+                          </span>
+                          <ul className="mt-1.5 grid list-none gap-0.5 p-0">
+                            {family.items.map((sub) => (
+                              <li key={sub.slug}>
+                                <NavLink
+                                  href={path(locale, `/services/${sub.slug}`)}
+                                  locale={locale}
+                                  onNavigate={() => setOpen(false)}
+                                  className="block rounded-md px-3 py-2 text-center text-[0.95rem] text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+                                >
+                                  {sub.title}
+                                </NavLink>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <Link
               href={contactHref}
               onClick={() => setOpen(false)}

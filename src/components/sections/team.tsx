@@ -5,7 +5,18 @@ import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { getContent, type Locale } from "@/lib/content";
 
-export function Team({ locale }: { locale: Locale }) {
+/**
+ * `headless` : la section est réutilisée sur sa propre page, qui porte déjà un
+ * titre. On y masque l'en-tête et le numéro de chapitre — un « 04 » n'a de
+ * sens que dans la suite des chapitres de la landing.
+ */
+export function Team({
+  locale,
+  headless = false,
+}: {
+  locale: Locale;
+  headless?: boolean;
+}) {
   const { team } = getContent(locale);
 
   return (
@@ -14,16 +25,18 @@ export function Team({ locale }: { locale: Locale }) {
       className="page-shell relative px-[var(--page-gutter)] py-[var(--page-gutter)] lg:py-[calc(var(--space-between)/2)]"
     >
       <div className="team-panel section-screen overflow-hidden rounded-[clamp(1.25rem,1vw+1rem,2rem)]">
-        <ChapterMark n={4} side="right" />
+        {!headless && <ChapterMark n={4} side="right" />}
 
         <div className="container-page">
-          <SectionHeading
-            eyebrow={team.eyebrow}
-            title={renderLines(team.title, [team.titleAccent])}
-            subtitle={team.body}
-            align="left"
-            className="team-heading reveal-left"
-          />
+          {!headless && (
+            <SectionHeading
+              eyebrow={team.eyebrow}
+              title={renderLines(team.title, [team.titleAccent])}
+              subtitle={team.body}
+              align="left"
+              className="team-heading reveal-left"
+            />
+          )}
 
           <div className="team-deck">
             {team.members.map((member, i) => {

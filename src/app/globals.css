@@ -198,6 +198,52 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Le fond du site.
+
+   Quatre halos très larges et très dilués, posés hors de la colonne de
+   lecture, qui donnent au fond une profondeur sans jamais devenir un motif.
+
+   L'intensité n'est pas un réglage esthétique, c'est un plafond de lisibilité.
+   Le texte secondaire (#5A6B82) tient 4,77:1 sur le fond nu ; teinté à 5 % de
+   bleu il tombe à 4,49:1, donc sous la barre AA de 4,5:1. Le plus fort des
+   quatre halos est à 3,5 %, ce qui laisse 4,57:1 au pire endroit de la page.
+   Ne pas monter au-dessus de 4 % sans re-mesurer.
+
+   Ils sont fixés, donc le contenu glisse par-dessus une surface immobile,
+   ce qui est exactement ce qui les empêche de se lire comme des objets.
+   Mais `background-attachment: fixed` est mal géré par Safari sur iOS, où il
+   provoque des à-coups au scroll : sous 768px le fond reste plat.
+   --------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  body {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(
+        58rem 42rem at 88% -8%,
+        color-mix(in oklab, var(--brand) 3.5%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        44rem 34rem at -12% 22%,
+        color-mix(in oklab, var(--brand-deep) 3%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        50rem 38rem at 104% 62%,
+        color-mix(in oklab, var(--brand) 3.5%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        40rem 30rem at 8% 96%,
+        color-mix(in oklab, var(--brand-deep) 2.5%, transparent),
+        transparent 70%
+      );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
+/* ---------------------------------------------------------------------------
    Mobile — les jetons qui ne descendent pas tout seuls.
 
    Le desktop est figé : ce bloc ne redéfinit des jetons que sous 768px, le
@@ -427,38 +473,40 @@
       padding-block: calc(var(--space-between) / 2 + var(--space-section) / 2);
     }
 
-    /* Every seam on the page is --space-between of empty ground, and a
-       section is centred in the one it sits in: as much air above its first
-       line as below its last. Half of a seam normally comes from each
-       neighbour, so the default above is right — but two neighbours pay
-       nothing at all and the section has to cover the whole gap itself:
+    /* Chaque couture de la page vaut --space-between de fond vide, et une
+       section est centrée dans celle où elle se trouve : autant d'air
+       au-dessus de sa première ligne qu'en dessous de sa dernière. La moitié
+       vient normalement de chaque voisine, donc la valeur par défaut convient
+       presque partout.
 
-         - the Offre is a full-bleed band, so its padding is *inside* the
-           blue and contributes no white ground at all, above or below;
-         - the hero card and the Équipe panel are inset cards, whose own
-           outer gutter already lays down part of the seam.
+       Deux voisines font exception, et ce sont les seules règles ci-dessous :
 
-       Each rule below is that arithmetic, and nothing else. */
+         - la carte du hero est encartée, et sa gouttière basse a déjà posé
+           une partie de la couture ;
+         - le CTA final mérite une couture plus large que les autres,
+           --space-before-cta : arriver dessus doit se sentir comme une
+           rupture, pas comme la énième section.
 
-    /* Under the hero card, whose bottom gutter covers part of the seam.
-       Below: the Offre band pays nothing, so the Constat covers it all. */
-    #probleme.section-screen {
+       ⚠ Ces règles étaient écrites pour une page qui n'existe plus : l'Offre
+       y était un bandeau pleine largeur dont le fond mangeait sa propre
+       marge, donc ses voisines payaient tout. Ce bandeau a disparu avec la
+       refonte, et les compensations qui l'entouraient sont tombées avec lui.
+       N'en rajouter une que pour une section qui, elle aussi, ne pose aucun
+       fond blanc. */
+
+    /* Sous la carte du hero : sa gouttière basse couvre déjà --page-gutter
+       de la couture, la section ne paie que le reste. C'est la première
+       section de la page, quelle qu'elle soit. */
+    #services.section-screen {
       padding-top: calc(var(--space-between) - var(--page-gutter));
-      padding-bottom: var(--space-between);
     }
 
-    /* Under the Offre band, which pays nothing: the whole seam above.
-       Below: the Équipe panel's outer gutter covers its usual half. */
-    #methode.section-screen {
-      padding-top: var(--space-between);
-    }
-
-    /* Above: the section before already laid down its half of a normal seam,
-       so this one makes up the difference to the wider one.
-       Below: the FAQ is a band and pays nothing, so the CTA covers it all. */
+    /* Le CTA de fin. Au-dessus : la section précédente a posé sa moitié de
+       couture normale, celle-ci comble la différence jusqu'à la plus large.
+       En dessous : le pied de page pose sa propre marge, donc la valeur par
+       défaut suffit. */
     #conclusion.section-screen {
       padding-top: calc(var(--space-before-cta) - var(--space-between) / 2);
-      padding-bottom: var(--space-between);
     }
 
     /* The FAQ band and the footer still travel together, but neither
@@ -2811,279 +2859,567 @@
   /* Room reserved in the text column so a last line never runs under it. */
   .pillar-body { padding-right: 1.3rem; }
 
-  /* ---------------- The mock itself ---------------- */
+  /* ---------------- Nos services ----------------
+     Deux familles, chacune dans son panneau, six prestations chacune. La
+     section est longue à dessein : c'est elle qui remplace la page d'index,
+     et le point de la refonte est qu'un visiteur n'ait plus à deviner ce que
+     recouvre « Automatisation ». */
+  .services-families {
+    display: grid;
+    gap: clamp(1.25rem, 2vw, 2rem);
+    margin-top: calc(var(--ss) * clamp(2rem, 1.6rem + 2vw, 3.75rem));
+  }
+
+  /* Le panneau d'une famille. Blanc très dilué plutôt qu'opaque : il doit
+     rassembler ses six cartes sans devenir une carte de plus, sinon on
+     empile deux niveaux de surface qui se battent. */
+  .services-family {
+    padding: clamp(1.25rem, 2.2vw, 2.5rem);
+    background: color-mix(in oklab, var(--surface) 52%, transparent);
+    border: 1px solid color-mix(in oklab, var(--foreground) 6%, transparent);
+    border-radius: clamp(1.25rem, 1vw + 1rem, 2rem);
+  }
+
+  .services-family-head {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(0.75rem, 1.2vw, 1.15rem);
+    flex-wrap: wrap;
+  }
+
+  .services-family-num {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 0.75rem;
+    background: var(--accent);
+    color: var(--brand);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .services-family-copy { flex: 1 1 18rem; min-width: 0; }
+
+  .services-family-title {
+    font-size: clamp(1.35rem, 0.6vw + 1.2rem, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .services-family-lead {
+    margin-top: 0.3rem;
+    max-width: 56ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  /* Le compte, au bout d'un filet qui le rattache au titre. */
+  .services-family-count {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.7rem;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    white-space: nowrap;
+  }
+  .services-family-count i {
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: color-mix(in oklab, var(--brand) 40%, transparent);
+  }
+
+  .services-grid {
+    display: grid;
+    gap: clamp(0.65rem, 1vw, 1rem);
+    margin-top: clamp(1.25rem, 2.2vw, 1.85rem);
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Une prestation : sa tuile d'icône, son nom, ce qu'elle règle, et la
+     flèche qui mène à sa page. Rien de plus — le détail est sur la page,
+     c'est tout l'intérêt d'en avoir une. */
+  .service-card {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 1vw, 1rem);
+    height: 100%;
+    padding: clamp(0.9rem, 1.2vw, 1.15rem);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 1rem;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms ease;
+  }
+  .service-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--brand) 55%, var(--hairline));
+  }
+
+  .service-card-tile {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    border-radius: 0.85rem;
+    background: var(--accent);
+    color: var(--brand);
+  }
+  .service-card-tile svg {
+    width: 1.35rem;
+    height: 1.35rem;
+    stroke-width: 1.7;
+  }
+
+  .service-card-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .service-card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .service-card-lead {
+    font-style: normal;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: var(--muted-foreground);
+  }
+
+  /* Le bouton rond. Pâle au repos, plein au survol : la carte entière est
+     le lien, il ne fait qu'en montrer la sortie. */
+  .service-card-go {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--brand);
+    transition:
+      background-color 220ms ease,
+      color 220ms ease,
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .service-card-go svg { width: 0.9rem; height: 0.9rem; }
+  .service-card:hover .service-card-go {
+    background: var(--brand);
+    color: var(--brand-foreground);
+    transform: translateX(2px);
+  }
+
+  @media (min-width: 720px) {
+    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* Le compte ne s'affiche qu'une fois qu'il a sa place au bout du filet,
+       aligné sur le titre. En dessous il passerait sous le texte et se
+       lirait comme une ligne de plus. */
+    .services-family-count {
+      display: flex;
+      margin-top: 0.55rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-card-go { transition: none; }
+  }
+
+  /* ---------------- Le mock ----------------
+     Un tableau de bord qui raconte une automatisation en trois temps : une
+     demande arrive, un devis part, une relance se fait seule.
+
+     La séquence se joue UNE FOIS, puis le mock reste une image fixe. Elle
+     démarre quand le panneau entre à l'écran : sur desktop il y est dès le
+     chargement, sur téléphone au scroll. Le mécanisme est un simple
+     `animation-play-state` — tout est en pause au repos, `data-shown` lance
+     tout d'un coup, et `both` fige chaque élément sur sa dernière image.
+
+     Tout est en `em` contre une taille de police en unités de conteneur, donc
+     le panneau s'échelonne d'un bloc. */
 
   .hero-app {
-    /* Flat, in-plane rotation: the panel turns on the page like a card on a
-       table, with no depth and no foreshortening. Positive tips the right
-       side down, negative lifts it. Zero means dead straight. */
+    /* Rotation à plat, dans le plan de la page. */
     --app-spin: 1deg;
-    /* One clock for the whole sequence. Every element below is a share of
-       it, so the beats can never drift apart. */
-    --app-loop: 14s;
+    /* Le temps que met le curseur à arriver et à cliquer. Tout le reste de
+       la séquence en découle, donc le raccourcir sur téléphone — où il n'y a
+       pas de curseur — ne demande qu'une valeur. */
+    --app-lead: 1.8s;
 
+    position: relative;
     display: flex;
     overflow: hidden;
     border-radius: 1.9em;
-    /* The thick pale-blue frame from the design. */
     border: 0.85em solid #dce9f8;
     background: #ffffff;
     color: var(--foreground);
-    /* One size to rule the panel: everything below is in `em`. */
-    font-size: clamp(7px, 1.6cqw, 22px);
+    /* Tout le contenu est en `em` contre cette valeur, et le cadre a une
+       hauteur fixée par son rapport : si la police cessait de rétrécir avant
+       le cadre, le contenu déborderait et serait rogné. Le plancher est donc
+       bas à dessein. */
+    font-size: clamp(5.5px, 1.6cqw, 22px);
     box-shadow: 0 2.2em 4.5em -1.8em rgb(11 18 32 / 0.28);
   }
 
+  /* Rien ne bouge tant que le panneau n'est pas à l'écran, et rien ne rejoue
+     ensuite : chaque animation ne compte qu'un seul tour. */
+  .hero-app,
+  .hero-app * {
+    animation-play-state: paused;
+  }
+  .hero-stage-panel[data-shown="true"] .hero-app,
+  .hero-stage-panel[data-shown="true"] .hero-app * {
+    animation-play-state: running;
+  }
+
+  /* ---- Le curseur ---- */
+  .hero-app-cursor {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    width: 1.9em;
+    height: 1.9em;
+    color: #0b1220;
+    opacity: 0;
+    filter: drop-shadow(0 0.25em 0.4em rgb(11 18 32 / 0.35));
+    animation: hero-cursor 2.6s cubic-bezier(0.45, 0, 0.2, 1) 0.2s 1 both;
+    pointer-events: none;
+  }
+  .hero-app-cursor svg { width: 100%; height: 100%; }
+
+  /* ---- Barre latérale ---- */
   .hero-app-side {
     flex: none;
-    width: 17em;
-    padding: 1.6em 1.2em;
-    background: #f7fafd;
-    border-right: 1px solid rgb(11 18 32 / 0.06);
+    width: 15.5em;
+    padding: 1.5em 1.1em;
+    border-right: 1px solid #e6ecf5;
+    background: #fbfcfe;
   }
 
   .hero-app-brand {
     display: flex;
     align-items: center;
-    gap: 0.55em;
-    font-size: 1.55em;
+    gap: 0.6em;
+    padding-inline: 0.4em;
+    margin-bottom: 1.6em;
+  }
+  .hero-app-brand img { width: 1.9em; height: 1.9em; }
+  .hero-app-brand span {
+    font-size: 1.35em;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.9em;
+    letter-spacing: -0.02em;
   }
-  .hero-app-brand img { width: 1.3em; height: 1.3em; object-fit: contain; }
 
-  .hero-app-nav { display: grid; gap: 0.25em; position: relative; }
+  .hero-app-nav { display: grid; gap: 0.3em; }
 
-  .hero-app-cursor {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 1.5em;
-    height: 1.5em;
-    color: #0b1220;
-    filter: drop-shadow(0 0.15em 0.3em rgb(11 18 32 / 0.35));
-    opacity: 0;
-    animation: hero-cursor var(--app-loop) cubic-bezier(0.4, 0, 0.15, 1) infinite both;
-  }
-  .hero-app-cursor svg { width: 100%; height: 100%; }
   .hero-app-nav-row {
     display: flex;
     align-items: center;
-    gap: 0.75em;
-    padding: 0.6em 0.8em;
-    border-radius: 0.6em;
-    font-size: 1.05em;
+    gap: 0.7em;
+    padding: 0.65em 0.7em;
+    border-radius: 0.65em;
     color: #5a6b82;
+    font-size: 0.98em;
   }
-  .hero-app-nav-row svg { width: 1.15em; height: 1.15em; stroke-width: 1.7; }
+  .hero-app-nav-row svg { width: 1.25em; height: 1.25em; stroke-width: 1.7; }
+  .hero-app-nav-row i { font-style: normal; }
+
+  /* L'entrée sélectionnée ne l'est pas d'entrée de jeu : elle s'allume au
+     clic du curseur, et le reste ensuite. */
   .hero-app-nav-row.is-active {
-    font-weight: 500;
-    animation: hero-nav-select var(--app-loop) ease-out infinite both;
+    animation: hero-nav-select 0.35s ease-out var(--app-lead) 1 both;
   }
 
+  /* ---- Panneau ---- */
   .hero-app-main {
     flex: 1;
     min-width: 0;
-    padding: 1.7em 1.8em 2.7em;
-    position: relative;
     display: flex;
     flex-direction: column;
+    padding: 1.7em 1.8em;
+  }
+
+  .hero-app-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.2em;
+  }
+
+  .hero-app-title {
+    font-size: 2.05em;
+    font-weight: 700;
+    line-height: 1.16;
+    letter-spacing: -0.03em;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 0.3s);
   }
 
   .hero-app-status {
-    position: absolute;
-    top: 1.5em;
-    right: 1.6em;
+    flex: none;
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    padding: 0.45em 0.9em;
+    padding: 0.5em 0.9em;
     border-radius: 999px;
-    background: #f2f6fb;
+    background: #e7f7ee;
+    color: #15803d;
     font-size: 0.95em;
-    color: #3a4b63;
+    font-weight: 500;
+    white-space: nowrap;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 0.55s);
   }
   .hero-app-status i {
     width: 0.55em;
     height: 0.55em;
     border-radius: 999px;
     background: #22c55e;
-    animation: hero-app-blip 2.4s ease-in-out infinite;
   }
 
-  .hero-app-title {
-    animation: hero-app-appear var(--app-loop) cubic-bezier(0.22, 1, 0.36, 1) infinite both;
-    animation-delay: 1.9s;
-    font-size: 1.85em;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.2;
-    max-width: 20ch;
-    margin-bottom: 0.9em;
-  }
-
+  /* ---- Le flux en trois temps ---- */
   .hero-app-flow {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.4em;
-    margin-bottom: 1.5em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.1em;
+    margin-block: 2em 1.7em;
   }
+
+  /* 0,75 s entre deux étapes : assez pour qu'on suive la progression, pas
+     assez pour qu'on attende. */
   .hero-app-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85em;
     text-align: center;
-    position: relative;
-    /* Each step takes a full two seconds to arrive but they start only
-       0.34s apart, so five long fades overlap into one continuous wave
-       rather than five separate beats. */
-    animation: hero-app-appear var(--app-loop) cubic-bezier(0.33, 0, 0.2, 1) infinite both;
-    animation-delay: calc(2.5s + var(--s) * 0.34s);
-  }
-  /* Arrow between steps, drawn on every item but the first. */
-  .hero-app-step + .hero-app-step::before {
-    content: "";
-    position: absolute;
-    top: 1.8em;
-    left: -0.9em;
-    width: 1em;
-    height: 1px;
-    background: #9aa8bd;
-  }
-  .hero-app-step + .hero-app-step::after {
-    content: "";
-    position: absolute;
-    top: 1.5em;
-    left: 0.1em;
-    width: 0.42em;
-    height: 0.42em;
-    border-top: 1px solid #9aa8bd;
-    border-right: 1px solid #9aa8bd;
-    transform: rotate(45deg);
+    animation: hero-app-appear 0.6s cubic-bezier(0.33, 0, 0.2, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 0.8s + var(--s) * 0.75s);
   }
 
   .hero-app-step-disc {
+    position: relative;
     display: grid;
     place-items: center;
-    width: 3.6em;
-    height: 3.6em;
-    margin: 0 auto 0.7em;
+    width: 4.4em;
+    height: 4.4em;
     border-radius: 999px;
     background: #e9f2fd;
     color: #0a7ce0;
-    /* A slow wash of blue that follows the step in and drains back out. */
-    animation: hero-app-step-wash var(--app-loop) ease-in-out infinite both;
-    animation-delay: calc(2.5s + var(--s) * 0.34s);
+    animation: hero-app-step-wash 0.9s ease-out 1 both;
+    animation-delay: calc(var(--app-lead) + 0.9s + var(--s) * 0.75s);
   }
-  .hero-app-step-disc svg { width: 1.6em; height: 1.6em; stroke-width: 1.7; }
-  .hero-app-step-label {
-    display: block;
-    white-space: pre-line;
-    font-size: 0.98em;
-    line-height: 1.3;
-    color: #3a4b63;
-  }
+  .hero-app-step-disc > svg { width: 2em; height: 2em; stroke-width: 1.7; }
 
-  .hero-app-bottom {
-    animation: hero-app-appear var(--app-loop) cubic-bezier(0.22, 1, 0.36, 1) infinite both;
-    animation-delay: 5.1s;
-    margin-top: auto;
+  .hero-app-check {
+    position: absolute;
+    right: -0.1em;
+    bottom: -0.1em;
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: 1.2em;
-  }
-  .hero-app-case,
-  .hero-app-chart {
-    border: 1px solid rgb(11 18 32 / 0.08);
-    border-radius: 0.8em;
-    padding: 1em 1.1em;
-  }
-  .hero-app-case-label { font-size: 1.05em; font-weight: 600; }
-  .hero-app-case-quote {
-    margin-top: 0.55em;
-    font-size: 1.15em;
-    line-height: 1.35;
-    color: #3a4b63;
-  }
-  .hero-app-tags { display: flex; flex-wrap: wrap; gap: 0.45em; margin-top: 0.9em; }
-  .hero-app-tags span {
-    padding: 0.35em 0.8em;
+    place-items: center;
+    width: 1.6em;
+    height: 1.6em;
     border-radius: 999px;
-    background: #eef4fc;
-    font-size: 0.9em;
-    color: #3a4b63;
+    background: #22c55e;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25em #ffffff;
+    animation: hero-app-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 2s);
+  }
+  .hero-app-check svg { width: 0.95em; height: 0.95em; }
+
+  .hero-app-step-label {
+    font-size: 1.02em;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    max-width: 8.5em;
+  }
+  .hero-app-step-label b { font-weight: 700; }
+
+  .hero-app-arrow {
+    align-self: center;
+    margin-top: -1.6em;
+    color: #9aa8bd;
+    animation: hero-app-arrow-in 0.45s ease-out 1 both;
+    animation-delay: calc(var(--app-lead) + 1.3s + var(--a) * 0.75s);
+  }
+  .hero-app-arrow svg { width: 2.6em; height: 0.9em; }
+
+  /* ---- Les deux cartes du bas ---- */
+  .hero-app-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 1em;
+    margin-top: auto;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 3s);
   }
 
-  .hero-app-chart { display: flex; flex-direction: column; }
-  .hero-app-chart-label { font-size: 1em; color: #5a6b82; }
+  .hero-app-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.1em 1.2em;
+    border: 1px solid #e6ecf5;
+    border-radius: 1em;
+    background: #ffffff;
+  }
+
+  .hero-app-card-title {
+    display: block;
+    font-size: 1.15em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-app-example p {
+    position: relative;
+    z-index: 1;
+    margin-top: 0.6em;
+    max-width: 17em;
+    font-size: 0.98em;
+    line-height: 1.45;
+    color: #5a6b82;
+  }
+  .hero-app-example b { font-weight: 700; color: var(--foreground); }
+
+  .hero-app-doc {
+    position: absolute;
+    right: 0.9em;
+    bottom: -1.2em;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+    width: 6.2em;
+    padding: 0.8em 0.7em;
+    border-radius: 0.5em;
+    background: #f4f7fb;
+    box-shadow: 0 0.6em 1.4em -0.8em rgb(11 18 32 / 0.35);
+    transform: rotate(-7deg);
+    animation: hero-app-doc-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 3.4s);
+  }
+  .hero-app-doc b { font-size: 0.9em; font-weight: 600; color: #5a6b82; }
+  .hero-app-doc i {
+    height: 0.34em;
+    border-radius: 999px;
+    background: #dde5ef;
+  }
+  .hero-app-doc i:nth-of-type(2) { width: 78%; }
+  .hero-app-doc i:nth-of-type(3) { width: 56%; }
+
+  .hero-app-gain { display: flex; flex-direction: column; }
+
   .hero-app-chart-value {
-    font-size: 1.9em;
+    margin-top: 0.2em;
+    font-size: 2.1em;
     font-weight: 700;
     letter-spacing: -0.03em;
-    color: #0a7ce0;
     line-height: 1.1;
+    color: #0a7ce0;
+    font-variant-numeric: tabular-nums;
   }
-  .hero-app-chart svg { width: 100%; height: 4.2em; margin-top: auto; overflow: visible; }
+
+  .hero-app-chart {
+    display: block;
+    margin-top: auto;
+    color: #0a7ce0;
+  }
+  .hero-app-chart svg { width: 100%; height: 3.6em; overflow: visible; }
+
   .hero-app-chart-line {
-    stroke-dasharray: 320;
-    animation: hero-app-draw var(--app-loop) cubic-bezier(0.33, 0, 0.2, 1) infinite both;
-    animation-delay: 5.6s;
+    stroke-dasharray: 260;
+    animation: hero-app-draw 1.3s cubic-bezier(0.33, 0, 0.2, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 3.6s);
   }
   .hero-app-chart-area {
-    opacity: 0;
-    animation: hero-app-fade var(--app-loop) ease-out infinite both;
-    animation-delay: 6.1s;
+    animation: hero-app-fade 0.8s ease-out 1 both;
+    animation-delay: calc(var(--app-lead) + 4.1s);
   }
 
-  @keyframes hero-app-blip {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
-  }
+  /* ---- La séquence ----
+     Chaque image de fin est l'état définitif : `both` l'y laisse, et rien ne
+     rejoue. Le mock met environ sept secondes à se remplir, puis il ne bouge
+     plus. */
 
-  /* The pointer: in from off-panel, over to Projets, a press, then away.
-     All percentages are of --app-loop (14s). */
   @keyframes hero-cursor {
-    0% { opacity: 0; transform: translate(11.5em, 13em) scale(1); }
-    3% { opacity: 1; }
-    9% { transform: translate(6.4em, 4.1em) scale(1); }
-    10.5% { transform: translate(6.4em, 4.1em) scale(0.78); }
-    12.5% { transform: translate(6.4em, 4.1em) scale(1); }
-    22% { opacity: 1; transform: translate(6.4em, 4.1em) scale(1); }
-    30% { opacity: 0; transform: translate(9em, 8em) scale(1); }
-    100% { opacity: 0; transform: translate(11.5em, 13em) scale(1); }
+    0% { opacity: 0; transform: translate(13em, 13.5em); }
+    12% { opacity: 1; }
+    /* Il arrive sur « Demandes clients ». */
+    55% { opacity: 1; transform: translate(4.2em, 6.6em) scale(1); }
+    /* Le clic : appui, relâche. */
+    63% { transform: translate(4.2em, 6.6em) scale(0.78); }
+    72% { opacity: 1; transform: translate(4.2em, 6.6em) scale(1); }
+    88% { opacity: 1; transform: translate(4.2em, 6.6em); }
+    100% { opacity: 0; transform: translate(3.4em, 5.4em); }
   }
 
-  /* Highlights on the click, at 10.5% of the loop, and holds. */
   @keyframes hero-nav-select {
-    0%, 10% { background: transparent; color: #5a6b82; }
-    13%, 92% { background: #e6f0fd; color: #0a7ce0; }
-    100% { background: transparent; color: #5a6b82; }
+    from { background: transparent; color: #5a6b82; }
+    to { background: #e8f1fd; color: #0a7ce0; font-weight: 600; }
   }
 
-  /* The one arrival used by the title, the five steps and the lower cards.
-     Fourteen percent of the loop is close to two seconds of easing: long
-     enough that overlapping copies read as a single movement. */
   @keyframes hero-app-appear {
-    0% { opacity: 0; transform: translateY(0.55em); }
-    14%, 88% { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: translateY(0.3em); }
+    from { opacity: 0; transform: translateY(0.55em); }
+    to { opacity: 1; transform: none; }
   }
 
+  /* Le disque ne change pas de couleur : il s'entoure d'un anneau qui se
+     déploie puis retombe. L'étape est franchie, elle ne chauffe pas. */
   @keyframes hero-app-step-wash {
-    0% { background: #eef3f9; color: #93a5bc; }
-    16%, 84% { background: #e9f2fd; color: #0a7ce0; }
-    100% { background: #eef3f9; color: #93a5bc; }
+    0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgb(10 124 224 / 0); }
+    45% { transform: scale(1.04); box-shadow: 0 0 0 0.5em rgb(10 124 224 / 0.2); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgb(10 124 224 / 0); }
+  }
+
+  @keyframes hero-app-arrow-in {
+    from { opacity: 0; transform: translateX(-0.5em); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes hero-app-pop {
+    0% { opacity: 0; transform: scale(0.3); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes hero-app-doc-in {
+    from { opacity: 0; transform: rotate(-16deg) translateY(1.4em); }
+    to { opacity: 1; transform: rotate(-7deg) translateY(0); }
   }
 
   @keyframes hero-app-draw {
-    0% { stroke-dashoffset: 320; }
-    26%, 88% { stroke-dashoffset: 0; }
-    100% { stroke-dashoffset: 320; }
+    from { stroke-dashoffset: 260; }
+    to { stroke-dashoffset: 0; }
   }
 
   @keyframes hero-app-fade {
-    0% { opacity: 0; }
-    22%, 88% { opacity: 1; }
-    100% { opacity: 0; }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   /* Under the stage breakpoint the panel is only as wide as a phone. The
@@ -3111,32 +3447,39 @@
   /* ---------------- Stage layout, from lg up ---------------- */
 
   @media (min-width: 1024px) {
+    /* Deux colonnes égales. Le mock occupait auparavant les deux tiers de la
+       rangée, ce qui faisait du titre l'élément secondaire de sa propre page.
+       À parts égales, la promesse et la démonstration ont le même poids, et
+       le mock rétrécit d'autant — tout ce qu'il contient est dimensionné en
+       unités de conteneur, donc il s'échelonne sans se recomposer. */
     .hero-composition {
-      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 2rem;
     }
     .hero-visual { max-width: none; }
 
     .hero-stage {
-      aspect-ratio: 1140 / 760;
+      /* Le rapport du mock seul. Il valait 1140/760 quand les quatre cartes
+         débordaient du plateau en haut et en bas ; sans elles, le plateau se
+         referme sur ce qu'il contient réellement. */
+      aspect-ratio: 1140 / 598;
       width: 100%;
-      /* The cards overhang the box by about 5% of its height on each side,
-         so the budget below already accounts for them. The 300px is what
-         the hero card spends before the stage gets a say: its own insets,
-         the navbar row, the vertical padding and a safety margin.
-         The 92% keeps a sliver of its column free on very wide screens,
-         where the height budget alone would let the stage fill the column
-         edge to edge and meet the headline coming the other way. */
-      max-width: min(92%, calc((100dvh - 315px) * 1.36));
+      /* 315px : ce que la carte du hero dépense avant que le plateau ait son
+         mot à dire — ses propres retraits, la rangée de la navbar, les
+         paddings verticaux et une marge de sécurité. Le facteur est le
+         rapport ci-dessus : la hauteur disponible décide de la largeur.
+         Les 92% gardent une lisière de colonne sur les très grands écrans,
+         où le budget de hauteur laisserait le plateau remplir toute la
+         colonne et venir buter dans le titre. */
+      max-width: min(92%, calc((100dvh - 315px) * 1.9));
       margin-inline: auto;
     }
 
+    /* Le mock occupe tout le plateau : il n'a plus à réserver les bandes du
+       haut et du bas où les cartes empiétaient. */
     .hero-stage-panel {
       position: absolute;
-      left: 0;
-      top: calc(12% - 20px);
-      width: 100%;
-      height: calc(76% + 20px);
+      inset: 0;
       z-index: 1;
     }
     /* Pas de survol : le diagramme n'est pas cliquable. Les quatre cartes
@@ -3212,29 +3555,29 @@
   }
 
   @media (min-width: 1280px) {
-    .hero-composition { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 2.5rem; }
+    /* Les colonnes restent égales, seule la gouttière s'élargit. */
+    .hero-composition { gap: 2.5rem; }
   }
 
   /* Nothing here is load-bearing, so under reduced motion it all just stops
      on its finished frame. */
   @media (prefers-reduced-motion: reduce) {
-    .pillar-card,
+    /* La séquence ne se joue pas : le mock s'affiche directement fini.
+       `animation: none` suffit pour la plupart des éléments, dont l'état de
+       base est déjà l'état final ; seuls ceux dont l'animation portait l'état
+       final ont besoin d'être rétablis à la main. */
     .hero-stage-panel .hero-app,
-    .hero-app-status i,
-    .hero-app-title,
-    .hero-app-step,
-    .hero-app-step-disc,
-    .hero-app-bottom,
-    .hero-app-chart-line,
-    .hero-app-chart-area,
+    .hero-app *,
     .hero-app-nav-row.is-active {
-      animation: none;
+      animation: none !important;
       transition: none;
     }
-    .hero-app-chart-line { stroke-dashoffset: 0; }
-    .hero-app-chart-area { opacity: 1; }
-    .hero-app-nav-row.is-active { background: #e6f0fd; color: #0a7ce0; }
     .hero-app-cursor { display: none; }
+    .hero-app-nav-row.is-active {
+      background: #e8f1fd;
+      color: #0a7ce0;
+      font-weight: 600;
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -3346,56 +3689,68 @@
 
   .problem-deck {
     display: grid;
-    gap: 2.5rem 1.75rem;
+    gap: clamp(1rem, 1.6vw, 1.5rem);
     margin: clamp(2.5rem, 5vw, 4.5rem) auto 1rem;
     max-width: 86rem;
   }
 
-  .problem-col { position: relative; min-width: 0; }
+  /* Quatre cartes distinctes. Le design les montrait soudées dans un seul
+     panneau divisé par des filets ; séparées, chaque problème devient une
+     chose qu'on peut regarder seule, et le bloc cesse de se lire comme un
+     tableau. */
+  .problem-col {
+    position: relative;
+    display: grid;
+    gap: clamp(1rem, 1.6vw, 1.4rem);
+    padding: clamp(1.3rem, 2vw, 2rem);
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
 
-  /* --- the parts of a column --- */
+  .problem-body { min-width: 0; }
+
+  /* --- L'illustration, et la tache de couleur derrière elle --- */
   .problem-visual {
     position: relative;
-    height: 11.5rem;
-    margin-bottom: 1.25rem;
+    height: 10.5rem;
+    min-width: 0;
   }
 
-  .problem-index {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: var(--card-ink);
+  /* La tache est un halo très diffus, pas un disque : elle doit se sentir
+     sans jamais être un objet de plus dans la carte. */
+  .problem-visual::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 15rem;
+    height: 15rem;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in oklab, var(--card-ink) 20%, transparent) 0%,
+      transparent 68%
+    );
+    pointer-events: none;
   }
-  /* A dot in the column's colour, and nothing else. It was a 2.6rem tile
-     with a glyph knocked out of it, which made four more icons on a page
-     that already had one at the head of every block. The rule beside it
-     carries the colour across the column; the dot is where it starts. */
+
+  .problem-visual .pv { z-index: 1; }
+
+  /* --- Les parties de la carte --- */
   .problem-dot {
+    display: block;
     width: 0.7rem;
     height: 0.7rem;
-    flex: none;
     border-radius: 9999px;
     background: var(--card-ink);
     box-shadow: 0 0 0 4px color-mix(in oklab, var(--card-ink) 14%, transparent);
   }
-  /* The rule beside the glyph runs the full width of the column rather than
-     stopping after 2rem. The four inks are declared per column but were only
-     ever visible on a 2.6rem tile; stretched across the column they finally
-     read as a system, and the deck stops being four grey blocks. */
-  .problem-index i {
-    display: block;
-    flex: 1;
-    height: 2px;
-    border-radius: 9999px;
-    background: linear-gradient(
-      90deg,
-      currentColor,
-      color-mix(in oklab, currentColor 15%, transparent)
-    );
-  }
 
   .problem-title {
-    margin-top: 0.9rem;
+    margin-top: 1.4rem;
     font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.3rem);
     font-weight: 600;
     letter-spacing: -0.02em;
@@ -3403,26 +3758,26 @@
   }
   .problem-text {
     margin-top: 0.6rem;
+    max-width: 34ch;
     font-size: clamp(0.85rem, 0.2vw + 0.8rem, 0.95rem);
     line-height: 1.55;
     color: var(--muted-foreground);
   }
 
-  /* The way out of the problem, in the column's own colour. It is what
-     turns four descriptions into four questions with an answer, and it is
-     the only place on the landing page where the Constat leads anywhere. */
+  /* Ce qui répond au problème, dans la couleur de la carte. C'est ce qui
+     transforme quatre descriptions en quatre questions qui ont une réponse,
+     et c'est le seul endroit du constat qui mène quelque part. */
   .problem-answer {
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
     gap: 0 0.4rem;
-    margin-top: 0.85rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid color-mix(in oklab, var(--card-ink) 22%, transparent);
+    margin-top: 1.35rem;
   }
 
   .problem-answer > i {
     flex-basis: 100%;
+    margin-bottom: 0.3rem;
     font-style: normal;
     font-size: 0.64rem;
     font-weight: 500;
@@ -3432,7 +3787,7 @@
   }
 
   .problem-answer > b {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
     line-height: 1.3;
     color: var(--card-ink);
@@ -3447,31 +3802,24 @@
     transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .problem-answer:hover > svg {
-    transform: translate(2px, -2px);
-  }
+  .problem-answer:hover > svg { transform: translate(2px, -2px); }
+  .problem-answer:hover > b { opacity: 0.75; }
 
-  .problem-answer:hover > b {
-    opacity: 0.75;
-  }
-
-  @media (min-width: 640px) {
-    .problem-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Dès qu'une carte est assez large, le texte et l'illustration se mettent
+     côte à côte plutôt que l'un sous l'autre. */
+  @media (min-width: 900px) {
+    .problem-col {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      align-items: center;
+    }
   }
 
   @media (min-width: 1024px) {
-    .problem-deck { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 clamp(1.25rem, 2vw, 2.5rem); }
-    .problem-visual { height: 14rem; }
-
-    /* Staggered, not flush: four columns levelled at the top read as one
-       block of boxes, which is what made this section look like every
-       other one. A steady slope, each column a step lower than the one
-       before, turns the row into a movement — and it runs the same way as
-       the entrance, which arrives left to right. Nothing about the text measure changes, so the copy
-       composes exactly as before. */
-    .problem-col:nth-child(2) { margin-top: clamp(0.75rem, 1.1vw, 1.35rem); }
-    .problem-col:nth-child(3) { margin-top: clamp(1.5rem, 2.2vw, 2.7rem); }
-    .problem-col:nth-child(4) { margin-top: clamp(2.25rem, 3.3vw, 4.05rem); }
+    /* Deux rangées de deux, et non quatre colonnes : une carte qui porte un
+       titre, trois lignes de texte, un lien et une illustration n'entre pas
+       dans un quart de page. */
+    .problem-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .problem-visual { height: 11.5rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3479,154 +3827,203 @@
   }
 
   /* ------------------------------------------------------------------
-     The four illustrations. Everything is drawn from boxes and glyphs, so
-     it stays crisp at any size and downloads nothing.
+     Les quatre illustrations. Tout est dessiné avec des boîtes et quelques
+     glyphes : rien à télécharger, et net à n'importe quelle taille.
      ------------------------------------------------------------------ */
   .pv {
     position: absolute;
     inset: 0;
-    /* Parts of each drawing are sized in rem and parts in percentages, so
-       shrinking the box alone would only move half of it. Scaling the whole
-       thing keeps every proportion intact. */
-    transform: scale(0.92);
-    transform-origin: center;
+    display: grid;
+    place-content: center;
   }
 
-  /* 01 — the same five things, redone by hand. Same row language as the
-     follow-up list in column 03, so the two read as one family. */
-  .pv--manual {
+  /* --- La carte blanche que partagent les visuels 01 et 03 --- */
+  .pv--card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0.35rem;
-    padding: 0 4%;
+    gap: 0.55rem;
+    /* `inset: 0` fixe les bords gauche ET droit ; une largeur posée dessus
+       sans marge automatique se cale sur le bord gauche. */
+    width: min(100%, 12.5rem);
+    margin-inline: auto;
+    padding: 0.95rem 0.9rem;
+    border-radius: 0.85rem;
+    background: #ffffff;
+    box-shadow: 0 0.9rem 2rem -1rem rgb(11 18 32 / 0.28);
   }
 
-  /* A soft red pool behind the list, wider than the rows so it is not
-     simply covered by them. */
-  .pv--manual::before {
-    content: "";
-    position: absolute;
-    left: 0%;
-    top: -26%;
-    width: 112%;
-    height: 132%;
-    z-index: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    background: radial-gradient(
-      closest-side,
-      rgb(185 28 28 / 0.1) 0%,
-      rgb(185 28 28 / 0.055) 52%,
-      transparent 82%
-    );
+  .pv-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.28rem 0.3rem;
+    border-radius: 0.4rem;
   }
-  .pv--manual .pv-row { position: relative; z-index: 1; }
 
-  /* The one thing that sets these rows apart from column 03's: the name,
-     in the display face, and the red repeat glyph on the right saying this
-     is done again every week. */
-  .pv-row-name {
-    font-family: var(--font-label), var(--font-sans), sans-serif;
-    font-size: 0.84rem;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    color: #b91c1c;
+  /* Le repère de gauche : un point, une pastille, ou rien. */
+  .pv-dot {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--card-ink) 55%, #ffffff);
   }
-  .pv-row-repeat {
+
+  .pv-mark {
+    flex: none;
     display: grid;
     place-items: center;
-    flex: none;
-    color: rgb(185 28 28 / 0.5);
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
   }
-  .pv-row-repeat svg { width: 0.85rem; height: 0.85rem; stroke-width: 2; }
-  /* 02 — tools that never got wired together */
-  .pv-wires {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+  .pv-mark svg { width: 0.72rem; height: 0.72rem; stroke-width: 3; }
+  .pv-mark--alert { background: #dc2626; color: #ffffff; }
+  .pv-mark--done { background: #22c55e; color: #ffffff; }
+  .pv-mark--idle { border: 1.5px solid #dde5ef; }
+
+  /* Les deux barres grises qui tiennent lieu de texte. */
+  .pv-row-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.22rem;
+    flex: 1;
+    min-width: 0;
   }
-  .pv-wires path {
-    stroke: rgb(29 78 216 / 0.34);
-    stroke-width: 1.6;
-    stroke-dasharray: 4 5;
-    stroke-linecap: round;
+  .pv-row-bars i {
+    display: block;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: #e8edf4;
+  }
+  .pv-row-bars i:last-child { width: 62%; background: #eef2f7; }
+
+  /* --- 02 : les outils éparpillés --- */
+  /* Pas de `position: relative` ici : elle battrait le `position: absolute`
+     de `.pv`, déclaré plus haut avec la même spécificité, et le dessin
+     retomberait dans le flux, en haut à gauche de la carte. */
+  .pv--tools {
+    display: grid;
+    place-content: center;
   }
 
-  /* Tiles are placed by their centre, so they land exactly on the ends of
-     the lines above. */
-  .pv-tile {
-    --tile: 2.7rem;
+  .pv-stage {
+    position: relative;
+    display: block;
+    width: 9.5rem;
+    height: 9.5rem;
+  }
+
+  /* Le cercle pointillé, c'est la liaison qui devrait exister. */
+  .pv-orbit {
     position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 7.5rem;
+    height: 7.5rem;
+    transform: translate(-50%, -50%);
+    border: 1.5px dashed color-mix(in oklab, var(--card-ink) 28%, transparent);
+    border-radius: 999px;
+  }
+
+  .pv-tile {
+    position: absolute;
+    --tile: 3rem;
     display: grid;
     place-items: center;
     width: var(--tile);
     height: var(--tile);
     margin: calc(var(--tile) / -2) 0 0 calc(var(--tile) / -2);
-    border-radius: 0.75rem;
-    border: 1px solid rgb(11 18 32 / 0.08);
+    border-radius: 0.8rem;
+    border: 1px solid rgb(11 18 32 / 0.06);
     background: #fff;
-    box-shadow: 0 8px 20px -14px rgb(11 18 32 / 0.5);
-    transition:
-      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 280ms ease,
-      background-color 280ms ease,
-      box-shadow 280ms ease;
+    box-shadow: 0 0.6rem 1.4rem -0.8rem rgb(11 18 32 / 0.45);
   }
-  .pv-tile svg { width: 1.45rem; height: 1.45rem; }
+  .pv-tile svg { width: 1.6rem; height: 1.6rem; }
 
-  .pv-tile--0 { left: 50%; top: 17%; }
-  .pv-tile--1 { left: 82.3%; top: 39.8%; }
-  .pv-tile--2 { left: 70%; top: 76.7%; }
-  .pv-tile--3 { left: 30%; top: 76.7%; }
-  .pv-tile--4 { left: 17.7%; top: 39.8%; }
+  /* Un triangle : deux en haut, un en bas. Les trois centres forment une
+     boîte dont le milieu tombe sur celui de la scène, donc le groupe est
+     centré et pas seulement symétrique. */
+  .pv-tile--0 { left: 18%; top: 24%; }
+  .pv-tile--1 { left: 82%; top: 24%; }
+  .pv-tile--2 { left: 50%; top: 78%; }
 
-  .pv-cross {
+  /* --- 04 : les demandes qui s'empilent ---
+     Des bulles plutôt que des lignes : à côté des deux listes du constat, il
+     fallait une silhouette différente, sinon trois cartes sur quatre se
+     seraient ressemblées. */
+  /* Même remarque que pour les outils : pas de `position: relative`. Le
+     compteur se positionne très bien contre `.pv`, qui est déjà absolu. */
+  .pv--inbox {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: min(100%, 11.5rem);
+    /* La boîte épouse la pile de bulles au lieu de remplir la hauteur, et
+       les marges automatiques la centrent. C'est ce qui accroche le compteur
+       au coin de la première bulle : il se positionne contre cette boîte, et
+       une boîte pleine hauteur l'aurait envoyé tout en haut de la carte. */
+    height: fit-content;
+    margin: auto;
+  }
+
+  .pv-bubble {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.6rem 0.7rem;
+    /* Le coin bas-gauche reste net : c'est ce qui fait lire un message reçu
+       plutôt qu'une simple boîte arrondie. */
+    border-radius: 0.75rem 0.75rem 0.75rem 0.2rem;
+    background: #ffffff;
+    box-shadow: 0 0.6rem 1.4rem -0.9rem rgb(11 18 32 / 0.3);
+  }
+  .pv-bubble:nth-of-type(2) { width: 88%; }
+  .pv-bubble:nth-of-type(3) { width: 72%; }
+
+  .pv-bubble i {
+    display: block;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: #e8edf4;
+  }
+  .pv-bubble i:last-child { width: 58%; background: #eef2f7; }
+
+  .pv-badge {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -0.875rem 0 0 -0.875rem;
+    right: -0.5rem;
+    top: -0.55rem;
     z-index: 3;
     display: grid;
     place-items: center;
-    width: 1.75rem;
-    height: 1.75rem;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    padding-inline: 0.35rem;
     border-radius: 999px;
-    background: #fee2e2;
-    color: #dc2626;
+    background: var(--card-ink);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 0 0 0.2rem var(--surface);
   }
-  .pv-cross svg { width: 1rem; height: 1rem; stroke-width: 2.4; }
 
   /* ------------------------------------------------------------------
-     The Constat drawings light up, one item at a time.
-     ------------------------------------------------------------------
-     One light for all thirteen: the four rows of column 01, then the five
-     tools of column 02, then the four rows of column 03, then round again.
-     It used to be three separate rounds, which meant three lights burning
-     at once in three columns — read as blinking rather than as a sequence.
+     La lumière rouge qui parcourt les douze éléments des quatre
+     illustrations, une seconde chacun, dans l'ordre du constat.
 
-     Each item carries its rank in the run as `--pv-i`, written on the
-     element itself, so three drawings built from three different markups
-     share one sequence with a single rule.
-
-     The light rides a ring laid over the item, never the item's own border
-     or background. Both already answer the pointer, and an animation would
-     beat them: the drawings would stop reacting to the cursor for as long
-     as the run went past. */
+     ⚠ Pas de `position` ici : elle battrait celle de `.pv-tile`, déclarée
+     plus haut avec la même spécificité, et les logos quitteraient leur
+     place. Les lignes sont déjà `relative`, les tuiles déjà `absolute`.
+     ------------------------------------------------------------------ */
   .pv-flash {
     --pv-alert: #b91c1c;
-    /* One item lit at a time, and exactly one: a step of 1s with a pulse
-       cut to fit inside it, so the light is handed over rather than
-       shared. Thirteen items, so the run takes thirteen seconds. */
     --pv-step: 1s;
-    --pv-count: 13;
+    --pv-count: 12;
   }
-  /* No `position` here. The rows are already relative and the tiles are
-     absolute — both are containing blocks the ring can hang off. Declaring
-     `relative` on the shared class beat the tiles' `absolute`, since both
-     are single class selectors and this one comes later in the file, and
-     the five tools fell out of their ring back into normal flow. */
 
   .pv-flash::after {
     content: "";
@@ -3640,19 +4037,9 @@
     pointer-events: none;
   }
 
-  /* Up at 0.18s, held to 0.8s, gone at 1s — as shares of the 13s run. */
   @keyframes pv-flash {
-    0%,
-    7.7%,
-    100% {
-      opacity: 0;
-      box-shadow: 0 0 0 0 color-mix(in oklab, var(--pv-alert) 0%, transparent);
-    }
-    1.4%,
-    6.15% {
-      opacity: 1;
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--pv-alert) 13%, transparent);
-    }
+    0%, 8.34%, 100% { opacity: 0; }
+    1.5%, 6.7% { opacity: 1; }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -3660,161 +4047,6 @@
       animation: pv-flash calc(var(--pv-step) * var(--pv-count)) linear infinite;
       animation-delay: calc(var(--pv-i, 0) * var(--pv-step));
     }
-  }
-
-  /* 03 — a follow-up list nobody works through */
-  .pv--followup { display: flex; flex-direction: column; justify-content: center; gap: 0.45rem; padding: 0 4%; }
-  /* Four rows, sized to fill the box without spilling out of it: the sum
-     below lands about 9px short of the area the scale leaves them. */
-  .pv--manual { gap: 0.4rem; }
-  .pv--manual .pv-row { padding: 0.4rem 0.7rem; }
-  .pv--manual .pv-row-icon { width: 1.7rem; height: 1.7rem; }
-  .pv--manual .pv-row-icon svg { width: 1.1rem; height: 1.1rem; }
-  .pv--manual .pv-row-body i { font-size: 0.62rem; }
-  .pv--manual .pv-row-repeat svg { width: 0.95rem; height: 0.95rem; }
-  .pv-row {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0.65rem;
-    border-radius: 0.65rem;
-    border: 1px solid rgb(11 18 32 / 0.06);
-    background: #fff;
-    box-shadow: 0 8px 20px -16px rgb(11 18 32 / 0.5);
-  }
-  /* The one that is late reads as the problem, not as another line. */
-  .pv-row--alert {
-    border-color: rgb(220 38 38 / 0.2);
-    background: #fefafa;
-  }
-  .pv-row--faded { opacity: 0.45; box-shadow: none; }
-  .pv-row-icon {
-    display: grid;
-    place-items: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex: none;
-    color: #64748b;
-  }
-  .pv-row-icon svg { width: 1rem; height: 1rem; stroke-width: 1.8; }
-  .pv-row-icon--done {
-    border-radius: 999px;
-    background: #16a34a;
-    color: #fff;
-  }
-  .pv-row-body { min-width: 0; flex: 1; }
-  .pv-row-body b { display: block; font-size: 0.66rem; font-weight: 600; }
-  .pv-row-body i {
-    display: block;
-    font-style: normal;
-    font-size: 0.6rem;
-    color: #94a3b8;
-  }
-  .pv-row--alert .pv-row-body i { color: #dc2626; }
-  .pv-row-flag { color: #dc2626; flex: none; }
-  .pv-row-flag svg { width: 1rem; height: 1rem; }
-  .pv-row-dot {
-    width: 1rem;
-    height: 1rem;
-    flex: none;
-    border-radius: 999px;
-    background: rgb(11 18 32 / 0.08);
-  }
-  .pv-row-dot--lead { width: 1.25rem; height: 1.25rem; }
-
-  /* 04 — a site that has stopped keeping up */
-  .pv--site { display: grid; place-items: center; }
-  .pv-window {
-    position: relative;
-    display: block;
-    width: 96%;
-    border-radius: 0.7rem;
-    border: 1px solid rgb(11 18 32 / 0.07);
-    background: #fff;
-    overflow: hidden;
-    box-shadow: 0 14px 30px -20px rgb(11 18 32 / 0.5);
-    transition:
-      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 320ms ease;
-  }
-  .pv-window-bar {
-    display: flex;
-    align-items: center;
-    gap: 0.28rem;
-    padding: 0.45rem 0.6rem;
-    border-bottom: 1px solid rgb(11 18 32 / 0.06);
-  }
-  .pv-window-bar i {
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 999px;
-    background: #cbd5e1;
-  }
-  .pv-window-bar i:nth-child(1) { background: #f87171; }
-  .pv-window-bar i:nth-child(2) { background: #fbbf24; }
-  .pv-window-bar i:nth-child(3) { background: #4ade80; }
-  .pv-window-url {
-    flex: 1;
-    height: 0.5rem;
-    margin-left: 0.5rem;
-    border-radius: 999px;
-    background: rgb(11 18 32 / 0.06);
-  }
-  .pv-window-body {
-    display: grid;
-    /* The right pane stretches to whatever the left column ends up being,
-       so the loading block is as tall as the image plus its two lines. */
-    grid-template-columns: 1.35fr 1fr;
-    align-items: stretch;
-    gap: 0.55rem;
-    padding: 0.65rem;
-  }
-  .pv-window-col { display: flex; flex-direction: column; }
-  .pv-window-pane {
-    display: grid;
-    place-items: center;
-    border-radius: 0.45rem;
-    background: rgb(11 18 32 / 0.05);
-    color: rgb(11 18 32 / 0.2);
-  }
-  .pv-window-col .pv-window-pane { height: 5.4rem; }
-  .pv-window-pane--load { height: auto; }
-
-  /* Two bars under the image: a short heavy one and a long light one, which
-     is enough for the eye to read "a title and a paragraph". */
-  .pv-window-line {
-    display: block;
-    height: 0.3rem;
-    margin-top: 0.5rem;
-    border-radius: 999px;
-    background: rgb(11 18 32 / 0.07);
-  }
-  .pv-window-line--title {
-    width: 58%;
-    height: 0.45rem;
-    background: rgb(11 18 32 / 0.13);
-  }
-  .pv-window-pane svg { width: 1.8rem; height: 1.8rem; stroke-width: 1.6; }
-  .pv-spinner {
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 999px;
-    border: 3px solid rgb(11 18 32 / 0.1);
-    border-top-color: rgb(126 34 206 / 0.5);
-    animation: pv-spin 1.6s linear infinite;
-  }
-  @keyframes pv-spin {
-    to { transform: rotate(360deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pv-spinner { animation: none; }
-    .pv-tile,
-    .pv-window,
-    .pv-row,
-    .pv-row-flag,
-    .pv-row-repeat svg { transition: none; transform: none; }
   }
 
   /* Small caps label / eyebrow. Sans, light: the monospace it used to be
@@ -4492,52 +4724,22 @@
   animation: none;
 }
 
-@keyframes hero-mock-in {
-  from { opacity: 0; transform: translateY(0.55em); }
-  to { opacity: 1; transform: none; }
-}
-
 @media (max-width: 767px) {
   /* ---------- Hero : le mock ne tourne plus en boucle ----------
      Les huit animations du logiciel sont réglées sur une horloge de 14s qui
      repart indéfiniment. Sur téléphone elles sont coupées net : le mock est
      une image d'interface, pas une démo qui rejoue toute seule. */
-  .hero-app-cursor,
-  .hero-app-nav-row.is-active,
-  .hero-app-status i,
-  .hero-app-title,
-  .hero-app-step,
-  .hero-app-step-disc,
-  .hero-app-bottom,
-  .hero-app-chart-line,
-  .hero-app-chart-area {
-    animation: none;
-  }
+  /* Un curseur de souris dessiné sur un écran tactile ne veut rien dire : il
+     ne s'affiche pas, et la séquence n'a plus à l'attendre. Le reste est
+     identique au desktop — un seul passage, déclenché à l'arrivée du mock à
+     l'écran, puis plus rien. */
+  .hero-app-cursor { display: none; }
+  .hero-app { --app-lead: 0.2s; }
 
-  /* La courbe du graphe partait de l'invisible : c'était l'animation qui la
-     rallumait. Sans boucle, il faut lui donner son état final. Le curseur,
-     lui, garde son `opacity: 0` de base et ne revient pas : une souris
-     dessinée sur un écran tactile ne veut rien dire. */
-  .hero-app-chart-area { opacity: 1; }
 
   /* À la place de la boucle : une seule arrivée, au scroll, en cascade. */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-stage-panel[data-shown="true"] .hero-app-title,
-    .hero-stage-panel[data-shown="true"] .hero-app-step,
-    .hero-stage-panel[data-shown="true"] .hero-app-bottom {
-      animation: hero-mock-in var(--anim-element) var(--anim-ease) both;
-    }
-    .hero-stage-panel[data-shown="true"] .hero-app-title {
-      animation-delay: 80ms;
-    }
-    /* `--s` est le rang de l'étape, déjà posé sur chacune. */
-    .hero-stage-panel[data-shown="true"] .hero-app-step {
-      animation-delay: calc(240ms + var(--s, 0) * 90ms);
-    }
-    .hero-stage-panel[data-shown="true"] .hero-app-bottom {
-      animation-delay: 760ms;
-    }
-  }
+  /* Le fondu d'arrivée générique n'a plus lieu d'être : le mock a désormais
+     sa propre séquence, qui se déclenche sur le même `data-shown`. */
 
   /* Le titre du mock sur une ligne. Ce n'est pas la place qui manquait mais
      le plafond de 20ch, qui le coupait en deux bien avant le bord. */
@@ -4550,13 +4752,6 @@
   /* ---------- Hero : les quatre services l'un sous l'autre ---------- */
   .pillar-deck {
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* ---------- Constat : de l'air entre les quatre blocs ----------
-     En une colonne, 2,5rem ne suffisaient plus à séparer le visuel d'un bloc
-     du texte du suivant : les deux se lisaient comme un seul ensemble. */
-  .problem-deck {
-    gap: 4rem 1.75rem;
   }
 
   /* ---------- Équipe : deux colonnes, le bloc centré ----------

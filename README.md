@@ -52,6 +52,21 @@ l'alignement desktop a été validé écran par écran, du portable au 4K.
 Dans cet ordre : chaque point débloque les suivants. Les trois premiers sont
 bloquants au sens strict, le site ne peut pas être publié sans eux.
 
+## 0. Les emplacements réservés — bloquant
+
+La refonte d'architecture du 24/09/2026 a laissé des blocs volontairement
+vides plutôt que du texte inventé. **Ils s'affichent en clair sur le site** et
+doivent être remplis ou retirés avant toute mise en ligne.
+
+- [ ] Landing, deux sections réservées : **résultats mesurés** et **outils
+      gratuits** (`landing` dans `content.ts`)
+- [ ] Les **12 pages de service** n'ont que leur coquille. Le gabarit se valide
+      sur une prestation, puis s'applique aux onze autres, en FR et en EN
+- [ ] Le formulaire de la page contact et le calendrier Cal.com : **en dernier**,
+      après la structure et le contenu
+
+Pour tous les repérer : `grep -rn 'data-placeholder\|detailPlaceholder' src/`
+
 ## 1. Nom de domaine — `synode-agency.com`
 
 - [ ] Acheter le domaine
