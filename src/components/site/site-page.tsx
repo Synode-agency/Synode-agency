@@ -1,8 +1,10 @@
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { Hero } from "@/components/sections/hero";
+import { Manifesto } from "@/components/sections/manifesto";
+import { SolutionsBand } from "@/components/sections/solutions-band";
 import { Problem } from "@/components/sections/problem";
-import { ServicesBand } from "@/components/sections/services-band";
+import { Difference } from "@/components/sections/difference";
 import { Method } from "@/components/sections/method";
 import { ReservedSection } from "@/components/sections/reserved";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -11,18 +13,22 @@ import { getContent, type Locale } from "@/lib/content";
 /**
  * La landing.
  *
- * L'enchaînement suit celui qui marche chez les agences comparables : on
- * montre un système qui tourne, on nomme le problème, on annonce ce qu'on
- * vend, on explique comment on travaille, on prouve, on donne quelque chose,
- * on propose l'heure d'audit.
+ * L'enchaînement raconte une seule chose, dans cet ordre : voici un système
+ * qui tourne, voici la place qu'il occupe, voici les quatre que nous
+ * construisons, voici les situations qu'ils prennent en charge, voici
+ * pourquoi ce n'est pas un outil de plus, voici comment on s'y prend, et
+ * voici à qui on parle.
  *
- * Trois de ces temps n'ont pas encore leur matière — le cas d'usage, les
- * résultats chiffrés, les outils gratuits. Leur place est tenue par un bloc
- * qui dit ce qu'il attend, plutôt que par un texte inventé.
+ * Ce qui a quitté cette page, et pourquoi : les seize prestations. Seize
+ * cartes se lisent comme un catalogue, et un catalogue se compare au prix.
+ * Elles sont sous `/expertise`, d'où elles servent le référencement sans
+ * définir l'offre.
  *
- * Ce qui a quitté cette page : l'offre, qui est devenue `/services` et ses
- * douze prestations ; l'équipe, qui a sa page ; la FAQ, qui a la sienne. Une
- * landing annonce, elle ne dit pas tout.
+ * Chaque section utilise une famille de composition différente — carte
+ * pleine, phrase seule, grille de quatre, quatre colonnes, schéma empilé,
+ * piste horizontale, bandeau. Deux sections voisines qui se ressemblent
+ * donnent l'impression d'un gabarit répété, ce qui est exactement
+ * l'impression qu'un site d'agence doit éviter.
  */
 export function SitePage({ locale }: { locale: Locale }) {
   const { landing } = getContent(locale);
@@ -33,12 +39,13 @@ export function SitePage({ locale }: { locale: Locale }) {
       <main className="flex-1">
         <Hero locale={locale} />
 
-        <ServicesBand locale={locale} />
+        <Manifesto locale={locale} />
+        <SolutionsBand locale={locale} />
         <Problem locale={locale} />
+        <Difference locale={locale} />
         <Method locale={locale} />
 
         <ReservedSection id="resultats" copy={landing.results} />
-        <ReservedSection id="outils" copy={landing.tools} />
 
         <CtaBand locale={locale} />
       </main>

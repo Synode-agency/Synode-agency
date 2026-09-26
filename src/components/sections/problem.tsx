@@ -57,7 +57,7 @@ export function Problem({ locale }: { locale: Locale }) {
                 <p className="problem-text">{item.text}</p>
 
                 <Link
-                  href={path(locale, `/services/${item.slug}`)}
+                  href={path(locale, `/solutions/${item.slug}`)}
                   className="problem-answer"
                 >
                   <i>{problem.answerLabel}</i>

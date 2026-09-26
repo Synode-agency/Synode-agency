@@ -7,15 +7,26 @@ import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { getContent, homePath, path, type Locale } from "@/lib/content";
+import { systems } from "@/lib/solutions";
 import { cn } from "@/lib/utils";
 
-/** Landing sections the scroll-spy underline follows. */
 /** Les sections de la landing que suit le soulignement au scroll.
  *  « offre », « equipe » et « faq » n'y sont plus : ce sont des pages. */
-const SPY_IDS = ["top", "services", "probleme", "methode", "conclusion"];
+const SPY_IDS = [
+  "top",
+  "manifeste",
+  "solutions",
+  "probleme",
+  "difference",
+  "methode",
+  "conclusion",
+];
 
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const { site, services } = getContent(locale);
+  const { site, solutions: solutionsMenu } = getContent(locale);
+  /* Le déroulant liste les quatre systèmes, pas les seize capacités :
+     c'est la navigation qui dit ce qui se vend. */
+  const systemList = systems(locale);
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -165,7 +176,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           <nav className="hidden items-center gap-1 md:flex" ref={menuWrap}>
             {site.nav.map((item) => {
               const current = isCurrent(item.href);
-              const hasMenu = "menu" in item && item.menu === "services";
+              const hasMenu = "menu" in item && item.menu === "solutions";
               const rule = (
                 /* The rule belongs to the current tab; pointing at another
                    one draws it there faintly, as if it were about to move. */
@@ -181,7 +192,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               );
 
               if (hasMenu) {
-                const open = menu === "services";
+                const open = menu === "solutions";
                 return (
                   /* Le survol ouvre, comme on l'attend d'un menu de navigation,
                      mais le bouton reste un vrai bouton : au clavier et au
@@ -196,7 +207,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                       type="button"
                       onClick={() => setMenu(open ? null : "services")}
                       aria-expanded={open}
-                      aria-controls="nav-services"
+                      aria-controls="nav-solutions"
                       className={cn(
                         "group relative inline-flex items-center gap-1 rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
                         current || open
@@ -222,38 +233,53 @@ export function SiteHeader({ locale }: { locale: Locale }) {
                         souris de la zone survolée, et le menu se serait fermé
                         avant qu'on puisse cliquer quoi que ce soit. */}
                     <div
-                      id="nav-services"
+                      id="nav-solutions"
                       hidden={!open}
-                      className="absolute top-full left-1/2 z-40 w-[min(46rem,calc(100vw-4rem))] -translate-x-1/2 pt-2"
+                      className="absolute top-full left-1/2 z-40 w-[min(42rem,calc(100vw-4rem))] -translate-x-1/2 pt-2"
                     >
-                      <div className="surface-card grid gap-5 p-5 shadow-[0_28px_70px_-40px_rgb(11_18_32/0.45)] sm:grid-cols-2">
-                        {services.families.map((family) => (
-                          <div key={family.slug}>
-                            {/* La famille n'est pas un lien : il n'existe pas
-                                de page qui la rassemble, les douze prestations
-                                sont sur l'accueil et chacune a la sienne. Un
-                                intitulé cliquable qui ramène là d'où l'on
-                                vient est pire que pas de lien du tout. */}
-                            <span className="eyebrow block text-brand">
-                              {family.title}
-                            </span>
-                            <ul className="mt-2.5 grid list-none gap-0.5 p-0">
-                              {family.items.map((sub) => (
-                                <li key={sub.slug}>
-                                  <NavLink
-                                    href={path(locale, `/services/${sub.slug}`)}
-                                    locale={locale}
-                                    onNavigate={() => setMenu(null)}
-                                    className="block rounded-[var(--r-xs)] px-2.5 py-1.5 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
-                                  >
-                                    {sub.title}
-                                  </NavLink>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                      {/* Quatre entrées, chacune un lien vers son système, et
+                          le domaine au-dessus du titre plutôt qu'un intitulé
+                          de famille non cliquable. Il y avait seize liens
+                          ici : un menu de seize lignes se parcourt, il ne se
+                          lit pas. */}
+                      <ul className="surface-card grid list-none gap-1 p-3 shadow-[0_28px_70px_-40px_rgb(70_68_68/0.45)] sm:grid-cols-2">
+                        {/* « Solutions » est un bouton sur bureau, puisqu'il
+                            ouvre ce panneau. Sans cette première entrée la
+                            page /solutions n'était atteignable par aucun
+                            clic : un intitulé de navigation qui a une page
+                            doit pouvoir y mener. */}
+                        <li className="sm:col-span-2">
+                          <NavLink
+                            href={path(locale, "/solutions")}
+                            locale={locale}
+                            onNavigate={() => setMenu(null)}
+                            className="flex items-center justify-between gap-3 rounded-[var(--r-xs)] p-3 text-[length:var(--fs-small)] font-medium text-foreground transition-colors hover:bg-surface-2"
+                          >
+                            {solutionsMenu.backLabel}
+                            <ArrowRight aria-hidden className="size-3.5 text-brand" />
+                          </NavLink>
+                        </li>
+                        {systemList.map((system) => (
+                          <li key={system.slug}>
+                            <NavLink
+                              href={path(locale, `/solutions/${system.slug}`)}
+                              locale={locale}
+                              onNavigate={() => setMenu(null)}
+                              className="block rounded-[var(--r-xs)] p-3 transition-colors hover:bg-surface-2"
+                            >
+                              <span className="block text-[length:var(--fs-micro)] tracking-[0.1em] text-brand">
+                                {system.family}
+                              </span>
+                              <span className="mt-1 block text-[length:var(--fs-small)] font-medium text-foreground">
+                                {system.title}
+                              </span>
+                              <span className="mt-0.5 block text-[length:var(--fs-micro)] leading-snug text-muted-foreground">
+                                {system.promise}
+                              </span>
+                            </NavLink>
+                          </li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
                   </div>
                 );
@@ -311,7 +337,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         <div className="fixed inset-0 z-0 flex flex-col overflow-y-auto bg-background pt-[calc(var(--header-h)+var(--page-gutter-top))] pb-8 md:hidden">
           <nav className="container-page flex max-h-full flex-col items-center gap-1 overflow-y-auto">
             {site.nav.map((item) => {
-              const hasMenu = "menu" in item && item.menu === "services";
+              const hasMenu = "menu" in item && item.menu === "solutions";
               return (
                 <div key={item.href} className="w-full">
                   <NavLink
@@ -325,20 +351,17 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
                   {/* Sur téléphone le déroulant n'a pas lieu d'être : rien ne
                       survole, et un menu dans un menu se referme sans qu'on
-                      sache pourquoi. Les douze prestations sont simplement
-                      posées sous leur famille, en plus petit. */}
+                      sache pourquoi. Les quatre systèmes sont simplement
+                      posés sous l'entrée, en plus petit. */}
                   {hasMenu && (
                     <div className="mb-1 flex flex-col gap-3 px-2 pb-1">
-                      {services.families.map((family) => (
-                        <div key={family.slug}>
-                          <span className="eyebrow block text-center text-brand">
-                            {family.title}
-                          </span>
+                      {[systemList].map((group, g) => (
+                        <div key={g}>
                           <ul className="mt-1.5 grid list-none gap-0.5 p-0">
-                            {family.items.map((sub) => (
+                            {group.map((sub) => (
                               <li key={sub.slug}>
                                 <NavLink
-                                  href={path(locale, `/services/${sub.slug}`)}
+                                  href={path(locale, `/solutions/${sub.slug}`)}
                                   locale={locale}
                                   onNavigate={() => setOpen(false)}
                                   className="block rounded-[var(--r-xs)] px-3 py-2 text-center text-[length:var(--fs-small)] text-muted-foreground hover:bg-surface-2 hover:text-foreground"
