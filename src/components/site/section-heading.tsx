@@ -3,6 +3,19 @@ import { cn } from "@/lib/utils";
 import { renderLines } from "@/lib/lines";
 import { Reveal } from "./reveal";
 
+/**
+ * Le chapeau est OPTIONNEL, et c'est une décision de composition.
+ *
+ * Il y en avait un au-dessus de chaque section. Quatre petits libellés
+ * consécutifs au-dessus de quatre titres donnent à une page le rythme d'un
+ * gabarit rempli, et la plupart ne faisaient que redire le titre en plus
+ * petit : « Nos systèmes » au-dessus de « Des systèmes IA construits autour
+ * de vos métiers ».
+ *
+ * Règle : un chapeau ne se met que s'il dit quelque chose que le titre ne
+ * dit pas. Sur la landing il n'en reste qu'un, sur le Constat, parce qu'il
+ * annonce une liste de problèmes là où le titre, lui, fait un constat.
+ */
 export function SectionHeading({
   eyebrow,
   title,
@@ -11,7 +24,7 @@ export function SectionHeading({
   align = "center",
   className,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   /** Secondary line under the subtitle: mono, smaller, brand blue. */
@@ -28,14 +41,16 @@ export function SectionHeading({
         className,
       )}
     >
-      <span
-        className={cn(
-          "eyebrow inline-flex items-center gap-2.5 text-brand",
-          centered ? "justify-center" : "",
-        )}
-      >
-        {eyebrow}
-      </span>
+      {eyebrow && (
+        <span
+          className={cn(
+            "eyebrow inline-flex items-center gap-2.5 text-brand",
+            centered ? "justify-center" : "",
+          )}
+        >
+          {eyebrow}
+        </span>
+      )}
       <h2
         className={cn(
           /* Sur téléphone le titre n'est plus bridé à 20ch et prend la

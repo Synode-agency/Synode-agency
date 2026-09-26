@@ -243,12 +243,16 @@ const fr = {
     /* ------------------------------------------------------------------
        Les trois systèmes du hero. Même structure, trois contenus : la barre
        latérale, le titre, le badge, trois étapes, deux cartes. Ils se jouent
-       l'un après l'autre, puis la pile s'arrête sur le dernier.
+       l'un après l'autre, en boucle.
 
-       ⚠ Les trois valeurs `gainValue` sont des PLACEHOLDERS. Aucune n'est
-       mesurée, et « +6 h / semaine » est le chiffre qu'affiche atta-ai.com.
-       À remplacer par des valeurs constatées chez de vrais clients, ou à
-       retirer, avant toute mise en ligne. Point bloquant n° 0 du README.
+       La carte du bas ne porte AUCUN chiffre, et ce n'est pas un oubli. Elle
+       affichait « +6 h / semaine », qui est le chiffre d'atta-ai.com, et deux
+       autres inventés pour lui ressembler. Un site dont l'argument est la
+       crédibilité ne peut pas ouvrir sur une mesure fabriquée.
+
+       Elle montre donc une tendance et non une valeur : la courbe monte, et
+       le libellé dit ce qui monte. Ne jamais remettre de nombre ici avant
+       d'en avoir un, mesuré, chez un vrai client.
        ------------------------------------------------------------------ */
     systems: [
       {
@@ -256,42 +260,42 @@ const fr = {
         appName: "Synode",
         badge: "Automatisé",
         nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
-        title: "Votre activité,\nplus simple avec Synode",
+        title: "Vos demandes clients,\nprises en charge",
         steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
         caseLabel: "Exemple concret",
         caseText: "Un client demande un devis. Synode classe la demande, prépare le devis et relance automatiquement.",
         caseEmphasis: ["devis", "relance"],
         docLabel: "Devis",
-        gainLabel: "Temps gagné",
-        gainValue: "+6 h / semaine",
+        gainLabel: "Demandes traitées",
+        gainValue: "En hausse",
       },
       {
         id: "impayes",
         appName: "Synode",
         badge: "Suivi actif",
         nav: ["Factures en retard", "Relances", "Paiements", "Clients"],
-        title: "Vos impayés,\nmieux suivis avec Synode",
+        title: "Vos impayés,\npris en charge",
         steps: ["Facture échue", "Relance envoyée", "Paiement suivi"],
         caseLabel: "Exemple concret",
         caseText: "Une facture dépasse l'échéance. Synode détecte le retard, envoie une relance et suit le paiement automatiquement.",
         caseEmphasis: ["relance", "suit le paiement"],
         docLabel: "Facture",
-        gainLabel: "Temps gagné",
-        gainValue: "+4 h / semaine",
+        gainLabel: "Factures réglées",
+        gainValue: "En hausse",
       },
       {
         id: "planning",
         appName: "Synode",
         badge: "Organisé",
         nav: ["Rendez-vous", "Confirmations", "Disponibilités", "Notifications"],
-        title: "Votre planning,\nplus fluide avec Synode",
+        title: "Vos rendez-vous,\npris en charge",
         steps: ["Créneau choisi", "Rendez-vous confirmé", "Rappel envoyé"],
         caseLabel: "Exemple concret",
         caseText: "Un prospect choisit un créneau. Synode vérifie les disponibilités, confirme le rendez-vous et envoie le rappel automatiquement.",
         caseEmphasis: ["disponibilités", "rappel"],
         docLabel: "Agenda",
-        gainLabel: "Temps gagné",
-        gainValue: "+5 h / semaine",
+        gainLabel: "Rendez-vous tenus",
+        gainValue: "En hausse",
       },
     ],
   },
@@ -782,50 +786,50 @@ const en = {
       { icon: "AppWindow", title: "Custom software", text: "Web apps, internal tools, portals, dashboards." },
       { icon: "ArrowLeftRight", title: "Websites & applications", text: "A digital presence tailored to your business." },
     ],
-    /* See the French block for how this is structured, and for the warning
-       on the three `gainValue` placeholders. */
+    /* Voir le bloc français pour la structure, et pour la raison pour
+       laquelle la carte du bas ne porte aucun chiffre. */
     systems: [
       {
         id: "demandes",
         appName: "Synode",
         badge: "Automated",
         nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
-        title: "Your business,\nsimpler with Synode",
+        title: "Your client requests,\ntaken care of",
         steps: ["Request received", "Quote sent", "Automatic follow-up"],
         caseLabel: "A concrete example",
         caseText: "A client asks for a quote. Synode files the request, drafts the quote and follows up on its own.",
         caseEmphasis: ["quote", "follows up"],
         docLabel: "Quote",
-        gainLabel: "Time saved",
-        gainValue: "+6 h / week",
+        gainLabel: "Requests handled",
+        gainValue: "Trending up",
       },
       {
         id: "impayes",
         appName: "Synode",
         badge: "Tracking on",
         nav: ["Overdue invoices", "Reminders", "Payments", "Clients"],
-        title: "Your unpaid invoices,\ntracked with Synode",
+        title: "Your unpaid invoices,\ntaken care of",
         steps: ["Invoice overdue", "Reminder sent", "Payment tracked"],
         caseLabel: "A concrete example",
         caseText: "An invoice goes past its due date. Synode spots the delay, sends a reminder and tracks the payment on its own.",
         caseEmphasis: ["reminder", "tracks the payment"],
         docLabel: "Invoice",
-        gainLabel: "Time saved",
-        gainValue: "+4 h / week",
+        gainLabel: "Invoices settled",
+        gainValue: "Trending up",
       },
       {
         id: "planning",
         appName: "Synode",
         badge: "Organised",
         nav: ["Appointments", "Confirmations", "Availability", "Notifications"],
-        title: "Your schedule,\nsmoother with Synode",
+        title: "Your meetings,\ntaken care of",
         steps: ["Slot picked", "Appointment confirmed", "Reminder sent"],
         caseLabel: "A concrete example",
         caseText: "A prospect picks a slot. Synode checks availability, confirms the appointment and sends the reminder on its own.",
         caseEmphasis: ["availability", "reminder"],
         docLabel: "Calendar",
-        gainLabel: "Time saved",
-        gainValue: "+5 h / week",
+        gainLabel: "Meetings kept",
+        gainValue: "Trending up",
       },
     ],
   },
