@@ -105,7 +105,7 @@ export function RealisationsPage({ locale }: { locale: Locale }) {
                   </p>
                   <Link
                     href={contactHref}
-                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-white px-7 py-4 text-[length:var(--fs-button)] font-medium text-[#0b1220] transition-colors hover:bg-white/90"
+                    className="group mt-1 inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-white px-7 py-4 text-[length:var(--fs-button)] font-medium text-[#464444] transition-colors hover:bg-white/90"
                   >
                     {realisations.cta.button}
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
