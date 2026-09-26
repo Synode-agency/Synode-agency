@@ -194,7 +194,7 @@ export function AuditForm({ locale }: { locale: Locale }) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-[#ffffff] px-6 py-3 text-[length:var(--fs-small)] font-medium text-[#0b3fa8] transition-colors hover:bg-[#eef4fc] disabled:opacity-60"
+          className="group inline-flex items-center justify-center gap-2 rounded-[var(--r-pill)] bg-[#ffffff] px-6 py-3 text-[length:var(--fs-small)] font-medium text-[#004398] transition-colors hover:bg-[#eef4fc] disabled:opacity-60"
         >
           {status === "sending" ? (
             <>

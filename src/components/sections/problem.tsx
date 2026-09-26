@@ -8,7 +8,7 @@ import { ProblemVisual } from "@/components/site/problem-visuals";
 import { getContent, path, type Locale } from "@/lib/content";
 
 /** L'encre de chaque carte, dans l'ordre du design. */
-const COLUMN_INK = ["#b91c1c", "#1d4ed8", "#15803d", "#7e22ce"];
+const COLUMN_INK = ["#b91c1c", "#0067EA", "#15803d", "#7e22ce"];
 
 /**
  * Le constat : quatre cartes distinctes, en deux rangées de deux.
