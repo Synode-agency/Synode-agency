@@ -29,7 +29,6 @@ export function SolutionsBand({ locale }: { locale: Locale }) {
 
       <div className="container-page">
         <SectionHeading
-          eyebrow={solutions.eyebrow}
           title={renderLines(solutions.title)}
           subtitle={solutions.body}
           align="left"

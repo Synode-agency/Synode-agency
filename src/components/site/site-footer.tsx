@@ -20,6 +20,17 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         <div className="grid gap-[clamp(2rem,1.75rem+2vw,4rem)] md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex max-w-xs flex-col gap-4">
             <Wordmark variant="mark" />
+            {/* La catégorie, sous le logotype. Elle est ici et non dans la
+                barre de navigation : celle-ci tient sur une ligne et une
+                seconde ligne sous la marque l'aurait fait grossir.
+
+                Elle dit ce que Synode est, là où la signature en dessous dit
+                ce que Synode fait. Les deux ensemble remplacent le mot
+                « agency », qui enfermait la marque dans un métier de
+                prestation. */}
+            <span className="block text-[length:var(--fs-small)] font-medium text-brand">
+              {site.category}
+            </span>
             <p className="text-[length:var(--fs-small)] leading-[var(--lh-body)] text-muted-foreground">
               {renderLines(site.tagline)}
             </p>

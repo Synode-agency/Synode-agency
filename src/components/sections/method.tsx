@@ -20,7 +20,6 @@ export function Method({ locale }: { locale: Locale }) {
         <ChapterMark n={3} side="left" />
 
         <SectionHeading
-          eyebrow={method.eyebrow}
           title={renderLines(method.title, [accent])}
           subtitle={audience.body}
           align="left"

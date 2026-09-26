@@ -27,7 +27,6 @@ export function Difference({ locale }: { locale: Locale }) {
 
       <div className="container-page">
         <SectionHeading
-          eyebrow={difference.eyebrow}
           title={renderLines(difference.title)}
           subtitle={difference.body}
           align="left"
