@@ -2908,281 +2908,560 @@
   /* Room reserved in the text column so a last line never runs under it. */
   .pillar-body { padding-right: 1.3rem; }
 
-  /* Services : en-tête compact et cartes arrondies du graphisme initial. */
-  #services > .chapter-mark {
-    --chapter-top: clamp(1rem, 3vw, 3rem);
-  }
+  /* =====================================================================
+     LES QUATRE SYSTÈMES
 
-  #services .services-heading {
-    container-type: inline-size;
-    position: relative;
-    gap: clamp(0.875rem, 1.2vw, 1.25rem);
-    width: 100%;
-    align-items: flex-start;
-    text-align: left;
-  }
+     Une grille de deux par deux, pas de trois : quatre cartes en trois
+     colonnes laissent une case vide, et une case vide se lit comme un bug.
 
-  #services .services-heading h2 {
-    width: 100%;
-    max-width: 48ch;
-    font-size: var(--fs-display);
-    line-height: 1.08;
-    text-wrap: balance;
-  }
-
-  /* Même échelle que la hero, avec une longueur de ligne adaptée
-     au titre Services et un retour équilibré sur grand écran. */
-  @media (min-width: 1024px) {
-    #services .services-heading h2 {
-      --services-hero-gap: 2rem;
-      --services-hero-scale: var(--hs);
-      font-size: min(calc(var(--services-hero-scale) * (min(100cqi - 2px, 104rem) - var(--services-hero-gap)) / 2 * 0.077), 4.5rem);
-    }
-  }
-
-  @media (min-width: 1280px) {
-    #services .services-heading h2 { --services-hero-gap: 2.5rem; }
-  }
-
-  @media (min-width: 1200px) and (max-width: 1600px) and (max-height: 940px) {
-    #services .services-heading h2 { --services-hero-scale: 1; }
-  }
-
-  #services .services-heading > p {
-    width: 100%;
-    max-width: 72ch;
-    text-wrap: pretty;
-    font-size: clamp(0.875rem, 0.8rem + 0.2vw, 1rem);
-    line-height: 1.6;
-  }
-
-  #services .services-families {
-    margin-top: clamp(1.5rem, 2.5vw, 2.5rem);
-  }
-
-  .services-families {
+     Chaque carte est un lien entier. Elle porte une chaîne de capacités, et
+     c'est cette chaîne qui différencie les cartes entre elles : elles n'ont
+     pas la même longueur, donc la grille respire sans qu'on ait besoin de
+     leur inventer des couleurs ou des icônes différentes.
+     ===================================================================== */
+  .systems-grid {
     display: grid;
-    gap: clamp(1.25rem, 2vw, 2rem);
-    margin-top: calc(var(--ss) * clamp(2rem, 1.6rem + 2vw, 3.75rem));
+    gap: clamp(1rem, 1.4vw, 1.5rem);
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .systems-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
-  /* Le panneau d'une famille. Blanc très dilué plutôt qu'opaque : il doit
-     rassembler ses six cartes sans devenir une carte de plus, sinon on
-     empile deux niveaux de surface qui se battent. */
-  .services-family {
-    padding: clamp(1.25rem, 2.2vw, 2.5rem);
-    background: color-mix(in oklab, var(--surface) 52%, transparent);
-    border: 1px solid color-mix(in oklab, var(--foreground) 6%, transparent);
-    border-radius: clamp(1.25rem, 1vw + 1rem, 2rem);
+  .system-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(1.5rem, 2.2vw, 2.25rem);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+    background: var(--card);
+    color: inherit;
+    text-decoration: none;
+    transition:
+      border-color 0.25s var(--anim-ease),
+      transform 0.25s var(--anim-ease);
   }
-
-  .services-family-automatisation {
-    --brand: #7040b8;
-    --accent: #eee6fa;
+  .system-card:hover,
+  .system-card:focus-visible {
+    border-color: var(--border-active);
+    transform: translateY(-2px);
   }
-
-  .services-family-agents-ia {
-    --brand: #173254;
-    --accent: #EDEBEB;
-  }
-
-  .services-family-icon svg { width: 1.4rem; height: 1.4rem; }
-
-  .services-family .service-card {
-    background: var(--surface);
-    color: var(--foreground);
-    border-color: var(--brand);
-  }
-
-  .services-family .service-card-lead { color: var(--muted-foreground); }
-
-  .services-family .service-card-tile,
-  .services-family .service-card-go {
-    background: transparent;
-    color: var(--brand);
-  }
-
-  .services-family .service-card:hover,
-  .services-family .service-card:focus-visible {
-    border-color: var(--brand);
-  }
-
-  .services-family .service-card:focus-visible {
+  .system-card:focus-visible {
     outline: 2px solid var(--brand);
     outline-offset: 3px;
   }
 
-  .services-family .service-card:hover .service-card-go {
-    background: #ffffff;
+  /* Le domaine, au-dessus du titre. Pas en capitales : le nom est déjà en
+     anglais dans un texte français, le mettre en capitales en plus le
+     ferait lire comme un code produit. */
+  .system-family {
+    font-size: var(--fs-micro);
+    font-weight: 500;
+    letter-spacing: 0.08em;
     color: var(--brand);
   }
 
-  .services-family-head {
-    display: flex;
-    align-items: flex-start;
-    gap: clamp(0.75rem, 1.2vw, 1.15rem);
-    flex-wrap: wrap;
-  }
-
-  .services-family-icon {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 0.75rem;
-    background: var(--accent);
-    color: var(--brand);
-    font-size: 0.9rem;
+  .system-title {
+    margin-top: 0.85rem;
+    font-size: var(--fs-h3);
     font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .services-family-copy { flex: 1 1 18rem; min-width: 0; }
-
-  .services-family-title {
-    font-size: clamp(1.35rem, 0.6vw + 1.2rem, 1.9rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
     line-height: 1.15;
+    letter-spacing: -0.015em;
   }
 
-  .services-family-lead {
-    margin-top: 0.3rem;
-    max-width: 56ch;
+  .system-promise {
+    margin-top: 0.7rem;
+    max-width: 44ch;
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     color: var(--muted-foreground);
   }
 
-  /* Le compte, au bout d'un filet qui le rattache au titre. */
-  .services-family-count {
-    display: none;
+  /* La chaîne. Les maillons sont séparés par un chevron dessiné en CSS et
+     non par un caractère : un « > » dans le texte serait lu à voix haute et
+     se sélectionnerait à la copie. */
+  .system-chain {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: 0.7rem;
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--brand);
-    white-space: nowrap;
+    gap: 0.4rem 0.3rem;
+    margin-top: auto;
+    padding-top: clamp(1.25rem, 2vw, 1.75rem);
   }
-  .services-family-count i {
-    display: block;
-    width: 2.5rem;
-    height: 1px;
-    background: color-mix(in oklab, var(--brand) 40%, transparent);
+  .system-chain-link {
+    padding: 0.28rem 0.6rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-xs);
+    background: var(--surface-2);
+    font-size: var(--fs-micro);
+    line-height: 1.3;
+    color: var(--muted-foreground);
+  }
+  .system-chain-link + .system-chain-link {
+    position: relative;
+    margin-left: 0.55rem;
+  }
+  .system-chain-link + .system-chain-link::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -0.5rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-top: 1px solid var(--brand);
+    border-right: 1px solid var(--brand);
+    transform: translateY(-50%) rotate(45deg);
   }
 
-  .services-grid {
+  .system-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: clamp(1.25rem, 2vw, 1.75rem);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--brand);
+  }
+  .system-go svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    transition: transform 0.25s var(--anim-ease);
+  }
+  .system-card:hover .system-go svg { transform: translateX(3px); }
+
+  /* =====================================================================
+     LE MANIFESTE
+
+     Une phrase, et le schéma qui la démontre. C'est la seule section de la
+     page sans titre de niveau deux, sans chapeau et sans bouton : ce qui
+     lui donne son poids est précisément ce qu'elle n'a pas.
+     ===================================================================== */
+  .manifesto {
     display: grid;
-    gap: clamp(0.65rem, 1vw, 1rem);
-    margin-top: clamp(1.25rem, 2.2vw, 1.85rem);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 1000px) {
+    .manifesto { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  }
+
+  .manifesto-statement {
+    max-width: 30ch;
+    font-size: var(--fs-h2);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-wrap: pretty;
+  }
+  /* La seconde voix de la phrase, portée par le marqueur `^`. Elle est en
+     bleu et non plus petite : c'est la partie qui nous concerne, elle doit
+     peser autant que le constat qui la précède. */
+  .manifesto-statement .title-aside {
+    font-size: 1em;
+    color: var(--brand);
+  }
+
+  .manifesto-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Les trois verbes. Une liste ordonnée, parce que c'en est une :
+     comprendre précède décider, qui précède agir. */
+  .manifesto-verbs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+  .manifesto-verb {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid var(--border-active);
+    border-radius: var(--r-xs);
+    background: var(--card);
+    font-size: var(--fs-small);
+    font-weight: 500;
+  }
+  .manifesto-verb + .manifesto-verb {
+    position: relative;
+    margin-left: 1.1rem;
+  }
+  .manifesto-verb + .manifesto-verb::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -1.05rem;
+    width: 0.85rem;
+    border-top: 1px solid var(--brand);
+    transform: translateY(-50%);
+  }
+
+  /* Le faisceau vers les outils : un simple trait vertical. Il dit « ce qui
+     est au-dessus pilote ce qui est en dessous », et rien de plus. */
+  .manifesto-fan {
+    width: 1px;
+    height: clamp(1.75rem, 3vw, 2.75rem);
+    background: linear-gradient(
+      to bottom,
+      var(--brand),
+      color-mix(in oklab, var(--brand) 25%, transparent)
+    );
+  }
+
+  .manifesto-targets {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: clamp(1rem, 1.6vw, 1.4rem);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+    background: var(--surface-2);
+  }
+  .manifesto-targets-label {
+    font-size: var(--fs-micro);
+    letter-spacing: 0.08em;
+    color: var(--text-mono);
+  }
+  .manifesto-target-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.5rem;
+    margin: 0;
     padding: 0;
     list-style: none;
   }
-
-  /* Une prestation : sa tuile d'icône, son nom, ce qu'elle règle, et la
-     flèche qui mène à sa page. Rien de plus — le détail est sur la page,
-     c'est tout l'intérêt d'en avoir une. */
-  .service-card {
-    display: flex;
-    align-items: center;
-    gap: clamp(0.75rem, 1vw, 1rem);
-    height: 100%;
-    padding: clamp(0.9rem, 1.2vw, 1.15rem);
-    background: var(--surface);
+  .manifesto-target-list li {
+    padding: 0.3rem 0.7rem;
     border: 1px solid var(--hairline);
-    border-radius: 1rem;
-    transition:
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 220ms ease;
-  }
-  .service-card:hover {
-    transform: translateY(-3px);
-    border-color: color-mix(in oklab, var(--brand) 55%, var(--hairline));
-  }
-
-  .service-card-tile {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2.9rem;
-    height: 2.9rem;
-    border-radius: 0.85rem;
-    background: var(--accent);
-    color: var(--brand);
-  }
-  .service-card-tile svg {
-    width: 1.35rem;
-    height: 1.35rem;
-    stroke-width: 1.7;
-  }
-
-  .service-card-copy {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .service-card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-  }
-
-  .service-card-lead {
-    font-style: normal;
-    font-size: 0.82rem;
-    line-height: 1.4;
+    border-radius: var(--r-xs);
+    background: var(--card);
+    font-size: var(--fs-micro);
     color: var(--muted-foreground);
   }
 
-  /* Le bouton rond. Pâle au repos, plein au survol : la carte entière est
-     le lien, il ne fait qu'en montrer la sortie. */
-  .service-card-go {
-    flex: none;
-    display: grid;
-    place-items: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--brand);
-    transition:
-      background-color 220ms ease,
-      color 220ms ease,
-      transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .service-card-go svg { width: 0.9rem; height: 0.9rem; }
-  .service-card:hover .service-card-go {
-    background: var(--brand);
-    color: var(--brand-foreground);
-    transform: translateX(2px);
+  /* =====================================================================
+     LA DIFFÉRENCE : LES TROIS ÉTAGES
+
+     Trois étages empilés, et un seul porte l'encre pleine — celui du
+     milieu, le nôtre. C'est la seule inversion de la page, et elle dit
+     exactement ce que la section affirme : ce que nous ajoutons n'est ni
+     vos logiciels ni vos processus, c'est ce qui se trouve entre les deux.
+     ===================================================================== */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 44rem;
+    margin: clamp(2.5rem, 4vw, 4rem) auto 0;
   }
 
-  @media (min-width: 720px) {
-    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stack-tier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: clamp(1.1rem, 1.8vw, 1.6rem);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+    background: var(--card);
+    text-align: center;
   }
-  @media (min-width: 1100px) {
-    .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    /* Le compte ne s'affiche qu'une fois qu'il a sa place au bout du filet,
-       aligné sur le titre. En dessous il passerait sous le texte et se
-       lirait comme une ligne de plus. */
-    .services-family-count {
-      display: flex;
-      margin-top: 0.55rem;
+
+  .stack-label {
+    font-size: var(--fs-micro);
+    letter-spacing: 0.08em;
+    color: var(--text-mono);
+  }
+
+  .stack-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stack-chips li {
+    padding: 0.32rem 0.75rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-xs);
+    background: var(--surface-2);
+    font-size: var(--fs-micro);
+    color: var(--muted-foreground);
+  }
+
+  .stack-tier--core {
+    border-color: transparent;
+    background: var(--brand);
+    color: var(--brand-foreground);
+  }
+  /* Le logotype est un PNG en lettrage blanc, dessiné pour le fond sombre.
+     Sur ce bleu il est donc déjà à l'endroit, et il ne doit surtout pas
+     hériter de l'inversion que la version claire applique ailleurs. */
+  .stack-core-mark .wordmark-type { filter: none; }
+  .stack-core-mark {
+    display: block;
+    width: clamp(6.5rem, 11vw, 9rem);
+  }
+  .stack-core-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 1.1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--fs-small);
+  }
+  /* Le filet entre deux mots remplace le point médian : il sépare sans
+     ajouter de caractère au texte. */
+  .stack-core-list li + li {
+    position: relative;
+  }
+  .stack-core-list li + li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -0.55rem;
+    height: 0.75em;
+    border-left: 1px solid rgb(255 255 255 / 0.4);
+    transform: translateY(-50%);
+  }
+
+  .stack-tier--out {
+    gap: 0.35rem;
+  }
+  .stack-team {
+    font-size: var(--fs-small);
+    color: var(--muted-foreground);
+  }
+
+  .stack-flow {
+    width: 1px;
+    height: clamp(1.5rem, 2.6vw, 2.5rem);
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--brand) 25%, transparent),
+      var(--brand)
+    );
+  }
+
+  /* =====================================================================
+     PAGE D'UN SYSTÈME : LA CHAÎNE DE SES CAPACITÉS
+     ===================================================================== */
+  .system-detail-title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .system-detail-lead {
+    margin-top: 0.7rem;
+    max-width: 62ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  .system-steps {
+    display: flex;
+    flex-direction: column;
+    margin: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+  .system-step {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 0 1rem;
+    padding: clamp(1.1rem, 1.8vw, 1.5rem) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  /* Le rang est aligné sur la ligne de base du titre, pas centré dans sa
+     case : il se lit comme le numéro d'une étape, pas comme une puce. */
+  .system-step-rank {
+    font-size: var(--fs-small);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+  .system-step-title {
+    display: inline-block;
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--foreground);
+    text-decoration: none;
+    transition: color 0.2s var(--anim-ease);
+  }
+  .system-step-title:hover,
+  .system-step-title:focus-visible { color: var(--brand); }
+  .system-step-text {
+    margin-top: 0.3rem;
+    max-width: 68ch;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  /* =====================================================================
+     PAGE EXPERTISE : LES SEIZE CAPACITÉS EN CINQ FAMILLES
+
+     Des rangées et non des cartes. Seize cartes reformeraient exactement le
+     catalogue que le repositionnement a démonté ; une liste de rangées dit
+     « voici de quoi c'est fait », ce qui est le rôle de cette page.
+     ===================================================================== */
+  .cap-group-title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .cap-group-lead {
+    margin-top: 0.55rem;
+    max-width: 62ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  .cap-list {
+    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+  .cap-row {
+    display: grid;
+    align-items: baseline;
+    gap: 0.25rem 1.5rem;
+    padding: clamp(0.9rem, 1.4vw, 1.2rem) 0;
+    border-bottom: 1px solid var(--hairline);
+    color: inherit;
+    text-decoration: none;
+    grid-template-columns: minmax(0, 1fr) 1rem;
+    grid-template-areas: "title go" "text go";
+  }
+  @media (min-width: 860px) {
+    .cap-row {
+      grid-template-columns: minmax(0, 22rem) minmax(0, 1fr) 1rem;
+      grid-template-areas: "title text go";
     }
+  }
+  .cap-row-title {
+    grid-area: title;
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: 1.35;
+    transition: color 0.2s var(--anim-ease);
+  }
+  .cap-row-text {
+    grid-area: text;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+  .cap-row-go {
+    grid-area: go;
+    align-self: center;
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--brand);
+    opacity: 0;
+    transition:
+      opacity 0.2s var(--anim-ease),
+      transform 0.2s var(--anim-ease);
+  }
+  .cap-row:hover .cap-row-title,
+  .cap-row:focus-visible .cap-row-title { color: var(--brand); }
+  .cap-row:hover .cap-row-go,
+  .cap-row:focus-visible .cap-row-go {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  /* =====================================================================
+     PAGE D'UNE CAPACITÉ : LE RETOUR VERS SON SYSTÈME
+
+     Le seul élément mis en avant de la page. Une capacité ne se vend pas
+     seule, donc sa page doit ramener à ce qui se vend.
+     ===================================================================== */
+  .cap-detail-body {
+    max-width: 68ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  .cap-detail-system {
+    display: grid;
+    gap: 0.3rem;
+    max-width: 34rem;
+    padding: clamp(1.2rem, 2vw, 1.75rem);
+    border: 1px solid var(--border-active);
+    border-radius: var(--r-sm);
+    background: var(--accent);
+    color: inherit;
+    text-decoration: none;
+    grid-template-columns: minmax(0, 1fr) 1.1rem;
+    transition: transform 0.25s var(--anim-ease);
+  }
+  .cap-detail-system:hover { transform: translateY(-2px); }
+  .cap-detail-system > svg {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+    align-self: start;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--accent-foreground);
+  }
+  .cap-detail-system-label {
+    grid-column: 1;
+    font-size: var(--fs-micro);
+    letter-spacing: 0.08em;
+    color: var(--accent-foreground);
+  }
+  .cap-detail-system-title {
+    grid-column: 1;
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    color: var(--foreground);
+  }
+  .cap-detail-system-text {
+    grid-column: 1;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .service-card,
-    .service-card-go { transition: none; }
+    .system-card,
+    .system-go svg,
+    .cap-row-go,
+    .cap-row-title,
+    .system-step-title,
+    .cap-detail-system { transition: none; }
+    .system-card:hover,
+    .cap-detail-system:hover { transform: none; }
   }
+
 
   /* ---------------- La pile des trois systèmes ----------------
      Les trois sont empilés, le premier devant. Les suivants sont décalés
