@@ -4,10 +4,15 @@ import { cn } from "@/lib/utils";
 /**
  * Brand lockup.
  *
- * `variant="plate"` (default) uses the full logo — the rounded square plate
+ * `variant="plate"` (default) uses the full logo, the rounded square plate
  * with the S on it. `variant="mark"` uses the S cut out of that plate, with
  * no square and no background: that is what the navbar shows, so the header
  * stays light while the hero and footer keep the full logo.
+ *
+ * `variant="type"` ne pose QUE le lettrage, sans aucun pictogramme. Il sert
+ * là où la marque est posée sur un aplat de couleur : la plaque y apparaît
+ * comme une vignette sombre collée sur le fond, et le pictogramme détouré y
+ * perd son contraste. Le lettrage seul, lui, est déjà blanc.
  */
 export function Wordmark({
   className,
@@ -16,12 +21,14 @@ export function Wordmark({
 }: {
   className?: string;
   withText?: boolean;
-  variant?: "plate" | "mark";
+  variant?: "plate" | "mark" | "type";
 }) {
   const isMark = variant === "mark";
+  const typeOnly = variant === "type";
 
   return (
     <span className={cn("inline-flex shrink-0 items-center", isMark ? "gap-2.5" : "gap-3", className)}>
+      {!typeOnly && (
       <Image
         src={isMark ? "/synode-mark.png" : "/synode-logo.png"}
         alt={withText ? "" : "Synode"}
@@ -37,6 +44,7 @@ export function Wordmark({
           isMark ? "size-10 object-contain" : "size-12 rounded-[22%]",
         )}
       />
+      )}
       {withText && (
         <Image
           src="/synode-wordmark.png"

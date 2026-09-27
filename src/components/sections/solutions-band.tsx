@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/site/section-heading";
-import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { renderLines } from "@/lib/lines";
 import { getContent, path, type Locale } from "@/lib/content";
@@ -25,7 +24,6 @@ export function SolutionsBand({ locale }: { locale: Locale }) {
 
   return (
     <section id="solutions" className="section-screen relative">
-      <ChapterMark n={1} side="left" />
 
       <div className="container-page">
         <SectionHeading
@@ -69,13 +67,17 @@ export function SystemCard({
       <h3 className="system-title">{system.title}</h3>
       <p className="system-promise">{system.promise}</p>
 
-      {/* La chaîne. `aria-hidden` : les mêmes capacités sont listées en
-          clair sur la page du système, et lues ici elles ne feraient
-          qu'une suite de mots sans le lien visuel qui les ordonne. */}
+      {/* La chaîne, en libellés COURTS. Elle portait les titres complets
+          des capacités : « Agent de qualification de prospects » suivi de
+          quatre autres de cette longueur se replie sur trois rangs et noie
+          la carte. Un maillon se lit d'un coup d'œil ou ne sert à rien.
+
+          `aria-hidden` : les mêmes capacités sont listées en clair, avec
+          leur titre entier, sur la page du système. */}
       <span aria-hidden className="system-chain">
         {caps.map((c) => (
           <span key={c.slug} className="system-chain-link">
-            {c.title}
+            {c.short}
           </span>
         ))}
       </span>

@@ -1,27 +1,25 @@
 import { renderLines } from "@/lib/lines";
 import { SectionHeading } from "@/components/site/section-heading";
-import { ChapterMark } from "@/components/site/chapter-mark";
 import { MethodTrack } from "@/components/site/method-track";
 import { getContent, type Locale } from "@/lib/content";
 
-/** The one word the title turns on, per locale. */
-const TITLE_ACCENT: Record<Locale, string> = {
-  fr: "simplifier",
-  en: "simplify",
-};
-
 export function Method({ locale }: { locale: Locale }) {
-  const { method, audience } = getContent(locale);
-  const accent = TITLE_ACCENT[locale];
+  const { method } = getContent(locale);
 
   return (
     <section id="methode" className="section-screen relative">
       <div className="method-content">
-        <ChapterMark n={3} side="left" />
+        {/* Le chapeau affichait `audience.body`, c'est-à-dire « qui nous
+            aidons », sous le titre « Comment un système se construit ».
+            Deux sujets sous un seul titre. « Qui nous aidons » a repris sa
+            propre section, juste après celle-ci.
 
+            L'accent d'un seul mot du titre est parti avec : il portait sur
+            « simplifier », qui n'est plus dans le titre depuis le
+            repositionnement, donc il ne mettait plus rien en valeur. */}
         <SectionHeading
-          title={renderLines(method.title, [accent])}
-          subtitle={audience.body}
+          title={renderLines(method.title)}
+          subtitle={method.body}
           align="left"
           className="method-heading reveal-left"
         />

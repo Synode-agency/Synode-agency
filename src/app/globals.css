@@ -555,8 +555,11 @@
 
     /* Sous la carte du hero : sa gouttière basse couvre déjà --page-gutter
        de la couture, la section ne paie que le reste. C'est la première
-       section de la page, quelle qu'elle soit. */
-    #services.section-screen {
+       section de la page, quelle qu'elle soit — et c'est pour ça que le
+       sélecteur doit changer quand la première section change. Il visait
+       encore `#services`, supprimé au repositionnement, donc le manifeste
+       payait la couture entière et se retrouvait collé à ce qui suit. */
+    #manifeste.section-screen {
       padding-top: calc(var(--space-between) - var(--page-gutter));
     }
 
@@ -2999,19 +3002,23 @@
     line-height: 1.3;
     color: var(--muted-foreground);
   }
+  /* Le chevron voyage avec sa pastille, donc il ouvre la ligne quand la
+     chaîne se replie. Posé lourd et détaché, il s'y lit comme une puce de
+     liste ; serré contre sa pastille et à demi-ton, il redevient ce qu'il
+     est, un lien entre deux maillons. */
   .system-chain-link + .system-chain-link {
     position: relative;
-    margin-left: 0.55rem;
+    margin-left: 0.7rem;
   }
   .system-chain-link + .system-chain-link::before {
     content: "";
     position: absolute;
     top: 50%;
-    left: -0.5rem;
-    width: 0.3rem;
-    height: 0.3rem;
-    border-top: 1px solid var(--brand);
-    border-right: 1px solid var(--brand);
+    left: -0.42rem;
+    width: 0.26rem;
+    height: 0.26rem;
+    border-top: 1px solid color-mix(in oklab, var(--brand) 55%, transparent);
+    border-right: 1px solid color-mix(in oklab, var(--brand) 55%, transparent);
     transform: translateY(-50%) rotate(45deg);
   }
 
@@ -3262,6 +3269,62 @@
       var(--brand)
     );
   }
+
+  /* =====================================================================
+     QUI NOUS AIDONS
+
+     Le texte à gauche, les règles à droite. Les règles ne sont pas la suite
+     du paragraphe : ce sont des engagements, et les poser en colonne à côté
+     leur donne le statut d'une liste qu'on peut nous opposer.
+     ===================================================================== */
+  .audience {
+    display: grid;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 960px) {
+    .audience { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  }
+
+  .audience-rules {
+    padding: clamp(1.4rem, 2.2vw, 2rem);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+    background: var(--card);
+  }
+  .audience-rules-title {
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .audience-rule-list {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .audience-rule-list li {
+    position: relative;
+    padding: 0.7rem 0 0.7rem 1.4rem;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+  .audience-rule-list li + li { border-top: 1px solid var(--hairline); }
+  /* Un trait court et non une puce ronde : ces lignes sont des règles, pas
+     une énumération d'éléments. */
+  .audience-rule-list li::before {
+    content: "";
+    position: absolute;
+    top: 1.35em;
+    left: 0;
+    width: 0.65rem;
+    border-top: 1px solid var(--brand);
+  }
+
+  /* L'étage du bas du schéma porte maintenant quatre pastilles comme celui
+     du haut, donc il a besoin du même rythme interne. */
+  .stack-tier--out { gap: 0.7rem; }
 
   /* =====================================================================
      PAGE D'UN SYSTÈME : LA CHAÎNE DE SES CAPACITÉS
@@ -4789,13 +4852,19 @@
     column-gap: var(--track-gap);
   }
 
-  /* Wide enough for the four steps to hold one row: pin the column count so
-     the grid can never wrap and leave an arrow pointing at nothing, and let
-     the gutters — and so the arrows — run long. */
+  /* Assez large pour tenir sur une rangée : on fige le nombre de colonnes
+     pour que la grille ne puisse jamais se replier en laissant une flèche
+     pointer vers le vide, et on laisse les gouttières, donc les flèches,
+     courir long.
+
+     Le compte vient de `--track-count`, posé par le composant depuis le
+     nombre réel d'étapes. Il était écrit 4 en dur : la cinquième étape
+     tombait sur un second rang, sans icône ni flèche, pendant que la
+     quatrième pointait vers rien. */
   @media (min-width: 1200px) {
     .track-row {
-      --track-gap: clamp(56px, 5vw, 120px);
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      --track-gap: clamp(40px, 3.4vw, 90px);
+      grid-template-columns: repeat(var(--track-count, 4), minmax(0, 1fr));
     }
   }
 

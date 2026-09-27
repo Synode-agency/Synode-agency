@@ -1,11 +1,18 @@
 /**
  * The oversized number that opens a section of the landing page.
  *
- * Every section shares the same silhouette — eyebrow, title, paragraph,
- * content — and reading five of them in a row flattens the page. These
- * numerals give each one a shape of its own before a single word is read,
- * and they alternate left and right so the eye zigzags down the page rather
- * than running straight down one edge.
+ * ⚠ IL A QUITTÉ LA LANDING. Sa raison d'être était écrite ici : « chaque
+ * section a la même silhouette, chapeau, titre, paragraphe, contenu, et en
+ * lire cinq de suite aplatit la page ». Le repositionnement a supprimé les
+ * chapeaux et donné à chaque section une composition différente, donc les
+ * numéros ne compensaient plus rien. Ils percutaient en plus les titres,
+ * qui remontent d'une ligne sans leur chapeau.
+
+ * Un numéro ne se justifie que sur une vraie séquence. Il en reste une sur
+ * la page, la méthode, et ses cinq étapes portent déjà les leurs.
+ *
+ * Il sert encore sur la FAQ et la page équipe. S'il en part aussi, ce
+ * fichier peut disparaître.
  *
  * Decorative and nothing else: the eyebrow of each section already says
  * "02 / Notre offre" to anyone reading the page aloud, so this is hidden

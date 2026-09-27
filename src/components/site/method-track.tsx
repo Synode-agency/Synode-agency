@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/site/reveal";
 import {
+  ConnectIcon,
   GraphIncreaseIcon,
   LampOutlineIcon,
   ToolsIcon,
@@ -12,7 +13,13 @@ import {
 /* The glyphs live here rather than being handed down from the section: a
    server component cannot pass a function across the client boundary, and a
    React component is a function. */
-const STEP_ICONS = [ZoomIcon, LampOutlineIcon, ToolsIcon, GraphIncreaseIcon];
+const STEP_ICONS = [
+  ZoomIcon, // cartographier
+  LampOutlineIcon, // concevoir
+  ToolsIcon, // construire
+  ConnectIcon, // déployer
+  GraphIncreaseIcon, // faire évoluer
+];
 
 interface Step {
   title: string;
@@ -147,6 +154,10 @@ export function MethodTrack({
       </div>
 
       <div
+        /* Le nombre de colonnes suit le nombre d'étapes. Il était figé à
+           quatre : la cinquième se repliait sur un second rang, sans icône
+           ni flèche, et la quatrième pointait vers le vide. */
+        style={{ "--track-count": steps.length } as React.CSSProperties}
         className="track-row hidden sm:grid"
         onMouseLeave={release}
         onBlur={release}
