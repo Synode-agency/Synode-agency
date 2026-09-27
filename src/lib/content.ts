@@ -164,6 +164,9 @@ const fr = {
     allLabel: "Voir toute l\u2019expertise",
     countLabel: "capacités",
     countLabelOne: "capacité",
+    /* Deux familles sont annoncées sans prestation documentée. Plutôt qu'un
+       titre suivi de rien, la page dit ce qu'il en est. */
+    soonLabel: "Nous construisons ces briques. Leurs pages détaillées sont en cours d\u2019écriture.",
     groupLabel: "Famille",
     detailEyebrow: "Capacité",
     backLabel: "Toute l'expertise",
@@ -813,6 +816,7 @@ const en = {
     allLabel: "See all expertise",
     countLabel: "capabilities",
     countLabelOne: "capability",
+    soonLabel: "We build these parts. Their detailed pages are being written.",
     groupLabel: "Family",
     detailEyebrow: "Capability",
     backLabel: "All expertise",
