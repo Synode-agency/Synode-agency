@@ -1,5 +1,4 @@
 import { SectionHeading } from "@/components/site/section-heading";
-import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { Wordmark } from "@/components/site/wordmark";
 import { renderLines } from "@/lib/lines";
@@ -23,7 +22,6 @@ export function Difference({ locale }: { locale: Locale }) {
 
   return (
     <section id="difference" className="section-screen relative">
-      <ChapterMark n={3} side="right" />
 
       <div className="container-page">
         <SectionHeading
@@ -49,8 +47,10 @@ export function Difference({ locale }: { locale: Locale }) {
           {/* Étage du milieu : nous. Le seul des trois qui porte l'encre
               pleine, parce que c'est le seul que nous construisons. */}
           <div className="stack-tier stack-tier--core">
+            {/* Le lettrage seul. Le logotype complet pose une plaque sombre
+                sur le bleu, qui se lit comme une vignette collée. */}
             <span className="stack-core-mark">
-              <Wordmark />
+              <Wordmark variant="type" />
             </span>
             <ul className="stack-core-list">
               {layers.core.map((c) => (
@@ -64,6 +64,14 @@ export function Difference({ locale }: { locale: Locale }) {
           {/* Étage du bas : ce qui tourne, et qui le pilote. */}
           <div className="stack-tier stack-tier--out">
             <span className="stack-label">{layers.processLabel}</span>
+            {/* Les quatre fonctions, et non deux libellés dans une boîte
+                vide. Le schéma se referme ainsi sur l'offre : ce que la
+                couche produit, ce sont les quatre systèmes. */}
+            <ul className="stack-chips">
+              {layers.processes.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
             <span className="stack-team">{layers.teamLabel}</span>
           </div>
         </Reveal>

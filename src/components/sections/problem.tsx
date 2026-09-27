@@ -2,7 +2,6 @@ import { renderLines } from "@/lib/lines";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { SectionHeading } from "@/components/site/section-heading";
-import { ChapterMark } from "@/components/site/chapter-mark";
 import { Reveal } from "@/components/site/reveal";
 import { ProblemVisual } from "@/components/site/problem-visuals";
 import { getContent, path, type Locale } from "@/lib/content";
@@ -25,7 +24,6 @@ export function Problem({ locale }: { locale: Locale }) {
   return (
     <section id="probleme" className="section-screen relative">
       <div className="problem-content">
-        <ChapterMark n={2} side="left" />
 
         <SectionHeading
           eyebrow={problem.eyebrow}
