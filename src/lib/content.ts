@@ -525,7 +525,7 @@ const fr = {
   },
   audience: {
     eyebrow: "Qui nous aidons",
-    title: "Les entreprises qui veulent intégrer l'IA\n^à leurs opérations, pas simplement l'essayer.",
+    title: "Intégrer l'IA à vos opérations,\n^pas seulement l'essayer.",
     body: "Nous travaillons avec des PME structurées et des entreprises en croissance : plusieurs collaborateurs, beaucoup d'opérations, plusieurs logiciels en service, et des processus répétitifs sans être standardisés. Sociétés de services, cabinets, immobilier, recrutement, formation, construction, logistique, commerce B2B.",
     rulesTitle: "Nos règles",
     rules: [
@@ -1028,7 +1028,7 @@ const en = {
   },
   audience: {
     eyebrow: "Who we help",
-    title: "Companies that want AI inside their operations,\n^not just trying it out.",
+    title: "Put AI inside your operations,\n^not just trial it.",
     body: "We work with established SMEs and growing companies: several people, a lot of operations, several pieces of software in daily use, and processes that repeat without being standardised. Service firms, professional practices, real estate, recruitment, training, construction, logistics, B2B trade.",
     rulesTitle: "Our rules",
     rules: [
