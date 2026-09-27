@@ -3063,11 +3063,15 @@
     letter-spacing: -0.02em;
     text-wrap: pretty;
   }
-  /* La seconde voix de la phrase, portée par le marqueur `^`. Elle est en
-     bleu et non plus petite : c'est la partie qui nous concerne, elle doit
-     peser autant que le constat qui la précède. */
+  /* La seconde voix du manifeste est en bleu : c'est la partie qui nous
+     concerne. Son corps est désormais celui de tous les titres, donc il
+     n'est plus déclaré ici.
+
+     Elle garde en revanche un écart, contrairement aux titres de section :
+     ses deux voix sont deux phrases distinctes qui s'opposent, pas une
+     seule phrase coupée en deux. */
   .manifesto-statement .title-aside {
-    font-size: 1em;
+    margin-top: 0.35em;
     color: var(--brand);
   }
 
@@ -5463,21 +5467,21 @@
    --------------------------------------------------------------------------- */
 .title-aside {
   display: block;
-  margin-top: 0.15em;
-  /* Desktop : aucun titre de section n'y est bridé en largeur, la seconde
-     voix a donc toute la place. Le rapport n'est plus une contrainte de
-     composition mais un choix de hiérarchie, et il se resserre : assez
-     grand pour être une phrase du titre, assez petit pour rester dessous. */
-  font-size: 0.72em;
-}
+  /* MÊME CORPS QUE LA PREMIÈRE VOIX.
 
-/* Téléphone : là, c'est bien une contrainte. 0,62 est la valeur qui ramène
-   la plus longue des trois secondes voix sur une seule ligne avec au moins
-   20px de marge sur un écran de 320px. */
-@media (max-width: 767px) {
-  .title-aside {
-    font-size: 0.62em;
-  }
+     Elle était à 0,72em sur desktop et 0,62em sur téléphone, où cette
+     valeur était calculée pour ramener la plus longue seconde voix sur une
+     seule ligne à 320px. Le marqueur `^` ne règle donc plus une hiérarchie,
+     il ne fait plus qu'une chose : forcer le passage à la ligne, à toutes
+     les largeurs, là où `\n` ne le fait qu'au-dessus de 768px.
+
+     Conséquence assumée : sur téléphone, les secondes voix longues passent
+     sur deux lignes. C'est le prix d'un titre d'un seul corps.
+
+     Pas de `margin-top` : à corps égal, les deux moitiés doivent tomber sur
+     l'interlignage normal du titre. Un écart en plus se lirait comme un
+     saut de paragraphe au milieu d'une phrase. */
+  font-size: 1em;
 }
 
 /* ---------------------------------------------------------------------------
