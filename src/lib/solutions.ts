@@ -74,24 +74,44 @@ export function assertCatalogue(locale: Locale) {
   const { solutions, capabilities: caps } = getContent(locale);
   const known = new Set(caps.items.map((i) => i.slug));
 
-  for (const [axis, lists] of [
-    ["systèmes", solutions.systems.map((s) => s.capabilities)],
-    ["familles", caps.groups.map((g) => g.items)],
-  ] as const) {
-    const flat = lists.flatMap((l) => [...l]);
-    const seen = new Set(flat);
-    if (seen.size !== flat.length) {
-      throw new Error(`Catalogue ${locale} : une capacité est citée deux fois par les ${axis}.`);
-    }
-    for (const slug of flat) {
-      if (!known.has(slug)) {
-        throw new Error(`Catalogue ${locale} : les ${axis} citent « ${slug} », qui n'est pas au catalogue.`);
-      }
-    }
-    for (const slug of known) {
-      if (!seen.has(slug)) {
-        throw new Error(`Catalogue ${locale} : « ${slug} » n'est rangée dans aucune des ${axis}.`);
-      }
+  /* LES DEUX AXES N'ONT PAS LA MÊME RÈGLE, et c'est voulu.
+
+     Une capacité n'appartient qu'à UNE famille : la famille dit de quelle
+     nature technique elle est, et une chose n'a qu'une nature.
+
+     Elle peut en revanche servir PLUSIEURS systèmes, parce que c'est la
+     vérité : les relances travaillent pour le commercial comme pour la
+     finance, et les demandes entrantes traversent les opérations, la
+     relation client et les RH. Exiger l'unicité ici obligerait à dupliquer
+     la même prestation sous trois noms. */
+  const inGroups = caps.groups.flatMap((g) => [...g.items]);
+  if (inGroups.length !== new Set(inGroups).size) {
+    throw new Error(`Catalogue ${locale} : une capacité est rangée dans deux familles.`);
+  }
+  for (const slug of inGroups) {
+    if (!known.has(slug)) {
+      throw new Error(`Catalogue ${locale} : les familles citent « ${slug} », qui n'est pas au catalogue.`);
     }
   }
+  for (const slug of known) {
+    if (!inGroups.includes(slug)) {
+      throw new Error(`Catalogue ${locale} : « ${slug} » n'est rangée dans aucune famille.`);
+    }
+  }
+
+  /* Côté systèmes, on vérifie seulement que rien n'est cité à tort et que
+     rien n'est orphelin : une capacité qu'aucun système n'utilise aurait
+     une page sans qu'aucune page n'y mène. */
+  const inSystems = new Set(solutions.systems.flatMap((s) => [...s.capabilities]));
+  for (const slug of inSystems) {
+    if (!known.has(slug)) {
+      throw new Error(`Catalogue ${locale} : un système cite « ${slug} », qui n'est pas au catalogue.`);
+    }
+  }
+  for (const slug of known) {
+    if (!inSystems.has(slug)) {
+      throw new Error(`Catalogue ${locale} : « ${slug} » n'est utilisée par aucun système.`);
+    }
+  }
+
 }
