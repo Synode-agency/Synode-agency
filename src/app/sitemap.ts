@@ -28,8 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...capabilitySlugs.map((slug) => ({ path: `/expertise/${slug}`, priority: 0.6 })),
     { path: "/realisations", priority: 0.8 },
     { path: "/contact", priority: 0.8 },
+    { path: "/methode", priority: 0.7 },
     { path: "/faq", priority: 0.5 },
-    { path: "/equipe", priority: 0.5 },
+    { path: "/a-propos", priority: 0.5 },
     ...legalSlugs.map((slug) => ({ path: `/legal/${slug}`, priority: 0.2 })),
   ];
 

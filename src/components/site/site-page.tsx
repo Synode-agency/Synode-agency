@@ -5,7 +5,10 @@ import { Manifesto } from "@/components/sections/manifesto";
 import { SolutionsBand } from "@/components/sections/solutions-band";
 import { Problem } from "@/components/sections/problem";
 import { Difference } from "@/components/sections/difference";
+import { CapabilitiesBand } from "@/components/sections/capabilities-band";
+import { Opportunity } from "@/components/sections/opportunity";
 import { Method } from "@/components/sections/method";
+import { AiOps } from "@/components/sections/ai-ops";
 import { Audience } from "@/components/sections/audience";
 import { ReservedSection } from "@/components/sections/reserved";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -52,8 +55,11 @@ export function SitePage({ locale }: { locale: Locale }) {
         <SolutionsBand locale={locale} />
         <Problem locale={locale} />
         <Difference locale={locale} />
+        <CapabilitiesBand locale={locale} />
+        <Opportunity locale={locale} />
         <Method locale={locale} />
         <Audience locale={locale} />
+        <AiOps locale={locale} />
 
         <ReservedSection id="resultats" copy={landing.results} />
 

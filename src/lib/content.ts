@@ -27,15 +27,15 @@ const nav = {
     { href: "/solutions", label: "Solutions", menu: "solutions" },
     { href: "/expertise", label: "Expertise" },
     { href: "/realisations", label: "Réalisations" },
-    { href: "/#methode", label: "Méthode" },
-    { href: "/equipe", label: "À propos" },
+    { href: "/methode", label: "Méthode" },
+    { href: "/a-propos", label: "À propos" },
   ],
   en: [
     { href: "/en/solutions", label: "Solutions", menu: "solutions" },
     { href: "/en/expertise", label: "Expertise" },
     { href: "/en/realisations", label: "Work" },
-    { href: "/en#methode", label: "Method" },
-    { href: "/en/equipe", label: "About" },
+    { href: "/en/methode", label: "Method" },
+    { href: "/en/a-propos", label: "About" },
   ],
 } as const;
 
@@ -95,36 +95,52 @@ const fr = {
     capsTitle: "Ce qui le compose",
     systems: [
       {
-        slug: "commercial",
-        family: "Sales & Growth",
+        slug: "sales-ai-system",
+        family: "Sales",
         title: "Système IA commercial",
         promise: "Transformer la manière dont vos équipes trouvent, qualifient et suivent leurs opportunités.",
-        lead: "Prospection, qualification, CRM, préparation des rendez-vous, suivi et relances.",
+        lead: "Recherche de prospects, enrichissement, qualification, CRM, préparation des rendez-vous, comptes rendus et relances.",
         capabilities: ["qualification-prospects", "agent-prospection", "synchronisation-crm", "agent-commercial", "relances-suivis"],
       },
       {
-        slug: "relation-client",
+        slug: "customer-service-ai-system",
         family: "Customer Service",
         title: "Système IA relation client",
-        promise: "Donner à vos clients une réponse rapide tout en gardant l'humain aux moments importants.",
-        lead: "Téléphone, email, chat, connaissance client, support et escalade humaine.",
-        capabilities: ["agent-telephonique", "agent-conversationnel", "emails-demandes", "agent-email-demandes"],
+        promise: "Répondre vite à vos clients tout en gardant l'humain aux moments qui comptent.",
+        lead: "Téléphone, email, chat, base documentaire, CRM, résolution et transfert à un humain.",
+        capabilities: ["agent-telephonique", "agent-conversationnel", "emails-demandes", "agent-email-demandes", "assistant-documentaire"],
       },
       {
-        slug: "operations",
+        slug: "operations-ai-system",
         family: "Operations",
         title: "Système IA opérations",
-        promise: "Prendre en charge une partie des tâches administratives et opérationnelles qui traversent vos outils.",
-        lead: "Demandes, dossiers, documents, validations, outils métier et tâches administratives.",
-        capabilities: ["traitement-documents", "administration-operations", "workflows-integrations", "tableaux-de-bord", "portails-outils-internes"],
+        promise: "Prendre en charge le travail administratif et opérationnel qui traverse vos outils.",
+        lead: "Demandes, emails, documents, extraction, validation, ERP et CRM, notifications, suivi et reporting.",
+        capabilities: ["emails-demandes", "traitement-documents", "administration-operations", "workflows-integrations", "tableaux-de-bord", "portails-outils-internes"],
       },
       {
-        slug: "connaissance",
+        slug: "finance-ai-system",
+        family: "Finance",
+        title: "Système IA finance",
+        promise: "Tenir le cycle des factures et des paiements sans laisser filer les anomalies.",
+        lead: "Factures, paiements, pièces justificatives, relances, détection d'anomalies, reporting et validation humaine.",
+        capabilities: ["traitement-documents", "relances-suivis", "administration-operations", "tableaux-de-bord"],
+      },
+      {
+        slug: "hr-ai-system",
+        family: "People",
+        title: "Système IA RH",
+        promise: "Donner à vos équipes une réponse immédiate sur ce que l'entreprise sait déjà.",
+        lead: "Onboarding, support interne, procédures, candidatures, documentation et préparation des entretiens.",
+        capabilities: ["support-interne", "assistant-documentaire", "administration-operations", "emails-demandes"],
+      },
+      {
+        slug: "knowledge-ai-system",
         family: "Knowledge",
         title: "Système IA connaissance",
-        promise: "Transformer la connaissance de l'entreprise en ressource utilisable par vos collaborateurs et vos systèmes.",
-        lead: "Documentation interne, recherche, procédures, assistance aux collaborateurs et génération documentaire.",
-        capabilities: ["assistant-documentaire", "support-interne"],
+        promise: "Transformer la connaissance de l'entreprise en ressource utilisable par vos équipes et vos systèmes.",
+        lead: "Recherche interne, documentation, procédures, base de connaissances et mémoire organisationnelle.",
+        capabilities: ["assistant-documentaire", "support-interne", "traitement-documents"],
       },
     ],
   },
@@ -143,9 +159,11 @@ const fr = {
      ------------------------------------------------------------------ */
   capabilities: {
     eyebrow: "Expertise",
-    title: "Les capacités avec lesquelles\n^nous les construisons.",
-    body: "Agents IA, automatisations, intégrations, logiciels métier et données. Prises séparément ce sont des briques ; assemblées, elles forment un système.",
+    title: "Les briques qui composent\n^nos systèmes.",
+    body: "Agents IA, automatisation, intégrations, logiciels métier, données, voix, pilotage d\u2019interfaces et gouvernance. Prises séparément ce sont des briques ; c\u2019est leur assemblage qui fait un système.",
+    allLabel: "Voir toute l\u2019expertise",
     countLabel: "capacités",
+    countLabelOne: "capacité",
     groupLabel: "Famille",
     detailEyebrow: "Capacité",
     backLabel: "Toute l'expertise",
@@ -153,32 +171,50 @@ const fr = {
       {
         slug: "agents-ia",
         title: "Agents IA",
-        lead: "Ils comprennent une demande, cherchent l'information, décident dans un cadre défini et agissent.",
-        items: ["agent-telephonique", "agent-conversationnel", "qualification-prospects", "agent-prospection", "agent-email-demandes", "agent-commercial", "assistant-documentaire", "support-interne"],
+        lead: "Ils comprennent une demande, cherchent l'information, décident dans un cadre défini et utilisent vos outils.",
+        items: ["agent-conversationnel", "qualification-prospects", "agent-prospection", "agent-email-demandes", "agent-commercial", "support-interne"],
       },
       {
         slug: "automatisation",
-        title: "Automatisation",
+        title: "Automatisation des processus",
         lead: "Les enchaînements qui se déclenchent seuls, aux règles que vous avez posées.",
         items: ["relances-suivis", "administration-operations", "emails-demandes"],
       },
       {
         slug: "integrations",
-        title: "Intégrations",
+        title: "Intégrations & API",
         lead: "Le lien entre vos logiciels, pour que la donnée circule au lieu d'être ressaisie.",
         items: ["workflows-integrations", "synchronisation-crm"],
       },
       {
         slug: "logiciels",
         title: "Logiciels métier",
-        lead: "Les interfaces par lesquelles vos équipes pilotent le système et gardent la main.",
+        lead: "Portails, back-offices, cockpits et interfaces de validation. Du logiciel écrit, pas assemblé.",
         items: ["portails-outils-internes"],
       },
       {
         slug: "data",
         title: "Données & connaissance",
-        lead: "La matière du système : documents, historiques et indicateurs rendus exploitables.",
-        items: ["traitement-documents", "tableaux-de-bord"],
+        lead: "La matière du système : documents, historiques et indicateurs rendus interrogeables.",
+        items: ["traitement-documents", "tableaux-de-bord", "assistant-documentaire"],
+      },
+      {
+        slug: "voice",
+        title: "Voice AI",
+        lead: "La voix comme interface : accueil téléphonique, qualification et prise de rendez-vous.",
+        items: ["agent-telephonique"],
+      },
+      {
+        slug: "computer-use",
+        title: "Computer Use",
+        lead: "Les cas où aucune API n'existe : l'agent pilote le logiciel par son interface, comme le ferait une personne.",
+        items: [],
+      },
+      {
+        slug: "governance",
+        title: "Monitoring & gouvernance",
+        lead: "Journaux, évaluation, permissions, coûts et validation humaine. Ce qui rend un système tenable en production.",
+        items: [],
       },
     ],
     items: [
@@ -225,12 +261,17 @@ const fr = {
     },
   },
   hero: {
-    titleLead: "L’IA qui travaille",
-    titleAccent: "avec votre entreprise.",
+    titleLead: "Nous construisons les systèmes IA",
+    titleAccent: "qui font avancer vos opérations.",
     subtitle:
-      "Synode conçoit des systèmes IA connectés à vos données et vos logiciels, pour prendre en charge une partie de vos opérations.",
-    primaryCta: "Découvrir nos systèmes",
-    secondaryCta: "Parler de votre projet",
+      "Synode conçoit des systèmes IA métier connectés à vos données, vos logiciels et vos équipes pour prendre en charge une partie de vos opérations.",
+    primaryCta: "Parler de votre projet",
+    secondaryCta: "Découvrir nos systèmes",
+    /* La bande sous le hero. Elle dit en cinq mots que Synode ne vend pas
+       que de l'automatisation, et elle porte les expressions que les gens
+       tapent. Ce n'est pas un fil d'Ariane et ce ne sont pas des liens :
+       c'est une énumération de ce que la maison fabrique. */
+    stack: ["Systèmes IA métier", "Agents IA", "Logiciels sur mesure", "Intégrations", "Automatisation"],
     pillars: [
       { icon: "Zap", title: "Automatisation", text: "Vos outils connectés bout à bout, zéro double encodage." },
       { icon: "Bot", title: "Agents IA", text: "Ils lisent, qualifient et agissent sur vos données, 24/7." },
@@ -342,6 +383,52 @@ const fr = {
     },
   },
 
+  /* ------------------------------------------------------------------
+     L'AI OPPORTUNITY MAP.
+
+     La première des cinq offres, et celle qui pose le ton : avant de
+     construire, on cherche où l'IA a de la valeur, et on dit aussi où elle
+     n'en a pas. C'est ce qui sépare une société d'ingénierie d'un
+     intégrateur qui installe ce qu'on lui demande.
+     ------------------------------------------------------------------ */
+  opportunity: {
+    eyebrow: "AI Opportunity Map",
+    title: "Où l'IA a de la valeur,\n^et où elle n'en a pas.",
+    body: "Nous relevons vos processus, vos outils, vos données et le travail fait à la main. Nous en sortons une carte des opportunités : ce qui vaut la peine, ce qui n'en vaut pas, dans quel ordre, et à quel risque.",
+    deliverableLabel: "Le livrable",
+    deliverable: "AI Opportunity Map",
+    steps: [
+      "Cartographie des processus",
+      "Inventaire des outils et des données",
+      "Tâches manuelles et points de friction",
+      "Potentiel IA et potentiel d'automatisation",
+      "Risques et limites",
+      "ROI estimé et priorisation",
+    ],
+    cta: "Demander un audit IA",
+  },
+
+  /* ------------------------------------------------------------------
+     AI OPERATIONS.
+
+     La cinquième offre. Un système IA n'est pas un livrable, c'est quelque
+     chose qui tourne : cette section existe pour le dire avant qu'un
+     prospect ne le découvre trois mois après la mise en production.
+     ------------------------------------------------------------------ */
+  aiops: {
+    eyebrow: "AI Operations",
+    title: "Un système IA doit rester fiable\n^après son déploiement.",
+    body: "Un modèle change, une source se déplace, un cas non prévu arrive. Sans surveillance, un système qui marchait se met à se tromper sans que personne le voie. C'est la partie que les démonstrations ne montrent jamais.",
+    items: [
+      { title: "Supervision & journaux", text: "Chaque décision du système est tracée, donc vérifiable après coup." },
+      { title: "Évaluation", text: "Les réponses sont mesurées sur des cas de référence, pas jugées à l'impression." },
+      { title: "Validation humaine", text: "Les actions sensibles passent par quelqu'un. C'est vous qui décidez lesquelles." },
+      { title: "Permissions & sécurité", text: "Chaque agent n'accède qu'à ce dont il a besoin, et rien d'autre." },
+      { title: "Coûts", text: "La consommation est suivie par système, pour qu'elle ne dérive pas en silence." },
+      { title: "Évolution", text: "Les prompts, les règles et le périmètre se corrigent au fil de l'usage réel." },
+    ],
+  },
+
   problem: {
     eyebrow: "Le constat",
     answerLabel: "Le système qui le prend en charge",
@@ -360,25 +447,25 @@ const fr = {
         title: "Des opportunités qui refroidissent",
         text: "Un prospect qualifié le lundi, rappelé le vendredi. Entre les deux, personne n\u2019a rien décidé.",
         answer: "Système IA commercial",
-        slug: "commercial",
+        slug: "sales-ai-system",
       },
       {
         title: "Des demandes qui attendent",
         text: "Appels manqués, messages sans réponse et devis qui traînent : le client, lui, ne rappelle pas.",
         answer: "Système IA relation client",
-        slug: "relation-client",
+        slug: "customer-service-ai-system",
       },
       {
         title: "Des outils qui ne se parlent pas",
         text: "Vos équipes recopient à la main ce que vos logiciels savent déjà, d\u2019un écran à l\u2019autre.",
         answer: "Système IA opérations",
-        slug: "operations",
+        slug: "operations-ai-system",
       },
       {
         title: "Une connaissance qui reste dans les têtes",
         text: "La bonne procédure existe. Elle est dans un document que personne ne retrouve, ou chez la personne absente.",
         answer: "Système IA connaissance",
-        slug: "connaissance",
+        slug: "knowledge-ai-system",
       },
     ],
   },
@@ -536,8 +623,8 @@ const fr = {
     ],
   },
   ctaBand: {
-    title: "Une heure pour voir ce qui\npeut changer.",
-    titleAccent: "changer.",
+    title: "Et si l'IA devenait une vraie capacité\n^opérationnelle dans votre entreprise ?",
+    titleAccent: "opérationnelle",
     body: "Nous chiffrons après l'audit, quand le périmètre est clair\net le gain estimé.",
     button: "Réserver l'audit gratuit",
     note: "Un échange d'une heure, gratuit et sans engagement,\ndont vous repartez avec un premier avis écrit.",
@@ -657,36 +744,52 @@ const en = {
     capsTitle: "What it is made of",
     systems: [
       {
-        slug: "commercial",
-        family: "Sales & Growth",
+        slug: "sales-ai-system",
+        family: "Sales",
         title: "Sales AI system",
         promise: "Change the way your teams find, qualify and follow up on opportunities.",
-        lead: "Prospecting, qualification, CRM, meeting preparation, follow-ups and reminders.",
+        lead: "Prospect research, enrichment, qualification, CRM, meeting preparation, call notes and follow-ups.",
         capabilities: ["qualification-prospects", "agent-prospection", "synchronisation-crm", "agent-commercial", "relances-suivis"],
       },
       {
-        slug: "relation-client",
+        slug: "customer-service-ai-system",
         family: "Customer Service",
-        title: "Customer AI system",
-        promise: "Give customers a fast answer while keeping people where they matter.",
-        lead: "Phone, email, chat, customer knowledge, support and human escalation.",
-        capabilities: ["agent-telephonique", "agent-conversationnel", "emails-demandes", "agent-email-demandes"],
+        title: "Customer service AI system",
+        promise: "Answer customers fast while keeping people where they matter.",
+        lead: "Phone, email, chat, knowledge base, CRM, resolution and human handover.",
+        capabilities: ["agent-telephonique", "agent-conversationnel", "emails-demandes", "agent-email-demandes", "assistant-documentaire"],
       },
       {
-        slug: "operations",
+        slug: "operations-ai-system",
         family: "Operations",
         title: "Operations AI system",
-        promise: "Take on part of the administrative and operational work that crosses your tools.",
-        lead: "Requests, cases, documents, approvals, business software and admin tasks.",
-        capabilities: ["traitement-documents", "administration-operations", "workflows-integrations", "tableaux-de-bord", "portails-outils-internes"],
+        promise: "Take on the administrative and operational work that crosses your tools.",
+        lead: "Requests, emails, documents, extraction, approvals, ERP and CRM, notifications, tracking and reporting.",
+        capabilities: ["emails-demandes", "traitement-documents", "administration-operations", "workflows-integrations", "tableaux-de-bord", "portails-outils-internes"],
       },
       {
-        slug: "connaissance",
+        slug: "finance-ai-system",
+        family: "Finance",
+        title: "Finance AI system",
+        promise: "Keep the invoice and payment cycle moving without letting anomalies through.",
+        lead: "Invoices, payments, supporting documents, reminders, anomaly detection, reporting and human approval.",
+        capabilities: ["traitement-documents", "relances-suivis", "administration-operations", "tableaux-de-bord"],
+      },
+      {
+        slug: "hr-ai-system",
+        family: "People",
+        title: "HR AI system",
+        promise: "Give your teams an immediate answer on what the company already knows.",
+        lead: "Onboarding, internal support, procedures, applications, documentation and interview preparation.",
+        capabilities: ["support-interne", "assistant-documentaire", "administration-operations", "emails-demandes"],
+      },
+      {
+        slug: "knowledge-ai-system",
         family: "Knowledge",
         title: "Knowledge AI system",
-        promise: "Turn company knowledge into something your people and your systems can actually use.",
-        lead: "Internal documentation, search, procedures, staff assistance and document generation.",
-        capabilities: ["assistant-documentaire", "support-interne"],
+        promise: "Turn company knowledge into something your teams and your systems can use.",
+        lead: "Internal search, documentation, procedures, knowledge base and organisational memory.",
+        capabilities: ["assistant-documentaire", "support-interne", "traitement-documents"],
       },
     ],
   },
@@ -705,9 +808,11 @@ const en = {
      ------------------------------------------------------------------ */
   capabilities: {
     eyebrow: "Expertise",
-    title: "The capabilities we\n^build them with.",
-    body: "AI agents, automation, integrations, business software and data. On their own they are parts; assembled, they make a system.",
+    title: "The parts our systems\n^are made of.",
+    body: "AI agents, automation, integrations, business software, data, voice, interface control and governance. On their own they are parts; it is the assembly that makes a system.",
+    allLabel: "See all expertise",
     countLabel: "capabilities",
+    countLabelOne: "capability",
     groupLabel: "Family",
     detailEyebrow: "Capability",
     backLabel: "All expertise",
@@ -715,32 +820,50 @@ const en = {
       {
         slug: "agents-ia",
         title: "AI agents",
-        lead: "They understand a request, look up the facts, decide within a defined scope and act.",
-        items: ["agent-telephonique", "agent-conversationnel", "qualification-prospects", "agent-prospection", "agent-email-demandes", "agent-commercial", "assistant-documentaire", "support-interne"],
+        lead: "They understand a request, look up the facts, decide within a defined scope and use your tools.",
+        items: ["agent-conversationnel", "qualification-prospects", "agent-prospection", "agent-email-demandes", "agent-commercial", "support-interne"],
       },
       {
         slug: "automatisation",
-        title: "Automation",
+        title: "Process automation",
         lead: "The sequences that fire on their own, by the rules you set.",
         items: ["relances-suivis", "administration-operations", "emails-demandes"],
       },
       {
         slug: "integrations",
-        title: "Integrations",
+        title: "Integrations & APIs",
         lead: "The link between your tools, so data moves instead of being retyped.",
         items: ["workflows-integrations", "synchronisation-crm"],
       },
       {
         slug: "logiciels",
         title: "Business software",
-        lead: "The interfaces your teams use to steer the system and stay in control.",
+        lead: "Portals, back offices, agent cockpits and approval screens. Software written, not assembled.",
         items: ["portails-outils-internes"],
       },
       {
         slug: "data",
         title: "Data & knowledge",
-        lead: "What the system runs on: documents, history and metrics made usable.",
-        items: ["traitement-documents", "tableaux-de-bord"],
+        lead: "What the system runs on: documents, history and metrics made queryable.",
+        items: ["traitement-documents", "tableaux-de-bord", "assistant-documentaire"],
+      },
+      {
+        slug: "voice",
+        title: "Voice AI",
+        lead: "Voice as the interface: call handling, qualification and booking.",
+        items: ["agent-telephonique"],
+      },
+      {
+        slug: "computer-use",
+        title: "Computer use",
+        lead: "For the cases where no API exists: the agent drives the software through its interface, as a person would.",
+        items: [],
+      },
+      {
+        slug: "governance",
+        title: "Monitoring & governance",
+        lead: "Logs, evaluation, permissions, cost and human approval. What makes a system survivable in production.",
+        items: [],
       },
     ],
     items: [
@@ -780,12 +903,13 @@ const en = {
     },
   },
   hero: {
-    titleLead: "AI that works with",
-    titleAccent: "your business.",
+    titleLead: "We build the AI systems",
+    titleAccent: "that move your operations.",
     subtitle:
-      "Synode builds AI systems wired into your data and your software, to take on part of how your business runs.",
-    primaryCta: "Explore our systems",
-    secondaryCta: "Talk about your project",
+      "Synode builds business AI systems wired into your data, your software and your teams, to take on part of your operations.",
+    primaryCta: "Talk about your project",
+    secondaryCta: "Explore our systems",
+    stack: ["Business AI systems", "AI agents", "Custom software", "Integrations", "Automation"],
     pillars: [
       { icon: "Zap", title: "Automation", text: "Your tools wired end to end, zero double entry." },
       { icon: "Bot", title: "AI agents", text: "They read, qualify and act on your data, 24/7." },
@@ -861,6 +985,37 @@ const en = {
     },
   },
 
+  opportunity: {
+    eyebrow: "AI Opportunity Map",
+    title: "Where AI is worth it,\n^and where it is not.",
+    body: "We chart your processes, your tools, your data and the work done by hand. What comes out is a map of the opportunities: what is worth doing, what is not, in which order, and at what risk.",
+    deliverableLabel: "The deliverable",
+    deliverable: "AI Opportunity Map",
+    steps: [
+      "Process mapping",
+      "Tool and data inventory",
+      "Manual work and friction points",
+      "AI and automation potential",
+      "Risks and limits",
+      "Estimated ROI and priorities",
+    ],
+    cta: "Request an AI audit",
+  },
+
+  aiops: {
+    eyebrow: "AI Operations",
+    title: "An AI system has to stay reliable\n^after it ships.",
+    body: "A model changes, a source moves, an unplanned case turns up. Without monitoring, a system that worked starts getting things wrong and nobody sees it. This is the part demos never show.",
+    items: [
+      { title: "Monitoring & logs", text: "Every decision the system makes is traced, so it can be checked afterwards." },
+      { title: "Evaluation", text: "Answers are measured against reference cases, not judged on impression." },
+      { title: "Human approval", text: "Sensitive actions go through a person. You decide which ones." },
+      { title: "Permissions & security", text: "Each agent reaches only what it needs, and nothing else." },
+      { title: "Cost", text: "Consumption is tracked per system, so it cannot drift quietly." },
+      { title: "Improvement", text: "Prompts, rules and scope are corrected against real usage." },
+    ],
+  },
+
   problem: {
     eyebrow: "The situation",
     answerLabel: "The system that takes it on",
@@ -872,25 +1027,25 @@ const en = {
         title: "Opportunities going cold",
         text: "A lead qualified on Monday, called back on Friday. In between, nobody decided anything.",
         answer: "Sales AI system",
-        slug: "commercial",
+        slug: "sales-ai-system",
       },
       {
         title: "Requests left waiting",
         text: "Missed calls, unanswered messages and quotes that drag on. The client does not call back.",
         answer: "Customer AI system",
-        slug: "relation-client",
+        slug: "customer-service-ai-system",
       },
       {
         title: "Tools that do not talk",
         text: "Your teams retype by hand what your software already knows, from one screen to the next.",
         answer: "Operations AI system",
-        slug: "operations",
+        slug: "operations-ai-system",
       },
       {
         title: "Knowledge stuck in people's heads",
         text: "The right procedure exists. It is in a document nobody can find, or with the person who is away.",
         answer: "Knowledge AI system",
-        slug: "connaissance",
+        slug: "knowledge-ai-system",
       },
     ],
   },

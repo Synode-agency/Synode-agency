@@ -3275,6 +3275,281 @@
   }
 
   /* =====================================================================
+     LA BANDE SOUS LES BOUTONS DU HERO
+
+     Cinq mots séparés par un filet vertical, pas par un point médian : un
+     séparateur qui n'est pas un caractère ne se lit pas à voix haute et ne
+     part pas à la copie. Ce ne sont pas des liens, donc rien n'y réagit au
+     survol : c'est une énumération de ce que la maison fabrique.
+     ===================================================================== */
+  .hero-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.15rem;
+    margin: clamp(1.5rem, 2.4vw, 2.5rem) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .hero-stack li {
+    position: relative;
+    font-size: var(--fs-micro);
+    letter-spacing: 0.02em;
+    color: var(--text-mono);
+  }
+  .hero-stack li + li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -0.6rem;
+    height: 0.85em;
+    border-left: 1px solid var(--hairline);
+    transform: translateY(-50%);
+  }
+
+  /* =====================================================================
+     LES BRIQUES
+
+     Une grille dense sur un seul filet, sans cartes. C'est ce qui la
+     distingue des systèmes avant qu'on ait lu un mot : ce qui se vend a des
+     cartes qu'on clique, ce qui compose n'en a pas. Une fiche technique,
+     pas une gamme.
+     ===================================================================== */
+  .caps-band { margin-top: clamp(2.5rem, 4vw, 4rem); }
+
+  .caps-band-list {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* Le filet est le fond qui transparaît dans l'écart d'un pixel : un
+       seul trait entre deux cases, jamais deux bordures qui se doublent. */
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .caps-band-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1180px) {
+    .caps-band-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  .caps-band-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: clamp(1.1rem, 1.7vw, 1.5rem);
+    background: var(--card);
+  }
+  .caps-band-title {
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .caps-band-text {
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+  /* Le compte ne s'affiche que là où il y a quelque chose à compter. Deux
+     familles n'ont pas encore de prestation documentée, et « 0 capacité »
+     serait pire que rien. */
+  .caps-band-count {
+    margin-top: auto;
+    padding-top: 0.6rem;
+    font-size: var(--fs-micro);
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .caps-band-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: clamp(1.25rem, 2vw, 1.75rem);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--brand);
+  }
+  .caps-band-more svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    transition: transform 0.25s var(--anim-ease);
+  }
+  .caps-band-more:hover svg { transform: translateX(3px); }
+
+  /* =====================================================================
+     L'AI OPPORTUNITY MAP
+
+     Les six points à gauche, le livrable à droite, sur fond bleu. Le
+     livrable est détaché du reste parce que c'est ce qu'on emporte : le
+     reste est le travail, lui est le résultat.
+     ===================================================================== */
+  .oppo {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: start;
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 900px) {
+    .oppo { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  }
+
+  .oppo-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+  .oppo-step {
+    display: grid;
+    align-items: baseline;
+    gap: 0 1rem;
+    padding: clamp(0.8rem, 1.3vw, 1.1rem) 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+  /* Les six points s'enchaînent réellement : on ne chiffre pas un ROI avant
+     d'avoir relevé les tâches manuelles. Le rang dit donc quelque chose. */
+  .oppo-step-rank {
+    font-size: var(--fs-small);
+    font-weight: 500;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oppo-out {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: clamp(1.4rem, 2.2vw, 2rem);
+    border-radius: var(--r-sm);
+    background: var(--brand);
+    color: var(--brand-foreground);
+  }
+  .oppo-out-label {
+    font-size: var(--fs-micro);
+    letter-spacing: 0.08em;
+    color: rgb(255 255 255 / 0.82);
+  }
+  .oppo-out-title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .oppo-out-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: var(--r-pill);
+    background: var(--brand-foreground);
+    font-size: var(--fs-button);
+    font-weight: 500;
+    /* Encre sur blanc : 9,67:1. Le bleu de marque sur blanc n'aurait donné
+       que 5,09:1, et ce bouton est petit. */
+    color: var(--foreground);
+  }
+  .oppo-out-cta svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    transition: transform 0.25s var(--anim-ease);
+  }
+  .oppo-out-cta:hover svg { transform: translateX(3px); }
+
+  /* =====================================================================
+     AI OPERATIONS
+
+     Six points sur un seul filet, sans cartes. Ce n'est pas une gamme qu'on
+     compare, c'est une liste de ce qu'il faut tenir pour qu'un système
+     survive à sa mise en production.
+     ===================================================================== */
+  .aiops-list {
+    display: grid;
+    gap: 0;
+    margin: clamp(2.5rem, 4vw, 4rem) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) {
+    .aiops-list {
+      column-gap: clamp(2rem, 4vw, 4rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .aiops-item {
+    padding: clamp(1rem, 1.6vw, 1.4rem) 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .aiops-item-title {
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .aiops-item-text {
+    margin-top: 0.3rem;
+    max-width: 52ch;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  /* =====================================================================
+     PAGE MÉTHODE : LES CINQ ÉTAPES EN CLAIR
+     ===================================================================== */
+  .method-detail { margin-top: clamp(3rem, 5vw, 5rem); }
+  .method-detail-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+  .method-detail-item {
+    display: grid;
+    gap: 0 clamp(1rem, 2vw, 2rem);
+    padding: clamp(1.3rem, 2.2vw, 2rem) 0;
+    border-bottom: 1px solid var(--hairline);
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+  .method-detail-rank {
+    font-size: var(--fs-h4);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+  .method-detail-title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+  }
+  .method-detail-text {
+    margin-top: 0.5rem;
+    max-width: 66ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .caps-band-more svg,
+    .oppo-out-cta svg { transition: none; }
+  }
+
+  /* =====================================================================
      QUI NOUS AIDONS
 
      Le texte à gauche, les règles à droite. Les règles ne sont pas la suite
@@ -4018,16 +4293,23 @@
      bouts : trop grande sur 1024px, trop grande sur 1920px, et la première
      ligne se repliait.
 
-     `7.7cqi` = la largeur de la colonne divisée par la longueur de la
-     première ligne (~12,3 em en Anodina), moins 5 % de marge. Le rapport est
-     donc le même à toutes les largeurs, par construction.
+     `6.2cqi` = 100 divisé par la longueur de la première ligne, moins une
+     marge. Le rapport est donc le même à toutes les largeurs, par
+     construction.
 
-     ⚠ La marge est passée de 10 à 5 % pour grossir le titre. C'est le
-     maximum : au-delà, la première ligne se replie et le titre repasse sur
-     trois lignes. Ne pas monter sans raccourcir la copie d'abord.
+     ⚠ RECALCULÉE. Elle valait 7,7cqi pour une première ligne de ~12,3 em.
+     Le titre est devenu « Nous construisons les systèmes IA », mesurée à
+     14,93 em dans le navigateur, soit 21 % de plus : à 7,7 le titre sortait
+     sur QUATRE lignes. 100 / 14,93 avec 8 % de marge donne 6,2.
+
+     La marge est remontée de 5 à 8 % volontairement. À 5 % il restait 27px
+     de jeu sur un écran de 1280, c'est-à-dire qu'un mot ajouté au titre
+     cassait la composition sans prévenir.
 
      Si la copie du titre change, c'est cette valeur qu'il faut recalculer,
-     et elle seule. */
+     et elle seule. Mesurer la première ligne en em plutôt que l'estimer :
+     `getBoundingClientRect` sur une copie du span en `white-space: nowrap`,
+     divisé par le corps. */
   .hero-copy {
     container-type: inline-size;
   }
@@ -5304,15 +5586,15 @@
    la pile est plus haute que la colonne de texte — environ 300px contre 275.
    Le titre peut donc reprendre sa pleine taille sans que le hero déborde.
 
-   Le plafond reste 7,7cqi, celui qui garde la première ligne sur une seule
-   ligne : on récupère ce que `--hs` prenait, pas un pixel de plus.
+   Le plafond reste celui qui garde la première ligne sur une seule ligne :
+   on récupère ce que `--hs` prenait, pas un pixel de plus.
 
    Hors de tout `@layer` pour passer devant l'utilitaire Tailwind qui porte
    la taille par défaut.
    --------------------------------------------------------------------------- */
 @media (min-width: 1200px) and (max-width: 1600px) and (max-height: 940px) {
   .hero-heading {
-    font-size: min(7.7cqi, 4.5rem);
+    font-size: min(6.2cqi, 4.5rem);
   }
 }
 

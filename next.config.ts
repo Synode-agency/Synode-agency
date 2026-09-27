@@ -26,6 +26,23 @@ const nextConfig: NextConfig = {
       { source: "/services/:slug", destination: "/expertise/:slug", permanent: true },
       { source: "/en/services", destination: "/en/solutions", permanent: true },
       { source: "/en/services/:slug", destination: "/en/expertise/:slug", permanent: true },
+
+      /* `/equipe` devient `/a-propos` : la page ne parle plus seulement de
+         l'équipe, elle présente l'entreprise. */
+      { source: "/equipe", destination: "/a-propos", permanent: true },
+      { source: "/en/equipe", destination: "/en/a-propos", permanent: true },
+
+      /* Les quatre premiers slugs de système portaient des noms français.
+         Ils prennent ceux du brief, qui sont ceux du marché. Ces URL n'ont
+         jamais été publiées, mais la branche a pu être partagée. */
+      { source: "/solutions/commercial", destination: "/solutions/sales-ai-system", permanent: true },
+      { source: "/solutions/relation-client", destination: "/solutions/customer-service-ai-system", permanent: true },
+      { source: "/solutions/operations", destination: "/solutions/operations-ai-system", permanent: true },
+      { source: "/solutions/connaissance", destination: "/solutions/knowledge-ai-system", permanent: true },
+      { source: "/en/solutions/commercial", destination: "/en/solutions/sales-ai-system", permanent: true },
+      { source: "/en/solutions/relation-client", destination: "/en/solutions/customer-service-ai-system", permanent: true },
+      { source: "/en/solutions/operations", destination: "/en/solutions/operations-ai-system", permanent: true },
+      { source: "/en/solutions/connaissance", destination: "/en/solutions/knowledge-ai-system", permanent: true },
     ];
   },
 };

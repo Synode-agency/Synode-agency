@@ -35,7 +35,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   débordait de sa colonne. Il n'était là que pour la lueur
                   qui tournait derrière le titre, retirée depuis. */}
               <div className="relative isolate">
-                <h1 className="hero-heading text-[length:var(--fs-display)] leading-[1.04] font-semibold lg:text-[min(calc(var(--hs)*7.7cqi),4.5rem)]">
+                <h1 className="hero-heading text-[length:var(--fs-display)] leading-[1.04] font-semibold lg:text-[min(calc(var(--hs)*6.2cqi),4.5rem)]">
                   {/* Chaque moitié tient sa ligne. Laissé libre, le titre se
                       coupait là où la largeur le décidait : après « l'IA » sur
                       un grand écran, après « votre » sur un 13 pouces, ce qui
@@ -78,6 +78,23 @@ export function Hero({ locale }: { locale: Locale }) {
                   {hero.secondaryCta}
                 </Link>
               </div>
+
+              {/* La bande de ce que la maison fabrique.
+
+                  Elle dit en cinq mots que Synode ne vend pas que de
+                  l'automatisation, et elle porte les expressions que les
+                  gens tapent dans un moteur de recherche. Ce ne sont pas
+                  des liens : un visiteur qui vient d'arriver a deux
+                  boutons à choisir, pas sept.
+
+                  Elle est SOUS les boutons et non au-dessus du titre : au-
+                  dessus, elle aurait été un sixième élément avant que le
+                  message principal soit lu. */}
+              <ul className="hero-stack">
+                {hero.stack.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
 
             {/* La pile des trois systèmes. Pas de Reveal : les cartes
