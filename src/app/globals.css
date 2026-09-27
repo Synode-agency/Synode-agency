@@ -3684,6 +3684,21 @@
     color: var(--muted-foreground);
   }
 
+  /* Le mot d'une famille encore sans prestation. En clair et non en gris
+     pâle : un emplacement réservé qu'on ne voit pas est un emplacement
+     qu'on oublie de remplir. */
+  .cap-soon {
+    margin-top: clamp(1rem, 1.6vw, 1.4rem);
+    padding: 0.9rem 1.1rem;
+    border: 1px dashed color-mix(in oklab, var(--brand) 35%, transparent);
+    border-radius: var(--r-xs);
+    background: color-mix(in oklab, var(--brand) 4%, transparent);
+    max-width: 58ch;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
   .cap-list {
     margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
     padding: 0;

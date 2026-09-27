@@ -39,6 +39,12 @@ export function ExpertisePage({ locale }: { locale: Locale }) {
                 <p className="cap-group-lead">{group.lead}</p>
               </div>
 
+              {/* Une famille annoncée sans prestation documentée affichait
+                  un titre suivi de rien, ce qui se lit comme une panne.
+                  Elle dit maintenant où elle en est. */}
+              {items.length === 0 ? (
+                <p className="cap-soon">{capabilities.soonLabel}</p>
+              ) : (
               <ul className="cap-list" aria-labelledby={`famille-${group.slug}`}>
                 {items.map((item) => (
                   <li key={item.slug}>
@@ -53,6 +59,7 @@ export function ExpertisePage({ locale }: { locale: Locale }) {
                   </li>
                 ))}
               </ul>
+              )}
             </Reveal>
           );
         })}
