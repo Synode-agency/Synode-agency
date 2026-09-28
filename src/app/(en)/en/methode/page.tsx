@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { MethodPage } from "@/components/site/method-page";
+import { getContent } from "@/lib/content";
 
-const title = "Our method: from mapping to production";
-const description = "Discover, Design, Build, Deploy, Improve: the five stages Synode uses to design and ship a business AI system.";
+const c = getContent("en").method;
+const prefix = "/en";
+
 export const metadata: Metadata = {
-  title,
-  description,
+  title: c.metaTitle,
+  description: c.metaDescription,
   alternates: {
-    canonical: "/en/methode",
+    canonical: `${prefix}/methode`,
     languages: { fr: "/methode", en: "/en/methode" },
   },
-  openGraph: { title, description, url: "/en/methode", type: "website", locale: "en", siteName: "Synode" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/methode`, type: "website" },
 };
 
 export default function Page() {

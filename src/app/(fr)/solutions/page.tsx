@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { SolutionsPage } from "@/components/site/solutions-page";
+import { getContent } from "@/lib/content";
 
-const title = "Systèmes IA métier pour votre entreprise";
-const description = "Quatre systèmes IA métier : commercial, relation client, opérations et connaissance. Synode les construit avec vos données, vos logiciels et vos équipes.";
+const c = getContent("fr").solutions;
+const prefix = "";
+
 export const metadata: Metadata = {
-  title,
-  description,
+  title: c.metaTitle,
+  description: c.metaDescription,
   alternates: {
-    canonical: "/solutions",
+    canonical: `${prefix}/solutions`,
     languages: { fr: "/solutions", en: "/en/solutions" },
   },
-  openGraph: { title, description, url: "/solutions", type: "website", locale: "fr_BE", siteName: "Synode" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/solutions`, type: "website" },
 };
 
 export default function Page() {

@@ -1,44 +1,33 @@
 import type { Metadata } from "next";
-import { SiteShell, siteUrl } from "../site-shell";
+import { SiteShell, siteUrl } from "@/app/site-shell";
+import { getContent } from "@/lib/content";
 
+const { site } = getContent("fr");
+
+/**
+ * La racine française.
+ *
+ * Il y a DEUX layouts racine, un par langue, parce que `<html lang>` doit se
+ * trouver dans le HTML servi : un moteur de recherche ou un lecteur d'écran
+ * le lit avant qu'aucun script ne tourne, donc le corriger après hydratation
+ * n'a jamais suffi. Les groupes de routes permettent à `(fr)` et `(en)`
+ * d'avoir chacun son layout sans changer une seule URL.
+ */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Synode — Gérez votre entreprise sans le superflu",
-    template: "%s — Synode",
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s — ${site.name}`,
   },
-  description:
-    "Automatisation des processus, agents IA branchés sur vos données, logiciels et outils métier sur mesure. Nous mesurons le gain avant d'écrire une ligne de code.",
-  keywords: [
-    "automatisation",
-    "agents IA",
-    "intelligence artificielle",
-    "logiciel sur mesure",
-    "CRM",
-    "PME",
-    "indépendants",
-    "audit de processus",
-    "Belgique",
-  ],
+  description: site.tagline,
   openGraph: {
     type: "website",
-    locale: "fr_FR",
-    url: siteUrl,
-    siteName: "Synode",
-    title: "Synode — Gérez votre entreprise sans le superflu",
-    description:
-      "Automatisation, agents IA, logiciels et outils métier sur mesure pour PME. Deux offres, séparément ou combinées.",
+    locale: "fr_BE",
+    siteName: site.name,
+    title: `${site.name} — ${site.tagline}`,
+    description: site.tagline,
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Synode — Gérez votre entreprise sans le superflu",
-    description:
-      "Automatisation, agents IA et solutions sur mesure pour PME et indépendants.",
-  },
-  alternates: {
-    canonical: "/",
-    languages: { fr: "/", en: "/en" },
-  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function FrLayout({ children }: { children: React.ReactNode }) {

@@ -1,5 +1,5 @@
-import { SitePage } from "@/components/site/site-page";
+import { HomePage } from "@/components/site/home-page";
 
-export default function Home() {
-  return <SitePage locale="fr" />;
+export default function Page() {
+  return <HomePage locale="fr" />;
 }
