@@ -1,5 +1,7 @@
 # Synode — le système
 
+> **Proposition active :** la direction claire inspirée de Supabase est documentée dans [docs/DESIGN_STUDIO_CLAIR.md](docs/DESIGN_STUDIO_CLAIR.md). Elle remplace, sur cette branche, les règles ci-dessous concernant Anodina, le hero en carte, les dimensions et les aplats colorés. Le contenu ci-dessous est conservé comme référence de la version précédente.
+
 Version du 28 septembre 2026. Source de vérité pour toute évolution du site.
 
 > La page `/design-system` montre ce document **en fonctionnement** : elle
