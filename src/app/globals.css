@@ -209,7 +209,11 @@
      Les deux sont volontairement PROCHES : c'est ce qui fait lire la pile
      comme un jeu de feuilles régulier plutôt que comme des blocs isolés.
      ------------------------------------------------------------------- */
-  --page-gutter: clamp(0px, -1rem + 4vw, 1.75rem);
+  /* La gouttière ne descend JAMAIS à zéro, même sur le plus petit écran.
+     À zéro, la carte touche les deux bords, ses angles arrondis sortent du
+     cadre et le principe du site disparaît là où il compte le plus. 8px
+     suffisent à faire lire le panneau comme un objet posé. */
+  --page-gutter: clamp(0.5rem, -0.5rem + 3.5vw, 1.75rem);
   --card-gap: clamp(0.75rem, 0.4rem + 1.4vw, 1.75rem);
   --container-max: 96rem;
 

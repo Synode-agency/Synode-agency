@@ -44,3 +44,6 @@ next-env.d.ts
 # anything under public/ is served publicly once deployed.
 /public/screenshots/
 /public/card-retravailler/
+
+# Les demandes de contact enregistrées localement : données personnelles.
+.data/
