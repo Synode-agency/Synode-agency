@@ -1,7 +1,5 @@
-import { SitePage } from "@/components/site/site-page";
+import { HomePage } from "@/components/site/home-page";
 
-/* Title, description, OG and canonical all come from the (en) root layout:
-   this is the page it describes. */
-export default function HomeEn() {
-  return <SitePage locale="en" />;
+export default function Page() {
+  return <HomePage locale="en" />;
 }

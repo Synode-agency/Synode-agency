@@ -12,38 +12,29 @@ const nextConfig: NextConfig = {
   // Compile and runtime errors are still surfaced.
   devIndicators: false,
 
-  /* Le repositionnement déplace deux familles d'URL. `/services` devient
-     `/solutions`, et les seize prestations descendent sous `/expertise`.
-     Ces redirections sont permanentes (308), donc un moteur de recherche
-     transfère ce qui était acquis sur l'ancienne adresse au lieu de la
-     traiter comme disparue. Elles couvrent les deux langues.
+  /* Le site a changé d'architecture. Ces redirections permanentes évitent
+     qu'un lien ancien, externe ou indexé, tombe sur une 404. Elles couvrent
+     les deux langues et n'ont aucun coût tant qu'elles ne servent pas.
 
-     À garder même quand plus personne ne se souvient de `/services` : un
+     À garder même quand plus personne ne se souvient de ces adresses : un
      lien externe, lui, s'en souviendra. */
   async redirects() {
-    return [
-      { source: "/services", destination: "/solutions", permanent: true },
-      { source: "/services/:slug", destination: "/expertise/:slug", permanent: true },
-      { source: "/en/services", destination: "/en/solutions", permanent: true },
-      { source: "/en/services/:slug", destination: "/en/expertise/:slug", permanent: true },
-
-      /* `/equipe` devient `/a-propos` : la page ne parle plus seulement de
-         l'équipe, elle présente l'entreprise. */
-      { source: "/equipe", destination: "/a-propos", permanent: true },
-      { source: "/en/equipe", destination: "/en/a-propos", permanent: true },
-
-      /* Les quatre premiers slugs de système portaient des noms français.
-         Ils prennent ceux du brief, qui sont ceux du marché. Ces URL n'ont
-         jamais été publiées, mais la branche a pu être partagée. */
-      { source: "/solutions/commercial", destination: "/solutions/sales-ai-system", permanent: true },
-      { source: "/solutions/relation-client", destination: "/solutions/customer-service-ai-system", permanent: true },
-      { source: "/solutions/operations", destination: "/solutions/operations-ai-system", permanent: true },
-      { source: "/solutions/connaissance", destination: "/solutions/knowledge-ai-system", permanent: true },
-      { source: "/en/solutions/commercial", destination: "/en/solutions/sales-ai-system", permanent: true },
-      { source: "/en/solutions/relation-client", destination: "/en/solutions/customer-service-ai-system", permanent: true },
-      { source: "/en/solutions/operations", destination: "/en/solutions/operations-ai-system", permanent: true },
-      { source: "/en/solutions/connaissance", destination: "/en/solutions/knowledge-ai-system", permanent: true },
+    const pairs = [
+      ["/services", "/solutions"],
+      ["/services/:slug", "/cas-usage"],
+      ["/expertise", "/solutions"],
+      ["/expertise/:slug", "/cas-usage"],
+      ["/solutions/:slug", "/solutions"],
+      ["/a-propos", "/equipe"],
+      ["/faq", "/solutions"],
+      ["/legal/mentions-legales", "/mentions-legales"],
+      ["/legal/confidentialite", "/confidentialite"],
+      ["/legal/:slug", "/mentions-legales"],
     ];
+    return pairs.flatMap(([source, destination]) => [
+      { source, destination, permanent: true },
+      { source: `/en${source}`, destination: `/en${destination}`, permanent: true },
+    ]);
   },
 };
 

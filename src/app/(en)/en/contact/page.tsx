@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 import { ContactPage } from "@/components/site/contact-page";
+import { getContent } from "@/lib/content";
+
+const c = getContent("en").contact;
+const prefix = "/en";
 
 export const metadata: Metadata = {
-  title: { absolute: "Get in touch — Synode" },
-  description:
-    "Tell us what's eating your time. Reply within one business day, with an honest first take and a free one-hour audit.",
+  title: c.metaTitle,
+  description: c.metaDescription,
   alternates: {
-    canonical: "/en/contact",
+    canonical: `${prefix}/contact`,
     languages: { fr: "/contact", en: "/en/contact" },
   },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/contact`, type: "website" },
 };
 
-export default function ContactEn() {
-  return (
-    <ContactPage locale="en" />
-  );
+export default function Page() {
+  return <ContactPage locale="en" />;
 }

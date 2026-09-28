@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { SolutionsPage } from "@/components/site/solutions-page";
+import { getContent } from "@/lib/content";
 
-const title = "Business AI systems for your company";
-const description = "Four business AI systems: sales, customer service, operations and knowledge. Synode builds them with your data, your software and your teams.";
+const c = getContent("en").solutions;
+const prefix = "/en";
+
 export const metadata: Metadata = {
-  title,
-  description,
+  title: c.metaTitle,
+  description: c.metaDescription,
   alternates: {
-    canonical: "/en/solutions",
+    canonical: `${prefix}/solutions`,
     languages: { fr: "/solutions", en: "/en/solutions" },
   },
-  openGraph: { title, description, url: "/en/solutions", type: "website", locale: "en", siteName: "Synode" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/solutions`, type: "website" },
 };
 
 export default function Page() {

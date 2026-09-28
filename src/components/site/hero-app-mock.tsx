@@ -18,7 +18,7 @@ import type { getContent } from "@/lib/content";
    un composant SVG. */
 type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
 
-type System = ReturnType<typeof getContent>["hero"]["systems"][number];
+type System = ReturnType<typeof getContent>["home"]["hero"]["systems"][number];
 
 /**
  * Les icônes des trois systèmes, dans l'ordre de la copie. Elles vivent ici

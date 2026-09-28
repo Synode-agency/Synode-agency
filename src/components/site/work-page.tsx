@@ -1,0 +1,160 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Panel, Shell } from "@/components/site/shell";
+import { Lede } from "@/components/site/lede";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { work, workItems, type WorkItem, type WorkKind } from "@/lib/work";
+
+/** La pastille dit la NATURE du projet avant qu'on ait lu son titre. */
+const BADGE: Record<WorkKind, string> = {
+  internal: "badge badge--wip",
+  demo: "badge badge--demo",
+  client: "badge badge--live",
+};
+
+/**
+ * La liste des réalisations.
+ *
+ * Elle est presque vide, et c'est ce qu'il y a de plus honnête à montrer
+ * aujourd'hui : un outil interne en construction, aucune démo fonctionnelle,
+ * aucun projet client livré. Une page de réalisations remplie d'exemples
+ * inventés est ce qui se repère le plus vite chez un prestataire qui démarre.
+ */
+export function WorkPage({ locale }: { locale: Locale }) {
+  const { site } = getContent(locale);
+  const w = work(locale);
+  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+
+  return (
+    <Shell locale={locale}>
+      <Panel id="top">
+        <Lede as="h1" kicker={w.intro.kicker} title={w.intro.title} text={w.intro.text} />
+      </Panel>
+
+      <Panel id="liste" tone="quiet">
+        <div className="tile-grid tile-grid--2">
+          {workItems(locale).map((item) => (
+            <Link
+              key={item.slug}
+              href={`${path(locale, ROUTES.work)}/${item.slug}`}
+              className="tile work-card"
+            >
+              <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
+              <span className="tile-title">{item.title}</span>
+              <span className="tile-text">{item.problem}</span>
+              <span className="work-status">{item.status}</span>
+              <span className="go work-go">
+                {locale === "fr" ? "Voir la fiche" : "See the entry"}
+                <ArrowRight aria-hidden />
+              </span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Deux absences, dites en clair plutôt que laissées en blanc. */}
+        <div className="tile-grid tile-grid--2 section-gap">
+          <div className="todo">
+            <span className="todo-label">{w.empty.title}</span>
+            <p>{w.empty.text}</p>
+          </div>
+          <div className="todo">
+            <span className="todo-label">{w.clientsEmpty.title}</span>
+            <p>{w.clientsEmpty.text}</p>
+          </div>
+        </div>
+      </Panel>
+
+      <Panel id="conclusion" tone="brand">
+        <Lede title={w.cta.title} text={w.cta.text} align="center" />
+        <div className="btn-row cta-actions">
+          <Link href={bookHref} className="btn btn--primary cta-primary">
+            {site.cta}
+            <ArrowRight aria-hidden />
+          </Link>
+        </div>
+      </Panel>
+    </Shell>
+  );
+}
+
+/**
+ * La fiche d'une réalisation.
+ *
+ * Elle sépare ce que l'outil FAIT de ce que nous CHERCHONS à obtenir. Cette
+ * séparation est la seule chose qui empêche un objectif de se lire comme un
+ * résultat mesuré, et c'est exactement le glissement que l'architecture
+ * interdit.
+ */
+export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkItem }) {
+  const w = work(locale);
+  const d = w.detail;
+  const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
+
+  return (
+    <Shell locale={locale}>
+      <Panel id="top">
+        <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
+        <Lede as="h1" title={item.title} text={item.problem} />
+        <p className="work-status section-gap-sm">{item.status}</p>
+      </Panel>
+
+      {item.todo && (
+        <Panel tone="quiet">
+          <div className="todo">
+            <span className="todo-label">{w.todoLabel}</span>
+            <p>{w.todoText}</p>
+          </div>
+        </Panel>
+      )}
+
+      <Panel id="contexte" tone={item.todo ? "plain" : "quiet"}>
+        <Lede title={d.contextTitle} />
+        <p className="prose-body section-gap-sm">{item.context}</p>
+
+        {item.does.length > 0 && (
+          <>
+            <h3 className="ds-demo-title section-gap">{d.doesTitle}</h3>
+            <ul className="checks section-gap-sm">
+              {item.does.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <h3 className="ds-demo-title section-gap">{d.aiTitle}</h3>
+        <p className="prose-body section-gap-sm">{item.aiRole}</p>
+      </Panel>
+
+      <Panel id="objectifs">
+        <Lede title={d.goalsTitle} text={d.goalsNote} />
+        <ul className="checks section-gap">
+          {item.goals.map((g) => (
+            <li key={g}>{g}</li>
+          ))}
+        </ul>
+
+        <h3 className="ds-demo-title section-gap">{d.limitsTitle}</h3>
+        <ul className="checks section-gap-sm">
+          {item.limits.map((l) => (
+            <li key={l}>{l}</li>
+          ))}
+        </ul>
+      </Panel>
+
+      <Panel id="conclusion" tone="brand">
+        <Lede title={d.cta} align="center" />
+        <div className="btn-row cta-actions">
+          <Link href={formHref} className="btn btn--primary cta-primary">
+            {getContent(locale).site.cta}
+            <ArrowRight aria-hidden />
+          </Link>
+          <Link href={path(locale, ROUTES.work)} className="btn btn--ghost">
+            <ArrowLeft aria-hidden />
+            {d.backLabel}
+          </Link>
+        </div>
+      </Panel>
+    </Shell>
+  );
+}

@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { RealisationsPage } from "@/components/site/realisations-page";
+import { WorkPage } from "@/components/site/work-page";
+
+const fr = false;
+const title = fr ? "Réalisations et démonstrations" : "Work and demos";
+const description = fr
+  ? "Ce que nous construisons, et où nous en sommes. Seulement ce qui existe réellement : pas de logo client que nous n’avons pas."
+  : "What we are building, and where we stand. Only what genuinely exists: no client logos we do not have.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Work & demonstrators — Synode" },
-  description:
-    "Four systems built in-house to show exactly what we deliver: automation, AI agents, dashboards and business tools.",
-  alternates: {
-    canonical: "/en/realisations",
-    languages: { fr: "/realisations", en: "/en/realisations" },
-  },
+  title,
+  description,
+  alternates: { canonical: "/en/realisations", languages: { fr: "/realisations", en: "/en/realisations" } },
+  openGraph: { title, description, url: "/en/realisations", type: "website" },
 };
 
-export default function RealisationsEn() {
-  return (
-    <RealisationsPage locale="en" />
-  );
+export default function Page() {
+  return <WorkPage locale="en" />;
 }

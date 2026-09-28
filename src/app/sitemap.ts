@@ -1,47 +1,47 @@
 import type { MetadataRoute } from "next";
-import { legalSlugs } from "@/lib/legal";
+import { ROUTES } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
-import { assertCatalogue, capabilities, systems } from "@/lib/solutions";
+import { assertUseCases } from "@/lib/use-cases";
+import { workItems } from "@/lib/work";
 
-/** Every route, each one paired with its translation so Google knows the
- *  two versions are the same page in two languages. */
+/**
+ * Le plan du site, chaque page appariée à sa traduction.
+ *
+ * Deux pages n'y figurent pas, et c'est délibéré : `/merci`, qui n'a de sens
+ * qu'après un envoi et que l'architecture demande d'exclure, et
+ * `/design-system`, qui est un outil d'équipe. Toutes deux portent en plus
+ * un `robots: noindex` dans leur propre fichier de route.
+ *
+ * C'est aussi le seul endroit qui connaît le catalogue en entier, donc c'est
+ * ici qu'on vérifie son intégrité : un cas d'usage ajouté dans une seule
+ * langue casse le build au lieu de produire une page anglaise vide.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  /* Le sitemap est le seul endroit qui doit connaître le catalogue en
-     entier. C'est donc ici qu'on vérifie son intégrité : une capacité
-     oubliée dans un système ou dans une famille casse le build au lieu
-     d'arriver sur le site en page orpheline. */
-  assertCatalogue("fr");
-  assertCatalogue("en");
-
-  /* Systèmes et capacités partagent leur slug entre les deux langues, donc
-     la liste française suffit à générer les deux versions. */
-  const systemSlugs = systems("fr").map((s) => s.slug);
-  const capabilitySlugs = capabilities("fr").map((c) => c.slug);
+  assertUseCases();
 
   const pages: { path: string; priority: number }[] = [
-    { path: "", priority: 1 },
-    /* Les systèmes portent l'offre, donc ils passent devant les capacités.
-       Celles-ci restent indexées : ce sont elles que les gens cherchent. */
-    { path: "/solutions", priority: 0.9 },
-    ...systemSlugs.map((slug) => ({ path: `/solutions/${slug}`, priority: 0.8 })),
-    { path: "/expertise", priority: 0.7 },
-    ...capabilitySlugs.map((slug) => ({ path: `/expertise/${slug}`, priority: 0.6 })),
-    { path: "/realisations", priority: 0.8 },
-    { path: "/contact", priority: 0.8 },
-    { path: "/methode", priority: 0.7 },
-    { path: "/faq", priority: 0.5 },
-    { path: "/a-propos", priority: 0.5 },
-    ...legalSlugs.map((slug) => ({ path: `/legal/${slug}`, priority: 0.2 })),
+    { path: ROUTES.home === "/" ? "" : ROUTES.home, priority: 1 },
+    { path: ROUTES.solutions, priority: 0.9 },
+    { path: ROUTES.useCases, priority: 0.9 },
+    { path: ROUTES.method, priority: 0.8 },
+    { path: ROUTES.work, priority: 0.8 },
+    ...workItems("fr").map((w) => ({ path: `${ROUTES.work}/${w.slug}`, priority: 0.6 })),
+    { path: ROUTES.contact, priority: 0.8 },
+    { path: ROUTES.team, priority: 0.6 },
+    { path: ROUTES.legalNotice, priority: 0.2 },
+    { path: ROUTES.privacy, priority: 0.2 },
   ];
 
   const lastModified = new Date();
 
-  return pages.flatMap(({ path, priority }) => {
-    const fr = `${siteUrl}${path}`;
-    const en = `${siteUrl}/en${path}`;
+  return pages.flatMap(({ path: p, priority }) => {
+    const fr = `${siteUrl}${p}`;
+    const en = `${siteUrl}/en${p}`;
     const alternates = { languages: { fr, en } };
     return [
       { url: fr || siteUrl, lastModified, priority, alternates },
+      /* La version anglaise est servie, mais le français est la langue
+         d'origine du site : elle passe légèrement derrière. */
       { url: en, lastModified, priority: priority * 0.9, alternates },
     ];
   });

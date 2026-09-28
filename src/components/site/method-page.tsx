@@ -1,48 +1,83 @@
-import { InnerPage } from "@/components/site/inner-page";
-import { MethodTrack } from "@/components/site/method-track";
-import { Reveal } from "@/components/site/reveal";
-import { getContent, type Locale } from "@/lib/content";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Panel, Shell } from "@/components/site/shell";
+import { Lede } from "@/components/site/lede";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 
 /**
- * La page Méthode.
+ * La méthode, étape par étape.
  *
- * Elle porte la même piste que la landing, sans la réécrire : cinq étapes
- * qui racontent deux choses différentes selon l'endroit seraient deux
- * méthodes. Ce que la page ajoute, c'est le texte des cinq étapes lisible
- * d'un coup, là où la piste de l'accueil n'en montre qu'un à la fois.
+ * Chaque étape dit trois choses : ce que nous faisons, ce que le client
+ * apporte, et ce qui en sort. La colonne du milieu est celle qui compte : un
+ * projet qui prend du retard, c'est presque toujours un accès qui n'est pas
+ * arrivé ou une validation qui n'a pas été donnée. Le dire ici évite d'avoir
+ * à le reprocher plus tard.
+ *
+ * La page ne promet AUCUN délai. L'architecture l'interdit explicitement, et
+ * pour une bonne raison : un délai annoncé sans connaître le périmètre est
+ * une promesse qu'on tiendra par hasard.
  */
 export function MethodPage({ locale }: { locale: Locale }) {
-  const { method } = getContent(locale);
+  const { method, site } = getContent(locale);
+  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
 
   return (
-    <InnerPage
-      locale={locale}
-      eyebrow={method.eyebrow}
-      title={method.title.replace(/[\n^]/g, " ").replace(/\s+/g, " ").trim()}
-      body={method.body}
-    >
-      <div className="container-page pb-[var(--space-section)]">
-        <MethodTrack steps={method.steps} className="w-full" />
+    <Shell locale={locale}>
+      <Panel id="top">
+        <Lede as="h1" kicker={method.kicker} title={method.title} text={method.text} />
+      </Panel>
 
-        {/* Les cinq étapes en clair. La piste au-dessus n'en montre qu'une
-            à la fois, ce qui va pour un aperçu ; une page dédiée doit
-            pouvoir se lire sans attendre que le carrousel tourne. */}
-        <Reveal delay={120} className="method-detail reveal-up">
-          <ol className="method-detail-list">
-            {method.steps.map((step, i) => (
-              <li key={step.title} className="method-detail-item">
-                <span aria-hidden className="method-detail-rank">
+      <Panel id="etapes" tone="quiet">
+        <ol className="steps">
+          {method.steps.map((step, i) => (
+            <li key={step.title} className="step">
+              <div className="step-head">
+                <span aria-hidden className="step-rank">
                   {String(i + 1).padStart(2, "0")}
                 </span>
+                <h2 className="step-title">{step.title}</h2>
+              </div>
+              <dl className="step-grid">
                 <div>
-                  <h2 className="method-detail-title">{step.title}</h2>
-                  <p className="method-detail-text">{step.text}</p>
+                  <dt>{method.columns.work}</dt>
+                  <dd>{step.work}</dd>
                 </div>
-              </li>
-            ))}
-          </ol>
-        </Reveal>
-      </div>
-    </InnerPage>
+                <div>
+                  <dt>{method.columns.client}</dt>
+                  <dd>{step.client}</dd>
+                </div>
+                <div>
+                  <dt>{method.columns.output}</dt>
+                  <dd>{step.output}</dd>
+                </div>
+              </dl>
+            </li>
+          ))}
+        </ol>
+      </Panel>
+
+      <Panel id="precisions">
+        <Lede title={method.notesTitle} />
+        <div className="tile-grid tile-grid--2 section-gap">
+          {method.notes.map((n) => (
+            <div key={n.title} className="tile">
+              <span className="tile-title">{n.title}</span>
+              <span className="tile-text">{n.text}</span>
+            </div>
+          ))}
+        </div>
+        <p className="prose-body section-gap-sm">{method.noDelay}</p>
+      </Panel>
+
+      <Panel id="conclusion" tone="brand">
+        <Lede title={method.cta} align="center" />
+        <div className="btn-row cta-actions">
+          <Link href={bookHref} className="btn btn--primary cta-primary">
+            {site.cta}
+            <ArrowRight aria-hidden />
+          </Link>
+        </div>
+      </Panel>
+    </Shell>
   );
 }
