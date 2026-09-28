@@ -247,7 +247,7 @@
      valeur manque, c'est l'échelle qu'on corrige.
      ------------------------------------------------------------------- */
   --fs-display: clamp(2.5rem, 1.5rem + 4.4vw, 5.5rem);
-  --fs-h2: clamp(1.875rem, 1.3rem + 2.4vw, 3.5rem);
+  --fs-h2: clamp(2rem, 1.3rem + 2.9vw, 4.25rem);
   --fs-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.75rem);
   --fs-h4: clamp(1.0625rem, 1rem + 0.3vw, 1.3125rem);
   --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
@@ -531,6 +531,17 @@
     align-items: center;
     text-align: center;
   }
+  /* Les bandes d'accent centrent leur en-tête. C'est une RÈGLE, pas un
+     réflexe : centrer partout aplatit une page, mais les deux moments où
+     elle hausse la voix gagnent à être posés sur l'axe. */
+  .band--blue > .col > .lede,
+  .band--ink > .col > .lede {
+    margin-inline: auto;
+    align-items: center;
+    text-align: center;
+  }
+  .band--blue > .col > .lede .lede-text,
+  .band--ink > .col > .lede .lede-text { margin-inline: auto; }
 
   .lede-kicker {
     display: inline-flex;
@@ -546,13 +557,16 @@
      rempli, et il ne dit rien que le mot ne dise déjà. */
 
   .lede-title {
-    /* Un titre a sa propre mesure, et elle n'a rien a voir avec celle du
-       texte courant : a 56px, 62 caracteres font quatre lignes. 22
-       caracteres donnent deux a trois lignes selon la longueur, ce qui est
+    /* Un titre a sa propre mesure, et elle n'a rien à voir avec celle du
+       texte courant : à ce corps, 62 caractères font quatre lignes. 20
+       caractères donnent deux à trois lignes selon la longueur, ce qui est
        la forme d'un titre. */
-    max-width: 22ch;
+    max-width: 20ch;
     font-size: var(--fs-h2);
-    font-weight: 700;
+    /* 800 et non 700. Les deux références citées posent leurs titres en
+       très gras ; à 700, Anodina reste conversationnelle là où elle doit
+       affirmer. */
+    font-weight: 800;
     line-height: var(--lh-title);
     letter-spacing: var(--ls-title);
     text-wrap: pretty;
@@ -1040,6 +1054,170 @@
   }
 
   /* =====================================================================
+     LE SCHÉMA D'ARCHITECTURE
+
+     Trois étages : ce que l'entreprise a déjà, ce que nous construisons
+     entre les deux, ce qui en sort. C'est l'argument de la section, montré.
+
+     Il vit sur la bande bleue, donc tout y est blanc ou translucide : les
+     jetons sont déjà reteints par la bande, aucune couleur n'est écrite en
+     dur ici. Posé sur un fond clair, il se retournerait tout seul.
+     ===================================================================== */
+  .arch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: clamp(1.5rem, 1rem + 2.4vw, 3rem) clamp(1rem, 0.5rem + 2vw, 2.5rem);
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-sm);
+  }
+
+  .arch-caption {
+    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+    font-size: var(--fs-micro);
+    letter-spacing: 0.04em;
+    color: var(--text-mono);
+  }
+
+  .arch-tier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    text-align: center;
+  }
+  .arch-label {
+    font-size: var(--fs-small);
+    font-weight: 700;
+  }
+  .arch-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .arch-chips li {
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-micro);
+    color: var(--muted-foreground);
+  }
+
+  /* L'étage du milieu est le SEUL plein : c'est le seul que nous
+     construisons, et il doit se voir sans qu'on ait à lire son libellé. */
+  .arch-core {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    width: 100%;
+    padding: clamp(1.1rem, 0.8rem + 1.4vw, 1.75rem);
+    border-radius: var(--r-xs);
+    background: var(--surface-2);
+    text-align: center;
+  }
+  .arch-core-label {
+    font-size: var(--fs-h4);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .arch-core-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--fs-small);
+  }
+  /* Un filet vertical entre deux mots plutôt qu'un point médian : il sépare
+     sans ajouter de caractère au texte. */
+  .arch-core-list li + li { position: relative; }
+  .arch-core-list li + li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -0.72rem;
+    height: 0.8em;
+    border-left: 1px solid var(--hairline);
+    transform: translateY(-50%);
+  }
+
+  .arch-human {
+    margin-top: 0.35rem;
+    font-size: var(--fs-micro);
+    color: var(--text-mono);
+  }
+
+  /* Le trait de liaison. Décoratif : la structure est déjà portée par les
+     trois groupes de texte. */
+  .arch-flow {
+    width: 1px;
+    height: clamp(1.5rem, 2.6vw, 2.5rem);
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, currentColor 20%, transparent),
+      color-mix(in oklab, currentColor 55%, transparent)
+    );
+  }
+
+  /* =====================================================================
+     LE FLUX D'UN CAS D'USAGE — les trois temps, dessinés
+     ===================================================================== */
+  .flow {
+    display: grid;
+    gap: 0.5rem;
+    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 780px) {
+    .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
+  }
+  .flow-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-xs);
+    background: var(--surface-2);
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+  }
+  /* La flèche entre deux temps, en CSS : un caractère se lirait à voix
+     haute et partirait à la copie. */
+  @media (min-width: 780px) {
+    .flow-step + .flow-step::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -0.6rem;
+      width: 0.36rem;
+      height: 0.36rem;
+      border-top: 1px solid var(--brand);
+      border-right: 1px solid var(--brand);
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+  .flow-rank {
+    font-size: var(--fs-micro);
+    font-weight: 800;
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+  .flow-text { color: var(--muted-foreground); }
+
+  /* =====================================================================
      LA SÉQUENCE NUMÉROTÉE
 
      Elle porte l'offre. Ce ne sont pas quatre options à comparer dans une
@@ -1066,13 +1244,23 @@
   }
   @media (min-width: 860px) {
     .seq-item {
-      grid-template-columns: 5rem minmax(0, 22rem) minmax(0, 1fr);
+      grid-template-columns: 7rem minmax(0, 20rem) minmax(0, 1fr);
     }
   }
+  /* LE NUMÉRO EST UN REPÈRE VISUEL, PAS UNE PUCE.
+
+     C'est le trait que partagent les deux références citées : le chiffre
+     est posé grand, il structure la bande avant qu'on ait lu un mot. À la
+     taille d'un titre de bloc il se lisait comme une numérotation de liste,
+     ce qui ne sert à rien.
+
+     Il reste aligné sur la ligne de base du titre : un grand chiffre centré
+     dans sa case flotterait sans rien tenir. */
   .seq-num {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    line-height: 1;
+    font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4.5rem);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
     /* Sur la bande bleue, `--brand` vaut blanc : le numéro y prend donc le
        blanc plein, et l'encre ailleurs. Une seule règle pour les deux. */
     color: var(--brand);
@@ -1274,9 +1462,13 @@
     background: var(--card);
   }
   .step-head { display: flex; align-items: baseline; gap: 0.9rem; }
+  /* Même principe que la séquence de l'offre : le rang est un repère, pas
+     une puce. */
   .step-rank {
-    font-size: var(--fs-h3);
-    font-weight: 700;
+    font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
     color: var(--brand);
     font-variant-numeric: tabular-nums;
   }

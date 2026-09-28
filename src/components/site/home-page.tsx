@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { HeroStage } from "@/components/site/hero-stage";
+import { Architecture } from "@/components/site/architecture";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { renderLines } from "@/lib/lines";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -126,6 +127,13 @@ export function HomePage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ol>
+
+        {/* Le schéma. Il dit en deux secondes ce que le paragraphe met dix
+            secondes à dire, et c'est le seul élément graphique de la page
+            après le hero. */}
+        <div className="section-gap">
+          <Architecture locale={locale} />
+        </div>
 
         <p className="offer-note section-gap">{home.offer.note}</p>
         <Link href={path(locale, ROUTES.solutions)} className="btn btn--primary section-gap-sm">

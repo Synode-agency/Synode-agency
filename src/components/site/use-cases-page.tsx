@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
+import { Flow } from "@/components/site/architecture";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { casesOfDomain, domains, type UseCase } from "@/lib/use-cases";
 
@@ -114,16 +115,10 @@ function Case({ item, locale }: { item: UseCase; locale: Locale }) {
 
       <p className="case-situation">{item.situation}</p>
 
-      <ol className="case-steps">
-        {item.steps.map((s, i) => (
-          <li key={s}>
-            <span aria-hidden className="rank">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            {s}
-          </li>
-        ))}
-      </ol>
+      {/* Les trois temps sont DESSINÉS et non énumérés. Une liste décrit un
+          enchaînement ; un flux le montre, et c'est la différence entre lire
+          et comprendre. */}
+      <Flow steps={item.steps} />
 
       <dl className="case-facts">
         <div>
