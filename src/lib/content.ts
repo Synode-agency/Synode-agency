@@ -226,6 +226,20 @@ const fr = {
       note: "L’IA fait partie de chaque projet, avec une utilité identifiée. Si elle n’apporte rien à votre problème, nous vous le disons et nous réorientons la demande.",
       cta: "Découvrir notre approche",
     },
+      /* Le schéma d'architecture de la bande Offre. Trois étages : ce que
+         l'entreprise possède déjà, ce que nous construisons entre les deux,
+         et ce qui en sort. C'est l'argument de la section, montré. */
+      architecture: {
+        caption: "Ce que nous construisons, et où cela se place",
+        toolsLabel: "Vos outils, tels qu’ils sont",
+        tools: ["CRM", "Email", "Documents", "Agenda", "Logiciel métier"],
+        coreLabel: "La solution Synode",
+        core: ["Assistants IA", "Automatisations", "Intégrations", "Interface métier"],
+        outLabel: "Vos processus",
+        out: ["Demandes traitées", "Documents produits", "Suivi à jour"],
+        humanLabel: "Vous gardez la validation sur ce qui compte",
+      },
+
 
     proof: {
       kicker: "Ce que nous construisons",
@@ -688,6 +702,17 @@ const en = {
       note: "AI is part of every project, with a purpose we can point to. If it adds nothing to your problem, we say so and steer the request elsewhere.",
       cta: "See how we work",
     },
+      architecture: {
+        caption: "What we build, and where it sits",
+        toolsLabel: "Your tools, as they are",
+        tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
+        coreLabel: "The Synode solution",
+        core: ["AI assistants", "Automations", "Integrations", "Business interface"],
+        outLabel: "Your processes",
+        out: ["Requests handled", "Documents produced", "Follow-up current"],
+        humanLabel: "You keep approval on what matters",
+      },
+
 
     proof: {
       kicker: "What we are building",
