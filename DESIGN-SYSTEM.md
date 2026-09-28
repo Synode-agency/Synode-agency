@@ -84,16 +84,16 @@ blanches (**1,13:1**).
 Un cran plus sombre, le bleu tombe sous le seuil AA. Un cran plus clair,
 les cartes blanches disparaissent et le principe du site avec elles.
 
-### Les panneaux colorés reteignent leur palette
+### Les bandes colorées reteignent leur palette
 
-`.panel--ink` et `.panel--brand` redéclarent `--foreground`,
+`.band--ink` et `.band--blue` redéclarent `--foreground`,
 `--muted-foreground`, `--hairline`, `--surface` et `--brand` pour leurs
-enfants. Tout ce qu'ils contiennent devient lisible sans une seule règle
+enfants. Tout ce qu'elles contiennent devient lisible sans une seule règle
 par composant.
 
 Sur l'encre, le bleu de marque ne tient que **1,9:1** : il est relevé à
-`#8FC0FF`, qui donne 7,4:1. Sans ça, tout ce qui est bleu disparaît du
-panneau.
+`#8FC0FF`, qui donne 7,4:1. Sans ça, tout ce qui est bleu disparaît de la
+bande.
 
 ---
 
@@ -154,8 +154,8 @@ long de l'angle.
 | --- | --- | --- |
 | `--r-xs` | 10px | Puces, tuiles d'icône, champs |
 | `--r-sm` | 16px | Cartes internes |
-| `--r-lg` | 28px | Panneaux de section |
-| `--r-panel` | 40px | Le hero |
+| `--r-lg` | 28px | Cartes internes larges |
+| `--r-panel` | 40px | Le hero et le CTA, les deux seules cartes |
 | `--r-pill` | ∞ | Boutons, pastilles, la barre de nav |
 
 ---
@@ -165,11 +165,11 @@ long de l'angle.
 Deux valeurs, et pas une troisième. **Teintées d'encre et jamais noires** :
 une ombre noire sur un fond chaud fait un trou gris, pas une feuille posée.
 
-- `--shadow-card` : le repos d'un panneau.
-- `--shadow-lift` : le survol d'une **carte cliquable** seulement. Un
-  panneau de section ne le prend jamais, il n'est pas un bouton.
+- `--shadow-card` : le repos des deux cartes, hero et CTA.
+- `--shadow-lift` : le survol d'une **tuile cliquable** seulement. Une bande
+  n'en prend jamais : elle n'est pas un objet posé.
 
-À l'intérieur d'un panneau, une tuile utilise un **fond** plutôt qu'une
+À l'intérieur d'une bande, une tuile utilise un **fond** plutôt qu'une
 ombre : deux ombres emboîtées font de la boue.
 
 ---
@@ -179,7 +179,7 @@ ombre : deux ombres emboîtées font de la boue.
 | Classe | Rôle | Règle |
 | --- | --- | --- |
 | `.btn--primary` / `.btn--ghost` | Les deux seuls boutons | Une page n'a jamais deux boutons pleins |
-| `.tile` | La carte dans un panneau | Fond, pas ombre |
+| `.tile` | La carte dans une bande | Fond, pas ombre |
 | `.rows` / `.row` | Une suite, pas un ensemble | Un seul filet entre deux rangées |
 | `.badge` | La nature d'une réalisation | Avant qu'on lise le titre |
 | `.todo` | Un emplacement réservé | **Volontairement visible** |
