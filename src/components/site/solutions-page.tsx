@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -22,12 +22,12 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" kicker={solutions.kicker} title={solutions.title} text={solutions.text} />
-      </Panel>
+      </Band>
 
       {/* ----------------------------------------------- Ce qu'elle peut réunir */}
-      <Panel id="briques" tone="quiet">
+      <Band id="briques" tone="white">
         <Lede title={solutions.bricksTitle} text={solutions.bricksText} />
         <div className="tile-grid tile-grid--3 section-gap">
           {solutions.bricks.map((b) => (
@@ -37,10 +37,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-      </Panel>
+      </Band>
 
       {/* -------------------------------------------------------- Territoires */}
-      <Panel id="territoires">
+      <Band id="territoires" tone="base">
         <Lede title={solutions.domainsTitle} text={solutions.domainsText} />
         <ul className="rows section-gap">
           {domains(locale).map((d) => (
@@ -56,10 +56,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           {solutions.domainsCta}
           <ArrowRight aria-hidden />
         </Link>
-      </Panel>
+      </Band>
 
       {/* ---------------------------------------------------- Ce que vous recevez */}
-      <Panel id="livrables" tone="quiet">
+      <Band id="livrables" tone="white">
         <Lede title={solutions.deliverablesTitle} />
         <ul className="checks section-gap">
           {solutions.deliverables.map((d) => (
@@ -67,10 +67,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           ))}
         </ul>
         <p className="prose-body section-gap-sm">{solutions.deliverablesNote}</p>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------------ Dimensionnement */}
-      <Panel id="dimensionnement">
+      <Band id="dimensionnement" tone="base">
         <Lede title={solutions.sizingTitle} text={solutions.sizingText} />
         <div className="tile-grid tile-grid--3 section-gap">
           {solutions.sizing.map((s) => (
@@ -81,10 +81,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           ))}
         </div>
         <p className="prose-body section-gap-sm">{solutions.sizingNote}</p>
-      </Panel>
+      </Band>
 
       {/* ---------------------------------------------------- Modèle économique */}
-      <Panel id="modele" tone="ink">
+      <Band id="modele" tone="ink">
         <Lede title={solutions.pricingTitle} />
         <ol className="rows section-gap">
           {solutions.pricing.map((p, i) => (
@@ -102,21 +102,21 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           ))}
         </ol>
         <p className="prose-body section-gap-sm">{solutions.pricingNote}</p>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------------------------ FAQ */}
-      <Panel id="faq">
+      <Band id="faq" tone="base">
         <Lede title={solutions.faqTitle} />
         <div className="section-gap">
           <FaqAccordion items={solutions.faq} />
         </div>
-      </Panel>
+      </Band>
 
       {/* -------------------------------------- L'encart imposé par l'architecture */}
-      <Panel id="autre" tone="brand">
+      <Band id="autre" tone="blue">
         <Lede title={solutions.notInList.title} text={solutions.notInList.text} align="center" />
         <div className="btn-row cta-actions">
-          <Link href={formHref} className="btn btn--primary cta-primary">
+          <Link href={formHref} className="btn btn--primary">
             {solutions.notInList.cta}
             <ArrowRight aria-hidden />
           </Link>
@@ -124,7 +124,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             {site.ctaShort}
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import type { Locale } from "@/lib/content";
 
@@ -24,7 +24,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel tone="plain" id="top">
+      <Band tone="base" id="top">
         <Lede
           as="h1"
           kicker="Design system"
@@ -35,23 +35,23 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
               : "The whole site is built from what follows. This page is rendered by the site itself: if a value changes in the stylesheet, it changes here too."
           }
         />
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Le principe */}
-      <Panel tone="quiet" id="principe">
+      <Band tone="white" id="principe">
         <Lede
           kicker={fr ? "Le principe" : "The principle"}
-          title={fr ? "Chaque section est\n^une carte posée." : "Every section is\n^a card on a surface."}
+          title={fr ? "C'est le fond qui\n^découpe la page." : "The background is\n^what cuts the page."}
           text={
             fr
-              ? "Une page Synode est une colonne de panneaux blancs sur un fond teinté. Le fond ne se voit que dans les interstices, et c'est cet écart qui donne au site sa profondeur. Il n'y a rien d'autre à apprendre : deux classes, .deck et .panel, composent tout."
-              : "A Synode page is a column of white panels on a tinted ground. The ground only shows in the gaps, and that gap is what gives the site its depth. There is nothing else to learn: two classes, .deck and .panel, build everything."
+              ? "Une page Synode est une suite de bandes pleine largeur. Chacune porte son fond, et c'est le changement de fond, pas un cadre, qui sépare deux sections. Deux exceptions seulement : le hero et le CTA final, qui sont des cartes encartées à bords arrondis. La page s'ouvre et se referme sur un objet posé, et se lit à plat entre les deux."
+              : "A Synode page is a run of full-width bands. Each carries its own background, and it is the change of background, not a frame, that separates two sections. Two exceptions only: the hero and the closing call to action, which are inset rounded cards. The page opens and closes on an object; in between, it reads flat."
           }
         />
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- La couleur */}
-      <Panel id="couleur">
+      <Band id="couleur" tone="base">
         <Lede
           kicker={fr ? "Couleur" : "Colour"}
           title={fr ? "Trois valeurs,\n^et tout le reste en dérive." : "Three values,\n^everything else derives."}
@@ -81,29 +81,29 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Les tons de panneau */}
-      <Panel id="tons" tone="plain">
+      <Band id="tons" tone="base">
         <Lede
-          kicker={fr ? "Tons de panneau" : "Panel tones"}
-          title={fr ? "Quatre tons,\n^et deux ne servent qu'une fois." : "Four tones,\n^two of them once only."}
+          kicker={fr ? "Les fonds" : "Backgrounds"}
+          title={fr ? "Quatre fonds,\n^et deux ne servent qu'une fois." : "Four backgrounds,\n^two of them once only."}
           text={
             fr
-              ? "Le panneau d'encre et le panneau bleu n'apparaissent qu'UNE FOIS par page. Une page où trois panneaux sont colorés n'a plus de point d'appui, et la couleur cesse de vouloir dire quelque chose."
-              : "The ink panel and the blue panel appear ONCE per page. A page with three coloured panels has no anchor left, and the colour stops meaning anything."
+              ? "Deux bandes voisines ne portent jamais le même fond, sinon elles n'en font qu'une. Le bleu et l'encre sont des accents : une page qui en compte trois n'a plus de point d'appui, et la couleur cesse de vouloir dire quelque chose."
+              : "Two neighbouring bands never share a background, or they read as one. Blue and ink are accents: a page with three of them has no anchor left, and the colour stops meaning anything."
           }
         />
         <div className="ds-tones">
-          <div className="panel ds-tone"><span className="ds-tone-label">.panel</span></div>
-          <div className="panel panel--quiet ds-tone"><span className="ds-tone-label">.panel--quiet</span></div>
-          <div className="panel panel--ink ds-tone"><span className="ds-tone-label">.panel--ink</span></div>
-          <div className="panel panel--brand ds-tone"><span className="ds-tone-label">.panel--brand</span></div>
+          <div className="band--base ds-tone"><span className="ds-tone-label">.band--base</span></div>
+          <div className="band--white ds-tone"><span className="ds-tone-label">.band--white</span></div>
+          <div className="band--blue ds-tone"><span className="ds-tone-label">.band--blue</span></div>
+          <div className="band--ink ds-tone"><span className="ds-tone-label">.band--ink</span></div>
         </div>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Typographie */}
-      <Panel id="typographie" tone="quiet">
+      <Band id="typographie" tone="white">
         <Lede
           kicker={fr ? "Typographie" : "Type"}
           title={fr ? "Une famille,\n^dix corps." : "One family,\n^ten sizes."}
@@ -136,10 +136,10 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Rayons */}
-      <Panel id="rayons">
+      <Band id="rayons" tone="base">
         <Lede
           kicker={fr ? "Rayons" : "Radii"}
           title={fr ? "Cinq valeurs,\n^une seule règle." : "Five values,\n^one rule."}
@@ -166,10 +166,10 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             </div>
           ))}
         </div>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Composants */}
-      <Panel id="composants" tone="quiet">
+      <Band id="composants" tone="white">
         <Lede
           kicker={fr ? "Composants" : "Components"}
           title={fr ? "Ce avec quoi\n^on compose." : "What we build with."}
@@ -242,10 +242,10 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             </p>
           </div>
         </div>
-      </Panel>
+      </Band>
 
       {/* ------------------------------------------------- Accessibilité */}
-      <Panel id="accessibilite" tone="ink">
+      <Band id="accessibilite" tone="ink">
         <Lede
           kicker={fr ? "Accessibilité" : "Accessibility"}
           title={fr ? "Ce qui n'est\n^pas négociable." : "What is not\n^up for debate."}
@@ -280,7 +280,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ul>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

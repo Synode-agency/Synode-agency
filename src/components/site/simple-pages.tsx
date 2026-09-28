@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
 
@@ -21,11 +21,11 @@ export function ThanksPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top" tone="brand">
+      <Band id="top" tone="blue">
         <Lede as="h1" title={thanks.title} text={thanks.text} align="center" />
         <p className="thanks-note">{thanks.notBooked}</p>
         <div className="btn-row cta-actions">
-          <Link href={bookHref} className="btn btn--primary cta-primary">
+          <Link href={bookHref} className="btn btn--primary">
             {thanks.bookCta}
             <ArrowRight aria-hidden />
           </Link>
@@ -33,7 +33,7 @@ export function ThanksPage({ locale }: { locale: Locale }) {
             {thanks.homeCta}
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }
@@ -62,21 +62,21 @@ export function LegalPage({
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" title={notice ? legal.noticeTitle : legal.privacyTitle} />
 
         <div className="todo section-gap">
           <span className="todo-label">{legal.draftLabel}</span>
           <p>{legal.draftText}</p>
         </div>
-      </Panel>
+      </Band>
 
-      <Panel tone="quiet">
+      <Band tone="white">
         {notice ? <NoticeBody locale={locale} email={site.email} /> : <PrivacyBody locale={locale} email={site.email} />}
         <p className="legal-updated section-gap">
           {legal.updated} : {fr ? "28 septembre 2026" : "28 September 2026"}
         </p>
-      </Panel>
+      </Band>
     </Shell>
   );
 }
@@ -184,7 +184,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" title={notFound.title} text={notFound.text} />
         <ul className="rows section-gap">
           {site.nav.map((item) => (
@@ -199,7 +199,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
           {notFound.homeCta}
           <ArrowRight aria-hidden />
         </Link>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

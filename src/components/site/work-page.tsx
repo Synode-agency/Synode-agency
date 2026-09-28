@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { work, workItems, type WorkItem, type WorkKind } from "@/lib/work";
@@ -27,11 +27,11 @@ export function WorkPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" kicker={w.intro.kicker} title={w.intro.title} text={w.intro.text} />
-      </Panel>
+      </Band>
 
-      <Panel id="liste" tone="quiet">
+      <Band id="liste" tone="white">
         <div className="tile-grid tile-grid--2">
           {workItems(locale).map((item) => (
             <Link
@@ -62,17 +62,17 @@ export function WorkPage({ locale }: { locale: Locale }) {
             <p>{w.clientsEmpty.text}</p>
           </div>
         </div>
-      </Panel>
+      </Band>
 
-      <Panel id="conclusion" tone="brand">
+      <Band id="conclusion" tone="blue">
         <Lede title={w.cta.title} text={w.cta.text} align="center" />
         <div className="btn-row cta-actions">
-          <Link href={bookHref} className="btn btn--primary cta-primary">
+          <Link href={bookHref} className="btn btn--primary">
             {site.cta}
             <ArrowRight aria-hidden />
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }
@@ -92,22 +92,22 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
         <Lede as="h1" title={item.title} text={item.problem} />
         <p className="work-status section-gap-sm">{item.status}</p>
-      </Panel>
+      </Band>
 
       {item.todo && (
-        <Panel tone="quiet">
+        <Band tone="white">
           <div className="todo">
             <span className="todo-label">{w.todoLabel}</span>
             <p>{w.todoText}</p>
           </div>
-        </Panel>
+        </Band>
       )}
 
-      <Panel id="contexte" tone={item.todo ? "plain" : "quiet"}>
+      <Band id="contexte" tone={item.todo ? "base" : "white"}>
         <Lede title={d.contextTitle} />
         <p className="prose-body section-gap-sm">{item.context}</p>
 
@@ -124,9 +124,9 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
 
         <h3 className="ds-demo-title section-gap">{d.aiTitle}</h3>
         <p className="prose-body section-gap-sm">{item.aiRole}</p>
-      </Panel>
+      </Band>
 
-      <Panel id="objectifs">
+      <Band id="objectifs" tone="base">
         <Lede title={d.goalsTitle} text={d.goalsNote} />
         <ul className="checks section-gap">
           {item.goals.map((g) => (
@@ -140,12 +140,12 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
             <li key={l}>{l}</li>
           ))}
         </ul>
-      </Panel>
+      </Band>
 
-      <Panel id="conclusion" tone="brand">
+      <Band id="conclusion" tone="blue">
         <Lede title={d.cta} align="center" />
         <div className="btn-row cta-actions">
-          <Link href={formHref} className="btn btn--primary cta-primary">
+          <Link href={formHref} className="btn btn--primary">
             {getContent(locale).site.cta}
             <ArrowRight aria-hidden />
           </Link>
@@ -154,7 +154,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
             {d.backLabel}
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

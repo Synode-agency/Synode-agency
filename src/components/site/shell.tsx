@@ -6,13 +6,14 @@ import { getContent, type Locale } from "@/lib/content";
 /**
  * L'enveloppe de toutes les pages.
  *
- * Elle ne fait qu'une chose : poser la pile. `.deck` est la colonne de
- * panneaux, et chaque page se contente d'y déposer ses `<Panel>`. Le pied de
- * page est le dernier panneau de la pile, il n'est pas traité à part : c'est
- * ce qui évite la couture habituelle entre « le site » et « le footer ».
+ * Une page Synode est une SUITE DE BANDES pleine largeur. C'est le
+ * changement de fond, et non un cadre, qui sépare deux sections. Deux
+ * exceptions seulement, le hero et le CTA final, qui sont des cartes
+ * encartées : la page s'ouvre et se referme sur un objet posé, et se lit à
+ * plat entre les deux.
  *
- * Le lien d'évitement est le premier élément focalisable du document.
- * Quelqu'un au clavier ne doit pas traverser cinq entrées de navigation à
+ * Le lien d'évitement est le premier élément focalisable du document :
+ * quelqu'un au clavier ne doit pas traverser cinq entrées de navigation à
  * chaque page pour atteindre le contenu.
  */
 export function Shell({ locale, children }: { locale: Locale; children: ReactNode }) {
@@ -24,40 +25,32 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
         {site.skip}
       </a>
       <SiteHeader locale={locale} />
-      {/* Une seule pile pour le contenu et le pied de page : ils partagent
-          la même gouttière et le même écart entre panneaux. */}
-      <div className="deck">
-        <main id="contenu" className="deck deck--flush">
-          {children}
-        </main>
-        <SiteFooter locale={locale} />
-      </div>
+      <main id="contenu">{children}</main>
+      <SiteFooter locale={locale} />
     </>
   );
 }
 
 const TONES = {
-  plain: "",
-  ink: "panel--ink",
-  brand: "panel--brand",
-  quiet: "panel--quiet",
+  base: "band--base",
+  white: "band--white",
+  blue: "band--blue",
+  ink: "band--ink",
 } as const;
 
 /**
- * Un panneau de section.
+ * Une bande de section : pleine largeur, pas de cadre, pas d'arrondi.
  *
- * Toutes les pages passent par là plutôt que d'écrire les classes à la
- * main : le jour où le rembourrage, le rayon ou l'ombre changent, ils
- * changent partout en même temps.
+ * `tone` porte tout le découpage de la page. Deux règles pour s'en servir :
  *
- * `tone` n'a que quatre valeurs, et deux d'entre elles — `ink` et `brand` —
- * ne doivent apparaître qu'UNE FOIS par page. Une page où trois panneaux
- * sont colorés n'a plus de point d'appui, et la couleur cesse de signifier
- * quoi que ce soit.
+ *  - deux bandes voisines ne portent jamais le même fond, sinon elles n'en
+ *    font qu'une ; le CSS pose un filet de secours si cela arrive ;
+ *  - `blue` et `ink` sont des accents. Une page qui en compte trois n'a plus
+ *    de point d'appui, et la couleur cesse de vouloir dire quelque chose.
  */
-export function Panel({
+export function Band({
   id,
-  tone = "plain",
+  tone = "base",
   className,
   bodyClassName,
   children,
@@ -69,10 +62,35 @@ export function Panel({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className={["panel", TONES[tone], className].filter(Boolean).join(" ")}>
-      <div className={["col", "panel-body", bodyClassName].filter(Boolean).join(" ")}>
-        {children}
-      </div>
+    <section id={id} className={["band", TONES[tone], className].filter(Boolean).join(" ")}>
+      <div className={["col", bodyClassName].filter(Boolean).join(" ")}>{children}</div>
     </section>
+  );
+}
+
+/**
+ * Une carte encartée. Réservée au hero et au CTA final.
+ *
+ * Si vous hésitez à l'utiliser pour une troisième section, c'est une bande
+ * qu'il faut : l'arrondi ne signifie quelque chose que parce qu'il est rare.
+ */
+export function CardPanel({
+  id,
+  variant,
+  className,
+  children,
+}: {
+  id?: string;
+  variant?: "hero" | "blue";
+  className?: string;
+  children: ReactNode;
+}) {
+  const v = variant === "hero" ? "card-panel--hero" : variant === "blue" ? "card-panel--blue" : "";
+  return (
+    <div className="card-shell">
+      <section id={id} className={["card-panel", v, className].filter(Boolean).join(" ")}>
+        {children}
+      </section>
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 
@@ -23,11 +23,11 @@ export function MethodPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" kicker={method.kicker} title={method.title} text={method.text} />
-      </Panel>
+      </Band>
 
-      <Panel id="etapes" tone="quiet">
+      <Band id="etapes" tone="white">
         <ol className="steps">
           {method.steps.map((step, i) => (
             <li key={step.title} className="step">
@@ -54,9 +54,9 @@ export function MethodPage({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ol>
-      </Panel>
+      </Band>
 
-      <Panel id="precisions">
+      <Band id="precisions" tone="base">
         <Lede title={method.notesTitle} />
         <div className="tile-grid tile-grid--2 section-gap">
           {method.notes.map((n) => (
@@ -67,17 +67,17 @@ export function MethodPage({ locale }: { locale: Locale }) {
           ))}
         </div>
         <p className="prose-body section-gap-sm">{method.noDelay}</p>
-      </Panel>
+      </Band>
 
-      <Panel id="conclusion" tone="brand">
+      <Band id="conclusion" tone="blue">
         <Lede title={method.cta} align="center" />
         <div className="btn-row cta-actions">
-          <Link href={bookHref} className="btn btn--primary cta-primary">
+          <Link href={bookHref} className="btn btn--primary">
             {site.cta}
             <ArrowRight aria-hidden />
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }
