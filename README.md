@@ -1,5 +1,7 @@
 # Synode — site vitrine
 
+> **Proposition en cours sur `proposition/palette-bleu-encre` :** accueil et page Solutions retravaillés dans une direction claire inspirée de Supabase, typographie Helvetica Neue/Helvetica/Arial, offre unique avec quatre badges, visuels `hero-systems` conservés. Voir [le design actif](docs/DESIGN_STUDIO_CLAIR.md). Les anciennes consignes de desktop figé ci-dessous concernent la version précédente.
+
 Next.js 16, React 19, Tailwind 4, TypeScript. Bilingue : FR à la racine, EN sous `/en`.
 
 ```bash

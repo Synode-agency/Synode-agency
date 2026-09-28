@@ -1,175 +1,114 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Search, Mail, MessagesSquare, Database, Check } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { HeroStage } from "@/components/site/hero-stage";
-import { Architecture } from "@/components/site/architecture";
+import { OfferCard } from "@/components/site/offer-card";
 import { FaqAccordion } from "@/components/site/faq-accordion";
-import { renderLines } from "@/lib/lines";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { listCases } from "@/lib/use-cases";
-
-/**
- * L'accueil.
- *
- * SIX TEMPS, et pas dix. Tout ce qui a sa propre page dans la navigation a
- * quitté cette page : la méthode, les réalisations et l'équipe ne sont plus
- * des sections d'accueil. Un accueil qui résume les cinq pages du menu est
- * un sommaire, et personne ne lit deux fois la même chose.
- *
- * ⚠ Cela s'écarte de `README_2_ARCHITECTURE_SITE_SYNODE.md`, qui décrit neuf
- * sections d'accueil. C'est une décision prise après avoir vu la page : à
- * neuf sections elle devenait une table des matières. Si l'architecture doit
- * primer, ce sont ces trois sections qu'il faut remettre.
- *
- * LE DÉCOUPAGE SE FAIT PAR LE FOND, pas par des cadres. Gris, blanc, bleu,
- * blanc, puis la carte finale. Deux arrondis sur toute la page : le hero et
- * le CTA, là où elle s'ouvre et se referme.
- */
-export function HomePage({ locale }: { locale: Locale }) {
-  const { site, home } = getContent(locale);
-  const cases = listCases(locale).slice(0, 4);
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
-  const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
+export function HomePage({
+  locale
+}: {
+  locale: Locale;
+}) {
+  const {
+    site,
+    home
+  } = getContent(locale);
   const fr = locale === "fr";
-
-  return (
-    <Shell locale={locale}>
-      {/* --------------------------------------------------- 1. Hero (carte) */}
-      <CardPanel id="top" variant="hero">
-        <div className="col hero">
-          <div className="hero-copy">
-            {/* Pas d'animation d'entrée sur le titre : c'est la première
-                chose à l'écran, et un titre qui apparaît en fondu retarde le
-                message et fait passer le site pour lent. */}
-            <h1 className="hero-title">{renderLines(home.hero.title)}</h1>
-            <p className="hero-text">{home.hero.text}</p>
-
-            <div className="btn-row hero-actions">
-              <Link href={bookHref} className="btn btn--primary">
-                {site.cta}
-                <ArrowRight aria-hidden />
-              </Link>
-              <Link href={path(locale, ROUTES.useCases)} className="btn btn--ghost">
-                {home.hero.secondaryCta}
-              </Link>
-            </div>
-
-            <ul className="hero-stack">
-              {home.hero.stack.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="hero-visual">
-            <HeroStage locale={locale} />
-          </div>
+  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const examples = fr ? [{
+    icon: Search,
+    tag: "Ventes & prospection",
+    title: "Chaque rendez-vous, mieux préparé.",
+    text: "Rassemblez les informations utiles sur un prospect avant votre prochain échange.",
+    slug: "preparer-rendez-vous",
+    steps: ["CRM + agenda", "Synthèse IA", "Brief prêt"]
+  }, {
+    icon: Mail,
+    tag: "Opérations",
+    title: "Une boîte mail qui devient un flux de travail.",
+    text: "Classez les demandes et dirigez-les vers la bonne personne, avec les informations utiles.",
+    slug: "trier-emails",
+    steps: ["Email reçu", "Qualification", "Orientation"]
+  }, {
+    icon: MessagesSquare,
+    tag: "Service client",
+    title: "Des réponses prêtes à être relues.",
+    text: "Préparez les réponses fréquentes à partir de votre documentation, puis validez l’envoi.",
+    slug: "reponses-frequentes",
+    steps: ["Question", "Vos documents", "Brouillon"]
+  }, {
+    icon: Database,
+    tag: "Connaissance interne",
+    title: "Votre savoir, enfin accessible.",
+    text: "Retrouvez une information dans vos documents, accompagnée de sa source.",
+    slug: "recherche-documents",
+    steps: ["Recherche", "Sources", "Réponse"]
+  }] : [{
+    icon: Search,
+    tag: "Sales & prospecting",
+    title: "Walk into every meeting prepared.",
+    text: "Gather useful prospect information before your next conversation.",
+    slug: "preparer-rendez-vous",
+    steps: ["CRM + calendar", "AI summary", "Ready to brief"]
+  }, {
+    icon: Mail,
+    tag: "Operations",
+    title: "Turn your inbox into a workflow.",
+    text: "Classify requests and route them to the right person with the information they need.",
+    slug: "trier-emails",
+    steps: ["Incoming email", "Qualification", "Routing"]
+  }, {
+    icon: MessagesSquare,
+    tag: "Customer service",
+    title: "Answers ready for your review.",
+    text: "Draft frequent answers from your documentation, then approve before sending.",
+    slug: "reponses-frequentes",
+    steps: ["Question", "Your documents", "Draft"]
+  }, {
+    icon: Database,
+    tag: "Internal knowledge",
+    title: "Your knowledge, within reach.",
+    text: "Find information in your documents, with a source you can check.",
+    slug: "recherche-documents",
+    steps: ["Search", "Sources", "Answer"]
+  }];
+  return <Shell locale={locale}>
+    <section id="top" className="studio-hero">
+      <div className="col studio-hero-grid">
+        <div className="studio-hero-copy">
+          <span className="eyebrow"><span className="status-dot" />{fr ? "Studio de solutions IA · Bruxelles" : "AI solutions studio · Brussels"}</span>
+          <h1>{fr ? "Moins de tâches répétitives." : "Less repetitive work."}<span>{fr ? "Plus de possibilités." : "More possibilities."}</span></h1>
+          <p>{fr ? "Nous concevons des solutions IA sur mesure pour simplifier vos opérations. Connectées à vos outils. Pensées pour votre équipe." : "We build custom AI solutions to simplify your operations. Connected to your tools. Designed for your team."}</p>
+          <div className="btn-row"><Link href={bookHref} className="btn btn--primary">{site.ctaShort}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
+          <span className="hero-reassurance">{fr ? "Un premier échange gratuit, sans engagement." : "A free first conversation. No commitment."}</span>
         </div>
-      </CardPanel>
+        <div className="studio-demo"><HeroStage locale={locale} /><span className="demo-caption"><span className="status-dot" />{fr ? "Aperçu de systèmes IA · Illustrations de fonctionnement" : "AI system previews · Illustrative workflows"}</span></div>
+      </div>
+      <div className="col"><div className="capability-strip"><span>{fr ? "De votre besoin à votre outil." : "From your need to your tool."}</span>{home.hero.stack.slice(0, 4).map(s => <span key={s}><Check aria-hidden />{s}</span>)}</div></div>
+    </section>
 
-      {/* ------------------------------------------- 2. Problèmes (fond gris) */}
-      <Band id="problemes" tone="base">
-        <Lede kicker={home.problems.kicker} title={home.problems.title} text={home.problems.text} />
-        {/* Quatre rangées sur un filet, pas quatre cartes. Un constat se lit,
-            il ne se compare pas. */}
-        <ul className="rows section-gap">
-          {home.problems.items.map((item) => (
-            <li key={item.title}>
-              <Link
-                href={`${path(locale, ROUTES.useCases)}#${item.useCase}`}
-                className="row row--split"
-              >
-                <span className="row-title">{item.title}</span>
-                <span className="row-text">{item.text}</span>
-                <ArrowRight aria-hidden className="row-go" />
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Band>
+    <Band id="cas-usage" tone="white" className="studio-section">
+      <div className="section-heading"><Lede kicker={fr ? "L’IA dans votre quotidien" : "AI in your everyday work"} title={fr ? "Des usages concrets.\nDes journées plus simples." : "Practical applications.\nSimpler working days."} /><Link href={path(locale, ROUTES.useCases)} className="go">{fr ? "Tous les cas d’usage" : "All use cases"}<ArrowRight aria-hidden /></Link></div>
+      <div className="usecase-bento">{examples.map(({
+          icon: Icon,
+          ...e
+        }, i) => <Link key={e.slug} className={`usecase-card usecase-card--${i}`} href={`${path(locale, ROUTES.useCases)}#${e.slug}`}>
+        <div className="usecase-top"><span className="feature-icon"><Icon aria-hidden /></span><span>{e.tag}</span><ArrowUpRight aria-hidden /></div>
+        <h3>{e.title}</h3><p>{e.text}</p>
+        <div className="mini-flow" aria-hidden>{e.steps.map((step, j) => <span key={step}>{j > 0 && <ArrowRight />}<span>{step}</span></span>)}</div>
+      </Link>)}</div>
+    </Band>
 
-      {/* ----------------------------------------- 3. Cas d'usage (fond blanc) */}
-      <Band id="cas-usage" tone="white">
-        <Lede kicker={home.useCases.kicker} title={home.useCases.title} text={home.useCases.text} />
-        <ul className="rows section-gap">
-          {cases.map((c) => (
-            <li key={c.slug}>
-              <Link href={`${path(locale, ROUTES.useCases)}#${c.slug}`} className="row row--split">
-                <span className="row-title">{c.title}</span>
-                <span className="row-text">{c.benefit}</span>
-                <ArrowRight aria-hidden className="row-go" />
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link href={path(locale, ROUTES.useCases)} className="go section-gap-sm">
-          {home.useCases.cta}
-          <ArrowRight aria-hidden />
-        </Link>
-      </Band>
+    <Band id="offre" tone="base" className="studio-section"><div className="section-heading"><Lede kicker={home.offer.kicker} title={fr ? "Votre activité est unique.\nVotre solution aussi." : "Your business is unique.\nYour solution should be too."} /><p className="section-side-text">{fr ? "Nous partons du problème à résoudre, puis choisissons les bonnes briques pour y répondre." : "We start with the problem, then choose the right building blocks to solve it."}</p></div><OfferCard locale={locale} /></Band>
 
-      {/* ----------------------------------------------- 4. L'offre (fond bleu) */}
-      <Band id="offre" tone="blue">
-        <Lede title={home.offer.title} text={home.offer.text} />
+    <Band id="approche" tone="white" className="studio-section"><div className="approach-layout"><Lede kicker={fr ? "Du premier échange à l’usage" : "From first conversation to daily use"} title={fr ? "Un projet clair.\nÀ chaque étape." : "A clear project.\nAt every step."} text={fr ? "Vous savez ce que nous construisons, pourquoi, et ce qui reste entre vos mains." : "You know what we are building, why, and what stays in your hands."} /><div className="approach-steps">{(fr ? [["Comprendre", "Vos opérations, vos outils, votre besoin. Nous vérifions où l’IA peut être utile."], ["Construire", "Un périmètre défini, des étapes visibles et des démonstrations pour avancer ensemble."], ["Accompagner", "Tests, prise en main et suivi selon les modalités convenues pour votre projet."]] : [["Understand", "Your operations, tools and needs. We identify where AI can be useful."], ["Build", "An agreed scope, visible milestones and demos to move forward together."], ["Support", "Testing, onboarding and support under the terms agreed for your project."]]).map(([title, text], i) => <div key={title}><span className="step-index">0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}<Link className="go" href={path(locale, ROUTES.method)}>{fr ? "Notre méthode en détail" : "Our method in detail"}<ArrowRight aria-hidden /></Link></div></div></Band>
 
-        {/* Les quatre briques en séquence numérotée, pleine largeur. Ce ne
-            sont pas quatre options à comparer : c'est ce dont une solution
-            peut être faite, et la numérotation dit qu'on les assemble. */}
-        <ol className="seq section-gap">
-          {home.offer.bricks.map((b, i) => (
-            <li key={b.title} className="seq-item">
-              <span aria-hidden className="seq-num">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="seq-title">{b.title}</h3>
-              <p className="seq-text">{b.text}</p>
-            </li>
-          ))}
-        </ol>
-
-        {/* Le schéma. Il dit en deux secondes ce que le paragraphe met dix
-            secondes à dire, et c'est le seul élément graphique de la page
-            après le hero. */}
-        <div className="section-gap">
-          <Architecture locale={locale} />
-        </div>
-
-        <p className="offer-note section-gap">{home.offer.note}</p>
-        <Link href={path(locale, ROUTES.solutions)} className="btn btn--primary section-gap-sm">
-          {home.offer.cta}
-          <ArrowRight aria-hidden />
-        </Link>
-      </Band>
-
-      {/* ------------------------------------------------- 5. FAQ (fond blanc) */}
-      <Band id="faq" tone="white">
-        <Lede kicker={home.faq.kicker} title={home.faq.title} />
-        <div className="section-gap">
-          <FaqAccordion items={home.faq.items.map((i) => ({ q: i.q, a: i.a }))} />
-        </div>
-      </Band>
-
-      {/* ------------------------------------------------ 6. CTA final (carte) */}
-      <CardPanel id="conclusion">
-        <div className="col card-body cta-panel">
-          <Lede title={home.cta.title} text={home.cta.text} align="center" />
-          <div className="btn-row cta-actions">
-            <Link href={bookHref} className="btn btn--primary">
-              {site.cta}
-              <ArrowRight aria-hidden />
-            </Link>
-            <Link href={formHref} className="btn btn--ghost">
-              {home.cta.secondary}
-            </Link>
-          </div>
-          <p className="cta-note">
-            {fr
-              ? "30 minutes, sans engagement. Si l’IA n’est pas la bonne réponse à votre problème, nous vous le dirons."
-              : "30 minutes, no strings attached. If AI is not the right answer to your problem, we will tell you."}
-          </p>
-        </div>
-      </CardPanel>
-    </Shell>
-  );
+    <Band id="faq" tone="white" className="studio-section"><div className="faq-layout"><Lede kicker={home.faq.kicker} title={fr ? "Quelques questions,\navant de commencer." : "A few questions,\nbefore we start."} /><FaqAccordion items={home.faq.items.map(i => ({
+          q: i.q,
+          a: i.a
+        }))} /></div></Band>
+    <CardPanel id="conclusion"><div className="col card-body cta-panel"><span className="eyebrow">{fr ? "Et si on simplifiait la suite ?" : "What could we simplify next?"}</span><Lede title={fr ? "Parlons de ce qui\nvous prend trop de temps." : "Let’s talk about what\ntakes too much of your time."} text={home.cta.text} align="center" /><div className="btn-row cta-actions"><Link href={bookHref} className="btn btn--primary">{site.cta}<ArrowRight aria-hidden /></Link></div><p className="cta-note">{fr ? "30 minutes, sans engagement. Un besoin concret suffit pour commencer." : "30 minutes. No commitment. A concrete need is all it takes to begin."}</p></div></CardPanel>
+  </Shell>;
 }

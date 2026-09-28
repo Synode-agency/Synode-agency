@@ -20,7 +20,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <footer className="band band--ink">
+    <footer className="band band--white">
       <div className="col site-footer">
         <div className="site-footer-grid">
           <div className="site-footer-brand">

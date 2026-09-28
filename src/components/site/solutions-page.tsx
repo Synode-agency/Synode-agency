@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Band, Shell } from "@/components/site/shell";
+import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { domains } from "@/lib/use-cases";
+import { OfferCard } from "@/components/site/offer-card";
 
 /**
  * La page Solutions : l'offre unique, et ce qu'elle peut contenir.
@@ -22,40 +22,22 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
+      <Band id="top" tone="white" className="solutions-intro">
         <Lede as="h1" kicker={solutions.kicker} title={solutions.title} text={solutions.text} />
+        <OfferCard locale={locale} detailed />
       </Band>
 
       {/* ----------------------------------------------- Ce qu'elle peut réunir */}
-      <Band id="briques" tone="white">
+      <Band id="briques" tone="base">
         <Lede title={solutions.bricksTitle} text={solutions.bricksText} />
-        <div className="tile-grid tile-grid--3 section-gap">
+        <div className="solution-features section-gap">
           {solutions.bricks.map((b) => (
             <div key={b.title} className="tile">
-              <span className="tile-title">{b.title}</span>
+              <h3 className="tile-title">{b.title}</h3>
               <span className="tile-text">{b.text}</span>
             </div>
           ))}
         </div>
-      </Band>
-
-      {/* -------------------------------------------------------- Territoires */}
-      <Band id="territoires" tone="base">
-        <Lede title={solutions.domainsTitle} text={solutions.domainsText} />
-        <ul className="rows section-gap">
-          {domains(locale).map((d) => (
-            <li key={d.slug}>
-              <Link href={`${path(locale, ROUTES.useCases)}#${d.slug}`} className="row row--split">
-                <span className="row-title">{d.title}</span>
-                <span className="row-text">{d.text}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link href={path(locale, ROUTES.useCases)} className="go section-gap-sm">
-          {solutions.domainsCta}
-          <ArrowRight aria-hidden />
-        </Link>
       </Band>
 
       {/* ---------------------------------------------------- Ce que vous recevez */}
@@ -84,7 +66,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </Band>
 
       {/* ---------------------------------------------------- Modèle économique */}
-      <Band id="modele" tone="ink">
+      <Band id="modele" tone="white">
         <Lede title={solutions.pricingTitle} />
         <ol className="rows section-gap">
           {solutions.pricing.map((p, i) => (
@@ -113,7 +95,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </Band>
 
       {/* -------------------------------------- L'encart imposé par l'architecture */}
-      <Band id="autre" tone="blue">
+      <CardPanel id="autre"><div className="col card-body cta-panel">
         <Lede title={solutions.notInList.title} text={solutions.notInList.text} align="center" />
         <div className="btn-row cta-actions">
           <Link href={formHref} className="btn btn--primary">
@@ -124,7 +106,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             {site.ctaShort}
           </Link>
         </div>
-      </Band>
+      </div></CardPanel>
     </Shell>
   );
 }
