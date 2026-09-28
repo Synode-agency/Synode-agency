@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { casesOfDomain, domains, type UseCase } from "@/lib/use-cases";
@@ -26,7 +26,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede
           as="h1"
           kicker={fr ? "Cas d’usage" : "Use cases"}
@@ -50,20 +50,20 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
             </a>
           ))}
         </nav>
-      </Panel>
+      </Band>
 
       {domains(locale).map((domain, di) => (
-        <Panel key={domain.slug} id={domain.slug} tone={di % 2 === 1 ? "quiet" : "plain"}>
+        <Band key={domain.slug} id={domain.slug} tone={di % 2 === 1 ? "white" : "base"}>
           <Lede title={domain.title} text={domain.text} />
           <div className="cases section-gap">
             {casesOfDomain(locale, domain.slug).map((c) => (
               <Case key={c.slug} item={c} locale={locale} />
             ))}
           </div>
-        </Panel>
+        </Band>
       ))}
 
-      <Panel id="conclusion" tone="brand">
+      <Band id="conclusion" tone="blue">
         <Lede
           title={
             fr
@@ -80,13 +80,13 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
         <div className="btn-row cta-actions">
           <Link
             href={`${path(locale, ROUTES.contact)}#${ANCHORS.booking}`}
-            className="btn btn--primary cta-primary"
+            className="btn btn--primary"
           >
             {getContent(locale).site.cta}
             <ArrowRight aria-hidden />
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

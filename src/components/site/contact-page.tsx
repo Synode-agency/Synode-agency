@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { Booking } from "@/components/site/booking";
 import { ContactForm } from "@/components/site/contact-form";
@@ -20,18 +20,18 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" kicker={contact.kicker} title={contact.title} text={contact.text} />
-      </Panel>
+      </Band>
 
-      <Panel id={ANCHORS.booking} tone="quiet">
+      <Band id={ANCHORS.booking} tone="white">
         <Lede title={contact.booking.title} text={contact.booking.text} />
         <div className="section-gap">
           <Booking locale={locale} />
         </div>
-      </Panel>
+      </Band>
 
-      <Panel id={ANCHORS.form}>
+      <Band id={ANCHORS.form} tone="base">
         <Lede title={contact.form.title} text={contact.form.text} />
         <div className="section-gap">
           {/* `useSearchParams` impose une frontière de Suspense : sans elle,
@@ -40,9 +40,9 @@ export function ContactPage({ locale }: { locale: Locale }) {
             <ContactForm locale={locale} />
           </Suspense>
         </div>
-      </Panel>
+      </Band>
 
-      <Panel id="direct" tone="quiet">
+      <Band id="direct" tone="white">
         <Lede title={contact.direct.title} />
         <p className="prose-body section-gap-sm">
           {contact.direct.emailLabel} :{" "}
@@ -50,7 +50,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
             {site.email}
           </a>
         </p>
-      </Panel>
+      </Band>
     </Shell>
   );
 }

@@ -12,41 +12,51 @@ sombre n'existant plus. Celui-ci décrit le système tel qu'il est.
 
 ---
 
-## 1. Le principe : la carte
+## 1. Le principe : la bande
 
-**Une page Synode est une colonne de panneaux blancs posés sur un fond
-teinté.** Le fond ne se voit que dans les interstices, et c'est cet écart
-qui donne au site sa profondeur. La page n'est pas un flux, c'est une pile
-de feuilles sur une table.
+**Une page Synode est une suite de bandes pleine largeur.** Chacune porte son
+fond, et c'est le changement de fond, pas un cadre, qui sépare deux sections.
+Une bande touche les deux bords de l'écran et court d'un bout à l'autre.
 
-Tout découle de là :
+**Deux exceptions, et deux seulement** : le hero et le CTA final. Eux sont
+des cartes encartées à bords arrondis. Ce sont les deux moments où la page
+s'ouvre et se referme ; entre les deux, elle se lit à plat.
 
-- les rayons montent, parce qu'un panneau de section n'a pas le même
-  arrondi qu'une tuile ;
-- l'ombre est basse et teintée d'encre, parce qu'une feuille posée ne
-  projette pas un halo noir ;
-- la barre de navigation **flotte** au-dessus de la pile plutôt que de s'y
-  coller : une barre pleine largeur collée au bord contredirait le principe
-  dès le haut de l'écran.
+C'est la correction d'une première version où toute section était une carte.
+Un titre et un paragraphe enfermés dans un cadre arrondi se lisent comme une
+vignette ; vingt vignettes à la suite, et plus rien ne ressort.
 
-Deux classes composent tout le site : `.deck` pour la colonne, `.panel`
-pour un panneau. Le composant `<Panel>` de `shell.tsx` les pose, et toutes
-les pages passent par lui.
+### Les quatre fonds
 
-### Les quatre tons
-
-| Ton | Usage | Règle |
+| Fond | Usage | Règle |
 | --- | --- | --- |
-| `plain` | La majorité des sections | — |
-| `quiet` | Une section qui recule d'un plan | — |
+| `base` | Le gris de la page | — |
+| `white` | La bande claire | — |
+| `blue` | L'accent de couleur | **Une fois par page** |
 | `ink` | Le point d'appui sombre | **Une fois par page** |
-| `brand` | Le seul aplat de couleur | **Une fois par page** |
 
-Une page où trois panneaux sont colorés n'a plus de point d'appui, et la
-couleur cesse de vouloir dire quelque chose. Le pied de page porte l'encre,
-mais il n'est pas une section : c'est le cadre de la page.
+Deux bandes voisines ne portent jamais le même fond, sinon elles n'en font
+qu'une ; le CSS pose un filet de secours si cela arrive. Une page qui compte
+trois accents n'a plus de point d'appui, et la couleur cesse de vouloir dire
+quelque chose.
 
----
+L'accueil suit : gris, blanc, bleu, blanc, puis la carte finale et le pied de
+page en encre.
+
+### ⚠ Le fond d'une bande colorée est un littéral
+
+`.band--blue` et `.band--ink` **redéclarent** `--brand` et `--foreground`
+pour leurs enfants. Les propriétés personnalisées étant résolues au calcul,
+un `background: var(--brand)` écrit dans ce même bloc lirait la **nouvelle**
+valeur, donc du blanc.
+
+La bande sortait entièrement inversée : fond blanc, texte bleu, numéros
+invisibles. Le build était vert.
+
+De même, `color` sur ces bandes vaut `#FFFFFF` et non
+`var(--brand-foreground)` : ce dernier est ce qui se pose **sur** un bouton
+de marque, et dans une bande bleue ce bouton devient blanc. Les deux rôles
+sont inversés.
 
 ## 2. Couleur
 
@@ -175,6 +185,12 @@ ombre : deux ombres emboîtées font de la boue.
 | `.todo` | Un emplacement réservé | **Volontairement visible** |
 | `.rank` | Le rang d'une étape | Seulement sur une vraie séquence |
 
+### Pas d'ornement devant un chapeau
+
+Ni tiret, ni pastille. Un ornement répété au-dessus de chaque titre donne à
+la page le rythme d'un gabarit rempli, et il ne dit rien que le mot ne dise
+déjà.
+
 ### Le chapeau est optionnel
 
 Un chapeau ne se met **que s'il dit quelque chose que le titre ne dit pas**.
@@ -226,7 +242,8 @@ fois, à un seul endroit.
 - Un chapeau au-dessus de chaque section.
 - Un rayon égal à celui de son contenant.
 - Une taille écrite en dur dans un composant.
-- Un panneau coloré plus d'une fois par page.
+- Une bande colorée plus d'une fois par page.
 - Une ombre noire.
+- Une troisième carte arrondie.
 - Un emplacement réservé discret.
 - Un chiffre, un client ou un témoignage qui n'existe pas.

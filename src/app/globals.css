@@ -219,8 +219,10 @@
 
   /* Respiration À L'INTÉRIEUR d'une carte. C'est elle qui fait le premium :
      une carte serrée sur son contenu fait cheap quel que soit le reste. */
-  --card-pad-y: clamp(2.5rem, 1.2rem + 5.2vw, 7.5rem);
-  --card-pad-x: clamp(1.25rem, 0.2rem + 3.6vw, 5rem);
+  /* Le rembourrage vertical d'une bande. C'est lui qui fait le calme :
+     une bande serrée sur son contenu a l'air bon marché. */
+  --band-pad-y: clamp(3rem, 1.5rem + 5.4vw, 7rem);
+  --band-pad-x: clamp(1.25rem, 0.2rem + 3.6vw, 5rem);
   --space-lg: clamp(2.5rem, 1.75rem + 2.5vw, 5rem);
   --space-md: clamp(1.5rem, 1.1rem + 1.5vw, 2.75rem);
   --space-sm: clamp(1rem, 0.85rem + 0.75vw, 1.75rem);
@@ -387,52 +389,58 @@
 /* Utilities specific to this site */
 @layer utilities {
   /* =====================================================================
-     LA PILE — le système au complet
+     LES BANDES — le système au complet
 
-     Une page Synode est une colonne de panneaux posés sur le fond teinté.
-     `.deck` est la colonne, `.panel` est un panneau. Il n'y a rien d'autre
-     à apprendre : tout le site se compose avec ces deux classes et les
-     quatre variantes de panneau.
+     Une page Synode est une SUITE DE BANDES pleine largeur. Chacune porte
+     son fond, et c'est le changement de fond, pas un cadre, qui sépare deux
+     sections. Une bande ne flotte pas : elle touche les deux bords de
+     l'écran et court d'un bout à l'autre.
+
+     DEUX EXCEPTIONS, et deux seulement : le hero et le CTA final. Eux sont
+     des cartes encartées à bords arrondis. Ce sont les deux moments où la
+     page s'ouvre et se referme ; entre les deux, elle se lit à plat.
+
+     C'est la correction d'une version où TOUTE section était une carte. Un
+     titre et un paragraphe enfermés dans un cadre arrondi se lisent comme
+     une vignette : vingt vignettes à la suite, et plus rien ne ressort.
      ===================================================================== */
-  .deck {
-    display: flex;
-    flex-direction: column;
-    gap: var(--card-gap);
-    padding: var(--card-gap) var(--page-gutter);
-  }
-
-  .panel {
+  .band {
     position: relative;
-    border-radius: var(--r-lg);
-    background: var(--surface);
-    box-shadow: var(--shadow-card);
-    /* Le contenu d'un panneau ne doit jamais sortir de ses angles arrondis :
-       une illustration à fond perdu en dépasserait sinon par les coins. */
-    overflow: hidden;
+    /* Le rembourrage vertical fait le calme. Une bande serrée sur son
+       contenu a l'air bon marché quelle que soit la qualité du reste. */
+    padding-block: var(--band-pad-y);
   }
 
-  /* Le rembourrage vertical est celui qui fait le premium. Un panneau serré
-     sur son contenu a l'air bon marché quelle que soit la qualité du reste. */
-  .panel-body {
-    padding: var(--card-pad-y) 0;
+  /* ---- Les quatre fonds. C'est le fond qui découpe la page. ---- */
+
+  /* Le gris de la page. Une bande qui ne déclare rien le laisse voir. */
+  .band--base { background: transparent; }
+  .band--white { background: var(--surface); }
+
+  .band--blue {
+    /* ⚠ LE FOND EST UN LITTÉRAL, PAS `var(--brand)`, et ce n'est pas un
+       oubli. Ce bloc REDÉFINIT `--brand` pour ses enfants ; comme les
+       propriétés personnalisées sont résolues au calcul, un
+       `background: var(--brand)` écrit ici lirait la NOUVELLE valeur, donc
+       du blanc. La bande sortait entièrement inversée : fond blanc, texte
+       bleu, numéros invisibles.
+       Même raison pour l'encre juste en dessous. */
+    background: #0067EA;
+    color: #FFFFFF;                      /* 5,09:1 sur #0067EA */
+    --foreground: #FFFFFF;
+    --muted-foreground: rgb(255 255 255 / 0.84);   /* 4,6:1 sur #0067EA */
+    --hairline: rgb(255 255 255 / 0.24);
+    --border: rgb(255 255 255 / 0.24);
+    --surface: rgb(255 255 255 / 0.10);
+    --surface-2: rgb(255 255 255 / 0.16);
+    --text-mono: rgb(255 255 255 / 0.78);
+    --brand: #FFFFFF;
+    --brand-foreground: #0051B7;
   }
 
-  /* ---- Les variantes. Quatre, et pas une cinquième. ---- */
-
-  /* Le hero : le plus grand format, donc le plus grand rayon, et il occupe
-     la hauteur de l'écran moins les gouttières. */
-  .panel--hero {
-    border-radius: var(--r-panel);
-    min-height: calc(100dvh - var(--card-gap) * 2);
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Le panneau d'encre. UNE SEULE FOIS sur la page d'accueil, sur la
-     Méthode. C'est l'inversion qui donne son point d'appui à toute la
-     pile : sans elle, vingt panneaux blancs se lisent comme un seul. */
-  .panel--ink {
-    background: var(--foreground);
+  .band--ink {
+    /* Littéral pour la même raison que la bande bleue. */
+    background: #464444;
     color: #FFFFFF;
     --foreground: #FFFFFF;
     --muted-foreground: rgb(255 255 255 / 0.78);   /* 6,4:1 sur #464444 */
@@ -441,45 +449,57 @@
     --surface: rgb(255 255 255 / 0.07);
     --surface-2: rgb(255 255 255 / 0.11);
     --text-mono: rgb(255 255 255 / 0.66);
-    /* Le bleu de marque ne tient que 1,9:1 sur cette encre. Il est relevé
-       jusqu'à 7,4:1, sinon tout ce qui est bleu disparaît du panneau. */
+    /* Le bleu de marque ne tient que 1,9:1 sur cette encre. Relevé à
+       7,4:1, sinon tout ce qui est bleu disparaît de la bande. */
     --brand: #8FC0FF;
     --brand-foreground: #2A2828;
   }
 
-  /* Le panneau bleu. UNE SEULE FOIS aussi, sur le CTA final. C'est le seul
-     endroit où la couleur de marque occupe une surface. */
-  .panel--brand {
-    background: var(--brand);
-    color: var(--brand-foreground);
+  /* Deux bandes de même fond qui se suivent ont besoin d'un filet, sinon
+     elles n'en font qu'une. Deux fonds différents n'en ont pas besoin :
+     le changement de couleur EST la séparation. */
+  .band--white + .band--white,
+  .band--base + .band--base {
+    border-top: 1px solid var(--hairline);
+  }
+
+  /* =====================================================================
+     LES DEUX CARTES — le hero et le CTA
+
+     Encartées du bord de l'écran, bords arrondis, une ombre basse. Ce sont
+     les seuls objets posés de la page.
+     ===================================================================== */
+  .card-shell {
+    padding: var(--card-gap) var(--page-gutter);
+  }
+  .card-panel {
+    position: relative;
+    border-radius: var(--r-panel);
+    background: var(--surface);
+    box-shadow: var(--shadow-card);
+    /* Un contenu à fond perdu dépasserait sinon par les angles. */
+    overflow: hidden;
+  }
+  .card-panel--hero {
+    min-height: calc(100dvh - var(--card-gap) * 2);
+    display: flex;
+    flex-direction: column;
+  }
+  .card-panel--blue {
+    /* Littéral, même raison que `.band--blue`. */
+    background: #0067EA;
+    color: #FFFFFF;                      /* 5,09:1 sur #0067EA */
     --foreground: #FFFFFF;
-    --muted-foreground: rgb(255 255 255 / 0.84);   /* 4,6:1 sur #0067EA */
+    --muted-foreground: rgb(255 255 255 / 0.84);
     --hairline: rgb(255 255 255 / 0.24);
     --border: rgb(255 255 255 / 0.24);
     --surface: rgb(255 255 255 / 0.10);
     --surface-2: rgb(255 255 255 / 0.16);
     --text-mono: rgb(255 255 255 / 0.78);
+    --brand: #FFFFFF;
+    --brand-foreground: #0051B7;
   }
-
-  /* Le panneau calme, pour une section qui doit reculer d'un plan sans
-     quitter la pile. */
-  .panel--quiet {
-    background: var(--surface-2);
-    box-shadow: none;
-    border: 1px solid var(--hairline);
-  }
-
-  /* ---- La rangée de deux panneaux appariés ---- */
-  .panel-pair {
-    display: grid;
-    gap: var(--card-gap);
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 900px) {
-    .panel-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    /* Rapport 3/2 quand les deux panneaux n'ont pas le même poids. */
-    .panel-pair--wide { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-  }
+  .card-body { padding-block: var(--band-pad-y); }
 
   /* =====================================================================
      LA COLONNE
@@ -490,7 +510,7 @@
   .col {
     width: min(100%, var(--container-max));
     margin-inline: auto;
-    padding-inline: var(--card-pad-x);
+    padding-inline: var(--band-pad-x);
   }
 
   /* =====================================================================
@@ -521,13 +541,9 @@
     letter-spacing: 0.02em;
     color: var(--brand);
   }
-  /* Un trait court plutôt qu'une pastille ronde : le chapeau introduit, il
-     n'énumère pas. */
-  .lede-kicker::before {
-    content: "";
-    width: 1.5rem;
-    border-top: 1px solid currentColor;
-  }
+  /* Pas de tiret ni de pastille devant le chapeau. Un ornement répété
+     au-dessus de chaque titre donne à la page le rythme d'un gabarit
+     rempli, et il ne dit rien que le mot ne dise déjà. */
 
   .lede-title {
     /* Un titre a sa propre mesure, et elle n'a rien a voir avec celle du
@@ -869,7 +885,7 @@
     gap: clamp(2.5rem, 5vw, 5rem);
     /* Le hero occupe la carte entière : c'est son padding à lui, pas celui
        d'un `.panel-body` ordinaire. */
-    padding-block: calc(var(--header-h) + var(--card-gap)) var(--card-pad-y);
+    padding-block: calc(var(--header-h) + var(--card-gap)) var(--band-pad-y);
     flex: 1;
     grid-template-columns: 1fr;
   }
@@ -1017,21 +1033,109 @@
     color: var(--muted-foreground);
   }
 
-  /* =====================================================================
-     LE CTA FINAL — le seul panneau bleu de la page
-     ===================================================================== */
-  .cta-actions { justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
-  /* Sur le bleu, le bouton principal s'inverse : blanc plein, encre dessus.
-     Le bleu de marque sur du bleu de marque n'aurait aucun contraste. */
-  .cta-primary {
-    background: #FFFFFF;
-    color: var(--foreground);
-  }
-  .cta-primary:hover { background: rgb(255 255 255 / 0.9); }
 
   @media (prefers-reduced-motion: reduce) {
     .faq-item button svg,
     .faq-answer { transition: none; }
+  }
+
+  /* =====================================================================
+     LA SÉQUENCE NUMÉROTÉE
+
+     Elle porte l'offre. Ce ne sont pas quatre options à comparer dans une
+     grille : c'est ce dont une solution peut être faite, et la numérotation
+     dit qu'on les assemble.
+
+     Le numéro est GRAND et en retrait, posé au-dessus du titre plutôt qu'à
+     côté : c'est lui qui donne son rythme à la bande, et il se lit avant le
+     mot qu'il annonce.
+     ===================================================================== */
+  .seq {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--hairline);
+  }
+  .seq-item {
+    display: grid;
+    align-items: baseline;
+    gap: 0.4rem clamp(1.5rem, 4vw, 4rem);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem) 0;
+    border-bottom: 1px solid var(--hairline);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 860px) {
+    .seq-item {
+      grid-template-columns: 5rem minmax(0, 22rem) minmax(0, 1fr);
+    }
+  }
+  .seq-num {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    line-height: 1;
+    /* Sur la bande bleue, `--brand` vaut blanc : le numéro y prend donc le
+       blanc plein, et l'encre ailleurs. Une seule règle pour les deux. */
+    color: var(--brand);
+    font-variant-numeric: tabular-nums;
+  }
+  .seq-title {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: var(--ls-title);
+  }
+  .seq-text {
+    max-width: 52ch;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--muted-foreground);
+  }
+
+  .offer-note {
+    max-width: var(--measure);
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  /* La flèche d'une rangée cliquable : invisible au repos, elle n'apparaît
+     qu'au survol. Quatre flèches alignées au repos font une colonne de
+     chevrons qui attire l'œil avant le texte. */
+  .row-go {
+    align-self: center;
+    justify-self: end;
+    width: 0.9rem;
+    height: 0.9rem;
+    color: var(--brand);
+    opacity: 0;
+    transition: opacity 0.2s var(--anim-ease), transform 0.2s var(--anim-ease);
+  }
+  a.row:hover .row-go,
+  a.row:focus-visible .row-go {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+  @media (min-width: 860px) {
+    .row--split:has(.row-go) {
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 1rem;
+    }
+  }
+
+  /* =====================================================================
+     LE CTA FINAL — la seconde et dernière carte de la page
+     ===================================================================== */
+  .cta-panel { text-align: center; }
+  .cta-actions { justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
+  .cta-note {
+    max-width: 52ch;
+    margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
+    font-size: var(--fs-small);
+    line-height: var(--lh-body);
+    color: var(--text-mono);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row-go { transition: none; }
   }
 
   /* =====================================================================
@@ -1447,6 +1551,10 @@
     align-items: flex-end;
     min-height: 8rem;
     padding: 1rem;
+    /* Un échantillon de fond n'a plus de cadre propre : sans ce filet, le
+       fond « base » serait invisible sur le fond de la page. */
+    border: 1px solid var(--hairline);
+    border-radius: var(--r-xs);
   }
   .ds-tone-label { font-size: var(--fs-micro); font-weight: 700; }
 
@@ -1489,16 +1597,33 @@
   /* =====================================================================
      L'EN-TÊTE
 
-     Elle FLOTTE au-dessus de la pile plutôt que de s'y coller : le fond
-     teinté reste visible derrière elle, donc le principe du site tient
-     jusqu'en haut de l'écran. Une barre pleine largeur collée au bord
-     contredirait tout le reste.
+     Elle est FIXE et pleine largeur, et elle change d'état au défilement,
+     pas de position.
+
+     En haut de page elle est transparente : elle se pose sur la carte
+     blanche du hero et se lit comme la première rangée de cette carte, pas
+     comme une barre séparée. Dès qu'on fait défiler, elle prend son fond et
+     son filet, et devient une vraie barre qui court d'un bord à l'autre.
+
+     C'est ce comportement qui fait qu'on ne voit pas de couture entre le
+     hero et la navigation : au repos il n'y en a pas, et quand il y en a
+     une, elle est assumée.
      ===================================================================== */
   .site-header {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 50;
-    padding: var(--card-gap) var(--page-gutter) 0;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.25s var(--anim-ease),
+      border-color 0.25s var(--anim-ease);
+  }
+  .site-header.is-scrolled {
+    background: var(--surface);
+    border-bottom-color: var(--hairline);
   }
 
   .site-header-bar {
@@ -1506,21 +1631,17 @@
     align-items: center;
     gap: clamp(1rem, 2vw, 2rem);
     height: var(--header-h);
-    padding-inline: clamp(1rem, 0.6rem + 1.4vw, 1.75rem);
-    border-radius: var(--r-pill);
-    background: var(--surface);
-    /* Au repos, aucune ombre : la barre est une carte parmi les autres. Elle
-       n'en prend une qu'une fois qu'elle passe DEVANT du contenu. */
-    box-shadow: none;
-    transition: box-shadow 0.25s var(--anim-ease);
-  }
-  .site-header.is-scrolled .site-header-bar {
-    box-shadow: var(--shadow-card);
+    width: min(100%, var(--container-max));
+    margin-inline: auto;
+    /* La barre s'aligne sur la colonne du site, plus une gouttière : au
+       repos son logo doit tomber exactement sur le bord gauche du contenu
+       de la carte du hero. */
+    padding-inline: calc(var(--page-gutter) + var(--band-pad-x));
   }
 
   .site-header-brand { display: inline-flex; align-items: center; }
-  /* Voir le commentaire du pied de page : le lettrage est blanc, il doit
-     s'inverser partout où le fond est clair. */
+  /* Voir le pied de page : le lettrage est un PNG blanc, il doit s'inverser
+     partout où le fond est clair. */
   .wordmark-type { filter: invert(1); }
 
   .site-nav {
@@ -1534,7 +1655,6 @@
   .site-nav-link {
     position: relative;
     padding: 0.5rem 0.65rem;
-    border-radius: var(--r-xs);
     font-size: var(--fs-small);
     font-weight: 500;
     color: var(--muted-foreground);
@@ -1542,18 +1662,14 @@
   }
   .site-nav-link:hover { color: var(--foreground); }
   .site-nav-link.is-current { color: var(--foreground); font-weight: 700; }
-  /* La page courante porte un point, pas un soulignement : un trait sous un
-     mot dans une barre arrondie fait bavure contre le rayon. */
+  /* La page courante porte un soulignement court, centré sous le mot. */
   .site-nav-link.is-current::after {
     content: "";
     position: absolute;
-    left: 50%;
-    bottom: 0.15rem;
-    width: 3px;
-    height: 3px;
-    border-radius: var(--r-pill);
-    background: var(--brand);
-    transform: translateX(-50%);
+    left: 0.65rem;
+    right: 0.65rem;
+    bottom: 0.1rem;
+    border-bottom: 2px solid var(--brand);
   }
 
   .site-header-end {
@@ -1573,7 +1689,7 @@
     display: inline-flex;
     padding: 2px;
     border-radius: var(--r-pill);
-    background: var(--surface-2);
+    border: 1px solid var(--hairline);
   }
   .lang-item {
     padding: 0.3rem 0.6rem;
@@ -1583,7 +1699,7 @@
     letter-spacing: 0.04em;
     color: var(--text-mono);
   }
-  .lang-item.is-current { background: var(--surface); color: var(--foreground); }
+  .lang-item.is-current { background: var(--surface-2); color: var(--foreground); }
 
   .site-burger {
     display: inline-flex;
@@ -1599,7 +1715,7 @@
   @media (min-width: 960px) { .site-burger { display: none; } }
 
   /* Le menu de téléphone couvre l'écran. Un panneau à demi transparent
-     par-dessus une pile de cartes blanches devient illisible. */
+     par-dessus le contenu devient illisible. */
   .site-menu {
     position: fixed;
     inset: 0;
@@ -1608,7 +1724,7 @@
     flex-direction: column;
     justify-content: center;
     gap: clamp(1.5rem, 4vw, 2.5rem);
-    padding: calc(var(--header-h) + var(--card-gap) * 2) var(--card-pad-x) var(--card-pad-x);
+    padding: calc(var(--header-h) + 1rem) var(--band-pad-x) var(--band-pad-x);
     background: var(--background);
   }
   .site-menu[hidden] { display: none; }
@@ -1627,7 +1743,6 @@
   /* =====================================================================
      LE PIED DE PAGE — le dernier panneau de la pile
      ===================================================================== */
-  .deck--flush { padding: 0; gap: var(--card-gap); }
 
   .site-footer { display: flex; flex-direction: column; gap: clamp(2.5rem, 4vw, 4rem); }
 

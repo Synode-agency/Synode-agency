@@ -6,9 +6,9 @@ import { ROUTES, getContent, path, type Locale } from "@/lib/content";
 /**
  * Le pied de page.
  *
- * C'est le dernier panneau de la pile, et il porte l'encre : après une
- * colonne de cartes blanches, une carte sombre referme la page au lieu de
- * la laisser s'éteindre sur un blanc de plus.
+ * C'est la dernière bande, et elle porte l'encre : après une page qui
+ * alterne gris et blanc, un fond sombre la referme au lieu de la laisser
+ * s'éteindre sur un blanc de plus.
  */
 export function SiteFooter({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
@@ -20,8 +20,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <footer className="panel panel--ink">
-      <div className="col panel-body site-footer">
+    <footer className="band band--ink">
+      <div className="col site-footer">
         <div className="site-footer-grid">
           <div className="site-footer-brand">
             <Wordmark variant="type" />

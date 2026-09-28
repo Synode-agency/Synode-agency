@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { Panel, Shell } from "@/components/site/shell";
+import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 
@@ -23,11 +23,11 @@ export function TeamPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Panel id="top">
+      <Band id="top" tone="base">
         <Lede as="h1" kicker={team.kicker} title={team.title} text={team.vision} />
-      </Panel>
+      </Band>
 
-      <Panel id="associes" tone="quiet">
+      <Band id="associes" tone="white">
         <Lede title={team.peopleTitle} />
         <div className="tile-grid tile-grid--2 section-gap">
           {team.people.map((p) => (
@@ -53,30 +53,30 @@ export function TeamPage({ locale }: { locale: Locale }) {
               : "Full names, real photographs and LinkedIn links for both partners. Until they are supplied, this page describes the roles without the people."}
           </p>
         </div>
-      </Panel>
+      </Band>
 
-      <Panel id="complementarite">
+      <Band id="complementarite" tone="base">
         <Lede title={team.complementTitle} text={team.complementText} />
-      </Panel>
+      </Band>
 
-      <Panel id="facon" tone="quiet">
+      <Band id="facon" tone="white">
         <Lede title={team.workingTitle} />
         <ul className="checks section-gap">
           {team.working.map((w) => (
             <li key={w}>{w}</li>
           ))}
         </ul>
-      </Panel>
+      </Band>
 
-      <Panel id="conclusion" tone="brand">
+      <Band id="conclusion" tone="blue">
         <Lede title={team.cta} align="center" />
         <div className="btn-row cta-actions">
-          <Link href={bookHref} className="btn btn--primary cta-primary">
+          <Link href={bookHref} className="btn btn--primary">
             {site.cta}
             <ArrowRight aria-hidden />
           </Link>
         </div>
-      </Panel>
+      </Band>
     </Shell>
   );
 }
