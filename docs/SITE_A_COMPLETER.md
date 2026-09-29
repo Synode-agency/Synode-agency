@@ -1,6 +1,6 @@
 # Ce qui manque avant la mise en ligne
 
-Version du 28 septembre 2026.
+Version du 29 septembre 2026. Architecture simplifiée et douze pages de familles intégrées ; recette visuelle complète encore à terminer.
 
 Ce fichier liste tout ce que le site attend et que le code ne peut pas
 inventer. Il est séparé en deux : ce qui **bloque** la publication, et ce
@@ -9,6 +9,25 @@ qui peut attendre.
 Tout ce qui est marqué bloquant apparaît **en clair sur le site**, dans un
 encadré visible. C'est délibéré : un emplacement réservé qu'on ne voit pas
 est un emplacement qu'on oublie de remplir.
+
+---
+
+## Offre et architecture : état de la recette
+
+- [x] Six familles exactes en FR/EN sur l’accueil et Solutions, avec exemples et visuels correspondants.
+- [x] Six pages détaillées par langue : définitions, scénarios, prérequis, compléments et FAQ spécifiques.
+- [x] Liens des cartes, liens de langue, métadonnées et sitemap contrôlés sur les HTML de production.
+- [x] Navigation : Accueil / Solutions / Réalisations / Équipe / Contact et CTA vers le calendrier.
+- [x] Accueil : hero / cas d’usage / solutions / méthode en six étapes / réalisation réelle / CTA.
+- [x] Anciennes routes Cas d’usage et Méthode redirigées en 308 vers les sections d’accueil, retirées du sitemap.
+- [x] Six cards de même poids visuel ; formation n’est plus une grande card.
+- [x] ESLint, TypeScript et compilation Webpack réussis ; 44 pages et routes pré-rendues.
+- [x] Menu Solutions ouvert au clic et contrôlé visuellement sur ordinateur.
+- [ ] Recette clavier complète (Échap, focus, clic extérieur, navigation), mobile et bilingue dans le navigateur. Les comportements sont implémentés mais les essais ont été interrompus par l’utilisation simultanée de Chrome.
+- [ ] Contrôle du hero à 1280 × 800, 1440 × 900 et 1366 × 768 CSS, puis mobile et zoom. Ces dimensions sont des cibles de recette, pas des tailles déjà validées.
+- [ ] Vérification visuelle de la réduction des animations. La règle CSS statique est intégrée.
+
+Les contraintes commerciales et techniques de publication ci-dessous restent applicables. Aucune capture ou référence client supplémentaire n’a été inventée : l’accueil présente uniquement Synode Prospect avec son statut actuel.
 
 ---
 
@@ -72,12 +91,9 @@ provisoire.
 
 ### La page Équipe
 
-Elle présente les rôles sans les personnes. Manquent :
+Les portraits fournis (`public/equipe/AntoEquipe.webp` et `KillianEquipe.webp`) sont intégrés. Les titres et descriptions des cards reprennent [la page publiée](https://synode-agency.vercel.app/equipe) : Antonino conçoit les workflows et agents ; Killian développe les applications, outils internes et intégrations. Les deux sont présentés comme cofondateurs, développeurs et experts IA, conformément à cette source.
 
-- les noms complets des deux associés ;
-- des photos réelles (pas de portrait générique : l'initiale composée qui
-  s'affiche aujourd'hui est un emplacement assumé) ;
-- les liens LinkedIn, s'ils existent.
+Restent à fournir si souhaités : noms complets et liens LinkedIn. Aucun lien ni nom supplémentaire n’a été inventé.
 
 ### Les réalisations
 
@@ -97,8 +113,7 @@ cliquable toute seule, sans toucher au composant.
 
 ### La réservation Cal.com
 
-Sans `NEXT_PUBLIC_CAL_LINK`, la page Contact dit que la réservation n'est
-pas encore disponible et renvoie au formulaire. À faire **dans Cal.com**,
+Sans `NEXT_PUBLIC_CAL_LINK`, la page Contact affiche un aperçu interactif explicitement fictif : mois, date et heure peuvent être explorés, sans réserver ni envoyer de données. Un lien renvoie au formulaire pour un vrai contact. Une fois le lien configuré, le calendrier réel remplace cet aperçu et se charge au clic. À faire **dans Cal.com**,
 pas dans le code :
 
 - créer l'événement « Premier échange Synode : 30 minutes » ;

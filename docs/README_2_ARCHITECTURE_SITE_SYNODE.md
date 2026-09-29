@@ -1,13 +1,13 @@
 # Synode : Architecture complète du site
 
-Version du 28 septembre 2026 · Plan de production proposé, fondé sur la [fiche de référence](README_1_REFERENCE_SYNODE.md).
+Version du 29 septembre 2026 · Architecture ajustée à la dernière demande d’Antonino : Accueil / Solutions / Réalisations / Équipe / Contact, avec six pages de familles. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md).
 
 ## 1. Objectif et règles éditoriales
 
 **Objectif principal : obtenir un échange qualifié avec un prospect.** Le visiteur doit comprendre ce que Synode fait, reconnaître un problème, voir une preuve et pouvoir prendre contact.
 
-- Une offre : **Solutions IA sur mesure**. Les domaines d’intervention sont des exemples.
-- Sur l’accueil : problèmes et cas d’usage avant la méthode.
+- Positionnement : **Solutions IA sur mesure**, présenté en six familles complémentaires. Les quatre domaines restent des exemples de cas d’usage, pas des offres.
+- Sur l’accueil : hero → cas d’usage → solutions → méthode → réalisations → CTA. L’équipe a sa page courte ; les FAQ restent sur Solutions et les pages de familles.
 - Une promesse concrète, sans chiffres de performance inventés ni logos clients non autorisés.
 - Des démos présentées comme des démos ; Synode Prospect présenté selon son état réel.
 - Pas de grille tarifaire publique ; expliquer création, exploitation et maintenance.
@@ -19,9 +19,8 @@ Version du 28 septembre 2026 · Plan de production proposé, fondé sur la [fich
 | Page | Adresse proposée | Rôle |
 | --- | --- | --- |
 | Accueil | `/` | Faire comprendre l’activité et donner envie d’échanger |
-| Solutions | `/solutions` | Expliquer l’offre unique et ce qu’elle peut contenir |
-| Cas d’usage | `/cas-usage` | Aider le visiteur à se reconnaître |
-| Méthode | `/methode` | Montrer comment un projet se déroule |
+| Solutions | `/solutions` | Présenter les six familles de solutions et leur combinaison sur mesure |
+| Famille de solutions | `/solutions/[slug]` | Définition, usages, scénario, prérequis et FAQ propres à chaque famille |
 | Réalisations et démos | `/realisations` | Donner des preuves concrètes |
 | Fiche réalisation | `/realisations/[slug]` | Détailler une démonstration ou un projet réel |
 | Équipe | `/equipe` | Présenter les deux associés et leurs rôles |
@@ -30,32 +29,32 @@ Version du 28 septembre 2026 · Plan de production proposé, fondé sur la [fich
 | Mentions légales | `/mentions-legales` | Présenter les informations légales validées |
 | Confidentialité | `/confidentialite` | Expliquer le traitement des données et les prestataires |
 
-**Navbar ordinateur** : logo Synode → accueil ; Solutions ; Cas d’usage ; Méthode ; Réalisations ; Équipe ; bouton « Réserver un échange gratuit ». Le bouton mène à `/contact#reservation`. Le lien Contact figure aussi dans le pied de page et le menu mobile.
+**Navbar ordinateur** : Accueil ; Solutions (menu déroulant) ; Réalisations ; Équipe ; Contact ; bouton « Réserver un échange ». Le bouton mène à `/contact#reservation`, tandis que Contact ouvre la page avec ses deux portes d’entrée, calendrier et formulaire.
 
-**Mobile** : logo + menu ; mêmes destinations avec libellés lisibles ; CTA visible dans le menu. Aucun sous-menu nécessaire au lancement.
+**Solutions** : bouton ouvrant le panneau au clic ou au clavier, lien « Toutes nos solutions » et six liens détaillés. État annoncé avec `aria-expanded`, fermeture avec Échap, au clic extérieur, à la sortie du focus et après navigation. Mobile : sous-menu dépliable, mêmes destinations.
+
+Les anciennes routes `/cas-usage` et `/methode` redirigent définitivement vers `/#cas-usage` et `/#approche`, avec équivalents EN. Elles ne sont plus dans la navigation ni le sitemap. Les composants et contenus historiques restent disponibles dans le dépôt.
 
 **Pied de page** : phrase courte de présentation, liens vers toutes les pages principales, email professionnel réel, réseaux effectivement alimentés, mentions légales, confidentialité, gestion des cookies si nécessaire. Les informations Smart doivent correspondre au montage validé ; aucun numéro d’entreprise à inventer.
 
 ## 3. Accueil : sections dans l’ordre
 
-| Ordre / section | Contenu à produire | Action proposée |
+| Ordre / section | Contenu | Action |
 | --- | --- | --- |
-| 1. Hero | H1 : « Des solutions IA sur mesure, conçues autour de votre activité. » Texte : « Nous concevons des assistants, automatisations et outils métier pour simplifier vos opérations et mieux exploiter vos données. » Visuel d’une vraie interface ou d’une démo | Principal : réserver ; secondaire : voir les cas d’usage |
-| 2. Problèmes rencontrés | Quatre cartes : tâches répétitives, outils dispersés, demandes difficiles à traiter, information difficile à retrouver. Une phrase concrète chacune | Lien vers le cas pertinent |
-| 3. Cas d’usage | Quatre à six exemples issus de la page dédiée, décrits par problème → solution possible → bénéfice à vérifier | « Explorer les cas d’usage » |
-| 4. Offre | Une offre sur mesure ; combinaison possible d’IA, automatisations, intégrations et outils métier ; portée définie après échange | « Découvrir notre approche » → solutions |
-| 5. Preuves | Synode Prospect avec statut exact, puis une ou deux démos. Capture réelle, problème traité, lien vers la fiche | « Voir la démonstration » |
-| 6. Méthode | Comprendre → proposer → construire → déployer → suivre. Une phrase par étape | « Comment se déroule un projet ? » |
-| 7. Équipe | Photos réelles, prénoms, rôles et courte explication de votre complémentarité | « Rencontrer l’équipe » |
-| 8. FAQ | Petit projet accepté ? Quels outils ? Quel budget ? Quelle maintenance ? Mon besoin est différent ? | Réponses de 2 à 4 phrases |
-| 9. CTA final | « Quel processus aimeriez-vous simplifier ? » + explication de l’échange gratuit | Réserver ou décrire son projet |
+| 1. Hero | Promesse actuelle, systèmes IA animés préservés, bandeau animé discrètement | Réserver / découvrir les solutions |
+| 2. Cas d’usage | Quatre situations concrètes avec visuels et parcours simplifiés | Page de famille pertinente |
+| 3. Solutions | Six familles de même poids visuel : mêmes dimensions, typographie et fond | Six pages détaillées + vue d’ensemble |
+| 4. Méthode | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
+| 5. Réalisations | Entrées réelles de `work.ts`, actuellement Synode Prospect en construction | Fiche du projet + « Voir toutes nos réalisations » |
+| 6. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
 
-Les sections d’accueil sont des résumés. Les pages dédiées développent les détails sans recopier les mêmes paragraphes.
+Le hero utilise une hauteur minimale de fenêtre pour les largeurs de portable (960 à 1700 px CSS et hauteur maximale de 1000 px), en incluant le dégagement de la navbar fixe. Il reste libre de grandir si son contenu le nécessite. Au-delà de cette plage, la hauteur naturelle s’applique. Le bandeau garde tous ses libellés lisibles et devient statique avec réduction des animations. Voir la recette pour les tailles réellement vérifiées, sans confondre pixels CSS et dimensions physiques du MacBook.
+
 
 ## 4. Solutions : `/solutions`
 
-1. **Introduction** : « Une solution construite à partir de votre besoin. » Expliquer l’offre unique, de l’amélioration ciblée à l’outil métier complet.
-2. **Ce que la solution peut réunir** : assistants et agents IA, automatisations, connexions aux outils existants, interface métier, données et tableaux de bord. Illustrer chaque brique par un exemple simple.
+1. **Introduction** : « Des solutions IA sur mesure, conçues autour de votre activité. » Expliquer les six familles, de l’amélioration ciblée au système complet et à l’adoption.
+2. **Nos solutions IA sur mesure** : remplacer la présentation vague des briques par six cartes, dans l’ordre 01 à 06 ci-dessous. Chaque carte comporte un titre explicite, un bénéfice compréhensible, un exemple concret et un visuel cohérent avec ceux déjà présents.
 3. **Quatre territoires d’intervention** : ventes et prospection ; opérations et administratif ; service client ; outils métier et connaissance interne. Renvoyer vers les cas d’usage.
 4. **Ce que vous recevez** : périmètre validé, solution testée selon les critères convenus, documentation, prise en main et modalités de suivi. Préciser que le devis fixe les livrables exacts.
 5. **Comment le projet est dimensionné** : objectif, complexité, données, nombre d’intégrations, utilisateurs, volumes et contraintes. Un petit besoin peut démarrer par un périmètre réduit.
@@ -65,9 +64,48 @@ Les sections d’accueil sont des résumés. Les pages dédiées développent le
 
 Encart obligatoire : **« Votre besoin ne figure pas ici ? Chaque projet est conçu à partir de votre contexte. »**
 
-## 5. Cas d’usage : `/cas-usage`
+### Contenu des six cartes
 
-### Organisation
+| Famille | Ce que nous pouvons concevoir | Exemple de besoin |
+| --- | --- | --- |
+| 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
+| 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
+| 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
+| 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
+| 05 Data & Intelligence | Centralisation, tableaux de bord, recherche sémantique, analyse, prévision, scoring et recommandation | Comprendre l’activité et éclairer les décisions à partir des données disponibles |
+| 06 Formation & Adoption IA | Formation aux usages de l’IA, ateliers métier et prise en main des solutions Synode | Aider les équipes à utiliser l’IA de façon utile et adaptée à leur travail |
+
+Les familles se combinent selon le besoin. Formation & Adoption IA comprend la formation générale et celle aux solutions livrées. Les logiciels couvrent les outils internes et les produits IA destinés aux clients de l’entreprise. Data & Intelligence dépasse les tableaux de bord, sous réserve de données et d’une faisabilité adaptées.
+
+### Mise en page à préserver
+
+- Conserver la direction claire inspirée de Supabase documentée dans `DESIGN_STUDIO_CLAIR.md`, les couleurs Synode et la police actuellement appliquée (Helvetica Neue, Helvetica, Arial). Ne pas rétablir une ancienne charte.
+- Dernier choix : six cartes de même poids visuel, en trois colonnes sur ordinateur, puis deux et une selon la largeur. Même fond, même typographie et même espace pour les illustrations ; aucune famille n’est présentée comme plus importante.
+- Adapter la grille existante de cinq briques à six familles. Préserver les accents bleus et bleu nuit existants, les composants, illustrations réutilisables et animations du hero. Aucun changement global de palette, police ou structure.
+- Sur mobile, assurer une lecture fluide dans l’ordre 01 à 06, sans débordement ni texte tronqué. Les numéros identifient les familles et ne représentent pas des étapes obligatoires.
+- Conserver les sections livrables, dimensionnement, modèle économique, FAQ et CTA lorsqu’elles restent cohérentes. Ajouter les six pages détaillées en FR/EN ; les anciennes routes Cas d’usage et Méthode redirigent vers l’accueil.
+
+
+### Pages détaillées intégrées
+
+| Famille | Route FR |
+| --- | --- |
+| Assistants & Agents IA | `/solutions/assistants-agents-ia` |
+| Automatisations intelligentes | `/solutions/automatisations-intelligentes` |
+| Logiciels & Applications IA sur mesure | `/solutions/logiciels-applications-ia` |
+| Intégrations & systèmes connectés | `/solutions/integrations-systemes-connectes` |
+| Data & Intelligence | `/solutions/data-intelligence` |
+| Formation & Adoption IA | `/solutions/formation-adoption-ia` |
+
+Les équivalents EN conservent le slug avec le préfixe `/en`. Les cartes de l’accueil, de Solutions et le menu mènent aux pages détaillées. Les anciennes ancres de familles sur Solutions et `#briques` restent présentes.
+
+Chaque page présente une définition propre, son public, plusieurs possibilités, un scénario illustratif en trois étapes avec outils et contrôle humain, deux autres exemples, les prérequis, les familles complémentaires, une FAQ et un CTA. Aucun exemple n’est présenté comme un projet client livré. Métadonnées, canonique, liens de langue et sitemap couvrent les douze routes.
+
+## 5. Cas d’usage : section de l’accueil et contenus de référence
+
+### Référence éditoriale conservée
+
+Les quatre aperçus sont sur l’accueil et les scénarios développés sur les pages de familles. Le tableau historique ci-dessous reste une réserve de contenu, sans page autonome.
 
 Introduction : « Quelques situations dans lesquelles une solution IA peut vous aider. » Afficher les quatre territoires en ancres ; pas besoin d’un système de filtres complexe pour huit exemples.
 
@@ -94,7 +132,7 @@ Introduction : « Quelques situations dans lesquelles une solution IA peut vous 
 
 Ne pas créer huit pages presque vides au lancement. Ajouter une page dédiée uniquement lorsqu’un cas a une vraie démonstration ou suffisamment de contenu propre.
 
-## 6. Méthode : `/methode`
+## 6. Méthode : section `/#approche`
 
 | Étape | Travail Synode | Participation du client | Sortie attendue |
 | --- | --- | --- | --- |
@@ -105,7 +143,7 @@ Ne pas créer huit pages presque vides au lancement. Ajouter une page dédiée u
 | 5. Recette et déploiement | Vérifier, corriger, documenter et mettre en service | Valider les critères convenus | Solution en service et transmission |
 | 6. Suivi | Surveiller et intervenir dans le périmètre retenu | Signaler incidents et nouveaux besoins | Maintenance suivie et évolutions chiffrées |
 
-Après le tableau : expliquer les changements de périmètre, les dépendances à des accès client, la confidentialité des données et la distinction entre maintenance et nouvelle fonctionnalité. Aucun délai universel de livraison à annoncer.
+Sur l’accueil : les six étapes affichent le travail, la participation et la sortie attendue. Une note précise le premier échange gratuit et le cadre du devis et du suivi. Les conditions détaillées restent dans Solutions. Aucun délai universel de livraison à annoncer.
 
 CTA final : **« Commençons par votre situation actuelle »** → réservation.
 

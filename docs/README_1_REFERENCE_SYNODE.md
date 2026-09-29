@@ -1,12 +1,12 @@
 # Synode : Fiche de référence des associés
 
-Version du 28 septembre 2026 · Document interne de référence.
+Version du 29 septembre 2026 · Document interne de référence.
 
 Cette fiche reprend les décisions présentes dans le contexte accessible de la conversation « Structure site agence IA ». Les modalités opérationnelles proposées restent à valider entre associés ; aucun tarif, résultat client ou statut juridique non confirmé n’est présumé.
 
 ## 1. Qui nous sommes
 
-**Synode conçoit, développe et accompagne des solutions IA sur mesure pour améliorer les opérations des indépendants, TPE et PME.**
+**Synode conçoit, développe et accompagne des solutions IA sur mesure pour les indépendants, TPE et PME, afin d’améliorer leurs opérations ou de créer des produits et services augmentés par l’IA.**
 
 Nous partons d’un problème concret, comprenons le fonctionnement du client, puis construisons une solution adaptée à ses outils, ses données et ses contraintes.
 
@@ -14,17 +14,22 @@ Notre positionnement : **technique, accessible, pragmatique et orienté résulta
 
 ## 2. Notre offre commerciale
 
-**Une seule offre : Solutions IA sur mesure.** Un petit projet ciblé et un outil métier plus complet relèvent de cette même offre ; leur périmètre, leur budget et leur accompagnement diffèrent.
+**Des solutions IA sur mesure, présentées en six grandes familles.** Un projet ciblé, un système plus complet et un accompagnement à l’adoption sont dimensionnés selon le problème, les outils, les données, les contraintes et les équipes du client.
 
-Selon le besoin, une solution peut combiner :
+| Famille | Ce que nous pouvons concevoir | Exemple de besoin |
+| --- | --- | --- |
+| 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
+| 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
+| 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
+| 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
+| 05 Data & Intelligence | Centralisation, tableaux de bord, recherche sémantique, analyse, prévision, scoring et recommandation | Comprendre l’activité et éclairer les décisions à partir des données disponibles |
+| 06 Formation & Adoption IA | Formation aux usages de l’IA, ateliers métier et prise en main des solutions Synode | Aider les équipes à utiliser l’IA de façon utile et adaptée à leur travail |
 
-- Agents ou assistants IA : analyse, recherche, préparation de réponses, aide à la décision.
-- Automatisations : traitement des demandes, documents, tâches et circuits de validation.
-- Intégrations : connexion aux logiciels et aux données existants.
-- Logiciels métier : interfaces, espaces internes, bases de données et tableaux de bord.
-- Déploiement, documentation, prise en main et suivi selon le contrat.
+Ces familles structurent notre présentation commerciale. Ce ne sont ni six forfaits ni six produits standardisés : une même solution peut en combiner plusieurs. Les exemples décrivent des possibilités, à confirmer après analyse de faisabilité ; ils ne promettent pas des fonctionnalités déjà disponibles ou des résultats garantis. La prévision et le scoring dépendent notamment de la qualité et du volume des données.
 
-**L’IA fait partie de chaque projet vendu sous cette offre**, avec une utilité identifiée. Les automatisations et interfaces servent le besoin global. Si l’IA n’apporte rien au problème présenté, nous le signalons et réorientons la demande.
+Nous utilisons les technologies IA existantes pour construire des solutions utiles ; nous ne prétendons pas créer nos propres modèles fondamentaux. Les intégrations, les données et les interfaces peuvent constituer une étape du projet. La formation peut être proposée séparément ou accompagner une solution Synode. Nous n’ajoutons pas d’IA lorsqu’elle n’apporte rien au besoin.
+
+**Exploitation, monitoring et maintenance** accompagnent la vie des solutions selon le contrat ; ce n’est pas une septième famille. Les évolutions importantes font l’objet d’un nouveau devis.
 
 Le socle d’un projet comprend un périmètre écrit, des livrables définis, des critères de validation, les tests convenus et la mise en service prévue. Chaque devis précise ce qui est inclus : aucune liste ci-dessus ne signifie que toutes les briques sont systématiquement fournies.
 
@@ -39,7 +44,7 @@ Cible : indépendants, TPE et PME, sans spécialisation sectorielle imposée. Pr
 | Service client | Qualifier les demandes, préparer les réponses, orienter les cas complexes |
 | Outils métier et connaissance interne | Retrouver l’information, relier les outils, centraliser les opérations |
 
-Ces quatre territoires servent à comprendre notre activité. **Ce ne sont ni quatre offres distinctes ni les limites de notre savoir-faire.** Chaque demande fait l’objet d’une vérification de faisabilité.
+Ces quatre territoires organisent les cas d’usage et servent à comprendre notre activité. Ils se distinguent des six familles de solutions. **Ce ne sont ni quatre offres distinctes ni les limites de notre savoir-faire.** Chaque demande fait l’objet d’une vérification de faisabilité.
 
 ## 4. Comment nous travaillons
 
@@ -74,7 +79,7 @@ Avant le premier engagement, faire confirmer avec Smart le circuit devis/command
 
 > Chez Synode, nous aidons les indépendants et les petites et moyennes entreprises à améliorer leurs opérations grâce à l’IA. Nous partons de leurs tâches, de leurs outils et de leurs difficultés pour concevoir la solution adaptée : assistant IA, automatisation ou outil métier. Nous accompagnons ensuite sa mise en place et son suivi.
 
-Le site montre d’abord les problèmes et cas d’usage, puis notre méthode. La crédibilité repose sur **Synode Prospect, actuellement en construction**, des démonstrations clairement identifiées et, progressivement, des projets clients documentés. Deux à trois projets pilotes gratuits peuvent être sélectionnés avec un périmètre, une durée et des coûts externes cadrés ; ils ne constituent pas l’offre standard.
+Le site présente les cas d’usage avant les solutions, puis la méthode, les réalisations/démos, l’équipe et le CTA final. La crédibilité repose sur **Synode Prospect, actuellement en construction**, des démonstrations clairement identifiées et, progressivement, des projets clients documentés. Deux à trois projets pilotes gratuits peuvent être sélectionnés avec un périmètre, une durée et des coûts externes cadrés ; ils ne constituent pas l’offre standard.
 
 ## 7. Points à verrouiller entre nous
 

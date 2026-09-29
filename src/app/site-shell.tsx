@@ -31,6 +31,7 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
   return (
     <html
       lang={lang}
+      data-scroll-behavior="smooth"
       className="h-full"
       style={fontAliases}
     >

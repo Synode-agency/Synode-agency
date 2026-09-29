@@ -1,24 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 
-/**
- * L'équipe.
- *
- * Deux associés, leurs prénoms et leurs rôles. Rien d'autre, et c'est
- * volontaire : l'architecture demande d'éviter les années d'expérience, les
- * certifications et la taille d'équipe, parce que ce sont précisément les
- * champs qu'on gonfle sans que personne puisse vérifier.
- *
- * ⚠ Ce qui manque et qui doit être fourni avant la mise en ligne : les noms
- * complets, les photos réelles et les liens LinkedIn. L'emplacement est
- * dessiné et affiché en clair plutôt que masqué, pour que l'oubli se voie.
- */
+/** Cofounder copy from the published team page; portraits supplied in public/equipe. */
 export function TeamPage({ locale }: { locale: Locale }) {
   const { team, site } = getContent(locale);
-  const fr = locale === "fr";
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
 
   return (
@@ -29,30 +18,13 @@ export function TeamPage({ locale }: { locale: Locale }) {
 
       <Band id="associes" tone="white">
         <Lede title={team.peopleTitle} />
-        <div className="tile-grid tile-grid--2 section-gap">
-          {team.people.map((p) => (
-            <article key={p.first} className="tile person">
-              {/* Le portrait manque. Plutôt qu'une silhouette générique, une
-                  initiale composée dans la typographie du site : c'est
-                  visiblement un emplacement, pas une fausse photo. */}
-              <span aria-hidden className="person-mark">
-                {p.first.charAt(0)}
-              </span>
-              <span className="tile-title">{p.first}</span>
-              <span className="person-role">{p.role}</span>
-              <span className="tile-text">{p.text}</span>
-            </article>
-          ))}
+        <div className="founder-grid section-gap">
+          {team.people.map((p) => <article key={p.first} className="founder-card">
+            <div className="founder-photo"><span className="founder-photo-label">Synode / {locale === "fr" ? "L’équipe" : "The team"}</span><Image src={p.photo} alt={p.first} width={1100} height={1100} sizes="(max-width: 760px) 90vw, 45vw" /><span className="founder-photo-name" aria-hidden>{p.first}</span></div>
+            <div className="founder-copy"><span className="eyebrow">{p.headline}</span><h3>{p.first}</h3><p className="founder-role">{p.role}</p><p>{p.text}</p></div>
+          </article>)}
         </div>
 
-        <div className="todo section-gap-sm">
-          <span className="todo-label">{fr ? "À compléter" : "To complete"}</span>
-          <p>
-            {fr
-              ? "Noms complets, photos réelles et liens LinkedIn des deux associés. Tant qu’ils ne sont pas fournis, cette page présente les rôles sans les personnes."
-              : "Full names, real photographs and LinkedIn links for both partners. Until they are supplied, this page describes the roles without the people."}
-          </p>
-        </div>
       </Band>
 
       <Band id="complementarite" tone="base">

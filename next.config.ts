@@ -21,10 +21,9 @@ const nextConfig: NextConfig = {
   async redirects() {
     const pairs = [
       ["/services", "/solutions"],
-      ["/services/:slug", "/cas-usage"],
+      ["/services/:slug", "/solutions"],
       ["/expertise", "/solutions"],
-      ["/expertise/:slug", "/cas-usage"],
-      ["/solutions/:slug", "/solutions"],
+      ["/expertise/:slug", "/solutions"],
       ["/a-propos", "/equipe"],
       ["/faq", "/solutions"],
       ["/legal/mentions-legales", "/mentions-legales"],

@@ -1,6 +1,6 @@
 # Synode : Roadmap opérationnelle de création et de lancement
 
-Version du 28 septembre 2026 · Liste de travail des deux associés.
+Version du 29 septembre 2026 · Liste de travail des deux associés.
 
 Références : [positionnement et offre](README_1_REFERENCE_SYNODE.md) · [architecture du site](README_2_ARCHITECTURE_SITE_SYNODE.md).
 
@@ -30,7 +30,7 @@ Ne pas attendre la fin du site pour traiter Smart ou préparer le devis. Ne pas 
 
 ### Offre, capacité et décisions internes : P0, A+B
 
-- [ ] Relire la fiche de référence et adopter l’orthographe **Synode** partout.
+- [ ] Aligner les supports commerciaux sur les six familles de la fiche de référence ; conserver le positionnement sur mesure, les prix non publics et le devis personnalisé.
 - [ ] Confirmer les rôles, qui répond aux prospects et qui valide les engagements techniques.
 - [ ] Définir la capacité hebdomadaire et le nombre maximal de projets simultanés.
 - [ ] Fixer une méthode de chiffrage : temps de cadrage + réalisation + gestion + tests + déploiement + provision de risque + frais et marge.
@@ -62,7 +62,7 @@ Smart propose une gestion administrative, comptable et financière permettant de
 
 - [ ] Vérifier la disponibilité pratique du nom de domaine et des identifiants sociaux ; traiter séparément la vérification des droits sur le nom si nécessaire.
 - [ ] Choisir le domaine, son titulaire et le compte de renouvellement.
-- [ ] Créer logo simple, version claire/sombre, favicon, palette courte et typographies lisibles.
+- [ ] Vérifier les ressources de marque existantes et compléter uniquement les éléments manquants ; conserver le logo, les couleurs et la typographie actuels du site.
 - [ ] Définir le ton : concret, simple, professionnel ; vocabulaire stable pour offre, diagnostic et maintenance.
 - [ ] Préparer deux photos réelles, biographies courtes et signatures email.
 - [ ] Créer un dossier commun de ressources : logo, captures, photos, textes et modèles.
@@ -78,13 +78,17 @@ Smart propose une gestion administrative, comptable et financière permettant de
 
 **Critère de sortie** : tous les textes nécessaires à la première version sont validés ; le site peut être construit avec du contenu réel.
 
-## 4. Phase 2 : Construire le site
+## 4. Phase 2 : Adapter le site existant
 
 ### Site en préproduction : P0, B
 
-- [ ] Mettre en place le projet, la gestion des versions et des environnements séparés.
-- [ ] Construire navigation, pied de page, cartes de cas d’usage, CTA et gabarit de réalisation.
-- [ ] Construire toutes les pages retenues avec leurs textes définitifs.
+- [ ] Examiner le projet et préserver les modifications en cours, les routes et les composants existants.
+- [ ] Remplacer les cinq briques de Solutions par les six familles de référence dans la même grille asymétrique ; adapter les visuels et le repli mobile au sixième élément.
+- [ ] Aligner l’aperçu de l’offre sur l’accueil et les textes FR/EN concernés, sans refonte globale.
+- [ ] Vérifier l’ordre : cas d’usage → solutions → méthode → réalisations/démos → équipe → CTA ; réutiliser les contenus réels disponibles.
+- [ ] Préserver le style clair inspiré de Supabase, les couleurs, la police, les bordures fines et les espaces actuels.
+- [ ] Contrôler les six intitulés, le devis personnalisé et la distinction création / exploitation-maintenance / évolutions sur devis.
+- [ ] Conserver navigation, pied de page, CTA et gabarits cohérents ; compléter seulement les manques confirmés.
 - [ ] Adapter aux mobiles ; vérifier clavier, contraste, champs et erreurs du formulaire.
 - [ ] Préparer formulaire côté serveur, emplacement Cal.com et page de confirmation.
 - [ ] Ajouter titres, descriptions, images de partage, sitemap et page 404.

@@ -1,181 +1,170 @@
-# Prompt pour Claude : Construire le site Synode
+# Prompt pour Claude : Mettre à jour l’offre du site Synode existant
 
-Copier le contenu à partir de « Ta mission » dans Claude, depuis le projet ouvert dans VS Code. Les deux fichiers de référence doivent être présents dans `docs/` ou joints à la conversation.
+Copier le contenu à partir de « Ta mission » dans Claude, depuis le projet ouvert dans VS Code. Le nom de ce fichier est conservé pour les liens existants.
 
 ## Ta mission
 
-Tu interviens comme développeur web, designer d’interface et rédacteur pour créer le site vitrine complet de **Synode**, en français, dans mon projet existant basé sur **Jarvis Starter Kit**.
+Adapte le site Synode existant à notre nouvelle présentation de l’offre. **Ne reconstruis pas le site. Adapte l’offre, crée les six pages de familles demandées, ajoute le menu déroulant Solutions et ajuste le hero de l’accueil selon les consignes ci-dessous.** Préserve autant que possible l’architecture, les routes, les composants, les fonctionnalités et le style actuels. Tout ce qui reste cohérent doit être conservé.
 
-Je veux une implémentation réelle, soignée, responsive et maintenable, avec les pages, contenus et interactions décrits dans les références. Ne te limite pas à une proposition, une maquette ou une page d’accueil. Travaille jusqu’à obtenir une version locale navigable et vérifiée, puis indique précisément ce qui reste à configurer avant publication.
+Le projet est `livrables/Site-Web/Synode-agency` depuis la racine Jarvis. Les chemins ci-dessous sont relatifs à ce projet. Travaille dans ce dépôt, sans créer une autre application.
 
-## 1. Références à lire avant de commencer
+## 1. Lire et examiner avant toute modification
 
-Lis intégralement :
+Lis les consignes du dépôt et les documents existants, notamment :
 
-1. `docs/README_1_REFERENCE_SYNODE.md` : source de référence pour l’identité, le positionnement, l’offre, les cibles et la méthode.
-2. `docs/README_2_ARCHITECTURE_SITE_SYNODE.md` : source de référence pour les pages, l’ordre des sections, les parcours et les fonctions.
+1. `docs/README_1_REFERENCE_SYNODE.md` : référence commerciale des six familles.
+2. `docs/README_2_ARCHITECTURE_SITE_SYNODE.md` : présentation et parcours attendus.
+3. `docs/DESIGN_STUDIO_CLAIR.md` et `DESIGN-SYSTEM.md` : direction visuelle active et historique.
+4. `docs/SITE_A_COMPLETER.md` et `docs/SITE_INSTALLATION.md` : état des prérequis et configuration existante.
 
-Si les documents sont joints au lieu d’être dans le dépôt, utilise ces pièces jointes. Si tu ne peux pas les lire, signale précisément le fichier manquant avant de prétendre avoir exploité son contenu.
+Pour l’offre, la référence du 29 septembre 2026 remplace les anciennes descriptions par une offre unique et quelques briques. Pour le design, conserve la direction claire actuellement appliquée ; ne restaure pas les règles historiques sur une autre police, un hero en carte ou un desktop figé.
 
-**N’utilise pas la roadmap de lancement et ne cherche pas à la reconstituer.** La mission concerne uniquement le site. Ne construis ni CRM interne, ni outil de prospection complet, ni système de facturation.
+Examine l’état des modifications locales, les contenus FR/EN, les composants et les styles réellement chargés. Préserve le travail en cours. Indique brièvement les fichiers concernés puis réalise les ajustements ciblés. Ne lance aucune tâche commerciale, CRM, facturation ou prospection de la roadmap ; elle reste un outil de suivi interne.
 
-La fiche définit le fond commercial ; l’architecture définit sa présentation. Ce prompt précise la réalisation et les comportements de repli lorsque des informations manquent. Signale toute contradiction réelle et avance sur les éléments indépendants.
+### Nouvelle demande prioritaire
 
-## Emplacement du projet
+Les précisions de ce prompt remplacent les anciennes consignes qui interdisaient six pages de solutions ou toute modification de la navigation. Le périmètre comprend désormais une page générale Solutions, six pages détaillées et un menu déroulant dédié. Conserver le reste de l’architecture. Il y a **six familles partout**, y compris sur l’accueil et la page générale ; la mention de « cinq familles » dans la demande initiale était une coquille.
 
-Le projet existant est `livrables/Site-Web/Synode-agency` depuis la racine Jarvis. Tous les chemins `docs/` et `prompts/` de cette consigne sont relatifs à ce projet. Examine aussi `DESIGN-SYSTEM.md` et les ressources de `design-system/` ; respecte la direction existante avant toute proposition visuelle de remplacement. Complète et adapte le site déjà commencé.
+## 2. Positionnement à conserver
 
-## 2. Examiner le projet existant
+**Des solutions IA sur mesure, conçues autour de votre activité.**
 
-Avant toute modification :
+Synode conçoit et développe des solutions pour indépendants, TPE et PME. Nous partons du problème, des processus, des outils, des données, des contraintes et des équipes du client. Une solution peut combiner plusieurs familles ; ce ne sont pas six forfaits standardisés.
 
-- Lis les consignes du dépôt, son README, ses dépendances et scripts, son arborescence et ses fichiers de configuration utiles.
-- Identifie le framework, le routage, les styles, les composants, la gestion des contenus et les intégrations déjà disponibles.
-- Vérifie l’état des fichiers pour préserver le travail existant.
-- Réutilise les conventions et composants du starter lorsque cela convient.
-- N’invente pas les capacités de Jarvis Starter Kit : son contenu réel fait foi.
-- Ne remplace pas le projet par un nouveau framework et n’effectue pas de mise à niveau majeure sans nécessité expliquée.
-- Ne supprime pas de fonctions existantes sans rapport avec le site ; adapte la navigation publique pour ne pas exposer les écrans inutiles au visiteur.
-- S’il n’existe aucun projet exploitable, demande où se trouve le starter avant de générer une seconde application à côté.
+- Aucun prix public ; échange découverte gratuit, puis devis personnalisé.
+- Premier échange de 30 minutes, sans engagement ; aucun audit technique exhaustif promis gratuitement.
+- Modèle économique : création + coûts récurrents d’exploitation, monitoring et maintenance selon contrat + évolutions importantes sur devis.
+- CTA principal conservé : « Réserver un échange gratuit ».
+- Ton français clair, concret et accessible. Aucune promesse de gains garantis.
+- SmartBE, statut des associés et Synode Prospect : conserver les informations confirmées dans les références, sans inventer de statut juridique, de client ni de preuve.
 
-Présente brièvement ce que tu as trouvé et l’approche retenue, puis commence la réalisation. Ne demande pas une validation à chaque choix courant de mise en page. En cas d’information manquante, avance avec une solution réversible et consigne le point à compléter.
+## 3. Présenter les six familles
 
-## 3. Contexte commercial essentiel
+| Famille | Ce que nous pouvons concevoir | Exemple de besoin |
+| --- | --- | --- |
+| 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
+| 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
+| 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
+| 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
+| 05 Data & Intelligence | Centralisation, tableaux de bord, recherche sémantique, analyse, prévision, scoring et recommandation | Comprendre l’activité et éclairer les décisions à partir des données disponibles |
+| 06 Formation & Adoption IA | Formation aux usages de l’IA, ateliers métier et prise en main des solutions Synode | Aider les équipes à utiliser l’IA de façon utile et adaptée à leur travail |
 
-Synode conçoit et accompagne des **solutions IA sur mesure** pour indépendants, TPE et PME, sans niche sectorielle imposée.
+Formation & Adoption IA couvre les usages généraux et la prise en main des solutions Synode. Logiciels & Applications IA couvre les outils internes et les produits destinés aux clients de l’entreprise. Data & Intelligence inclut analyse, prévision, scoring et recommandation selon la qualité des données et la faisabilité. Les exemples sont des possibilités à cadrer, pas des produits déjà disponibles.
 
-- Une seule offre, qui peut combiner agents/assistants IA, automatisations, intégrations, outils métier, données et tableaux de bord.
-- Quatre domaines pour illustrer cette offre : ventes et prospection ; opérations et administratif ; service client ; outils métier et connaissance interne.
-- Ces domaines ne constituent pas quatre forfaits et ne limitent pas les demandes possibles.
-- Ton technique mais accessible, concret, pragmatique, orienté vers le problème du client.
-- Montrer les problèmes et cas d’usage avant la méthode sur l’accueil.
-- Pas de prix public : création initiale, exploitation/maintenance définie au contrat, évolutions importantes sur devis.
-- Premier échange gratuit recommandé de 30 minutes, sans engagement ; ne pas promettre un audit exhaustif gratuit.
-- CTA principal : **« Réserver un échange gratuit »**.
-- Phrase principale : **« Des solutions IA sur mesure, conçues autour de votre activité. »**
-- Synode Prospect est un outil interne en construction, pas un produit SaaS disponible à l’achat.
-- Facturation prévue via SmartBE. Ne pas inventer de statut de société ou de mentions légales.
+Exploitation, monitoring et maintenance accompagnent les solutions selon contrat ; ne crée pas une septième carte commerciale. Les quatre domaines ventes, opérations, service client et outils/connaissance restent des repères pour les cas d’usage, pas un substitut aux six familles.
 
-La fiche contient aussi des décisions internes. Transforme-les en information utile au visiteur : ne publie pas les marges, tâches des associés, discussions administratives ou stratégie de projets gratuits.
+## 4. Modifications ciblées attendues
 
-## 4. Pages et navigation à réaliser
+### Page Solutions
 
-Implémente le détail des sections du README d’architecture pour chacune de ces routes, en adaptant leur implémentation au routeur existant :
+Remplace « Ce qu’une solution peut contenir », « Ce que la solution peut réunir » et les formulations équivalentes par une présentation claire : **« Nos solutions IA sur mesure »**. Réutilise la grille de cartes actuelle pour afficher les six familles dans l’ordre 01 à 06, avec titre, définition simple, bénéfice court, exemple concret, visuel adapté et lien vers la page détaillée de la famille. Le visiteur doit comprendre ce que signifie chaque catégorie sans connaître le vocabulaire technique.
 
-| Route | Contenu attendu |
+Garde la carte de présentation générale si elle reste utile et ajuste son texte. Conserve les sections livrables, dimensionnement, modèle économique, FAQ et CTA lorsqu’elles sont cohérentes. Ajoute les six pages détaillées ci-dessous. Ne crée pas de forfaits tarifaires.
+
+### Six pages détaillées, une par famille
+
+La page `/solutions` reste la vue d’ensemble. Chaque famille possède également une vraie page, accessible directement par son URL, depuis sa carte sur l’accueil et Solutions, et depuis le menu déroulant. Réutilise un gabarit commun avec du contenu propre à chaque famille, sans créer six pages qui répètent les mêmes généralités.
+
+Routes proposées, à adapter aux conventions existantes sans casser les URL actuelles :
+
+| Famille | Route FR |
 | --- | --- |
-| `/` | Hero, problèmes, cas d’usage, offre, preuves disponibles, méthode, équipe, FAQ, CTA final |
-| `/solutions` | Offre unique, briques possibles, domaines, livrables, dimensionnement, modèle économique, FAQ, contact |
-| `/cas-usage` | Les huit exemples des références, regroupés en quatre domaines, avec bénéfices recherchés et prérequis |
-| `/methode` | Étapes, participation du client, livrables, validation et suivi |
-| `/realisations` | Outil interne, démonstrations disponibles et projets réels uniquement s’ils sont fournis |
-| `/realisations/[slug]` | Gabarit et fiches réellement documentées, nature/statut du projet, parcours, limites et CTA |
-| `/equipe` | Vision et présentation des deux associés avec les informations réellement disponibles |
-| `/contact` | Formulaire et intégration Cal.com indépendamment accessibles |
-| `/merci` | Confirmation d’une demande réellement enregistrée, sans confusion avec une réservation |
-| `/mentions-legales` | Informations vérifiées et structure à compléter si nécessaire |
-| `/confidentialite` | Traitements correspondant aux services effectivement implémentés |
+| Assistants & Agents IA | `/solutions/assistants-agents-ia` |
+| Automatisations intelligentes | `/solutions/automatisations-intelligentes` |
+| Logiciels & Applications IA sur mesure | `/solutions/logiciels-applications-ia` |
+| Intégrations & systèmes connectés | `/solutions/integrations-systemes-connectes` |
+| Data & Intelligence | `/solutions/data-intelligence` |
+| Formation & Adoption IA | `/solutions/formation-adoption-ia` |
 
-Ajoute une page 404 utile. Respecte la navbar, le menu mobile et le pied de page du README. Le CTA principal mène à `/contact#reservation` ; les demandes écrites à `/contact#formulaire`.
+Prévoir leurs équivalents EN selon le routage bilingue existant, les titres et descriptions propres à chaque page, ainsi que les liens de changement de langue et le sitemap correspondants.
 
-Les CTA « J’ai un besoin similaire » préremplissent le contexte du formulaire sans empêcher sa modification. Conserve des liens et ancres utilisables ; pas de boutons sans effet ou de liens `#` factices.
+Chaque page doit expliquer :
 
-## 5. Direction visuelle
+1. **Ce que c’est**, avec une définition simple, immédiatement compréhensible par un indépendant ou dirigeant de PME.
+2. **À quoi cela sert**, les problèmes concernés et les personnes qui l’utilisent.
+3. **Ce que Synode peut proposer**, avec plusieurs possibilités concrètes de cette famille, à cadrer selon les besoins.
+4. **Un cas concret développé**, présenté comme une situation de départ → un fonctionnement en quelques étapes → un résultat attendu. Montrer les outils, informations et interventions humaines concernés. Ajouter deux exemples plus courts pour illustrer d’autres usages.
+5. **Les prérequis et limites utiles**, tels que les données disponibles, la connexion aux outils ou la validation humaine, sans jargon ni promesse d’autonomie totale.
+6. **Comment cela s’intègre à l’activité**, y compris les liens vers une ou deux familles complémentaires lorsque c’est pertinent.
+7. **Une FAQ propre à la famille** et un CTA pour décrire son besoin ou réserver l’échange gratuit. Aucun prix public.
 
-Commence par exploiter la charte, les ressources et les choix déjà présents s’ils existent. Sinon, applique cette **direction proposée**, qui n’est pas une charte historique de Synode :
+Repères pédagogiques et scénarios à développer :
 
-- Une esthétique de studio technologique sobre, précise et accueillante.
-- Fond clair légèrement teinté, texte sombre et une couleur d’accent mesurée ; palette centralisée et facile à changer.
-- Une hiérarchie typographique nette, des espaces généreux et des largeurs de lecture confortables.
-- Des compositions variées : texte, parcours, schémas simples, exemples d’interfaces ; éviter d’empiler uniquement des cartes identiques.
-- Des icônes cohérentes issues des ressources existantes, avec libellés compréhensibles.
-- Des mouvements discrets, respectant la préférence de réduction des animations.
-- Des visuels utiles à la compréhension des processus ; éviter les robots et illustrations génériques sans lien avec les services.
+| Famille | Explication attendue | Exemple principal illustratif |
+| --- | --- | --- |
+| Assistants & Agents IA | Distinguer un assistant qui aide à chercher, rédiger ou analyser à la demande, et un agent qui peut enchaîner des étapes et utiliser des outils dans un périmètre autorisé. Ces notions se recouvrent selon les systèmes ; ne pas promettre une autonomie sans contrôle. | Une PME reçoit une question client : l’assistant retrouve les informations dans une documentation autorisée et prépare une réponse sourcée ; un agent peut aussi créer une tâche dans le CRM, avec validation humaine avant les actions sensibles. |
+| Automatisations intelligentes | Expliquer le déclencheur, les étapes et les règles d’un flux ; montrer où l’IA aide à comprendre ou classer une information. Toute automatisation n’utilise pas nécessairement de l’IA. | Une facture reçue par email est extraite, contrôlée puis transmise à l’outil comptable ; les données ambiguës sont envoyées à une personne pour validation. |
+| Logiciels & Applications IA sur mesure | Définir un outil métier comme une application conçue autour du travail réel des utilisateurs. Distinguer outil interne et produit ou fonctionnalité IA proposé aux clients. | Une société de services centralise ses demandes et interventions dans une interface ; l’IA prépare un compte rendu que le collaborateur relit avant envoi. |
+| Intégrations & systèmes connectés | Expliquer comment les logiciels échangent leurs données. Une intégration relie les outils ; une automatisation organise les étapes du processus, les deux peuvent se combiner. | Une demande validée sur le site crée ou met à jour le contact dans le CRM et transmet les informations utiles à l’outil de gestion, sans ressaisie. |
+| Data & Intelligence | Expliquer centralisation, indicateurs, analyse, puis prévision ou recommandation lorsque les données le permettent. Distinguer un indicateur observé d’une estimation. | Un commerce regroupe ventes et stocks dans un tableau de bord, repère les anomalies et estime les besoins de réapprovisionnement sous réserve d’un historique suffisant. |
+| Formation & Adoption IA | Expliquer les ateliers pratiques, le choix des usages, les bonnes pratiques et l’accompagnement des équipes, avec ou sans solution développée par Synode. | Une petite équipe apprend à préparer des comptes rendus et réponses clients à partir de ses situations réelles, puis adopte une méthode de relecture et des règles sur les informations à partager. |
 
-Si le logo manque, utilise un logotype typographique « Synode » facile à remplacer. Si les photos manquent, propose une composition textuelle élégante. N’invente pas de portraits, de captures de produits réels ou de résultats clients.
+Ces scénarios sont des **exemples illustratifs de solutions possibles**, pas des références clients ni des résultats mesurés. Les développer en textes et visuels pédagogiques soignés : petits parcours, schémas, extraits d’interfaces illustratifs. Ne pas recopier ces tableaux de consignes tels quels dans l’interface et ne pas produire de longs murs de texte.
 
-## 6. Rédiger les contenus
+### Navbar : menu déroulant Solutions
 
-Rédige les textes commerciaux complets à partir des références : français naturel, phrases courtes, bénéfices concrets, exemples compréhensibles. Pas de lorem ipsum, de slogans interchangeables ou de jargon technique inutile.
+- Conserver l’accès à la page générale via « Solutions » ou un lien clairement visible « Toutes nos solutions », et ajouter les six catégories comme liens vers leurs pages respectives.
+- Réutiliser la navbar existante et son style. Le panneau reste sobre, clair, avec bordures fines, espaces confortables et, si utile, une courte description par famille.
+- Prévoir une ouverture au clic et au clavier, pas uniquement au survol ; gérer l’état ouvert, le focus, la fermeture avec Échap et le clic extérieur. Utiliser les éléments sémantiques adaptés et indiquer l’état déplié aux technologies d’assistance.
+- Sur mobile, proposer un sous-menu dépliable dans la navigation existante avec les mêmes destinations, sans dépendance au survol.
+- Vérifier le menu dans les deux langues, sur toutes les pages, et fermer correctement le menu après navigation. Ne pas modifier les autres entrées sans nécessité.
 
-Ne recopie pas les tableaux de consignes dans l’interface : transforme-les en pages lisibles. Les blocs d’accueil résument ; les pages dédiées approfondissent.
+### Accueil et contenus partagés
 
-N’invente aucun client, témoignage, nom d’associé, chiffre de performance, certification, délai garanti, adresse, email, URL sociale ou numéro légal. Ne transforme pas les objectifs d’un exemple en résultats mesurés.
+Crée ou adapte la section Solutions pour montrer les six grandes familles sous forme de cartes asymétriques dans le système visuel existant. Chaque carte présente une explication courte et un exemple compréhensible, puis mène à la page détaillée correspondante. Ajouter un lien vers la vue d’ensemble `/solutions`, sans répéter tous ses détails. Conserve le parcours : **cas d’usage → solutions → méthode → réalisations/démos → équipe → CTA**, avec le hero en ouverture et la FAQ existante. Réutilise les contenus des pages dédiées pour les aperçus manquants ; ne fabrique pas de réalisations ou de portraits.
 
-Pour les réalisations :
+Ajuste les autres textes seulement s’ils contredisent l’offre : FAQ, présentation courte, métadonnées ou libellés concernés. Préserve les routes françaises et anglaises existantes et adapte les textes EN correspondants pour éviter une offre différente selon la langue.
 
-- Distingue explicitement « Outil interne », « Démonstration illustrative » et « Projet client ».
-- Si aucune vraie capture ou vidéo n’est disponible, tu peux créer un scénario visuel avec données fictives, identifié comme illustration ; ne le présente pas comme une intégration IA déjà opérationnelle.
-- N’annonce pas de démonstration interactive disponible si elle ne fonctionne pas.
-- Prépare le gabarit et les zones de contenu pour que nous ajoutions les preuves réelles ensuite.
+### Accueil : bandeau animé et hauteur du hero
 
-Centralise les informations à compléter dans un fichier de configuration/contenu adapté au projet. Documente les manques dans `docs/SITE_A_COMPLETER.md`. Évite les faux contenus publics destinés à les masquer. Les pages légales incomplètes doivent être identifiées comme brouillons en prévisualisation et figurer parmi les blocages avant publication.
+**Bandeau à animer :** « De votre besoin à votre outil - Assistants IA - Automatisations - Intégrations - Outils métier ».
 
-## 7. Formulaire, Resend et conservation des demandes
+Conserver ce contenu et proposer une animation discrète, fluide et lisible, cohérente avec le design actuel : apparition progressive ou changement doux des libellés, par exemple. Ne pas ajouter d’effet envahissant ni de décalage de mise en page. Conserver une version statique complète et lisible lorsque la réduction des animations est activée. Ce bandeau résume un parcours ; il ne remplace pas les six familles de la section Solutions.
 
-Respecte les champs et états du README d’architecture. Au minimum : nom, email et besoin obligatoires ; entreprise, téléphone, site, échéance et budget facultatifs.
+**Hauteur souhaitée :** sur le MacBook Pro 13 pouces de l’utilisateur, à l’ouverture de la page et avant tout défilement, le hero doit occuper l’espace visible disponible sous la navbar. Le texte « L’IA dans votre quotidien », qui ouvre la section suivante, ne doit apparaître qu’après avoir commencé à faire défiler la page.
 
-- Validation côté client pour le confort et côté serveur pour la fiabilité.
-- Protection contre les abus adaptée à l’environnement, taille limitée des champs et prévention des doubles soumissions.
-- Enregistrement durable de la demande avant confirmation de réception.
-- Utilise le stockage déjà présent s’il est adapté ; sinon prépare une intégration clairement documentée, sans imposer un abonnement ou prétendre qu’un stockage temporaire suffit en production.
-- Notification via Resend après enregistrement ; clés exclusivement côté serveur.
-- Expéditeur sur domaine configuré et email du visiteur comme adresse de réponse.
-- Une erreur de notification ne doit pas effacer une demande enregistrée ; prévoir reprise ou traitement explicite.
-- Si le stockage échoue, montrer une erreur honnête et conserver le texte du visiteur.
-- Prévoir chargement, succès, erreurs et reprise ; rendre ces messages accessibles.
+Raisonner sur la hauteur réelle de la fenêtre du navigateur en pixels CSS, en tenant compte de la navbar et des barres du navigateur ; le nombre de pouces ne détermine pas une résolution unique. Préférer une hauteur minimale responsive à une hauteur rigide qui couperait les contenus. Vérifier plusieurs tailles de fenêtre représentatives d’un portable 13 pouces et indiquer celles réellement testées. Ne pas prétendre avoir validé le MacBook physique si seul un viewport simulé a été utilisé.
 
-**Sans configuration réelle, ne simule pas un envoi réussi.** Le site doit rester consultable localement, avec une indication claire d’indisponibilité pour cette fonction. Un mode de test éventuel doit être explicitement identifié et ne jamais s’activer silencieusement en production.
+Sur un écran plus grand, la section suivante peut commencer à apparaître : c’est acceptable. Ne pas imposer artificiellement le plein écran à tous les écrans. Préserver la lisibilité du hero, ses boutons et ses visuels sur mobile, sur petite hauteur et avec zoom. Ne pas masquer le texte de la section suivante par une astuce de visibilité ; ajuster réellement les dimensions et les espacements. Conserver un défilement naturel.
 
-N’expose pas les données des demandes dans les pages, les journaux publics ou le navigateur. N’ajoute pas de newsletter ni de prospection automatique.
+### Emplacements à examiner
 
-## 8. Réservation Cal.com
+- `src/lib/content.ts` : contenus FR/EN, dont la liste actuelle des briques.
+- `src/components/site/solutions-page.tsx` : rendu de la grille.
+- `src/components/site/solution-visuals.tsx` : visuels et correspondances par index.
+- `src/components/site/offer-card.tsx` : présentation partagée de l’offre.
+- `src/components/site/home-page.tsx` : accueil et textes spécifiques.
+- `src/app/studio.css` : grille, hero et adaptations responsive.
+- `src/components/site/site-header.tsx` : navbar et menu Solutions.
+- Routes FR/EN existantes : nouvelles pages de familles, métadonnées et navigation bilingue.
 
-- Prépare une intégration configurable pour un premier échange de 30 minutes.
-- Ajoute un lien direct de secours vers le même calendrier configuré.
-- N’invente pas d’URL Cal.com, de disponibilités ou de confirmations.
-- Si l’URL manque, conserve le formulaire accessible et explique simplement que la réservation n’est pas encore disponible dans la prévisualisation.
-- Respecte la gestion du fuseau horaire fournie par le service.
-- N’assimile jamais un clic sur le calendrier à un rendez-vous confirmé.
-- Documente les réglages à effectuer dans Cal.com, sans prétendre les avoir modifiés depuis le code.
+Vérifie les icônes et les visuels actuellement prévus pour cinq briques : le sixième élément doit avoir un rendu défini. Préserve les ancres et leurs liens existants, même si un titre visible change. Évite toute refonte du stockage des contenus ou des composants qui ne serait pas nécessaire.
 
-Le fonctionnement sans clés doit permettre d’examiner toutes les pages sans erreur bloquante.
+## 5. Design à préserver
 
-## 9. Qualité technique et référencement
+- Style actuel inspiré de Supabase : thème clair, espaces généreux, bordures fines, rendu professionnel et sobre.
+- Couleurs Synode et police actuellement appliquée : Helvetica Neue, Helvetica, Arial. Aucun changement de palette, logo ou typographie.
+- Cartes éditoriales de tailles variées, asymétriques mais alignées dans un même ensemble rectangulaire cohérent. Composer la grille ; ne pas rendre leur placement aléatoire à chaque chargement.
+- Adapter les dimensions nécessaires aux six familles, aux nouvelles pages et au hero demandé. Conserver les accents bleus et bleu nuit déjà présents.
+- Réutiliser les illustrations pertinentes ; conserver les systèmes animés du hero et les composants existants.
+- Sur mobile, garder un ordre de lecture 01 à 06, sans débordement ni texte coupé. Respecter focus, contrastes et réduction des animations.
 
-- Réutilise les composants, outils et dépendances installés ; ajoute seulement ce qui est nécessaire.
-- Sépare raisonnablement composants réutilisables, contenus et intégrations.
-- Ne développe pas un back-office, une authentification ou un système de paiement pour ce site vitrine.
-- Prépare des variables de configuration documentées et un `.env.example` sans secret ; préserve les fichiers d’environnement existants.
-- Prévois titres et descriptions propres, structure de titres logique, sitemap, robots et métadonnées de partage.
-- Utilise le domaine réel seulement lorsqu’il est fourni ; n’invente pas de canonical de production.
-- Exclue préproduction et pages de confirmation de l’indexation selon leur contexte.
-- Assure navigation clavier, focus visible, contraste lisible, labels et réduction des animations.
-- Optimise images et chargement des intégrations ; pas de vidéo lourde automatique.
-- Prépare la compatibilité avec un déploiement Vercel si la stack le permet, sans modifier l’hébergement ou publier le site dans cette mission.
-- Ne crée pas de compte, ne souscris pas d’offre et n’ajoute pas de suivi publicitaire par défaut.
+La référence Supabase concerne la logique visuelle existante ; elle n’autorise ni copie d’une nouvelle charte ni refonte du site.
 
-## 10. Vérifications et livrables
+## 6. Fonctions et contenus à préserver
 
-Exécute les vérifications disponibles dans le dépôt : compilation, typage, analyse statique et tests pertinents. Corrige les erreurs introduites. Si tu peux ouvrir le site, contrôle les pages principales sur mobile et ordinateur. Sinon, indique que la vérification visuelle reste à faire.
+Ne refais pas les formulaires, les intégrations ou les pages légales pour cette évolution commerciale. Limite les changements de navigation au menu Solutions et aux liens des nouvelles pages demandées. Conserve leurs exigences existantes : validation serveur, enregistrement durable avant confirmation, notification Resend distincte, erreurs honnêtes, absence de faux succès et réservation Cal.com configurable. Aucun clic ne doit devenir une fausse confirmation.
 
-Vérifie notamment :
+Ne touche pas aux secrets ni aux fichiers d’environnement. N’invente pas de calendrier, de coordonnées, de témoignages, de résultats ou de fonctionnalités opérationnelles. Distingue toujours outil interne, démonstration et projet client. Signale dans `docs/SITE_A_COMPLETER.md` les manques découverts hors périmètre, sans lancer une réécriture globale.
 
-- Chaque route, le menu mobile, les liens du footer et les ancres des CTA.
-- La cohérence de l’offre unique et des quatre domaines.
-- Le préremplissage modifiable du formulaire depuis les cas d’usage.
-- Les champs invalides, doubles soumissions, erreurs de stockage et de notification.
-- L’absence de faux succès lorsque les intégrations ne sont pas configurées.
-- Le comportement de Cal.com configuré ou absent.
-- L’absence de secrets, faux témoignages, liens inventés et promesses non étayées.
+## 7. Vérifier et livrer
 
-Livre :
+Exécute les vérifications adaptées aux changements : typage, analyse statique et compilation disponibles dans le dépôt. Vérifie les pages concernées en FR/EN, les liens, les ancres et les six correspondances carte/icône/visuel. Contrôle visuellement ordinateur et mobile ; indique clairement si ce contrôle n’a pas pu être fait.
 
-1. Le site implémenté dans le dépôt existant.
-2. `docs/SITE_INSTALLATION.md` : lancement local, variables, configuration des services, stockage et préparation du déploiement.
-3. `docs/SITE_A_COMPLETER.md` : informations, ressources, clés et validations encore nécessaires, en distinguant ce qui bloque la publication de ce qui peut attendre.
-4. Un résumé des pages réalisées, vérifications exécutées et limites restantes.
+Vérifie les six pages détaillées, leurs exemples propres, les liens depuis les cartes, le menu déroulant au clavier et sur mobile, le bandeau animé avec réduction des animations, et le hero aux dimensions de portable testées.
 
-Conserve le README du starter ; complète la documentation du site dans les fichiers dédiés. Ne déclare pas le site prêt à recevoir des prospects tant que les coordonnées, mentions et intégrations nécessaires ne sont pas réellement configurées et vérifiées.
+Vérifie que l’ordre de l’accueil, les six intitulés, l’absence de prix publics, l’échange gratuit et le modèle économique sont cohérents. Compare le rendu avant/après pour confirmer la conservation du style et l’absence de régression hors de l’offre.
 
-**Commence maintenant par lire les deux références et examiner le projet, puis réalise le site.**
+Après implémentation, actualise les points pertinents de `docs/SITE_A_COMPLETER.md`, les routes et parcours de `docs/README_2_ARCHITECTURE_SITE_SYNODE.md` et, si nécessaire, `docs/SITE_INSTALLATION.md`. Corrige notamment l’ancienne interdiction de créer six pages ; ce prompt constitue la nouvelle demande de référence sur ce point. Ne marque comme terminées que les tâches effectivement vérifiées. Résume les fichiers modifiés, les changements, les vérifications et les limites restantes. Ne publie pas le site et ne fais ni commit ni push sans demande explicite.
+
+**Commence par examiner les références et le site existant, puis réalise les évolutions décrites : offre pédagogique, six pages, menu Solutions et hero, en conservant l’esprit du design actuel inspiré de Supabase.**

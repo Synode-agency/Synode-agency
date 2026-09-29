@@ -25,6 +25,8 @@ export type WorkKind = "internal" | "demo" | "client";
 
 export type WorkItem = {
   slug: string;
+  /** Real project capture, when supplied. Otherwise show an explicit placeholder. */
+  image?: { src: string; alt: string };
   kind: WorkKind;
   title: string;
   /** L'état réel, affiché tel quel. Jamais « bientôt disponible ». */

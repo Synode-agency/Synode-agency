@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
+import { WorkProjectCard } from "./work-project-card";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { work, workItems, type WorkItem, type WorkKind } from "@/lib/work";
@@ -32,36 +33,11 @@ export function WorkPage({ locale }: { locale: Locale }) {
       </Band>
 
       <Band id="liste" tone="white">
-        <div className="tile-grid tile-grid--2">
-          {workItems(locale).map((item) => (
-            <Link
-              key={item.slug}
-              href={`${path(locale, ROUTES.work)}/${item.slug}`}
-              className="tile work-card"
-            >
-              <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
-              <span className="tile-title">{item.title}</span>
-              <span className="tile-text">{item.problem}</span>
-              <span className="work-status">{item.status}</span>
-              <span className="go work-go">
-                {locale === "fr" ? "Voir la fiche" : "See the entry"}
-                <ArrowRight aria-hidden />
-              </span>
-            </Link>
-          ))}
+        <div className="projects-gallery">
+          {workItems(locale).map(item => <WorkProjectCard key={item.slug} item={item} locale={locale} />)}
         </div>
+        <div className="work-editorial-note"><span className="eyebrow">{locale === "fr" ? "La suite se construit" : "More work is taking shape"}</span><p>{locale === "fr" ? "Les prochaines démonstrations et réalisations rejoindront cette sélection une fois prêtes à être présentées. Chaque projet garde son statut visible : outil interne, démonstration ou projet client." : "Future demos and projects will join this selection when they are ready to be shown. Every project keeps its status visible: internal tool, demo or client project."}</p></div>
 
-        {/* Deux absences, dites en clair plutôt que laissées en blanc. */}
-        <div className="tile-grid tile-grid--2 section-gap">
-          <div className="todo">
-            <span className="todo-label">{w.empty.title}</span>
-            <p>{w.empty.text}</p>
-          </div>
-          <div className="todo">
-            <span className="todo-label">{w.clientsEmpty.title}</span>
-            <p>{w.clientsEmpty.text}</p>
-          </div>
-        </div>
       </Band>
 
       <Band id="conclusion" tone="blue">

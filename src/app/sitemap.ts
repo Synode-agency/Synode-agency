@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { solutionFamilies } from "@/lib/solution-details";
 import { ROUTES } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
 import { assertUseCases } from "@/lib/use-cases";
@@ -22,8 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; priority: number }[] = [
     { path: ROUTES.home === "/" ? "" : ROUTES.home, priority: 1 },
     { path: ROUTES.solutions, priority: 0.9 },
-    { path: ROUTES.useCases, priority: 0.9 },
-    { path: ROUTES.method, priority: 0.8 },
+    ...solutionFamilies("fr").map(f => ({ path: `${ROUTES.solutions}/${f.slug}`, priority: 0.8 })),
     { path: ROUTES.work, priority: 0.8 },
     ...workItems("fr").map((w) => ({ path: `${ROUTES.work}/${w.slug}`, priority: 0.6 })),
     { path: ROUTES.contact, priority: 0.8 },

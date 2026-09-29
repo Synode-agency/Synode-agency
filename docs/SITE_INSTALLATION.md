@@ -1,6 +1,12 @@
 # Lancer et configurer le site
 
-Version du 28 septembre 2026.
+Version du 29 septembre 2026.
+
+## Portée de la mise à jour de l’offre
+
+Les six familles sont définies dans [la référence Synode](README_1_REFERENCE_SYNODE.md) et leur présentation dans [l’architecture](README_2_ARCHITECTURE_SITE_SYNODE.md). Cette évolution concerne les contenus et les cartes existantes ; elle ne nécessite pas de nouvelle installation, de nouveau service ni de nouvelles variables d’environnement. Les procédures techniques ci-dessous sont conservées.
+
+Les six familles, leurs douze pages FR/EN, le menu Solutions et la nouvelle composition de l’accueil sont intégrés. Les anciennes routes Cas d’usage et Méthode redirigent vers les sections d’accueil. La redirection globale `/solutions/:slug` a été retirée pour laisser accéder aux nouvelles pages. Aucune variable supplémentaire n’est nécessaire. Les prérequis de publication restent listés dans [SITE_A_COMPLETER.md](SITE_A_COMPLETER.md).
 
 ## Lancer en local
 
@@ -43,7 +49,7 @@ qui l'est déjà** : ce préfixe expose la valeur au navigateur.
 | `RESEND_API_KEY` | La clé d'envoi Resend. | Les demandes sont enregistrées, aucune notification ne part. |
 | `CONTACT_FROM` | L'expéditeur, sur un domaine vérifié chez Resend. | Idem. |
 | `CONTACT_TO` | Votre boîte de réception. | Idem. |
-| `NEXT_PUBLIC_CAL_LINK` | L'identifiant Cal.com, par exemple `synode/30min`. | La page Contact dit que la réservation n'est pas disponible. |
+| `NEXT_PUBLIC_CAL_LINK` | L'identifiant Cal.com, par exemple `synode/30min`. | Contact affiche un aperçu de calendrier explicitement fictif, sans réservation. |
 | `NEXT_PUBLIC_SITE_URL` | Le domaine canonique. | Une valeur provisoire sert au sitemap. |
 
 ## Le circuit d'une demande
@@ -111,9 +117,12 @@ du sitemap.
 | `src/lib/content.ts` | Tous les textes, sauf les cas d'usage et les réalisations. |
 | `src/lib/use-cases.ts` | Les huit cas d'usage et les quatre territoires. |
 | `src/lib/work.ts` | Les réalisations. |
-| `src/app/globals.css` | Les jetons, puis le système de panneaux. |
+| `src/lib/solution-details.ts` | Définitions, scénarios, prérequis et FAQ des six familles en FR/EN. |
+| `src/components/site/solutions-menu.tsx` | Menu Solutions au clic et au clavier, partagé avec le mobile. |
+| `src/app/globals.css` | Styles historiques et illustrations encore utilisées. |
+| `src/app/studio.css` | Direction visuelle active, chargée après les styles historiques. |
+| `src/app/site-shell.tsx` | Police active et chargement des styles. |
 | `src/components/site/shell.tsx` | La pile et le panneau. Tout passe par là. |
 | `DESIGN-SYSTEM.md` | Le système, et la page `/design-system` qui le montre. |
 
-Pour changer un texte, un seul fichier. Pour changer une couleur, un seul
-bloc.
+Les textes se trouvent dans les contenus partagés et dans certains composants. Vérifier les deux emplacements pour garder FR/EN cohérents. Respecter `DESIGN_STUDIO_CLAIR.md` pour la direction active ; les sections historiques de `DESIGN-SYSTEM.md` ne doivent pas rétablir une ancienne police ou une ancienne composition.
