@@ -36,24 +36,24 @@ export function NavLink({
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     // Leave modified clicks alone — new tab, new window, download.
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    onNavigate?.();
     // Different route: let Next handle the navigation.
     if (pathname !== route) return;
 
     event.preventDefault();
-    onNavigate?.();
 
     if (!hash) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
       // Drop any leftover hash so the next click on a section link works.
-      window.history.replaceState(null, "", route);
+      window.history.replaceState(window.history.state, "", route);
       return;
     }
 
     document
       .getElementById(hash)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(null, "", `${route === "/" ? "" : route}#${hash}`);
+      ?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start" });
+    window.history.replaceState(window.history.state, "", `${route === "/" ? "" : route}#${hash}`);
   };
 
   return (

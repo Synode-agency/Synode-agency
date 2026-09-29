@@ -12,7 +12,7 @@ La capture de Supabase sert de référence pour le rythme, les filets discrets e
 - Quatre cartes de cas d’usage avec un parcours simplifié, liées aux fiches existantes.
 - Une carte d’offre commune à l’accueil et à Solutions, avec quatre badges de domaines : ventes, opérations, service client, outils métier et connaissance interne.
 - Ces badges ne sont ni des forfaits ni des offres distinctes. Les briques techniques sont expliquées séparément dans Solutions.
-- CTA final conservé en carte, sur fond bleu très clair.
+- CTA final conservé en carte, désormais sur fond bleu nuit avec deux colonnes.
 - Navigation, pied de page, boutons et typographie harmonisés sur les autres pages.
 
 ## Sources dans le code
@@ -38,3 +38,59 @@ Sous 760 px, hero, offre, cas d’usage, méthode et FAQ passent sur une colonne
 - Le premier build Turbopack est resté sans résultat et a été interrompu ; la compilation Webpack a ensuite réussi.
 
 Cette proposition ne configure pas les services de contact et ne constitue pas une mise en production. Les prérequis de `SITE_A_COMPLETER.md` restent applicables.
+
+## Ajustements après revue
+
+- Navigation : conteneur commun `.site-page` pour donner à Next une cible de défilement stable, déclaration `data-scroll-behavior="smooth"` requise avec Next 16, conservation de l’état de navigation lors du changement d’ancre.
+- Espace FR/EN et réservation : 12 px ajoutés au gap initial.
+- Hero : suppression des deux mentions, astérisque sur la note du premier échange.
+- Cas d’usage : deuxième ligne du titre en bleu et quatre miniatures distinctes (fiche prospect, boîte mail triée, brouillon de réponse, recherche documentaire).
+- Notre solution : fond bleu pleine largeur, titres blancs et bleu clair, carte d’offre conservée en blanc.
+- CTA : texte à gauche, réservation à droite, note sur deux lignes. `Booking` accepte un chemin d’événement ou une URL publique Cal.com/Cal.eu dans `NEXT_PUBLIC_CAL_LINK` et charge le calendrier au clic. En l’absence de lien, l’interface indique explicitement que la réservation est à venir ; aucune disponibilité fictive n’est proposée.
+- Footer : pictogramme S rétabli via le même logo que la navbar.
+
+Référence pour l’intégration : [calendrier intégré Cal.com](https://cal.com/embed). Le parcours de réservation réel reste à vérifier avec le lien public de l’événement.
+
+
+## Enrichissement graphique du 28 septembre 2026
+
+- Parcours en labels centrés sous les miniatures des quatre cas d’usage.
+- Schéma de l’offre reconstruit en HTML/SVG : cinq outils reliés au véritable logo S de Synode, puis deux résultats. Illustration partagée par l’accueil et Solutions, disponible en FR/EN.
+- CTA de l’accueil et de Solutions sur fond bleu nuit. Solutions présente un aperçu graphique du projet dans la colonne droite.
+- Briques techniques de Solutions présentées en grille de cartes sur une section bleu nuit, avec cinq illustrations distinctes.
+- Livrables accompagnés d’un visuel de documentation ; dimensionnement et facturation enrichis d’icônes et d’accents bleus.
+- Composants graphiques : `src/components/site/solution-visuals.tsx`. Les systèmes animés de la hero restent conservés.
+- Vérifications de cette itération : ESLint, TypeScript, compilation Webpack et contrôle des espaces Git réussis ; page Solutions servie en HTTP 200 et nouveau contenu confirmé dans l’arbre d’accessibilité du navigateur.
+- Vérification visuelle finale ordinateur et mobile à compléter : la capture Chrome est restée figée sur un ancien rendu, puis l’outil a signalé qu’aucune fenêtre n’était disponible. Les adaptations responsive sont implémentées.
+
+
+## Six familles : grille du 29 septembre 2026
+
+- Accueil et Solutions utilisent désormais `solution-families.tsx`, avec les six familles de la référence commerciale et les contenus FR/EN de `content.ts`.
+- Grille composée sur quatre colonnes : 01 et 06 occupent deux colonnes ; 02 à 05 une colonne. Passage à deux colonnes, puis une colonne sous 600 px, dans l’ordre 01 à 06.
+- Chaque carte contient une définition, un bénéfice recherché, un exemple illustratif et un visuel. Formation & Adoption IA dispose de sa propre illustration. Les correspondances des visuels sont explicites dans les contenus.
+- L’accueil renvoie vers les six ancres de Solutions. La carte générale avec le schéma Synode reste présente sur Solutions.
+- Cette itération porte sur les deux grilles. Le prompt plus large (pages détaillées, menu et hero) reste à traiter séparément selon le périmètre confirmé.
+- ESLint, TypeScript et build Webpack réussis. Les HTML de production des quatre pages FR/EN contiennent les six cartes et leurs six visuels dans le bon ordre ; les six liens de l’accueil trouvent leurs ancres.
+- Grille Solutions contrôlée visuellement sur ordinateur dans Chrome. Contrôle visuel mobile non effectué : interaction interrompue car la fenêtre était utilisée.
+
+
+## Architecture simplifiée et familles détaillées, 29 septembre 2026
+
+Cette demande remplace la grille asymétrique précédente : les six familles ont désormais le même poids visuel, en grille de trois colonnes, deux puis une. Les illustrations restent distinctes, avec une surface identique.
+
+- Menu : Accueil, Solutions (six pages + vue d’ensemble), Réalisations, Équipe, Contact ; CTA vers `/contact#reservation`.
+- Douze pages détaillées FR/EN générées avec un gabarit partagé, du contenu spécifique et des parcours illustratifs. Les URLs suivent l’architecture documentée.
+- Accueil : méthode en six étapes, aperçu de Synode Prospect réel et retrait des sections FAQ et équipe du parcours d’accueil selon le dernier ordre demandé. Les FAQ restent sur Solutions et les pages détaillées.
+- Bandeau : mise en couleur progressive des libellés, sans déplacement de mise en page ; statique avec réduction des animations.
+- Hero : hauteur minimale de fenêtre pour les formats portables, incluant le dégagement du header fixe. Largeur du contenu toujours limitée au conteneur existant ; pas de hauteur fixe qui coupe le contenu.
+- Vérifications : typage, lint, build, douze routes, liens locaux et ancres, métadonnées, langues, sitemap et redirections 308. Rendu ordinateur de la navbar et ouverture du menu observés dans Chrome. Les essais clavier et multi-viewport ont été interrompus par les interactions simultanées dans Chrome ; ResponsivelyApp n’était pas autorisé par l’outil de contrôle. Aucun viewport précis ni MacBook physique n’est déclaré validé. Recette restante dans `SITE_A_COMPLETER.md`.
+
+
+## Solutions, Réalisations, Équipe et Contact : revue complémentaire
+
+- Solutions : ancien encadré « Une offre. Votre solution. » remplacé par un hero ouvert « Six familles. Votre solution à composer. », accompagné d’une composition graphique des six familles, chacune liée à sa page. L’ancienne illustration est conservée dans les sources mais n’est plus affichée ici.
+- Réalisations : grande composition avec emplacement explicite pour une capture, fond bleu nuit quadrillé et texte éditorial. `WorkItem.image` accepte une capture réelle future ; aucun projet n’est ajouté artificiellement.
+- Équipe : portraits du dossier `public/equipe` et contenus des cofondateurs repris de https://synode-agency.vercel.app/equipe à la demande d’Antonino. Les contenus anglais sont adaptés avec les mêmes rôles.
+- Contact : aperçu de calendrier interactif quand Cal.com n’est pas configuré. Toute sélection est annoncée comme fictive et ne crée aucun rendez-vous. L’intégration réelle existante reste prioritaire dès qu’un lien valide est fourni.
+- Vérifications : ESLint, TypeScript, build Webpack, huit pages FR/EN (hero, portraits, placeholder et calendrier), liens et ancres. Les quatre pages FR ont été contrôlées visuellement sur ordinateur. La sélection d’une date et d’une heure de démonstration a été testée dans Chrome. Le contrôle visuel mobile reste à réaliser.

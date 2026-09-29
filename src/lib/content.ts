@@ -56,18 +56,18 @@ export const ANCHORS = {
 
 const nav = {
   fr: [
+    { href: ROUTES.home, label: "Accueil" },
     { href: ROUTES.solutions, label: "Solutions" },
-    { href: ROUTES.useCases, label: "Cas d’usage" },
-    { href: ROUTES.method, label: "Méthode" },
     { href: ROUTES.work, label: "Réalisations" },
     { href: ROUTES.team, label: "Équipe" },
+    { href: ROUTES.contact, label: "Contact" },
   ],
   en: [
+    { href: ROUTES.home, label: "Home" },
     { href: ROUTES.solutions, label: "Solutions" },
-    { href: ROUTES.useCases, label: "Use cases" },
-    { href: ROUTES.method, label: "Method" },
     { href: ROUTES.work, label: "Work" },
     { href: ROUTES.team, label: "Team" },
+    { href: ROUTES.contact, label: "Contact" },
   ],
 } as const;
 
@@ -307,35 +307,63 @@ const fr = {
   solutions: {
     metaTitle: "Solutions IA sur mesure pour indépendants, TPE et PME",
     metaDescription:
-      "Une offre unique : une solution IA construite à partir de votre besoin. Assistants, automatisations, intégrations et outils métier, selon ce que votre problème demande.",
+      "Six familles de solutions IA sur mesure : assistants, automatisations, logiciels, intégrations, data et formation. Pour indépendants, TPE et PME.",
     kicker: "Notre offre",
     title: "Une solution construite\n^à partir de votre besoin.",
-    text: "De l’amélioration ciblée d’une tâche à l’outil métier complet, c’est la même offre. Ce qui varie, c’est ce que votre problème demande.",
+    text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
 
-    bricksTitle: "Ce qu’une solution peut réunir",
-    bricksText: "Aucune de ces briques n’est systématique. Le devis précise celles qui sont incluses dans votre projet.",
+    bricksTitle: "Nos solutions IA sur mesure",
+    bricksText: "Six familles complémentaires pour les indépendants, TPE et PME. Un projet peut en combiner plusieurs, selon votre besoin. Aucun forfait imposé.",
     bricks: [
       {
-        title: "Assistants et agents IA",
-        text: "Ils lisent, cherchent, résument et préparent. Exemple : un assistant qui rédige une première réponse à partir de votre documentation, que vous relisez avant envoi.",
+            "slug": "assistants-agents-ia",
+            "title": "Assistants & Agents IA",
+            "text": "Des assistants pour chercher, rédiger ou analyser ; des agents pour enchaîner des actions dans un cadre autorisé.",
+            "benefit": "Retrouver l’information et préparer la suite.",
+            "example": "Une réponse client préparée à partir de vos documents, avec ses sources et votre validation.",
+            "visual": 0
       },
       {
-        title: "Automatisations",
-        text: "Des enchaînements qui se déclenchent seuls. Exemple : une demande reçue par mail est classée, enregistrée dans votre outil et transmise à la bonne personne.",
+            "slug": "automatisations-intelligentes",
+            "title": "Automatisations intelligentes",
+            "text": "Des flux qui relient les étapes répétitives, avec de l’IA lorsqu’il faut comprendre ou classer une information.",
+            "benefit": "Moins de manipulations entre deux étapes.",
+            "example": "Une facture reçue par email est extraite et contrôlée ; les cas ambigus vous sont soumis.",
+            "visual": 1
       },
       {
-        title: "Intégrations",
-        text: "La connexion entre vos logiciels. Exemple : un devis validé crée la fiche client, la tâche de suivi et l’échéance de relance, sans ressaisie.",
+            "slug": "logiciels-applications-ia",
+            "title": "Logiciels & Applications IA sur mesure",
+            "text": "Des applications conçues pour votre équipe, ou des fonctionnalités IA intégrées aux produits de vos clients.",
+            "benefit": "Un outil adapté au travail réel.",
+            "example": "Vos interventions réunies dans une interface, avec un compte rendu préparé puis relu.",
+            "visual": 3
       },
       {
-        title: "Outils métier",
-        text: "Une interface faite pour votre façon de travailler. Exemple : un espace où vos équipes voient les dossiers en cours, leur état et ce qui attend une décision.",
+            "slug": "integrations-systemes-connectes",
+            "title": "Intégrations & systèmes connectés",
+            "text": "Des connexions entre vos logiciels, CRM, ERP et bases de données pour faire circuler les informations utiles.",
+            "benefit": "Des outils qui travaillent ensemble.",
+            "example": "Une demande validée sur le site met à jour le CRM et rejoint votre outil de gestion.",
+            "visual": 2
       },
       {
-        title: "Données et tableaux de bord",
-        text: "Rendre lisible ce que vous avez déjà. Exemple : un tableau qui rassemble des chiffres aujourd’hui dispersés dans trois outils.",
+            "slug": "data-intelligence",
+            "title": "Data & Intelligence",
+            "text": "Centralisation, analyse et tableaux de bord ; prévision, scoring ou recommandation lorsque les données le permettent.",
+            "benefit": "Des décisions mieux informées.",
+            "example": "Ventes et stocks réunis pour repérer les anomalies et estimer les besoins si l’historique suffit.",
+            "visual": 4
       },
-    ],
+      {
+            "slug": "formation-adoption-ia",
+            "title": "Formation & Adoption IA",
+            "text": "Des ateliers pratiques pour apprendre les usages de l’IA et prendre en main vos solutions, avec ou sans projet Synode.",
+            "benefit": "Une équipe à l’aise avec ses nouveaux usages.",
+            "example": "À partir de situations réelles, votre équipe apprend à préparer et relire ses réponses clients.",
+            "visual": 5
+      }
+],
 
     domainsTitle: "Quatre territoires d’intervention",
     domainsText: "Ils servent à comprendre notre activité. Ce ne sont ni quatre offres distinctes, ni les limites de ce que nous savons faire.",
@@ -455,22 +483,20 @@ const fr = {
     title: "Pourquoi nous\n^construisons Synode.",
     vision:
       "Beaucoup d’entreprises entendent parler d’IA sans jamais voir ce que cela changerait chez elles. Les démonstrations impressionnent, puis rien n’arrive dans le travail réel. Nous avons fait Synode pour l’autre chemin : partir d’une tâche précise qui coûte du temps, et construire ce qui la prend en charge.",
-    peopleTitle: "Les deux associés",
+    peopleTitle: "Deux profils, une même exigence.",
     people: [
       {
-        first: "Antonino",
-        role: "Conception et réalisation",
-        text: "Il conçoit l’architecture de la solution, développe les interfaces et les intégrations, et met en place les agents et les automatisations.",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · Développeur & Expert IA",
+        text: "Conception des workflows et des agents : il cartographie vos processus, choisit ce qui vaut la peine d’être automatisé et le met en production.",
       },
       {
-        first: "Killian",
-        role: "Besoin client et suivi",
-        text: "Il comprend le problème métier, cadre le périmètre avec vous et suit le projet jusqu’à sa mise en service.",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Développeur & Expert IA",
+        text: "Développement des applications, outils internes et intégrations : il construit ce qui n’existe pas encore et connecte ce que vous avez déjà.",
       },
     ],
     complementTitle: "Notre complémentarité",
     complementText:
-      "L’un reste au contact de votre métier, l’autre reste au contact du code. C’est ce qui évite les deux travers habituels : une solution techniquement propre qui ne répond pas au besoin, ou une promesse commerciale que la technique ne peut pas tenir.",
+      "Deux expertises, un même objectif : relier la compréhension de vos processus à la construction d’outils utiles. Workflows, agents, applications et intégrations se complètent dans une solution pensée pour votre activité.",
     workingTitle: "Notre manière de travailler",
     working: [
       "Un interlocuteur identifié pour votre projet, du premier échange au suivi.",
@@ -779,20 +805,63 @@ const en = {
   solutions: {
     metaTitle: "Custom AI solutions for freelancers and small companies",
     metaDescription:
-      "One offer: an AI solution built from your need. Assistants, automations, integrations and internal tools, depending on what the problem calls for.",
+      "Six families of custom AI solutions: assistants, automations, software, integrations, data and training. For freelancers and small businesses.",
     kicker: "What we sell",
     title: "A solution built\n^from your need.",
-    text: "From improving one task to a full internal tool, it is the same offer. What varies is what your problem calls for.",
+    text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
-    bricksTitle: "What a solution can bring together",
-    bricksText: "None of these parts is automatic. Your quote states which ones your project includes.",
+    bricksTitle: "Our custom AI solutions",
+    bricksText: "Six complementary families for freelancers and small businesses. A project can combine several, depending on your needs. No fixed packages.",
     bricks: [
-      { title: "AI assistants and agents", text: "They read, search, summarise and draft. For example: an assistant that writes a first reply from your own documentation, which you review before it goes out." },
-      { title: "Automations", text: "Sequences that fire on their own. For example: an emailed request is classified, recorded in your system and routed to the right person." },
-      { title: "Integrations", text: "The link between your tools. For example: an approved quote creates the client record, the follow-up task and the reminder date, with nothing retyped." },
-      { title: "Internal tools", text: "An interface built around how you work. For example: a space where your team sees open files, their status and what is waiting on a decision." },
-      { title: "Data and dashboards", text: "Making what you already have readable. For example: one view that pulls together numbers currently spread across three tools." },
-    ],
+      {
+            "slug": "assistants-agents-ia",
+            "title": "AI Assistants & Agents",
+            "text": "Assistants that search, draft or analyse, and agents that carry out a sequence of actions within an agreed scope.",
+            "benefit": "Find information and prepare the next step.",
+            "example": "A customer reply drafted from your documents, with sources and your approval.",
+            "visual": 0
+      },
+      {
+            "slug": "automatisations-intelligentes",
+            "title": "Intelligent Automations",
+            "text": "Workflows that connect repetitive steps, using AI when information needs to be understood or classified.",
+            "benefit": "Fewer manual steps along the way.",
+            "example": "An emailed invoice is extracted and checked; ambiguous cases are sent to you for review.",
+            "visual": 1
+      },
+      {
+            "slug": "logiciels-applications-ia",
+            "title": "Custom AI Software & Applications",
+            "text": "Applications built for your team, or AI features integrated into products used by your customers.",
+            "benefit": "Software that fits how people work.",
+            "example": "Service jobs in one interface, with a report drafted for a team member to review.",
+            "visual": 3
+      },
+      {
+            "slug": "integrations-systemes-connectes",
+            "title": "Integrations & Connected Systems",
+            "text": "Connections between your software, CRM, ERP and databases to share the information that matters.",
+            "benefit": "Tools that work together.",
+            "example": "An approved website request updates the CRM and reaches your management software.",
+            "visual": 2
+      },
+      {
+            "slug": "data-intelligence",
+            "title": "Data & Intelligence",
+            "text": "Centralisation, analysis and dashboards, with forecasting, scoring or recommendations when the data supports them.",
+            "benefit": "Better-informed decisions.",
+            "example": "Sales and stock in one view to spot anomalies and estimate needs when enough history is available.",
+            "visual": 4
+      },
+      {
+            "slug": "formation-adoption-ia",
+            "title": "AI Training & Adoption",
+            "text": "Practical workshops to learn everyday AI uses and adopt your solutions, with or without a Synode development project.",
+            "benefit": "A team comfortable with its new ways of working.",
+            "example": "Using real situations, your team learns to draft and review customer replies.",
+            "visual": 5
+      }
+],
 
     domainsTitle: "Four areas we work in",
     domainsText: "They are there to explain what we do. They are neither four separate packages nor the limits of what we can build.",
@@ -880,14 +949,19 @@ const en = {
     title: "Why we are\n^building Synode.",
     vision:
       "Plenty of companies hear about AI without ever seeing what it would change for them. The demos are impressive, then nothing reaches the actual work. We built Synode for the other route: start from one specific task that costs real time, and build the thing that takes it on.",
-    peopleTitle: "The two partners",
+    peopleTitle: "Two perspectives, one shared standard.",
     people: [
-      { first: "Antonino", role: "Design and build", text: "He designs the architecture, builds the interfaces and integrations, and sets up the agents and automations." },
-      { first: "Killian", role: "Client need and follow-through", text: "He understands the business problem, frames the scope with you and follows the project through to go-live." },
+      {
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · Developer & AI Expert",
+        text: "Workflow and agent design: he maps your processes, identifies what is worth automating and brings it into production.",
+      },
+      {
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Developer & AI Expert",
+        text: "Applications, internal tools and integrations: he builds what does not yet exist and connects what you already use.",
+      },
     ],
     complementTitle: "How we complement each other",
-    complementText:
-      "One of us stays close to your business, the other stays close to the code. That is what avoids the two usual failures: a technically clean solution that misses the need, or a sales promise the build cannot keep.",
+    complementText: "Two areas of expertise, one shared goal: connecting an understanding of your processes with the tools you need. Workflows, agents, applications and integrations come together in a solution designed for your business.",
     workingTitle: "How we work",
     working: [
       "One named contact for your project, from the first call through to support.",

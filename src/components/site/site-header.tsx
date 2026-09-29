@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
+import { SolutionsMenu } from "./solutions-menu";
 import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -30,6 +31,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const [openedAt, setOpenedAt] = useState<string | null>(null);
   const open = openedAt === pathname;
   const setOpen = (value: boolean) => setOpenedAt(value ? pathname : null);
+  const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -41,32 +44,55 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
   /* Le menu ouvert verrouille le défilement de la page derrière lui. */
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const background = Array.from(document.querySelectorAll<HTMLElement>(".site-page > main, .site-page > footer"));
+    const previousInert = background.map(element => element.inert);
+    document.body.style.overflow = "hidden";
+    background.forEach(element => { element.inert = true; });
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      background.forEach((element, index) => { element.inert = previousInert[index]; });
     };
   }, [open]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1080px)");
+    const closeAtDesktop = () => { if (media.matches) setOpenedAt(null); };
+    media.addEventListener("change", closeAtDesktop);
+    return () => media.removeEventListener("change", closeAtDesktop);
+  }, []);
 
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const isCurrent = (href: string) => {
     const full = path(locale, href);
-    return pathname === full || pathname.startsWith(`${full}/`);
+    return pathname === full || (href !== ROUTES.home && pathname.startsWith(`${full}/`));
   };
 
   return (
-    <header className={cn("site-header", scrolled && "is-scrolled")}>
+    <header ref={headerRef} className={cn("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+      if (!open) return;
+      if (e.key === "Escape") { setOpen(false); burgerRef.current?.focus(); }
+      if (e.key === "Tab") {
+        const targets = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a,button") ?? []).filter(el => el.getClientRects().length > 0);
+        const first = targets[0], last = targets[targets.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    }}>
       <div className="site-header-bar">
         <NavLink
           href={homePath(locale)}
           locale={locale}
           aria-label={site.homeLabel}
+          onNavigate={() => setOpen(false)}
           className="site-header-brand"
         >
           <Wordmark variant="mark" />
         </NavLink>
 
         <nav aria-label="Navigation" className="site-nav">
-          {site.nav.map((item) => (
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} /> : (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -88,6 +114,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
 
           <button
             type="button"
+            ref={burgerRef}
             className="site-burger"
             aria-expanded={open}
             aria-controls="menu-mobile"
@@ -103,7 +130,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           transparent sur une pile de cartes blanches devient illisible. */}
       <div id="menu-mobile" hidden={!open} className="site-menu">
         <nav aria-label="Navigation" className="site-menu-nav">
-          {site.nav.map((item) => (
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`mobile-${pathname}-${open}`} locale={locale} pathname={pathname} mobile onNavigate={() => setOpen(false)} /> : (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -115,14 +142,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               {item.label}
             </NavLink>
           ))}
-          <NavLink
-            href={path(locale, ROUTES.contact)}
-            locale={locale}
-            onNavigate={() => setOpen(false)}
-            className="site-menu-link"
-          >
-            Contact
-          </NavLink>
+
         </nav>
 
         <Link href={bookHref} className="btn btn--primary site-menu-cta" onClick={() => setOpen(false)}>

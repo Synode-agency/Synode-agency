@@ -20,14 +20,15 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
   const { site } = getContent(locale);
 
   return (
-    <>
+    // A single DOM root lets Next target the page rather than a fragment sibling.
+    <div className="site-page">
       <a href="#contenu" className="skip">
         {site.skip}
       </a>
       <SiteHeader locale={locale} />
       <main id="contenu">{children}</main>
       <SiteFooter locale={locale} />
-    </>
+    </div>
   );
 }
 
