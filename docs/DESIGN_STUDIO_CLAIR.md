@@ -94,3 +94,23 @@ Cette demande remplace la grille asymétrique précédente : les six familles on
 - Équipe : portraits du dossier `public/equipe` et contenus des cofondateurs repris de https://synode-agency.vercel.app/equipe à la demande d’Antonino. Les contenus anglais sont adaptés avec les mêmes rôles.
 - Contact : aperçu de calendrier interactif quand Cal.com n’est pas configuré. Toute sélection est annoncée comme fictive et ne crée aucun rendez-vous. L’intégration réelle existante reste prioritaire dès qu’un lien valide est fourni.
 - Vérifications : ESLint, TypeScript, build Webpack, huit pages FR/EN (hero, portraits, placeholder et calendrier), liens et ancres. Les quatre pages FR ont été contrôlées visuellement sur ordinateur. La sélection d’une date et d’une heure de démonstration a été testée dans Chrome. Le contrôle visuel mobile reste à réaliser.
+
+
+## Clarté, confiance et suivi : ajustements du 30 septembre 2026
+
+- Accueil : textes des quatre cas d’usage simplifiés, Réalisations placée avant la méthode, puis ajout des sections Fiabilité & contrôle, Équipe et FAQ avant le CTA.
+- Les quatre cartes de confiance restent conditionnelles au projet : aucune certification, garantie absolue ou localisation d’hébergement n’est inventée.
+- Solutions : ajout d’un exemple compact combinant agent IA, CRM, automatisation et tableau de bord, puis d’une section exploitation, maintenance et monitoring applicable aux six familles.
+- Le modèle économique sépare création, paiement récurrent et évolutions importantes sur devis. L’exploitation n’est pas une septième famille.
+- Synode Prospect : parcours envisagé visible sur l’accueil, la liste et la fiche détaillée ; le statut « outil interne · en construction » et l’emplacement de capture restent explicites.
+- Styles ajoutés dans `src/app/studio.css`, sans nouvelle dépendance et avec passages à deux puis une colonne sur les petites largeurs.
+
+
+## Accueil et SEO local : structure validée
+
+- Ordre final : Hero, L’IA dans votre quotidien, Solutions IA, Fiabilité & contrôle, Du premier échange à l’usage, Quelques projets & démos, FAQ, CTA.
+- L’aperçu Équipe est retiré de l’accueil ; la page Équipe et son entrée de navbar sont conservées.
+- Le surtitre des six familles devient « Solutions IA ». La section Réalisations devient « Quelques projets & démos » tout en conservant le lien « Voir toutes nos réalisations ».
+- Les textes français ciblent naturellement les solutions IA sur mesure, le développement d’agents IA, l’automatisation des PME et les logiciels IA sur mesure à Bruxelles et en Belgique. L’anglais conserve le même positionnement pour Brussels et Belgium.
+- Le H1 reste volontairement plus large : « Simplifiez votre activité avec l’IA. Vous gardez le contrôle. » Les expressions locales et techniques restent dans le titre SEO, le paragraphe du hero et les sections spécialisées.
+- L’accueil dispose de métadonnées propres, de variantes linguistiques et d’un graphe JSON-LD `WebSite` / `Organization`, sans adresse, téléphone, avis ou certification inventés.

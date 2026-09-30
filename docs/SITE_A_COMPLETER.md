@@ -1,6 +1,6 @@
 # Ce qui manque avant la mise en ligne
 
-Version du 29 septembre 2026. Architecture simplifiée et douze pages de familles intégrées ; recette visuelle complète encore à terminer.
+Version du 30 septembre 2026. Architecture simplifiée et douze pages de familles intégrées ; recette visuelle complète encore à terminer.
 
 Ce fichier liste tout ce que le site attend et que le code ne peut pas
 inventer. Il est séparé en deux : ce qui **bloque** la publication, et ce
@@ -18,7 +18,10 @@ est un emplacement qu'on oublie de remplir.
 - [x] Six pages détaillées par langue : définitions, scénarios, prérequis, compléments et FAQ spécifiques.
 - [x] Liens des cartes, liens de langue, métadonnées et sitemap contrôlés sur les HTML de production.
 - [x] Navigation : Accueil / Solutions / Réalisations / Équipe / Contact et CTA vers le calendrier.
-- [x] Accueil : hero / cas d’usage / solutions / méthode en six étapes / réalisation réelle / CTA.
+- [x] Accueil : hero / cas d’usage simplifiés / solutions IA / confiance / méthode / projets et démos / FAQ / CTA. L’équipe reste sur sa page dédiée.
+- [x] Accueil : titre, H1, textes, liens, métadonnées FR/EN et données structurées orientés vers les recherches IA sur mesure, agents IA et automatisation à Bruxelles et en Belgique.
+- [x] Solutions : exemple de combinaison et exploitation, maintenance et monitoring présentés comme continuité récurrente, sans septième famille.
+- [x] Synode Prospect : statut d’outil interne et parcours envisagé visibles, sans résultat ni capture inventés.
 - [x] Anciennes routes Cas d’usage et Méthode redirigées en 308 vers les sections d’accueil, retirées du sitemap.
 - [x] Six cards de même poids visuel ; formation n’est plus une grande card.
 - [x] ESLint, TypeScript et compilation Webpack réussis ; 44 pages et routes pré-rendues.
@@ -28,6 +31,13 @@ est un emplacement qu'on oublie de remplir.
 - [ ] Vérification visuelle de la réduction des animations. La règle CSS statique est intégrée.
 
 Les contraintes commerciales et techniques de publication ci-dessous restent applicables. Aucune capture ou référence client supplémentaire n’a été inventée : l’accueil présente uniquement Synode Prospect avec son statut actuel.
+
+### SEO local restant
+
+- [ ] Créer ou vérifier la fiche Google Business Profile de Synode avec les informations réellement validées.
+- [ ] Connecter le domaine définitif à Google Search Console et soumettre le sitemap après publication.
+- [ ] Valider les données structurées avec le Rich Results Test sur le domaine publié.
+- [ ] Ajouter une adresse, un téléphone, des profils sociaux ou un balisage `LocalBusiness` uniquement après confirmation de ces informations.
 
 ---
 
