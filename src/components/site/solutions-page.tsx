@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus } from "lucide-react";
+import { ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Radar, SlidersHorizontal, ReceiptText, LifeBuoy, Check, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
@@ -12,6 +12,7 @@ import { SolutionFamilies } from "./solution-families";
 const deliveryIcons = [FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones];
 const sizingIcons = [Target, Network, Database, Plug, Users, ShieldCheck];
 const pricingIcons = [Code2, Activity, Plus];
+const operationIcons = [Radar, SlidersHorizontal, ReceiptText, LifeBuoy];
 
 export function SolutionsPage({ locale }: { locale: Locale }) {
   const { site, solutions } = getContent(locale);
@@ -29,6 +30,64 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       <Band id="briques" tone="base" className="technical-band">
         <Lede kicker={fr ? "Six familles, votre solution" : "Six families, your solution"} title={solutions.bricksTitle} text={solutions.bricksText} />
         <SolutionFamilies locale={locale} overview />
+      </Band>
+
+      <Band id="combinaison" tone="base" className="combination-band">
+        <div className="combination-layout">
+          <Lede
+            kicker={fr ? "Un exemple de combinaison" : "One example combination"}
+            title={fr ? "Plusieurs expertises.^Une seule solution." : "Several capabilities.^One solution."}
+            text={fr ? "Une solution peut réunir un agent IA, votre CRM, des automatisations et un tableau de bord. Nous retenons uniquement les éléments utiles à votre activité." : "One solution can combine an AI agent, your CRM, automations and a dashboard. We only include what is useful to your business."}
+          />
+          <div className="combination-card" aria-label={fr ? "Exemple illustratif d’une solution composée" : "Illustrative example of a combined solution"}>
+            {(fr ? [
+              { icon: Bot, title: "Agent IA", text: "Analyse la demande" },
+              { icon: ContactRound, title: "CRM", text: "Apporte le contexte" },
+              { icon: Workflow, title: "Automatisation", text: "Organise les étapes" },
+              { icon: LayoutDashboard, title: "Tableau de bord", text: "Rend le suivi visible" },
+            ] : [
+              { icon: Bot, title: "AI agent", text: "Analyses the request" },
+              { icon: ContactRound, title: "CRM", text: "Provides context" },
+              { icon: Workflow, title: "Automation", text: "Organises the steps" },
+              { icon: LayoutDashboard, title: "Dashboard", text: "Makes progress visible" },
+            ]).map(({ icon: Icon, title, text }, index) => <div key={title} className="combination-step">{index > 0 && <ArrowRight aria-hidden className="combination-arrow" />}<span><Icon aria-hidden /></span><div><strong>{title}</strong><small>{text}</small></div></div>)}
+            <p>{fr ? "Exemple illustratif · le périmètre est défini selon votre besoin" : "Illustrative example · scope is defined around your needs"}</p>
+          </div>
+        </div>
+      </Band>
+
+      <Band id="exploitation" tone="white" className="operations-band">
+        <div className="operations-heading">
+          <div>
+            <Lede kicker={solutions.operations.kicker} title={solutions.operations.title} text={solutions.operations.text} />
+            <div className="operations-meta">
+              <span className="operations-recurring"><Activity aria-hidden />{solutions.operations.recurringLabel}</span>
+              <p>{solutions.operations.familyNote}</p>
+            </div>
+          </div>
+          <ol className="operations-cycle" aria-label={fr ? "Cycle de vie de la solution" : "Solution lifecycle"}>
+            {solutions.operations.cycle.map((step, index) => (
+              <li key={step}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{step}</strong>
+                <Check aria-hidden />
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div className="operations-grid section-gap">
+          {solutions.operations.items.map((item, index) => {
+            const Icon = operationIcons[index];
+            return (
+              <article key={item.title} className="operations-card">
+                <span className="operations-icon"><Icon aria-hidden /></span>
+                <span className="operations-index" aria-hidden>0{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            );
+          })}
+        </div>
       </Band>
 
       <Band id="livrables" tone="white">

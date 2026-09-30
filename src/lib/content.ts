@@ -100,6 +100,8 @@ const fr = {
   },
 
   home: {
+    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
+    metaDescription: "Synode développe des agents IA, des automatisations et des logiciels IA sur mesure pour les indépendants, TPE et PME à Bruxelles et en Belgique.",
     hero: {
       title:
         "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations.",
@@ -271,27 +273,27 @@ const fr = {
 
     faq: {
       kicker: "Questions fréquentes",
-      title: "Ce qu’on nous demande\n^avant de commencer.",
+      title: "Vous avez des questions ?",
       items: [
         {
-          q: "Est-ce que vous prenez les petits projets ?",
-          a: "Oui. Un périmètre réduit est souvent le meilleur point de départ : il permet de vérifier l’utilité réelle avant d’investir davantage. Ce qui compte n’est pas la taille, c’est que le problème revienne assez souvent pour que le traiter en vaille la peine.",
+          q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
+          a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution IA à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
         },
         {
-          q: "Avec quels outils travaillez-vous ?",
-          a: "Avec les vôtres. Nous nous connectons à ce que vous utilisez déjà quand c’est possible, et nous ne proposons un nouvel outil que si l’existant ne peut pas faire le travail. La faisabilité est vérifiée avant le devis, pas après.",
+          q: "Combien coûte une solution IA sur mesure ?",
+          a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel IA sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
         },
         {
-          q: "Quel budget faut-il prévoir ?",
-          a: "Nous ne publions pas de grille, parce qu’un prix annoncé sans connaître le besoin est soit faux, soit une moyenne qui ne concerne personne. Le budget est communiqué après le premier échange, quand le périmètre est clair.",
+          q: "Comment se déroule un projet avec Synode ?",
+          a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution IA et accompagnons sa mise en service.",
         },
         {
-          q: "Que se passe-t-il après la livraison ?",
-          a: "L’exploitation et la maintenance sont définies au contrat : hébergement, consommations IA, services tiers, surveillance et interventions incluses. Les évolutions importantes font l’objet d’un nouveau devis, jamais d’une facture surprise.",
+          q: "Mes données restent-elles confidentielles ?",
+          a: "La confidentialité et la gestion des accès sont prises en compte lors de la conception. Les outils et services utilisés, ainsi que les modalités de traitement des données, sont définis selon les exigences de votre projet.",
         },
         {
-          q: "Mon besoin ne ressemble à aucun de vos exemples.",
-          a: "C’est le cas le plus fréquent. Les exemples servent à montrer comment nous travaillons, pas à délimiter ce que nous savons faire. Décrivez votre situation : si l’IA n’est pas la bonne réponse, nous vous le dirons.",
+          q: "Assurez-vous la maintenance après le déploiement ?",
+          a: "Oui. Synode peut assurer l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
         },
       ],
     },
@@ -365,6 +367,21 @@ const fr = {
       }
 ],
 
+    operations: {
+      kicker: "Après la mise en service",
+      title: "Votre solution évolue.\n^Nous restons à vos côtés.",
+      text: "Pour chaque solution mise en service, notre proposition distingue le coût de création et le paiement récurrent lié à son exploitation. Son montant dépend de la complexité, des volumes et des services nécessaires, avec des conditions définies avant le démarrage.",
+      recurringLabel: "Paiement récurrent · défini au contrat",
+      familyNote: "Ce suivi accompagne les six familles de solutions. Il ne constitue pas une septième offre.",
+      cycle: ["Conception", "Déploiement", "Surveillance", "Amélioration"],
+      items: [
+        { title: "Surveillance & maintenance", text: "Nous suivons le fonctionnement de la solution et intervenons dans le périmètre convenu en cas de problème." },
+        { title: "Optimisation continue", text: "Nous ajustons les comportements et adaptons la solution lorsque les usages ou les technologies évoluent." },
+        { title: "Suivi des coûts techniques", text: "Nous rendons visibles les coûts d’hébergement, de modèles IA, de stockage et de services externes." },
+        { title: "Assistance & évolutions", text: "Le support prévu est précisé au contrat. Les nouvelles fonctionnalités importantes font l’objet d’un devis séparé." },
+      ],
+    },
+
     domainsTitle: "Quatre territoires d’intervention",
     domainsText: "Ils servent à comprendre notre activité. Ce ne sont ni quatre offres distinctes, ni les limites de ce que nous savons faire.",
     domainsCta: "Voir les cas d’usage",
@@ -394,10 +411,10 @@ const fr = {
     pricingTitle: "Comment nous facturons",
     pricing: [
       { title: "Création", text: "Cadrage, développement, intégrations, tests et déploiement. Prix et échéancier propres au projet." },
-      { title: "Exploitation et maintenance", text: "Hébergement, consommations IA, services tiers, surveillance et interventions incluses. Fréquence et plafonds explicites au contrat." },
+      { title: "Exploitation, maintenance & monitoring", text: "Un paiement récurrent propre à chaque solution mise en service. Il couvre uniquement les services, la surveillance et les interventions précisés au contrat." },
       { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
     ],
-    pricingNote: "Pas de prix public et pas de « tout illimité ». Le budget est communiqué après le premier échange, quand nous savons de quoi nous parlons.",
+    pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
 
     faqTitle: "Avant de décider",
     faq: [
@@ -622,6 +639,8 @@ const en = {
   },
 
   home: {
+    metaTitle: "Custom AI solutions in Brussels and Belgium",
+    metaDescription: "Synode develops AI agents, automations and custom AI software for freelancers and small businesses in Brussels and across Belgium.",
     hero: {
       title:
         "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations.",
@@ -770,27 +789,27 @@ const en = {
 
     faq: {
       kicker: "Common questions",
-      title: "What people ask us\n^before we start.",
+      title: "Have questions?",
       items: [
         {
-          q: "Do you take on small projects?",
-          a: "Yes. A narrow scope is often the best place to start: it proves the value before you commit further. What matters is not the size but whether the problem comes back often enough to be worth solving.",
+          q: "Do I need to change my software to use an AI solution?",
+          a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or suggest a more suitable solution.",
         },
         {
-          q: "Which tools do you work with?",
-          a: "Yours. We connect to what you already use wherever that is possible, and we only suggest a new tool when the existing one genuinely cannot do the job. Feasibility is checked before the quote, not after.",
+          q: "How much does a custom AI solution cost?",
+          a: "The price depends on the project, its features and its complexity. We start with a free conversation to understand your need before preparing a tailored proposal. Any recurring costs are stated as well.",
         },
         {
-          q: "What should I budget?",
-          a: "We do not publish a price list, because a number quoted without knowing the need is either wrong or an average that applies to nobody. We give you a figure after the first call, once the scope is clear.",
+          q: "How does a project with Synode work?",
+          a: "We begin by understanding your need. We then assess feasibility, prepare a proposal, build the solution and support its go-live.",
         },
         {
-          q: "What happens after delivery?",
-          a: "Running and maintenance are set out in the contract: hosting, AI usage, third-party services, monitoring and the support included. Significant changes get their own quote, never a surprise invoice.",
+          q: "Will my data remain confidential?",
+          a: "Confidentiality and access management are considered during design. The tools and services involved, along with how data is handled, are defined according to your project requirements.",
         },
         {
-          q: "My need looks nothing like your examples.",
-          a: "That is the usual case. The examples show how we work, not the limits of what we can do. Describe your situation, and if AI is not the right answer we will tell you.",
+          q: "Do you provide maintenance after deployment?",
+          a: "Yes. We can provide technical support and maintenance under the terms agreed together. Running costs and significant changes are defined separately when needed.",
         },
       ],
     },
@@ -863,6 +882,21 @@ const en = {
       }
 ],
 
+    operations: {
+      kicker: "After go-live",
+      title: "Your solution evolves.\n^We stay by your side.",
+      text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
+      recurringLabel: "Recurring payment · defined in the contract",
+      familyNote: "This support applies across all six solution families. It is not a seventh offer.",
+      cycle: ["Design", "Deployment", "Monitoring", "Improvement"],
+      items: [
+        { title: "Monitoring & maintenance", text: "We monitor how the solution runs and intervene within the agreed scope when an issue occurs." },
+        { title: "Continuous optimisation", text: "We adjust behaviours and adapt the solution as usage patterns or technologies change." },
+        { title: "Technical cost tracking", text: "We make hosting, AI model, storage and external service costs visible." },
+        { title: "Support & changes", text: "The included support is stated in the contract. Significant new features receive a separate quote." },
+      ],
+    },
+
     domainsTitle: "Four areas we work in",
     domainsText: "They are there to explain what we do. They are neither four separate packages nor the limits of what we can build.",
     domainsCta: "See the use cases",
@@ -892,10 +926,10 @@ const en = {
     pricingTitle: "How we charge",
     pricing: [
       { title: "Build", text: "Scoping, development, integrations, testing and deployment. Price and schedule specific to the project." },
-      { title: "Running and maintenance", text: "Hosting, AI usage, third-party services, monitoring and the support included. Frequency and limits stated in the contract." },
+      { title: "Running, maintenance & monitoring", text: "A recurring payment specific to each live solution. It covers only the services, monitoring and support stated in the contract." },
       { title: "Significant changes", text: "New scope, new quote, written agreement before any work." },
     ],
-    pricingNote: "No public price list and no “unlimited everything”. We give you a figure after the first call, once we know what we are talking about.",
+    pricingNote: "The proposal clearly separates the build cost, recurring payment and any third-party services. There is no public price list or “unlimited everything”: the budget reflects the actual scope.",
 
     faqTitle: "Before you decide",
     faq: [

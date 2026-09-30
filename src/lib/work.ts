@@ -33,6 +33,8 @@ export type WorkItem = {
   status: string;
   /** Le problème métier, en une phrase. */
   problem: string;
+  /** Parcours fonctionnel présenté sans le confondre avec un résultat livré. */
+  journey: readonly string[];
   /** Le contexte, sur la fiche détaillée. */
   context: string;
   /** Ce que la solution fait réellement aujourd'hui. */
@@ -91,6 +93,7 @@ const fr = {
       status: "Outil interne · en construction",
       problem:
         "Identifier les entreprises à qui notre travail serait réellement utile, et préparer la prise de contact sans y passer la semaine.",
+      journey: ["Recherche", "Analyse IA", "Qualification", "Organisation du suivi commercial"],
       context:
         "C’est notre propre outil, construit pour notre propre prospection. Nous le citons ici pour une raison simple : c’est ce que nous savons montrer aujourd’hui avec certitude, parce que nous l’utilisons nous-mêmes. Il n’est pas un produit, il n’est pas à vendre, et il n’est pas terminé.",
       does: [],
@@ -153,6 +156,7 @@ const en = {
       status: "Internal tool · in progress",
       problem:
         "Finding the companies our work would genuinely help, and preparing the approach without spending the week on it.",
+      journey: ["Research", "AI analysis", "Qualification", "Sales follow-up organisation"],
       context:
         "This is our own tool, built for our own prospecting. We mention it for a simple reason: it is what we can honestly show today, because we use it ourselves. It is not a product, it is not for sale, and it is not finished.",
       does: [],

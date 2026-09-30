@@ -1,13 +1,13 @@
 # Synode : Architecture complète du site
 
-Version du 29 septembre 2026 · Architecture ajustée à la dernière demande d’Antonino : Accueil / Solutions / Réalisations / Équipe / Contact, avec six pages de familles. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md).
+Version du 30 septembre 2026 · Architecture ajustée à la dernière demande d’Antonino : Accueil / Solutions / Réalisations / Équipe / Contact, avec six pages de familles. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md).
 
 ## 1. Objectif et règles éditoriales
 
 **Objectif principal : obtenir un échange qualifié avec un prospect.** Le visiteur doit comprendre ce que Synode fait, reconnaître un problème, voir une preuve et pouvoir prendre contact.
 
 - Positionnement : **Solutions IA sur mesure**, présenté en six familles complémentaires. Les quatre domaines restent des exemples de cas d’usage, pas des offres.
-- Sur l’accueil : hero → cas d’usage → solutions → méthode → réalisations → CTA. L’équipe a sa page courte ; les FAQ restent sur Solutions et les pages de familles.
+- Sur l’accueil : hero → cas d’usage → solutions → confiance → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navbar et sa page dédiée.
 - Une promesse concrète, sans chiffres de performance inventés ni logos clients non autorisés.
 - Des démos présentées comme des démos ; Synode Prospect présenté selon son état réel.
 - Pas de grille tarifaire publique ; expliquer création, exploitation et maintenance.
@@ -43,24 +43,36 @@ Les anciennes routes `/cas-usage` et `/methode` redirigent définitivement vers 
 | --- | --- | --- |
 | 1. Hero | Promesse actuelle, systèmes IA animés préservés, bandeau animé discrètement | Réserver / découvrir les solutions |
 | 2. Cas d’usage | Quatre situations concrètes avec visuels et parcours simplifiés | Page de famille pertinente |
-| 3. Solutions | Six familles de même poids visuel : mêmes dimensions, typographie et fond | Six pages détaillées + vue d’ensemble |
-| 4. Méthode | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
-| 5. Réalisations | Entrées réelles de `work.ts`, actuellement Synode Prospect en construction | Fiche du projet + « Voir toutes nos réalisations » |
-| 6. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
+| 3. Solutions IA | Six familles de même poids visuel : mêmes dimensions, typographie et fond | Six pages détaillées + vue d’ensemble |
+| 4. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Rassurer avec des engagements conditionnés au projet |
+| 5. Du premier échange à l’usage | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
+| 6. Quelques projets & démos | Entrées réelles de `work.ts`, actuellement Synode Prospect en construction | Fiche du projet + « Voir toutes nos réalisations » |
+| 7. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
+| 8. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
 
 Le hero utilise une hauteur minimale de fenêtre pour les largeurs de portable (960 à 1700 px CSS et hauteur maximale de 1000 px), en incluant le dégagement de la navbar fixe. Il reste libre de grandir si son contenu le nécessite. Au-delà de cette plage, la hauteur naturelle s’applique. Le bandeau garde tous ses libellés lisibles et devient statique avec réduction des animations. Voir la recette pour les tailles réellement vérifiées, sans confondre pixels CSS et dimensions physiques du MacBook.
+
+### Priorités SEO de l’accueil
+
+- Intention principale : **solutions IA sur mesure à Bruxelles et en Belgique** pour indépendants, TPE et PME.
+- Intentions complémentaires : **développement d’agents IA Bruxelles**, **automatisation PME Belgique** et **logiciel IA sur mesure Belgique**.
+- Employer ces expressions dans le titre SEO, les introductions, les sections concernées et les liens lorsqu’elles décrivent réellement le contenu, sans transformer le H1 en liste de mots-clés ni créer de répétition artificielle.
+- Conserver un contenu utile et lisible : problèmes métier, solutions possibles, méthode, contrôles et exemples réels priment sur la densité de mots-clés.
+- Métadonnées FR/EN, URL canoniques, `hreflang`, sitemap, liens HTML explorables et données structurées `WebSite` / `Organization` sont gérés dans le code.
+- Le SEO local doit être complété hors du site par une fiche Google Business vérifiée, des informations cohérentes et des signaux locaux réels. Ne pas ajouter d’adresse, de téléphone, d’avis ou de zone desservie non confirmés.
 
 
 ## 4. Solutions : `/solutions`
 
 1. **Introduction** : « Des solutions IA sur mesure, conçues autour de votre activité. » Expliquer les six familles, de l’amélioration ciblée au système complet et à l’adoption.
 2. **Nos solutions IA sur mesure** : remplacer la présentation vague des briques par six cartes, dans l’ordre 01 à 06 ci-dessous. Chaque carte comporte un titre explicite, un bénéfice compréhensible, un exemple concret et un visuel cohérent avec ceux déjà présents.
-3. **Quatre territoires d’intervention** : ventes et prospection ; opérations et administratif ; service client ; outils métier et connaissance interne. Renvoyer vers les cas d’usage.
-4. **Ce que vous recevez** : périmètre validé, solution testée selon les critères convenus, documentation, prise en main et modalités de suivi. Préciser que le devis fixe les livrables exacts.
-5. **Comment le projet est dimensionné** : objectif, complexité, données, nombre d’intégrations, utilisateurs, volumes et contraintes. Un petit besoin peut démarrer par un périmètre réduit.
-6. **Modèle économique** : création initiale + exploitation et maintenance définies au contrat + évolutions importantes sur devis. Pas de prix public ni de « tout illimité ».
-7. **FAQ de décision** : accès nécessaires, compatibilité avec les outils, validation humaine, propriété et reprise des livrables selon contrat, coûts tiers, fonctionnement après livraison.
-8. **CTA** : « Parlons de votre besoin » → `/contact#formulaire` ; alternative réservation.
+3. **Exemple de combinaison** : agent IA + CRM + automatisation + tableau de bord, présenté comme un exemple illustratif et non un forfait.
+4. **Exploitation, maintenance et monitoring** : continuité opérationnelle des six familles, avec paiement récurrent et conditions définies au contrat. Ce n’est pas une septième famille.
+5. **Ce que vous recevez** : périmètre validé, solution testée selon les critères convenus, documentation, prise en main et modalités de suivi. Préciser que le devis fixe les livrables exacts.
+6. **Comment le projet est dimensionné** : objectif, complexité, données, nombre d’intégrations, utilisateurs, volumes et contraintes. Un petit besoin peut démarrer par un périmètre réduit.
+7. **Modèle économique** : création initiale + paiement récurrent d’exploitation, maintenance et monitoring + évolutions importantes sur devis. Pas de prix public ni de « tout illimité ».
+8. **FAQ de décision** : accès nécessaires, compatibilité avec les outils, validation humaine, propriété et reprise des livrables selon contrat, coûts tiers, fonctionnement après livraison.
+9. **CTA** : « Parlons de votre besoin » → `/contact#formulaire` ; alternative réservation.
 
 Encart obligatoire : **« Votre besoin ne figure pas ici ? Chaque projet est conçu à partir de votre contexte. »**
 
@@ -237,5 +249,3 @@ Afficher « Votre message a bien été reçu » seulement après enregistrement 
 - [ ] Mesures prévues : demandes reçues, rendez-vous réservés, rendez-vous qualifiés. Compter une conversion sur confirmation réelle, pas uniquement sur clic.
 
 **Périmètre de lancement** : toutes les pages principales ci-dessus, une fiche démo fonctionnelle au minimum, contact opérationnel. Blog, espace client, chatbot public et catalogue étendu sont reportés jusqu’à l’existence d’un besoin.
-
-

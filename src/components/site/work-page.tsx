@@ -87,6 +87,9 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
         <Lede title={d.contextTitle} />
         <p className="prose-body section-gap-sm">{item.context}</p>
 
+        <h3 className="ds-demo-title section-gap">{locale === "fr" ? "Parcours fonctionnel envisagé" : "Planned functional journey"}</h3>
+        <div className="project-journey project-journey--detail section-gap-sm">{item.journey.map((step, index) => <span key={step}>{index > 0 && <ArrowRight aria-hidden />}<span>{step}</span></span>)}</div>
+
         {item.does.length > 0 && (
           <>
             <h3 className="ds-demo-title section-gap">{d.doesTitle}</h3>
