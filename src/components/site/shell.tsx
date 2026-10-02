@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
 import { getContent, type Locale } from "@/lib/content";
+import { SITE_THEME } from "@/lib/site-theme";
 
 /**
  * L'enveloppe de toutes les pages.
@@ -21,7 +22,7 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
 
   return (
     // A single DOM root lets Next target the page rather than a fragment sibling.
-    <div className="site-page">
+    <div className={`site-page site-theme-${SITE_THEME}`}>
       <a href="#contenu" className="skip">
         {site.skip}
       </a>

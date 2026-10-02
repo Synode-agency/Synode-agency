@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** 99GATES
+**Project:** SYNODE
 **Generated:** 2026-09-09 18:37:15
 **Category:** B2B Service
 **Design Dials:** Motion 5/10 (Standard) | Density 4/10 (Standard)

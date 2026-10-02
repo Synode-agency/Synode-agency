@@ -1,8 +1,8 @@
 # Synode : Roadmap opérationnelle de création et de lancement
 
-Version du 29 septembre 2026 · Liste de travail des deux associés.
+Version du 2 octobre 2026 · Liste de travail des deux associés.
 
-Références : [positionnement et offre](README_1_REFERENCE_SYNODE.md) · [architecture du site](README_2_ARCHITECTURE_SITE_SYNODE.md).
+Références : [contexte maître Codex](README_0_CONTEXTE_CODEX_SYNODE.md) · [positionnement et offre](README_1_REFERENCE_SYNODE.md) · [architecture du site](README_2_ARCHITECTURE_SITE_SYNODE.md).
 
 ## 1. Mode d’emploi et ordre de marche
 
@@ -25,6 +25,28 @@ Cette roadmap propose un ordre de travail, des livrables et des critères de pas
 | 8. Livraison et amélioration | J30–J90 | Projets livrés, maintenance et preuves réelles | A+B |
 
 Ne pas attendre la fin du site pour traiter Smart ou préparer le devis. Ne pas attendre une troisième démo ou trois réseaux actifs pour démarrer la prospection lorsque les P0 sont prêts.
+
+## Priorités stratégiques actuelles
+
+Avant de multiplier les chantiers, respecter cet ordre :
+
+1. finaliser le site sans nouvelle refonte globale ;
+2. terminer Synode Prospect ;
+3. construire deux démonstrateurs solides ;
+4. tester l’ICP prioritaire ;
+5. prospecter chaque semaine ;
+6. obtenir les premiers projets ;
+7. mesurer et documenter ;
+8. transformer chaque réussite en preuve ;
+9. développer progressivement le socle technique Synode à partir des besoins réels.
+
+> **Finir → prospecter → vendre → livrer → mesurer → transformer en preuve.**
+
+### ICP à tester en priorité
+
+> **PME de services dont les équipes passent beaucoup de temps entre emails, documents, CRM, tâches administratives et logiciels déconnectés.**
+
+Cette cible est un point de départ commercial, pas une restriction sectorielle définitive.
 
 ## 2. Phase 0 : Fixer le cadre de travail et SmartBE
 
@@ -63,14 +85,14 @@ Smart propose une gestion administrative, comptable et financière permettant de
 - [ ] Vérifier la disponibilité pratique du nom de domaine et des identifiants sociaux ; traiter séparément la vérification des droits sur le nom si nécessaire.
 - [ ] Choisir le domaine, son titulaire et le compte de renouvellement.
 - [ ] Vérifier les ressources de marque existantes et compléter uniquement les éléments manquants ; conserver le logo, les couleurs et la typographie actuels du site.
-- [ ] Définir le ton : concret, simple, professionnel ; vocabulaire stable pour offre, diagnostic et maintenance.
+- [ ] Stabiliser le ton : concret, simple, professionnel ; vocabulaire stable pour offre, systèmes IA sur mesure, Build + Run, diagnostic et maintenance.
 - [ ] Préparer deux photos réelles, biographies courtes et signatures email.
 - [ ] Créer un dossier commun de ressources : logo, captures, photos, textes et modèles.
 
 ### Contenu du site : P0, A, validation B
 
 - [ ] Reprendre toutes les pages du README 2 dans un document de rédaction.
-- [ ] Écrire dans cet ordre : accueil → offre → cas d’usage → méthode → démos → équipe → contact → pages légales adaptées.
+- [ ] Aligner les contenus sur l’architecture validée : accueil → cas d’usage → solutions → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA ; puis pages Solutions, Réalisations, Équipe et Contact.
 - [ ] Vérifier chaque promesse technique avec B et supprimer les fonctions non disponibles.
 - [ ] Préparer une FAQ sur budget, données, délais, outils existants et maintenance.
 - [ ] Fixer un seul CTA principal : « Réserver un échange gratuit ».
@@ -83,10 +105,10 @@ Smart propose une gestion administrative, comptable et financière permettant de
 ### Site en préproduction : P0, B
 
 - [ ] Examiner le projet et préserver les modifications en cours, les routes et les composants existants.
-- [ ] Remplacer les cinq briques de Solutions par les six familles de référence dans la même grille asymétrique ; adapter les visuels et le repli mobile au sixième élément.
-- [ ] Aligner l’aperçu de l’offre sur l’accueil et les textes FR/EN concernés, sans refonte globale.
-- [ ] Vérifier l’ordre : cas d’usage → solutions → méthode → réalisations/démos → équipe → CTA ; réutiliser les contenus réels disponibles.
-- [ ] Préserver le style clair inspiré de Supabase, les couleurs, la police, les bordures fines et les espaces actuels.
+- [ ] **Ne pas toucher à la présentation actuelle des six familles de Solutions**, sauf demande explicite : la section est validée.
+- [ ] Aligner uniquement les contenus devenus incohérents avec le positionnement Build + Run et l’ICP, sans refonte globale.
+- [ ] Vérifier l’ordre cible de l’accueil : cas d’usage → solutions → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA. L’Équipe reste une page dédiée.
+- [ ] Préserver le style clair inspiré de Supabase, les couleurs, la police, les cards, les bordures fines et les espaces actuels.
 - [ ] Contrôler les six intitulés, le devis personnalisé et la distinction création / exploitation-maintenance / évolutions sur devis.
 - [ ] Conserver navigation, pied de page, CTA et gabarits cohérents ; compléter seulement les manques confirmés.
 - [ ] Adapter aux mobiles ; vérifier clavier, contraste, champs et erreurs du formulaire.
@@ -129,6 +151,22 @@ Smart propose une gestion administrative, comptable et financière permettant de
 - [ ] Prévoir la transition vers une prestation payante uniquement par accord explicite.
 
 **Critère de sortie P0** : une preuve visible et honnête suffit à soutenir le premier rendez-vous ; aucun besoin d’attendre tous les pilotes.
+
+### Socle technique Synode : P2, à construire à partir des vrais projets
+
+Ne pas construire une plateforme abstraite avant d’avoir des besoins réels. À mesure que les projets se répètent, identifier les composants réutilisables :
+
+- logs et historique des actions ;
+- monitoring ;
+- suivi des coûts API ;
+- permissions et validations humaines ;
+- gestion des erreurs et fallbacks ;
+- alertes ;
+- dashboards ;
+- évaluations ;
+- connecteurs réutilisables.
+
+Objectif futur : **des solutions observables, contrôlables et maintenables**.
 
 ## 6. Phase 4 : Déploiement, email, données et rendez-vous
 
@@ -451,16 +489,16 @@ Ce sont des objectifs de travail, pas une garantie de ventes. Le rythme dépend 
 
 ## 14. Les dix prochaines actions
 
-1. Valider la fiche de référence ensemble et nommer les responsables.
-2. Prendre contact avec Smart pour confirmer le circuit de vente et de facturation.
-3. Fixer domaine, identité visuelle minimale et phrase de présentation.
-4. Rédiger les textes à partir du README 2.
-5. Construire le site avec formulaire et emplacement de réservation.
-6. Finaliser une démo fiable et sa fiche de présentation.
-7. Configurer email, Vercel, Resend, Cal.com et stockage des demandes.
-8. Mettre en place le CRM gratuit et les modèles commerciaux.
-9. Répéter tout le parcours avec un client fictif.
-10. Lancer un premier lot de prospection, puis faire une revue hebdomadaire.
+1. Valider le nouveau positionnement et l’ICP entre associés.
+2. Terminer les éléments bloquants du site : formulaire, domaine, email, Cal.com, mentions légales et confidentialité.
+3. Ne plus relancer de refonte globale ; effectuer uniquement les corrections de clarté, confiance et conversion nécessaires.
+4. Terminer Synode Prospect et préparer une démonstration de cinq minutes.
+5. Choisir puis construire le premier des deux démonstrateurs supplémentaires.
+6. Finaliser le kit commercial : découverte, qualification, proposition, devis et suivi CRM.
+7. Confirmer le circuit SmartBE et les règles de facturation/maintenance.
+8. Sélectionner un premier lot de prospects correspondant à l’ICP et lancer la prospection.
+9. Organiser une revue commerciale hebdomadaire et documenter les objections rencontrées.
+10. Transformer chaque premier projet livré en mesure avant/après et preuve commerciale autorisée.
 
 ## Sources et limites de contexte
 

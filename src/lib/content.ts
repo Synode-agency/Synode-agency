@@ -101,7 +101,7 @@ const fr = {
 
   home: {
     metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
-    metaDescription: "Synode développe des agents IA, des automatisations et des logiciels IA sur mesure pour les indépendants, TPE et PME à Bruxelles et en Belgique.",
+    metaDescription: "Synode conçoit des agents IA, des automatisations et des logiciels métier sur mesure à Bruxelles et en Belgique, intégrés à vos outils et à vos données.",
     hero: {
       title:
         "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations.",
@@ -272,8 +272,8 @@ const fr = {
     },
 
     faq: {
-      kicker: "Questions fréquentes",
-      title: "Vous avez des questions ?",
+      kicker: "FAQ sur l’intelligence artificielle",
+      title: "Questions fréquentes sur les solutions IA sur mesure",
       items: [
         {
           q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
@@ -640,7 +640,7 @@ const en = {
 
   home: {
     metaTitle: "Custom AI solutions in Brussels and Belgium",
-    metaDescription: "Synode develops AI agents, automations and custom AI software for freelancers and small businesses in Brussels and across Belgium.",
+    metaDescription: "Synode designs AI agents, automations and custom business software in Brussels and Belgium, integrated with your tools and data.",
     hero: {
       title:
         "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations.",
@@ -788,8 +788,8 @@ const en = {
     },
 
     faq: {
-      kicker: "Common questions",
-      title: "Have questions?",
+      kicker: "Artificial intelligence FAQ",
+      title: "Common questions about custom AI solutions",
       items: [
         {
           q: "Do I need to change my software to use an AI solution?",
