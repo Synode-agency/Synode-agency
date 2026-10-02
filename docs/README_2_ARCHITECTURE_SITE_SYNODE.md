@@ -1,13 +1,13 @@
 # Synode : Architecture complète du site
 
-Version du 30 septembre 2026 · Architecture ajustée à la dernière demande d’Antonino : Accueil / Solutions / Réalisations / Équipe / Contact, avec six pages de familles. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md).
+Version du 2 octobre 2026 · Architecture actuelle : Accueil / Solutions / Réalisations / Équipe / Contact. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md). Contexte maître : [README 0](README_0_CONTEXTE_CODEX_SYNODE.md).
 
 ## 1. Objectif et règles éditoriales
 
 **Objectif principal : obtenir un échange qualifié avec un prospect.** Le visiteur doit comprendre ce que Synode fait, reconnaître un problème, voir une preuve et pouvoir prendre contact.
 
-- Positionnement : **Solutions IA sur mesure**, présenté en six familles complémentaires. Les quatre domaines restent des exemples de cas d’usage, pas des offres.
-- Sur l’accueil : hero → cas d’usage → solutions → confiance → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navbar et sa page dédiée.
+- Positionnement externe : **Solutions IA sur mesure**. Positionnement stratégique interne : **Synode conçoit, intègre et opère des systèmes IA sur mesure pour les PME.** Les quatre domaines restent des exemples de cas d’usage, pas des offres.
+- Sur l’accueil : hero → usages de l’IA → solutions → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navigation et sa page dédiée. Les pages principales restent limitées à Accueil, Solutions, Réalisations, Équipe et Contact.
 - Une promesse concrète, sans chiffres de performance inventés ni logos clients non autorisés.
 - Des démos présentées comme des démos ; Synode Prospect présenté selon son état réel.
 - Pas de grille tarifaire publique ; expliquer création, exploitation et maintenance.
@@ -42,11 +42,11 @@ Les anciennes routes `/cas-usage` et `/methode` redirigent définitivement vers 
 | Ordre / section | Contenu | Action |
 | --- | --- | --- |
 | 1. Hero | Promesse actuelle, systèmes IA animés préservés, bandeau animé discrètement | Réserver / découvrir les solutions |
-| 2. Cas d’usage | Quatre situations concrètes avec visuels et parcours simplifiés | Page de famille pertinente |
-| 3. Solutions IA | Six familles de même poids visuel : mêmes dimensions, typographie et fond | Six pages détaillées + vue d’ensemble |
-| 4. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Rassurer avec des engagements conditionnés au projet |
+| 2. L’IA dans votre quotidien | Quatre grandes familles de difficultés, avec exemples concrets et réponses possibles | Reconnaître ce qui ralentit son activité et décrire son besoin |
+| 3. Solutions IA | Aperçu des six familles ; la présentation actuelle est validée | Solutions / pages détaillées |
+| 4. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Comprendre les garde-fous prévus selon le projet |
 | 5. Du premier échange à l’usage | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
-| 6. Quelques projets & démos | Entrées réelles de `work.ts`, actuellement Synode Prospect en construction | Fiche du projet + « Voir toutes nos réalisations » |
+| 6. Quelques projets & démos | Une ou deux preuves maximum sur l’accueil, dont Synode Prospect selon son état réel | Fiche du projet + « Voir toutes nos réalisations » |
 | 7. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
 | 8. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
 
@@ -61,11 +61,26 @@ Le hero utilise une hauteur minimale de fenêtre pour les largeurs de portable (
 - Métadonnées FR/EN, URL canoniques, `hreflang`, sitemap, liens HTML explorables et données structurées `WebSite` / `Organization` sont gérés dans le code.
 - Le SEO local doit être complété hors du site par une fiche Google Business vérifiée, des informations cohérentes et des signaux locaux réels. Ne pas ajouter d’adresse, de téléphone, d’avis ou de zone desservie non confirmés.
 
+### Intention SEO de chaque section de l’accueil
+
+| Section | Intention principale | Champ sémantique naturel |
+| --- | --- | --- |
+| Hero | Comprendre immédiatement l’offre de Synode | solutions IA sur mesure, agents IA, automatisations, logiciels métier |
+| Usages de l’IA | Identifier ce que l’IA peut simplifier dans une entreprise | usages de l’IA en entreprise, tâches répétitives, recherche documentaire, logiciels déconnectés |
+| Solutions | Découvrir les expertises disponibles | agents IA, automatisation des processus, applications IA, intégrations, data, formation IA |
+| Fiabilité & contrôle | Comprendre comment une solution IA reste maîtrisée | confidentialité, contrôle humain, gestion des accès, monitoring et maintenance IA |
+| Méthode | Comprendre le déroulement d’un projet | développement de solution IA sur mesure, cadrage, intégration, déploiement et suivi |
+| Projets & démos | Voir des preuves et des exemples concrets | projets IA, démonstrateurs IA, agents, automatisations et outils métier |
+| FAQ | Répondre aux objections avant une prise de contact | prix d’une solution IA, outils existants, données, maintenance et déroulement |
+| CTA | Déclencher un échange qualifié | projet IA sur mesure, échange gratuit, Synode, Bruxelles et Belgique lorsque pertinent |
+
+Cette grille guide les contenus futurs. Elle ne demande pas de répéter les expressions à l’identique : chaque titre doit rester naturel, utile et adapté à la section.
+
 
 ## 4. Solutions : `/solutions`
 
 1. **Introduction** : « Des solutions IA sur mesure, conçues autour de votre activité. » Expliquer les six familles, de l’amélioration ciblée au système complet et à l’adoption.
-2. **Nos solutions IA sur mesure** : remplacer la présentation vague des briques par six cartes, dans l’ordre 01 à 06 ci-dessous. Chaque carte comporte un titre explicite, un bénéfice compréhensible, un exemple concret et un visuel cohérent avec ceux déjà présents.
+2. **Nos solutions IA sur mesure** : les six cartes actuelles sont validées. **Ne pas les redesigner, les réorganiser, les simplifier ni modifier leurs dimensions ou leur logique visuelle sans demande explicite.** Elles restent dans l’ordre 01 à 06 ci-dessous.
 3. **Exemple de combinaison** : agent IA + CRM + automatisation + tableau de bord, présenté comme un exemple illustratif et non un forfait.
 4. **Exploitation, maintenance et monitoring** : continuité opérationnelle des six familles, avec paiement récurrent et conditions définies au contrat. Ce n’est pas une septième famille.
 5. **Ce que vous recevez** : périmètre validé, solution testée selon les critères convenus, documentation, prise en main et modalités de suivi. Préciser que le devis fixe les livrables exacts.
@@ -75,6 +90,19 @@ Le hero utilise une hauteur minimale de fenêtre pour les largeurs de portable (
 9. **CTA** : « Parlons de votre besoin » → `/contact#formulaire` ; alternative réservation.
 
 Encart obligatoire : **« Votre besoin ne figure pas ici ? Chaque projet est conçu à partir de votre contexte. »**
+
+### Règle de préservation de la section Solutions
+
+La présentation actuelle des six familles est considérée comme validée. Toute intervention future doit préserver :
+
+- les six intitulés ;
+- le système de cards existant ;
+- les dimensions et la hiérarchie ;
+- les visuels ;
+- les comportements responsive ;
+- le style Supabase-like propre à Synode.
+
+Les modifications futures portent uniquement sur les éléments explicitement demandés autour de cette section (texte d’introduction, maintenance/monitoring, CTA, SEO, etc.).
 
 ### Contenu des six cartes
 
@@ -113,36 +141,35 @@ Les équivalents EN conservent le slug avec le préfixe `/en`. Les cartes de l�
 
 Chaque page présente une définition propre, son public, plusieurs possibilités, un scénario illustratif en trois étapes avec outils et contrôle humain, deux autres exemples, les prérequis, les familles complémentaires, une FAQ et un CTA. Aucun exemple n’est présenté comme un projet client livré. Métadonnées, canonique, liens de langue et sitemap couvrent les douze routes.
 
-## 5. Cas d’usage : section de l’accueil et contenus de référence
+## 5. Usages de l’IA : section `/#cas-usage`
 
-### Référence éditoriale conservée
+Cette section aide le visiteur à reconnaître une difficulté sans donner l’impression que Synode ne sait traiter qu’une liste fermée de problèmes. Elle reste distincte des six familles de Solutions : elle part du quotidien de l’entreprise, tandis que la section suivante présente les expertises mobilisables.
 
-Les quatre aperçus sont sur l’accueil et les scénarios développés sur les pages de familles. Le tableau historique ci-dessous reste une réserve de contenu, sans page autonome.
+Le contenu actuellement validé est :
 
-Introduction : « Quelques situations dans lesquelles une solution IA peut vous aider. » Afficher les quatre territoires en ancres ; pas besoin d’un système de filtres complexe pour huit exemples.
+- surtitre : **« Usages de l’IA en entreprise »** ;
+- titre : **« Comment l’IA peut simplifier le quotidien de votre entreprise »** ;
+- introduction : exemples de tâches et de processus courants, puis explication de l’approche sur mesure de Synode ;
+- note éditoriale : les situations illustrent des difficultés fréquentes et ne constituent pas un catalogue exhaustif.
 
-| Domaine | Problème | Solution possible | Indicateur à mesurer avec le client |
-| --- | --- | --- | --- |
-| Ventes | Trop de temps pour préparer un rendez-vous | Synthèse des informations disponibles et préparation d’une fiche prospect | Temps de préparation par rendez-vous |
-| Ventes | Informations commerciales dispersées | Qualification assistée par IA et alimentation du suivi commercial | Fiches complètes et validées |
-| Opérations | Emails entrants difficiles à trier | Classification, extraction et routage avec validation des cas ambigus | Temps de traitement et erreurs de routage |
-| Opérations | Données recopiées depuis des documents | Extraction vers un outil métier, contrôles et validation humaine | Taux de données correctes sur un échantillon |
-| Service client | Questions fréquentes répétitives | Préparation de réponses fondées sur la documentation validée | Temps de réponse et corrections nécessaires |
-| Service client | Demandes mal orientées | Identification du sujet et transmission au bon interlocuteur | Délai d’affectation et réaffectations |
-| Outils métier | Recherche longue dans les documents internes | Assistant avec sources, droits d’accès et réponse d’incertitude | Réponses utiles et correctement sourcées |
-| Outils métier | Plusieurs outils sans vue commune | Interface centralisée, synchronisations et synthèses IA | Doubles saisies et temps de consolidation |
+### Quatre familles de difficultés
 
-### Structure de chaque bloc
+| Situation | Exemples visibles | Réponse possible présentée |
+| --- | --- | --- |
+| Automatiser les tâches répétitives et administratives | Saisie de données, tri d’emails, comptes rendus, contrôle de documents | Automatiser les étapes répétitives avec validation humaine lorsque nécessaire |
+| Retrouver les informations utiles dans les documents | Documents internes, historique client, contrats, procédures | Rassembler les sources autorisées et produire des réponses vérifiables |
+| Trier et orienter les demandes plus rapidement | Demandes clients, prospects entrants, boîtes partagées, dossiers internes | Comprendre, résumer et orienter selon les règles de l’entreprise |
+| Connecter les logiciels et centraliser les données | CRM, agenda, facturation, outils métier | Faire circuler les bonnes données sans imposer le remplacement de l’organisation existante |
 
-- Situation de départ en langage client.
-- Exemple de fonctionnement en trois étapes.
-- Bénéfice recherché, sans résultat chiffré non mesuré.
-- Prérequis : sources disponibles, outils accessibles, interlocuteur métier.
-- Limite principale : qualité des données, contrôle humain ou compatibilité à vérifier.
-- Lien vers une démo si elle existe, sinon badge « Exemple de solution possible ».
-- CTA « J’ai un besoin similaire » → formulaire avec le cas prérempli et modifiable.
+### Structure visuelle actuelle
 
-Ne pas créer huit pages presque vides au lancement. Ajouter une page dédiée uniquement lorsqu’un cas a une vraie démonstration ou suffisamment de contenu propre.
+- quatre cartes rectangulaires en deux colonnes sur ordinateur, puis une colonne sur mobile ;
+- une catégorie métier, un titre explicite, une description, plusieurs petits labels d’exemples et un bloc « Exemple de solution IA » ;
+- une introduction éditoriale large en deux colonnes, avec une note latérale soulignée par un filet bleu ;
+- un encart final : **« Votre difficulté n’apparaît pas ici ? C’est normal. »** ;
+- CTA **« Parler de votre projet IA »** vers le formulaire de contact.
+
+Les anciennes ancres `#ventes`, `#operations`, `#service-client` et `#outils-metier` restent présentes pour préserver les liens existants. Les huit cas détaillés de `src/lib/use-cases.ts` restent une réserve éditoriale et ne définissent pas les limites de l’offre. Ne pas créer huit pages presque vides au lancement ; ajouter une page de cas uniquement lorsqu’une démonstration ou un contenu propre le justifie.
 
 ## 6. Méthode : section `/#approche`
 

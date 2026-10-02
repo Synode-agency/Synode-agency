@@ -1,6 +1,6 @@
 # Ce qui manque avant la mise en ligne
 
-Version du 30 septembre 2026. Architecture simplifiée et douze pages de familles intégrées ; recette visuelle complète encore à terminer.
+Version du 2 octobre 2026. Architecture et offre alignées ; recette visuelle et prérequis de publication encore à terminer.
 
 Ce fichier liste tout ce que le site attend et que le code ne peut pas
 inventer. Il est séparé en deux : ce qui **bloque** la publication, et ce
@@ -18,12 +18,12 @@ est un emplacement qu'on oublie de remplir.
 - [x] Six pages détaillées par langue : définitions, scénarios, prérequis, compléments et FAQ spécifiques.
 - [x] Liens des cartes, liens de langue, métadonnées et sitemap contrôlés sur les HTML de production.
 - [x] Navigation : Accueil / Solutions / Réalisations / Équipe / Contact et CTA vers le calendrier.
-- [x] Accueil : hero / cas d’usage simplifiés / solutions IA / confiance / méthode / projets et démos / FAQ / CTA. L’équipe reste sur sa page dédiée.
+- [x] Accueil : hero / cas d’usage simplifiés / solutions IA / fiabilité et contrôle / méthode / projets et démos / FAQ / CTA, conformément à l’architecture actuelle. L’Équipe reste sur sa page dédiée.
 - [x] Accueil : titre, H1, textes, liens, métadonnées FR/EN et données structurées orientés vers les recherches IA sur mesure, agents IA et automatisation à Bruxelles et en Belgique.
 - [x] Solutions : exemple de combinaison et exploitation, maintenance et monitoring présentés comme continuité récurrente, sans septième famille.
 - [x] Synode Prospect : statut d’outil interne et parcours envisagé visibles, sans résultat ni capture inventés.
 - [x] Anciennes routes Cas d’usage et Méthode redirigées en 308 vers les sections d’accueil, retirées du sitemap.
-- [x] Six cards de même poids visuel ; formation n’est plus une grande card.
+- [x] Les six familles sont présentes et la présentation actuelle est validée. Ne pas modifier leur design sans demande explicite.
 - [x] ESLint, TypeScript et compilation Webpack réussis ; 44 pages et routes pré-rendues.
 - [x] Menu Solutions ouvert au clic et contrôlé visuellement sur ordinateur.
 - [ ] Recette clavier complète (Échap, focus, clic extérieur, navigation), mobile et bilingue dans le navigateur. Les comportements sont implémentés mais les essais ont été interrompus par l’utilisation simultanée de Chrome.
@@ -108,12 +108,14 @@ Restent à fournir si souhaités : noms complets et liens LinkedIn. Aucun lien n
 ### Les réalisations
 
 La page ne contient qu'une entrée, **Synode Prospect**, et elle dit son
-état réel. Manquent :
+état réel. La priorité business est maintenant de construire les preuves plutôt que de refaire le design. Manquent :
 
 - ce que l'outil fait réellement aujourd'hui (le champ `does` est vide) ;
 - des captures réelles ;
 - une ou deux démonstrations avec données fictives, identifiées comme
-  telles.
+  telles ;
+- une démo “gestion intelligente des emails” ou équivalente ;
+- une démo “Knowledge Assistant” ou équivalente.
 
 Un projet client ne s'ajoute qu'après livraison **et** accord écrit.
 

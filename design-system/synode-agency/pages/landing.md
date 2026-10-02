@@ -24,4 +24,4 @@
 
 ## Tokens réels
 
-Voir `../../99gates-landing/DESIGN-SYSTEM.md` §3 et `src/app/globals.css`.
+Voir `../../../DESIGN-SYSTEM.md` §3 et `src/app/globals.css`.

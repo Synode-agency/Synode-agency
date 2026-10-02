@@ -1,91 +1,268 @@
 # Synode : Fiche de référence des associés
 
-Version du 29 septembre 2026 · Document interne de référence.
+Version du 2 octobre 2026 · Document interne de référence.
 
-Cette fiche reprend les décisions présentes dans le contexte accessible de la conversation « Structure site agence IA ». Les modalités opérationnelles proposées restent à valider entre associés ; aucun tarif, résultat client ou statut juridique non confirmé n’est présumé.
+Cette fiche fixe le positionnement, l’offre, la cible et le modèle de travail actuels de Synode. Aucun tarif, résultat client, certification ou statut juridique non confirmé n’est présumé.
 
 ## 1. Qui nous sommes
 
-**Synode conçoit, développe et accompagne des solutions IA sur mesure pour les indépendants, TPE et PME, afin d’améliorer leurs opérations ou de créer des produits et services augmentés par l’IA.**
+> **Synode conçoit, intègre et opère des systèmes IA sur mesure pour les PME.**
 
-Nous partons d’un problème concret, comprenons le fonctionnement du client, puis construisons une solution adaptée à ses outils, ses données et ses contraintes.
+Nous travaillons également avec des indépendants structurés et des TPE lorsque le projet est adapté.
 
-Notre positionnement : **technique, accessible, pragmatique et orienté résultats mesurables**. Nous expliquons simplement ce qui sera réalisé, ce que cela nécessite et comment en évaluer l’utilité. Nous ne promettons ni automatisation totale ni gains non démontrés.
+Nous partons d’un problème concret, comprenons le fonctionnement du client, puis construisons une solution adaptée à ses outils, ses données, ses contraintes et ses équipes.
 
-## 2. Notre offre commerciale
+Formulation secondaire :
 
-**Des solutions IA sur mesure, présentées en six grandes familles.** Un projet ciblé, un système plus complet et un accompagnement à l’adoption sont dimensionnés selon le problème, les outils, les données, les contraintes et les équipes du client.
+> **Agents IA, automatisations et logiciels métier connectés aux outils et aux données du client, avec contrôle humain et suivi dans le temps.**
+
+Notre positionnement doit rester **technique, accessible, pragmatique et orienté résultats mesurables**. Nous expliquons ce qui sera réalisé, ce que cela nécessite, les limites du système et comment son utilité pourra être évaluée.
+
+### Principe
+
+> **Le problème avant la technologie.**
+
+Synode ne vend pas un outil prédéfini. Nous partons d’un processus qui fait perdre du temps, crée des erreurs ou ralentit l’activité, puis nous construisons la solution adaptée.
+
+## 2. Ce que Synode n’est pas
+
+Synode ne doit pas être présentée comme :
+
+- une simple agence d’automatisation ;
+- un vendeur de chatbots ;
+- une agence no-code ;
+- une agence web classique avec une couche « IA » ;
+- une entreprise créant ses propres modèles fondamentaux ;
+- une structure qui livre un prototype puis disparaît.
+
+Notre valeur vient de notre capacité à **transformer les technologies IA existantes en systèmes métier utiles, intégrés et maintenables**.
+
+## 3. Notre offre commerciale
+
+# Solutions IA sur mesure
+
+L’offre est présentée en six grandes familles complémentaires.
 
 | Famille | Ce que nous pouvons concevoir | Exemple de besoin |
 | --- | --- | --- |
 | 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
-| 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
+| 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des tâches répétitives en processus plus rapides et plus fiables |
 | 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
 | 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
-| 05 Data & Intelligence | Centralisation, tableaux de bord, recherche sémantique, analyse, prévision, scoring et recommandation | Comprendre l’activité et éclairer les décisions à partir des données disponibles |
+| 05 Data & Intelligence | Centralisation, tableaux de bord, recherche sémantique, analyse, prévision, scoring et recommandation | Comprendre l’activité et exploiter les données disponibles |
 | 06 Formation & Adoption IA | Formation aux usages de l’IA, ateliers métier et prise en main des solutions Synode | Aider les équipes à utiliser l’IA de façon utile et adaptée à leur travail |
 
-Ces familles structurent notre présentation commerciale. Ce ne sont ni six forfaits ni six produits standardisés : une même solution peut en combiner plusieurs. Les exemples décrivent des possibilités, à confirmer après analyse de faisabilité ; ils ne promettent pas des fonctionnalités déjà disponibles ou des résultats garantis. La prévision et le scoring dépendent notamment de la qualité et du volume des données.
+Ces familles structurent notre présentation commerciale. **Ce ne sont ni six forfaits ni six produits standardisés.** Une solution peut combiner plusieurs familles.
 
-Nous utilisons les technologies IA existantes pour construire des solutions utiles ; nous ne prétendons pas créer nos propres modèles fondamentaux. Les intégrations, les données et les interfaces peuvent constituer une étape du projet. La formation peut être proposée séparément ou accompagner une solution Synode. Nous n’ajoutons pas d’IA lorsqu’elle n’apporte rien au besoin.
+Nous n’ajoutons pas d’IA lorsqu’elle n’apporte pas de valeur pertinente. La prévision, le scoring et les fonctions avancées dépendent notamment de la qualité, du volume et de l’accessibilité des données.
 
-**Exploitation, monitoring et maintenance** accompagnent la vie des solutions selon le contrat ; ce n’est pas une septième famille. Les évolutions importantes font l’objet d’un nouveau devis.
+## 4. Notre logique Build + Run
 
-Le socle d’un projet comprend un périmètre écrit, des livrables définis, des critères de validation, les tests convenus et la mise en service prévue. Chaque devis précise ce qui est inclus : aucune liste ci-dessus ne signifie que toutes les briques sont systématiquement fournies.
+Lorsque le projet le justifie, Synode accompagne la solution sur toute sa vie :
 
-## 3. À qui et pour quels problèmes
+> **Comprendre → Construire → Intégrer → Opérer → Améliorer**
 
-Cible : indépendants, TPE et PME, sans spécialisation sectorielle imposée. Priorité aux organisations ayant un problème récurrent, un interlocuteur disponible, des données accessibles et un budget compatible avec le travail nécessaire.
+Cela signifie :
 
-| Territoire d’intervention | Exemples de besoins |
+- comprendre le processus réel ;
+- construire le système ;
+- l’intégrer aux outils et données ;
+- le mettre en production ;
+- assurer le suivi technique convenu ;
+- l’améliorer lorsque les besoins ou les technologies évoluent.
+
+### Exploitation, monitoring et maintenance
+
+Ce n’est pas une septième famille. C’est la continuité opérationnelle d’une solution lorsque cet accompagnement est prévu au contrat.
+
+Synode peut assurer selon le projet :
+
+- surveillance ;
+- maintenance ;
+- corrections ;
+- optimisation ;
+- suivi des coûts ;
+- amélioration des agents ;
+- adaptation à de nouveaux modèles ;
+- support ;
+- petits ajustements.
+
+Les évolutions importantes font l’objet d’un nouveau devis.
+
+## 5. Notre différenciation à construire
+
+Notre différence ne doit pas reposer sur une liste toujours plus longue de services.
+
+Elle doit progressivement venir de :
+
+1. la compréhension fine du processus métier ;
+2. la construction sur mesure ;
+3. l’intégration dans l’environnement réel du client ;
+4. le contrôle humain lorsque nécessaire ;
+5. le monitoring et la maintenance ;
+6. la proximité directe avec les fondateurs ;
+7. les preuves concrètes ;
+8. un socle technique réutilisable construit avec l’expérience.
+
+Positionnement de fond :
+
+> **Synode transforme des processus qui ralentissent une entreprise en systèmes IA réellement opérationnels.**
+
+## 6. À qui nous nous adressons
+
+Synode reste multi-sectoriel à ce stade. Nous voulons d’abord nous spécialiser dans un **type de problème opérationnel**, pas dans une industrie unique.
+
+### ICP prioritaire
+
+> **PME de services dont les équipes passent beaucoup de temps entre emails, documents, CRM, tâches administratives et logiciels déconnectés.**
+
+Problèmes particulièrement pertinents :
+
+- tâches répétitives ;
+- pertes de temps ;
+- erreurs ;
+- copier-coller et doubles saisies ;
+- beaucoup d’emails ou de documents ;
+- données dispersées ;
+- outils mal connectés ;
+- validations manuelles ;
+- suivi commercial chronophage ;
+- connaissances internes difficiles à retrouver.
+
+Des secteurs peuvent être testés sans enfermer Synode : services B2B, immobilier, recrutement, comptabilité, construction, transport, cabinets professionnels, commerce, etc.
+
+## 7. Nos territoires de cas d’usage
+
+Les territoires servent à aider les prospects à se reconnaître. Ils ne sont pas des offres séparées.
+
+| Territoire | Exemples de besoins |
 | --- | --- |
 | Ventes et prospection | Qualifier des prospects, préparer des rendez-vous, organiser le suivi commercial |
 | Opérations et administratif | Trier des emails, extraire des données, préparer des documents, limiter les doubles saisies |
 | Service client | Qualifier les demandes, préparer les réponses, orienter les cas complexes |
 | Outils métier et connaissance interne | Retrouver l’information, relier les outils, centraliser les opérations |
 
-Ces quatre territoires organisent les cas d’usage et servent à comprendre notre activité. Ils se distinguent des six familles de solutions. **Ce ne sont ni quatre offres distinctes ni les limites de notre savoir-faire.** Chaque demande fait l’objet d’une vérification de faisabilité.
+## 8. Comment nous travaillons
 
-## 4. Comment nous travaillons
-
-1. **Échange gratuit** : comprendre la situation et identifier une première piste. Format recommandé : 30 minutes, sans engagement. Ce rendez-vous ne comprend pas un audit technique exhaustif ni un cahier des charges gratuit.
-2. **Analyse interne** : examiner faisabilité, accès, contraintes, risques et effort. Si un cadrage approfondi est nécessaire, le proposer séparément avant de l’effectuer.
-3. **Proposition et devis** : décrire le problème, la solution, le périmètre, les étapes, le prix et les frais récurrents.
+1. **Échange gratuit** : comprendre la situation et identifier une première piste. Format recommandé : environ 30 minutes, sans engagement. Ce rendez-vous n’est pas un audit technique exhaustif gratuit.
+2. **Analyse interne** : examiner faisabilité, accès, données, contraintes, risques, effort et coûts récurrents.
+3. **Proposition et devis** : décrire le problème, la solution, le périmètre, les étapes, le prix initial et les frais récurrents éventuels.
 4. **Conception et réalisation** : construire par jalons avec démonstrations et validations du client.
-5. **Tests et mise en service** : vérifier les critères convenus, former les utilisateurs et transmettre la documentation.
-6. **Suivi** : surveiller le fonctionnement et traiter les demandes selon les conditions retenues. Les évolutions importantes font l’objet d’un nouveau devis.
+5. **Tests et mise en service** : vérifier les critères convenus, documenter et accompagner la prise en main.
+6. **Suivi** : monitoring, maintenance, support et optimisation selon les conditions retenues. Les évolutions importantes font l’objet d’un nouveau devis.
 
-## 5. Comment nous facturons actuellement
+## 9. Modèle économique
 
-**Choix acté : passer par SmartBE.** Synode est le nom commercial utilisé pour présenter l’activité ; les documents contractuels et de facturation doivent reprendre les identités et mentions validées avec Smart. Ne pas présenter Synode comme une société juridiquement constituée sans confirmation.
+Synode ne publie pas de prix fixes sur le site.
 
-| Composante | Ce que nous cadrons dans le devis |
+| Composante | Principe |
 | --- | --- |
-| Création | Cadrage convenu, développement, intégrations, tests et déploiement ; prix et échéancier propres au projet |
-| Exploitation et maintenance | Hébergement, consommations IA, services tiers, surveillance et interventions incluses ; fréquence, plafonds et dépassements explicites |
-| Évolutions importantes | Nouveau périmètre, chiffrage et accord écrit avant réalisation |
+| Création | Cadrage convenu, conception, développement, intégrations, tests et déploiement ; prix propre au projet |
+| Exploitation & maintenance | Hébergement, consommations IA, services tiers, monitoring et interventions prévues ; limites explicites |
+| Évolutions | Nouveau périmètre, chiffrage et accord écrit avant réalisation |
 
-Pas de prix publics. Le budget est communiqué après compréhension du besoin. Distinguer les frais payés directement par le client de ceux éventuellement refacturés. Définir l’acompte, les jalons, la durée du suivi et les conditions de sortie pour chaque projet.
+Le budget est communiqué après compréhension du besoin. Distinguer les frais techniques, les éventuels coûts tiers et le travail de Synode.
 
-Avant le premier engagement, faire confirmer avec Smart le circuit devis/commande/facture, les frais applicables, la TVA, les acomptes, les prestations récurrentes, la propriété des livrables et l’organisation entre les deux associés. Ne pas calculer la marge à partir du seul montant facturé. [Source : gestion administrative Smart](https://smartbe.be/fr/nos-services/gestion-administrative/).
+## 10. Facturation actuelle via SmartBE
 
-## 6. Comment nous nous présentons
+Synode est actuellement le nom commercial utilisé pour présenter l’activité. Les documents contractuels et de facturation doivent reprendre les identités et mentions validées avec SmartBE. Ne pas présenter Synode comme une société juridiquement constituée sans confirmation.
 
-**Phrase courte**
+Avant les premiers engagements, confirmer avec SmartBE :
 
-> Des solutions IA sur mesure, conçues autour de votre activité.
+- organisation entre les deux associés ;
+- circuit devis / commande / facture ;
+- TVA ;
+- acomptes ;
+- prestations récurrentes ;
+- propriété des livrables ;
+- confidentialité ;
+- responsabilité ;
+- traitement des coûts tiers.
 
-**Présentation orale**
+## 11. Comment nous nous présentons
 
-> Chez Synode, nous aidons les indépendants et les petites et moyennes entreprises à améliorer leurs opérations grâce à l’IA. Nous partons de leurs tâches, de leurs outils et de leurs difficultés pour concevoir la solution adaptée : assistant IA, automatisation ou outil métier. Nous accompagnons ensuite sa mise en place et son suivi.
+### Phrase courte
 
-Le site présente les cas d’usage avant les solutions, puis la méthode, les réalisations/démos, l’équipe et le CTA final. La crédibilité repose sur **Synode Prospect, actuellement en construction**, des démonstrations clairement identifiées et, progressivement, des projets clients documentés. Deux à trois projets pilotes gratuits peuvent être sélectionnés avec un périmètre, une durée et des coûts externes cadrés ; ils ne constituent pas l’offre standard.
+> **Des solutions IA sur mesure, conçues autour de votre activité.**
 
-## 7. Points à verrouiller entre nous
+### Présentation commerciale
 
-- [ ] Répartition nominative : commercial, technique, suivi client et administration Smart.
+> **Nous analysons vos processus puis combinons agents IA, automatisations, intégrations, données et logiciels métier pour construire la solution adaptée à votre activité. Nous pouvons ensuite accompagner son exploitation et son évolution.**
+
+### Formulation stratégique interne
+
+> **Synode conçoit, intègre et opère des systèmes IA sur mesure pour les PME.**
+
+## 12. Nos preuves au lancement
+
+La crédibilité doit venir de preuves réelles.
+
+### Synode Prospect
+
+Outil interne de prospection assistée par IA. Il doit devenir notre première démonstration technique forte.
+
+### Deux démonstrateurs supplémentaires
+
+Objectif : deux démonstrateurs solides plutôt qu’une multitude de petites démos.
+
+Exemples :
+
+- gestion intelligente des emails ;
+- assistant de connaissance interne / Knowledge Assistant.
+
+### Projets pilotes
+
+Synode peut sélectionner 2 à 3 projets pilotes très cadrés si cela permet d’obtenir expérience, retours, résultats mesurables et références autorisées. Un pilote gratuit ou réduit reste une décision stratégique, pas l’offre normale.
+
+### Mesurer avant / après
+
+Lorsque pertinent, mesurer : temps, erreurs, délais, volume traité, interventions humaines et satisfaction. Ne jamais inventer de résultat.
+
+### Transformer chaque réussite en preuve
+
+Chaque bon projet peut devenir : étude de cas, capture, vidéo, témoignage autorisé ou publication commerciale.
+
+## 13. Futur socle technique Synode
+
+À moyen terme, Synode peut construire des composants réutilisables à partir des besoins réels rencontrés :
+
+- logs ;
+- historique des actions ;
+- monitoring ;
+- suivi des coûts API ;
+- permissions ;
+- validations humaines ;
+- gestion des erreurs ;
+- fallback entre modèles ;
+- alertes ;
+- dashboards ;
+- évaluations ;
+- connecteurs réutilisables.
+
+Objectif à terme :
+
+> **Les solutions Synode sont conçues pour être observables, contrôlables et maintenables.**
+
+## 14. Priorités immédiates
+
+> **Finir → prospecter → vendre → livrer → mesurer → transformer en preuve.**
+
+Priorités :
+
+1. finaliser le site sans repartir dans une refonte permanente ;
+2. terminer Synode Prospect ;
+3. construire deux démonstrateurs solides ;
+4. tester l’ICP ;
+5. prospecter chaque semaine ;
+6. obtenir les premiers projets ;
+7. mesurer et documenter ;
+8. développer progressivement le socle technique Synode.
+
+## 15. Points à verrouiller entre associés
+
+- [ ] Répartition nominative : commercial, technique, suivi client et administration SmartBE.
 - [ ] Budget minimum interne, méthode de chiffrage et capacité simultanée de livraison.
 - [ ] Contenu précis de la maintenance et limites de disponibilité.
-- [ ] Identité contractuelle, droits sur les livrables et conditions validés avec Smart.
+- [ ] Identité contractuelle, droits sur les livrables et conditions validés avec SmartBE.
 
 Suite : [architecture du site](README_2_ARCHITECTURE_SITE_SYNODE.md).

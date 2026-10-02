@@ -114,3 +114,21 @@ Cette demande remplace la grille asymétrique précédente : les six familles on
 - Les textes français ciblent naturellement les solutions IA sur mesure, le développement d’agents IA, l’automatisation des PME et les logiciels IA sur mesure à Bruxelles et en Belgique. L’anglais conserve le même positionnement pour Brussels et Belgium.
 - Le H1 reste volontairement plus large : « Simplifiez votre activité avec l’IA. Vous gardez le contrôle. » Les expressions locales et techniques restent dans le titre SEO, le paragraphe du hero et les sections spécialisées.
 - L’accueil dispose de métadonnées propres, de variantes linguistiques et d’un graphe JSON-LD `WebSite` / `Organization`, sans adresse, téléphone, avis ou certification inventés.
+
+## Alternance claire et sombre, 2 octobre 2026
+
+- L’architecture de l’accueil reste inchangée.
+- Le rythme visuel commence par un hero bleu nuit, puis alterne les zones éditoriales claires et les zones techniques sombres : usages clair, Solutions sombre, fiabilité claire, méthode sombre, projets clair, FAQ sombre et CTA final bleu nuit dans son écrin clair.
+- Les cartes des six familles restent inchangées et conservent leur fond bleu nuit, avec une séparation renforcée lorsqu’elles apparaissent dans la section Solutions sombre.
+- Les sections sombres utilisent des nuances de bleu Synode, des bordures fines et des motifs discrets inspirés de la logique visuelle de Supabase, sans copier sa charte.
+- Chaque section possède une intention SEO propre, un `h2` descriptif et un champ lexical adapté. Les expressions locales restent réservées aux endroits où Bruxelles et la Belgique apportent un contexte utile.
+- La clarté pour le lecteur reste prioritaire sur la répétition des mots-clés.
+
+### Deux éditions visuelles maintenues
+
+- L’édition principale alterne les bandes : chaque page commence par un hero bleu nuit, puis une section claire, une section sombre, et ainsi de suite.
+- La navigation reste bleu nuit sur toute la page afin de prolonger visuellement le hero et de conserver un repère stable au défilement.
+- Une édition sombre intégrale utilise les mêmes composants, contenus, routes et règles SEO. Seule la constante `SITE_THEME` diffère entre les branches.
+- Toute évolution de contenu, de SEO ou de fonctionnalité doit être reportée dans les deux branches. Les différences entre branches restent limitées au thème et à ses ajustements de contraste.
+- Références de direction : impact et crédibilité technique d’Ingram, système de cartes et d’interfaces de Supabase, clarté commerciale et locale d’Intyb. Ne pas recopier leur identité, leurs promesses ni leurs preuves.
+- Les grandes surfaces sombres utilisent le bleu encre `#0B192C`. Les fonds de page restent unis, sans dégradé ni halo ; les bleus plus lumineux sont réservés aux actions, liens, icônes et états actifs. Les motifs éventuels restent confinés aux illustrations d’interface.

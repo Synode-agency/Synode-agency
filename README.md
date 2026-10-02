@@ -212,7 +212,6 @@ est déclenché par un `git push` sur `main`, il n'y a rien à téléverser.
 
 ## Dette technique
 
-- [ ] `package.json` s'appelle encore `99gates-landing`
 - [ ] `content.ts` garde `rulesTitle` et `rules` (« Nos règles », 4 phrases) que plus aucune section n'affiche. Soit on les replace quelque part, soit on les supprime.
 - [x] `build`, `tsc --noEmit` et `eslint` passent tous les trois sans rien dire — les garder ainsi
 
