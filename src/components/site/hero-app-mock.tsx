@@ -18,7 +18,7 @@ import type { getContent } from "@/lib/content";
    un composant SVG. */
 type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
 
-type System = ReturnType<typeof getContent>["hero"]["systems"][number];
+type System = ReturnType<typeof getContent>["home"]["hero"]["systems"][number];
 
 /**
  * Les icônes des trois systèmes, dans l'ordre de la copie. Elles vivent ici
@@ -208,7 +208,10 @@ export function HeroAppMock({
 
           <div className="hero-app-card hero-app-gain">
             <span className="hero-app-card-title">{system.gainLabel}</span>
-            <span data-placeholder className="hero-app-chart-value">{system.gainValue}</span>
+            {/* Plus de `data-placeholder` ici : la valeur n'est plus un
+                chiffre inventé à remplacer, c'est une tendance. Voir le
+                commentaire de `hero.systems` dans content.ts. */}
+            <span className="hero-app-chart-value">{system.gainValue}</span>
 
             <span className="hero-app-chart">
               <svg viewBox="0 0 120 44" fill="none" preserveAspectRatio="none">

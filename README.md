@@ -1,5 +1,7 @@
 # Synode — site vitrine
 
+> **Proposition en cours sur `proposition/palette-bleu-encre` :** accueil et page Solutions retravaillés dans une direction claire inspirée de Supabase, typographie Helvetica Neue/Helvetica/Arial, offre unique avec quatre badges, visuels `hero-systems` conservés. Voir [le design actif](docs/DESIGN_STUDIO_CLAIR.md). Les anciennes consignes de desktop figé ci-dessous concernent la version précédente.
+
 Next.js 16, React 19, Tailwind 4, TypeScript. Bilingue : FR à la racine, EN sous `/en`.
 
 ```bash
@@ -210,7 +212,6 @@ est déclenché par un `git push` sur `main`, il n'y a rien à téléverser.
 
 ## Dette technique
 
-- [ ] `package.json` s'appelle encore `99gates-landing`
 - [ ] `content.ts` garde `rulesTitle` et `rules` (« Nos règles », 4 phrases) que plus aucune section n'affiche. Soit on les replace quelque part, soit on les supprime.
 - [x] `build`, `tsc --noEmit` et `eslint` passent tous les trois sans rien dire — les garder ainsi
 

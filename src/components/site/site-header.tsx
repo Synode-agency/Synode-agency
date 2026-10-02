@@ -3,373 +3,194 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
-import { getContent, homePath, path, type Locale } from "@/lib/content";
+import { SolutionsMenu } from "./solutions-menu";
+import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-/** Landing sections the scroll-spy underline follows. */
-/** Les sections de la landing que suit le soulignement au scroll.
- *  « offre », « equipe » et « faq » n'y sont plus : ce sont des pages. */
-const SPY_IDS = ["top", "services", "probleme", "methode", "conclusion"];
-
+/**
+ * La barre de navigation.
+ *
+ * Elle flotte AU-DESSUS de la pile de cartes plutôt que de s'y coller : le
+ * fond teinté reste visible derrière elle, ce qui préserve le principe du
+ * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
+ *
+ * Une seule ligne sur ordinateur, cinq entrées et un bouton. Une barre qui
+ * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
+ * entrée, c'est une autre qui doit partir.
+ */
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const { site, services } = getContent(locale);
+  const { site } = getContent(locale);
   const pathname = usePathname();
+  /* Le menu retient la page sur laquelle il a été ouvert, et il est
+     considéré ouvert tant qu'on y est encore. Une navigation le referme donc
+     TOUTE SEULE, sans effet ni `setState` à surveiller : c'est de l'état
+     dérivé, pas un état à synchroniser. */
+  const [openedAt, setOpenedAt] = useState<string | null>(null);
+  const open = openedAt === pathname;
+  const setOpen = (value: boolean) => setOpenedAt(value ? pathname : null);
+  const headerRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("top");
-  /* Le menu déroulant de Services. `null` = fermé. */
-  const [menu, setMenu] = useState<string | null>(null);
-  const menuWrap = useRef<HTMLDivElement | null>(null);
-
-  const home = homePath(locale);
-  const onHome = pathname === home;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* Le menu ouvert verrouille le défilement de la page derrière lui. */
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const background = Array.from(document.querySelectorAll<HTMLElement>(".site-page > main, .site-page > footer"));
+    const previousInert = background.map(element => element.inert);
+    document.body.style.overflow = "hidden";
+    background.forEach(element => { element.inert = true; });
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      background.forEach((element, index) => { element.inert = previousInert[index]; });
     };
   }, [open]);
 
-  /* Un menu déroulant se ferme à l'Échap et au clic dehors, sans quoi il
-     reste ouvert derrière la page sur laquelle on vient de partir. */
   useEffect(() => {
-    if (!menu) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenu(null);
-    };
-    const onDown = (e: PointerEvent) => {
-      if (!menuWrap.current?.contains(e.target as Node)) setMenu(null);
-    };
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("pointerdown", onDown);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onDown);
-    };
-  }, [menu]);
+    const media = window.matchMedia("(min-width: 1080px)");
+    const closeAtDesktop = () => { if (media.matches) setOpenedAt(null); };
+    media.addEventListener("change", closeAtDesktop);
+    return () => media.removeEventListener("change", closeAtDesktop);
+  }, []);
 
-  useEffect(() => {
-    if (!onHome) return;
-    const targets = SPY_IDS.map((id) => document.getElementById(id)).filter(
-      (el): el is HTMLElement => !!el,
-    );
-    if (!targets.length) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActive(visible.target.id);
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.6] },
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
-  }, [onHome]);
-
-  /** A nav item is current when its route matches, or when the landing is
-   *  scrolled to the section it points at. */
+  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const isCurrent = (href: string) => {
-    const [route, hash] = href.split("#");
-    const normalised = route === "" ? "/" : route.replace(/\/$/, "") || "/";
-    if (hash) return onHome && active === hash;
-    if (normalised === home) return onHome && active === "top";
-    return pathname === normalised || pathname.startsWith(`${normalised}/`);
-  };
-
-  const contactHref = path(locale, "/contact");
-  const contactCurrent = pathname === contactHref;
-
-  /**
-   * The other language, on the page the visitor is actually reading — not
-   * back to the home page. FR lives at the root, EN under /en, so the switch
-   * is a matter of swapping that prefix. On the landing page the scroll-spy
-   * already knows which section is in view, so the section comes along too.
-   */
-  const localeHref = (target: Locale) => {
-    const bare = pathname.startsWith("/en")
-      ? pathname.slice(3) || "/"
-      : pathname;
-    const prefix = target === "fr" ? "" : "/en";
-    const route = bare === "/" ? prefix || "/" : `${prefix}${bare}`;
-    const hash = onHome && active && active !== "top" ? `#${active}` : "";
-    return `${route}${hash}`;
-  };
-
-  const langLink = (target: Locale, code: string) => {
-    const isActive = target === locale;
-    return isActive ? (
-      <span className="rounded-[var(--r-xs)] bg-surface-2 px-2 py-1 font-semibold text-foreground">
-        {code}
-      </span>
-    ) : (
-      <Link
-        href={localeHref(target)}
-        prefetch
-        className="rounded-[var(--r-xs)] px-2 py-1 text-muted-foreground/70 transition-colors hover:text-foreground"
-      >
-        {code}
-      </Link>
-    );
+    const full = path(locale, href);
+    return pathname === full || (href !== ROUTES.home && pathname.startsWith(`${full}/`));
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={cn(
-          // Above the mobile panel, so the logo and the close button sit on
-          // top of it rather than being covered by it.
-          "relative z-10 border-b transition-[background-color,border-color,backdrop-filter,padding-top] duration-300",
-          // No horizontal padding here. The bar used to repeat the page
-          // gutter so it would line up with the hero card's interior, but
-          // the .container-page inside already subtracts that gutter, so the
-          // 35px were being paid twice: below roughly 1900px the logo and
-          // the FR/EN switch sat one gutter further in than every section
-          // heading on the page. Without it the bar takes the same column as
-          // the sections, and the two edges match at every width.
-          // Once the bar detaches into its own glass strip there is no card
-          // to line up with any more, and keeping the top inset would leave
-          // its contents sitting low instead of centred.
-          scrolled && !open
-            ? "pt-0"
-            : "pt-[calc(var(--page-gutter-top)+var(--header-drop))]",
-          // While the mobile panel is open the bar goes fully transparent, so
-          // the panel reads as one surface with no seam under the logo.
-          scrolled && !open
-            ? "border-hairline bg-glass-card backdrop-blur-xl"
-            : "border-transparent bg-transparent",
-        )}
-      >
-        <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
-          <NavLink
-            href={home}
-            locale={locale}
-            onNavigate={() => setOpen(false)}
-            aria-label={site.homeLabel}
-            className="flex shrink-0 items-center rounded-[var(--r-xs)]"
+    <header ref={headerRef} className={cn("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+      if (!open) return;
+      if (e.key === "Escape") { setOpen(false); burgerRef.current?.focus(); }
+      if (e.key === "Tab") {
+        const targets = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a,button") ?? []).filter(el => el.getClientRects().length > 0);
+        const first = targets[0], last = targets[targets.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+      }
+    }}>
+      <div className="site-header-bar">
+        <NavLink
+          href={homePath(locale)}
+          locale={locale}
+          aria-label={site.homeLabel}
+          onNavigate={() => setOpen(false)}
+          className="site-header-brand"
+        >
+          <Wordmark variant="mark" />
+        </NavLink>
+
+        <nav aria-label="Navigation" className="site-nav">
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} /> : (
+            <NavLink
+              key={item.href}
+              href={path(locale, item.href)}
+              locale={locale}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={cn("site-nav-link", isCurrent(item.href) && "is-current")}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="site-header-end">
+          <LangSwitch locale={locale} pathname={pathname} label={site.langLabel} />
+          <Link href={bookHref} className="btn btn--primary site-header-cta">
+            {site.ctaShort}
+            <ArrowRight aria-hidden />
+          </Link>
+
+          <button
+            type="button"
+            ref={burgerRef}
+            className="site-burger"
+            aria-expanded={open}
+            aria-controls="menu-mobile"
+            aria-label={open ? site.menuClose : site.menuOpen}
+            onClick={() => setOpen(!open)}
           >
-            <Wordmark variant="mark" />
-          </NavLink>
-
-          <nav className="hidden items-center gap-1 md:flex" ref={menuWrap}>
-            {site.nav.map((item) => {
-              const current = isCurrent(item.href);
-              const hasMenu = "menu" in item && item.menu === "services";
-              const rule = (
-                /* The rule belongs to the current tab; pointing at another
-                   one draws it there faintly, as if it were about to move. */
-                <span
-                  className={cn(
-                    "absolute inset-x-3 top-px h-0.5 origin-left rounded-[var(--r-pill)] bg-brand transition-[transform,opacity] duration-300",
-                    current
-                      ? "scale-x-100 opacity-100"
-                      : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40 group-focus-visible:scale-x-100 group-focus-visible:opacity-40",
-                  )}
-                  aria-hidden
-                />
-              );
-
-              if (hasMenu) {
-                const open = menu === "services";
-                return (
-                  /* Le survol ouvre, comme on l'attend d'un menu de navigation,
-                     mais le bouton reste un vrai bouton : au clavier et au
-                     toucher, Entrée ou un appui suffisent. */
-                  <div
-                    key={item.href}
-                    className="relative"
-                    onMouseEnter={() => setMenu("services")}
-                    onMouseLeave={() => setMenu(null)}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setMenu(open ? null : "services")}
-                      aria-expanded={open}
-                      aria-controls="nav-services"
-                      className={cn(
-                        "group relative inline-flex items-center gap-1 rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
-                        current || open
-                          ? "text-foreground"
-                          : "text-muted-foreground hover:text-foreground",
-                      )}
-                    >
-                      {item.label}
-                      <ChevronDown
-                        aria-hidden
-                        className={cn(
-                          "size-3.5 transition-transform duration-300",
-                          open && "rotate-180",
-                        )}
-                      />
-                      {rule}
-                    </button>
-
-                    {/* Le panneau commence exactement au bas du bouton, et
-                        l'écart avec la carte est un padding transparent, pas
-                        une position décalée. C'est ce qui permet de descendre
-                        jusqu'aux liens : un vrai écart aurait fait sortir la
-                        souris de la zone survolée, et le menu se serait fermé
-                        avant qu'on puisse cliquer quoi que ce soit. */}
-                    <div
-                      id="nav-services"
-                      hidden={!open}
-                      className="absolute top-full left-1/2 z-40 w-[min(46rem,calc(100vw-4rem))] -translate-x-1/2 pt-2"
-                    >
-                      <div className="surface-card grid gap-5 p-5 shadow-[0_28px_70px_-40px_rgb(11_18_32/0.45)] sm:grid-cols-2">
-                        {services.families.map((family) => (
-                          <div key={family.slug}>
-                            {/* La famille n'est pas un lien : il n'existe pas
-                                de page qui la rassemble, les douze prestations
-                                sont sur l'accueil et chacune a la sienne. Un
-                                intitulé cliquable qui ramène là d'où l'on
-                                vient est pire que pas de lien du tout. */}
-                            <span className="eyebrow block text-brand">
-                              {family.title}
-                            </span>
-                            <ul className="mt-2.5 grid list-none gap-0.5 p-0">
-                              {family.items.map((sub) => (
-                                <li key={sub.slug}>
-                                  <NavLink
-                                    href={path(locale, `/services/${sub.slug}`)}
-                                    locale={locale}
-                                    onNavigate={() => setMenu(null)}
-                                    className="block rounded-[var(--r-xs)] px-2.5 py-1.5 text-[length:var(--fs-small)] text-muted-foreground transition-colors hover:bg-surface-2 hover:text-foreground"
-                                  >
-                                    {sub.title}
-                                  </NavLink>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-
-              return (
-                <NavLink
-                  key={item.href}
-                  href={item.href}
-                  locale={locale}
-                  aria-current={current ? "page" : undefined}
-                  className={cn(
-                    "group relative rounded-[var(--r-xs)] px-3 py-2 text-[length:var(--fs-small)] transition-colors",
-                    current
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {item.label}
-                  {rule}
-                </NavLink>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href={contactHref}
-              aria-current={contactCurrent ? "page" : undefined}
-              className="group brand-gradient hidden items-center gap-1.5 rounded-[var(--r-pill)] px-4 py-2 text-[length:var(--fs-button)] font-medium text-brand-foreground sm:inline-flex"
-            >
-              {site.ctaLabel}
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-
-            <div className="hidden items-center border-l border-hairline pl-3 text-[length:var(--fs-micro)] font-light tracking-[0.06em] sm:flex">
-              {langLink("fr", "FR")}
-              {langLink("en", "EN")}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              className="grid size-10 place-items-center rounded-[var(--r-xs)] border border-hairline text-foreground md:hidden"
-              aria-label={open ? site.menuClose : site.menuOpen}
-              aria-expanded={open}
-            >
-              {open ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+            {open ? <X aria-hidden /> : <Menu aria-hidden />}
+          </button>
         </div>
       </div>
 
-      {open && (
-        <div className="fixed inset-0 z-0 flex flex-col overflow-y-auto bg-background pt-[calc(var(--header-h)+var(--page-gutter-top))] pb-8 md:hidden">
-          <nav className="container-page flex max-h-full flex-col items-center gap-1 overflow-y-auto">
-            {site.nav.map((item) => {
-              const hasMenu = "menu" in item && item.menu === "services";
-              return (
-                <div key={item.href} className="w-full">
-                  <NavLink
-                    href={item.href}
-                    locale={locale}
-                    onNavigate={() => setOpen(false)}
-                    className="block w-full rounded-[var(--r-xs)] px-3 py-3 text-center text-[length:var(--fs-h4)] text-foreground/90 hover:bg-surface-2"
-                  >
-                    {item.label}
-                  </NavLink>
-
-                  {/* Sur téléphone le déroulant n'a pas lieu d'être : rien ne
-                      survole, et un menu dans un menu se referme sans qu'on
-                      sache pourquoi. Les douze prestations sont simplement
-                      posées sous leur famille, en plus petit. */}
-                  {hasMenu && (
-                    <div className="mb-1 flex flex-col gap-3 px-2 pb-1">
-                      {services.families.map((family) => (
-                        <div key={family.slug}>
-                          <span className="eyebrow block text-center text-brand">
-                            {family.title}
-                          </span>
-                          <ul className="mt-1.5 grid list-none gap-0.5 p-0">
-                            {family.items.map((sub) => (
-                              <li key={sub.slug}>
-                                <NavLink
-                                  href={path(locale, `/services/${sub.slug}`)}
-                                  locale={locale}
-                                  onNavigate={() => setOpen(false)}
-                                  className="block rounded-[var(--r-xs)] px-3 py-2 text-center text-[length:var(--fs-small)] text-muted-foreground hover:bg-surface-2 hover:text-foreground"
-                                >
-                                  {sub.title}
-                                </NavLink>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            <Link
-              href={contactHref}
-              onClick={() => setOpen(false)}
-              className="brand-gradient mt-4 inline-flex items-center justify-center gap-1.5 rounded-[var(--r-pill)] px-4 py-3.5 text-[length:var(--fs-body)] font-medium text-brand-foreground"
+      {/* Le menu de téléphone. Il couvre l'écran : un panneau à demi
+          transparent sur une pile de cartes blanches devient illisible. */}
+      <div id="menu-mobile" hidden={!open} className="site-menu">
+        <nav aria-label="Navigation" className="site-menu-nav">
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`mobile-${pathname}-${open}`} locale={locale} pathname={pathname} mobile onNavigate={() => setOpen(false)} /> : (
+            <NavLink
+              key={item.href}
+              href={path(locale, item.href)}
+              locale={locale}
+              onNavigate={() => setOpen(false)}
+              aria-current={isCurrent(item.href) ? "page" : undefined}
+              className={cn("site-menu-link", isCurrent(item.href) && "is-current")}
             >
-              {site.ctaLabel}
-              <ArrowRight className="size-4" />
-            </Link>
-            <div className="mt-5 flex items-center justify-center gap-1 text-[length:var(--fs-small)] font-light tracking-[0.06em]">
-              {langLink("fr", "FR")}
-              {langLink("en", "EN")}
-            </div>
-          </nav>
-        </div>
-      )}
+              {item.label}
+            </NavLink>
+          ))}
+
+        </nav>
+
+        <Link href={bookHref} className="btn btn--primary site-menu-cta" onClick={() => setOpen(false)}>
+          {site.cta}
+          <ArrowRight aria-hidden />
+        </Link>
+      </div>
     </header>
+  );
+}
+
+/**
+ * Le sélecteur de langue.
+ *
+ * Il rend un vrai lien vers la même page dans l'autre langue, pas un bouton
+ * qui recharge la racine : quelqu'un qui lit `/cas-usage` et bascule doit
+ * arriver sur `/en/cas-usage`, pas sur l'accueil.
+ */
+function LangSwitch({
+  locale,
+  pathname,
+  label,
+}: {
+  locale: Locale;
+  pathname: string;
+  label: string;
+}) {
+  /* On retire le préfixe courant pour retrouver la route nue, puis on pose
+     celui de l'autre langue. */
+  const bare = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
+
+  return (
+    <div className="lang" role="group" aria-label={label}>
+      {(["fr", "en"] as const).map((l) => {
+        const href = l === "fr" ? bare : `/en${bare === "/" ? "" : bare}`;
+        const current = l === locale;
+        return (
+          <Link
+            key={l}
+            href={href || "/"}
+            hrefLang={l}
+            aria-current={current ? "true" : undefined}
+            className={cn("lang-item", current && "is-current")}
+          >
+            {l.toUpperCase()}
+          </Link>
+        );
+      })}
+    </div>
   );
 }

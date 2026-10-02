@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import { ContactPage } from "@/components/site/contact-page";
+import { getContent } from "@/lib/content";
+
+const c = getContent("fr").contact;
+const prefix = "";
 
 export const metadata: Metadata = {
-  title: "Nous contacter",
-  description:
-    "Dites-nous ce qui vous fait perdre du temps. Réponse sous 24 h ouvrées, avec un premier avis honnête et un audit d'une heure offert.",
+  title: c.metaTitle,
+  description: c.metaDescription,
   alternates: {
-    canonical: "/contact",
+    canonical: `${prefix}/contact`,
     languages: { fr: "/contact", en: "/en/contact" },
   },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/contact`, type: "website" },
 };
 
-export default function Contact() {
+export default function Page() {
   return <ContactPage locale="fr" />;
 }

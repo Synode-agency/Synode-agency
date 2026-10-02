@@ -1,64 +1,16 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Bebas_Neue } from "next/font/google";
-import localFont from "next/font/local";
 import "./globals.css";
+import "./studio.css";
 import { Toaster } from "@/components/ui/sonner";
 
-/**
- * One sans for the whole site. The monospace that used to carry the small
- * labels is gone: it read as terminal output, and wide letter-spacing on a
- * light weight does the same job without the connotation.
- * Inter carries both the headlines and the running text: at heavy weights
- * with tight tracking it holds a display line, and it is the most neutral
- * face available, which is what an agency site is after.
- *
- * `--font-heading`, `--font-archivo` and `--font-plex` all resolve to it,
- * which keeps every existing class working without a second download.
- */
-/**
- * La police du site : Anodina, déposée dans `src/fonts`.
- *
- * Une seule famille pour tout, titres et texte courant — c'est le principe
- * posé depuis le début : la différence entre un titre et un paragraphe se
- * fait par la taille et la graisse, jamais par un changement de police.
- *
- * Quatre fichiers statiques sur les cinq fournis. L'ExtraLight (250) n'est
- * pas déclaré : aucune règle du site ne descend sous 300, et un poids
- * déclaré est un poids préchargé.
- *
- * La famille n'a ni 500 ni 600, alors que le site en demande. Ce n'est pas
- * un problème : le navigateur choisit le fichier réel le plus proche — 500
- * tombe sur 400, 600 sur 700 — donc aucun faux gras n'est fabriqué. Les
- * éléments en 600 sortiront simplement un cran plus gras que prévu.
- */
-const fontSans = localFont({
-  src: [
-    { path: "../fonts/Anodina-Light.woff2", weight: "300", style: "normal" },
-    { path: "../fonts/Anodina-Regular.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/Anodina-Bold.woff2", weight: "700", style: "normal" },
-    { path: "../fonts/Anodina-ExtraBold.woff2", weight: "800", style: "normal" },
-  ],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const fontChapter = Bebas_Neue({
-  variable: "--font-chapter",
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
-});
-
-/**
- * The heading slot, and the two aliases the offer cards still carry, all
- * point at the one sans. Set on <html> rather than in the theme block, where
- * `--font-heading: var(--font-sans)` on the same element would be a
- * self-reference and resolve to nothing.
- */
+// A neutral system sans keeps the interface crisp without a font download.
+const sans = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 const fontAliases = {
-  "--font-heading": fontSans.style.fontFamily,
-  "--font-archivo": fontSans.style.fontFamily,
-  "--font-plex": fontSans.style.fontFamily,
+  "--font-sans": sans,
+  "--font-heading": sans,
+  "--font-archivo": sans,
+  "--font-plex": sans,
+  "--font-chapter": sans,
 } as CSSProperties;
 
 /* `siteUrl` a déménagé dans `@/lib/site-url` : voir le commentaire là-bas. */
@@ -79,11 +31,8 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
   return (
     <html
       lang={lang}
-      className={[
-        fontSans.variable,
-        fontChapter.variable,
-        "h-full",
-      ].join(" ")}
+      data-scroll-behavior="smooth"
+      className="h-full"
       style={fontAliases}
     >
       <head>

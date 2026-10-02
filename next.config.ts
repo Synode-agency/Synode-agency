@@ -11,6 +11,30 @@ const nextConfig: NextConfig = {
   // Hides the floating Next badge while we review the design on real devices.
   // Compile and runtime errors are still surfaced.
   devIndicators: false,
+
+  /* Le site a changé d'architecture. Ces redirections permanentes évitent
+     qu'un lien ancien, externe ou indexé, tombe sur une 404. Elles couvrent
+     les deux langues et n'ont aucun coût tant qu'elles ne servent pas.
+
+     À garder même quand plus personne ne se souvient de ces adresses : un
+     lien externe, lui, s'en souviendra. */
+  async redirects() {
+    const pairs = [
+      ["/services", "/solutions"],
+      ["/services/:slug", "/solutions"],
+      ["/expertise", "/solutions"],
+      ["/expertise/:slug", "/solutions"],
+      ["/a-propos", "/equipe"],
+      ["/faq", "/solutions"],
+      ["/legal/mentions-legales", "/mentions-legales"],
+      ["/legal/confidentialite", "/confidentialite"],
+      ["/legal/:slug", "/mentions-legales"],
+    ];
+    return pairs.flatMap(([source, destination]) => [
+      { source, destination, permanent: true },
+      { source: `/en${source}`, destination: `/en${destination}`, permanent: true },
+    ]);
+  },
 };
 
 export default nextConfig;

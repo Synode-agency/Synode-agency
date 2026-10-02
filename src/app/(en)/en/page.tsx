@@ -1,7 +1,17 @@
-import { SitePage } from "@/components/site/site-page";
+import type { Metadata } from "next";
+import { HomePage } from "@/components/site/home-page";
+import { getContent } from "@/lib/content";
 
-/* Title, description, OG and canonical all come from the (en) root layout:
-   this is the page it describes. */
-export default function HomeEn() {
-  return <SitePage locale="en" />;
+const c = getContent("en").home;
+
+export const metadata: Metadata = {
+  title: c.metaTitle,
+  description: c.metaDescription,
+  alternates: { canonical: "/en", languages: { fr: "/", en: "/en" } },
+  openGraph: { title: c.metaTitle, description: c.metaDescription, url: "/en", type: "website", locale: "en_BE" },
+  twitter: { card: "summary_large_image", title: c.metaTitle, description: c.metaDescription },
+};
+
+export default function Page() {
+  return <HomePage locale="en" />;
 }

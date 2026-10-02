@@ -1,163 +1,33 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  ChevronRight,
-  Gauge,
-  Mail,
-  Users,
-} from "lucide-react";
-import type { ComponentType, SVGProps } from "react";
-import { Reveal } from "@/components/site/reveal";
-import {
-  AutomationOutlineIcon,
-  BarChartIcon,
-  CodeOutlinedIcon,
-  ConnectIcon,
-  FileIcon,
-  PhoneLinearIcon,
-  RobotLineIcon,
-  WebIcon,
-  ZoomIcon,
-} from "@/components/site/icons";
+import { ArrowRight } from "lucide-react";
+import { ANCHORS, ROUTES, path, type Locale } from "@/lib/content";
+import { EcosystemDiagram } from "@/components/site/solution-visuals";
+import { domains } from "@/lib/use-cases";
 
-type Glyph = ComponentType<SVGProps<SVGSVGElement>>;
-import { cn } from "@/lib/utils";
-
-interface OfferCardProps {
-  number: string;
-  title: string;
-  forWho: string;
-  includes: readonly string[];
-  result: string;
-  resultLabel: string;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  contactHref: string;
-  delay: number;
-  /** Side the card slides in from; omitted it just fades up. */
-  enter?: "left" | "right";
-  /**
-   * `lead` for the two offers the agency is built on, `support` for the one
-   * it takes on when a client asks. The support card is a translucent panel
-   * laid across the full width rather than a white card.
-   */
-  emphasis?: "lead" | "support";
-  /** Shown on the support card in place of the number. */
-  supportLabel?: string;
-}
-
-/** One glyph per item inside each offer's list. */
-const CHIP_ICONS: Glyph[][] = [
-  [AutomationOutlineIcon, RobotLineIcon, FileIcon, Mail],
-  [CodeOutlinedIcon, ConnectIcon, BarChartIcon, Users],
-  [WebIcon, PhoneLinearIcon, Gauge, ZoomIcon],
-];
-
+/** The same single offer on the homepage and the Solutions page. */
 export function OfferCard({
-  number,
-  title,
-  forWho,
-  includes: chips,
-  result,
-  resultLabel,
-  ctaPrimary,
-  ctaSecondary,
-  contactHref,
-  delay,
-  enter,
-  emphasis = "lead",
-  supportLabel,
-}: OfferCardProps) {
-  const index = Math.max(0, Number(number) - 1);
-  const chipIcons = CHIP_ICONS[index] ?? CHIP_ICONS[0];
-
-  if (emphasis === "support") {
-    return (
-      <Reveal delay={delay} className="offer-support">
-        <div className="offer-support-intro">
-          <div>
-            <span className="offer-eyebrow">{supportLabel}</span>
-            <h3 className="offer-support-title">{title}</h3>
-            <p className="offer-support-text">
-              {forWho} {result}
-            </p>
-          </div>
-        </div>
-
-        <div className="offer-support-side">
-          {/* The badges of all three offers are lit by one travelling light,
-              so each carries its rank in the whole run rather than its rank
-              in its own card. This is the third card: 8, 9, 10, 11. */}
-          <ul className="offer-support-chips">
-            {chips.map((chip, i) => (
-              <li
-                key={chip}
-                style={{ "--chip-i": index * 4 + i } as React.CSSProperties}
-              >
-                {chip}
-              </li>
-            ))}
-          </ul>
-          <Link href={contactHref} className="offer-cta offer-cta--ghost">
-            {ctaPrimary}
-            <ArrowRight />
+  locale,
+  detailed = false
+}: {
+  locale: Locale;
+  detailed?: boolean;
+}) {
+  const fr = locale === "fr";
+  return <article className="solution-offer">
+      <div className="solution-offer-copy">
+        <span className="eyebrow"><span className="status-dot" />{fr ? "Une offre. Votre solution." : "One offer. Your solution."}</span>
+        <h2>{fr ? "Solutions IA sur mesure" : "Custom AI solutions"}</h2>
+        <p>{fr ? "Un assistant, un processus automatisé ou un outil métier complet. Nous construisons la solution qui répond à votre besoin, connectée à votre façon de travailler." : "An assistant, an automated process or a complete internal tool. We build the solution your business needs, connected to the way you work."}</p>
+        <ul className="domain-badges" aria-label={fr ? "Quatre domaines d’application" : "Four application areas"}>
+          {domains(locale).map(d => <li key={d.slug}><Link href={`${path(locale, ROUTES.home)}#${d.slug}`}>{d.title}<ArrowRight aria-hidden /></Link></li>)}
+        </ul>
+        <div className="offer-bottom">
+          <Link className="btn btn--primary" href={detailed ? `${path(locale, ROUTES.contact)}#${ANCHORS.form}` : path(locale, ROUTES.solutions)}>
+            {detailed ? fr ? "Parlons de votre projet" : "Tell us about your project" : fr ? "Découvrir l’offre" : "Explore the offer"}<ArrowRight aria-hidden />
           </Link>
-        </div>
-      </Reveal>
-    );
-  }
-
-  return (
-    <Reveal
-      delay={delay}
-      className={cn(
-        "offer-paper offer-card",
-        enter === "left" ? "reveal-left" : enter === "right" ? "reveal-right" : undefined,
-      )}
-    >
-      <div className="offer-head">
-        <div className="min-w-0">
-          <div className="offer-head-line">
-            <b className="offer-num">{number}</b>
-            <h3 className="offer-title">{title}</h3>
-          </div>
-          <p className="offer-for">{forWho}</p>
+          <span>{fr ? "Périmètre clair. Devis sur mesure." : "Clear scope. Tailored quote."}</span>
         </div>
       </div>
-
-      <ul className="offer-chips">
-        {chips.map((chip, i) => {
-          const ChipIcon = chipIcons[i % chipIcons.length];
-          return (
-            <li
-              key={chip}
-              className="offer-chip"
-              style={{ "--chip-i": index * 4 + i } as React.CSSProperties}
-            >
-              <ChipIcon />
-              <span>{chip}</span>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div className="offer-result">
-        <div>
-          <span className="offer-eyebrow">{resultLabel}</span>
-          <p className="offer-result-text">{result}</p>
-        </div>
-      </div>
-
-      <div className="offer-actions">
-        <Link href={contactHref} className={cn("offer-cta")}>
-          {ctaPrimary}
-          <ArrowRight />
-        </Link>
-        <Link href={contactHref} className="offer-link">
-          {ctaSecondary}
-          <ChevronRight />
-        </Link>
-      </div>
-    </Reveal>
-  );
+      <div className="offer-system offer-system--network"><EcosystemDiagram locale={locale} /></div>
+    </article>;
 }
