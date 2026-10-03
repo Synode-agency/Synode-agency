@@ -116,14 +116,14 @@ export function HeroAppMock({
       {/* ------------------------------ Panneau -------------------------- */}
       <div className="hero-app-main">
         <div className="hero-app-head">
-          <h3 className="hero-app-title">
+          <p className="hero-app-title">
             {system.title.split("\n").map((line, i, all) => (
               <Fragment key={i}>
                 {line}
                 {i < all.length - 1 && <br />}
               </Fragment>
             ))}
-          </h3>
+          </p>
 
           {/* L'état du système, en vert : ce qui tourne tourne. */}
           <span className="hero-app-status">

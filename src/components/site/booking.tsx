@@ -2,9 +2,8 @@
 
 import { CalendarPreview } from "./calendar-preview";
 import { useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight, CalendarClock, Clock3 } from "lucide-react";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ArrowUpRight, CalendarClock } from "lucide-react";
+import { getContent, type Locale } from "@/lib/content";
 
 /** Accept a Cal.com event path or a full public booking URL. */
 function bookingUrl(value: string | undefined) {
@@ -25,11 +24,14 @@ export function Booking({ locale, variant = "default" }: { locale: Locale; varia
   const b = contact.booking;
   const fr = locale === "fr";
   const url = bookingUrl(process.env.NEXT_PUBLIC_CAL_LINK);
-  const [open, setOpen] = useState(false);
-  const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
+  const [open, setOpen] = useState(variant === "card" && Boolean(url));
 
   if (!url && variant === "default") {
     return <CalendarPreview locale={locale} />;
+  }
+
+  if (!url && variant === "card") {
+    return <CalendarPreview locale={locale} variant="cta" />;
   }
 
   const embedUrl = url ? new URL(url) : null;
@@ -44,16 +46,6 @@ export function Booking({ locale, variant = "default" }: { locale: Locale; varia
     <div className={variant === "card" ? "booking booking--card" : "booking"}>
       {open && embedUrl ? (
         <iframe src={embedUrl.toString()} title={b.title} loading="lazy" className="booking-frame" />
-      ) : variant === "card" ? (
-        <div className="booking-preview">
-          <div className="booking-preview-heading"><CalendarClock aria-hidden /><div><h3>{fr ? "Faisons connaissance" : "Let’s meet"}</h3><span><Clock3 aria-hidden />{fr ? "30 min · En visio" : "30 min · Video call"}</span></div></div>
-          <div className="calendar-illustration" aria-hidden="true">
-            <div className="calendar-week">{(fr ? ["L", "M", "M", "J", "V", "S", "D"] : ["M", "T", "W", "T", "F", "S", "S"]).map((day, i) => <span key={i}>{day}</span>)}</div>
-            <div className="calendar-days">{Array.from({ length: 28 }, (_, i) => <span key={i} />)}</div>
-          </div>
-          {url ? <><p>{fr ? "Consultez nos disponibilités, puis choisissez le jour et l’heure qui vous conviennent." : "See our availability and choose a day and time that suits you."}</p><button type="button" onClick={() => setOpen(true)} className="btn btn--primary">{fr ? "Afficher les disponibilités" : "Show available times"}<ArrowUpRight aria-hidden /></button></> : <><p>{fr ? "La réservation en ligne sera bientôt disponible. En attendant, contactez-nous pour convenir d’un créneau." : "Online booking will be available soon. Contact us to arrange a time in the meantime."}</p><Link href={formHref} className="btn btn--primary">{fr ? "Nous contacter" : "Contact us"}<ArrowUpRight aria-hidden /></Link></>}
-          <span className="booking-provider">{url ? "Cal.com" : (fr ? "Calendrier à venir" : "Calendar coming soon")}</span>
-        </div>
       ) : (
         <button type="button" onClick={() => setOpen(true)} className="btn btn--primary"><CalendarClock aria-hidden />{b.openLabel}</button>
       )}

@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import { solutionFamilies } from "@/lib/solution-details";
 import { ROUTES } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
-import { assertUseCases } from "@/lib/use-cases";
+import { assertBusinessUseCases } from "@/lib/business-use-cases";
 import { workItems } from "@/lib/work";
+import { assertDiagnosticParity } from "@/lib/ai-diagnostic-questions";
 
 /**
  * Le plan du site, chaque page appariée à sa traduction.
@@ -18,14 +19,17 @@ import { workItems } from "@/lib/work";
  * langue casse le build au lieu de produire une page anglaise vide.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  assertUseCases();
+  assertBusinessUseCases();
+  assertDiagnosticParity();
 
   const pages: { path: string; priority: number }[] = [
     { path: ROUTES.home === "/" ? "" : ROUTES.home, priority: 1 },
     { path: ROUTES.solutions, priority: 0.9 },
     ...solutionFamilies("fr").map(f => ({ path: `${ROUTES.solutions}/${f.slug}`, priority: 0.8 })),
+    { path: ROUTES.useCases, priority: 0.8 },
     { path: ROUTES.work, priority: 0.8 },
     ...workItems("fr").map((w) => ({ path: `${ROUTES.work}/${w.slug}`, priority: 0.6 })),
+    { path: ROUTES.aiDiagnostic, priority: 0.7 },
     { path: ROUTES.contact, priority: 0.8 },
     { path: ROUTES.team, priority: 0.6 },
     { path: ROUTES.legalNotice, priority: 0.2 },

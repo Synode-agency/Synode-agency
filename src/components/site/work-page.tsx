@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
+import { PageHero } from "@/components/site/page-hero";
+import { WorkHeroTerminal } from "@/components/site/hero-asides";
 import { WorkProjectCard } from "./work-project-card";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -28,9 +30,17 @@ export function WorkPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
-        <Lede as="h1" kicker={w.intro.kicker} title={w.intro.title} text={w.intro.text} />
-      </Band>
+      <PageHero
+        title={locale === "fr" ? <>Nos <span>réalisations IA</span>, et où nous en sommes</> : <>Our <span>AI work</span>, and where it stands</>}
+        aside={<WorkHeroTerminal locale={locale} />}
+      >
+        <p>{w.intro.text}</p>
+        <div className="btn-row">
+          <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets et démonstrateurs" : "See the projects and demos"}<ArrowRight aria-hidden /></Link>
+          <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
+        </div>
+        <span className="hero-reassurance">{locale === "fr" ? "* Chaque projet garde son statut visible : outil interne, démonstration ou projet client." : "* Every project keeps its status visible: internal tool, demo or client project."}</span>
+      </PageHero>
 
       <Band id="liste" tone="white">
         <div className="projects-gallery">

@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Radar, SlidersHorizontal, ReceiptText, LifeBuoy, Check, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
+import { ArrowDown, ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Radar, SlidersHorizontal, ReceiptText, LifeBuoy, Check, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { SolutionsHero } from "./solutions-hero";
+import { SolutionsModules } from "./solutions-hero";
+import { PageHero } from "@/components/site/page-hero";
 import { DeliveryPreview, ProjectPreview } from "@/components/site/solution-visuals";
 
 import { SolutionFamilies } from "./solution-families";
@@ -23,9 +24,17 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="white" className="solutions-intro">
-        <SolutionsHero locale={locale} />
-      </Band>
+      <PageHero
+        title={fr ? <>Six familles pour composer vos <span>solutions IA sur mesure</span></> : <>Six families to compose your <span>custom AI solutions</span></>}
+        aside={<SolutionsModules locale={locale} />}
+      >
+        <p>{fr ? "Un besoin précis, plusieurs façons d’y répondre. Agents IA, automatisations, logiciels métier, intégrations, data et formation se combinent en une seule solution, conçue autour de vos outils, de vos données et de vos règles métier." : "One specific need, several ways to address it. AI agents, automations, business software, integrations, data and training combine into a single solution, designed around your tools, your data and your business rules."}</p>
+        <div className="btn-row">
+          <Link href="#briques" className="btn btn--primary">{fr ? "Explorer les six familles" : "Explore the six families"}<ArrowDown aria-hidden /></Link>
+          <Link href={formHref} className="btn btn--ghost">{fr ? "Parlons de votre besoin" : "Tell us what you need"}</Link>
+        </div>
+        <span className="hero-reassurance">{fr ? "* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé." : "* A free first conversation. A clear scope. A tailored quote."}</span>
+      </PageHero>
 
       <Band id="briques" tone="base" className="technical-band">
         <Lede kicker={fr ? "Six familles, votre solution" : "Six families, your solution"} title={solutions.bricksTitle} text={solutions.bricksText} />

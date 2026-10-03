@@ -6,7 +6,7 @@ Version du 29 septembre 2026.
 
 Les six familles sont définies dans [la référence Synode](README_1_REFERENCE_SYNODE.md) et leur présentation dans [l’architecture](README_2_ARCHITECTURE_SITE_SYNODE.md). Cette évolution concerne les contenus et les cartes existantes ; elle ne nécessite pas de nouvelle installation, de nouveau service ni de nouvelles variables d’environnement. Les procédures techniques ci-dessous sont conservées.
 
-Les six familles, leurs douze pages FR/EN, le menu Solutions et la nouvelle composition de l’accueil sont intégrés. Les anciennes routes Cas d’usage et Méthode redirigent vers les sections d’accueil. La redirection globale `/solutions/:slug` a été retirée pour laisser accéder aux nouvelles pages. Aucune variable supplémentaire n’est nécessaire. Les prérequis de publication restent listés dans [SITE_A_COMPLETER.md](SITE_A_COMPLETER.md).
+Les six familles, leurs douze pages FR/EN, le menu Solutions, la page Cas d’usage et la nouvelle composition de l’accueil sont intégrés. La route Méthode redirige vers la section correspondante de l’accueil. La redirection globale `/solutions/:slug` a été retirée pour laisser accéder aux nouvelles pages. Aucune variable supplémentaire n’est nécessaire. Les prérequis de publication restent listés dans [SITE_A_COMPLETER.md](SITE_A_COMPLETER.md).
 
 ## Lancer en local
 

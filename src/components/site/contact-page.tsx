@@ -1,5 +1,9 @@
 import { Suspense } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
+import { PageHero } from "@/components/site/page-hero";
+import { ContactHeroDoors } from "@/components/site/hero-asides";
 import { Lede } from "@/components/site/lede";
 import { Booking } from "@/components/site/booking";
 import { ContactForm } from "@/components/site/contact-form";
@@ -20,9 +24,19 @@ export function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
-        <Lede as="h1" kicker={contact.kicker} title={contact.title} text={contact.text} />
-      </Band>
+      <PageHero
+        title={locale === "fr" ? <>Parlons de votre <span>projet IA</span></> : <>Let’s discuss your <span>AI project</span></>}
+        aside={<ContactHeroDoors locale={locale} />}
+      >
+        <p>{contact.text}</p>
+        <div className="btn-row">
+          {/* Les libellés restent courts : les titres complets sont déjà les
+              H2 des deux sections visées, et les répéter trois fois sur la
+              page n'aide ni le lecteur ni l'indexation. */}
+          <Link href={`#${ANCHORS.booking}`} className="btn btn--primary">{site.ctaShort}<ArrowRight aria-hidden /></Link>
+          <Link href={`#${ANCHORS.form}`} className="btn btn--ghost">{locale === "fr" ? "Écrire à l’équipe" : "Write to the team"}</Link>
+        </div>
+      </PageHero>
 
       <Band id={ANCHORS.booking} tone="white">
         <Lede title={contact.booking.title} text={contact.booking.text} />
