@@ -89,7 +89,7 @@ const fr = {
     {
       slug: "synode-prospect",
       kind: "internal" as WorkKind,
-      title: "Synode Prospect",
+      title: "Nexus",
       status: "Outil interne · en construction",
       problem:
         "Identifier les entreprises à qui notre travail serait réellement utile, et préparer la prise de contact sans y passer la semaine.",
@@ -152,7 +152,7 @@ const en = {
     {
       slug: "synode-prospect",
       kind: "internal" as WorkKind,
-      title: "Synode Prospect",
+      title: "Nexus",
       status: "Internal tool · in progress",
       problem:
         "Finding the companies our work would genuinely help, and preparing the approach without spending the week on it.",

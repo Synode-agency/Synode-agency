@@ -1,13 +1,13 @@
 # Synode : Architecture complète du site
 
-Version du 2 octobre 2026 · Architecture actuelle : Accueil / Solutions / Réalisations / Équipe / Contact. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md). Contexte maître : [README 0](README_0_CONTEXTE_CODEX_SYNODE.md).
+Version du 3 octobre 2026 · Architecture actuelle : Accueil / Solutions / Cas d’usage / Réalisations / Équipe / Contact. Référence commerciale : [fiche Synode](README_1_REFERENCE_SYNODE.md). Contexte maître : [README 0](README_0_CONTEXTE_CODEX_SYNODE.md).
 
 ## 1. Objectif et règles éditoriales
 
 **Objectif principal : obtenir un échange qualifié avec un prospect.** Le visiteur doit comprendre ce que Synode fait, reconnaître un problème, voir une preuve et pouvoir prendre contact.
 
 - Positionnement externe : **Solutions IA sur mesure**. Positionnement stratégique interne : **Synode conçoit, intègre et opère des systèmes IA sur mesure pour les PME.** Les quatre domaines restent des exemples de cas d’usage, pas des offres.
-- Sur l’accueil : hero → usages de l’IA → solutions → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navigation et sa page dédiée. Les pages principales restent limitées à Accueil, Solutions, Réalisations, Équipe et Contact.
+- Sur l’accueil : hero → usages de l’IA → solutions → impact opérationnel → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navigation et sa page dédiée. Les pages principales sont Accueil, Solutions, Cas d’usage, Réalisations, Équipe et Contact.
 - Une promesse concrète, sans chiffres de performance inventés ni logos clients non autorisés.
 - Des démos présentées comme des démos ; Synode Prospect présenté selon son état réel.
 - Pas de grille tarifaire publique ; expliquer création, exploitation et maintenance.
@@ -21,6 +21,7 @@ Version du 2 octobre 2026 · Architecture actuelle : Accueil / Solutions / Réal
 | Accueil | `/` | Faire comprendre l’activité et donner envie d’échanger |
 | Solutions | `/solutions` | Présenter les six familles de solutions et leur combinaison sur mesure |
 | Famille de solutions | `/solutions/[slug]` | Définition, usages, scénario, prérequis et FAQ propres à chaque famille |
+| Cas d’usage | `/cas-usage` | Présenter douze exemples de systèmes IA appliqués à des processus métier |
 | Réalisations et démos | `/realisations` | Donner des preuves concrètes |
 | Fiche réalisation | `/realisations/[slug]` | Détailler une démonstration ou un projet réel |
 | Équipe | `/equipe` | Présenter les deux associés et leurs rôles |
@@ -29,11 +30,11 @@ Version du 2 octobre 2026 · Architecture actuelle : Accueil / Solutions / Réal
 | Mentions légales | `/mentions-legales` | Présenter les informations légales validées |
 | Confidentialité | `/confidentialite` | Expliquer le traitement des données et les prestataires |
 
-**Navbar ordinateur** : Accueil ; Solutions (menu déroulant) ; Réalisations ; Équipe ; Contact ; bouton « Réserver un échange ». Le bouton mène à `/contact#reservation`, tandis que Contact ouvre la page avec ses deux portes d’entrée, calendrier et formulaire.
+**Navbar ordinateur** : Accueil ; Solutions (menu déroulant) ; Cas d’usage ; Réalisations ; Équipe ; Contact ; bouton « Réserver un échange ». Le bouton mène à `/contact#reservation`, tandis que Contact ouvre la page avec ses deux portes d’entrée, calendrier et formulaire.
 
 **Solutions** : bouton ouvrant le panneau au clic ou au clavier, lien « Toutes nos solutions » et six liens détaillés. État annoncé avec `aria-expanded`, fermeture avec Échap, au clic extérieur, à la sortie du focus et après navigation. Mobile : sous-menu dépliable, mêmes destinations.
 
-Les anciennes routes `/cas-usage` et `/methode` redirigent définitivement vers `/#cas-usage` et `/#approche`, avec équivalents EN. Elles ne sont plus dans la navigation ni le sitemap. Les composants et contenus historiques restent disponibles dans le dépôt.
+La route `/cas-usage` et son équivalent anglais affichent la page dédiée et figurent dans la navigation et le sitemap. L’ancienne route `/methode` redirige définitivement vers `/#approche`, avec son équivalent anglais.
 
 **Pied de page** : phrase courte de présentation, liens vers toutes les pages principales, email professionnel réel, réseaux effectivement alimentés, mentions légales, confidentialité, gestion des cookies si nécessaire. Les informations Smart doivent correspondre au montage validé ; aucun numéro d’entreprise à inventer.
 
@@ -42,15 +43,16 @@ Les anciennes routes `/cas-usage` et `/methode` redirigent définitivement vers 
 | Ordre / section | Contenu | Action |
 | --- | --- | --- |
 | 1. Hero | Promesse actuelle, systèmes IA animés préservés, bandeau animé discrètement | Réserver / découvrir les solutions |
-| 2. L’IA dans votre quotidien | Quatre grandes familles de difficultés, avec exemples concrets et réponses possibles | Reconnaître ce qui ralentit son activité et décrire son besoin |
+| 2. L’IA dans votre quotidien | Quatre cas d’usage représentatifs, avec lien vers les douze exemples détaillés | Reconnaître un processus à améliorer et découvrir la page Cas d’usage |
 | 3. Solutions IA | Aperçu des six familles ; la présentation actuelle est validée | Solutions / pages détaillées |
-| 4. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Comprendre les garde-fous prévus selon le projet |
-| 5. Du premier échange à l’usage | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
-| 6. Quelques projets & démos | Une ou deux preuves maximum sur l’accueil, dont Synode Prospect selon son état réel | Fiche du projet + « Voir toutes nos réalisations » |
-| 7. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
-| 8. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
+| 4. Impact opérationnel | Effets recherchés sur les frictions, la circulation de l’information, la fiabilité et le temps utile, sans résultat garanti | Comprendre ce qui pourra être défini et mesuré pendant le projet |
+| 5. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Comprendre les garde-fous prévus selon le projet |
+| 6. Du premier échange à l’usage | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
+| 7. Quelques projets & démos | Une ou deux preuves maximum sur l’accueil, dont Synode Prospect selon son état réel | Fiche du projet + « Voir toutes nos réalisations » |
+| 8. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
+| 9. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
 
-Le hero utilise une hauteur minimale de fenêtre pour les largeurs de portable (960 à 1700 px CSS et hauteur maximale de 1000 px), en incluant le dégagement de la navbar fixe. Il reste libre de grandir si son contenu le nécessite. Au-delà de cette plage, la hauteur naturelle s’applique. Le bandeau garde tous ses libellés lisibles et devient statique avec réduction des animations. Voir la recette pour les tailles réellement vérifiées, sans confondre pixels CSS et dimensions physiques du MacBook.
+Le hero suit la hauteur disponible sur ordinateur jusqu’à une référence maximale de 768 px CSS. Une fenêtre plus haute révèle la section suivante au lieu d’étirer l’espace avant le bandeau. Le bandeau fait défiler les expertises, reste complet sans animation et le hero demeure libre de grandir si son contenu l’exige. Voir la recette pour les tailles réellement vérifiées, sans confondre pixels CSS et dimensions physiques du MacBook.
 
 ### Priorités SEO de l’accueil
 
@@ -123,7 +125,7 @@ Les familles se combinent selon le besoin. Formation & Adoption IA comprend la f
 - Dernier choix : six cartes de même poids visuel, en trois colonnes sur ordinateur, puis deux et une selon la largeur. Même fond, même typographie et même espace pour les illustrations ; aucune famille n’est présentée comme plus importante.
 - Adapter la grille existante de cinq briques à six familles. Préserver les accents bleus et bleu nuit existants, les composants, illustrations réutilisables et animations du hero. Aucun changement global de palette, police ou structure.
 - Sur mobile, assurer une lecture fluide dans l’ordre 01 à 06, sans débordement ni texte tronqué. Les numéros identifient les familles et ne représentent pas des étapes obligatoires.
-- Conserver les sections livrables, dimensionnement, modèle économique, FAQ et CTA lorsqu’elles restent cohérentes. Ajouter les six pages détaillées en FR/EN ; les anciennes routes Cas d’usage et Méthode redirigent vers l’accueil.
+- Conserver les sections livrables, dimensionnement, modèle économique, FAQ et CTA lorsqu’elles restent cohérentes. Ajouter les six pages détaillées en FR/EN. La page Cas d’usage est une page principale ; seule l’ancienne page Méthode redirige vers l’accueil.
 
 
 ### Pages détaillées intégrées

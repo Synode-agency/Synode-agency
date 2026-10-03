@@ -1,154 +1,82 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
+import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
-import { Flow } from "@/components/site/architecture";
+import { renderLines } from "@/lib/lines";
+import { BusinessUseCaseCards } from "@/components/site/business-use-case-cards";
+import { OperationalImpact } from "@/components/site/operational-impact";
+import { UseCaseTerminal } from "@/components/site/use-case-terminal";
+import { businessUseCases } from "@/lib/business-use-cases";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { casesOfDomain, domains, type UseCase } from "@/lib/use-cases";
+import { siteUrl } from "@/lib/site-url";
 
-/**
- * Les cas d'usage.
- *
- * Huit blocs, quatre territoires, et des ancres plutôt qu'un système de
- * filtres : pour huit exemples, un filtre est une mécanique de plus à
- * comprendre pour un gain nul.
- *
- * Chaque bloc dit AUSSI ce qu'il faut pour que ça marche et ce qui limite le
- * résultat. C'est contre-intuitif commercialement et c'est le but : un
- * prospect qui se disqualifie lui-même en lisant les prérequis nous fait
- * gagner un rendez-vous à tous les deux.
- *
- * Aucun de ces cas n'a de démonstration aujourd'hui. Le bloc affiche donc
- * une pastille « exemple de solution possible » plutôt qu'un lien mort, et
- * il basculera tout seul le jour où `demo` sera renseigné.
- */
 export function UseCasesPage({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
+  const contactHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
+  const bookingHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const cases = businessUseCases(locale);
+  const pagePath = path(locale, ROUTES.useCases);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: fr ? "Cas d’usage de l’IA en entreprise" : "AI use cases for business",
+    description: fr
+      ? "Exemples de solutions IA sur mesure pour automatiser et améliorer les processus métier."
+      : "Examples of custom AI solutions that automate and improve business processes.",
+    url: `${siteUrl}${pagePath}`,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: cases.length,
+      itemListElement: cases.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.title,
+        url: `${siteUrl}${pagePath}#${item.slug}`,
+      })),
+    },
+  };
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <PageHero
+        title={fr ? <>Des <span>systèmes IA</span> intégrés à vos processus métier</> : <><span>AI systems</span> integrated into your business processes</>}
+        aside={<UseCaseTerminal locale={locale} />}
+      >
+        <p>{fr ? "Découvrez comment l’intelligence artificielle peut connecter vos outils, exploiter vos données, orchestrer des processus complexes et assister vos équipes au quotidien. Agents IA, automatisations, intégrations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can connect your tools, use your data, orchestrate complex processes and support your teams every day. AI agents, automations, integrations and business software are combined around your tools, data and business rules."}</p>
+        <div className="btn-row">
+          <Link className="btn btn--primary" href={bookingHref}>{getContent(locale).site.ctaShort}<ArrowRight aria-hidden /></Link>
+          <Link className="btn btn--ghost" href="#exemples">{fr ? "Explorer les cas d’usage" : "Explore the use cases"}</Link>
+        </div>
+      </PageHero>
+
+      <Band id="exemples" tone="white" className="studio-section use-cases-catalog">
         <Lede
-          as="h1"
-          kicker={fr ? "Cas d’usage" : "Use cases"}
-          title={
-            fr
-              ? "Quelques situations où\n^une solution IA peut vous aider."
-              : "A few situations where\n^an AI solution can help."
-          }
-          text={
-            fr
-              ? "Huit exemples, rangés en quatre territoires. Chacun part d’un problème que vous avez peut-être déjà, pas d’une technologie que nous aurions envie d’installer."
-              : "Eight examples, grouped into four areas. Each starts from a problem you may already have, not from a technology we happen to want to install."
-          }
+          title={fr ? "Des solutions IA intégrées à vos processus métier" : "AI solutions integrated into your business processes"}
+          text={fr
+            ? "Agents IA, automatisations, intégrations, analyse de données et logiciels métier peuvent intervenir dans de nombreux processus d’entreprise : opérations, service client, ventes, finance, gestion documentaire ou planification. Chaque solution est cadrée selon votre environnement, vos données, vos règles métier et le niveau de contrôle humain requis."
+            : "AI agents, automations, integrations, data analysis and business software can support many company processes: operations, customer service, sales, finance, document management or planning. Every solution is scoped around your environment, data, business rules and the required level of human control."}
         />
-        {/* Les quatre ancres. Un lecteur qui sait ce qu'il cherche va droit
-            au bon endroit ; les autres font défiler. */}
-        <nav aria-label={fr ? "Territoires" : "Areas"} className="anchors section-gap">
-          {domains(locale).map((d) => (
-            <a key={d.slug} href={`#${d.slug}`} className="anchor-pill">
-              {d.title}
-            </a>
-          ))}
-        </nav>
+        <div className="section-gap"><BusinessUseCaseCards items={cases} locale={locale} /></div>
       </Band>
 
-      {domains(locale).map((domain, di) => (
-        <Band key={domain.slug} id={domain.slug} tone={di % 2 === 1 ? "white" : "base"}>
-          <Lede title={domain.title} text={domain.text} />
-          <div className="cases section-gap">
-            {casesOfDomain(locale, domain.slug).map((c) => (
-              <Case key={c.slug} item={c} locale={locale} />
-            ))}
-          </div>
-        </Band>
-      ))}
+      <Band id="impact-operationnel" tone="base" className="studio-section operational-impact-band">
+        <OperationalImpact locale={locale} />
+      </Band>
 
-      <Band id="conclusion" tone="blue">
-        <Lede
-          title={
-            fr
-              ? "Votre situation n’est\n^dans aucun de ces huit cas ?"
-              : "Your situation is in\n^none of these eight?"
-          }
-          text={
-            fr
-              ? "C’est le cas le plus fréquent. Ces exemples montrent comment nous travaillons, pas ce que nous savons faire."
-              : "That is the usual case. These examples show how we work, not the limits of what we can build."
-          }
-          align="center"
-        />
-        <div className="btn-row cta-actions">
-          <Link
-            href={`${path(locale, ROUTES.contact)}#${ANCHORS.booking}`}
-            className="btn btn--primary"
-          >
-            {getContent(locale).site.cta}
-            <ArrowRight aria-hidden />
-          </Link>
+      <Band tone="white" className="studio-section use-cases-closing-band">
+        <div className="daily-open-callout use-cases-final-cta">
+          <div>
+            <span className="eyebrow"><span className="status-dot" />{fr ? "Votre situation est unique" : "Your situation is unique"}</span>
+            <h2>{renderLines(fr ? "Votre besoin ne correspond pas exactement à\nces cas d’usage IA ? C’est normal." : "Your need doesn’t quite match\nthese AI use cases? That is normal.")}</h2>
+            <p>{renderLines(fr
+              ? "Une solution IA sur mesure commence par votre organisation, vos contraintes et\nvos priorités, pas par une liste de fonctionnalités prédéfinies."
+              : "A custom AI solution starts with your organisation, constraints and\npriorities, not a predefined list of features.")}</p>
+          </div>
+          <Link className="btn btn--primary" href={contactHref}>{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link>
         </div>
       </Band>
     </Shell>
-  );
-}
-
-function Case({ item, locale }: { item: UseCase; locale: Locale }) {
-  const fr = locale === "fr";
-  /* Le contexte est prérempli par l'URL, et il reste modifiable : le
-     formulaire ne fait que proposer un point de départ. */
-  const askHref = `${path(locale, ROUTES.contact)}?cas=${item.slug}#${ANCHORS.form}`;
-
-  return (
-    <article id={item.slug} className="case">
-      <header className="case-head">
-        <h3 className="case-title">{item.title}</h3>
-        {item.demo ? (
-          <Link href={`${path(locale, ROUTES.work)}/${item.demo}`} className="badge badge--demo">
-            {fr ? "Voir la démonstration" : "See the demo"}
-          </Link>
-        ) : (
-          /* Pas de lien tant qu'il n'y a rien au bout. Une pastille qui dit
-             la vérité vaut mieux qu'un bouton qui ne mène nulle part. */
-          <span className="badge">{fr ? "Exemple de solution possible" : "Example of a possible solution"}</span>
-        )}
-      </header>
-
-      <p className="case-situation">{item.situation}</p>
-
-      {/* Les trois temps sont DESSINÉS et non énumérés. Une liste décrit un
-          enchaînement ; un flux le montre, et c'est la différence entre lire
-          et comprendre. */}
-      <Flow steps={item.steps} />
-
-      <dl className="case-facts">
-        <div>
-          <dt>{fr ? "Bénéfice recherché" : "What we are after"}</dt>
-          <dd>{item.benefit}</dd>
-        </div>
-        <div>
-          <dt>{fr ? "Ce qu’on mesurera ensemble" : "What we will measure together"}</dt>
-          <dd>{item.metric}</dd>
-        </div>
-        <div>
-          <dt>{fr ? "Prérequis" : "What it needs"}</dt>
-          <dd>
-            <ul className="case-needs">
-              {item.needs.map((n) => (
-                <li key={n}>{n}</li>
-              ))}
-            </ul>
-          </dd>
-        </div>
-        <div>
-          <dt>{fr ? "Limite principale" : "Main limit"}</dt>
-          <dd>{item.limit}</dd>
-        </div>
-      </dl>
-
-      <Link href={askHref} className="go case-cta">
-        {fr ? "J’ai un besoin similaire" : "I have a similar need"}
-        <ArrowRight aria-hidden />
-      </Link>
-    </article>
   );
 }

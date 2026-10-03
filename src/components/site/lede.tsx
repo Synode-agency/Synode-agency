@@ -16,6 +16,7 @@ import { renderLines } from "@/lib/lines";
 export function Lede({
   kicker,
   title,
+  accents,
   text,
   align = "left",
   as: Tag = "h2",
@@ -23,6 +24,10 @@ export function Lede({
 }: {
   kicker?: string;
   title: string;
+  /** Les mots du titre peints en bleu. `renderLines` les repère dans la
+   *  chaîne, donc le texte reste d'un seul tenant pour un lecteur d'écran
+   *  comme pour un moteur de recherche. */
+  accents?: string[];
   text?: string;
   align?: "left" | "center";
   as?: "h1" | "h2" | "h3";
@@ -31,7 +36,7 @@ export function Lede({
   return (
     <div className={align === "center" ? "lede lede--center" : "lede"}>
       {kicker && <span className="lede-kicker">{kicker}</span>}
-      <Tag className="lede-title">{renderLines(title)}</Tag>
+      <Tag className="lede-title">{renderLines(title, accents, "title-accent")}</Tag>
       {text && <p className="lede-text">{text}</p>}
       {children}
     </div>

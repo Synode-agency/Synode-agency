@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, CircleCheck, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, CircleCheck, ShieldCheck } from "lucide-react";
 import { Band, CardPanel, Shell } from "./shell";
 import { Lede } from "./lede";
+import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
 import { BrickVisual, brickIcons, ProjectPreview } from "./solution-visuals";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -14,13 +15,26 @@ export function SolutionDetailPage({ locale, family }: { locale: Locale; family:
   const Icon = brickIcons[family.visual];
   const summaries = getContent(locale).solutions.bricks;
   return <Shell locale={locale}>
-    <Band id="top" tone="white" className="family-detail-intro">
-      <Link className="go" href={path(locale, ROUTES.solutions)}><ArrowLeft aria-hidden />{fr ? "Toutes nos solutions" : "All our solutions"}</Link>
-      <div className="family-detail-hero section-gap">
-        <div><Lede as="h1" kicker={fr ? "Solutions IA sur mesure" : "Custom AI solutions"} title={family.title} text={d.definition} /><div className="btn-row section-gap-sm"><Link className="btn btn--primary" href={`${path(locale, ROUTES.contact)}#${ANCHORS.booking}`}>{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><Link className="go" href="#exemple">{fr ? "Voir un cas concret" : "Explore an example"}<ArrowRight aria-hidden /></Link></div></div>
-        <div className="family-detail-art"><Icon aria-hidden /><BrickVisual kind={family.visual} locale={locale} /><span>{family.benefit}</span></div>
+    <PageHero
+      title={family.title}
+      aside={
+        /* La composition graphique, sans la grande card bleue qui l'enfermait.
+           Les éléments de chaque famille restent ceux d'origine : ils portent
+           la personnalité de la solution, et six illustrations identiques ne
+           diraient plus rien. */
+        <div className="family-hero-art">
+          <span className="family-hero-art-mark"><Icon aria-hidden /></span>
+          <BrickVisual kind={family.visual} locale={locale} />
+          <span className="family-hero-art-benefit">{family.benefit}</span>
+        </div>
+      }
+    >
+      <p>{d.definition}</p>
+      <div className="btn-row">
+        <Link className="btn btn--primary" href={`${path(locale, ROUTES.contact)}#${ANCHORS.booking}`}>{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link>
+        <Link className="btn btn--ghost" href="#exemple">{fr ? "Voir un cas concret" : "Explore an example"}</Link>
       </div>
-    </Band>
+    </PageHero>
     <Band id="possibilites" tone="base">
       <div className="family-purpose"><Lede title={fr ? "À quoi cela peut vous servir" : "How it can help"} text={d.audience} /><div><h3 className="family-small-title">{fr ? "Ce que nous pouvons concevoir avec vous" : "What we can design with you"}</h3><ul className="family-possibilities">{d.possibilities.map(p => <li key={p}><Check aria-hidden /><span>{p}</span></li>)}</ul></div></div>
     </Band>

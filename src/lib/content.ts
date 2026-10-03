@@ -41,6 +41,8 @@ export const ROUTES = {
   useCases: "/cas-usage",
   method: "/methode",
   work: "/realisations",
+  tools: "/outils",
+  aiDiagnostic: "/outils/diagnostic-potentiel-ia",
   team: "/equipe",
   contact: "/contact",
   thanks: "/merci",
@@ -58,6 +60,7 @@ const nav = {
   fr: [
     { href: ROUTES.home, label: "Accueil" },
     { href: ROUTES.solutions, label: "Solutions" },
+    { href: ROUTES.useCases, label: "Cas d’usage" },
     { href: ROUTES.work, label: "Réalisations" },
     { href: ROUTES.team, label: "Équipe" },
     { href: ROUTES.contact, label: "Contact" },
@@ -65,6 +68,7 @@ const nav = {
   en: [
     { href: ROUTES.home, label: "Home" },
     { href: ROUTES.solutions, label: "Solutions" },
+    { href: ROUTES.useCases, label: "Use cases" },
     { href: ROUTES.work, label: "Work" },
     { href: ROUTES.team, label: "Team" },
     { href: ROUTES.contact, label: "Contact" },
@@ -155,7 +159,7 @@ const fr = {
           steps: ["Facture échue", "Relance envoyée", "Paiement suivi"],
           caseLabel: "Exemple de fonctionnement",
           caseText:
-            "Une facture dépasse son échéance. Le retard est détecté, une relance part, et le paiement est suivi jusqu'à son encaissement.",
+            "Une facture dépasse son échéance. Le retard est détecté, une relance part, et le paiement est suivi.",
           caseEmphasis: ["relance", "suivi"],
           docLabel: "Facture",
           gainLabel: "Factures réglées",
@@ -320,7 +324,7 @@ const fr = {
       {
             "slug": "assistants-agents-ia",
             "title": "Assistants & Agents IA",
-            "text": "Des assistants pour chercher, rédiger ou analyser ; des agents pour enchaîner des actions dans un cadre autorisé.",
+            "text": "Des assistants IA pour rechercher, rédiger ou analyser des informations ; des agents IA pour enchaîner des actions dans un cadre autorisé.",
             "benefit": "Retrouver l’information et préparer la suite.",
             "example": "Une réponse client préparée à partir de vos documents, avec ses sources et votre validation.",
             "visual": 0
@@ -328,7 +332,7 @@ const fr = {
       {
             "slug": "automatisations-intelligentes",
             "title": "Automatisations intelligentes",
-            "text": "Des flux qui relient les étapes répétitives, avec de l’IA lorsqu’il faut comprendre ou classer une information.",
+            "text": "Des automatisations intelligentes pour relier les étapes répétitives de vos processus métier, avec de l’IA lorsqu’il faut comprendre, classer ou traiter une information.",
             "benefit": "Moins de manipulations entre deux étapes.",
             "example": "Une facture reçue par email est extraite et contrôlée ; les cas ambigus vous sont soumis.",
             "visual": 1
@@ -336,7 +340,7 @@ const fr = {
       {
             "slug": "logiciels-applications-ia",
             "title": "Logiciels & Applications IA sur mesure",
-            "text": "Des applications conçues pour votre équipe, ou des fonctionnalités IA intégrées aux produits de vos clients.",
+            "text": "Des logiciels et applications IA sur mesure conçus pour votre équipe, ou des fonctionnalités d’intelligence artificielle intégrées aux produits de vos clients.",
             "benefit": "Un outil adapté au travail réel.",
             "example": "Vos interventions réunies dans une interface, avec un compte rendu préparé puis relu.",
             "visual": 3
@@ -352,7 +356,7 @@ const fr = {
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
-            "text": "Centralisation, analyse et tableaux de bord ; prévision, scoring ou recommandation lorsque les données le permettent.",
+            "text": "Centralisation et analyse de données, tableaux de bord, prévision, scoring ou recommandation lorsque la qualité et le volume des données le permettent.",
             "benefit": "Des décisions mieux informées.",
             "example": "Ventes et stocks réunis pour repérer les anomalies et estimer les besoins si l’historique suffit.",
             "visual": 4
@@ -360,7 +364,7 @@ const fr = {
       {
             "slug": "formation-adoption-ia",
             "title": "Formation & Adoption IA",
-            "text": "Des ateliers pratiques pour apprendre les usages de l’IA et prendre en main vos solutions, avec ou sans projet Synode.",
+            "text": "Des formations IA et ateliers pratiques pour apprendre à utiliser l’intelligence artificielle et prendre en main vos solutions avec ou sans projet Synode.",
             "benefit": "Une équipe à l’aise avec ses nouveaux usages.",
             "example": "À partir de situations réelles, votre équipe apprend à préparer et relire ses réponses clients.",
             "visual": 5
@@ -445,38 +449,38 @@ const fr = {
     steps: [
       {
         title: "Premier échange",
-        work: "Comprendre le problème, sa fréquence, vos outils, son impact et sa priorité.",
-        client: "Décrire un exemple concret, récent de préférence.",
+        work: "Comprendre votre besoin, vos outils, vos contraintes et la priorité du projet.",
+        client: "Partir d’un cas concret, récent de préférence.",
         output: "Un résumé du besoin et la prochaine étape proposée.",
       },
       {
         title: "Analyse et proposition",
-        work: "Examiner la faisabilité et dimensionner le projet.",
-        client: "Confirmer les données disponibles, les contraintes et qui décide.",
+        work: "Évaluer la faisabilité, définir le périmètre du projet et préciser les critères de réussite.",
+        client: "Confirmer les données disponibles, les contraintes et les personnes impliquées dans la décision.",
         output: "Une proposition, un devis et des critères de réussite.",
       },
       {
         title: "Conception",
-        work: "Définir le fonctionnement, les accès et les points de validation.",
-        client: "Valider le périmètre et les exemples qui serviront de référence.",
+        work: "Définir le fonctionnement de la solution IA, les accès nécessaires et les étapes qui nécessitent une validation humaine.",
+        client: "Valider le périmètre, les règles métier et les exemples qui serviront de référence.",
         output: "Un plan de réalisation partagé.",
       },
       {
         title: "Construction",
-        work: "Développer et montrer les jalons au fur et à mesure.",
-        client: "Tester les parcours sur vos cas réels et répondre aux questions.",
+        work: "Développer la solution et la confronter progressivement à vos processus et à vos cas réels.",
+        client: "Tester les parcours, valider les premiers résultats et nous transmettre vos retours.",
         output: "Une version prête pour la recette.",
       },
       {
         title: "Recette et déploiement",
-        work: "Vérifier, corriger, documenter et mettre en service.",
-        client: "Valider les critères convenus à l’étape 2.",
+        work: "Tester, corriger, documenter et mettre la solution IA en service dans votre environnement.",
+        client: "Valider les critères de réussite définis au début du projet avant la mise en production.",
         output: "La solution en service, et sa documentation transmise.",
       },
       {
         title: "Suivi",
-        work: "Surveiller le fonctionnement et intervenir dans le périmètre retenu.",
-        client: "Signaler les incidents et les nouveaux besoins.",
+        work: "Surveiller le fonctionnement de la solution, assurer sa maintenance et cadrer les évolutions nécessaires.",
+        client: "Signaler les incidents, les nouveaux besoins et les évolutions de vos processus métier.",
         output: "Une maintenance suivie, et les évolutions chiffrées.",
       },
     ],
@@ -675,7 +679,7 @@ const en = {
           steps: ["Invoice overdue", "Reminder sent", "Payment tracked"],
           caseLabel: "How it runs",
           caseText:
-            "An invoice passes its due date. The delay is caught, a reminder goes out, and the payment is tracked until it lands.",
+            "An invoice passes its due date. The delay is caught, a reminder goes out, and the payment is tracked.",
           caseEmphasis: ["reminder", "tracked"],
           docLabel: "Invoice",
           gainLabel: "Invoices settled",
@@ -835,7 +839,7 @@ const en = {
       {
             "slug": "assistants-agents-ia",
             "title": "AI Assistants & Agents",
-            "text": "Assistants that search, draft or analyse, and agents that carry out a sequence of actions within an agreed scope.",
+            "text": "AI assistants that search, draft or analyse information, and AI agents that carry out a sequence of actions within an agreed scope.",
             "benefit": "Find information and prepare the next step.",
             "example": "A customer reply drafted from your documents, with sources and your approval.",
             "visual": 0
@@ -843,7 +847,7 @@ const en = {
       {
             "slug": "automatisations-intelligentes",
             "title": "Intelligent Automations",
-            "text": "Workflows that connect repetitive steps, using AI when information needs to be understood or classified.",
+            "text": "Intelligent automations that connect the repetitive steps of your business processes, using AI when information needs to be understood, classified or processed.",
             "benefit": "Fewer manual steps along the way.",
             "example": "An emailed invoice is extracted and checked; ambiguous cases are sent to you for review.",
             "visual": 1
@@ -851,7 +855,7 @@ const en = {
       {
             "slug": "logiciels-applications-ia",
             "title": "Custom AI Software & Applications",
-            "text": "Applications built for your team, or AI features integrated into products used by your customers.",
+            "text": "Custom AI software and applications built for your team, or artificial intelligence features integrated into products used by your customers.",
             "benefit": "Software that fits how people work.",
             "example": "Service jobs in one interface, with a report drafted for a team member to review.",
             "visual": 3
@@ -867,7 +871,7 @@ const en = {
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
-            "text": "Centralisation, analysis and dashboards, with forecasting, scoring or recommendations when the data supports them.",
+            "text": "Centralisation and analysis of data, dashboards, forecasting, scoring or recommendations when the quality and volume of the data support them.",
             "benefit": "Better-informed decisions.",
             "example": "Sales and stock in one view to spot anomalies and estimate needs when enough history is available.",
             "visual": 4
@@ -875,7 +879,7 @@ const en = {
       {
             "slug": "formation-adoption-ia",
             "title": "AI Training & Adoption",
-            "text": "Practical workshops to learn everyday AI uses and adopt your solutions, with or without a Synode development project.",
+            "text": "AI training and practical workshops to learn how to use artificial intelligence and adopt your solutions, with or without a Synode project.",
             "benefit": "A team comfortable with its new ways of working.",
             "example": "Using real situations, your team learns to draft and review customer replies.",
             "visual": 5
@@ -957,12 +961,12 @@ const en = {
     text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
     columns: { work: "What we do", client: "What you bring", output: "What comes out" },
     steps: [
-      { title: "First call", work: "Understand the problem, how often it occurs, your tools, its impact and its priority.", client: "Describe a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step." },
-      { title: "Analysis and proposal", work: "Check feasibility and size the project.", client: "Confirm what data exists, the constraints and who decides.", output: "A proposal, a quote and success criteria." },
-      { title: "Design", work: "Define how it works, what it accesses and where approvals sit.", client: "Sign off the scope and the reference examples.", output: "A shared build plan." },
-      { title: "Build", work: "Develop and show the milestones as they land.", client: "Test the flows on your real cases and answer questions.", output: "A version ready for acceptance." },
-      { title: "Acceptance and go-live", work: "Verify, fix, document and put it into service.", client: "Sign off the criteria agreed at stage two.", output: "The solution live, with its documentation handed over." },
-      { title: "Support", work: "Watch how it runs and step in within the agreed scope.", client: "Report incidents and new needs.", output: "Maintenance tracked, and changes quoted." },
+      { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step." },
+      { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria." },
+      { title: "Design", work: "Define how the AI solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan." },
+      { title: "Build", work: "Develop the solution and test it progressively against your processes and your real cases.", client: "Test the flows, review the first results and send us your feedback.", output: "A version ready for acceptance." },
+      { title: "Acceptance and go-live", work: "Test, fix, document and put the AI solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over." },
+      { title: "Support", work: "Watch how the solution runs, maintain it and scope the changes it needs.", client: "Report incidents, new needs and changes in your business processes.", output: "Maintenance tracked, and changes quoted." },
     ],
     notesTitle: "Four things we would rather say upfront",
     notes: [

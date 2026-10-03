@@ -1,25 +1,77 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight } from "lucide-react";
-import { Lede } from "./lede";
-import { brickIcons } from "./solution-visuals";
-import { ANCHORS, getContent, path, ROUTES, type Locale } from "@/lib/content";
+import { Bot, Database, Plug, UserCheck, Workflow, AppWindow } from "lucide-react";
+import { getContent, path, ROUTES, type Locale } from "@/lib/content";
 
-export function SolutionsHero({ locale }: { locale: Locale }) {
+/**
+ * Les briques d'une solution, dans le hero de Solutions.
+ *
+ * L'ancienne illustration était un schéma : six entrées reliées à une carte
+ * centrale « votre solution ». Un hub central dit une seule chose, et il la
+ * dit déjà dans le titre. Ici les six briques sont posées côte à côte, en
+ * modules de tailles inégales et décalés verticalement : rien ne les
+ * enveloppe, rien ne les relie, et c'est l'asymétrie qui tient la
+ * composition. Chaque module garde son lien vers la famille correspondante.
+ *
+ * Les six modules suivent l'ordre des six familles de `content.ts`, donc les
+ * liens restent justes si cet ordre change. Les libellés courts et les
+ * détails techniques sont propres à l'illustration.
+ */
+const MODULES = [
+  { icon: Bot, meta: "agent.run()", size: "tall", detail: "rows" },
+  { icon: Workflow, meta: "workflow.trigger", size: "flat", detail: "steps" },
+  { icon: AppWindow, meta: "ui + logic", size: "flat", detail: null },
+  { icon: Plug, meta: "crm · erp · api", size: "tall", detail: "ports" },
+  { icon: Database, meta: "index · query", size: "flat", detail: "bars" },
+  { icon: UserCheck, meta: "approval: on", size: "flat", detail: "switch" },
+] as const;
+
+export function SolutionsModules({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
-  const labels = fr ? ["Assistants & Agents", "Automatisations", "Logiciels & Applications", "Systèmes connectés", "Data & Intelligence", "Formation & Adoption"] : ["Assistants & Agents", "Automations", "Software & Applications", "Connected Systems", "Data & Intelligence", "Training & Adoption"];
-  return <div className="solutions-hero-grid">
-    <div className="solutions-hero-copy"><Lede as="h1" kicker={fr ? "Nos solutions" : "Our solutions"} title={fr ? "Six familles.^Votre solution à composer." : "Six families.^A solution shaped for you."} text={fr ? "Un besoin précis, plusieurs façons d’y répondre. Nous concevons la combinaison d’outils, d’IA et d’accompagnement qui a du sens pour votre activité." : "One specific need, several ways to address it. We design the combination of tools, AI and support that makes sense for your business."} />
-      <p className="solutions-hero-note">{fr ? "Chaque famille peut répondre à un besoin ou s’associer aux autres. Le point de départ reste le même : votre façon de travailler." : "Each family can address a need on its own or work alongside the others. The starting point stays the same: how you work."}</p>
-      <div className="btn-row"><Link href="#briques" className="btn btn--primary">{fr ? "Explorer les six familles" : "Explore the six families"}<ArrowDown aria-hidden /></Link><Link href={`${path(locale, ROUTES.contact)}#${ANCHORS.form}`} className="go">{fr ? "Parlons de votre besoin" : "Tell us what you need"}<ArrowRight aria-hidden /></Link></div>
-      <span className="hero-reassurance">{fr ? "Un premier échange gratuit. Un périmètre clair. Un devis personnalisé." : "A free first conversation. A clear scope. A tailored quote."}</span>
+  const labels = fr
+    ? ["Agent IA", "Automatisation", "Logiciel métier", "Intégration", "Data", "Contrôle humain"]
+    : ["AI agent", "Automation", "Business software", "Integration", "Data", "Human control"];
+  const families = getContent(locale).solutions.bricks;
+
+  return (
+    <div
+      className="solutions-modules"
+      aria-label={fr ? "Les briques combinées dans une solution Synode" : "The building blocks combined in a Synode solution"}
+    >
+      {MODULES.map(({ icon: Icon, meta, size, detail }, i) => {
+        const family = families[i];
+        return (
+          <Link
+            key={labels[i]}
+            className={`solutions-module solutions-module--${size}`}
+            href={family ? `${path(locale, ROUTES.solutions)}/${family.slug}` : path(locale, ROUTES.solutions)}
+          >
+            <Icon className="solutions-module-icon" aria-hidden />
+            <strong>{labels[i]}</strong>
+            <code>{meta}</code>
+            {detail === "rows" && (
+              <span className="solutions-module-rows" aria-hidden>
+                <i /><i /><i />
+              </span>
+            )}
+            {detail === "steps" && (
+              <span className="solutions-module-steps" aria-hidden>
+                <i /><i /><i /><i />
+              </span>
+            )}
+            {detail === "ports" && (
+              <span className="solutions-module-ports" aria-hidden>
+                <i /><i /><i /><i /><i /><i />
+              </span>
+            )}
+            {detail === "bars" && (
+              <span className="solutions-module-bars" aria-hidden>
+                <i /><i /><i /><i /><i />
+              </span>
+            )}
+            {detail === "switch" && <span className="solutions-module-switch" aria-hidden />}
+          </Link>
+        );
+      })}
     </div>
-    <div className="solutions-composer" aria-label={fr ? "Six familles complémentaires autour de votre activité" : "Six complementary families around your business"}>
-      <div className="composer-caption"><span className="status-dot" />{fr ? "LE POINT DE DÉPART : VOTRE ACTIVITÉ" : "THE STARTING POINT: YOUR BUSINESS"}</div>
-      <div className="composer-grid">{getContent(locale).solutions.bricks.map((family, i) => { const Icon = brickIcons[family.visual]; return <Link key={family.slug} href={`${path(locale, ROUTES.solutions)}/${family.slug}`} aria-label={family.title}><Icon aria-hidden /><span>{labels[i]}</span><span className="composer-index" aria-hidden>0{i + 1}</span></Link>; })}</div>
-      <div className="composer-connector" aria-hidden><span /><span /><span /></div>
-      <div className="composer-result"><Image src="/synode-mark.png" width={50} height={50} alt="" /><div><strong>{fr ? "Votre solution, avec Synode." : "Your solution, with Synode."}</strong><span>{fr ? "Conçue autour de votre besoin." : "Designed around your needs."}</span></div></div>
-      <p>{fr ? "Des approches complémentaires. Aucun forfait imposé." : "Complementary approaches. No fixed packages."}</p>
-    </div>
-  </div>;
+  );
 }

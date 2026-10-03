@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
+import { PageHero } from "@/components/site/page-hero";
+import { TeamHeroPortraits } from "@/components/site/hero-asides";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 
@@ -12,9 +14,17 @@ export function TeamPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
-        <Lede as="h1" kicker={team.kicker} title={team.title} text={team.vision} />
-      </Band>
+      <PageHero
+        className="team-hero"
+        title={locale === "fr" ? <>Pourquoi nous construisons <span>Synode</span></> : <>Why we are building <span>Synode</span></>}
+        aside={<TeamHeroPortraits locale={locale} />}
+      >
+        <p>{team.vision}</p>
+        <div className="btn-row">
+          <Link href="#associes" className="btn btn--primary">{locale === "fr" ? "Rencontrer les associés" : "Meet the partners"}<ArrowRight aria-hidden /></Link>
+          <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
+        </div>
+      </PageHero>
 
       <Band id="associes" tone="white">
         <Lede title={team.peopleTitle} />
