@@ -125,23 +125,17 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <Band id="approche" tone="base" className="studio-section home-dark-band home-method-dark">
       <div className="section-heading"><Lede kicker={fr ? "Conception & Développement IA" : "AI design & development"} title={fr ? "De votre besoin au déploiement :\nnotre méthode pour votre projet IA" : "From your need to deployment:\nour method for your AI project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du premier échange au déploiement, puis au suivi, nous concevons votre solution IA étape par étape. Le périmètre, les données, les accès, les validations et les résultats attendus sont définis avec vous dès le début du projet." : "From the first conversation to deployment and ongoing support, we build your AI solution step by step. Scope, data, access, approvals and expected outcomes are agreed with you from the start of the project."} /></div>
-      <div className="method-ledger">
-        <div className="method-ledger-head" aria-hidden>
-          <span />
-          <span>{fr ? "Étape" : "Stage"}</span>
-          <span>{method.columns.client}</span>
-          <span>{method.columns.work}</span>
-        </div>
-        <ol>
-          {method.steps.map((step, index) => <li key={step.title}>
-            <span className="method-ledger-index">{String(index + 1).padStart(2, "0")}</span>
+      {/* La méthode sur un axe horizontal. Une étape, une phrase, et les
+          mots qui portent le sens peints par `renderLines`. */}
+      <ol className="method-flow">
+        {method.steps.map((step, index) => <li key={step.title}>
+          <span className="method-flow-index" aria-hidden>{String(index + 1).padStart(2, "0")}</span>
+          <div className="method-flow-body">
             <h3>{step.title}</h3>
-            <p className="method-ledger-client"><span className="method-ledger-label">{fr ? "Avec vous" : "With you"}</span>{step.client}</p>
-            <p className="method-ledger-work"><span className="method-ledger-label">{fr ? "Côté Synode" : "Synode side"}</span>{step.work}</p>
-          </li>)}
-        </ol>
-      </div>
-      <p className="method-ledger-note">{fr ? "Le premier échange dure 30 minutes, il est gratuit et sans engagement. Le périmètre, le budget, les délais et les modalités de suivi sont ensuite précisés dans le devis. Les évolutions importantes font l’objet d’un nouvel accord." : "The first conversation takes 30 minutes, is free and has no commitment. Scope, budget, timelines and support terms are then set out in the quote. Major changes require a new agreement."}</p>
+            <p>{renderLines(step.brief, step.accents, "method-flow-accent")}</p>
+          </div>
+        </li>)}
+      </ol>
     </Band>
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
