@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
-import { DiagnosticWizard } from "@/components/site/ai-diagnostic/diagnostic-wizard";
+import { StandaloneDiagnostic } from "@/components/site/tools/standalone-diagnostic";
 import { ROUTES, path, type Locale } from "@/lib/content";
 import { diagnosticContent } from "@/lib/ai-diagnostic-content";
 import { siteUrl } from "@/lib/site-url";
@@ -38,21 +38,26 @@ export function AiDiagnosticPage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <PageHero
-        title={fr ? <>Diagnostic du <span>potentiel IA</span> de votre entreprise</> : <>Your company’s <span>AI potential</span> diagnostic</>}
-        aside={<div className="diag-stage"><DiagnosticWizard locale={locale} /></div>}
+        title={fr ? <>Diagnostic de <span>faisabilité</span> d’une solution IA</> : <>AI solution <span>feasibility</span> diagnostic</>}
       >
         <p>{c.intro}</p>
         <p className="diag-lead">{c.lead}</p>
       </PageHero>
 
+      <Band id="outil" tone="base" className="studio-section home-tools-light">
+        <div className="tools-zone tools-zone--solo">
+          <StandaloneDiagnostic locale={locale} />
+        </div>
+      </Band>
+
       <Band id="comprendre" tone="white" className="studio-section diag-explainer">
         <Lede
           kicker={fr ? "Comment lire ce diagnostic" : "How to read this diagnostic"}
-          title={fr ? "Un potentiel, pas une promesse de résultat" : "A potential, not a promise of results"}
-          accents={fr ? ["potentiel"] : ["potential"]}
+          title={fr ? "Une première lecture, pas une validation technique" : "An initial reading, not a technical validation"}
+          accents={fr ? ["première lecture"] : ["initial reading"]}
           text={fr
-            ? "Le diagnostic examine un seul processus métier à la fois : sa fréquence, les outils qu’il mobilise, les ressaisies qu’il impose, les documents qu’il fait circuler, les règles qu’il applique et les validations qu’il réclame. Il en déduit les familles de solutions IA qui méritent d’être étudiées pour ce processus précis, et celles qui n’apportent rien."
-            : "The diagnostic examines a single business process at a time: how often it runs, which tools it mobilises, the re-entry it imposes, the documents it moves around, the rules it applies and the approvals it requires. From that it derives which families of AI solutions are worth studying for that specific process, and which bring nothing."}
+            ? "Le diagnostic examine un seul processus métier à la fois : sa fréquence, les outils qu’il mobilise, les ressaisies qu’il impose, les données et documents disponibles ainsi que les validations à conserver. Il indique les approches qui méritent d’être étudiées et les conditions qui devront être confirmées."
+            : "The diagnostic examines one business process at a time: how often it runs, which tools it uses, the re-entry it imposes, the available data and documents, and the approvals to retain. It indicates which approaches deserve further study and which conditions still need confirmation."}
         />
         <div className="section-gap diag-explainer-grid">
           <article>
@@ -65,7 +70,7 @@ export function AiDiagnosticPage({ locale }: { locale: Locale }) {
           </article>
           <article>
             <h3>{fr ? "Un point de départ" : "A starting point"}</h3>
-            <p>{fr ? "Un diagnostic en dix questions ne remplace pas l’examen de vos données, de vos accès et de vos contraintes réelles. Il sert à savoir quelle conversation vaut la peine d’être ouverte." : "A ten-question diagnostic does not replace a look at your data, your access and your real constraints. It tells you which conversation is worth opening."}</p>
+            <p>{fr ? "Un diagnostic en six questions ne remplace pas l’examen de vos données, de vos accès et de vos contraintes réelles. Il sert à savoir quelle conversation vaut la peine d’être ouverte." : "A six-question diagnostic does not replace a look at your data, your access and your real constraints. It tells you which conversation is worth opening."}</p>
           </article>
         </div>
         <p className="prose-body section-gap-sm">

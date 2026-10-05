@@ -10,6 +10,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SolutionFamilies } from "@/components/site/solution-families";
 import { BusinessUseCaseCards } from "@/components/site/business-use-case-cards";
 import { OperationalImpact } from "@/components/site/operational-impact";
+import { ToolsSection } from "@/components/site/tools/tools-section";
 import { HomeWorkCards } from "@/components/site/home-work-cards";
 import { featuredBusinessUseCases } from "@/lib/business-use-cases";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -112,6 +113,11 @@ export function HomePage({ locale }: { locale: Locale }) {
     <Band id="offre" tone="base" className="studio-section home-solutions-light">
       <div className="section-heading"><Lede kicker={fr ? "Solutions IA sur mesure" : "Custom AI solutions"} title={fr ? "Nos solutions pour intégrer l’IA à vos processus métier" : "Our solutions for integrating AI into your business processes"} accents={["solutions"]} text={fr ? "Chaque solution IA sur mesure est conçue en combinant les expertises adaptées à votre environnement, afin de connecter vos outils, mieux exploiter vos données et faire évoluer vos processus métier." : "Every custom AI solution combines the capabilities suited to your environment to connect your tools, make better use of your data and improve your business processes."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions IA" : "Explore all our AI solutions"}<ArrowRight aria-hidden /></Link></div>
       <SolutionFamilies locale={locale} showIndex={false} />
+      <p className="families-note">
+        {fr
+          ? "Les solutions peuvent être accompagnées dans le temps par du monitoring, de la maintenance et des évolutions selon les besoins du projet.\u2009*"
+          : "Solutions can be supported over time with monitoring, maintenance and changes, according to the needs of the project.\u2009*"}
+      </p>
     </Band>
 
     <Band id="impact-operationnel" tone="base" className="studio-section home-impact-light operational-impact-band">
@@ -139,29 +145,13 @@ export function HomePage({ locale }: { locale: Locale }) {
     </Band>
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
-      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations en intelligence artificielle" : "Our work in artificial intelligence"} accents={fr ? ["réalisations"] : ["work"]} text={fr ? "Découvrez nos projets IA, démonstrateurs et solutions développées autour des agents IA, de l’automatisation, des intégrations et des outils métier. Chaque réalisation est présentée avec un statut clair, qu’il s’agisse d’un projet interne, d’un démonstrateur ou d’un projet client autorisé." : "Explore our AI projects, demonstrators and solutions built around AI agents, automation, integrations and business tools. Every piece of work is presented with a clear status, whether it is an internal project, a demonstrator or an authorised client project."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations IA" : "See all our AI work"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations en\nsolutions IA sur mesure" : "Our work in custom AI solutions"} accents={fr ? ["solutions IA"] : ["AI solutions"]} text={fr ? "Découvrez nos projets IA, démonstrateurs et solutions développées autour des agents IA, de l’automatisation, des intégrations et des outils métier. Chaque réalisation est présentée avec un statut clair, qu’il s’agisse d’un projet interne, d’un démonstrateur ou d’un projet client autorisé." : "Explore our AI projects, demonstrators and solutions built around AI agents, automation, integrations and business tools. Every piece of work is presented with a clear status, whether it is an internal project, a demonstrator or an authorised client project."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations IA" : "See all our AI work"}<ArrowRight aria-hidden /></Link></div>
       <HomeWorkCards locale={locale} />
     </Band>
 
     <Band id="outils" tone="base" className="studio-section home-tools-light">
-      <div className="section-heading"><Lede kicker={fr ? "Outils & Diagnostics IA" : "AI tools & diagnostics"} title={fr ? "Des diagnostics interactifs pour situer le potentiel IA de votre entreprise" : "Interactive diagnostics to situate your company’s AI potential"} accents={fr ? ["diagnostics"] : ["diagnostics"]} text={fr ? "Analysez vos processus, vos outils et vos données grâce à nos diagnostics interactifs afin d’identifier les opportunités d’automatisation, d’intégration et d’intelligence artificielle qui méritent réellement d’être étudiées." : "Analyse your processes, your tools and your data with our interactive diagnostics to identify the opportunities for automation, integration and artificial intelligence that genuinely deserve to be studied."} /></div>
-      <div className="tools-grid">
-        <Link className="tool-card" href={path(locale, ROUTES.aiDiagnostic)}>
-          <div className="tool-card-top"><span className="tool-card-kind">{fr ? "Outil interactif" : "Interactive tool"}</span><span className="tool-card-state"><i aria-hidden />{fr ? "Disponible" : "Available"}</span></div>
-          <h3>{fr ? "Diagnostic du potentiel IA" : "AI potential diagnostic"}</h3>
-          <p>{fr ? "Analysez un processus de votre entreprise en quelques minutes et identifiez les possibilités d’automatisation, d’intégration, d’exploitation des données ou d’assistance par l’intelligence artificielle." : "Analyse one of your business processes in a few minutes and identify the opportunities for automation, integration, data use or support from artificial intelligence."}</p>
-          <ul className="tool-card-meta">
-            <li>{fr ? "10 questions" : "10 questions"}</li>
-            <li>{fr ? "Sans inscription" : "No sign-up"}</li>
-            <li>{fr ? "Résultat immédiat" : "Immediate result"}</li>
-          </ul>
-          <span className="btn btn--primary">{fr ? "Analyser un processus" : "Analyse a process"}<ArrowRight aria-hidden /></span>
-        </Link>
-        <div className="tool-slot" aria-hidden>
-          <span className="tool-slot-label">{fr ? "D’autres diagnostics suivront" : "More diagnostics will follow"}</span>
-          <p>{fr ? "Fragmentation des outils, préparation des données, automatisabilité d’un processus. Ils apparaîtront ici une fois construits et testés." : "Tool fragmentation, data readiness, how automatable a process is. They will appear here once built and tested."}</p>
-        </div>
-      </div>
+      <div className="section-heading"><Lede kicker={fr ? "Diagnostics IA" : "AI diagnostics"} title={fr ? "Du problème métier à un projet IA mieux préparé" : "From a business problem to a better prepared AI project"} accents={fr ? ["projet IA"] : ["AI project"]} text={fr ? "Identifiez le processus à examiner, vérifiez les premières conditions de faisabilité puis structurez votre besoin avant d’échanger avec Synode. Chaque outil répond à une question différente et fonctionne sans transmettre vos réponses." : "Identify the process to examine, check the first feasibility conditions and structure your need before speaking with Synode. Each tool answers a different question and works without sending your answers."} /></div>
+      <ToolsSection locale={locale} />
     </Band>
 
     <Band id="faq" tone="base" className="studio-section home-faq home-faq-light">

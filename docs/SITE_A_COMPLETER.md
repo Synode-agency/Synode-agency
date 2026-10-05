@@ -1,6 +1,6 @@
 # Ce qui manque avant la mise en ligne
 
-Version du 3 octobre 2026 (mise à jour du soir). Architecture et offre alignées ; recette visuelle et prérequis de publication encore à terminer.
+Version du 5 octobre 2026. Architecture et offre alignées ; recette visuelle et prérequis de publication encore à terminer.
 
 Ce fichier liste tout ce que le site attend et que le code ne peut pas
 inventer. Il est séparé en deux : ce qui **bloque** la publication, et ce
@@ -32,7 +32,8 @@ est un emplacement qu'on oublie de remplir.
 - [x] Heroes des six pages principales harmonisés sur un gabarit unique : un seul H1 par page, zéro saut de niveau de titre, même classe et même grille confirmés dans le HTML de production FR et EN.
 - [x] Impact opérationnel en bloc éditorial, cards Usages détachées du gris neutre, titres de section élargis et filet supprimé entre Solutions et Impact.
 - [ ] Contrôle visuel des six heroes côte à côte sur desktop, tablette et mobile : même hauteur de départ, même taille de H1, même rythme vertical, et illustration jamais plus haute que le bloc de texte sur mobile. Les règles responsive sont écrites, aucun navigateur n'est pilotable depuis le projet.
-- [x] Premier outil interactif en ligne : diagnostic du potentiel IA, FR et EN, calcul déterministe côté navigateur, aucune donnée enregistrée.
+- [x] Parcours d’autodiagnostic intégré à l’accueil en FR/EN : identification du processus à prioriser, diagnostic de faisabilité déterministe et générateur de brief. Les réponses restent dans le navigateur et aucun résultat n’est bloqué par une demande d’email.
+- [ ] Contrôle visuel du parcours d’autodiagnostic sur ordinateur et mobile : trois onglets, résultats du sélecteur de processus, six questions de faisabilité, copie du brief et passage vers le formulaire de contact.
 - [ ] Contrôle visuel de la section Réalisations et de la page du diagnostic : proportions, cadrage de la capture Nexus et lisibilité du questionnaire. Aucun navigateur n'est pilotable depuis le projet.
 - [ ] Décider si « Synode Prospect » devient « Nexus » partout : le titre affiché a changé, mais la documentation et le slug `/realisations/synode-prospect` disent encore l'ancien nom.
 - [ ] Arbitrage sur `team.title`, `team.kicker`, `contact.title`, `contact.kicker` et `work.intro.title`/`kicker` : plus lues depuis que les H1 des heroes sont écrits dans les composants. À supprimer de `content.ts` et `work.ts`, ou à réutiliser.
@@ -129,6 +130,33 @@ Un projet client ne s'ajoute qu'après livraison **et** accord écrit.
 Quand une démonstration existe, renseigner son slug dans le champ `demo` du
 cas d'usage concerné, dans `src/lib/use-cases.ts` : la carte devient
 cliquable toute seule, sans toucher au composant.
+
+### Les animations
+
+Le site est aujourd'hui entièrement statique : aucune apparition au
+défilement, aucune animation propre à une section. Deux chantiers
+distincts, notés le 5 octobre 2026.
+
+**Les apparitions au défilement, dites « reveal ».** Un motif commun à tout
+le site : un bloc se révèle quand il entre dans la fenêtre. À écrire une
+seule fois, en un utilitaire réutilisable, et non section par section,
+sinon chaque page finira avec sa propre variante.
+
+Trois garde-fous pour celui qui l'écrira. Le contenu doit rester visible
+sans JavaScript, donc l'état masqué se pose depuis le script, jamais dans
+le CSS de départ. `prefers-reduced-motion` doit **supprimer** l'animation,
+pas seulement la raccourcir. Et rien ne doit retarder la lecture : un
+visiteur qui descend vite ne doit jamais attendre après un bloc.
+
+**Les animations propres à une section**, au cas par cas, seulement là où
+le mouvement dit quelque chose. Premier cas identifié : la ligne
+horizontale de « Conception & Développement IA ». Elle se tracerait
+progressivement de l'étape 01 à l'étape 06 à l'entrée dans la vue, les
+badges et les nœuds s'allumant sur son passage. Le mouvement y a un sens,
+il raconte le déroulement de la méthode au lieu de décorer.
+
+La direction reste celle du reste du site : discret, bref, jamais
+décoratif, et rien qui tourne en boucle.
 
 ### La réservation Cal.com
 

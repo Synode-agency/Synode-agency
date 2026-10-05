@@ -1,28 +1,22 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { ROUTES, path, type Locale } from "@/lib/content";
 import { WireframeMiniApp } from "@/components/site/project-mini-app";
 import { work, workItems } from "@/lib/work";
 
 /**
- * Les réalisations de l'accueil : le sommaire à gauche, l'aperçu à droite.
+ * Les réalisations de l'accueil : une carte par projet, côte à côte.
  *
- * Le sommaire ne donne que le domaine et le nom. Tout ce qui décrit le
- * projet — statut, titre, description, libellés, lien — vit sous la
- * capture, dans la colonne de droite : les lignes gardent ainsi la même
- * hauteur quelle que soit la longueur des textes, et la liste reste lisible
- * d'un coup d'œil.
+ * Les deux cartes partagent le même gabarit — visuel en haut, puis statut,
+ * titre, description, libellés et lien — pour que la comparaison porte sur
+ * les projets et non sur leur mise en page.
  *
- * Le panneau suit la ligne survolée ET la ligne qui reçoit le focus. Au
- * survol seul, la section serait muette au clavier, et la ligne atteinte en
- * tabulation mènerait à un projet dont on n'aurait jamais vu l'aperçu. La
- * première ligne est active au chargement.
+ * Plus de composant client ici : l'ancienne version basculait un aperçu au
+ * survol et imposait donc du JavaScript à une section qui ne fait que
+ * montrer deux projets. Tout est désormais rendu sur le serveur.
  *
- * Le second projet n'existe pas encore : sa ligne ne porte pas de lien et
+ * Le second projet n'existe pas encore : sa carte ne porte pas de lien et
  * son visuel est un fil de fer, pas une interface floutée.
  */
 type Project = {
@@ -40,7 +34,6 @@ export function HomeWorkCards({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const item = workItems(locale)[0];
   const kinds = work(locale).kinds;
-  const [active, setActive] = useState(0);
 
   const projects: Project[] = [];
   if (item) {
@@ -55,10 +48,10 @@ export function HomeWorkCards({ locale }: { locale: Locale }) {
         ? ["Recherche web", "Analyse IA", "Qualification", "Suivi commercial"]
         : ["Web research", "AI analysis", "Qualification", "Sales follow-up"],
       image: {
-        src: "/realisations/nexus-dashboard.webp",
+        src: "/demos/nexus-demo-image.png",
         alt: fr
-          ? "Tableau de bord de Nexus : compteurs de leads, répartition par statut et avancement de la recherche."
-          : "Nexus dashboard: lead counters, breakdown by status and search progress.",
+          ? "Nexus, logiciel de prospection B2B : les étapes Discovery, Qualification et Outreach présentées sur des données de démonstration."
+          : "Nexus, B2B prospecting software: the Discovery, Qualification and Outreach stages shown on demonstration data.",
       },
     });
   }
@@ -75,72 +68,38 @@ export function HomeWorkCards({ locale }: { locale: Locale }) {
       : ["AI agent", "Automation", "Human approval"],
   });
 
-  const current = projects[active] ?? projects[0];
-
   return (
-    <div className="work-showcase">
-      <ol className="work-showcase-list">
-        {projects.map((project, index) => {
-          const isActive = index === active;
-          const select = () => setActive(index);
-          const inner = (
-            <>
-              <span className="work-row-domain">{project.domain}</span>
-              <span className="work-row-name">{project.name}</span>
-              <span className="work-row-go" aria-hidden><ArrowRight /></span>
-            </>
-          );
-          return (
-            <li key={project.name} className={isActive ? "is-active" : undefined}>
-              {project.href ? (
-                <Link className="work-row" href={project.href} onMouseEnter={select} onFocus={select}>
-                  {inner}
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  className="work-row"
-                  onMouseEnter={select}
-                  onFocus={select}
-                  onClick={select}
-                  aria-pressed={isActive}
-                >
-                  {inner}
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-
-      <figure className="work-showcase-preview">
-        <div className="work-showcase-media">
-          {current.image ? (
-            <Image
-              src={current.image.src}
-              alt={current.image.alt}
-              width={2200}
-              height={1189}
-              sizes="(max-width: 900px) 92vw, 56vw"
-            />
-          ) : (
-            <WireframeMiniApp locale={locale} />
-          )}
-        </div>
-        <figcaption>
-          <span className="work-showcase-state"><i aria-hidden />{current.status}</span>
-          <h3>{current.title}</h3>
-          <p>{current.text}</p>
-          <ul className="work-tile-tags">
-            {current.tags.map((tag) => <li key={tag}>{tag}</li>)}
-          </ul>
-          {current.href && (
-            <Link className="go" href={current.href}>
-              {fr ? "Découvrir le projet" : "Explore the project"}<ArrowUpRight aria-hidden />
-            </Link>
-          )}
-        </figcaption>
-      </figure>
-    </div>
+    <ul className="work-cards">
+      {projects.map((project) => (
+        <li key={project.name} className="work-card">
+          <div className="work-card-media">
+            {project.image ? (
+              <Image
+                src={project.image.src}
+                alt={project.image.alt}
+                width={1600}
+                height={800}
+                sizes="(max-width: 900px) 92vw, 46vw"
+              />
+            ) : (
+              <WireframeMiniApp locale={locale} />
+            )}
+          </div>
+          <div className="work-card-body">
+            <span className="work-card-state"><i aria-hidden />{project.status}</span>
+            <h3>{project.name}</h3>
+            <p>{project.text}</p>
+            <ul className="work-card-tags">
+              {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+            </ul>
+            {project.href && (
+              <Link className="work-card-go" href={project.href}>
+                {fr ? "Découvrir le projet" : "Explore the project"}<ArrowUpRight aria-hidden />
+              </Link>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
   );
 }

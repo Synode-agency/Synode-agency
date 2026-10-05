@@ -7,7 +7,7 @@ Version du 3 octobre 2026 · Architecture actuelle : Accueil / Solutions / Cas d
 **Objectif principal : obtenir un échange qualifié avec un prospect.** Le visiteur doit comprendre ce que Synode fait, reconnaître un problème, voir une preuve et pouvoir prendre contact.
 
 - Positionnement externe : **Solutions IA sur mesure**. Positionnement stratégique interne : **Synode conçoit, intègre et opère des systèmes IA sur mesure pour les PME.** Les quatre domaines restent des exemples de cas d’usage, pas des offres.
-- Sur l’accueil : hero → usages de l’IA → solutions → impact opérationnel → fiabilité et contrôle → méthode → projets et démos → FAQ → CTA. L’équipe reste accessible depuis la navigation et sa page dédiée. Les pages principales sont Accueil, Solutions, Cas d’usage, Réalisations, Équipe et Contact.
+- Sur l’accueil : hero → usages de l’IA → solutions → impact opérationnel → fiabilité et contrôle → méthode → projets et démos → autodiagnostic → FAQ → CTA. L’équipe reste accessible depuis la navigation et sa page dédiée. Les pages principales sont Accueil, Solutions, Cas d’usage, Réalisations, Équipe et Contact.
 - Une promesse concrète, sans chiffres de performance inventés ni logos clients non autorisés.
 - Des démos présentées comme des démos ; Synode Prospect présenté selon son état réel.
 - Pas de grille tarifaire publique ; expliquer création, exploitation et maintenance.
@@ -49,8 +49,9 @@ La route `/cas-usage` et son équivalent anglais affichent la page dédiée et f
 | 5. Fiabilité et contrôle | Confidentialité, validation humaine, intégration et suivi technique, sans certification inventée | Comprendre les garde-fous prévus selon le projet |
 | 6. Du premier échange à l’usage | Six étapes : travail Synode, participation du client, résultat de chaque étape | Comprendre le déroulement sans page séparée |
 | 7. Quelques projets & démos | Une ou deux preuves maximum sur l’accueil, dont Synode Prospect selon son état réel | Fiche du projet + « Voir toutes nos réalisations » |
-| 8. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
-| 9. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
+| 8. Outils d’autodiagnostic | Parcours en trois étapes : identifier un processus à prioriser, vérifier ses premières conditions de faisabilité, puis générer un brief avec les mots du visiteur. Les réponses restent dans le navigateur. | Passer d’un problème concret à un besoin structuré, puis contacter Synode |
+| 9. FAQ | Cinq réponses sur les outils, le coût, le déroulement, les données et la maintenance | Accordéon accessible dans l’accueil |
+| 10. CTA | Premier échange gratuit de 30 minutes, sans engagement | Réservation configurable et contact |
 
 Le hero suit la hauteur disponible sur ordinateur jusqu’à une référence maximale de 768 px CSS. Une fenêtre plus haute révèle la section suivante au lieu d’étirer l’espace avant le bandeau. Le bandeau fait défiler les expertises, reste complet sans animation et le hero demeure libre de grandir si son contenu l’exige. Voir la recette pour les tailles réellement vérifiées, sans confondre pixels CSS et dimensions physiques du MacBook.
 

@@ -10,6 +10,17 @@
      fenêtre de portable, elles remplissent l'écran. Au-delà de 768px de
      hauteur, elles cessent de grandir afin de conserver le même rythme. */
   --home-section-h: min(100svh, 48rem);
+  /* Le rembourrage haut et bas de TOUTES les sections de l'accueil, et la
+     seule valeur à changer pour déplacer les surtitres. Plus serré que le
+     `--band-pad-y` des pages intérieures : les sections de l'accueil
+     visent une vue d'écran, et 82px en haut comme en bas leur coûtaient la
+     place dont leur contenu avait besoin. Vaut 48px jusqu'à des fenêtres
+     d'environ 900px de haut, puis s'ouvre un peu sur les grands écrans. */
+  --home-section-pad-y: clamp(3rem, 5svh, 4.5rem);
+  /* L'écart entre le bloc de titres et le contenu d'une section d'accueil.
+     Trois valeurs coexistaient selon la façon dont la section composait
+     son en-tête : 40px, 67px et 68px. */
+  --home-heading-gap: 2.5rem;
   /* La hauteur des heros sur desktop. Le plafond empêche un hero de
      s'étirer en vide sur un grand écran ; il doit rester au-dessus de la
      hauteur utile d'un portable, sinon le hero s'arrête avant le bas de
@@ -2660,22 +2671,6 @@ footer.band--white .wordmark-type {
   padding: 0.7rem 1rem;
   font-size: 0.6875rem;
 }
-.calendar-demo--cta .calendar-demo-info,
-.calendar-demo--cta .calendar-demo-month,
-.calendar-demo--cta .calendar-demo-times {
-  padding: 1rem;
-}
-.calendar-demo--cta .calendar-demo-info {
-  border-right: 0;
-  border-bottom: 1px solid #e2e8f0;
-}
-.calendar-demo--cta .calendar-demo-times {
-  border-left: 0;
-  border-top: 1px solid #e2e8f0;
-}
-.calendar-demo--cta .calendar-demo-times > div {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
 .calendar-demo--cta .calendar-demo-days button {
   aspect-ratio: auto;
   height: 34px;
@@ -3471,6 +3466,11 @@ footer.band--white .wordmark-type {
   color: #c2d3e9;
 }
 .home-method-dark {
+  /* Cette section se contente de 45rem là où les autres visent 48rem. Le
+     jeton est redéfini ici plutôt que modifié à la racine : la règle de
+     hauteur lit `--home-section-h` sur l'élément lui-même, donc seule
+     cette bande est concernée et les quatre autres gardent 48rem. */
+  --home-section-h: min(100svh, 45rem);
   background: var(--surface-dark);
 }
 .home-work-dark {
@@ -4451,48 +4451,9 @@ footer.band--white .wordmark-type {
   display: grid;
   grid-template-columns: 0.9fr 1.25fr 0.75fr;
 }
-.calendar-demo-info,
-.calendar-demo-month,
-.calendar-demo-times {
+.calendar-stage {
   min-width: 0;
   padding: 2rem;
-}
-.calendar-demo-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  border-right: 1px solid #e2e8f0;
-}
-.calendar-demo-info h3 {
-  font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
-.calendar-demo-info p {
-  font-size: 0.8rem;
-  color: #626a76;
-  line-height: 1.7;
-}
-.calendar-demo-info ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-.calendar-demo-info li {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: #626a76;
-  font-size: 0.75rem;
-}
-.calendar-demo-info li svg {
-  width: 16px;
-  height: 16px;
-  color: #0067ea;
 }
 .calendar-demo-month-nav {
   display: flex;
@@ -4547,51 +4508,10 @@ footer.band--white .wordmark-type {
 .calendar-demo-days button:hover {
   border-color: #0067ea;
 }
-.calendar-demo-days button[aria-pressed='true'],
-.calendar-demo-times button[aria-pressed='true'] {
+.calendar-demo-days button[aria-pressed='true'] {
   background: #0067ea;
   color: white;
   border-color: #0067ea;
-}
-.calendar-demo-hint {
-  font-size: 0.65rem;
-  color: #6a7483;
-  margin-top: 1.2rem;
-}
-.calendar-demo-times {
-  border-left: 1px solid #e2e8f0;
-}
-.calendar-demo-times > p {
-  font-size: 0.7rem;
-  color: #626a76;
-  line-height: 1.6;
-  min-height: 2.8rem;
-  margin-block: 0.8rem;
-}
-.calendar-demo-times > div {
-  display: grid;
-  gap: 0.5rem;
-}
-.calendar-demo-times button {
-  min-height: 40px;
-  border: 1px solid #c3d8f3;
-  color: #0067ea;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-.calendar-demo-times button:disabled {
-  color: #8796aa;
-  border-color: #e2e8f0;
-  background: #fafbfd;
-  cursor: default;
-}
-.calendar-demo-selection {
-  display: block;
-  font-size: 0.65rem;
-  color: #626a76;
-  line-height: 1.6;
-  margin-top: 1.1rem;
 }
 .calendar-demo-footer {
   display: flex;
@@ -4620,17 +4540,7 @@ footer.band--white .wordmark-type {
   .calendar-demo-body {
     grid-template-columns: 1.5fr 1fr;
   }
-  .calendar-demo-info {
-    grid-column: 1 / -1;
-    border-right: 0;
-    border-bottom: 1px solid #e2e8f0;
   }
-  .calendar-demo-info ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-}
 @media (max-width: 760px) {
   .operations-heading,
   .project-showcase,
@@ -4656,17 +4566,8 @@ footer.band--white .wordmark-type {
   .calendar-demo-body {
     grid-template-columns: 1fr;
   }
-  .calendar-demo-times {
-    border-left: 0;
-    border-top: 1px solid #e2e8f0;
-  }
-  .calendar-demo-info,
-  .calendar-demo-month,
-  .calendar-demo-times {
+  .calendar-stage {
     padding: 1.3rem;
-  }
-  .calendar-demo-times > div {
-    grid-template-columns: 1fr 1fr;
   }
   .calendar-demo-month-nav button {
     width: 40px;
@@ -5473,6 +5374,11 @@ footer.band--white .wordmark-type {
   margin: 0;
   padding: 0;
   list-style: none;
+  /* Descend la frise dans la section sans toucher au flux : le surtitre et
+     le titre gardent donc exactement la place que leur donne le rythme
+     commun. En contrepartie, un `transform` ne réserve pas d'espace, et
+     ces 40px ne sont pas comptés dans la hauteur de la bande. */
+  transform: translateY(40px);
 }
 .method-flow li {
   position: relative;
@@ -5667,21 +5573,6 @@ footer.band--white .wordmark-type {
    largeur est donnée en pourcentage de la colonne plutôt qu'en `ch` : c'est
    le nombre de lignes qui compte ici, et `balance` les égalise. */
 
-.work-tile-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin: 1.1rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-.work-tile-tags li {
-  padding: 0.3rem 0.5rem;
-  border: 1px solid #dfe6ef;
-  border-radius: 5px;
-  color: #566173;
-  font-size: 0.625rem;
-}
 
 
 /* =====================================================================
@@ -6139,8 +6030,6 @@ a.tool-card:hover {
 }
 .diag-profile-human {
   margin-top: 0.3rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid #243d59;
 }
 .diag-profile-note {
   margin-top: 0.8rem;
@@ -6608,249 +6497,943 @@ a.tool-card:hover {
    droite, et la première est active au chargement, pour que la section ne
    s'ouvre jamais sur un vide.
    ===================================================================== */
-.work-showcase {
+/* Les réalisations de l'accueil : une carte par projet.
+   Registre Supabase : fond blanc, filet de 1px, pas d'ombre portée, le
+   visuel cadré en haut et le texte dessous. Les deux cartes suivent le
+   même gabarit, donc elles se comparent sur leur contenu. */
+.work-cards {
   display: grid;
-  /* La capture mérite la place : c'est la seule preuve visuelle de la
-     section. Le sommaire, lui, ne porte que deux lignes de texte. */
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  /* Le haut du sommaire se cale sur le haut de la capture. Centré, il
-     flottait au milieu d'une colonne bien plus haute que lui. */
-  align-items: start;
-  gap: clamp(1.5rem, 3.5vw, 3rem);
-  margin-top: clamp(2rem, 4vw, 3rem);
-}
-.work-showcase-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2.5vw, 2rem);
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.work-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.3rem 1rem;
-  width: 100%;
-  padding: clamp(1.1rem, 2vw, 1.5rem) clamp(0.9rem, 1.8vw, 1.35rem);
-  border-radius: 10px;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 200ms;
-}
-/* Les lignes inactives sont séparées par un filet. La ligne active porte
-   un fond et n'a donc pas besoin du filet : les deux ensemble feraient
-   double marquage. */
-.work-showcase-list li + li .work-row::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: clamp(0.9rem, 1.8vw, 1.35rem);
-  left: clamp(0.9rem, 1.8vw, 1.35rem);
-  height: 1px;
-  background: var(--hairline);
-}
-.work-showcase-list li.is-active .work-row::before,
-.work-showcase-list li.is-active + li .work-row::before {
-  opacity: 0;
-}
-.work-showcase-list li.is-active .work-row {
-  background: #eef4fd;
-}
-/* Le repère bleu : une barre pleine sur tout le flanc gauche de la ligne. */
-.work-showcase-list li.is-active .work-row::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 3px;
-  border-radius: 3px;
-  background: var(--brand);
-}
-.work-row-domain {
-  grid-column: 1;
-  color: var(--text-mono);
-  font-size: 0.8125rem;
-}
-.work-row-name {
-  grid-column: 1;
+.work-card {
+  display: flex;
   min-width: 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-}
-.work-row-go {
-  grid-column: 2;
-  grid-row: span 2;
-  display: grid;
-  width: 2.4rem;
-  height: 2.4rem;
-  flex: none;
-  place-items: center;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  color: var(--muted-foreground);
-  transition: border-color 200ms, background-color 200ms, color 200ms;
-}
-.work-row-go svg {
-  width: 16px;
-  height: 16px;
-}
-.work-showcase-list li.is-active .work-row-go {
-  border-color: transparent;
-  background: #d7e6fb;
-  color: var(--brand);
-}
-.work-row:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: -2px;
-}
-
-/* Le panneau de droite : la capture, puis ce qui la décrit. */
-.work-showcase-preview {
-  min-width: 0;
-  margin: 0;
-}
-.work-showcase-media {
+  flex-direction: column;
   overflow: hidden;
-  border: 1px solid #243d59;
+  border: 1px solid var(--border);
   border-radius: 14px;
+  background: var(--surface);
+}
+/* Le visuel garde un format fixe d'une carte à l'autre : sans cela, les
+   deux images donneraient deux hauteurs de carte et le texte ne
+   s'alignerait plus. */
+.work-card-media {
+  position: relative;
+  /* L'image Nexus et la mini-interface du démonstrateur occupent la même
+     cellule. La grille garde les deux visuels dans le flux et empêche le
+     démonstrateur de se contracter à 0px. */
+  display: grid;
+  flex: 0 0 auto;
+  width: 100%;
+  /* Le format exact du visuel, pour que `cover` n'ait rien à rogner :
+     l'image est publiée dans son cadrage d'origine, marges comprises. */
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
   background: #0b192c;
-  box-shadow: 0 28px 70px -46px rgb(5 16 30 / 80%);
   line-height: 0;
 }
-.work-showcase-media img {
-  display: block;
+.work-card-media > * {
+  grid-area: 1 / 1;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
-.work-showcase-media .mini-app {
+.work-card-media img {
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+/* Le fil de fer occupe la même surface que la capture de l'autre carte.
+   Laissé à sa hauteur naturelle, il flottait en haut du cadre et laissait
+   du fond vide dessous, là où l'image de Nexus va d'un bord à l'autre.
+   Les blocs internes se répartissent donc sur toute la hauteur plutôt que
+   de s'empiler en haut. */
+.work-card-media .mini-app {
   display: flex;
-  aspect-ratio: 2200 / 1189;
   flex-direction: column;
   margin: 0;
   border: 0;
   border-radius: 0;
   box-shadow: none;
 }
-.work-showcase-media .mini-app-body {
+.work-card-media .mini-app-body {
+  min-height: 0;
   flex: 1;
 }
-.work-showcase-media .mini-app-main {
-  justify-content: space-between;
-  gap: clamp(0.5rem, 1.2vw, 1rem);
-  padding: clamp(0.65rem, 1.4vw, 1.2rem);
+.work-card-media .mini-app-main {
+  align-content: space-between;
+  gap: clamp(0.5rem, 1.4vw, 1rem);
+  padding: clamp(0.7rem, 1.6vw, 1.15rem);
 }
-.work-showcase-media .mini-app-rail {
-  gap: clamp(0.45rem, 1.2vw, 0.9rem);
-  padding-block: clamp(0.65rem, 1.4vw, 1.2rem);
+.work-card-media .mini-app-rail {
+  gap: clamp(0.5rem, 1.3vw, 0.9rem);
+  padding-block: clamp(0.7rem, 1.6vw, 1.15rem);
 }
-.work-showcase-preview figcaption {
-  padding-top: 1.35rem;
+.work-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(1.25rem, 2.2vw, 1.75rem);
 }
-.work-showcase-state {
+.work-card-state {
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   gap: 0.5rem;
   color: var(--text-mono);
   font-family: var(--font-mono);
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.work-showcase-state i {
-  width: 8px;
-  height: 8px;
+.work-card-state i {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #2fa36b;
 }
-.work-showcase-preview h3 {
-  margin-top: 0.7rem;
-  font-size: clamp(1.25rem, 2vw, 1.6rem);
+.work-card h3 {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.25;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
-.work-showcase-preview figcaption > p {
-  margin-top: 0.7rem;
-  max-width: 62ch;
+.work-card-body > p {
+  margin-top: 0.55rem;
   color: var(--muted-foreground);
-  font-size: 0.9375rem;
-  line-height: 1.7;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
-.work-showcase-preview .work-tile-tags {
-  margin-top: 1.2rem;
-  gap: 0.5rem;
+.work-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
 }
-.work-showcase-preview .work-tile-tags li {
-  padding: 0.5rem 0.8rem;
-  font-size: 0.8125rem;
+.work-card-tags li {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
 }
-.work-showcase-preview .go {
+/* Le lien se cale en bas : les deux cartes n'ont pas la même longueur de
+   texte, et `margin-top: auto` les fait finir à la même hauteur. */
+.work-card-go {
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
   gap: 0.4rem;
-  margin-top: 1.3rem;
-  font-size: 0.9375rem;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  color: var(--brand);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
-@media (max-width: 900px) {
-  .work-showcase {
+.work-card-go svg {
+  width: 15px;
+  height: 15px;
+}
+@media (max-width: 820px) {
+  .work-cards {
     grid-template-columns: minmax(0, 1fr);
-    align-items: start;
   }
 }
 
-/* Les six sections de présentation remplissent la hauteur utile d'un
-   portable 13 pouces, puis restent plafonnées à 48rem sur les écrans plus
-   hauts. `min-height` laisse toutefois le contenu agrandir une section si
-   le zoom ou une traduction l'exige. Sous 1024px, le flux naturel reprend
-   afin de ne pas comprimer les compositions qui se replient. */
+
+/* =====================================================================
+   LE RYTHME VERTICAL DES SECTIONS DE L'ACCUEIL
+
+   Une seule règle pour les huit sections, afin que le surtitre tombe
+   toujours à la même distance du haut de sa bande. Deux choses s'y
+   opposaient, corrigées ici.
+
+   1. Le rembourrage était double. `--band-pad-y` pour « Usages de l'IA »
+      et « Solutions IA sur mesure », soit 82px à 1366px de large, contre
+      un `clamp(2.5rem, 5svh, 3.5rem)` à 40px pour les six autres. 42px
+      d'écart, parfaitement visibles au défilement. Les huit sections
+      partagent désormais `--home-section-pad-y`.
+
+   2. Le contenu était centré verticalement dans une bande plus haute que
+      lui. Plus une section était vide, plus son surtitre descendait, et
+      « Conception & Développement IA » finissait nettement plus bas que
+      les autres. Le contenu est calé en haut : le surtitre est au
+      rembourrage, toujours, quelle que soit la hauteur de la section.
+
+   Le jeu restant tombe donc en bas de section et jamais au-dessus du
+   surtitre. C'est le prix de l'alignement : une section dont le contenu
+   est court garde du vide sous lui. La densité du contenu se règle
+   section par section, pas en déplaçant les titres.
+   ===================================================================== */
+main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-impact-light,
+    .home-trust-light,
+    .home-method-dark,
+    .home-work-light,
+    .home-tools-light,
+    .home-faq-light
+  ) {
+  padding-block: var(--home-section-pad-y);
+}
+
+/* Le même écart entre le bloc de titres et le contenu, quelle que soit la
+   façon dont la section compose son en-tête : `.section-heading` pour la
+   plupart, `.section-gap` pour la FAQ, `.impact-rail` pour Résultats
+   recherchés. La portée est limitée à l'accueil, car ces trois classes
+   servent aussi aux pages intérieures, qui gardent leur rythme. */
+main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-impact-light,
+    .home-trust-light,
+    .home-method-dark,
+    .home-work-light,
+    .home-tools-light,
+    .home-faq-light
+  ) .section-heading {
+  margin-bottom: var(--home-heading-gap);
+}
+main > .band.home-faq-light .section-gap {
+  margin-top: var(--home-heading-gap);
+}
+main > .band.home-impact-light .impact-rail {
+  margin-top: var(--home-heading-gap);
+}
+
+/* La hauteur d'écran est réservée à cinq sections, celles dont la
+   composition tient dans une vue. Réalisations en est exclue : son aperçu
+   de projet est naturellement plus haut, et l'y forcer obligeait à écraser
+   la capture pour la faire rentrer. Elle suit donc son contenu.
+
+   `min-height` et non `height` : une traduction plus longue ou un zoom
+   peuvent toujours agrandir une section plutôt que la faire déborder.
+   Sous 1024px le flux naturel reprend, pour ne pas comprimer les
+   compositions qui se replient en colonne. */
 @media (min-width: 1024px) {
   main > .band:is(
       .home-impact-light,
       .home-trust-light,
       .home-method-dark,
-      .home-work-light,
       .home-tools-light,
       .home-faq-light
     ) {
     display: grid;
+    align-content: start;
     min-height: var(--home-section-h);
-    align-items: center;
-    padding-block: clamp(2.5rem, 5svh, 3.5rem);
   }
+}
 
-  /* L'aperçu d'une réalisation est naturellement plus haut que les
-     autres compositions. Sur l'accueil, il reste un aperçu : on cadre la
-     capture sans la déformer et on resserre les deux espaces qui
-     s'additionnaient entre l'introduction et le projet. Le contenu du
-     figcaption reste entier et la page Réalisations conserve le grand
-     format du visuel. */
-  .home-work-light .section-heading {
-    margin-bottom: 0;
+/* =====================================================================
+   LA ZONE INTERACTIVE « OUTILS & DIAGNOSTICS IA »
+
+   Deux outils vivent sur l'accueil : des onglets, puis un panneau en deux
+   colonnes, réglages à gauche et lecture à droite. Rien ne navigue, rien
+   ne s'ouvre en modale.
+
+   Registre repris du reste du site : fond blanc, filets de 1px, aucun
+   dégradé, aucune ombre portée, aucune jauge ronde. Les barres de score
+   sont des aplats dont on anime la largeur, ce qui évite d'embarquer une
+   bibliothèque de graphiques pour dessiner quatre traits.
+   ===================================================================== */
+.tools-zone {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+/* ---- Les trois étapes du parcours d'autodiagnostic ---- */
+.tools-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+}
+.tools-tab {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: clamp(1rem, 1.8vw, 1.35rem);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 180ms, background-color 180ms;
+}
+.tools-tab:hover {
+  border-color: var(--brand);
+}
+.tools-tab:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* L'onglet actif se marque par un filet bleu épais à gauche ET par son
+   fond : l'état ne doit pas reposer sur la seule couleur. */
+.tools-tab[aria-selected="true"] {
+  border-color: var(--brand);
+  box-shadow: inset 3px 0 0 0 var(--brand);
+  background: #f3f7fe;
+}
+.tools-tab-kind {
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tools-tab-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.tools-tab-text {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+/* ---- Le panneau : réglages à gauche, lecture à droite ---- */
+.tool-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.tool-params,
+.tool-readout {
+  min-width: 0;
+  padding: clamp(1.25rem, 2.2vw, 1.85rem);
+}
+.tool-params {
+  display: grid;
+  align-content: start;
+  gap: clamp(1rem, 1.8vw, 1.35rem);
+  border-right: 1px solid var(--hairline);
+}
+.tool-params-title,
+.tool-readout-label {
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tool-panel-intro {
+  max-width: 58ch;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Le premier outil part de difficultés concrètes. Les choix restent des
+   boutons plutôt qu'un formulaire séquentiel : plusieurs situations peuvent
+   décrire le même processus et le résultat se recalcule immédiatement. */
+.tool-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.tool-choice-grid button {
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.55rem;
+  min-height: 3.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  text-align: left;
+  transition: border-color 160ms, background-color 160ms, color 160ms;
+}
+.tool-choice-grid button:hover,
+.tool-choice-grid button:focus-visible {
+  border-color: var(--brand);
+}
+.tool-choice-grid button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+.tool-choice-grid button[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: #f3f7fe;
+  color: var(--foreground);
+}
+.tool-choice-grid button > span {
+  display: grid;
+  width: 1.1rem;
+  height: 1.1rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.tool-choice-grid button[aria-pressed="true"] > span {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--brand-foreground);
+}
+.tool-choice-grid svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* ---- Les contrôles ---- */
+.tool-field {
+  min-width: 0;
+}
+.tool-field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.45rem;
+}
+.tool-field-head label,
+.tool-field-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.tool-field-head output {
+  flex: none;
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+.tool-field-head output span {
+  color: var(--text-mono);
+}
+.tool-field-help {
+  margin-top: 0.35rem;
+  color: var(--text-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+.tool-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.tool-segmented button {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  text-align: left;
+  transition: border-color 160ms, background-color 160ms, color 160ms;
+}
+.tool-segmented button:hover {
+  border-color: var(--brand);
+}
+.tool-segmented button[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--brand-foreground);
+}
+.tool-segmented button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* ---- La colonne de lecture ---- */
+.tool-readout {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.25rem, 2.2vw, 1.75rem);
+  background: #fbfcfe;
+}
+/* L'état d'attente de la colonne de droite. Une ligne qui dit quoi faire
+   plutôt qu'une colonne blanche : un panneau vide sans explication se lit
+   comme un outil cassé. Le compteur donne le reste à parcourir. */
+.tool-readout-empty {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.6rem;
+}
+.tool-readout-empty p {
+  max-width: 34ch;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+.tool-readout-progress {
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+  letter-spacing: 0.04em;
+}
+.tool-readout-head > * + * {
+  margin-top: 0.4rem;
+}
+.tool-readout-score {
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+.tool-readout-score b {
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.tool-readout-score span {
+  color: var(--text-mono);
+  font-size: 1rem;
+}
+.tool-readout-level {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.tool-readout-level[data-level="low"],
+.tool-readout-level[data-level="limited"] {
+  color: #5c6672;
+}
+.tool-readout-level[data-level="moderate"] {
+  color: #8a6418;
+}
+.tool-readout-level[data-level="high"],
+.tool-readout-level[data-level="veryHigh"] {
+  color: var(--brand);
+}
+.tool-readout-summary {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+.tool-opportunities {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+  list-style: none;
+}
+.tool-opportunities li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.tool-opportunities li > span {
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+}
+.tool-opportunities strong {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.tool-opportunities p {
+  margin-top: 0.3rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+.tool-readout-note {
+  max-width: 62ch;
+  color: var(--text-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+}
+
+/* Le générateur de brief utilise des champs libres : Synode ne prétend pas
+   connaître l'entreprise à partir de curseurs. La synthèse reprend donc les
+   mots du visiteur, sans notation ni recommandation automatique. */
+.tool-brief-field {
+  display: grid;
+  gap: 0.45rem;
+}
+.tool-brief-field > span {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.tool-brief-field textarea {
+  width: 100%;
+  min-height: 4.5rem;
+  resize: vertical;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.tool-brief-field textarea::placeholder {
+  color: var(--text-mono);
+}
+.tool-brief-field textarea:focus-visible {
+  border-color: var(--brand);
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+.tool-brief-output {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--hairline);
+}
+.tool-brief-output > div {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.tool-brief-output dt {
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.tool-brief-output dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+.tool-brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tool-observations h4 {
+  margin-bottom: 0.6rem;
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.tool-observations ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tool-observations li {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.tool-observations svg {
+  width: 14px;
+  height: 14px;
+  margin-top: 0.15rem;
+  color: var(--brand);
+}
+
+/* ---- Le pied commun aux deux outils ---- */
+/* Le texte d'appel et son bouton sur une seule ligne. Le bouton ne se
+   comprime pas et passe sous le texte quand la place manque. */
+.tools-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+.tools-foot .btn {
+  flex: none;
+}
+.tools-cta-text {
+  max-width: 62ch;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+/* Sous la rangée d'onglets, sur toute la largeur de la section. */
+.tools-disclaimer {
+  margin-top: 0.9rem;
+  color: var(--text-mono);
+  font-size: 0.6875rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* ---- Repli ---- */
+@media (max-width: 1024px) {
+  .tool-panel {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .home-work-light .work-showcase {
-    margin-top: clamp(1.25rem, 2.5svh, 1.75rem);
+  /* Les réglages passent au-dessus de la lecture : on règle, puis on lit.
+     Le filet vertical devient horizontal. */
+  .tool-params {
+    border-right: 0;
+    border-bottom: 1px solid var(--hairline);
   }
-  .home-work-light .work-showcase-media {
-    height: clamp(10rem, 24svh, 11.5rem);
+}
+@media (max-width: 900px) {
+  .tools-tabs {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .home-work-light .work-showcase-media > img {
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+}
+@media (max-width: 640px) {
+  .tool-choice-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .home-work-light .work-showcase-preview figcaption {
-    padding-top: 0.8rem;
+}
+
+/* ---------------------------------------------------------------------
+   LE PROFIL ET LES APPROCHES DANS LE PANNEAU CLAIR
+
+   Ces deux blocs avaient été écrits pour le fond sombre du hero de la page
+   dédiée : texte `#a8c3e8`, barres `#223a56`, intitulés blancs. Déplacés
+   dans la zone interactive de l'accueil, qui est claire, ils devenaient
+   illisibles. Les couleurs sont donc reprises en jetons du thème clair,
+   sans toucher aux règles d'origine, qui servent encore ailleurs.
+   --------------------------------------------------------------------- */
+.tool-readout .diag-profile dt,
+.tool-readout .diag-approaches p {
+  color: var(--muted-foreground);
+}
+.tool-readout .diag-profile dd b {
+  color: var(--text-mono);
+}
+.tool-readout .diag-bar {
+  background: var(--hairline);
+}
+.tool-readout .diag-bar i {
+  background: var(--brand);
+}
+/* Le contrôle humain n'est pas un score à faire monter : il se distingue
+   des quatre familles, ici comme dans le simulateur. */
+.tool-readout .diag-bar--human i {
+  background: #2fa36b;
+}
+.tool-readout .diag-profile-note {
+  color: var(--text-mono);
+}
+.tool-readout .diag-approaches li {
+  border-color: var(--border);
+  background: var(--surface);
+}
+.tool-readout .diag-approaches strong {
+  color: var(--foreground);
+}
+.tool-readout .diag-approach-icon {
+  color: var(--brand);
+}
+
+/* Les trois intitulés de la colonne de droite partagent la même voix : le
+   mono capitales de « Votre processus présente ». Ils étaient auparavant
+   des `h3` sans style, donc en gras noir et collés à leur contenu. */
+.tool-readout .diag-profile h3,
+.tool-readout .diag-approaches h3 {
+  margin-bottom: 1rem;
+  color: var(--text-mono);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* La mention sous les six familles. Une note de bas de section, pas un
+   paragraphe de corps : petite, en italique, sur toute la largeur, et
+   dans le gris discret déjà utilisé pour les mentions du site. */
+.families-note {
+  margin-top: clamp(1.5rem, 2.5vw, 2rem);
+  color: var(--text-mono);
+  font-size: 0.8125rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* =====================================================================
+   LE PARCOURS DE RÉSERVATION, EN TROIS ÉTATS
+
+   Calendrier, horaires, récapitulatif se succèdent DANS LE MÊME
+   conteneur, dont la hauteur est fixée. C'est la règle du bloc : quel que
+   soit l'état, le CTA occupe la même place et rien ne pousse la page.
+
+   La hauteur retenue est celle du cas le plus haut, un mois qui s'étale
+   sur six semaines. Un mois sur cinq semaines laisse donc un peu d'air en
+   bas, ce qui est exactement le prix d'une hauteur stable.
+   ===================================================================== */
+.calendar-stage {
+  position: relative;
+  min-height: 19rem;
+}
+.calendar-panel {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  /* L'entrée d'un état. La clé React force le remontage, donc elle
+     rejoue à chaque passage. */
+  animation: calendar-step 190ms ease-out both;
+}
+@keyframes calendar-step {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
   }
-  .home-work-light .work-showcase-preview h3,
-  .home-work-light .work-showcase-preview figcaption > p {
-    margin-top: 0.4rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .calendar-panel {
+    animation: none;
   }
-  .home-work-light .work-showcase-preview .work-tile-tags,
-  .home-work-light .work-showcase-preview .go {
-    margin-top: 0.7rem;
+}
+
+/* ---- Les horaires ---- */
+.calendar-back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+.calendar-back:hover {
+  color: var(--brand);
+}
+.calendar-back svg {
+  width: 14px;
+  height: 14px;
+}
+.calendar-chosen-day {
+  margin-top: 0.6rem;
+  text-transform: capitalize;
+}
+.calendar-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-top: 0.85rem;
+}
+.calendar-slots button {
+  padding: 0.55rem 0.3rem;
+  border: 1px solid #dbe4f0;
+  border-radius: 7px;
+  background: #ffffff;
+  color: inherit;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  transition: border-color 160ms, background-color 160ms, color 160ms;
+}
+.calendar-slots button:hover {
+  border-color: var(--brand);
+}
+.calendar-slots button[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: #ffffff;
+}
+.calendar-slots button:focus-visible,
+.calendar-back:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Le pied de panneau se colle en bas de la scène : le bouton principal
+   tombe donc toujours au même endroit, quel que soit l'état. */
+.calendar-panel-foot {
+  display: grid;
+  justify-items: start;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+}
+.calendar-panel-foot .btn {
+  width: 100%;
+  justify-content: center;
+}
+.calendar-panel-foot .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+.calendar-alt {
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+}
+
+/* ---- Le récapitulatif ---- */
+.calendar-done-icon {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #e7f3ec;
+  color: #22744c;
+}
+.calendar-done-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.calendar-done h4 {
+  margin-top: 0.6rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.calendar-done > p {
+  margin-top: 0.3rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.55;
+}
+.calendar-recap {
+  margin: 0.85rem 0 0;
+  border-top: 1px solid #e2e8f0;
+}
+.calendar-recap > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+.calendar-recap dt {
+  color: var(--text-mono);
+  font-size: 0.6875rem;
+}
+.calendar-recap dd {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: right;
+  text-transform: capitalize;
+}
+
+@media (max-width: 420px) {
+  .calendar-slots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -1,8 +1,6 @@
 import {
-  FRICTION_DIMENSIONS,
   diagnosticQuestions,
   type DimensionKey,
-  type FrictionId,
   type SingleQuestionId,
 } from "@/lib/ai-diagnostic-questions";
 import type { Locale } from "@/lib/content";
@@ -18,11 +16,16 @@ import type { Locale } from "@/lib/content";
  * « laquelle ». Quatre dimensions nourrissent le potentiel global ; la
  * cinquième, le contrôle humain, en est tenue à l'écart.
  *
- *   automation   fréquence, règles métier, ressaisie, nombre d'intervenants
- *   integration  nombre d'outils, ressaisie, intervenants, fréquence
- *   agents       documents et recherche d'information, modulés par le volume
+ *   automation   fréquence et ressaisie
+ *   integration  nombre d'outils, ressaisie, fréquence
+ *   agents       documents, modulés par le volume
  *   data         disponibilité des données, modulée par le volume
- *   human        besoin de validation, et erreurs signalées
+ *   human        besoin de validation
+ *
+ * Les pondérations ont été REDISTRIBUÉES quand le questionnaire est passé
+ * de dix à six questions. Les poids des entrées retirées n'ont pas été
+ * laissés à zéro, ce qui aurait écrasé l'automatisation et les agents :
+ * ils sont repris par les entrées voisines de la même dimension.
  *
  * Deux dimensions sont MULTIPLICATIVES et non additives, et c'est un choix
  * métier : sans documents ni recherche d'information, un agent n'a rien à
@@ -37,7 +40,6 @@ import type { Locale } from "@/lib/content";
 export type Answers = {
   process: string;
   single: Partial<Record<SingleQuestionId, string>>;
-  frictions: FrictionId[];
 };
 
 export type Scores = Record<DimensionKey, number>;
@@ -56,18 +58,14 @@ export type DiagnosticResult = {
 export type ObservationId =
   | "manyTools"
   | "reentry"
-  | "searching"
   | "documents"
-  | "rules"
   | "data"
   | "approvals"
-  | "repetition"
-  | "reporting"
-  | "handovers";
+  | "repetition";
 
 export type ApproachId = "automation" | "agents" | "integration" | "data" | "software" | "human";
 
-export const EMPTY_ANSWERS: Answers = { process: "", single: {}, frictions: [] };
+export const EMPTY_ANSWERS: Answers = { process: "", single: {} };
 
 /** Position de la réponse dans sa liste, ramenée entre 0 et 1. */
 function value(locale: Locale, answers: Answers, id: SingleQuestionId): number {
@@ -82,39 +80,26 @@ function value(locale: Locale, answers: Answers, id: SingleQuestionId): number {
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 const pct = (n: number) => Math.round(clamp01(n) * 100);
 
-/** Les frictions ajoutent au plus 0,15 à une dimension : elles appuient, elles ne décident pas. */
-function frictionBoost(answers: Answers, dimension: DimensionKey): number {
-  const hits = answers.frictions.filter((f) => FRICTION_DIMENSIONS[f].includes(dimension)).length;
-  return Math.min(0.15, hits * 0.075);
-}
-
 export function scoreDiagnostic(locale: Locale, answers: Answers): DiagnosticResult {
   const v = (id: SingleQuestionId) => value(locale, answers, id);
 
   const frequency = v("frequency");
-  const people = v("people");
   const tools = v("tools");
   const reentry = v("reentry");
-  const search = v("search");
-  const rules = v("rules");
   const dataAvailability = v("dataAvailability");
   const documents = v("documents");
   const humanApproval = v("humanApproval");
 
-  /* Le volume : à quel point le processus pèse dans une semaine de travail. */
-  const volume = (frequency + people) / 2;
+  /* Le volume : à quel point le processus pèse dans une semaine de travail.
+     Il reposait sur la fréquence ET le nombre d'intervenants ; cette
+     seconde question a été retirée, la fréquence le porte désormais seule. */
+  const volume = frequency;
 
-  const automation = clamp01(
-    0.32 * frequency + 0.3 * rules + 0.22 * reentry + 0.16 * people + frictionBoost(answers, "automation"),
-  );
-  const integration = clamp01(
-    0.38 * tools + 0.34 * reentry + 0.16 * people + 0.12 * frequency + frictionBoost(answers, "integration"),
-  );
-  const agents = clamp01(
-    (0.5 * documents + 0.5 * search) * (0.8 + 0.2 * volume) + frictionBoost(answers, "agents"),
-  );
-  const data = clamp01(dataAvailability * (0.75 + 0.25 * volume) + frictionBoost(answers, "data"));
-  const human = clamp01(0.7 * humanApproval + frictionBoost(answers, "human") * 2);
+  const automation = clamp01(0.55 * frequency + 0.45 * reentry);
+  const integration = clamp01(0.5 * tools + 0.4 * reentry + 0.1 * frequency);
+  const agents = clamp01(documents * (0.8 + 0.2 * volume));
+  const data = clamp01(dataAvailability * (0.75 + 0.25 * volume));
+  const human = clamp01(0.7 * humanApproval);
 
   /* Automatisation 25, intégration 25, agents 20, data 20, et 10 pour le
      volume, qui dit si le processus pèse assez pour qu'un projet se tienne. */
@@ -132,7 +117,7 @@ export function scoreDiagnostic(locale: Locale, answers: Answers): DiagnosticRes
     scores,
     global,
     level: level(global),
-    observations: observations({ tools, reentry, search, documents, rules, dataAvailability, humanApproval, frequency, people, frictions: answers.frictions }),
+    observations: observations({ tools, reentry, documents, dataAvailability, humanApproval, frequency }),
     approaches: approaches(scores, tools, global),
   };
 }
@@ -152,21 +137,16 @@ function level(global: number): PotentialLevel {
  * sortent, dans cet ordre de priorité.
  */
 function observations(a: {
-  tools: number; reentry: number; search: number; documents: number; rules: number;
-  dataAvailability: number; humanApproval: number; frequency: number; people: number;
-  frictions: FrictionId[];
+  tools: number; reentry: number; documents: number;
+  dataAvailability: number; humanApproval: number; frequency: number;
 }): ObservationId[] {
   const found: ObservationId[] = [];
   if (a.tools >= 0.66) found.push("manyTools");
   if (a.reentry >= 0.5) found.push("reentry");
-  if (a.search >= 0.5) found.push("searching");
   if (a.documents >= 0.66) found.push("documents");
-  if (a.rules >= 0.9) found.push("rules");
   if (a.dataAvailability >= 0.5) found.push("data");
   if (a.frequency >= 0.75) found.push("repetition");
   if (a.humanApproval >= 0.66) found.push("approvals");
-  if (a.people >= 0.66 || a.frictions.includes("handovers")) found.push("handovers");
-  if (a.frictions.includes("reporting") || a.frictions.includes("prioritising")) found.push("reporting");
   return found.slice(0, 5);
 }
 

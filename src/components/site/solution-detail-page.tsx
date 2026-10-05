@@ -4,6 +4,7 @@ import { Band, CardPanel, Shell } from "./shell";
 import { Lede } from "./lede";
 import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
+import { OperationsSection } from "@/components/site/operations-section";
 import { BrickVisual, brickIcons, ProjectPreview } from "./solution-visuals";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { type solutionFamilies } from "@/lib/solution-details";
@@ -48,6 +49,7 @@ export function SolutionDetailPage({ locale, family }: { locale: Locale; family:
       <Lede title={fr ? "D’autres façons de l’utiliser" : "Other ways to use it"} />
       <div className="family-example-grid section-gap">{d.examples.map(([title, text]) => <article key={title}><Icon aria-hidden /><h3>{title}</h3><p>{text}</p></article>)}</div>
     </Band>
+    <OperationsSection locale={locale} />
     <Band id="prerequis" tone="base">
       <div className="family-purpose"><Lede title={fr ? "Ce qu’il faut cadrer ensemble" : "What we need to define together"} text={fr ? "Les possibilités dépendent de votre contexte. Nous vérifions ces points avant de confirmer la solution et son périmètre." : "What is possible depends on your context. We check these points before confirming the solution and its scope."} /><ul className="family-possibilities">{d.requirements.map(r => <li key={r}><ShieldCheck aria-hidden /><span>{r}</span></li>)}</ul></div>
     </Band>
