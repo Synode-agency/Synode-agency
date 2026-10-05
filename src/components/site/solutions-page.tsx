@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Radar, SlidersHorizontal, ReceiptText, LifeBuoy, Check, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
+import { ArrowDown, ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
@@ -9,11 +9,11 @@ import { PageHero } from "@/components/site/page-hero";
 import { DeliveryPreview, ProjectPreview } from "@/components/site/solution-visuals";
 
 import { SolutionFamilies } from "./solution-families";
+import { OperationsSection } from "@/components/site/operations-section";
 
 const deliveryIcons = [FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones];
 const sizingIcons = [Target, Network, Database, Plug, Users, ShieldCheck];
 const pricingIcons = [Code2, Activity, Plus];
-const operationIcons = [Radar, SlidersHorizontal, ReceiptText, LifeBuoy];
 
 export function SolutionsPage({ locale }: { locale: Locale }) {
   const { site, solutions } = getContent(locale);
@@ -65,39 +65,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         </div>
       </Band>
 
-      <Band id="exploitation" tone="white" className="operations-band">
-        <div className="operations-heading">
-          <div>
-            <Lede kicker={solutions.operations.kicker} title={solutions.operations.title} text={solutions.operations.text} />
-            <div className="operations-meta">
-              <span className="operations-recurring"><Activity aria-hidden />{solutions.operations.recurringLabel}</span>
-              <p>{solutions.operations.familyNote}</p>
-            </div>
-          </div>
-          <ol className="operations-cycle" aria-label={fr ? "Cycle de vie de la solution" : "Solution lifecycle"}>
-            {solutions.operations.cycle.map((step, index) => (
-              <li key={step}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{step}</strong>
-                <Check aria-hidden />
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="operations-grid section-gap">
-          {solutions.operations.items.map((item, index) => {
-            const Icon = operationIcons[index];
-            return (
-              <article key={item.title} className="operations-card">
-                <span className="operations-icon"><Icon aria-hidden /></span>
-                <span className="operations-index" aria-hidden>0{index + 1}</span>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            );
-          })}
-        </div>
-      </Band>
+      <OperationsSection locale={locale} />
 
       <Band id="livrables" tone="white">
         <div className="delivery-layout">

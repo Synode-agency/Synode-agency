@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
 import { ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -47,6 +48,37 @@ export function ContactForm({ locale }: { locale: Locale }) {
      affiché vide, et surtout à risquer d'écraser ce que le visiteur a déjà
      tapé si l'URL changeait. Ici, ce qu'il écrit gagne toujours. */
   const [need, setNeed] = useState(() => (matched ? prefill(matched.title, locale) : ""));
+
+  /* Le brief préparé sur l'accueil, repris dans le champ de message.
+
+     Trois contraintes se croisent ici, et elles ne laissent qu'une porte.
+     `sessionStorage` n'existe pas au rendu serveur, donc le lire dans
+     l'état initial ferait diverger le HTML du serveur et du client. Il faut
+     donc un effet. Mais y appeler `setNeed` directement est refusé par la
+     règle React du projet, qui interdit un `setState` synchrone dans un
+     effet. On passe donc par une micro-tâche, comme le fait déjà la
+     vérification du dépôt juste en dessous avec sa promesse.
+
+     La garde sur le champ non vide fait que ce qui est déjà tapé n'est
+     jamais écrasé, et la clé est consommée à la lecture pour qu'un retour
+     arrière ne réinjecte pas un brief que le visiteur vient d'effacer. */
+  useEffect(() => {
+    let alive = true;
+    queueMicrotask(() => {
+      if (!alive) return;
+      let carried: string | null = null;
+      try {
+        carried = window.sessionStorage.getItem(BRIEF_HANDOFF_KEY);
+        if (carried) window.sessionStorage.removeItem(BRIEF_HANDOFF_KEY);
+      } catch {
+        carried = null;
+      }
+      if (carried) setNeed((current) => (current.trim() ? current : carried));
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   useEffect(() => {
     let alive = true;

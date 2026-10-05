@@ -288,6 +288,10 @@ const fr = {
           a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel IA sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
         },
         {
+          q: "Y a-t-il des coûts récurrents après la mise en service ?",
+          a: "Oui. Une solution IA s’appuie sur des services payants — modèles IA, hébergement, plateformes d’automatisation — qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
+        },
+        {
           q: "Comment se déroule un projet avec Synode ?",
           a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution IA et accompagnons sa mise en service.",
         },
@@ -297,7 +301,7 @@ const fr = {
         },
         {
           q: "Assurez-vous la maintenance après le déploiement ?",
-          a: "Oui. Synode peut assurer l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
+          a: "Oui. Synode assure l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
         },
       ],
     },
@@ -426,7 +430,7 @@ const fr = {
       { q: "Est-ce compatible avec mes outils actuels ?", a: "C’est la première chose que nous vérifions, avant le devis. Certains logiciels n’exposent pas leurs données ; dans ce cas nous le disons et nous cherchons un autre chemin, ou nous vous déconseillons le projet." },
       { q: "Qu’est-ce qui reste validé par un humain ?", a: "Vous le décidez, et c’est écrit dans le périmètre. Par défaut, tout ce qui sort de l’entreprise ou engage un montant passe par une validation. Le reste peut être automatique si vous le jugez sans risque." },
       { q: "À qui appartient ce qui est produit ?", a: "Les conditions sont fixées au contrat, avant le démarrage. C’est un point que nous traitons explicitement plutôt que de le laisser implicite." },
-      { q: "Qui paie les services tiers ?", a: "Nous distinguons toujours les frais que vous payez directement à un fournisseur de ceux qui vous sont éventuellement refacturés. Aucun coût récurrent n’apparaît après coup." },
+      { q: "Qui paie les abonnements et les services tiers ?", a: "Une solution IA consomme des services payants tant qu’elle tourne : modèles IA, hébergement, plateformes d’automatisation, connexions aux logiciels. Synode ne les absorbe jamais. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous ne le prenez pas, la solution est livrée et déployée, et vous souscrivez puis payez ces abonnements directement auprès des fournisseurs. Aucun coût récurrent n’apparaît après coup." },
       { q: "Et si ça tombe en panne ?", a: "Le contrat définit ce qui est couvert, sous quel délai et dans quelles limites. Une solution qui tourne sans surveillance finit par se tromper sans que personne le voie : c’est pour ça que le suivi n’est pas une option décorative." },
     ],
 
@@ -804,6 +808,10 @@ const en = {
           a: "The price depends on the project, its features and its complexity. We start with a free conversation to understand your need before preparing a tailored proposal. Any recurring costs are stated as well.",
         },
         {
+          q: "Are there recurring costs after go-live?",
+          a: "Yes. An AI solution relies on paid services — AI models, hosting, automation platforms — billed by subscription for as long as it runs. Synode never absorbs these costs. Either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you subscribe to and pay those services directly with the providers. Amounts are estimated before work starts.",
+        },
+        {
           q: "How does a project with Synode work?",
           a: "We begin by understanding your need. We then assess feasibility, prepare a proposal, build the solution and support its go-live.",
         },
@@ -813,7 +821,7 @@ const en = {
         },
         {
           q: "Do you provide maintenance after deployment?",
-          a: "Yes. We can provide technical support and maintenance under the terms agreed together. Running costs and significant changes are defined separately when needed.",
+          a: "Yes. Synode runs, monitors and maintains your AI solution under the terms set out in the contract. Technical costs and significant changes are defined separately.",
         },
       ],
     },
@@ -941,7 +949,7 @@ const en = {
       { q: "Will it work with my current tools?", a: "That is the first thing we check, before quoting. Some software does not expose its data; when that happens we say so and look for another route, or advise you against the project." },
       { q: "What still gets approved by a person?", a: "You decide, and it is written into the scope. By default, anything that leaves the company or commits money goes through an approval. The rest can run on its own if you judge it safe." },
       { q: "Who owns what gets built?", a: "The terms are set in the contract, before work starts. We deal with this explicitly rather than leaving it implied." },
-      { q: "Who pays for third-party services?", a: "We always separate what you pay a provider directly from anything that may be billed back through us. No recurring cost appears after the fact." },
+      { q: "Who pays for subscriptions and third-party services?", a: "An AI solution consumes paid services for as long as it runs: AI models, hosting, automation platforms, software connections. Synode never absorbs them. Either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you do not, the solution is delivered and deployed, and you subscribe to and pay those services directly with the providers. No recurring cost appears after the fact." },
       { q: "What if it breaks?", a: "The contract defines what is covered, how fast and within what limits. A solution running unwatched eventually gets things wrong with nobody noticing, which is why support is not a decorative extra." },
     ],
 

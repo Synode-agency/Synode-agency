@@ -4,15 +4,15 @@ import type { DimensionKey } from "@/lib/ai-diagnostic-questions";
 
 /** Tous les textes du diagnostic, hors énoncés des questions. */
 const fr = {
-  metaTitle: "Diagnostic du potentiel IA de votre entreprise",
+  metaTitle: "Diagnostic de faisabilité d’une solution IA",
   metaDescription:
-    "Analysez un processus métier et identifiez son potentiel d’automatisation, d’intégration, d’agents IA et d’exploitation des données avec le diagnostic Synode.",
+    "Vérifiez les premières conditions de faisabilité d’une solution IA pour un processus métier : outils, données, documents, ressaisies et contrôle humain.",
   kicker: "Outils & Diagnostics IA",
-  h1: "Diagnostic du potentiel IA de votre entreprise",
+  h1: "Diagnostic de faisabilité d’une solution IA",
   intro:
-    "Analysez un processus métier et identifiez les possibilités d’automatisation, d’intégration, d’exploitation des données ou d’assistance par l’intelligence artificielle.",
+    "Examinez un processus métier et les conditions nécessaires à une automatisation, une intégration ou une assistance par l’intelligence artificielle.",
   lead:
-    "Dix questions sur le fonctionnement réel d’un processus, puis un résultat détaillé par famille de solutions. Aucune inscription, aucune adresse email, aucune réponse enregistrée sur nos serveurs.",
+    "Six questions sur le fonctionnement réel d’un processus, puis une première lecture de sa faisabilité et des approches à étudier. Aucune inscription, aucune adresse email, aucune réponse enregistrée sur nos serveurs.",
   processLabel: "Quel processus souhaitez-vous analyser ?",
   processPlaceholder: "Ex. traitement des demandes clients",
   processHelp: "Un processus précis donne un résultat plus utile qu’une activité entière.",
@@ -25,7 +25,9 @@ const fr = {
   stepOf: "Processus analysé",
   required: "Sélectionnez une réponse pour continuer.",
   requiredMultiple: "Sélectionnez au moins une réponse pour continuer.",
-  resultTitle: "Potentiel d’intégration IA",
+  emptyHint: "Répondez aux six questions pour afficher le diagnostic. Il se recalcule à chaque réponse.",
+  emptyProgress: (done: number, total: number) => `${done} / ${total}`,
+  resultTitle: "Première lecture de faisabilité",
   observationsTitle: "Votre processus présente",
   approachesTitle: "Approches potentielles",
   profileTitle: "Profil du processus",
@@ -37,13 +39,14 @@ const fr = {
   ctaTitle: "Transformons ce diagnostic en solution concrète.",
   ctaText:
     "Nous pouvons analyser plus précisément votre processus, vos outils, vos données et vos contraintes afin de déterminer quelle combinaison de technologies serait réellement pertinente.",
+  toBrief: "Préparer votre brief",
   ctaPrimary: "Cadrer votre projet IA",
   ctaSecondary: "Découvrir nos solutions",
   levels: {
-    limited: "Potentiel limité",
-    moderate: "Potentiel modéré",
-    high: "Potentiel élevé",
-    veryHigh: "Potentiel très élevé",
+    limited: "Une autre piste semble préférable",
+    moderate: "Faisabilité à confirmer",
+    high: "Conditions plutôt favorables",
+    veryHigh: "Plusieurs conditions favorables",
   } satisfies Record<PotentialLevel, string>,
   dimensions: {
     automation: "Automatisation",
@@ -55,14 +58,10 @@ const fr = {
   observations: {
     manyTools: "Plusieurs outils utilisés dans le même processus",
     reentry: "Ressaisie manuelle entre différents systèmes",
-    searching: "Recherche fréquente d’informations avant de pouvoir agir",
     documents: "Volume important de documents ou d’échanges écrits",
-    rules: "Règles métier clairement identifiables",
     data: "Données historiques disponibles",
     approvals: "Validations humaines nécessaires sur certaines étapes",
     repetition: "Étapes répétées plusieurs fois par jour",
-    reporting: "Besoin de pilotage, de priorisation ou de reporting",
-    handovers: "Nombreux passages entre personnes ou équipes",
   } satisfies Record<ObservationId, string>,
   approaches: {
     automation: {
@@ -93,15 +92,15 @@ const fr = {
 };
 
 const en: typeof fr = {
-  metaTitle: "AI potential diagnostic for your business",
+  metaTitle: "AI solution feasibility diagnostic",
   metaDescription:
-    "Analyse a business process and identify its potential for automation, integration, AI agents and data use with the Synode diagnostic.",
+    "Check the initial feasibility conditions for an AI solution applied to a business process: tools, data, documents, re-entry and human control.",
   kicker: "AI tools & diagnostics",
-  h1: "AI potential diagnostic for your business",
+  h1: "AI solution feasibility diagnostic",
   intro:
-    "Analyse a business process and identify the opportunities for automation, integration, data use or support from artificial intelligence.",
+    "Examine a business process and the conditions required for automation, integration or support from artificial intelligence.",
   lead:
-    "Ten questions about how a process actually runs, then a detailed result for each family of solutions. No sign-up, no email address, and no answers stored on our servers.",
+    "Six questions about how a process actually runs, followed by an initial feasibility reading and approaches to explore. No sign-up, no email address, and no answers stored on our servers.",
   processLabel: "Which process would you like to analyse?",
   processPlaceholder: "e.g. handling customer requests",
   processHelp: "A specific process gives a more useful result than an entire activity.",
@@ -114,7 +113,9 @@ const en: typeof fr = {
   stepOf: "Process analysed",
   required: "Select an answer to continue.",
   requiredMultiple: "Select at least one answer to continue.",
-  resultTitle: "AI integration potential",
+  emptyHint: "Answer the six questions to display the diagnostic. It recalculates with every answer.",
+  emptyProgress: (done: number, total: number) => `${done} / ${total}`,
+  resultTitle: "Initial feasibility reading",
   observationsTitle: "Your process shows",
   approachesTitle: "Possible approaches",
   profileTitle: "Process profile",
@@ -126,13 +127,14 @@ const en: typeof fr = {
   ctaTitle: "Let’s turn this diagnostic into a concrete solution.",
   ctaText:
     "We can look more precisely at your process, your tools, your data and your constraints to determine which combination of technologies would genuinely be relevant.",
+  toBrief: "Prepare your brief",
   ctaPrimary: "Scope your AI project",
   ctaSecondary: "Explore our solutions",
   levels: {
-    limited: "Limited potential",
-    moderate: "Moderate potential",
-    high: "High potential",
-    veryHigh: "Very high potential",
+    limited: "Another direction may be preferable",
+    moderate: "Feasibility to confirm",
+    high: "Generally favourable conditions",
+    veryHigh: "Several favourable conditions",
   },
   dimensions: {
     automation: "Automation",
@@ -144,14 +146,10 @@ const en: typeof fr = {
   observations: {
     manyTools: "Several tools used within the same process",
     reentry: "Manual re-entry between different systems",
-    searching: "Frequent information searches before anyone can act",
     documents: "A large volume of documents or written exchanges",
-    rules: "Business rules that can be clearly identified",
     data: "Historical data available",
     approvals: "Human approval needed on some steps",
     repetition: "Steps repeated several times a day",
-    reporting: "A need for oversight, prioritisation or reporting",
-    handovers: "Many handovers between people or teams",
   },
   approaches: {
     automation: {
