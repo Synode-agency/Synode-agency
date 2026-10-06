@@ -1,123 +1,231 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Target, Network, Database, Plug, Users, ShieldCheck, FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones, Code2, Activity, Plus, Bot, ContactRound, Workflow, LayoutDashboard } from "lucide-react";
+import {
+  ArrowDown, ArrowRight, BarChart3, CalendarRange, FileSearch,
+  LifeBuoy, Mail, MessagesSquare, Target, UserPlus,
+} from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { SolutionsModules } from "./solutions-hero";
+import { renderLines } from "@/lib/lines";
+import { SolutionsDashboard } from "./solutions-dashboard";
 import { PageHero } from "@/components/site/page-hero";
-import { DeliveryPreview, ProjectPreview } from "@/components/site/solution-visuals";
-
+import { Booking } from "@/components/site/booking";
 import { SolutionFamilies } from "./solution-families";
-import { OperationsSection } from "@/components/site/operations-section";
+import { AssemblyPicker } from "@/components/site/assembly-picker";
+import { SecurityPanel } from "@/components/site/security-panel";
+import { MethodTabs } from "@/components/site/method-tabs";
+import { PricingDoc } from "@/components/site/pricing-doc";
 
-const deliveryIcons = [FileCheck2, FlaskConical, BookOpen, GraduationCap, Headphones];
-const sizingIcons = [Target, Network, Database, Plug, Users, ShieldCheck];
-const pricingIcons = [Code2, Activity, Plus];
+/**
+ * La page Solutions.
+ *
+ * Elle raconte une progression, et c'est elle qui fixe l'ordre des bandes :
+ * voici nos familles de solutions, voici ce qu'elles résolvent, voici
+ * comment elles s'assemblent, voici ce que comprend un projet, comment nous
+ * travaillons, comment vos données sont protégées, comment la facturation
+ * fonctionne. Puis l'invitation, et seulement ensuite les dernières
+ * objections.
+ *
+ * ── Un point à ne pas défaire ───────────────────────────────────────────
+ * Le CTA passe AVANT la FAQ. Une FAQ posée après l'invitation renvoie le
+ * visiteur à ses doutes au moment où il allait écrire ; posée après, elle
+ * rattrape ceux qui n'ont pas cliqué. La FAQ est donc la dernière bande
+ * avant le pied de page.
+ * ────────────────────────────────────────────────────────────────────────
+ *
+ * Les fonds alternent tout seuls : le thème du site peint une bande sur
+ * deux en bleu nuit selon son rang. Les composants ci-dessous lisent donc
+ * leurs couleurs dans les jetons de la bande (`--surface`, `--hairline`,
+ * `--muted-foreground`) plutôt que dans des littéraux, et traversent les
+ * deux fonds sans règle en double. La FAQ fait exception et force un fond
+ * clair : elle suit la carte sombre du CTA, et deux aplats sombres de
+ * suite effaçaient la carte.
+ */
+
+/** Les besoins métier de la section « Solutions concrètes ». */
+const NEEDS = [
+  { icon: MessagesSquare, fr: ["Traitement des demandes clients", "Trier les demandes reçues et préparer des réponses contextualisées."], en: ["Customer request handling", "Sort, understand and draft the replies."] },
+  { icon: Target, fr: ["Qualification commerciale par IA", "Analyser et prioriser les prospects selon vos critères commerciaux."], en: ["Lead qualification", "Assess and prioritise incoming requests."] },
+  { icon: FileSearch, fr: ["Analyse intelligente de documents", "Extraire, classer et vérifier les données de vos documents métier."], en: ["Document analysis", "Extract and check the information that matters."] },
+  { icon: UserPlus, fr: ["Onboarding client automatisé", "Automatiser la collecte d’informations, les étapes d’accueil et les relances."], en: ["Client onboarding", "Guide a new client through the first steps."] },
+  { icon: Mail, fr: ["Automatisation des emails", "Classer les messages, détecter les priorités et préparer les réponses."], en: ["Email handling", "Classify, route and draft replies."] },
+  { icon: BarChart3, fr: ["Tableaux de bord & pilotage", "Centraliser vos indicateurs clés pour faciliter le pilotage de l’activité."], en: ["Reporting & steering", "Gather the numbers and make them readable."] },
+  { icon: CalendarRange, fr: ["Planification des rendez-vous", "Coordonner les disponibilités, les plannings et les rappels."], en: ["Planning & scheduling", "Organise tasks, schedules and appointments."] },
+  { icon: LifeBuoy, fr: ["Suivi après-vente", "Suivre les demandes après livraison et automatiser les relances utiles."], en: ["After-sales follow-up", "Track requests once the work is delivered."] },
+] as const;
+
+const SECURITY = {
+  fr: {
+    items: [
+      { title: "Protection des données", text: "La solution IA accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
+      { title: "Gestion des droits d’accès", text: "Les permissions sont limitées selon les utilisateurs, les rôles et les logiciels connectés." },
+      { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes peuvent rester soumises à votre validation." },
+      { title: "Monitoring technique", text: "Le fonctionnement, les erreurs et les intégrations peuvent être surveillés après le déploiement." },
+    ],
+    panelTitle: "Vos données restent sous votre contrôle",
+    checks: ["Accès restreints", "Validation humaine", "Monitoring", "Traçabilité"],
+    panelNote: "Le niveau de sécurité est défini pour chaque projet selon les données, les usages et les risques identifiés.",
+  },
+  en: {
+    items: [
+      { title: "Secured data", text: "Access to data is limited to what the system actually needs." },
+      { title: "Access rights", text: "Permissions are set according to the users and the tools involved." },
+      { title: "Human control", text: "Sensitive actions can stay subject to human approval." },
+      { title: "Technical monitoring", text: "The solution can be watched, so errors and integration problems are caught." },
+    ],
+    panelTitle: "Your data stays under your control",
+    checks: ["Restricted access", "Human approval", "Monitoring", "Traceability"],
+    panelNote: "The level we keep is decided project by project, against the real risks.",
+  },
+} as const;
 
 export function SolutionsPage({ locale }: { locale: Locale }) {
   const { site, solutions } = getContent(locale);
   const fr = locale === "fr";
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
-  const deliveryLabels = fr ? ["Un cadre clair", "Une solution testée", "Les clés pour comprendre", "Votre équipe accompagnée", "La suite organisée"] : ["A clear scope", "A tested solution", "Knowledge you can use", "Your team supported", "A plan for what comes next"];
+  const security = SECURITY[fr ? "fr" : "en"];
 
   return (
     <Shell locale={locale}>
       <PageHero
-        title={fr ? <>Six familles pour composer vos <span>solutions IA sur mesure</span></> : <>Six families to compose your <span>custom AI solutions</span></>}
-        aside={<SolutionsModules locale={locale} />}
+        title={renderLines(solutions.title)}
+        aside={<SolutionsDashboard locale={locale} />}
       >
-        <p>{fr ? "Un besoin précis, plusieurs façons d’y répondre. Agents IA, automatisations, logiciels métier, intégrations, data et formation se combinent en une seule solution, conçue autour de vos outils, de vos données et de vos règles métier." : "One specific need, several ways to address it. AI agents, automations, business software, integrations, data and training combine into a single solution, designed around your tools, your data and your business rules."}</p>
+        <p>{fr ? "Synode conçoit et développe des solutions d’intelligence artificielle adaptées aux processus des entreprises. Agents IA, automatisation, logiciels métier, intégrations et analyse de données sont combinés selon vos objectifs, vos outils et vos contraintes." : "Every AI project starts from a specific business need. We then design a custom solution, combining artificial intelligence, process automation, integrations, business software and data wherever your environment and your constraints call for it."}</p>
         <div className="btn-row">
-          <Link href="#briques" className="btn btn--primary">{fr ? "Explorer les six familles" : "Explore the six families"}<ArrowDown aria-hidden /></Link>
+          <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions IA" : "Explore our AI solutions"}<ArrowDown aria-hidden /></Link>
           <Link href={formHref} className="btn btn--ghost">{fr ? "Parlons de votre besoin" : "Tell us what you need"}</Link>
         </div>
         <span className="hero-reassurance">{fr ? "* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé." : "* A free first conversation. A clear scope. A tailored quote."}</span>
       </PageHero>
 
-      <Band id="briques" tone="base" className="technical-band">
-        <Lede kicker={fr ? "Six familles, votre solution" : "Six families, your solution"} title={solutions.bricksTitle} text={solutions.bricksText} />
-        <SolutionFamilies locale={locale} overview />
+      <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
+        <Lede kicker={fr ? "Solutions IA pour votre entreprise" : "AI solutions for your business"} title={fr ? "Nos solutions IA sur mesure" : "Our custom AI solutions"} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} text={fr ? "Notre agence IA à Bruxelles combine agents IA, automatisation des processus, logiciels métier, intégrations, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
+        <SolutionFamilies locale={locale} anchors />
+        <p className="families-note">
+          {fr
+            ? "Les solutions peuvent être accompagnées dans le temps par du monitoring, de la maintenance et des évolutions selon les besoins du projet. *"
+            : "Solutions can be supported over time with monitoring, maintenance and changes, according to the needs of the project. *"}
+        </p>
       </Band>
 
-      <Band id="combinaison" tone="base" className="combination-band">
-        <div className="combination-layout">
+      {/* ---- Des solutions concrètes : huit besoins, pour que le visiteur
+          se reconnaisse en quelques secondes. Des tuiles, pas des cartes :
+          une icône, un titre court, une ligne. ---- */}
+      <Band id="cas-concrets" tone="base" className="solutions-rhythm solutions-full solutions-tint-band">
+        <div className="section-heading">
           <Lede
-            kicker={fr ? "Un exemple de combinaison" : "One example combination"}
-            title={fr ? "Plusieurs expertises.^Une seule solution." : "Several capabilities.^One solution."}
-            text={fr ? "Une solution peut réunir un agent IA, votre CRM, des automatisations et un tableau de bord. Nous retenons uniquement les éléments utiles à votre activité." : "One solution can combine an AI agent, your CRM, automations and a dashboard. We only include what is useful to your business."}
+            kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
+            title={fr ? "Des cas d’usage IA pour vos enjeux métier" : "Use cases for your business challenges"}
+            accents={fr ? ["cas d’usage IA"] : ["Use cases"]}
+            text={fr ? "Nos solutions IA pour entreprises répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "See how our AI solutions can answer concrete business problems, from handling customer requests to document analysis, by way of lead qualification and day-to-day steering."}
           />
-          <div className="combination-card" aria-label={fr ? "Exemple illustratif d’une solution composée" : "Illustrative example of a combined solution"}>
-            {(fr ? [
-              { icon: Bot, title: "Agent IA", text: "Analyse la demande" },
-              { icon: ContactRound, title: "CRM", text: "Apporte le contexte" },
-              { icon: Workflow, title: "Automatisation", text: "Organise les étapes" },
-              { icon: LayoutDashboard, title: "Tableau de bord", text: "Rend le suivi visible" },
-            ] : [
-              { icon: Bot, title: "AI agent", text: "Analyses the request" },
-              { icon: ContactRound, title: "CRM", text: "Provides context" },
-              { icon: Workflow, title: "Automation", text: "Organises the steps" },
-              { icon: LayoutDashboard, title: "Dashboard", text: "Makes progress visible" },
-            ]).map(({ icon: Icon, title, text }, index) => <div key={title} className="combination-step">{index > 0 && <ArrowRight aria-hidden className="combination-arrow" />}<span><Icon aria-hidden /></span><div><strong>{title}</strong><small>{text}</small></div></div>)}
-            <p>{fr ? "Exemple illustratif · le périmètre est défini selon votre besoin" : "Illustrative example · scope is defined around your needs"}</p>
-          </div>
+          <Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Voir plus de cas d’usage" : "See more use cases"}<ArrowRight aria-hidden /></Link>
         </div>
-      </Band>
-
-      <OperationsSection locale={locale} />
-
-      <Band id="livrables" tone="white">
-        <div className="delivery-layout">
-          <div><Lede kicker={fr ? "Du code à la prise en main" : "From code to daily use"} title={solutions.deliverablesTitle} /><DeliveryPreview locale={locale} /></div>
-          <ol className="delivery-list">
-            {solutions.deliverables.map((d, i) => {
-              const Icon = deliveryIcons[i];
-              return <li key={d}><span className="delivery-icon"><Icon aria-hidden /></span><div><h3>{deliveryLabels[i]}</h3><p>{d}</p></div><span className="delivery-index" aria-hidden>0{i + 1}</span></li>;
-            })}
-          </ol>
-        </div>
-        <p className="prose-body section-gap-sm">{solutions.deliverablesNote}</p>
-      </Band>
-
-      <Band id="dimensionnement" tone="base">
-        <div className="section-heading"><Lede kicker={fr ? "Un périmètre à votre mesure" : "A scope that fits"} title={solutions.sizingTitle} text={solutions.sizingText} /><span className="scope-label"><Target aria-hidden />{fr ? "6 points pour cadrer juste" : "6 factors to get the scope right"}</span></div>
-        <div className="scope-grid">
-          {solutions.sizing.map((s, i) => {
-            const Icon = sizingIcons[i];
-            return <article key={s.title} className="scope-card"><div><span className="scope-icon"><Icon aria-hidden /></span><span className="scope-number" aria-hidden>0{i + 1}</span></div><h3>{s.title}</h3><p>{s.text}</p><span className="scope-rule" aria-hidden /></article>;
+        <ul className="need-tiles section-gap">
+          {NEEDS.map(({ icon: Icon, fr: textFr, en: textEn }) => {
+            const [title, text] = fr ? textFr : textEn;
+            return (
+              <li key={title} className="need-tile">
+                <span className="need-tile-icon"><Icon aria-hidden /></span>
+                <strong>{title}</strong>
+                <p>{text}</p>
+              </li>
+            );
           })}
+        </ul>
+      </Band>
+
+      {/* ---- Comment tout s'assemble. Trois colonnes séparées par un filet,
+          sans une seule ligne de liaison : c'est la progression de gauche à
+          droite qui dit l'assemblage, pas un réseau de traits. ---- */}
+      <Band id="assemblage" tone="base" className="solutions-rhythm solutions-full">
+        <Lede
+          kicker={fr ? "Comment tout s’assemble" : "How it all fits together"}
+          title={fr ? "Plusieurs expertises.\nUne solution IA sur mesure." : "Several capabilities.\nOne solution."}
+          accents={fr ? ["solution IA sur mesure"] : ["One solution"]}
+          text={fr ? "Nous sélectionnons les briques adaptées à votre objectif : agents IA, automatisations, intégrations, logiciels métier, exploitation des données et formation. Elles forment un système cohérent, connecté à votre environnement de travail." : "We combine the blocks your need calls for — AI agents, automations, integrations, business software, data and support — into one coherent solution, built into your working environment."}
+        />
+        {/* Une addition, et rien d'autre. Six termes, un filet, un résultat.
+            Aucune boîte, aucune ligne de liaison : le signe « + » et le
+            signe « = » disent l'assemblage mieux qu'un schéma, et ils le
+            disent en une seconde. */}
+        <AssemblyPicker locale={locale} />
+      </Band>
+
+      {/* ---- Ce que comprend un projet. Quatre temps, chacun avec une
+          mini-interface dessinée en CSS : plan de modules, composants de
+          code, document coché, courbe de monitoring. ---- */}
+      <Band id="methode" tone="base" className="solutions-rhythm solutions-full technical-band">
+        <div className="section-heading">
+          <Lede
+            kicker={fr ? "Conception & Développement IA" : "AI design & development"}
+            title={fr ? "De votre besoin au déploiement :\nnotre méthode pour votre projet IA" : "From your need to deployment:\nour method for your AI project"}
+            accents={fr ? ["méthode"] : ["method"]}
+            text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
+          />
         </div>
-        <p className="prose-body section-gap-sm">{solutions.sizingNote}</p>
+        <MethodTabs locale={locale} />
       </Band>
 
-      <Band id="modele" tone="white">
-        <Lede kicker={fr ? "Un budget lisible" : "A transparent budget"} title={solutions.pricingTitle} />
-        <ol className="pricing-grid section-gap">
-          {solutions.pricing.map((p, i) => {
-            const Icon = pricingIcons[i];
-            return <li key={p.title} className="pricing-card"><div className="pricing-card-top"><Icon aria-hidden /><span aria-hidden>0{i + 1}</span></div><h3>{p.title}</h3><p>{p.text}</p><span className="pricing-card-foot">{(fr ? ["Construire", "Faire fonctionner", "Faire évoluer"] : ["Build", "Run", "Evolve"])[i]}<ArrowRight aria-hidden /></span></li>;
-          })}
-        </ol>
-        <p className="prose-body section-gap-sm">{solutions.pricingNote}</p>
+      {/* ---- Sécurité : le texte à gauche, un petit panneau d'état à
+          droite. Pas de cadenas, pas d'imagerie de cybersécurité. ---- */}
+      <Band id="securite" tone="base" className="solutions-rhythm solutions-full solutions-tint-band">
+        {/* Le bloc de titres en pleine largeur, comme partout ailleurs sur
+            la page. Les quatre réglages et le panneau d'état se partagent
+            ensuite la ligne au même niveau : le panneau ne flotte plus en
+            haut à droite d'une colonne plus haute que lui. */}
+        <div className="section-heading">
+          <Lede
+            kicker={fr ? "Sécurité & contrôle" : "Security & control"}
+            title={fr ? "Sécurité et contrôle\nde vos solutions IA" : "Reliable AI solutions you stay in control of"}
+            accents={fr ? ["solutions IA"] : ["stay in control"]}
+            text={fr ? "La protection des données, la gestion des accès, la validation humaine et le monitoring sont intégrés dès la conception. Les mesures retenues dépendent des usages, des logiciels connectés et des risques du projet." : "Security, data confidentiality, access management, human control and technical monitoring are defined against the needs and the risks of each project."}
+          />
+        </div>
+        <SecurityPanel
+          items={security.items}
+          panelTitle={security.panelTitle}
+          checks={security.checks}
+          panelNote={security.panelNote}
+        />
       </Band>
 
-      <Band id="faq" tone="base">
-        <Lede title={solutions.faqTitle} />
-        <div className="section-gap"><FaqAccordion items={solutions.faq} /></div>
+      <Band id="tarification" tone="base" className="solutions-rhythm solutions-full solutions-white-band">
+        <Lede
+          kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
+          title={fr ? "Prix d’une solution IA sur mesure :\nnotre tarification" : "How we charge"}
+          accents={fr ? ["Prix d’une solution IA sur mesure"] : ["How we charge"]}
+          text={fr ? "Le budget d’un projet IA dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
+        />
+        <PricingDoc locale={locale} />
       </Band>
 
+      {/* ---- L'invitation, AVANT la FAQ. Voir l'en-tête du fichier. ---- */}
       <CardPanel id="autre" className="dark-cta solutions-cta">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
-            <span className="eyebrow">{fr ? "Votre idée est le point de départ" : "Your idea is the starting point"}</span>
-            <Lede title={solutions.notInList.title} text={solutions.notInList.text} />
-            <div className="btn-row"><Link href={formHref} className="btn btn--primary">{solutions.notInList.cta}<ArrowRight aria-hidden /></Link><Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link></div>
-            <p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{fr ? "Commençons par votre quotidien." : "Let’s start with your everyday work."}</p>
+            <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
+            <Lede
+              title={fr ? "Parlons de votre projet\nd’intelligence artificielle" : "Your need isn’t listed here?"}
+              accents={fr ? ["projet", "d’intelligence artificielle"] : ["need"]}
+              text={fr ? "Vous avez un processus à automatiser, un agent IA à concevoir ou un logiciel métier à faire évoluer ? Présentez-nous votre contexte pour évaluer la pertinence et la faisabilité d’une solution IA sur mesure." : "Every business works differently. Let’s talk about your tools, your data and your processes, and find the AI solution that actually fits."}
+            />
+            <div className="btn-row">
+              <Link href="#calendrier-solutions" className="btn btn--primary">{fr ? "Réserver un échange" : "Book a call"}<ArrowRight aria-hidden /></Link>
+              <Link href={formHref} className="btn btn--ghost">{fr ? "Nous contacter" : "Contact us"}</Link>
+            </div>
+            <p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{site.ctaShort}</p>
           </div>
-          <ProjectPreview locale={locale} />
+          <div id="calendrier-solutions" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
         </div>
       </CardPanel>
+
+      <Band id="faq" tone="base" className="solutions-rhythm solutions-faq-light">
+        <Lede kicker={fr ? "Questions fréquentes sur nos solutions IA" : "Frequently asked questions about our AI solutions"} title={solutions.faqTitle} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} />
+        <div className="section-gap"><FaqAccordion items={solutions.faq} /></div>
+      </Band>
     </Shell>
   );
 }

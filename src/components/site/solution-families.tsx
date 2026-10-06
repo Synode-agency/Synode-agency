@@ -9,29 +9,33 @@ import { BrickVisual, brickIcons } from "./solution-visuals";
 const NO_ARTICLE = new Set(["data-intelligence", "formation-adoption-ia"]);
 
 /**
- * Les six familles, en deux présentations.
+ * Les six familles, dans la même grille régulière des deux côtés.
  *
- * L'accueil garde la grille régulière déjà validée : rien n'y change.
- * `overview`, sur la page Solutions, passe en composition bento : un module
- * large qui ouvre la série, deux moyens, puis trois égaux. Les contenus, les
- * liens et les illustrations sont les mêmes des deux côtés ; seule la
- * répartition des surfaces diffère.
+ * La page Solutions a porté un temps une composition bento : un module large
+ * ouvrait la série, deux moyens suivaient, trois égaux refermaient. Le
+ * premier module y était à la fois plus grand et d'un bleu nuit différent,
+ * et c'est précisément ce que la page ne veut plus : les six familles sont
+ * proposées au même rang, sans priorité entre elles.
+ *
+ * `anchors` ne décide donc plus d'une mise en page. Il pose un `id` par
+ * famille sur la page Solutions, pour qu'un lien puisse viser une carte
+ * précise ; l'accueil n'en a pas besoin, ses cartes y renvoient déjà.
  */
 export function SolutionFamilies({
   locale,
-  overview = false,
+  anchors = false,
   showIndex = true,
 }: {
   locale: Locale;
-  overview?: boolean;
+  anchors?: boolean;
   showIndex?: boolean;
 }) {
   const { solutions } = getContent(locale);
   const fr = locale === "fr";
-  return <div className={`family-bento section-gap${overview ? " family-bento--overview" : ""}`}>
+  return <div className="family-bento section-gap">
     {solutions.bricks.map((family, index) => {
       const Icon = brickIcons[family.visual];
-      return <article id={overview ? family.slug : undefined} key={family.slug} className={`technical-card family-card family-card--${index}`}>
+      return <article id={anchors ? family.slug : undefined} key={family.slug} className={`technical-card family-card family-card--${index}`}>
         <div className="family-copy">
           {/* Le numéro n'est affiché que là où l'ordre veut dire quelque
               chose. Sur l'accueil ce sont six services proposés, sans

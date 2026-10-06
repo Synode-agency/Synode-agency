@@ -33,6 +33,7 @@ const SLOTS = ["09:00", "09:30", "10:00", "11:00", "14:00", "15:30"];
 
 export function CalendarPreview({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "cta" }) {
   const fr = locale === "fr";
+  const isCta = variant === "cta";
   const lang = fr ? "fr-BE" : "en-GB";
 
   const [offset, setOffset] = useState(0);
@@ -70,15 +71,29 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
   const contactHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
 
   return (
-    <div className={variant === "cta" ? "calendar-demo calendar-demo--cta" : "calendar-demo"}>
-      <div className="calendar-demo-notice">
-        <Info aria-hidden />
-        <span>
-          {fr
-            ? "Aperçu interactif · dates et horaires fictifs. Aucune réservation n’est effectuée."
-            : "Interactive preview · illustrative dates and times. No booking is made."}
-        </span>
-      </div>
+    <div className={isCta ? "calendar-demo calendar-demo--cta" : "calendar-demo"}>
+      {/* L'encadré d'avertissement et le pied de page ne sont posés que
+          hors des CTA. Dans les deux cartes d'accueil et de Solutions, le
+          calendrier est encadré par un titre et des boutons qui disent
+          déjà ce qu'on y fait ; ces deux blocs y répétaient le message et
+          allongeaient la carte.
+
+          ⚠ Ce qui reste, et qui ne doit PAS disparaître : le troisième
+          état dit que le créneau est RETENU, pas réservé, et qu'aucune
+          réservation n'est enregistrée. C'est désormais le seul endroit où
+          le visiteur l'apprend dans un CTA. Tant que Cal.com n'est pas
+          branché, ce texte est la seule chose qui empêche quelqu'un
+          d'attendre un appel qui n'existe pas. */}
+      {!isCta && (
+        <div className="calendar-demo-notice">
+          <Info aria-hidden />
+          <span>
+            {fr
+              ? "Aperçu interactif · dates et horaires fictifs. Aucune réservation n’est effectuée."
+              : "Interactive preview · illustrative dates and times. No booking is made."}
+          </span>
+        </div>
+      )}
 
       <div className="calendar-demo-body">
         {/* La scène, de hauteur fixe. Les trois états s'y succèdent sans
@@ -190,12 +205,14 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
         </div>
       </div>
 
-      <div className="calendar-demo-footer">
-        <span><Clock3 aria-hidden />{fr ? "Pour convenir d’un vrai rendez-vous :" : "To arrange an actual meeting:"}</span>
-        <Link className="go" href={contactHref}>
-          {fr ? "Nous contacter" : "Contact us"}<ChevronRight aria-hidden />
-        </Link>
-      </div>
+      {!isCta && (
+        <div className="calendar-demo-footer">
+          <span><Clock3 aria-hidden />{fr ? "Pour convenir d’un vrai rendez-vous :" : "To arrange an actual meeting:"}</span>
+          <Link className="go" href={contactHref}>
+            {fr ? "Nous contacter" : "Contact us"}<ChevronRight aria-hidden />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
