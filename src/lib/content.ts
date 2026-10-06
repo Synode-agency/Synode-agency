@@ -276,7 +276,7 @@ const fr = {
     },
 
     faq: {
-      kicker: "FAQ sur l’intelligence artificielle",
+      kicker: "Questions fréquentes sur nos solutions IA",
       title: "Questions fréquentes sur les solutions IA sur mesure",
       items: [
         {
@@ -315,9 +315,9 @@ const fr = {
 
   /* ---------------------------------------------------------------- Solutions */
   solutions: {
-    metaTitle: "Solutions IA sur mesure pour indépendants, TPE et PME",
+    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
     metaDescription:
-      "Six familles de solutions IA sur mesure : assistants, automatisations, logiciels, intégrations, data et formation. Pour indépendants, TPE et PME.",
+      "Découvrez les solutions IA sur mesure de Synode à Bruxelles : agents IA, automatisations, logiciels métier, intégrations, data et formation pour entreprises.",
     kicker: "Notre offre",
     title: "Une solution construite\n^à partir de votre besoin.",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
@@ -328,49 +328,49 @@ const fr = {
       {
             "slug": "assistants-agents-ia",
             "title": "Assistants & Agents IA",
-            "text": "Des assistants IA pour rechercher, rédiger ou analyser des informations ; des agents IA pour enchaîner des actions dans un cadre autorisé.",
-            "benefit": "Retrouver l’information et préparer la suite.",
-            "example": "Une réponse client préparée à partir de vos documents, avec ses sources et votre validation.",
+            "text": "Des assistants IA pour rechercher, rédiger et analyser vos informations, ainsi que des agents IA capables d’exécuter des actions dans un cadre défini.",
+            "benefit": "Accéder plus vite à l’information et accélérer les tâches quotidiennes.",
+            "example": "Un agent IA prépare une réponse client à partir de vos documents, cite ses sources et demande votre validation avant envoi.",
             "visual": 0
       },
       {
             "slug": "automatisations-intelligentes",
             "title": "Automatisations intelligentes",
-            "text": "Des automatisations intelligentes pour relier les étapes répétitives de vos processus métier, avec de l’IA lorsqu’il faut comprendre, classer ou traiter une information.",
-            "benefit": "Moins de manipulations entre deux étapes.",
-            "example": "Une facture reçue par email est extraite et contrôlée ; les cas ambigus vous sont soumis.",
+            "text": "Des automatisations intelligentes pour relier les étapes répétitives de vos processus métier et traiter les informations qui circulent entre vos outils.",
+            "benefit": "Réduire les saisies manuelles, les oublis et les tâches répétitives.",
+            "example": "Une facture reçue par email est extraite, contrôlée et transmise au bon outil, tandis que les cas ambigus vous sont signalés.",
             "visual": 1
       },
       {
             "slug": "logiciels-applications-ia",
             "title": "Logiciels & Applications IA sur mesure",
-            "text": "Des logiciels et applications IA sur mesure conçus pour votre équipe, ou des fonctionnalités d’intelligence artificielle intégrées aux produits de vos clients.",
-            "benefit": "Un outil adapté au travail réel.",
-            "example": "Vos interventions réunies dans une interface, avec un compte rendu préparé puis relu.",
+            "text": "Des logiciels métier et applications IA sur mesure conçus autour de vos processus, de vos utilisateurs et de vos règles de fonctionnement.",
+            "benefit": "Disposer d’un outil métier adapté au travail réel de vos équipes.",
+            "example": "Vos interventions sont centralisées dans une interface métier avec suivi, historique et comptes rendus assistés par IA.",
             "visual": 3
       },
       {
             "slug": "integrations-systemes-connectes",
             "title": "Intégrations & systèmes connectés",
-            "text": "Des connexions entre vos logiciels, CRM, ERP et bases de données pour faire circuler les informations utiles.",
-            "benefit": "Des outils qui travaillent ensemble.",
-            "example": "Une demande validée sur le site met à jour le CRM et rejoint votre outil de gestion.",
+            "text": "Des intégrations entre vos logiciels, CRM, ERP, sites web et bases de données pour synchroniser les informations utiles.",
+            "benefit": "Faire circuler les données entre vos outils sans double saisie.",
+            "example": "Une demande validée sur votre site crée ou met à jour la fiche correspondante dans le CRM et l’outil de gestion.",
             "visual": 2
       },
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
-            "text": "Centralisation et analyse de données, tableaux de bord, prévision, scoring ou recommandation lorsque la qualité et le volume des données le permettent.",
-            "benefit": "Des décisions mieux informées.",
-            "example": "Ventes et stocks réunis pour repérer les anomalies et estimer les besoins si l’historique suffit.",
+            "text": "Centralisation et analyse de données, tableaux de bord, détection d’anomalies, prévisions et recommandations lorsque les données le permettent.",
+            "benefit": "Transformer vos données métier en indicateurs utiles à la décision.",
+            "example": "Les données de ventes et de stocks sont réunies pour détecter les anomalies et anticiper les besoins à partir de l’historique disponible.",
             "visual": 4
       },
       {
             "slug": "formation-adoption-ia",
             "title": "Formation & Adoption IA",
-            "text": "Des formations IA et ateliers pratiques pour apprendre à utiliser l’intelligence artificielle et prendre en main vos solutions avec ou sans projet Synode.",
-            "benefit": "Une équipe à l’aise avec ses nouveaux usages.",
-            "example": "À partir de situations réelles, votre équipe apprend à préparer et relire ses réponses clients.",
+            "text": "Des formations IA et ateliers pratiques pour comprendre les usages, adopter les bons réflexes et prendre en main vos solutions d’intelligence artificielle.",
+            "benefit": "Rendre vos équipes autonomes et responsables dans leurs usages de l’IA.",
+            "example": "À partir de situations réelles, votre équipe apprend à utiliser l’IA pour préparer, vérifier et améliorer ses réponses clients.",
             "visual": 5
       }
 ],
@@ -424,14 +424,15 @@ const fr = {
     ],
     pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
 
-    faqTitle: "Avant de décider",
+    faqTitle: "Questions fréquentes sur les solutions IA sur mesure",
     faq: [
-      { q: "De quels accès avez-vous besoin ?", a: "De ceux qui sont strictement nécessaires au périmètre, et de rien d’autre. Nous les listons dans la proposition, vous les accordez au moment du démarrage, et ils sont retirés à la fin si vous le souhaitez." },
-      { q: "Est-ce compatible avec mes outils actuels ?", a: "C’est la première chose que nous vérifions, avant le devis. Certains logiciels n’exposent pas leurs données ; dans ce cas nous le disons et nous cherchons un autre chemin, ou nous vous déconseillons le projet." },
-      { q: "Qu’est-ce qui reste validé par un humain ?", a: "Vous le décidez, et c’est écrit dans le périmètre. Par défaut, tout ce qui sort de l’entreprise ou engage un montant passe par une validation. Le reste peut être automatique si vous le jugez sans risque." },
-      { q: "À qui appartient ce qui est produit ?", a: "Les conditions sont fixées au contrat, avant le démarrage. C’est un point que nous traitons explicitement plutôt que de le laisser implicite." },
-      { q: "Qui paie les abonnements et les services tiers ?", a: "Une solution IA consomme des services payants tant qu’elle tourne : modèles IA, hébergement, plateformes d’automatisation, connexions aux logiciels. Synode ne les absorbe jamais. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous ne le prenez pas, la solution est livrée et déployée, et vous souscrivez puis payez ces abonnements directement auprès des fournisseurs. Aucun coût récurrent n’apparaît après coup." },
-      { q: "Et si ça tombe en panne ?", a: "Le contrat définit ce qui est couvert, sous quel délai et dans quelles limites. Une solution qui tourne sans surveillance finit par se tromper sans que personne le voie : c’est pour ça que le suivi n’est pas une option décorative." },
+      { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
+      { q: "Combien coûte une solution IA sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
+      { q: "Comment se déroule un projet IA avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution IA, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
+      { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
+      { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
+      { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
     notInList: {
@@ -796,7 +797,7 @@ const en = {
     },
 
     faq: {
-      kicker: "Artificial intelligence FAQ",
+      kicker: "Frequently asked questions about our AI solutions",
       title: "Common questions about custom AI solutions",
       items: [
         {
@@ -943,14 +944,15 @@ const en = {
     ],
     pricingNote: "The proposal clearly separates the build cost, recurring payment and any third-party services. There is no public price list or “unlimited everything”: the budget reflects the actual scope.",
 
-    faqTitle: "Before you decide",
+    faqTitle: "Common questions about custom AI solutions",
     faq: [
-      { q: "What access do you need?", a: "Only what the scope strictly requires, and nothing else. We list it in the proposal, you grant it at kick-off, and it is revoked at the end if you want it to be." },
-      { q: "Will it work with my current tools?", a: "That is the first thing we check, before quoting. Some software does not expose its data; when that happens we say so and look for another route, or advise you against the project." },
-      { q: "What still gets approved by a person?", a: "You decide, and it is written into the scope. By default, anything that leaves the company or commits money goes through an approval. The rest can run on its own if you judge it safe." },
-      { q: "Who owns what gets built?", a: "The terms are set in the contract, before work starts. We deal with this explicitly rather than leaving it implied." },
-      { q: "Who pays for subscriptions and third-party services?", a: "An AI solution consumes paid services for as long as it runs: AI models, hosting, automation platforms, software connections. Synode never absorbs them. Either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you do not, the solution is delivered and deployed, and you subscribe to and pay those services directly with the providers. No recurring cost appears after the fact." },
-      { q: "What if it breaks?", a: "The contract defines what is covered, how fast and within what limits. A solution running unwatched eventually gets things wrong with nobody noticing, which is why support is not a decorative extra." },
+      { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the AI solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
+      { q: "How much does a custom AI solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
+      { q: "How does a project with Synode run?", a: "In five steps: scoping the need, designing the solution, development and integration, rollout and training, then follow-up and evolution." },
+      { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions can stay subject to human approval." },
+      { q: "Do you handle maintenance after deployment?", a: "Yes, if you take our support service: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
+      { q: "How long does it take to build a solution?", a: "It depends on the scope and the integrations. The schedule, its steps and its deadlines are set in the quote, before work starts." },
+      { q: "Can the solution evolve later on?", a: "Yes. Significant changes or new features go through a fresh scoping exercise, a new quote and a written agreement before any work begins." },
     ],
 
     notInList: {

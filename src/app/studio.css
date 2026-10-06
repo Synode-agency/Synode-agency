@@ -155,10 +155,15 @@ main > .band#top .lede-title {
   justify-self: start;
   padding-top: 0;
 }
+/* La hauteur du plateau, et donc celle des trois maquettes. Le panneau
+   occupe 90% de cette hauteur ; à la largeur de référence de la colonne,
+   passer de 670 à 695 rend environ 10px de haut aux trois logiciels.
+   La taille du texte, elle, se calcule sur la LARGEUR du plateau : les
+   10px s'ajoutent donc en espace, ils ne regrandissent rien. */
 .studio-demo .hero-stage {
   width: 100%;
   max-width: none;
-  aspect-ratio: 1140 / 670;
+  aspect-ratio: 1140 / 695;
   margin: 0;
 }
 .studio-demo .hero-stage-panel {
@@ -190,17 +195,6 @@ main > .band#top .lede-title {
 }
 .studio-demo .hero-app-status {
   font-size: 1.1em;
-}
-.studio-demo .hero-app-step-label {
-  max-width: 7.9em;
-  font-size: 1.18em;
-}
-.studio-demo .hero-app-card-title {
-  font-size: 1.3em;
-}
-.studio-demo .hero-app-example p {
-  max-width: 15.2em;
-  font-size: 1.12em;
 }
 .demo-caption {
   display: flex;
@@ -1488,11 +1482,18 @@ footer.band--white .wordmark-type {
   color: #0067ea;
   font-size: 0.625rem;
 }
+/* Le texte et le calendrier sont centrés dans la carte plutôt qu'étirés
+   d'un bord à l'autre : au-delà de 58rem, la colonne de texte devenait
+   trop large pour se lire d'un trait et le calendrier partait seul à
+   l'autre bout. Vaut pour les deux CTA, l'accueil et Solutions. */
 .cta-booking-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: 3rem;
   align-items: center;
+  justify-content: center;
+  width: min(100%, 58rem);
+  margin-inline: auto;
   text-align: left;
   padding-block: 3rem;
 }
@@ -2071,265 +2072,6 @@ footer.band--white .wordmark-type {
   color: #a8c3e8;
   margin-block: 7px;
 }
-
-.delivery-layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 4rem;
-  align-items: center;
-}
-.delivery-preview {
-  position: relative;
-  min-height: 330px;
-  margin-top: 2.5rem;
-  display: grid;
-  place-items: center;
-  background: radial-gradient(ellipse, #e2eeff, transparent 70%);
-}
-.delivery-sheet {
-  position: relative;
-  width: min(80%, 260px);
-  min-height: 260px;
-  padding: 1.5rem;
-  background: white;
-  border: 1px solid #d9e5f5;
-  border-radius: 12px;
-  box-shadow: 0 16px 40px -25px #4e80bf;
-}
-.delivery-sheet--back {
-  position: absolute;
-  transform: rotate(-9deg) translate(-12px, -4px);
-  background: #f3f7fe;
-}
-.delivery-sheet-kicker {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #59749b;
-  font-size: 0.5625rem;
-  letter-spacing: 0.09em;
-}
-.delivery-sheet-kicker svg {
-  width: 13px;
-  height: 13px;
-}
-.delivery-sheet > img {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-  margin-top: 1rem;
-}
-.delivery-sheet > strong {
-  display: block;
-  white-space: pre-line;
-  margin-top: 0.75rem;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  font-size: 1.6rem;
-  line-height: 1.12;
-}
-.delivery-sheet-lines {
-  display: grid;
-  gap: 6px;
-  margin-top: 1.2rem;
-}
-.delivery-sheet-lines i {
-  background: #e4ebf5;
-  height: 4px;
-  border-radius: 2px;
-}
-.delivery-sheet-lines i:last-child {
-  width: 65%;
-}
-.delivery-sheet-tags {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-.delivery-sheet-tags span {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.5625rem;
-  color: #0051b7;
-  background: #eef5ff;
-  padding: 5px;
-  border-radius: 4px;
-}
-.delivery-sheet-tags svg {
-  width: 10px;
-  height: 10px;
-}
-.delivery-seal {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1rem;
-  background: #0067ea;
-  color: white;
-  border-radius: 8px;
-  font-size: 0.6875rem;
-  box-shadow: 0 8px 24px -12px #0067ea;
-}
-.delivery-seal svg {
-  width: 18px;
-  height: 18px;
-}
-.delivery-list {
-  display: grid;
-  list-style: none;
-  padding: 0;
-}
-.delivery-list li {
-  display: flex;
-  gap: 1rem;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid #e1e8f2;
-  align-items: flex-start;
-}
-.delivery-icon,
-.scope-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid #d9e7fb;
-  background: #f0f6ff;
-  border-radius: 9px;
-  color: #0067ea;
-  flex: none;
-}
-.delivery-icon svg,
-.scope-icon svg {
-  width: 21px;
-  height: 21px;
-  stroke-width: 1.5;
-}
-.delivery-list h3 {
-  font-size: 1rem;
-  font-weight: 500;
-}
-.delivery-list p {
-  margin-top: 0.45rem;
-  font-size: 0.875rem;
-  color: #605d5d;
-  line-height: 1.6;
-}
-.delivery-index {
-  margin-left: auto;
-  color: #7691b5;
-  font-size: 0.625rem;
-}
-.scope-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex: none;
-  font-size: 0.75rem;
-  color: #0051b7;
-}
-.scope-label svg {
-  width: 16px;
-  height: 16px;
-}
-.scope-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-.scope-card {
-  padding: 1.5rem;
-  background: white;
-  border: 1px solid #dce5f1;
-  border-radius: 10px;
-}
-.scope-card > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.scope-number {
-  font-size: 0.625rem;
-  color: #7691b5;
-}
-.scope-card h3 {
-  margin-top: 1.2rem;
-  font-size: 1.0625rem;
-  font-weight: 500;
-}
-.scope-card p {
-  margin-top: 0.7rem;
-  font-size: 0.8125rem;
-  line-height: 1.7;
-  color: #605d5d;
-}
-.scope-rule {
-  display: block;
-  width: 34px;
-  border-top: 2px solid #0067ea;
-  margin-top: 1.25rem;
-}
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  list-style: none;
-  padding: 0;
-}
-.pricing-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1.7rem;
-  border: 1px solid #dbe5f3;
-  background: #f8fafe;
-  border-radius: 10px;
-}
-.pricing-card:nth-child(2) {
-  background: #edf4ff;
-  border-color: #cbdffb;
-}
-.pricing-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #0067ea;
-}
-.pricing-card-top svg {
-  width: 25px;
-  height: 25px;
-  stroke-width: 1.5;
-}
-.pricing-card-top span {
-  font-size: 0.6875rem;
-}
-.pricing-card h3 {
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin-top: 1.7rem;
-}
-.pricing-card p {
-  font-size: 0.875rem;
-  line-height: 1.75;
-  color: #605d5d;
-  margin-block: 0.9rem 2rem;
-}
-.pricing-card-foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-  color: #0051b7;
-  border-top: 1px solid #dbe5f3;
-  padding-top: 1rem;
-  margin-top: auto;
-}
-.pricing-card-foot svg {
-  width: 16px;
-  height: 16px;
-}
 .dark-cta {
   border-color: #173e6b;
 }
@@ -2475,32 +2217,10 @@ footer.band--white .wordmark-type {
   .technical-card--0 .technical-card-note {
     align-self: end;
   }
-  .delivery-layout {
-    gap: 2rem;
-  }
 }
 @media (max-width: 760px) {
   .offer-system--network {
     padding: 1.5rem 0.5rem;
-  }
-  .delivery-layout {
-    grid-template-columns: 1fr;
-  }
-  .delivery-preview {
-    max-width: 390px;
-    margin-inline: auto;
-  }
-  .scope-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .pricing-grid {
-    grid-template-columns: 1fr;
-  }
-  .pricing-card {
-    padding: 1.4rem;
-  }
-  .pricing-card h3 {
-    margin-top: 1rem;
   }
   .project-preview {
     padding: 1rem;
@@ -2510,8 +2230,7 @@ footer.band--white .wordmark-type {
   }
 }
 @media (max-width: 540px) {
-  .technical-bento,
-  .scope-grid {
+  .technical-bento {
     grid-template-columns: 1fr;
   }
   .technical-card--0 {
@@ -2521,18 +2240,6 @@ footer.band--white .wordmark-type {
   .technical-card--0 .brick-art {
     min-height: 240px;
     width: 100%;
-  }
-  .scope-card {
-    padding: 1.25rem;
-  }
-  .scope-card > div {
-    float: right;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-left: 0.75rem;
-  }
-  .scope-card h3 {
-    margin-top: 0;
   }
   .eco-node strong {
     font-size: 2.5cqw;
@@ -2560,9 +2267,13 @@ footer.band--white .wordmark-type {
   line-height: 1.65;
 }
 
-.home-solutions-light .family-card,
-.home-solutions-light .family-card--0,
-.home-solutions-light .family-card--5 {
+/* La palette claire des six familles. Partagée par l'accueil et par la
+   page Solutions : c'est le MÊME jeu de couleurs des deux côtés, seul le
+   fond de la carte diffère, et il est repris plus bas. La classe ne porte
+   donc plus le nom d'une page. */
+.solutions-light .family-card,
+.solutions-light .family-card--0,
+.solutions-light .family-card--5 {
   border-color: #cbd8e8;
   background: #ffffff;
   box-shadow: 0 20px 48px -42px rgb(19 39 79 / 45%);
@@ -2572,80 +2283,109 @@ footer.band--white .wordmark-type {
   --text-mono: #71839a;
   --hairline: #d9e3ef;
 }
-.home-solutions-light .family-card p {
+.solutions-light .family-card p {
   color: #5f6f84;
 }
-.home-solutions-light .family-card-top,
-.home-solutions-light .family-benefit,
-.home-solutions-light .family-link {
+.solutions-light .family-card-top,
+.solutions-light .family-benefit,
+.solutions-light .family-link {
   color: #075fc4;
 }
-.home-solutions-light .family-example,
-.home-solutions-light .family-link {
+.solutions-light .family-example,
+.solutions-light .family-link {
   border-top-color: #d9e3ef;
 }
-.home-solutions-light .family-example > span {
+.solutions-light .family-example > span {
   color: #52739b;
 }
-.home-solutions-light .brick-art {
+.solutions-light .brick-art {
   color: #2472ce;
 }
-.home-solutions-light .agent-orbit {
+.solutions-light .agent-orbit {
   border-color: #bfd1e7;
 }
-.home-solutions-light .agent-center {
+.solutions-light .agent-center {
   border-color: #a9c5e6;
   background: #e7f0fb;
   box-shadow: 0 0 50px -24px rgb(0 103 234 / 55%);
 }
-.home-solutions-light .agent-token {
+.solutions-light .agent-token {
   border-color: #c7d7e9;
   background: #f5f8fc;
   color: #315579;
 }
-.home-solutions-light .automation-art span {
+.solutions-light .automation-art span {
   border-color: #c5d6e9;
   background: #edf4fc;
 }
-.home-solutions-light .automation-art span:last-child,
-.home-solutions-light .integration-art > div {
+.solutions-light .automation-art span:last-child,
+.solutions-light .integration-art > div {
   border-color: #3388ee;
   background: #0067ea;
   color: #ffffff;
 }
-.home-solutions-light .automation-art i {
+.solutions-light .automation-art i {
   border-top-color: #8eacd0;
 }
-.home-solutions-light .integration-art > span {
+.solutions-light .integration-art > span {
   border-color: #c5d6e9;
   background: #f7fafe;
   color: #315579;
 }
-.home-solutions-light .dashboard-art {
+.solutions-light .dashboard-art {
   border-color: #b9cee6;
   background: #edf4fc;
 }
-.home-solutions-light .dashboard-art-nav i,
-.home-solutions-light .dashboard-art-body > i {
+.solutions-light .dashboard-art-nav i,
+.solutions-light .dashboard-art-body > i {
   background: #a8bfd9;
 }
-.home-solutions-light .dashboard-art-nav i:first-child {
+.solutions-light .dashboard-art-nav i:first-child {
   background: #3689e9;
 }
-.home-solutions-light .dashboard-art-body span {
+.solutions-light .dashboard-art-body span {
   border-color: #c0d2e6;
   background: #dce9f7;
 }
-.home-solutions-light .data-art-bars {
+.solutions-light .data-art-bars {
   border-bottom-color: #9bb6d3;
 }
-.home-solutions-light .data-art span {
+.solutions-light .data-art span {
   color: #52739b;
 }
-.home-solutions-light .training-art-session {
+.solutions-light .training-art-session {
   border-color: #c5d6e9;
   background: #edf4fc;
   color: #315579;
+}
+
+/* ---- Page Solutions : la même palette, figure et fond inversés ----
+   Sur l'accueil la bande est bleutée et les cartes blanches. Ici la bande
+   reste blanche, donc ce sont les cartes qui prennent le bleu très pâle :
+   #f2f6fc, exactement le ton de la bande d'en face. Le reste de la palette
+   ne bouge pas, c'est bien le même jeu de couleurs.
+
+   L'ombre portée tombe : elle ne servait qu'à détacher une carte blanche
+   d'un fond teinté. Ici c'est le fond de la carte qui fait ce travail, et
+   l'ombre ne ferait que salir le blanc de la section.
+
+   Les surfaces internes des illustrations repassent au blanc. Posées sur
+   #f2f6fc elles auraient gardé leur #edf4fc, trop proche pour se lire :
+   seules leurs bordures auraient encore dessiné les formes. */
+.solutions-families-band .family-card,
+.solutions-families-band .family-card--0,
+.solutions-families-band .family-card--5 {
+  background: #f2f6fc;
+  box-shadow: none;
+}
+.solutions-families-band :is(
+    .automation-art span,
+    .integration-art > span,
+    .agent-token,
+    .dashboard-art,
+    .training-art-session
+  ) {
+  background: #ffffff;
 }
 
 /* Compact calendar used inside the homepage closing CTA. */
@@ -3243,16 +2983,61 @@ footer.band--white .wordmark-type {
 .home-team-card .eyebrow {
   color: #0067ea;
 }
-.home-faq .lede {
+/* Les deux FAQ, celle de l'accueil et celle de Solutions, composent leur
+   titre de la même façon : surtitre à gauche, titre centré sur sa propre
+   mesure de 22ch. Le sélecteur couvre les deux bandes pour qu'elles ne
+   puissent pas diverger. */
+:is(.home-faq, .solutions-faq-light) .lede {
   max-width: none;
   margin-inline: 0;
   text-align: left;
 }
-.home-faq .lede-title {
+:is(.home-faq, .solutions-faq-light) .lede-title {
   max-width: 22ch;
   margin-inline: auto;
   text-align: center;
   font-size: var(--fs-h2);
+}
+.home-cta-reminder {
+  padding-block: clamp(2rem, 4vw, 3rem);
+}
+.home-cta-reminder-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid #cfe0f6;
+  border-radius: 12px;
+  background: #eff5fd;
+}
+.home-cta-reminder-card h2 {
+  margin-top: 0.65rem;
+  color: var(--foreground);
+  font-size: clamp(1.5rem, 2.3vw, 2.15rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.home-cta-reminder-card p {
+  max-width: 64ch;
+  margin-top: 0.65rem;
+  color: var(--muted-foreground);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+.home-cta-reminder-card .btn {
+  flex: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .home-cta-reminder-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-cta-reminder-card .btn {
+    width: 100%;
+    white-space: normal;
+  }
 }
 
 /* Homepage rhythm: light editorial bands alternate with dark technical bands. */
@@ -3306,60 +3091,45 @@ footer.band--white .wordmark-type {
 .home-hero-dark .hero-stage-panel .hero-app {
   box-shadow: 0 25px 70px -28px rgb(0 0 0 / 72%);
 }
+/* Les valeurs exactes de la maquette : la zone principale en #0A1A30, la
+   barre latérale et les cartes en #0F2340, les filets en #24406A. */
 .home-hero-dark .hero-app {
   --foreground: #f4f8ff;
-  --muted-foreground: #aebfd5;
-  --sys-tint: color-mix(in oklab, var(--sys-ink) 20%, #0b192c);
-  border-color: #294667;
-  background: #0b192c;
+  --muted-foreground: #b6c2d4;
+  --sys-tint: color-mix(in oklab, var(--sys-ink) 20%, #0a1a30);
+  border-color: #24406a;
+  background: #0a1a30;
   color: #f4f8ff;
 }
 .home-hero-dark .hero-app-side {
-  border-right-color: #29425f;
-  background: #0e2036;
+  border-right-color: #24406a;
+  background: #0f2340;
 }
 .home-hero-dark .hero-app-nav-row {
-  color: #aebfd5;
+  color: #b6c2d4;
+}
+/* L'entrée sélectionnée. Elle s'allume au clic du curseur et le reste :
+   la règle de base anime `background`/`color`, celle-ci fixe l'arrivée. */
+.home-hero-dark .hero-app-nav-row.is-active {
+  border-radius: 0.7em;
+}
+.home-hero-dark .hero-app {
+  --sys-tint: #1a3358;
+  --sys-ink: #8ec1ff;
 }
 .home-hero-dark .hero-app-main {
-  background: #0b192c;
+  background: #0a1a30;
 }
 .home-hero-dark .hero-app-cursor {
   color: #dbe9fb;
 }
 .home-hero-dark .hero-app-status {
-  background: #123a34;
-  color: #8ce2bd;
-}
-.home-hero-dark .hero-app-step-label,
-.home-hero-dark .hero-app-card-title {
-  color: #f4f8ff;
-}
-.home-hero-dark .hero-app-arrow {
-  color: #6683a6;
-}
-.home-hero-dark .hero-app-check {
-  box-shadow: 0 0 0 0.25em #0b192c;
+  background: #123a2a;
+  color: #4ade80;
 }
 .home-hero-dark .hero-app-card {
-  border-color: #29425f;
-  background: #102640;
-}
-.home-hero-dark .hero-app-example p {
-  color: #aebfd5;
-}
-.home-hero-dark .hero-app-example b {
-  color: #ffffff;
-}
-.home-hero-dark .hero-app-doc {
-  background: #142b45;
-  box-shadow: 0 0.6em 1.4em -0.8em rgb(0 0 0 / 65%);
-}
-.home-hero-dark .hero-app-doc b {
-  color: #c9d8eb;
-}
-.home-hero-dark .hero-app-doc i {
-  background: #426181;
+  border-color: #24406a;
+  background: #0f2340;
 }
 .home-hero-dark .capability-strip {
   border-color: rgb(188 215 255 / 18%);
@@ -3430,7 +3200,7 @@ footer.band--white .wordmark-type {
 .home-solutions-light {
   background: #f7f9fc;
 }
-.home-solutions-light .family-card {
+.solutions-light .family-card {
   color: #19304f;
   --foreground: #19304f;
   --muted-foreground: #5f6f84;
@@ -3686,6 +3456,22 @@ footer.band--white .wordmark-type {
   .lede-kicker {
   color: #9ec8ff;
 }
+
+/* Les deux FAQ tombent sur un rang impair, et ce sont les seules bandes
+   claires dont le
+   `.lede` soit un enfant direct de `.col` : le filet de secours ci-dessus,
+   prévu pour du texte sur bleu nuit, lui posait un chapeau bleu pâle sur
+   fond clair. Elle redéfinit pourtant ses jetons en clair, donc son chapeau
+   reprend le bleu électrique de la marque, comme tous les autres.
+   Spécificité égale au filet : cette règle doit rester APRÈS lui. */
+.site-theme-alternating
+  main
+  > .band:is(.home-faq-light, .solutions-faq-light, .solutions-white-band)
+  > .col
+  > .lede
+  .lede-kicker {
+  color: var(--brand);
+}
 .site-theme-alternating
   main
   > .band:nth-of-type(odd)
@@ -3765,8 +3551,6 @@ footer.band--white .wordmark-type {
     .trust-card,
     .home-work-card,
     .family-example-grid article,
-    .scope-card,
-    .pricing-card,
     .project-showcase,
     .founder-card,
     .calendar-demo,
@@ -3784,8 +3568,6 @@ footer.band--white .wordmark-type {
     .trust-card,
     .home-work-card,
     .family-example-grid article,
-    .scope-card,
-    .pricing-card,
     .project-showcase,
     .founder-card,
     .calendar-demo
@@ -3978,83 +3760,6 @@ footer.band--white .wordmark-type {
   .family-bento {
     grid-auto-rows: auto;
   }
-}
-
-.combination-layout {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  align-items: center;
-  gap: clamp(2rem, 6vw, 6rem);
-}
-.combination-card {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-  position: relative;
-  padding: 1.5rem;
-  border: 1px solid #d6e2f1;
-  border-radius: 12px;
-  background:
-    radial-gradient(circle, #d1deef 0.8px, transparent 1px) 0 0 / 18px 18px,
-    #f7fafe;
-}
-.combination-step {
-  position: relative;
-  min-width: 0;
-  padding: 1rem;
-  border: 1px solid #dce6f3;
-  border-radius: 8px;
-  background: white;
-}
-.combination-step > span {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 1rem;
-  border-radius: 7px;
-  background: #edf5ff;
-  color: #0067ea;
-}
-.combination-step > span svg {
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.5;
-}
-.combination-step strong,
-.combination-step small {
-  display: block;
-}
-.combination-step strong {
-  color: #294a72;
-  font-size: 0.78rem;
-  font-weight: 500;
-}
-.combination-step small {
-  margin-top: 0.4rem;
-  color: #6a7483;
-  font-size: 0.65rem;
-  line-height: 1.5;
-}
-.combination-arrow {
-  position: absolute;
-  z-index: 1;
-  left: -0.75rem;
-  top: 50%;
-  width: 15px;
-  height: 15px;
-  padding: 2px;
-  border-radius: 50%;
-  background: #0067ea;
-  color: white;
-  transform: translate(-50%, -50%);
-}
-.combination-card > p {
-  grid-column: 1 / -1;
-  margin-top: 0.4rem;
-  color: #6a7483;
-  font-size: 0.65rem;
-  text-align: center;
 }
 
 /* Ongoing operations are part of every live solution, not a seventh family. */
@@ -4534,9 +4239,6 @@ footer.band--white .wordmark-type {
   .home-team-card {
     grid-template-columns: 145px 1fr;
   }
-  .combination-layout {
-    grid-template-columns: 1fr;
-  }
   .calendar-demo-body {
     grid-template-columns: 1.5fr 1fr;
   }
@@ -4554,12 +4256,6 @@ footer.band--white .wordmark-type {
   }
   .founder-photo {
     height: 380px;
-  }
-  .combination-card {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .combination-step:nth-child(3) .combination-arrow {
-    display: none;
   }
 }
 @media (max-width: 540px) {
@@ -4587,12 +4283,6 @@ footer.band--white .wordmark-type {
   }
   .home-team-card > div:last-child {
     padding: 1.2rem;
-  }
-  .combination-card {
-    grid-template-columns: 1fr;
-  }
-  .combination-step .combination-arrow {
-    display: none;
   }
 }
 
@@ -4821,7 +4511,8 @@ footer.band--white .wordmark-type {
 /* ---- Tablette et téléphone : l'illustration ne doit jamais dépasser le
    bloc de texte. Elle se recentre et se limite. ---- */
 @media (max-width: 1050px) {
-  .solutions-modules,
+  .solutions-wall,
+  .sol-app,
   .hero-panel,
   .use-case-terminal {
     width: 100%;
@@ -4831,7 +4522,8 @@ footer.band--white .wordmark-type {
   }
 }
 @media (max-width: 760px) {
-  .solutions-modules,
+  .solutions-wall,
+  .sol-app,
   .hero-panel,
   .hero-team-portraits,
   .use-case-terminal {
@@ -4919,149 +4611,343 @@ footer.band--white .wordmark-type {
   }
 }
 
-/* ---- Solutions : les briques, posées plutôt que reliées. ----
-   Deux colonnes de modules inégaux, la seconde décalée vers le bas. Rien ne
-   les enveloppe : l'asymétrie et les filets fins suffisent. */
-.solutions-modules {
+/* =====================================================================
+   SOLUTIONS — LE MUR DES SIX BRIQUES (hero)
+
+   Trois rangées de deux, montées de bas en haut : Data et Formation à la
+   base, c'est-à-dire les données d'un côté et les gens qui s'en servent de
+   l'autre ; au-dessus les intégrations et le logiciel métier ; en haut
+   l'automatisation et l'agent. Le mur se lit du socle vers ce qui agit.
+
+   La hauteur du mur est fixe et les trois rangées se la partagent : une
+   brique ne change donc JAMAIS de hauteur, seule sa largeur bouge. C'est
+   ce qui autorise à poser son visage et sa tranche en absolu l'un sur
+   l'autre : pendant que la largeur s'anime, rien ne se replie et rien ne
+   pousse la rangée voisine.
+   ===================================================================== */
+.solutions-wall {
   min-width: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-content: start;
-  gap: 0.85rem;
   width: min(100%, 27rem);
   justify-self: center;
-}
-.solutions-modules > :nth-child(even) {
-  transform: translateY(1.75rem);
-}
-.solutions-module {
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  padding: 0.95rem 0.9rem 1rem;
-  border: 1px solid #2f4c6b;
-  border-radius: 10px;
-  background: #0e2036;
-  color: #e7f0fb;
-  transition: border-color 180ms, background-color 180ms;
-}
-.solutions-module:hover {
-  border-color: #6aa9ff;
-  background: #14293f;
-}
-.solutions-module--tall {
-  padding-bottom: 1.35rem;
-}
-.solutions-module-icon {
-  width: 19px;
-  height: 19px;
-  color: #8fc0ff;
-  stroke-width: 1.25;
-}
-.solutions-module strong {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-.solutions-module code {
-  color: #7f9bbd;
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  letter-spacing: 0.02em;
+  gap: 0.75rem;
+  height: 440px;
 }
 
-/* Les détails techniques : discrets, et jamais deux fois les mêmes. */
-.solutions-module-rows,
-.solutions-module-steps,
-.solutions-module-ports,
-.solutions-module-bars {
+/* L'en-tête : l'appel à gauche, la mention technique de la brique active à
+   droite. Masqué aux lecteurs d'écran : la mention change toute seule
+   toutes les 2,6s, et la brique ouverte porte déjà la sienne. */
+.solutions-wall-head {
   display: flex;
-  width: 100%;
-  margin-top: 0.15rem;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
 }
-.solutions-module-rows {
+.solutions-wall-head code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #4f6383;
+}
+.solutions-wall-meta {
+  color: #8ec1ff;
+}
+
+.solutions-wall-rows {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #23395a;
+}
+.solutions-wall-row {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.solutions-brick {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #23395a;
+  border-radius: 6px;
+  background: #0f1d33;
+  transition:
+    flex 600ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms ease;
+}
+/* La voisine de la brique ouverte, réduite à une tranche. */
+.solutions-brick.is-slice {
+  flex: 0 0 56px;
+}
+.solutions-brick.is-open {
+  background: #10264a;
+  border-color: #4e8ff0;
+  box-shadow:
+    0 0 0 1px rgb(78 143 240 / 25%),
+    0 24px 40px rgb(10 108 240 / 18%);
+}
+
+.solutions-brick-face,
+.solutions-brick-slice {
+  position: absolute;
+  inset: 0;
+  transition: opacity 260ms ease;
+}
+.solutions-brick-face {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.85rem 0.95rem;
+  /* Le contenu garde sa largeur pendant que la brique rétrécit : ce qui
+     dépasse est rogné par `overflow: hidden`, aucun mot ne passe à la
+     ligne en cours d'animation. */
+  min-width: 11rem;
+}
+.solutions-brick-slice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.solutions-brick.is-slice .solutions-brick-face {
+  opacity: 0;
+}
+.solutions-brick.is-slice .solutions-brick-slice {
+  opacity: 1;
+}
+
+.solutions-brick-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.solutions-brick-num {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #4f6383;
+  transition: color 300ms ease;
+}
+.solutions-brick.is-open .solutions-brick-num {
+  color: #8ec1ff;
+}
+
+.solutions-brick-foot {
+  display: flex;
   flex-direction: column;
   gap: 0.3rem;
 }
-.solutions-module-rows i {
-  height: 3px;
-  border-radius: 2px;
-  background: #27425f;
+.solutions-brick-foot strong {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #c9d3e2;
+  transition: color 300ms ease;
 }
-.solutions-module-rows i:nth-child(1) { width: 100%; }
-.solutions-module-rows i:nth-child(2) { width: 72%; }
-.solutions-module-rows i:nth-child(3) { width: 45%; background: #3e72ad; }
-.solutions-module-steps {
+.solutions-brick.is-open .solutions-brick-foot strong {
+  color: #ffffff;
+}
+/* Toujours dans le flux, révélée seulement sur la brique ouverte : sa
+   ligne est réservée en permanence, sinon le nom sauterait d'un cran au
+   moment où la brique s'ouvre. */
+.solutions-brick-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: #8ec1ff;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.solutions-brick.is-open .solutions-brick-meta {
+  opacity: 1;
+}
+
+.solutions-brick-slice em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: #4f6383;
+}
+.solutions-brick-slice > span {
+  min-height: 0;
+  overflow: hidden;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #c9d3e2;
+}
+
+/* ---- Les mini-UI, une par brique. Des `<i>` nus : toute la forme est
+   ici. La brique ouverte agrandit la sienne par `transform`, qui ne
+   déplace rien autour. ---- */
+.solutions-brick-visual {
+  flex: none;
+  display: flex;
+  transform-origin: top right;
+  transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.solutions-brick.is-open .solutions-brick-visual {
+  transform: scale(1.28);
+}
+
+.solutions-brick-visual--lines {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  width: 56px;
+}
+.solutions-brick-visual--lines i {
+  height: 2px;
+  border-radius: 1px;
+  background: #3e72ad;
+}
+.solutions-brick-visual--lines i:nth-child(1) { width: 100%; }
+.solutions-brick-visual--lines i:nth-child(2) { width: 84%; }
+.solutions-brick-visual--lines i:nth-child(3) { width: 52%; background: #4e8ff0; }
+
+.solutions-brick-visual--segments {
   align-items: center;
-  gap: 0.3rem;
+  gap: 4px;
+  width: 58px;
 }
-.solutions-module-steps i {
+.solutions-brick-visual--segments i {
   flex: 1;
   height: 3px;
   border-radius: 2px;
-  background: #27425f;
+  background: #2c4568;
 }
-.solutions-module-steps i:first-child {
-  background: #3e72ad;
+.solutions-brick-visual--segments i:first-child {
+  background: #4e8ff0;
 }
-.solutions-module-ports {
+
+.solutions-brick-visual--window {
   flex-wrap: wrap;
-  gap: 0.25rem;
+  align-content: flex-start;
+  gap: 4px;
+  width: 60px;
 }
-.solutions-module-ports i {
+.solutions-brick-visual--window i {
+  border-radius: 2px;
+  background: #2c4568;
+}
+.solutions-brick-visual--window i:nth-child(1) { width: 100%; height: 6px; }
+.solutions-brick-visual--window i:nth-child(2) { width: 30%; height: 13px; }
+.solutions-brick-visual--window i:nth-child(3) { flex: 1; height: 13px; }
+
+.solutions-brick-visual--ports {
+  align-items: center;
+  gap: 5px;
+}
+.solutions-brick-visual--ports i {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #27425f;
+  background: #2c4568;
 }
-.solutions-module-ports i:nth-child(-n + 3) {
-  background: #4f8bd0;
+.solutions-brick-visual--ports i:nth-child(-n + 3) {
+  background: #4e8ff0;
 }
-.solutions-module-bars {
+
+.solutions-brick-visual--bars {
   align-items: flex-end;
-  gap: 0.25rem;
-  height: 20px;
+  gap: 4px;
+  height: 22px;
 }
-.solutions-module-bars i {
-  flex: 1;
-  border-radius: 2px 2px 0 0;
-  background: #27425f;
+.solutions-brick-visual--bars i {
+  width: 7px;
+  border-radius: 2px;
+  background: #2c4568;
 }
-.solutions-module-bars i:nth-child(1) { height: 38%; }
-.solutions-module-bars i:nth-child(2) { height: 62%; }
-.solutions-module-bars i:nth-child(3) { height: 48%; }
-.solutions-module-bars i:nth-child(4) { height: 85%; background: #3e72ad; }
-.solutions-module-bars i:nth-child(5) { height: 70%; }
-.solutions-module-switch {
-  position: relative;
-  width: 26px;
-  height: 14px;
-  margin-top: 0.15rem;
-  border-radius: 7px;
-  background: #1f4a7d;
+.solutions-brick-visual--bars i:nth-child(1) { height: 36%; }
+.solutions-brick-visual--bars i:nth-child(2) { height: 62%; }
+.solutions-brick-visual--bars i:nth-child(3) { height: 46%; }
+.solutions-brick-visual--bars i:nth-child(4) { height: 100%; background: #4e8ff0; }
+.solutions-brick-visual--bars i:nth-child(5) { height: 72%; }
+
+/* Formation : trois pastilles qui se remplissent — faite, en cours, à
+   venir. Des anneaux plutôt que des points pleins, pour ne pas se
+   confondre avec les six ports d'Intégration. */
+.solutions-brick-visual--rings {
+  align-items: center;
+  gap: 7px;
 }
-.solutions-module-switch::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 10px;
-  height: 10px;
+.solutions-brick-visual--rings i {
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: #8fc0ff;
+  border: 1.5px solid #2c4568;
 }
+.solutions-brick-visual--rings i:nth-child(1) {
+  border-color: #4e8ff0;
+  background: #4e8ff0;
+}
+.solutions-brick-visual--rings i:nth-child(2) {
+  border-color: #4e8ff0;
+}
+
+/* `prefers-reduced-motion` SUPPRIME l'animation, il ne la raccourcit pas.
+   Le cycle automatique est coupé côté composant ; ici c'est l'élargissement
+   et les fondus qui deviennent instantanés. Le survol continue d'ouvrir
+   les briques, simplement sans transition. */
 @media (prefers-reduced-motion: reduce) {
-  .solutions-modules > :nth-child(even) {
-    transform: none;
+  .solutions-brick,
+  .solutions-brick-face,
+  .solutions-brick-slice,
+  .solutions-brick-visual,
+  .solutions-brick-meta,
+  .solutions-brick-num,
+  .solutions-brick-foot strong {
+    transition: none;
   }
 }
+
 @media (max-width: 760px) {
-  /* Le décalage ne tient pas sur une colonne étroite : il y creuse un vide. */
-  .solutions-modules > :nth-child(even) {
-    transform: none;
+  .solutions-wall {
+    height: auto;
+  }
+  .solutions-wall-row {
+    min-height: 6.75rem;
+  }
+  /* Une tranche de 56px avec son nom à la verticale n'est plus lisible sur
+     une seule colonne. Les deux briques d'une rangée y gardent la même
+     largeur ; seule la couleur distingue encore la brique active. */
+  .solutions-brick.is-slice {
+    flex: 1 1 0;
+  }
+  .solutions-brick.is-slice .solutions-brick-face {
+    opacity: 1;
+  }
+  .solutions-brick.is-slice .solutions-brick-slice {
+    opacity: 0;
+  }
+  .solutions-brick-face {
+    min-width: 0;
+    padding: 0.75rem 0.8rem;
+  }
+  .solutions-brick-foot strong {
+    font-size: 15px;
   }
 }
 
@@ -5206,88 +5092,6 @@ footer.band--white .wordmark-type {
   }
 }
 
-/* =====================================================================
-   PAGE SOLUTIONS : LES SIX FAMILLES EN BENTO
-   L'accueil garde sa grille régulière. Ici les surfaces sont inégales : un
-   module large ouvre la série, deux moyens le suivent, trois égaux
-   referment. Le module large passe en deux colonnes internes, le texte d'un
-   côté et l'illustration de l'autre, ce que les autres ne font pas. C'est
-   cette différence de traitement, et non une bordure de plus, qui donne son
-   rythme à la section.
-   ===================================================================== */
-@media (min-width: 1101px) {
-  .family-bento--overview {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .family-bento--overview > :nth-child(1) { grid-column: span 6; }
-  .family-bento--overview > :nth-child(2) { grid-column: span 3; }
-  .family-bento--overview > :nth-child(3) { grid-column: span 3; }
-  .family-bento--overview > :nth-child(4),
-  .family-bento--overview > :nth-child(5),
-  .family-bento--overview > :nth-child(6) { grid-column: span 4; }
-
-  /* Le module large : texte à gauche, illustration à droite. */
-  .family-bento--overview > :nth-child(1) {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-    grid-template-rows: auto 1fr auto;
-    align-items: start;
-    column-gap: 2rem;
-    padding: 1.9rem 1.9rem 0;
-  }
-  .family-bento--overview > :nth-child(1) .family-copy {
-    grid-column: 1;
-    grid-row: 1 / 3;
-  }
-  .family-bento--overview > :nth-child(1) h3 {
-    font-size: 1.45rem;
-  }
-  .family-bento--overview > :nth-child(1) .brick-art {
-    grid-column: 2;
-    grid-row: 1 / 4;
-    height: 100%;
-    min-height: 15rem;
-    align-self: stretch;
-  }
-  .family-bento--overview > :nth-child(1) .family-example {
-    grid-column: 1;
-    grid-row: 3;
-  }
-  .family-bento--overview > :nth-child(1) .family-link {
-    grid-column: 1 / -1;
-  }
-
-  /* Les deux modules moyens vivent sur une colonne étroite : leur
-     illustration se réduit pour laisser la place au texte. */
-  .family-bento--overview > :nth-child(2) .brick-art,
-  .family-bento--overview > :nth-child(3) .brick-art {
-    height: 11rem;
-    min-height: 11rem;
-  }
-  .family-bento--overview > :nth-child(2) .family-example,
-  .family-bento--overview > :nth-child(3) .family-example {
-    min-height: 0;
-  }
-  .family-bento--overview > :nth-child(n + 4) .brick-art {
-    height: 12.5rem;
-    min-height: 12.5rem;
-  }
-}
-/* Les surfaces subtiles : le premier module se détache d'un demi-ton, les
-   autres restent au même niveau. Pas de couleur, pas de bordure appuyée. */
-.family-bento--overview > :nth-child(1) {
-  background: #122840;
-}
-@media (max-width: 1100px) and (min-width: 601px) {
-  .family-bento--overview {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .family-bento--overview > :nth-child(1) {
-    grid-column: span 2;
-  }
-}
-
 /* ---- L'encart « Votre besoin ne correspond pas… » en bleu clair. ----
    Même bleu que les mots peints des heros et que leur bouton, pour que la
    page n'ait qu'un seul accent. Le fond est écrit en littéral, pas en
@@ -5363,203 +5167,14 @@ footer.band--white .wordmark-type {
    jointives : un `column-gap` les aurait pointillées. L'écart entre
    colonnes vient du rembourrage intérieur, et le séparateur vertical se
    place dedans, comme les filets de la section Résultats recherchés. */
-.method-flow {
-  --step-pad: clamp(1.1rem, 2.2vw, 2rem);
-  --badge: 3.25rem;
-  --drop: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  column-gap: 0;
-  row-gap: clamp(2rem, 3.5vw, 3rem);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  /* Descend la frise dans la section sans toucher au flux : le surtitre et
-     le titre gardent donc exactement la place que leur donne le rythme
-     commun. En contrepartie, un `transform` ne réserve pas d'espace, et
-     ces 40px ne sont pas comptés dans la hauteur de la bande. */
-  transform: translateY(40px);
-}
-.method-flow li {
-  position: relative;
-  min-width: 0;
-  padding: calc(var(--badge) + var(--drop)) var(--step-pad) 0;
-}
 /* Les deux bouts de la rangée s'alignent sur la colonne de texte, sinon la
    méthode paraîtrait en retrait du titre de la section. */
-.method-flow li:first-child {
-  padding-left: 0;
-}
-.method-flow li:last-child {
-  padding-right: 0;
-}
-
 /* --- La ligne qui relie les badges, à mi-hauteur de badge. Elle part du
        bord droit du badge et s'arrête au bord gauche du suivant. --- */
-.method-flow li::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--badge) / 2);
-  right: calc(-1 * var(--step-pad));
-  left: calc(var(--step-pad) + var(--badge));
-  height: 1px;
-  background: var(--hairline);
-}
-.method-flow li:first-child::before {
-  left: var(--badge);
-}
-
 /* --- Le nœud, centré sous son badge, posé sur la seconde ligne. --- */
-.method-flow li::after {
-  content: "";
-  position: absolute;
-  top: calc(var(--badge) + var(--drop));
-  left: calc(var(--step-pad) + var(--badge) / 2);
-  width: 11px;
-  height: 11px;
-  transform: translate(-50%, -50%);
-  border: 2px solid rgb(143 192 255 / 45%);
-  border-radius: 50%;
-  background: var(--dark-accent);
-}
-.method-flow li:first-child::after {
-  left: calc(var(--badge) / 2);
-}
-
 /* --- Le badge. --- */
-.method-flow-index {
-  position: absolute;
-  top: 0;
-  left: var(--step-pad);
-  display: grid;
-  width: var(--badge);
-  height: var(--badge);
-  place-items: center;
-  border: 1px solid rgb(188 215 255 / 26%);
-  border-radius: 14px;
-  /* `--brand` n'est pas redéfini sur les bandes sombres : il y reste
-     #0067EA, soit 3,25:1 sur #171F2C, insuffisant pour du petit texte. Le
-     bleu clair est celui des mots peints du hero, à 8,79:1. */
-  color: var(--dark-accent);
-  font-family: var(--font-mono);
-  font-size: 1.0625rem;
-  font-weight: 500;
-}
-.method-flow li:first-child .method-flow-index {
-  left: 0;
-}
 /* La descente du badge vers son nœud. */
-.method-flow-index::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  width: 1px;
-  height: var(--drop);
-  background: var(--hairline);
-}
-
 /* --- Le texte, sous la ligne des nœuds. --- */
-.method-flow-body {
-  position: relative;
-  padding-top: clamp(1.1rem, 2vw, 1.6rem);
-}
-/* La ligne des nœuds : chaque étape trace le segment qui mène au nœud
-   suivant, d'où le décalage négatif à droite, qui enjambe son propre
-   rembourrage, celui du voisin et la moitié de son badge. */
-.method-flow-body::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: calc(-2 * var(--step-pad) - var(--badge) / 2);
-  left: calc(var(--badge) / 2);
-  height: 1px;
-  background: var(--hairline);
-}
-/* Le séparateur vertical, posé dans le rembourrage. */
-.method-flow li + li .method-flow-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(-1 * var(--step-pad));
-  width: 1px;
-  background: rgb(188 215 255 / 11%);
-}
-.method-flow h3 {
-  color: #ffffff;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-  line-height: 1.35;
-}
-.method-flow p {
-  margin-top: 0.6rem;
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-  line-height: 1.65;
-}
-.method-flow-accent {
-  color: var(--dark-accent);
-}
-
-/* En fin de rangée, les deux lignes n'ont plus de voisin à rejoindre. */
-.method-flow li:last-child::before,
-.method-flow li:last-child .method-flow-body::after {
-  display: none;
-}
-
-/* Six colonnes ne tiennent pas sous 1200px : les étapes se replient par
-   trois, puis par deux, puis une seule. À chaque repli, la dernière étape
-   de chaque rangée coupe ses lignes et la première saute son séparateur. */
-@media (max-width: 1200px) {
-  .method-flow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .method-flow li:nth-child(3n)::before,
-  .method-flow li:nth-child(3n) .method-flow-body::after {
-    display: none;
-  }
-  .method-flow li:nth-child(3n + 1) .method-flow-body::before {
-    display: none;
-  }
-}
-@media (max-width: 760px) {
-  .method-flow {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .method-flow li:nth-child(2n)::before,
-  .method-flow li:nth-child(2n) .method-flow-body::after {
-    display: none;
-  }
-  .method-flow li:nth-child(2n + 1) .method-flow-body::before {
-    display: none;
-  }
-}
-@media (max-width: 480px) {
-  .method-flow {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 1.75rem;
-  }
-  .method-flow li,
-  .method-flow li:first-child,
-  .method-flow li:last-child {
-    padding-inline: 0;
-  }
-  .method-flow li::before,
-  .method-flow li .method-flow-body::after,
-  .method-flow li .method-flow-body::before {
-    display: none;
-  }
-  .method-flow li::after,
-  .method-flow li:first-child::after {
-    left: calc(var(--badge) / 2);
-  }
-  .method-flow-index {
-    left: 0;
-  }
-}
-
 /* Un mot peint dans un titre, sur bande sombre. `--brand` n'y est pas
    redéfini et y tomberait à 1,6:1 : on reprend le bleu clair déjà utilisé
    pour les mots peints du hero. Les boutons gardent `--brand`, donc leur
@@ -6203,13 +5818,6 @@ a.tool-card:hover {
   .diag-profile dl > div {
     grid-template-columns: 7rem minmax(0, 1fr);
   }
-}
-
-/* Outils & Diagnostics et la FAQ sont toutes deux en `tone="base"` : le
-   filet de secours des bandes voisines se posait entre elles, et leurs deux
-   tons sont trop proches pour qu'il se lise comme autre chose qu'un trait. */
-.home-tools-light + .home-faq-light {
-  border-top: 0;
 }
 
 /* =====================================================================
@@ -7435,5 +7043,1612 @@ main > .band.home-impact-light .impact-rail {
 @media (max-width: 420px) {
   .calendar-slots {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =====================================================================
+   PAGE SOLUTIONS — LES SECTIONS DE LA PROGRESSION
+
+   Six bandes, et un rythme de formes plutôt qu'une file de cartes :
+   tuiles au filet pour les besoins, colonnes pour l'assemblage, cartes à
+   mini-interface pour le projet, rail pour la méthode, panneau d'état pour
+   la sécurité, cartes pour la tarification.
+
+   Toutes lisent leurs couleurs dans les jetons de la bande qui les porte
+   (`--surface`, `--hairline`, `--muted-foreground`, `--brand`). Le thème
+   alterné en redéfinit le jeu complet à chaque rang : le même composant
+   traverse donc le fond clair et le bleu nuit sans règle en double. C'est
+   le cas où `var(--surface)` est correct, parce que la bande contrôle bien
+   ses jetons.
+   ===================================================================== */
+
+/* ---- Des solutions concrètes : huit besoins, posés à plat.
+
+   Même traitement que « Résultats recherchés » sur l'accueil : aucune
+   carte, un filet d'un cheveu entre les colonnes et un autre entre les
+   deux rangées. Huit cartes auraient fait une grille de cartes de plus
+   sur une page qui en compte déjà ; le filet suffit à poser la grille et
+   ne coûte rien à la lecture.
+
+   Les filets tombent dès que la grille se replie : un `border-left` sur
+   une colonne unique ne sépare plus rien, il décale. ---- */
+.need-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--hairline);
+}
+.need-tile {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: clamp(1.5rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.2vw, 2rem);
+}
+.need-tile:not(:nth-child(4n + 1)) {
+  border-left: 1px solid var(--hairline);
+}
+.need-tile:nth-child(4n + 1) {
+  padding-left: 0;
+}
+.need-tile:nth-child(4n) {
+  padding-right: 0;
+}
+.need-tile:nth-child(n + 5) {
+  border-top: 1px solid var(--hairline);
+}
+.need-tile-icon {
+  display: flex;
+  color: var(--brand);
+}
+.need-tile-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.25;
+  /* Une vague qui traverse les huit tuiles dans l'ordre de lecture, puis
+     une longue pause. L'amplitude est de 3px : assez pour qu'un mouvement
+     attire l'œil de loin, pas assez pour qu'on le suive. Les deux tiers de
+     la boucle sont immobiles, sinon la section grouillerait.
+
+     `transform` seul : c'est la seule propriété qui s'anime sans
+     recalculer la mise en page, et huit boucles permanentes ne doivent
+     rien coûter. */
+  animation: need-icon-wave 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.need-tile:nth-child(2) .need-tile-icon svg { animation-delay: 0.16s; }
+.need-tile:nth-child(3) .need-tile-icon svg { animation-delay: 0.32s; }
+.need-tile:nth-child(4) .need-tile-icon svg { animation-delay: 0.48s; }
+.need-tile:nth-child(5) .need-tile-icon svg { animation-delay: 0.64s; }
+.need-tile:nth-child(6) .need-tile-icon svg { animation-delay: 0.8s; }
+.need-tile:nth-child(7) .need-tile-icon svg { animation-delay: 0.96s; }
+.need-tile:nth-child(8) .need-tile-icon svg { animation-delay: 1.12s; }
+
+@keyframes need-icon-wave {
+  0%, 100% { transform: none; }
+  7% { transform: translateY(-3px) scale(1.06); }
+  16% { transform: translateY(0) scale(1); }
+  22% { transform: translateY(-1px); }
+  30%, 92% { transform: none; }
+}
+
+/* La vague est décorative et se répète sans fin : c'est exactement ce que
+   ce réglage demande de supprimer, pas de raccourcir. */
+@media (prefers-reduced-motion: reduce) {
+  .need-tile-icon svg {
+    animation: none;
+  }
+}
+.need-tile strong {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.need-tile p {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--muted-foreground);
+}
+
+/* =====================================================================
+   COMMENT TOUT S'ASSEMBLE — L'ANALYSE, MONTRÉE
+
+   Le visiteur choisit un besoin ; les six briques sont passées en revue,
+   celles qui conviennent sont retenues une à une, et la solution se
+   compose en dessous. Le choix des briques est le travail de Synode :
+   aucune ligne n'est cliquable, seuls les besoins le sont.
+
+   Le bloc est COUCHÉ : une barre de besoins, une rangée de six briques,
+   une bande de résultat. Trois bandes larges et basses plutôt que deux
+   colonnes hautes — c'est ce qui le fait tenir dans la section sans
+   l'étirer vers le bas.
+
+   Les couleurs sont écrites en LITTÉRAUX et non en jetons. Ce bloc a sa
+   propre échelle de gris, plus fine que celle du site, et la bande qui le
+   porte est toujours blanche : lui donner les jetons de la bande le ferait
+   dériver au premier changement de rythme des sections.
+   ===================================================================== */
+.apick {
+  width: 100%;
+}
+.apick-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #6b6f76;
+}
+
+/* ---- La barre du haut ---- */
+/* 24px et non 14px : la ligne était collée au panneau « Notre sélection ».
+   La section ne grandit pas pour autant — son contenu est centré dans une
+   hauteur d'écran, donc ces 10px sont pris sur le vide, pas ajoutés au
+   fond blanc. */
+.apick-needs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 24px;
+}
+.apick-needs-main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+.apick-seg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 2px;
+  border: 1px solid #e3e6ea;
+  border-radius: 7px;
+  background: #f7f8fa;
+}
+.apick-seg button {
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  white-space: nowrap;
+  color: #8a8f98;
+  cursor: pointer;
+  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+}
+.apick-seg button.is-on {
+  border-color: #e3e6ea;
+  background: #ffffff;
+  color: #2e2e2e;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+}
+.apick-meter {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.apick-meter em {
+  font-style: normal;
+  color: #8a8f98;
+}
+
+/* ---- Notre sélection : les six briques sur une rangée ----
+   Le `gap` de 1px sur un fond gris dessine les séparateurs. C'est ce qui
+   permet à la grille de se replier en 3×2 puis 2×3 sans qu'aucune bordure
+   ne reste orpheline au bout d'une rangée.
+
+   `minmax(max(130px, calc((100% - 5px) / 6)), 1fr)` : les six colonnes
+   tiennent tant qu'elles font plus de 130px, et `auto-fit` les replie par
+   paquets entiers ensuite. Une brique ne se retrouve donc jamais seule sur
+   sa ligne. */
+.apick-panel {
+  overflow: hidden;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  background: #ffffff;
+}
+.apick-panel-head {
+  display: block;
+  padding: 8px 14px;
+  border-bottom: 1px solid #eceef1;
+  background: #f7f8fa;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #6b6f76;
+}
+.apick-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(130px, calc((100% - 5px) / 6)), 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: #eceef1;
+}
+.apick-cell {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #ffffff;
+  transition: background-color 350ms ease;
+}
+/* Nom et description sur une ligne : la hauteur des six cellules ne doit
+   pas changer quand une pastille passe d'un état à l'autre. */
+.apick-cell strong,
+.apick-cell small {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.apick-cell strong {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #2e2e2e;
+  transition: color 350ms ease;
+}
+.apick-cell small {
+  font-size: 11.5px;
+  color: #8a8f98;
+}
+.apick-chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border: 1px solid #eceef1;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  white-space: nowrap;
+  color: #a0a5ad;
+  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
+}
+.apick-chip svg {
+  width: 8px;
+  height: 8px;
+  flex: none;
+}
+.apick-cell.is-kept {
+  background: #fafcff;
+}
+.apick-cell.is-kept .apick-chip {
+  border-color: #cfe0fb;
+  background: #eef4fe;
+  color: #0b6be6;
+}
+.apick-cell.is-skip strong {
+  color: #a0a5ad;
+}
+
+/* ---- Votre solution : une bande, pas une carte ---- */
+.apick-band {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: border-color 400ms ease;
+}
+.apick-band.is-done {
+  border-color: #0b6be6;
+}
+.apick-band-label {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #6b6f76;
+}
+
+/* Toutes les étiquettes sont rendues ; celles qui ne sont pas encore
+   retenues restent repliées à zéro. C'est ce qui permet d'animer leur
+   apparition par une TRANSITION plutôt que par un montage : l'élément est
+   déjà là, il s'ouvre. La bordure reste transparente tant qu'il est
+   replié, sinon on verrait un trait de 2px traîner dans la bande. */
+.apick-tags {
+  flex: 1 1 320px;
+  min-height: 26px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 6px;
+}
+.apick-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  max-width: 0;
+  margin-right: 0;
+  padding-inline: 0;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #2e2e2e;
+  opacity: 0;
+  transition:
+    max-width 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    padding 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 450ms ease;
+}
+.apick-tag.is-in {
+  max-width: 200px;
+  margin-right: 6px;
+  padding-inline: 9px;
+  border-color: #eceef1;
+  opacity: 1;
+}
+.apick-tag i {
+  flex: none;
+  width: 3px;
+  height: 11px;
+  border-radius: 2px;
+  background: #0b6be6;
+}
+
+.apick-band-out {
+  flex: none;
+  max-width: 100%;
+}
+.apick-band-out strong {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.apick-band-out em {
+  font-style: normal;
+  font-family: var(--font-mono);
+}
+.apick-band-out p {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b6f76;
+}
+
+/* L'état final s'affiche d'un coup, et rien ne se déplie. Le composant
+   coupe aussi le passage au besoin suivant, côté JavaScript. */
+@media (prefers-reduced-motion: reduce) {
+  .apick-seg button,
+  .apick-cell,
+  .apick-cell strong,
+  .apick-chip,
+  .apick-band,
+  .apick-tag {
+    transition: none;
+  }
+}
+
+/* Sous 640px la phrase du besoin repasse à la ligne sous les étiquettes,
+   et le titre bleu cesse d'exiger sa ligne entière. */
+@media (max-width: 640px) {
+  .apick-band-out {
+    flex: 1 1 100%;
+  }
+  .apick-band-out strong {
+    white-space: normal;
+  }
+}
+
+/* =====================================================================
+   LA TARIFICATION, PRÉSENTÉE COMME UN DEVIS
+
+   Trois postes dans un seul document plutôt que trois cartes posées côte
+   à côte. C'est la forme qui porte le message : votre devis sépare ces
+   trois lignes, et le coût d'exploitation y figure à part.
+
+   Les couleurs sont écrites en LITTÉRAUX : ce bloc a sa propre échelle de
+   gris, plus fine que celle du site, et la bande qui le porte est forcée
+   en blanc quoi qu'il arrive au rythme des sections.
+   ===================================================================== */
+.pdoc {
+  margin-top: 72px;
+  overflow: hidden;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgb(20 40 80 / 6%);
+}
+
+/* ---- En-tête et pied du devis ---- */
+.pdoc-head,
+.pdoc-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding: 16px 24px;
+  background: #f7f8fa;
+}
+.pdoc-head {
+  border-bottom: 1px solid #eceef1;
+}
+.pdoc-foot {
+  border-top: 1px solid #eceef1;
+}
+.pdoc-head span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #6b6f76;
+}
+.pdoc-head em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.pdoc-foot span {
+  font-size: 14px;
+  color: #5a5a5a;
+}
+.pdoc-foot em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #8a8f98;
+}
+
+/* ---- Les trois postes ----
+   `gap: 1px` sur un fond de filet : les séparateurs verticaux sont
+   dessinés par la grille, donc ils deviennent horizontaux tout seuls
+   quand les colonnes se replient l'une sous l'autre. */
+.pdoc-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1px;
+  background: #eceef1;
+}
+.pdoc-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 26px 26px 28px;
+  background: #ffffff;
+  transition: background-color 300ms ease;
+}
+.pdoc-col.is-on {
+  background: #f4f8fe;
+}
+.pdoc-col-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pdoc-col-top > em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 12px;
+  color: #a0a5ad;
+  transition: color 300ms ease;
+}
+.pdoc-col.is-on .pdoc-col-top > em {
+  color: #0b6be6;
+}
+.pdoc-pill {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid #e3e6ea;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+.pdoc-pill i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pdoc-col.is-on .pdoc-pill {
+  border-color: #b9d1f7;
+  background: #eaf2fe;
+}
+.pdoc-col h3 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+  color: #2e2e2e;
+  text-wrap: balance;
+}
+.pdoc-col p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+
+/* ---- Les trois formes de coût ----
+   Un paiement ponctuel, un paiement continu, des paliers. Le `--pdoc-ink`
+   de la colonne porte l'état : une seule propriété à basculer, et les
+   trois formes suivent sans règle en double. */
+.pdoc-shape {
+  --pdoc-ink: #c9d3e2;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 14px;
+}
+.pdoc-col.is-on .pdoc-shape {
+  --pdoc-ink: #0b6be6;
+}
+.pdoc-shape i {
+  border-radius: 2px;
+  transition: background-color 300ms ease;
+}
+/* 01 — un bloc, puis plus rien : le coût est payé une fois. */
+.pdoc-shape--once i:nth-child(1) { width: 44px; height: 14px; background: var(--pdoc-ink); }
+.pdoc-shape--once i:nth-child(2) { flex: 1; height: 2px; background: #eceef1; }
+/* 02 — une bande qui ne s'arrête plus : le coût court tant que ça tourne. */
+.pdoc-shape--loop i:nth-child(1) { width: 44px; height: 2px; background: #eceef1; }
+.pdoc-shape--loop i:nth-child(2) { flex: 1; height: 6px; background: var(--pdoc-ink); }
+/* 03 — des paliers espacés : un chiffrage par évolution. */
+.pdoc-shape--steps i:nth-child(1) { width: 44px; height: 2px; background: #eceef1; }
+.pdoc-shape--steps i:nth-child(2),
+.pdoc-shape--steps i:nth-child(4),
+.pdoc-shape--steps i:nth-child(6) { width: 10px; height: 10px; background: var(--pdoc-ink); }
+.pdoc-shape--steps i:nth-child(3),
+.pdoc-shape--steps i:nth-child(5) { flex: 1; height: 2px; background: #eceef1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pdoc-col,
+  .pdoc-col-top > em,
+  .pdoc-pill,
+  .pdoc-shape i {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .pdoc {
+    margin-top: 44px;
+  }
+  .pdoc-col {
+    padding: 22px 20px 24px;
+  }
+  .pdoc-col h3 {
+    font-size: 18px;
+  }
+}
+
+/* =====================================================================
+   LES SIX ÉTAPES D'UN PROJET, EN ONGLETS
+
+   Le même composant sur l'accueil et sur la page Solutions. Les couleurs
+   sont écrites en LITTÉRAUX : les deux bandes qui le portent sont en bleu
+   nuit, et ce bloc garde sa propre échelle quoi qu'il arrive au rythme des
+   sections autour de lui.
+
+   La barre de progression est une animation CSS de 4s et le minuteur du
+   composant un intervalle de 4s. Les deux valeurs doivent rester égales ;
+   aucune des deux ne lit l'autre.
+   ===================================================================== */
+.mtabs {
+  margin-top: 56px;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 14px;
+  background: #0f1d33;
+}
+
+/* ---- La rangée d'onglets ----
+   Deux groupes de trois. C'est ce qui interdit la rangée de cinq plus un :
+   un `auto-fit` sur les six onglets replierait le sixième tout seul. */
+.mtabs-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  border-bottom: 1px solid #24406a;
+}
+.mtabs-group {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.mtabs-tab {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 18px 18px;
+  border: 0;
+  border-right: 1px solid #1e3352;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+.mtabs-tab em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4f6383;
+  transition: color 300ms ease;
+}
+.mtabs-tab > span {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #8fa0b8;
+  transition: color 300ms ease;
+}
+.mtabs-tab.is-on {
+  background: #10264a;
+}
+.mtabs-tab.is-on em,
+.mtabs-tab.is-past em {
+  color: #8ec1ff;
+}
+.mtabs-tab.is-on > span {
+  color: #ffffff;
+}
+.mtabs-tab.is-past > span {
+  color: #c9d3e2;
+}
+.mtabs-tab:focus-visible {
+  outline: 2px solid #8ec1ff;
+  outline-offset: -2px;
+}
+
+/* La barre : vide à venir, pleine une fois passée, et remplie en 4s sur
+   l'onglet actif. Au retour à 01 les cinq autres repassent à « à venir »,
+   donc à zéro, sans transition : rien ne se vide à rebours. */
+.mtabs-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #1e3352;
+}
+.mtabs-bar::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #0a6cf0;
+}
+.mtabs-tab.is-past .mtabs-bar::after {
+  width: 100%;
+}
+.mtabs-tab.is-on .mtabs-bar::after {
+  animation: mtabs-fill 4s linear 1 both;
+}
+/* Après un clic, la lecture s'arrête : la barre de l'onglet choisi est
+   pleine tout de suite, elle ne rejoue pas les 4s. */
+.mtabs[data-auto="false"] .mtabs-tab.is-on .mtabs-bar::after {
+  width: 100%;
+  animation: none;
+}
+@keyframes mtabs-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ---- Le panneau ----
+
+   Les six panneaux occupent la MÊME cellule de grille et seul l'actif est
+   visible. La hauteur du bloc vaut donc celle du panneau le plus haut et
+   ne bouge plus d'une étape à l'autre, quel que soit le nombre de lignes
+   d'une description. Une hauteur en dur aurait menti à la première
+   retouche de texte ou à la première traduction plus longue.
+
+   `visibility: hidden` et non `display: none` : un panneau masqué doit
+   continuer à occuper sa place pour que la grille le mesure. Il sort tout
+   de même de l'ordre de tabulation, et il porte `aria-hidden`.
+
+   `gap: 1px` sur un fond de filet : le séparateur des deux colonnes est
+   dessiné par la grille, donc il disparaît de lui-même quand elles se
+   replient l'une sous l'autre. */
+.mtabs-panels {
+  display: grid;
+}
+.mtabs-panel {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+  gap: 1px;
+  background: #1e3352;
+  visibility: hidden;
+}
+.mtabs-panel.is-on {
+  visibility: visible;
+}
+.mtabs-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 30px 32px;
+  background: #0f1d33;
+}
+.mtabs-step {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-mono);
+}
+.mtabs-step em {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 700;
+  color: #8ec1ff;
+}
+.mtabs-step span {
+  font-size: 11px;
+  color: #6f84a3;
+}
+.mtabs-main h3 {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  color: #ffffff;
+  text-wrap: balance;
+}
+.mtabs-text {
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #b6c2d4;
+}
+
+.mtabs-out {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px 32px;
+  background: #10264a;
+}
+.mtabs-out-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #8ec1ff;
+}
+.mtabs-out-value {
+  font-size: 22px;
+  line-height: 1.35;
+  color: #ffffff;
+  text-wrap: balance;
+}
+.mtabs-pills {
+  margin-top: auto;
+}
+.mtabs-pills-label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #6f84a3;
+}
+.mtabs-pills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mtabs-pills li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border: 1px solid #22324c;
+  border-radius: var(--r-pill);
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #4f6383;
+  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+}
+.mtabs-pills li em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+}
+.mtabs-pills li.is-done {
+  border-color: #2f5fa8;
+  background: #16335a;
+  color: #e8eef7;
+}
+
+/* La lecture automatique est coupée côté composant ; ici c'est la barre
+   qui cesse de se remplir, et l'étape 01 s'affiche pleine. */
+@media (prefers-reduced-motion: reduce) {
+  .mtabs-tab,
+  .mtabs-tab em,
+  .mtabs-tab > span,
+  .mtabs-pills li {
+    transition: none;
+  }
+  .mtabs-tab.is-on .mtabs-bar::after {
+    width: 100%;
+    animation: none;
+  }
+}
+
+/* Sous 560px, trois onglets par rangée tombent sous 110px : la rangée
+   passe en deux colonnes, le filet de droite tombe en bout de rangée. */
+@media (max-width: 560px) {
+  .mtabs {
+    margin-top: 36px;
+  }
+  .mtabs-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mtabs-tab:nth-child(2n) {
+    border-right: 0;
+  }
+  .mtabs-tab:nth-child(n + 3) {
+    border-top: 1px solid #1e3352;
+  }
+  .mtabs-main,
+  .mtabs-out {
+    padding: 22px 20px;
+  }
+  .mtabs-main h3 {
+    font-size: 22px;
+  }
+  .mtabs-text {
+    font-size: 15px;
+  }
+  .mtabs-out-value {
+    font-size: 19px;
+  }
+}
+
+/* ---- Sécurité & contrôle : quatre réglages et le panneau qu'ils
+   commandent.
+
+   Deux cartes DISTINCTES, séparées par 20px de fond de section : elles ne
+   partagent aucune bordure. C'est ce vide entre elles qui dit que la liste
+   de droite est l'état du système, et non une cinquième colonne.
+
+   Les couleurs sont écrites en littéraux : ce bloc a sa propre échelle de
+   gris, plus fine que celle du site, et la bande qui le porte garde son
+   bleu très pâle quoi qu'il arrive.
+   ---- */
+.sec-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
+
+/* ---- Les quatre blocs ---- */
+.sec-grid {
+  flex: 2 1 520px;
+  min-width: 0;
+  display: grid;
+  /* Deux colonnes fixes, jamais `auto-fit` : à la largeur intermédiaire,
+     une répartition automatique donnait une rangée de trois puis un bloc
+     seul. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid #dde3ee;
+  border-radius: 12px;
+  background: #e8ecf4;
+}
+.sec-cell {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  background: #ffffff;
+  transition: background-color 300ms ease;
+}
+.sec-cell.is-on {
+  background: #f7f9ff;
+}
+.sec-cell-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sec-cell-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: #eef3fd;
+  color: #2b6be8;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+.sec-cell.is-on .sec-cell-icon {
+  background: #2b6be8;
+  color: #ffffff;
+}
+.sec-cell-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.8;
+}
+.sec-cell-top em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #a0a8b6;
+}
+.sec-cell h3 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #2b6be8;
+}
+.sec-cell p {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+
+/* ---- Le panneau d'état ---- */
+.sec-state {
+  flex: 1 1 280px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px;
+  border: 1px solid #dde3ee;
+  border-radius: 12px;
+  background: #fbfcff;
+}
+.sec-state > strong {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #3a3a3a;
+}
+.sec-state ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sec-state li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-block: 10px;
+  border-bottom: 1px solid #eef1f6;
+}
+.sec-state li svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.6;
+  color: #2b6be8;
+}
+/* Une seule ligne, coupée au besoin : la hauteur de la liste ne doit pas
+   changer quand le bloc actif change. */
+.sec-state li > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: #3a3a3a;
+}
+
+/* Décoratif et verrouillé : rien ici ne règle la sécurité d'un projet. */
+.sec-switch {
+  flex: none;
+  position: relative;
+  margin-left: auto;
+  width: 28px;
+  height: 16px;
+  border-radius: var(--r-pill);
+  background: #9db8f2;
+  transition: background-color 300ms ease;
+}
+.sec-state li.is-lit .sec-switch {
+  background: #2b6be8;
+}
+.sec-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+}
+
+.sec-state > p {
+  margin-top: 12px;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sec-cell,
+  .sec-cell-icon,
+  .sec-switch {
+    transition: none;
+  }
+}
+
+/* Sous 560px les quatre blocs passent sur une colonne : à deux, chaque
+   bloc tombait sous 140px et la description s'y hachait. */
+@media (max-width: 560px) {
+  .sec-grid {
+    grid-template-columns: 1fr;
+  }
+  .sec-cell {
+    padding: 18px 20px;
+  }
+}
+
+/* ---- La FAQ ferme la page, après le CTA. Elle force un fond clair : la
+   carte du CTA est en bleu nuit, et une bande sombre juste dessous
+   l'aurait fondue dans la page au lieu de la détacher.
+   Le chapeau est repeint pour la même raison que celui de l'accueil : la
+   FAQ tombe sur un rang impair, et le filet de secours des bandes sombres
+   lui posait un bleu pâle prévu pour du texte sur bleu nuit. ---- */
+/* ---- Deux bandes de la page Solutions passent au bleu très pâle plutôt
+   qu'au bleu nuit de leur rang : « Des solutions concrètes » et « Sécurité
+   & contrôle ». La page garde une seule bande sombre, « Ce que comprend un
+   projet », plus la carte du CTA.
+
+   Le jeu de jetons est repris tel quel des bandes claires de l'accueil :
+   les tuiles, le panneau de sécurité et leurs filets lisent leurs couleurs
+   dedans, et basculent donc sans une règle de plus.
+
+   Spécificité égale au filet impair/pair du thème : ces deux blocs doivent
+   rester APRÈS lui dans la feuille. ---- */
+.site-theme-alternating main > .band.solutions-tint-band {
+  background: #f2f6fc;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f2f6fc;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+}
+
+/* ---- Le rythme de l'accueil, appliqué à la page Solutions.
+
+   Les pages intérieures respirent sur `--band-pad-y` (60 à 96px selon la
+   fenêtre), l'accueil sur `--home-section-pad-y` (48px, constant). Le
+   surtitre ne tombait donc pas à la même hauteur d'une page à l'autre.
+   Ici les deux valeurs sont alignées, et l'écart entre le bloc de titres
+   et le contenu reprend `--home-heading-gap`, quelle que soit la façon
+   dont la section compose son en-tête. ---- */
+main > .band.solutions-rhythm {
+  padding-block: var(--home-section-pad-y);
+}
+main > .band.solutions-rhythm .section-heading {
+  margin-bottom: var(--home-heading-gap);
+}
+main > .band.solutions-rhythm > .col > .lede + .section-gap {
+  margin-top: var(--home-heading-gap);
+}
+
+/* ---- Six sections de la page Solutions prennent la hauteur d'écran.
+
+   Le plafond est de 45rem, exactement celui de « Conception &
+   Développement IA » sur l'accueil : les deux pages respirent sur la même
+   mesure.
+
+   Le bloc de titres reste collé en haut (rangée `auto`), et le contenu se
+   centre dans tout ce qui reste (rangée `1fr`, `align-self: center`). Le
+   surtitre ne bouge donc pas d'un pixel, et c'est le contenu qui descend
+   vers le milieu de la section au lieu de laisser le bas vide.
+
+   L'écart minimal entre les deux est porté par `row-gap`, pas par les
+   marges des enfants : celles-ci sont neutralisées, sinon elles
+   s'ajouteraient au centrage et le fausseraient.
+
+   Sous 1024px le flux naturel reprend : forcer une hauteur d'écran sur une
+   composition repliée en colonne ne produit que du blanc. ---- */
+@media (min-width: 1024px) {
+  main > .band.solutions-full {
+    display: grid;
+    min-height: min(100svh, 45rem);
+  }
+  main > .band.solutions-full > .col {
+    display: grid;
+    grid-template-rows: auto minmax(min-content, 1fr);
+    row-gap: var(--home-heading-gap);
+  }
+  main > .band.solutions-full > .col > .section-heading {
+    margin-bottom: 0;
+  }
+  main > .band.solutions-full > .col > :nth-child(2) {
+    align-self: center;
+    margin-block: 0;
+  }
+}
+
+/* ---- Tarification et FAQ sont forcées en blanc.
+
+   Toutes deux tombent sur un rang impair, donc sur le bleu nuit du thème
+   alterné. La FAQ suit la carte sombre du CTA, qu'un second aplat sombre
+   effacerait ; et les cartes de tarification sont écrites en couleurs
+   claires littérales, illisibles sur fond sombre.
+
+   Spécificité égale au filet impair/pair : ces blocs doivent rester APRÈS
+   lui dans la feuille. ---- */
+.site-theme-alternating main > .band.solutions-white-band {
+  background: #ffffff;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f2f6fc;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+}
+
+.site-theme-alternating main > .band.solutions-faq-light {
+  background: #ffffff;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f2f6fc;
+  --brand: #0067ea;
+}
+
+@media (max-width: 1100px) {
+  /* Deux colonnes : les filets se recalent sur un rythme de deux. */
+  .need-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .need-tile:nth-child(odd) {
+    border-left: 0;
+    padding-left: 0;
+    padding-right: clamp(1.25rem, 2.2vw, 2rem);
+  }
+  .need-tile:nth-child(even) {
+    border-left: 1px solid var(--hairline);
+    padding-left: clamp(1.25rem, 2.2vw, 2rem);
+    padding-right: 0;
+  }
+  .need-tile:nth-child(n + 3) {
+    border-top: 1px solid var(--hairline);
+  }
+  /* Six cellules de 150px seraient illisibles : la grille passe à trois,
+     et le `gap` de 1px redessine les séparateurs sans une règle de plus. */
+}
+
+@media (max-width: 680px) {
+  .need-tiles {
+    grid-template-columns: 1fr;
+  }
+  .need-tile:nth-child(n) {
+    border-left: 0;
+    padding-inline: 0;
+  }
+  .need-tile + .need-tile {
+    border-top: 1px solid var(--hairline);
+  }
+}
+
+/* =====================================================================
+   SOLUTIONS — LA MAQUETTE DE TABLEAU DE BORD (hero)
+
+   Un logiciel plutôt qu'une illustration : barre latérale de modules,
+   bandeau d'accueil, six cartes de service. La carte active tourne toute
+   seule, et le bouton de la barre, la carte et la mention « module actif »
+   lisent le même état.
+
+   Les couleurs sont écrites en LITTÉRAUX et non en jetons. Ce bloc est
+   posé dans le hero, qui n'alterne pas : il garde son bleu nuit sur toutes
+   les tailles d'écran, et la maquette doit rester identique au pixel près
+   quel que soit le contexte qui la porte.
+   ===================================================================== */
+.sol-app {
+  min-width: 0;
+  width: 100%;
+  height: 470px;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid #23395a;
+  border-radius: 14px;
+  background: #0f1d33;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 35%);
+}
+
+/* ---- La barre latérale ---- */
+.sol-app-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 14px;
+  border-right: 1px solid #23395a;
+  background: #0c182b;
+}
+.sol-app-rail > img {
+  height: 22px;
+  width: auto;
+  margin-bottom: 10px;
+}
+.sol-app-rail-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sol-app-rail-buttons button {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #4f6383;
+  cursor: pointer;
+  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+}
+.sol-app-rail-buttons button.is-active {
+  border-color: #4e8ff0;
+  background: #10264a;
+  color: #8ec1ff;
+}
+
+/* ---- Le contenu ---- */
+.sol-app-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px 14px;
+}
+.sol-app-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #c9d3e2;
+}
+.sol-app-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6f84a3;
+}
+.sol-app-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+}
+
+.sol-app-hello {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 14px 16px;
+  border: 1px solid #23395a;
+  border-radius: 10px;
+  background: #10264a;
+}
+.sol-app-hello > div {
+  min-width: 0;
+}
+.sol-app-hello strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+.sol-app-hello p {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #b6c2d4;
+}
+.sol-app-hello-module {
+  text-align: right;
+  white-space: nowrap;
+}
+.sol-app-hello-module span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #6f84a3;
+}
+.sol-app-hello-module strong {
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8ec1ff;
+}
+
+/* ---- Les six cartes. Elles remplissent la hauteur restante : `1fr` sur
+   la grille et `minmax(0, 1fr)` sur les rangées, sans quoi une rangée
+   refuserait de descendre sous la hauteur de son contenu. ---- */
+.sol-app-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sol-card {
+  --sol-card-bg: #13223a;
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 12px;
+  border: 1px solid #1e3352;
+  border-radius: 9px;
+  background: var(--sol-card-bg);
+  transition: background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+.sol-card.is-active {
+  --sol-card-bg: #10264a;
+  border-color: #4e8ff0;
+  box-shadow:
+    0 0 0 1px rgb(78 143 240 / 25%),
+    0 14px 28px rgb(10 108 240 / 16%);
+}
+.sol-card-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+/* Aucun texte ne passe à la ligne dans une carte : la grille est à hauteur
+   fixe, une seconde ligne y chasserait la mention du service. */
+.sol-card-copy > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sol-card-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: #ffffff;
+}
+.sol-card-value em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0;
+  color: #8ec1ff;
+}
+.sol-card-label {
+  font-size: 12px;
+  color: #b6c2d4;
+}
+.sol-card-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #4f6383;
+  transition: color 300ms ease;
+}
+.sol-card.is-active .sol-card-tag {
+  color: #8ec1ff;
+}
+
+/* ---- Les six mini-visuels, 64×40, calés en bas à droite. ---- */
+.sol-card-art {
+  position: absolute;
+  right: 12px;
+  bottom: 11px;
+  width: 64px;
+  height: 40px;
+  flex: none;
+  pointer-events: none;
+}
+/* Les légendes 03 et 06 sont les plus longues. Leurs pictogrammes montent
+   dans l'angle supérieur droit afin de laisser toute la ligne basse libre. */
+.sol-card-art--window,
+.sol-card-art--ring {
+  top: 11px;
+  bottom: auto;
+}
+.sol-card-art--curve svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sol-card-art--segments {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+.sol-card-art--segments i {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #2a4166;
+}
+.sol-card-art--segments i:nth-child(-n + 2) { background: #4e8ff0; }
+.sol-card-art--segments i:nth-child(3) { background: #2f5fa8; }
+
+.sol-card-art--window {
+  width: 62px;
+  height: 38px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #2f4a72;
+  border-radius: 4px;
+}
+.sol-card-art--window i:nth-child(1) { width: 100%; height: 9px; background: #1e3352; }
+.sol-card-art--window i:nth-child(2) { width: 36%; height: 17px; margin-left: 4px; border-radius: 2px; background: #1a2d4a; }
+.sol-card-art--window i:nth-child(3) { flex: 1; height: 17px; margin-right: 4px; border-radius: 2px; background: #2f5fa8; }
+
+.sol-card-art--dots {
+  display: grid;
+  grid-template-columns: repeat(4, 8px);
+  grid-auto-rows: 8px;
+  gap: 8px;
+  align-content: center;
+  justify-content: end;
+}
+.sol-card-art--dots i {
+  border-radius: 50%;
+  background: #2a4166;
+}
+.sol-card-art--dots i:nth-child(1),
+.sol-card-art--dots i:nth-child(2),
+.sol-card-art--dots i:nth-child(6) { background: #4e8ff0; }
+.sol-card-art--dots i:nth-child(3),
+.sol-card-art--dots i:nth-child(5) { background: #2f5fa8; }
+
+.sol-card-art--bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.sol-card-art--bars i {
+  width: 9px;
+  border-radius: 2px;
+  background: #2f5fa8;
+}
+.sol-card-art--bars i:nth-child(1) { height: 16px; }
+.sol-card-art--bars i:nth-child(2) { height: 26px; }
+.sol-card-art--bars i:nth-child(3) { height: 36px; background: #4e8ff0; }
+.sol-card-art--bars i:nth-child(4) { height: 30px; }
+
+/* L'anneau : un dégradé conique coupé à 92%, et un disque au centre. Ce
+   disque reprend `--sol-card-bg`, redéfini par la carte active : l'anneau
+   suit donc le fond de sa carte sans seconde règle. */
+.sol-card-art--ring {
+  display: grid;
+  place-items: center;
+  justify-content: end;
+  align-content: center;
+}
+.sol-card-art--ring i {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: conic-gradient(#4e8ff0 0 92%, #1e3352 92% 100%);
+  display: grid;
+  place-items: center;
+}
+.sol-card-art--ring i::after {
+  content: "";
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--sol-card-bg);
+  transition: background-color 300ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sol-app-rail-buttons button,
+  .sol-card,
+  .sol-card-tag,
+  .sol-card-art--ring i::after {
+    transition: none;
+  }
+}
+
+/* ---- Sur une seule colonne, la hauteur fixe lâche : six cartes empilées
+   dans 470px donneraient des rangées de 60px. La grille passe en une
+   colonne et la maquette suit son contenu. ---- */
+@media (max-width: 560px) {
+  .sol-app {
+    height: auto;
+    grid-template-columns: 46px minmax(0, 1fr);
+  }
+  .sol-app-rail-buttons button {
+    width: 32px;
+    height: 32px;
+  }
+  .sol-app-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .sol-card {
+    min-height: 86px;
   }
 }

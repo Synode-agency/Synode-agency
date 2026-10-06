@@ -46,6 +46,8 @@ Les contraintes commerciales et techniques de publication ci-dessous restent app
 - [ ] Connecter le domaine définitif à Google Search Console et soumettre le sitemap après publication.
 - [ ] Valider les données structurées avec le Rich Results Test sur le domaine publié.
 - [ ] Ajouter une adresse, un téléphone, des profils sociaux ou un balisage `LocalBusiness` uniquement après confirmation de ces informations.
+- [ ] À la fin du développement, effectuer une recette mobile complète puis contrôler les Core Web Vitals des pages principales sur le domaine publié, en priorité l’accueil, Solutions, Réalisations et Contact.
+- [ ] Après leur finalisation, documenter les trois ou quatre projets de la page Réalisations avec leur contexte, leur fonctionnement, leur statut réel, des visuels et les enseignements tirés. Nexus doit être présenté comme l’outil de prospection réellement conçu et utilisé par Synode, sans le faire passer pour un projet client.
 
 ---
 

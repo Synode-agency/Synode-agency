@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Database, Mail, FileText, CalendarDays, Headphones, ChartNoAxesColumnIncreasing, Check, ArrowRight, Bot, Workflow, Blocks, LayoutDashboard, Search, FolderOpen, ShieldCheck, GraduationCap, Users } from "lucide-react";
+import { Database, Mail, FileText, CalendarDays, Headphones, ChartNoAxesColumnIncreasing, Check, ArrowRight, Bot, Workflow, Blocks, LayoutDashboard, Search, GraduationCap, Users } from "lucide-react";
 import type { Locale } from "@/lib/content";
 
 /** Illustrative architecture, built with HTML labels and scalable SVG connectors. */
@@ -38,11 +38,6 @@ export function BrickVisual({ kind, locale }: { kind: number; locale: Locale }) 
     {kind === 5 && <div className="training-art"><div className="training-art-session"><GraduationCap /><span>{fr ? "Comprendre · Pratiquer · Adopter" : "Learn · Practise · Adopt"}</span></div><div className="training-art-team"><Users /><span><Check />{fr ? "À vous de jouer" : "Your turn to try"}</span></div></div>}
     {kind === 4 && <div className="data-art"><div className="data-art-bars">{[35,60,44,74,57,92,80].map((height,i) => <i key={i} style={{height:`${height}%`}} />)}</div><span>{fr ? "Vos données, une vue claire" : "Your data, a clear view"}</span></div>}
   </div>;
-}
-
-export function DeliveryPreview({ locale }: { locale: Locale }) {
-  const fr = locale === "fr";
-  return <div className="delivery-preview" aria-hidden="true"><div className="delivery-sheet delivery-sheet--back" /><div className="delivery-sheet"><span className="delivery-sheet-kicker"><FolderOpen />{fr ? "VOTRE PROJET" : "YOUR PROJECT"}</span><Image src="/synode-mark.png" alt="" width={52} height={52} /><strong>{fr ? "Prêt à prendre\nle relais." : "Ready to\ntake over."}</strong><div className="delivery-sheet-lines"><i /><i /><i /></div><div className="delivery-sheet-tags"><span><Check />{fr ? "Testé" : "Tested"}</span><span><Check />{fr ? "Documenté" : "Documented"}</span></div></div><span className="delivery-seal"><ShieldCheck />{fr ? "Une transmission accompagnée" : "A supported handover"}</span></div>;
 }
 
 export function ProjectPreview({ locale }: { locale: Locale }) {

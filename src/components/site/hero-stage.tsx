@@ -23,7 +23,7 @@ export function HeroStage({ locale }: { locale: Locale }) {
       <div className="hero-stage-panel">
         <HeroSystems>
           {home.hero.systems.map((system, i) => (
-            <HeroAppMock key={system.id} system={system} index={i} />
+            <HeroAppMock key={system.id} system={system} index={i} locale={locale} />
           ))}
         </HeroSystems>
       </div>

@@ -28,7 +28,11 @@ export function Lede({
    *  chaîne, donc le texte reste d'un seul tenant pour un lecteur d'écran
    *  comme pour un moteur de recherche. */
   accents?: string[];
-  text?: string;
+  /* Une chaîne dans l'immense majorité des cas. Le type est élargi pour le
+     seul appel qui a besoin d'un retour à la ligne dans le paragraphe :
+     `renderLines` y est passé en amont plutôt qu'appliqué ici à tous les
+     textes du site, où des `\n` dormants se réveilleraient d'un coup. */
+  text?: ReactNode;
   align?: "left" | "center";
   as?: "h1" | "h2" | "h3";
   children?: ReactNode;

@@ -2247,81 +2247,20 @@
   }
 
   /* ---- Le flux en trois temps ---- */
-  .hero-app-flow {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 1.1em;
-    margin-block: 2em 1.7em;
-  }
-
   /* 0,75 s entre deux étapes : assez pour qu'on suive la progression, pas
      assez pour qu'on attende. */
-  .hero-app-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.85em;
-    text-align: center;
-    animation: hero-app-appear 0.6s cubic-bezier(0.33, 0, 0.2, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 0.8s + var(--s) * 0.75s);
-  }
-
-  .hero-app-step-disc {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 4.4em;
-    height: 4.4em;
-    border-radius: var(--r-pill);
-    background: var(--sys-tint);
-    color: var(--sys-ink);
-    animation: hero-app-step-wash 0.9s ease-out 1 both;
-    animation-delay: calc(var(--app-lead) + 0.9s + var(--s) * 0.75s);
-  }
-  .hero-app-step-disc > svg { width: 2em; height: 2em; stroke-width: 1.7; }
-
-  .hero-app-check {
-    position: absolute;
-    right: -0.1em;
-    bottom: -0.1em;
-    display: grid;
-    place-items: center;
-    width: 1.6em;
-    height: 1.6em;
-    border-radius: var(--r-pill);
-    background: #22c55e;
-    color: #ffffff;
-    box-shadow: 0 0 0 0.25em #ffffff;
-    animation: hero-app-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 2s);
-  }
-  .hero-app-check svg { width: 0.95em; height: 0.95em; }
-
-  .hero-app-step-label {
-    font-size: 1.02em;
-    font-weight: 600;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    max-width: 8.5em;
-  }
-  .hero-app-step-label b { font-weight: 700; }
-
-  .hero-app-arrow {
-    align-self: center;
-    margin-top: -1.6em;
-    color: #ADABAB;
-    animation: hero-app-arrow-in 0.45s ease-out 1 both;
-    animation-delay: calc(var(--app-lead) + 1.3s + var(--a) * 0.75s);
-  }
-  .hero-app-arrow svg { width: 2.6em; height: 0.9em; }
-
   /* ---- Les deux cartes du bas ---- */
+  /* `flex: 1` et non `margin-top: auto` : avec la marge automatique, toute
+     la hauteur gagnée par le cadre tombait dans l'écart au-dessus des deux
+     cartes, qui gardaient leur taille. La pastille d'état restait donc
+     aussi près du bord qu'avant. Ici ce sont les cartes qui grandissent. */
   .hero-app-bottom {
     display: grid;
     grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
     gap: 1em;
-    margin-top: auto;
+    flex: 1;
+    min-height: 0;
+    margin-top: 1.5em;
     animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
     animation-delay: calc(var(--app-lead) + 3s);
   }
@@ -2333,62 +2272,6 @@
     border: 1px solid #EFEDED;
     border-radius: 1em;
     background: #ffffff;
-  }
-
-  .hero-app-card-title {
-    display: block;
-    font-size: 1.15em;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-app-example p {
-    position: relative;
-    z-index: 1;
-    margin-top: 0.6em;
-    max-width: 17em;
-    font-size: 0.98em;
-    line-height: 1.45;
-    color: #605D5D;
-  }
-  .hero-app-example b { font-weight: 700; color: var(--foreground); }
-
-  .hero-app-doc {
-    position: absolute;
-    right: 0.9em;
-    bottom: -1.2em;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4em;
-    width: 6.2em;
-    padding: 0.8em 0.7em;
-    border-radius: 0.5em;
-    background: #F9F7F7;
-    box-shadow: 0 0.6em 1.4em -0.8em rgb(70 68 68 / 0.35);
-    transform: rotate(-7deg);
-    animation: hero-app-doc-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 3.4s);
-  }
-  .hero-app-doc b { font-size: 0.9em; font-weight: 600; color: #605D5D; }
-  .hero-app-doc i {
-    height: 0.34em;
-    border-radius: var(--r-pill);
-    background: #E7E5E5;
-  }
-  .hero-app-doc i:nth-of-type(2) { width: 78%; }
-  .hero-app-doc i:nth-of-type(3) { width: 56%; }
-
-  .hero-app-gain { display: flex; flex-direction: column; }
-
-  .hero-app-chart-value {
-    margin-top: 0.2em;
-    font-size: 2.1em;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--sys-ink);
-    font-variant-numeric: tabular-nums;
   }
 
   .hero-app-chart {
@@ -2406,6 +2289,467 @@
   .hero-app-chart-area {
     animation: hero-app-fade 0.8s ease-out 1 both;
     animation-delay: calc(var(--app-lead) + 4.1s);
+  }
+
+  /* =====================================================================
+     ÉCRAN 1 — LE TABLEAU
+
+     Trois colonnes, trois dossiers qui avancent de l'une à l'autre. Les
+     dossiers sont posés en ABSOLU au-dessus des colonnes : ils traversent
+     le tableau sans appartenir à aucune, donc une colonne ne se réordonne
+     jamais sous eux pendant le déplacement.
+
+     Seul `left` s'anime. Le `top` d'un dossier est constant — il garde sa
+     rangée d'un bout à l'autre — et c'est ce qui produit l'empilement
+     promis dans la colonne d'arrivée sans une seule valeur calculée.
+     ===================================================================== */
+  .hero-board {
+    --bg: 0.8em;                        /* l'écart entre deux colonnes */
+    --bw: calc(33.3333% - var(--bg) * 2 / 3);
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--bg);
+    margin-block: 1.6em 1.1em;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 0.7s);
+  }
+  .hero-board-col {
+    min-width: 0;
+    padding: 1em 1em 0;
+    border: 1px solid #1E3A60;
+    border-radius: 0.8em;
+    background: #0F2340;
+  }
+  .hero-board-colhead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6em;
+  }
+  .hero-board-colhead > span {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #C9D3E2;
+  }
+  /* Deux chiffres superposés : le « 3 » couvre le « 0 » pendant la fenêtre
+     où la colonne est pleine. Un compteur CSS ne s'anime pas. */
+  .hero-board-count {
+    position: relative;
+    flex: none;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 1em;
+    color: #8EC1FF;
+  }
+  .hero-board-count b { font-weight: 400; }
+  .hero-board-count b:last-child {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: hero-board-c1 5.2s steps(1, end) infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-board-col:nth-child(2) .hero-board-count b:last-child { animation-name: hero-board-c2; }
+  .hero-board-col:nth-child(3) .hero-board-count b:last-child { animation-name: hero-board-c3; }
+
+  .hero-board-card {
+    position: absolute;
+    left: 0;
+    top: calc(3.9em + var(--i) * 5.4em);
+    width: var(--bw);
+    height: 4.8em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.35em;
+    padding-inline: 0.9em;
+    border: 1px solid #2A4870;
+    border-radius: 0.7em;
+    background: #14284A;
+    animation: hero-board-move 5.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    animation-delay: calc(var(--app-lead) + var(--i) * 0.25s);
+  }
+  .hero-board-card b {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.15em;
+    font-weight: 500;
+    color: #ffffff;
+  }
+  .hero-board-card i {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.95em;
+    color: #8EC1FF;
+    white-space: nowrap;
+  }
+  .hero-board-card s {
+    flex: none;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: var(--r-pill);
+    background: currentColor;
+  }
+
+  /* La carte indicateur, sous le tableau. */
+  .hero-board-metric {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 1.4em;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 1.2s);
+  }
+  .hero-board-metric > span:first-child { flex: none; }
+  .hero-board-metric b {
+    display: block;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #C9D3E2;
+  }
+  .hero-board-metric strong {
+    display: block;
+    margin-top: 0.1em;
+    font-size: 2em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #8EC1FF;
+  }
+  .hero-board-metric .hero-app-chart { flex: 1; min-width: 0; margin-top: 0; color: #4E8FF0; }
+  .hero-board-metric .hero-app-chart svg { height: 3.8em; }
+
+  /* --- Le cycle du tableau : 4 temps de 1,3 s. --- */
+  @keyframes hero-board-move {
+    0% { opacity: 0; left: 0; background: #14284A; border-color: #2A4870; }
+    4%, 25% { opacity: 1; left: 0; background: #14284A; border-color: #2A4870; }
+    38.5%, 50% { left: calc(33.3333% + var(--bg) / 3); background: #173A66; border-color: #4E8FF0; }
+    63.5%, 96% { opacity: 1; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
+    100% { opacity: 0; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
+  }
+  /* La source prend la couleur de la colonne d'arrivée, au même instant. */
+  .hero-board-card i {
+    animation: hero-board-src 5.2s steps(1, end) infinite;
+    animation-delay: calc(var(--app-lead) + var(--i) * 0.25s);
+  }
+  @keyframes hero-board-src {
+    0%, 62% { color: #8EC1FF; }
+    63.5%, 100% { color: #4ADE80; }
+  }
+  @keyframes hero-board-c1 { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
+  @keyframes hero-board-c2 { 0%, 37% { opacity: 0; } 38.5%, 61% { opacity: 1; } 63%, 100% { opacity: 0; } }
+  @keyframes hero-board-c3 { 0%, 62% { opacity: 0; } 63.5%, 100% { opacity: 1; } }
+
+  /* =====================================================================
+     ÉCRANS 2 ET 3 — LE FLUX
+
+     Trois étapes reliées par une barre qui se remplit, un journal et une
+     fiche. Tout est cadencé sur une boucle de 5,7 s, soit trois temps de
+     1,9 s : 33,333 % et 66,667 % sont les deux bascules, et on les
+     retrouve dans chacune des animations ci-dessous. Changer la cadence se
+     fait donc en un seul endroit, à condition de garder ces deux repères.
+     ===================================================================== */
+  .hero-flow {
+    flex: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.6em;
+    margin-block: 1.9em 1.6em;
+    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+    animation-delay: calc(var(--app-lead) + 0.7s);
+  }
+  .hero-flow-step {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85em;
+    text-align: center;
+  }
+  .hero-flow-disc {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 4.2em;
+    height: 4.2em;
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    background: #13294A;
+    color: #4F6383;
+    animation: hero-flow-d3 5.7s linear infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-flow-disc > svg { width: 1.85em; height: 1.85em; stroke-width: 1.7; }
+  .hero-flow-check {
+    position: absolute;
+    right: -0.2em;
+    bottom: -0.2em;
+    display: grid;
+    place-items: center;
+    width: 1.6em;
+    height: 1.6em;
+    border: 0.2em solid #0A1A30;
+    border-radius: var(--r-pill);
+    background: #22C55E;
+    color: #ffffff;
+    opacity: 0;
+    transform: scale(0.3);
+    animation: hero-flow-k3 5.7s linear infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-flow-check svg { width: 0.95em; height: 0.95em; }
+  .hero-flow-label {
+    max-width: 8.5em;
+    font-size: 1.15em;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #6F84A3;
+    animation: hero-flow-l3 5.7s linear infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-flow-label b { font-weight: 600; }
+
+  .hero-flow-bar {
+    flex: none;
+    position: relative;
+    align-self: flex-start;
+    margin-top: 2.1em;
+    width: 2.6em;
+    height: 0.2em;
+    border-radius: var(--r-pill);
+    background: #1E3352;
+    overflow: hidden;
+  }
+  .hero-flow-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 0;
+    border-radius: inherit;
+    background: #4E8FF0;
+    animation: hero-flow-bar2 5.7s linear infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-flow-bar:nth-child(4)::after { animation-name: hero-flow-bar4; }
+
+  /* L'étape 1 est en cours au premier temps puis franchie ; l'étape 2
+     attend, passe en cours, puis est franchie ; l'étape 3 attend deux
+     temps avant de s'allumer. Trois jeux d'images, un par position. */
+  .hero-flow-step:nth-child(1) .hero-flow-disc { animation-name: hero-flow-d1; }
+  .hero-flow-step:nth-child(3) .hero-flow-disc { animation-name: hero-flow-d2; }
+  .hero-flow-step:nth-child(1) .hero-flow-check { animation-name: hero-flow-k1; }
+  .hero-flow-step:nth-child(3) .hero-flow-check { animation-name: hero-flow-k2; }
+  .hero-flow-step:nth-child(1) .hero-flow-label { animation-name: hero-flow-l1; }
+  .hero-flow-step:nth-child(3) .hero-flow-label { animation-name: hero-flow-l2; }
+
+  @keyframes hero-flow-d1 {
+    0%, 26% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
+    33.333%, 100% { background: #173558; border-color: transparent; box-shadow: 0 0 0 transparent; color: #8EC1FF; }
+  }
+  @keyframes hero-flow-d2 {
+    0%, 26% { background: #13294A; border-color: transparent; box-shadow: 0 0 0 transparent; color: #4F6383; }
+    33.333%, 59.6% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
+    66.667%, 100% { background: #173558; border-color: transparent; box-shadow: 0 0 0 transparent; color: #8EC1FF; }
+  }
+  @keyframes hero-flow-d3 {
+    0%, 59.6% { background: #13294A; border-color: transparent; box-shadow: 0 0 0 transparent; color: #4F6383; }
+    66.667%, 100% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
+  }
+  @keyframes hero-flow-k1 {
+    0%, 30% { opacity: 0; transform: scale(0.3); }
+    38%, 100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes hero-flow-k2 {
+    0%, 63% { opacity: 0; transform: scale(0.3); }
+    71%, 100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes hero-flow-k3 { 0%, 100% { opacity: 0; transform: scale(0.3); } }
+  @keyframes hero-flow-l1 { 0%, 100% { color: #ffffff; } }
+  @keyframes hero-flow-l2 {
+    0%, 26% { color: #6F84A3; }
+    33.333%, 100% { color: #ffffff; }
+  }
+  @keyframes hero-flow-l3 {
+    0%, 59.6% { color: #6F84A3; }
+    66.667%, 100% { color: #ffffff; }
+  }
+  @keyframes hero-flow-bar2 {
+    0%, 26% { width: 0; }
+    33.333%, 100% { width: 100%; }
+  }
+  @keyframes hero-flow-bar4 {
+    0%, 59.6% { width: 0; }
+    66.667%, 100% { width: 100%; }
+  }
+
+  /* ---- Le journal ---- */
+  .hero-log { display: flex; flex-direction: column; justify-content: center; gap: 1.1em; }
+  .hero-log-row {
+    display: grid;
+    grid-template-columns: 0.7em auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.7em;
+    opacity: 0.25;
+    animation: hero-log-3 5.7s linear infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-log-row:nth-child(1) { animation-name: hero-log-1; }
+  .hero-log-row:nth-child(2) { animation-name: hero-log-2; }
+  .hero-log-row i {
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: var(--r-pill);
+    background: #24406A;
+    animation: hero-dot-3 5.7s steps(1, end) infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-log-row:nth-child(1) i { animation-name: hero-dot-1; }
+  .hero-log-row:nth-child(2) i { animation-name: hero-dot-2; }
+  .hero-log-row em {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.95em;
+    color: #6F84A3;
+    white-space: nowrap;
+  }
+  .hero-log-row b {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.15em;
+    font-weight: 400;
+    color: #D7E0EC;
+  }
+  @keyframes hero-log-1 { 0%, 100% { opacity: 1; } }
+  @keyframes hero-log-2 { 0%, 26% { opacity: 0.25; } 33.333%, 100% { opacity: 1; } }
+  @keyframes hero-log-3 { 0%, 59.6% { opacity: 0.25; } 66.667%, 100% { opacity: 1; } }
+  @keyframes hero-dot-1 { 0%, 32% { background: #4E8FF0; } 33.333%, 100% { background: #22C55E; } }
+  @keyframes hero-dot-2 { 0%, 32% { background: #24406A; } 33.333%, 65% { background: #4E8FF0; } 66.667%, 100% { background: #22C55E; } }
+  @keyframes hero-dot-3 { 0%, 65% { background: #24406A; } 66.667%, 100% { background: #4E8FF0; } }
+
+  /* ---- La fiche de droite ---- */
+  .hero-sheet { display: flex; flex-direction: column; }
+  .hero-sheet > * { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .hero-sheet-ref {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 0.95em;
+    color: #6F84A3;
+  }
+  .hero-sheet-who { margin-top: 0.5em; font-size: 1.15em; color: #B6C2D4; }
+  .hero-sheet-amount {
+    margin-top: 0.3em;
+    font-size: 2.4em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+  .hero-sheet-due { margin-top: 0.2em; font-size: 1.1em; color: #8FA0B8; }
+
+  /* Les trois états, superposés : un seul est visible à la fois. */
+  .hero-sheet-pills {
+    position: relative;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 1em;
+    height: 3.1em;
+    overflow: visible;
+  }
+  /* Décollée du bas de la carte : posée à zéro, elle se lisait comme un
+     défaut d'alignement plutôt que comme un état. */
+  .hero-sheet-pills b {
+    position: absolute;
+    bottom: 0.35em;
+    left: 0;
+    padding: 0.4em 0.9em;
+    border-radius: var(--r-pill);
+    font-size: 1.05em;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    animation: hero-pill-3 5.7s steps(1, end) infinite;
+    animation-delay: var(--app-lead);
+  }
+  /* Dans la fiche facture, la pastille descend légèrement pour mieux se
+     détacher du montant. Les états du rendez-vous gardent leur position. */
+  .hero-system:nth-child(2) .hero-sheet-pills b { bottom: calc(0.35em - 3px); }
+  .hero-sheet-pills b:nth-child(1) { animation-name: hero-pill-1; background: #3A2E17; color: #F5B454; }
+  .hero-sheet-pills b:nth-child(2) { animation-name: hero-pill-2; background: #16335A; color: #8EC1FF; }
+  .hero-sheet-pills b:nth-child(3) { background: #123A2A; color: #4ADE80; }
+  /* L'écran 3 n'a pas d'état « échu » : ses deux premières pastilles sont
+     bleue puis verte, et la troisième reste verte. */
+  .hero-system:nth-child(3) .hero-sheet-pills b:nth-child(1) { background: #16335A; color: #8EC1FF; }
+  .hero-system:nth-child(3) .hero-sheet-pills b:nth-child(2) { background: #123A2A; color: #4ADE80; }
+  @keyframes hero-pill-1 { 0%, 32% { opacity: 1; } 33.333%, 100% { opacity: 0; } }
+  @keyframes hero-pill-2 { 0%, 32% { opacity: 0; } 33.333%, 65% { opacity: 1; } 66.667%, 100% { opacity: 0; } }
+  @keyframes hero-pill-3 { 0%, 65% { opacity: 0; } 66.667%, 100% { opacity: 1; } }
+
+  /* ---- Le mini-calendrier de l'écran 3 ---- */
+  .hero-cal-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.8em;
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+    color: #6F84A3;
+  }
+  .hero-cal-head em { font-style: normal; white-space: nowrap; }
+  .hero-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4em;
+    margin-top: 0.9em;
+  }
+  .hero-cal-grid i {
+    position: relative;
+    height: 1.6em;
+    border: 1px solid #24406A;
+    border-radius: 0.3em;
+    background: transparent;
+  }
+  .hero-cal-grid i.is-busy { border-color: transparent; background: #1A2D4A; }
+  .hero-cal-grid i.is-slot {
+    display: grid;
+    place-items: center;
+    border-color: #4E8FF0;
+    background: #2F5FA8;
+    color: #ffffff;
+    animation: hero-cal-slot 5.7s steps(1, end) infinite;
+    animation-delay: var(--app-lead);
+  }
+  .hero-cal-grid i.is-slot svg {
+    width: 1em;
+    height: 1em;
+    opacity: 0;
+    animation: hero-cal-check 5.7s steps(1, end) infinite;
+    animation-delay: var(--app-lead);
+  }
+  @keyframes hero-cal-slot {
+    0%, 32% { background: #2F5FA8; border-color: #4E8FF0; }
+    33.333%, 100% { background: #22C55E; border-color: #22C55E; }
+  }
+  @keyframes hero-cal-check { 0%, 32% { opacity: 0; } 33.333%, 100% { opacity: 1; } }
+  .hero-cal-slot {
+    margin-top: 0.9em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #ffffff;
   }
 
   /* ---- La séquence ----
@@ -2437,25 +2781,9 @@
 
   /* Le disque ne change pas de couleur : il s'entoure d'un anneau qui se
      déploie puis retombe. L'étape est franchie, elle ne chauffe pas. */
-  @keyframes hero-app-step-wash {
-    0% { transform: scale(0.9); box-shadow: 0 0 0 0 transparent; }
-    45% { transform: scale(1.04); box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--sys-ink) 20%, transparent); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
-  }
-
-  @keyframes hero-app-arrow-in {
-    from { opacity: 0; transform: translateX(-0.5em); }
-    to { opacity: 1; transform: none; }
-  }
-
   @keyframes hero-app-pop {
     0% { opacity: 0; transform: scale(0.3); }
     100% { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes hero-app-doc-in {
-    from { opacity: 0; transform: rotate(-16deg) translateY(1.4em); }
-    to { opacity: 1; transform: rotate(-7deg) translateY(0); }
   }
 
   @keyframes hero-app-draw {
