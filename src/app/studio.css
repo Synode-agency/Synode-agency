@@ -1953,12 +1953,18 @@ footer.band--white .wordmark-type {
 .dark-cta .cta-note {
   color: #c2d3e9;
 }
-.dark-cta .cta-booking-copy .btn--ghost {
+/* ⚠ `.btn--ghost` a un FOND BLANC par défaut, et la carte sombre met le
+   texte en blanc : sans cette règle, le bouton est blanc sur blanc et
+   illisible. C'est arrivé en déplaçant le bouton de `.cta-booking-copy`
+   vers `.svc-cta-actions` sur les pages services, hors de portée de la
+   règle. Les deux conteneurs sont donc visés. Tout nouvel emplacement de ce
+   bouton sur une carte sombre doit être ajouté ici. */
+.dark-cta :is(.cta-booking-copy, .svc-cta-actions) .btn--ghost {
   color: white;
   background: transparent;
   border-color: #5b79a0;
 }
-.dark-cta .cta-booking-copy .btn--ghost:hover {
+.dark-cta :is(.cta-booking-copy, .svc-cta-actions) .btn--ghost:hover {
   background: #173e6b;
 }
 .dark-cta .booking--card {
@@ -9390,6 +9396,30 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    Ne pas remettre `align-items: start` sur la grille : sans l'étirement de
    la colonne, il n'y a pas d'espace libre à partager. ---- */
+/* ---- Le surtitre de « Qu'est-ce que… » reste en HAUT, à la même hauteur
+   que celui des autres sections ; le titre et le paragraphe gardent leur
+   position centrée.
+
+   Les deux colonnes de la grille se centrent l'une sur l'autre, et le
+   visuel est plus haut que le texte : le bloc entier descendait donc, en
+   emportant le surtitre. La colonne s'étire désormais sur toute la hauteur
+   de la rangée, et deux marges automatiques — au-dessus du titre et sous le
+   paragraphe — recentrent le groupe sous le surtitre. ---- */
+.svc-split > .svc-what {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+.svc-what > .lede {
+  flex: 1;
+}
+.svc-what > .lede > .lede-title {
+  margin-top: auto;
+}
+.svc-what > .lede > .lede-text {
+  margin-bottom: auto;
+}
+
 .svc-split--core > .svc-split-copy {
   display: flex;
   flex-direction: column;
@@ -9511,63 +9541,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-mono);
-}
-
-/* ---- 5 · Les cinq temps du fonctionnement ----
-   Une colonne de cinq, reliés par un filet vertical. Le même dessin sur
-   les six pages : c'est le contenu des étapes qui distingue un agent d'un
-   flux de données, pas la forme de la liste. */
-.svc-flow {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.svc-flow > li {
-  display: grid;
-  grid-template-columns: 32px minmax(0, 1fr);
-  gap: 14px;
-  padding: 14px 0;
-  border-top: 1px solid var(--hairline);
-}
-.svc-flow > li:last-child {
-  border-bottom: 1px solid var(--hairline);
-}
-.svc-flow-mark {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid #c3d4ee;
-  border-radius: 9px;
-  background: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  color: var(--brand);
-}
-/* Le filet qui relie une étape à la suivante. Il descend depuis la
-   pastille jusqu'au bord de la ligne, pas plus loin : la dernière étape
-   n'en a donc pas besoin. */
-.svc-flow > li:not(:last-child) .svc-flow-mark::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  width: 1px;
-  height: 28px;
-  background: var(--hairline);
-}
-.svc-flow strong {
-  display: block;
-  font-size: 15px;
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.svc-flow p {
-  margin-top: 3px;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: #5a5a5a;
 }
 
 /* ---- 6 · La bande bleu nuit : ce qui reste au centre ----
@@ -9901,10 +9874,22 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 /* ---- 10 · La FAQ ferme la page. Rien après elle, le CTA est au-dessus. ---- */
-.svc-faq .lede {
+/* Le titre de la FAQ est centré sur le MÊME AXE que les questions : le bloc
+   de titres prend exactement la largeur de l'accordéon, 48rem, et se centre
+   comme lui. Sans cette largeur, le bloc gardait la mesure des textes et
+   restait collé à gauche de la bande : son titre paraissait centré sur un
+   axe qui n'était pas celui des questions.
+
+   Le filet qui élargit les blocs de titres saute cette bande, son identifiant
+   étant `#faq` : la largeur doit donc être posée ici. */
+.svc-faq > .col > .lede {
+  width: min(100%, 48rem);
+  max-width: none;
+  margin-inline: auto;
   text-align: center;
 }
-.svc-faq .lede-title {
+.svc-faq > .col > .lede > .lede-title {
+  max-width: none;
   margin-inline: auto;
 }
 
@@ -9923,365 +9908,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   }
   .svc-core-hub {
     text-align: center;
-  }
-}
-
-/* =====================================================================
-   LES SIX SCHÉMAS DE « QU'EST-CE QUE… »
-
-   Un cadre commun, six dessins. Le cadre, la légende, les pastilles et les
-   filets sont partagés : c'est ce qui fait que les six pages se ressemblent
-   malgré des dessins différents. Ne pas donner à l'un une couleur, un
-   arrondi ou une graisse que les cinq autres n'ont pas.
-
-   Aucun ne dépasse quatre repères, et aucun ne porte de texte tronqué : si
-   une étiquette ne tient pas, c'est l'étiquette qu'il faut raccourcir dans
-   `service-pages.ts`, pas la boîte qu'il faut rogner.
-   ===================================================================== */
-.svc-sketch {
-  display: grid;
-  gap: 16px;
-  margin: 0;
-  padding: clamp(18px, 2.4vw, 28px);
-  border: 1px solid var(--hairline);
-  border-radius: 14px;
-  background: #ffffff;
-}
-.svc-sketch-body {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-}
-.svc-sketch figcaption {
-  display: flex;
-  gap: 9px;
-  padding-top: 13px;
-  border-top: 1px solid var(--hairline);
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: #5a5a5a;
-}
-.svc-sketch figcaption svg {
-  flex: none;
-  width: 15px;
-  height: 15px;
-  margin-top: 2px;
-  color: var(--brand);
-}
-
-/* ---- Les pièces communes aux six dessins ---- */
-.sk-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 14px;
-  border: 1px solid #dde3ee;
-  border-radius: 999px;
-  background: #f7f9fc;
-  font-size: 12.5px;
-  color: #5a5a5a;
-}
-.sk-pill--out {
-  border-color: #bcd5f5;
-  background: #eff5fd;
-  color: #0a4fb0;
-}
-.sk-pill svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 2;
-}
-.sk-wire {
-  width: 1px;
-  height: 16px;
-  background: #dde3ee;
-}
-
-/* ---- 1 · Automatisations : une chaîne de cinq temps, reliés. ---- */
-.sk-chain {
-  list-style: none;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-.sk-chain li {
-  position: relative;
-  padding: 10px 14px;
-  border: 1px solid #dde3ee;
-  border-radius: 10px;
-  background: #f7f9fc;
-  font-size: 12.5px;
-  text-align: center;
-  color: #5a5a5a;
-}
-.sk-chain li + li {
-  margin-top: 16px;
-}
-.sk-chain li + li::before {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 1px;
-  height: 16px;
-  background: #dde3ee;
-}
-.sk-chain .is-start {
-  border-color: #c3d4ee;
-  background: #ffffff;
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.sk-chain .is-end {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  border-color: #bcd5f5;
-  background: #eff5fd;
-  color: #0a4fb0;
-}
-.sk-chain .is-end svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 2;
-}
-
-/* ---- 2 · Intégrations : deux systèmes et les canaux entre eux. ---- */
-.sk-link {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-.sk-box {
-  padding: 16px 14px;
-  border: 1px solid #c3d4ee;
-  border-radius: 10px;
-  background: #ffffff;
-  font-size: 12.5px;
-  font-weight: 500;
-  text-align: center;
-  color: #1f3a5f;
-}
-.sk-rows {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-}
-.sk-rows li {
-  display: grid;
-  grid-template-columns: minmax(8px, 1fr) auto minmax(8px, 1fr);
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  text-align: center;
-  color: #5a5a5a;
-}
-.sk-rows i {
-  height: 1px;
-  background: #dde3ee;
-}
-
-/* ---- 3 · Logiciels métier : la maquette d'une interface. ----
-   Ce n'est pas une capture d'un produit : les lignes de contenu sont des
-   filets, volontairement, et aucun chiffre n'y figure. ---- */
-.sk-app {
-  width: 100%;
-  overflow: hidden;
-  border: 1px solid #dde3ee;
-  border-radius: 12px;
-  background: #ffffff;
-}
-.sk-app-bar {
-  display: flex;
-  gap: 6px;
-  padding: 10px 12px;
-  border-bottom: 1px solid #eef1f6;
-  background: #f7f9fc;
-}
-.sk-app-bar i {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #cfd8e6;
-}
-.sk-app-body {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-}
-.sk-app-nav {
-  list-style: none;
-  display: grid;
-  align-content: start;
-  gap: 4px;
-  margin: 0;
-  padding: 12px 10px;
-  border-right: 1px solid #eef1f6;
-  background: #fbfcff;
-}
-.sk-app-nav li {
-  padding: 7px 9px;
-  border-radius: 7px;
-  font-size: 11.5px;
-  color: #5a5a5a;
-}
-.sk-app-nav li:first-child {
-  background: #eff5fd;
-  font-weight: 500;
-  color: #0a4fb0;
-}
-.sk-app-main {
-  display: grid;
-  gap: 9px;
-  align-content: start;
-  padding: 14px 14px 16px;
-}
-.sk-app-title {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.sk-app-row {
-  height: 8px;
-  border-radius: 4px;
-  background: #eef1f6;
-}
-.sk-app-row--short {
-  width: 62%;
-}
-.sk-app-done {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  justify-self: start;
-  margin-top: 4px;
-  padding: 6px 12px;
-  border: 1px solid #bcd5f5;
-  border-radius: 999px;
-  background: #eff5fd;
-  font-size: 11.5px;
-  color: #0a4fb0;
-}
-.sk-app-done svg {
-  width: 13px;
-  height: 13px;
-  stroke-width: 2;
-}
-
-/* ---- 4 · Data : des sources, un traitement numéroté, une lecture. ---- */
-.sk-data {
-  display: grid;
-  justify-items: center;
-  gap: 12px;
-  width: 100%;
-}
-.sk-steps {
-  list-style: none;
-  display: grid;
-  gap: 1px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid #dde3ee;
-  border-radius: 10px;
-  background: #dde3ee;
-}
-.sk-steps li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  background: #ffffff;
-  font-size: 12px;
-  color: #5a5a5a;
-}
-.sk-steps em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 10.5px;
-  color: #0b6be6;
-}
-.sk-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 7px;
-  width: 100%;
-  height: 54px;
-  padding: 0 2px;
-}
-.sk-bars i {
-  flex: 1;
-  border-radius: 3px 3px 0 0;
-  background: #c3d4ee;
-}
-.sk-bars i:last-child {
-  background: #0b6be6;
-}
-
-/* ---- 5 · Formation : une progression, pas un classement. ---- */
-.sk-path {
-  display: grid;
-  justify-items: center;
-  gap: 12px;
-  width: 100%;
-}
-.sk-levels {
-  list-style: none;
-  display: grid;
-  gap: 10px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-.sk-levels li {
-  display: grid;
-  gap: 7px;
-  padding: 11px 14px;
-  border: 1px solid #dde3ee;
-  border-radius: 10px;
-  background: #ffffff;
-}
-.sk-levels strong {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.sk-gauge {
-  height: 4px;
-  border-radius: 999px;
-  background: #eef1f6;
-}
-.sk-gauge i {
-  display: block;
-  height: 100%;
-  border-radius: 999px;
-  background: #0b6be6;
-}
-
-@media (max-width: 480px) {
-  .sk-link {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sk-rows li {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sk-rows i {
-    display: none;
-  }
-  .sk-app-body {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sk-app-nav {
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    border-right: 0;
-    border-bottom: 1px solid #eef1f6;
-    overflow-x: auto;
   }
 }
 
@@ -11653,4 +11279,672 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .site-theme-alternating main > .band.solutions-ink-band .lede-kicker {
   color: #9ec8ff;
+}
+
+/* =====================================================================
+   « QU'EST-CE QU'UNE AUTOMATISATION ? » — LE FLUX À NŒUDS
+
+   Posé à même le fond blanc de la section : pas de carte, pas de cadre, pas
+   d'en-tête, pas de légende.
+
+   ⚠ Le rapport `640 / 370` n'est pas décoratif. Les liaisons sont tracées
+   dans un SVG en `viewBox="0 0 640 370"` et les nœuds sont posés en
+   pourcentage du même repère : sans ce rapport, le SVG se centrerait dans sa
+   boîte avec des bandes vides et les liaisons arriveraient à côté des nœuds.
+
+   ── Pas de défilement : le schéma SE MET À L'ÉCHELLE ────────────────────
+   Il n'y a plus de largeur minimale ni de conteneur à défilement. La scène
+   est une `container-type: inline-size`, et TOUT ce qu'elle contient est
+   exprimé en `cqw`, pourcentage de sa propre largeur : icônes, corps de
+   texte, écarts, arrondis, badges. Comme le rapport de la scène est fixe, une
+   unité du repère vaut la même chose en largeur et en hauteur, donc le même
+   facteur sert aux deux axes : 100/640, soit 0,15625cqw par unité.
+
+   Conséquence assumée : le schéma ne se replie pas, il rétrécit. Sur une
+   colonne étroite les étiquettes deviennent petites. Ne pas y remettre de
+   taille en pixels pour « sauver » un libellé : les proportions casseraient
+   et les noms se chevaucheraient, ce que le défilement évitait. Si la
+   lisibilité ne suffit plus en bas de l'échelle, c'est une composition
+   différente qu'il faut pour le téléphone, pas des tailles mixtes.
+   ────────────────────────────────────────────────────────────────────────
+   ===================================================================== */
+.aug {
+  width: 100%;
+  min-width: 0;
+}
+.aug-scene {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 640 / 370;
+}
+.aug-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+}
+
+/* ---- Les liaisons, les ports, les étiquettes ---- */
+.aug-edge {
+  stroke: #d5dbe3;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease;
+}
+.aug-edge.is-run {
+  stroke: #8fb5ee;
+}
+.aug-edge.is-done {
+  stroke: #2db37a;
+}
+/* La liaison du cas ambigu ne réussit pas : elle vire à l'orange. */
+.aug-edge--warm.is-done {
+  stroke: #f5b454;
+}
+.aug-dash {
+  stroke: #c9d0da;
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+.aug-dash.is-on {
+  stroke: #0b6be6;
+}
+.aug-port {
+  fill: #a0a5ad;
+  stroke: none;
+}
+.aug-label {
+  fill: #2db37a;
+  font-size: 9.5px;
+  stroke: none;
+}
+.aug-dot {
+  fill: #0b6be6;
+  stroke: none;
+}
+.aug-dot-halo {
+  fill: rgb(11 107 230 / 16%);
+  stroke: none;
+}
+
+/* ---- Les nœuds ---- */
+.aug-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.406cqw;
+  box-sizing: border-box;
+  border: 1.5px solid #d5dbe3;
+  border-radius: 1.25cqw;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgb(20 40 80 / 5%);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Le déclencheur a le bord gauche arrondi, comme une entrée de flux. */
+.aug-node--trigger {
+  border-radius: 2.813cqw 1.25cqw 1.25cqw 2.813cqw;
+}
+.aug-node--round {
+  border-radius: 999px;
+}
+.aug-node--wide {
+  padding-inline: 2.188cqw;
+}
+.aug-node svg {
+  flex: none;
+  width: 3.438cqw;
+  height: 3.438cqw;
+  stroke-width: 1.8;
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.aug-node--ai svg {
+  color: #0b6be6;
+}
+.aug-node--wide b {
+  font-size: 1.953cqw;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #2e2e2e;
+}
+/* Le nom vit SOUS la boîte, hors de son flux : il ne doit jamais en changer
+   la taille, sinon les nœuds ne tomberaient plus sur leurs liaisons. */
+.aug-name {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.156cqw;
+  margin-top: 1.094cqw;
+  font-size: 1.797cqw;
+  line-height: 1.25;
+  white-space: nowrap;
+  color: #2e2e2e;
+  transform: translateX(-50%);
+}
+.aug-name em {
+  font-style: normal;
+  font-size: 1.484cqw;
+  color: #8a8f98;
+}
+
+/* ---- Les états ---- */
+.aug-node.is-run {
+  border-color: #0b6be6;
+  box-shadow: 0 0 0 4px rgb(11 107 230 / 14%);
+}
+.aug-node.is-done {
+  border-color: #2db37a;
+}
+.aug-node.is-alert {
+  border-color: #f5b454;
+  box-shadow: 0 0 0 4px rgb(245 180 84 / 20%);
+}
+.aug-node.is-alert svg {
+  color: #d98a1c;
+}
+.aug-badge {
+  position: absolute;
+  right: -0.781cqw;
+  bottom: -0.781cqw;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+}
+.aug-badge svg {
+  width: 1.719cqw;
+  height: 1.719cqw;
+  stroke-width: 2.2;
+}
+.aug-badge--ok svg {
+  color: #2db37a;
+}
+.aug-badge--warn svg {
+  width: 1.875cqw;
+  height: 1.875cqw;
+}
+/* ⚠ Le badge d'alerte est un triangle PLEIN : son tracé porte ses propres
+   couleurs, et la règle de teinte des icônes de nœud ne doit pas les
+   écraser. */
+.aug-node.is-alert .aug-badge--warn svg {
+  color: inherit;
+}
+
+/* ---- L'éclair du déclencheur ---- */
+.aug-bolt {
+  position: absolute;
+  display: block;
+  width: 1.875cqw;
+  height: 2.188cqw;
+  transform: translate(-50%, -50%);
+}
+.aug-bolt svg {
+  width: 100%;
+  height: 100%;
+  fill: #f5b454;
+  stroke: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aug-edge,
+  .aug-dash,
+  .aug-node,
+  .aug-node svg {
+    transition: none;
+  }
+}
+
+/* =====================================================================
+   LES PIÈCES DES MINI-APERÇUS, PARTAGÉES PAR LES SIX SÉRIES
+
+   Les quarante-huit aperçus des six pages services se composent du même
+   vocabulaire : des lignes grises, des pastilles, des étiquettes, des
+   petits cadres, des barres. C'est ce qui tient les six pages dans un seul
+   système au lieu de six styles. Avant d'ajouter une pièce, vérifier qu'une
+   existante ne fait pas déjà l'affaire.
+   ===================================================================== */
+
+/* ---- Des compositions d'ensemble ---- */
+.auc-mid {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.auc-mid--col {
+  flex-direction: column;
+}
+.auc-list {
+  flex-direction: column;
+  gap: 7px;
+}
+.auc-list--mid {
+  justify-content: center;
+}
+.auc-pair {
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ---- Une boîte nommée, pour les schémas de connexion ---- */
+.auc-box {
+  flex: none;
+  padding: 9px 11px;
+  border: 1px solid #e3e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #2e2e2e;
+}
+/* Une pile de sources, et une mini-carte de fiche. */
+.auc-stack {
+  flex: none;
+  display: grid;
+  gap: 4px;
+}
+.auc-stack i {
+  width: 26px;
+  height: 9px;
+  border-radius: 3px;
+  background: #e3e8f0;
+}
+.auc-card-mini {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid #e3e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+.auc-card-mini--wide {
+  flex: none;
+  width: 80%;
+}
+.auc-sync {
+  flex: none;
+  display: grid;
+  gap: 2px;
+}
+.auc-sync svg {
+  width: 13px;
+  height: 13px;
+  color: #0b6be6;
+}
+.auc-sync .is-back {
+  transform: rotate(180deg);
+}
+
+/* ---- Une rangée de barres ---- */
+.auc-bars {
+  flex: 1 1 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  min-width: 0;
+  height: 54px;
+}
+.auc-bars i {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: #c3d4ee;
+}
+.auc-bars i:last-child {
+  background: #0b6be6;
+}
+/* L'écart à vérifier, et la part estimée d'une projection. */
+.auc-bars i.is-warm {
+  background: #e2b48c;
+}
+.auc-bars i.is-soft {
+  background: #d6e4fb;
+}
+.auc-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+.auc-group em {
+  font-style: normal;
+  font-size: 9.5px;
+  color: #8a8f98;
+}
+
+/* ---- Un petit cadre d'application ---- */
+.auc-app {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e3e8f0;
+  border-radius: 7px;
+  background: #ffffff;
+}
+.auc-app-bar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 7px;
+  border-bottom: 1px solid #eef1f6;
+  background: #f7f9fd;
+}
+.auc-app-bar b {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: #cfd8e6;
+}
+.auc-app-body {
+  display: flex;
+  flex: 1;
+}
+.auc-app-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 7px 6px;
+  border-right: 1px solid #eef1f6;
+}
+.auc-app-nav em {
+  font-style: normal;
+  font-size: 9px;
+  white-space: nowrap;
+  color: #6b6f76;
+}
+.auc-app-nav em:first-child {
+  color: #0b6be6;
+}
+.auc-app-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+  padding: 9px 9px 10px;
+}
+.auc-app-main i {
+  height: 5px;
+  border-radius: 3px;
+  background: #eef1f6;
+}
+.auc-app-badge {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #eaf2fe;
+  font-size: 9px;
+  font-weight: 400;
+  color: #0b6be6;
+}
+
+/* ---- Un écran de saisie, une grille de tableur ---- */
+.auc-phone {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 64px;
+  padding: 9px 8px 10px;
+  border: 1px solid #e3e8f0;
+  border-radius: 9px;
+  background: #ffffff;
+}
+.auc-field-line {
+  height: 9px;
+  border: 1px solid #e3e8f0;
+  border-radius: 4px;
+}
+.auc-phone b {
+  height: 10px;
+  border-radius: 4px;
+  background: #0b6be6;
+}
+.auc-grid {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(3, 14px);
+  gap: 3px;
+}
+.auc-grid i {
+  height: 9px;
+  border: 1px solid #e3e8f0;
+  border-radius: 2px;
+}
+
+/* ---- Un rapprochement de deux listes ---- */
+.auc-map {
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+}
+.auc-map-row {
+  display: grid;
+  grid-template-columns: 1fr 14px 1fr;
+  align-items: center;
+  gap: 6px;
+}
+.auc-map-row b {
+  height: 1px;
+  background: #c3d4ee;
+}
+
+/* ---- Des rangées : état, rang, personne ---- */
+.auc-row--off {
+  opacity: 0.55;
+}
+.auc-who {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+.auc-ok svg,
+.auc-no svg {
+  width: 11px;
+  height: 11px;
+  stroke-width: 2.6;
+}
+.auc-ok svg {
+  color: #0b6be6;
+}
+.auc-no svg {
+  color: #a0632e;
+}
+.auc-rank {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: #eaf2fe;
+  font-size: 9px;
+  font-weight: 500;
+  color: #0b6be6;
+}
+.auc-team {
+  display: flex;
+  gap: 6px;
+}
+.auc-avatar--on {
+  background: #0b6be6;
+}
+.auc-step--soft {
+  background: #c3d4ee;
+}
+.auc-note {
+  font-size: 9.5px;
+  color: #8a8f98;
+}
+
+/* =====================================================================
+   LES QUATRE VISUELS DE « QU'EST-CE QUE… »
+
+   Sur-mesure, intégrations, donnée, adoption. Posés à même le fond blanc de
+   leur section : pas de carte, pas de cadre, pas de fond, pas de ligne au
+   bouclier.
+
+   ⚠ Le rapport `520 / 340` n'est pas décoratif. Les formes sont tracées dans
+   un SVG en `viewBox="0 0 520 340"` et les textes sont des éléments HTML
+   posés en pourcentage du même repère : sans ce rapport, le SVG se
+   centrerait dans sa boîte avec des bandes vides et les textes tomberaient à
+   côté des formes.
+
+   Les textes sont en HTML et non en `<text>` SVG, et leur corps est en
+   `cqw` : un `<text>` n'hérite pas de la police du site, ne se replie pas et
+   se rend différemment d'un navigateur à l'autre. Tout rétrécit donc
+   ensemble, et il n'y a pas de défilement.
+   ===================================================================== */
+.unv,
+.unv-wrap {
+  width: 100%;
+  min-width: 0;
+}
+.unv-scene {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  aspect-ratio: 520 / 340;
+}
+.unv-shapes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* Un texte posé sur la scène. Il ne se replie jamais : un libellé qui ne
+   tient pas se raccourcit dans le contenu, il ne passe pas à la ligne par
+   dessus un tracé. */
+.unv-t {
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1.2;
+  color: #2e2e2e;
+}
+
+/* ---- Les pièces communes aux quatre scènes ---- */
+.unv-dot {
+  fill: #0b6be6;
+}
+.unv-dot-halo {
+  fill: rgb(11 107 230 / 16%);
+}
+.unv-hint {
+  color: #8a8f98;
+}
+.unv-num {
+  font-weight: 500;
+  color: #0b6be6;
+}
+.unv-step {
+  font-weight: 500;
+  color: #2e2e2e;
+}
+.unv-wire,
+.unv-feed {
+  fill: none;
+}
+.unv-wire {
+  stroke-width: 1.4;
+  transition: stroke 0.3s ease;
+}
+
+/* ---- 1 · Sur-mesure : les rôles et la fenêtre ---- */
+.unv-role {
+  transition: fill 0.3s ease, stroke 0.3s ease;
+}
+.unv-role-label {
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.unv-role-label[data-on="true"] {
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.unv-screen {
+  font-weight: 500;
+  color: #2e2e2e;
+  transition: color 0.3s ease;
+}
+/* Le seul écran que l'IA sert. Un sur six, et c'est le propos. */
+.unv-screen[data-on="true"] {
+  color: #0b6be6;
+}
+.unv-pulse {
+  fill: #0b6be6;
+}
+
+/* ---- 2 · Intégrations : les deux systèmes et le journal ---- */
+.unv-sys {
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.unv-chip {
+  color: #0b6be6;
+}
+.unv-pill {
+  fill: #0b6be6;
+}
+.unv-pill-label {
+  font-weight: 500;
+  color: #ffffff;
+}
+.unv-log {
+  color: #2e2e2e;
+}
+
+/* ---- 3 · Donnée : les sources et le graphique ---- */
+.unv-src {
+  color: #5a5a5a;
+}
+.unv-grain {
+  fill: #a0a5ad;
+}
+/* L'estimation porte sa propre légende, en bleu : elle ne se lit pas comme
+   un chiffre constaté. */
+.unv-est {
+  color: #0b6be6;
+}
+
+/* ---- 4 · Adoption : la piste et les repères ---- */
+.unv-ini {
+  font-weight: 600;
+  color: #ffffff;
+}
+.unv-num[data-state="rest"] {
+  color: #a0a5ad;
+}
+.unv-num[data-state="done"] {
+  color: #2db37a;
+}
+.unv-mark {
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.unv-mark[data-on="true"] {
+  color: #2e2e2e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unv-wire,
+  .unv-role,
+  .unv-role-label,
+  .unv-screen,
+  .unv-mark {
+    transition: none;
+  }
 }

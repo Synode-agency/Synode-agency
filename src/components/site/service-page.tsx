@@ -13,9 +13,11 @@ import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
 import { AgentDemo } from "./agent-demo";
 import { brickIcons } from "./solution-visuals";
-import { ServiceCore, ServiceFlow, ServiceSketch } from "./service-visuals";
+import { ServiceCore } from "./service-visuals";
 import { AgentBrief } from "./agent-brief";
-import { AgentUseCards } from "./agent-use-cards";
+import { AutomationGraph } from "./automation-graph";
+import { AdoptionVisual, DataVisual, IntegrationVisual, SoftwareVisual } from "@/components/understand-visuals";
+import { UseCards } from "./use-cards";
 import { AfterPanel } from "./after-panel";
 import { AgentNetwork } from "./agent-network";
 import { ServiceHeroIllustration } from "@/components/hero-illustrations";
@@ -35,10 +37,13 @@ import { type solutionFamilies } from "@/lib/solution-details";
  * restent dans le même système quand l'une d'elles est retouchée.
  *
  * ── Le rythme des fonds, à ne pas défaire ───────────────────────────────
- * hero bleu nuit · définition blanc · usages bleu clair · formes blanc ·
- * fonctionnement bleu clair · intégration BLEU NUIT · accompagnement bleu
- * clair · CTA bleu nuit (une carte, pas une bande) · FAQ bleu clair ·
- * footer blanc.
+ * hero bleu nuit · définition blanc · usages bleu clair · intégration BLEU
+ * NUIT · accompagnement bleu clair · CTA bleu nuit (une carte, pas une
+ * bande) · FAQ bleu clair · footer blanc.
+ *
+ * Deux sections sont tombées en route : « formes », repliée dans les usages,
+ * et « fonctionnement », supprimée. Les six pages n'ont donc plus que six
+ * bandes et la carte du CTA.
  *
  * Deux grandes bandes sombres seulement, le hero et l'intégration, plus la
  * carte du CTA. Chaque bande porte sa classe de ton explicitement
@@ -63,8 +68,10 @@ type Family = ReturnType<typeof solutionFamilies>[number];
 
 /** Les icônes des usages, dans l'ordre des `uses` de chaque service. Elles
  *  sont ici et non dans le contenu : c'est une décision graphique, et elles
- *  n'ont pas à être traduites. La page des agents n'y figure pas : ses
- *  usages passent par `AgentUseCards`, qui dessine ses propres aperçus. */
+ *  n'ont pas à être traduites. ⚠ Plus aucune page ne les lit depuis que les
+ *  six affichent leurs usages en cartes à mini-aperçu : la grille commune
+ *  `.svc-uses` ne sert plus, et cette table avec elle. Conservées le temps
+ *  de s'assurer que les cartes conviennent partout. */
 const USE_ICONS: Record<string, LucideIcon[]> = {
   "automatisations-intelligentes": [Inbox, ScanText, ShieldCheck, UserCheck, FileOutput, BellRing, BarChart3, Send],
   "logiciels-applications-ia": [FolderKanban, ClipboardList, Users, Table2, Smartphone, LayoutDashboard, PenLine, Puzzle],
@@ -82,7 +89,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
      moitié vide. */
   if (!p) throw new Error(`service-pages.ts : contenu manquant pour « ${family.slug} » (${locale}).`);
   if (!p.mergeForms && (!p.forms || !p.formsTitle || !p.formsText)) throw new Error(`service-pages.ts : « ${family.slug} » n'a ni section « formes » ni \`mergeForms\`.`);
-  if (!p.whatVisual && !p.sketch) throw new Error(`service-pages.ts : « ${family.slug} » n'a ni \`sketch\` ni \`whatVisual\`.`);
+  if (!p.whatVisual) throw new Error(`service-pages.ts : « ${family.slug} » n'a pas de \`whatVisual\`.`);
 
   const Icon = brickIcons[family.visual];
   const icons = USE_ICONS[family.slug] ?? [];
@@ -105,7 +112,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         ) : <ServiceHeroIllustration slug={family.slug} locale={locale} />
       }
     >
-      <p>{d.definition}</p>
+      <p>{d.heroLead}</p>
       <div className="btn-row">
         <Link className="btn btn--primary" href={bookHref}>{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link>
         <Link className="btn btn--ghost" href="#usages">{fr ? "Voir à quoi ça peut servir" : "See what it can do"}</Link>
@@ -121,9 +128,12 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         <div className={p.whatTitleOneLine ? "svc-split-copy svc-what svc-what--line" : "svc-split-copy svc-what"}>
           <Lede kicker={p.whatKicker} title={p.whatTitle} accents={p.whatTitleAccents} text={p.whatText} />
         </div>
-        {p.whatVisual === "agent"
-          ? <AgentBrief locale={locale} />
-          : <ServiceSketch kind={family.visual} data={p.sketch!} locale={locale} />}
+        {p.whatVisual === "agent" ? <AgentBrief locale={locale} />
+          : p.whatVisual === "automation" ? <AutomationGraph locale={locale} />
+          : p.whatVisual === "software" ? <SoftwareVisual locale={locale} />
+          : p.whatVisual === "integration" ? <IntegrationVisual locale={locale} />
+          : p.whatVisual === "data" ? <DataVisual locale={locale} />
+          : <AdoptionVisual locale={locale} />}
       </div>
     </Band>
 
@@ -135,7 +145,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       {/* Les mêmes titres et les mêmes descriptions dans les deux
           compositions : seules les cartes ajoutent un mini-aperçu. */}
       {p.usesCards ? (
-        <AgentUseCards items={p.uses} locale={locale} />
+        <UseCards items={p.uses} set={family.slug} locale={locale} />
       ) : (
         <ul className="svc-uses">
           {p.uses.map((use, i) => {
@@ -190,18 +200,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
     {/* ===== 5 · COMMENT ÇA FONCTIONNE — bleu clair =====
         Absente quand les cinq temps sont repliés dans le visuel de la
         section « Qu'est-ce que… » : les deux disaient le même déroulé. */}
-    {!p.mergeHow && (
-      <Band id="fonctionnement" className="svc-band svc-tint svc-rhythm">
-        <div className="svc-split">
-          <div className="svc-split-copy">
-            <Lede kicker={fr ? "Fonctionnement" : "How it works"} title={p.howTitle} accents={p.howTitleAccents} text={p.howText} />
-          </div>
-          <ServiceFlow steps={p.steps} locale={locale} />
-        </div>
-      </Band>
-    )}
-
-    {/* ===== 6 · INTÉGRATION DANS L'ENTREPRISE — bleu nuit ===== */}
+    {/* ===== 5 · INTÉGRATION DANS L'ENTREPRISE — bleu nuit ===== */}
     <Band id="integration" className="svc-band svc-ink svc-rhythm">
       {/* Toujours deux colonnes, comme les autres sections : le texte à
           gauche, le visuel à droite. Ce qu'on met à droite vient du contenu
@@ -217,7 +216,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       </div>
     </Band>
 
-    {/* ===== 7 · APRÈS LA MISE EN SERVICE — bleu clair =====
+    {/* ===== 6 · APRÈS LA MISE EN SERVICE — bleu clair =====
         La pastille de paiement récurrent et la note de pied entrent dans le
         panneau. Elles viennent toujours de `content.ts`, écrites une seule
         fois pour tout le site : c'est un engagement contractuel, il ne doit
@@ -229,14 +228,14 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       <AfterPanel items={p.after} pill={operations.recurringLabel} note={operations.familyNote} locale={locale} />
     </Band>
 
-    {/* ===== 8 · CTA — bleu nuit, une carte posée ===== */}
+    {/* ===== 7 · CTA — bleu nuit, une carte posée ===== */}
     <CardPanel id="echange" className="dark-cta solutions-cta svc-cta">
       {/* Le texte à gauche, les deux actions à droite l'une au-dessus de
           l'autre, et la mention sous elles. Pas de carte : le CTA ferme la
           page, il n'a rien à illustrer. */}
       <div className="col card-body cta-panel cta-booking-grid">
         <div className="cta-booking-copy">
-          <Lede title={p.ctaTitle} text={p.ctaText} />
+          <Lede title={p.ctaTitle} accents={p.ctaTitleAccents} text={p.ctaText} />
         </div>
         <div className="svc-cta-actions">
           <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.ctaShort}<ArrowRight aria-hidden /></Link>
@@ -246,9 +245,9 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       </div>
     </CardPanel>
 
-    {/* ===== 9 · FAQ — bleu clair, dernière section de la page ===== */}
+    {/* ===== 8 · FAQ — bleu clair, dernière section de la page ===== */}
     <Band id="faq" className="svc-band svc-tint svc-rhythm svc-faq">
-      <Lede kicker={fr ? "Questions fréquentes" : "Frequently asked"} title={p.faqTitle} />
+      <Lede kicker={fr ? "Questions fréquentes" : "Frequently asked"} title={p.faqTitle} accents={p.faqTitleAccents} />
       <div className="section-gap"><FaqAccordion items={[...p.faqExtra, ...d.faq]} /></div>
     </Band>
   </Shell>;
