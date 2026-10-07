@@ -14,8 +14,8 @@ import type { Locale } from "./content";
  * familles liées : ce texte est relu et validé, et une partie engage
  * Synode contractuellement (le paiement récurrent). Il n'est pas recopié
  * ici. Ce fichier n'ajoute QUE ce que les nouvelles sections demandent,
- * et le gabarit assemble les deux. Les listes composées sont donc
- * `requirements + frameExtra` et `faqExtra + faq`, jamais des copies.
+ * et le gabarit assemble les deux. La seule liste composée est donc
+ * `faqExtra + faq`, jamais une copie.
  * ────────────────────────────────────────────────────────────────────────
  *
  * ── Le périmètre de ce fichier ──────────────────────────────────────────
@@ -35,34 +35,83 @@ export type ServicePageContent = {
   kicker: string;
   /** Le H1. Il peut différer du titre court du menu. */
   h1: string;
+  /** Les mots du H1 peints en bleu. `renderLines` les repère comme des
+   *  chaînes EXACTES : une faute de frappe ne peint rien, elle ne casse
+   *  rien. Le titre reste d'un seul tenant pour un lecteur d'écran. */
+  h1Accents: string[];
+  /** Le surtitre de la section « Qu'est-ce que… ». */
+  whatKicker: string;
   whatTitle: string;
+  /** Les mots du titre peints en bleu, comme dans le H1 du hero. */
+  whatTitleAccents: string[];
+  /** Tient le titre sur une seule ligne, au-dessus de 1024px. À ne mettre
+   *  que sur un titre court : au-delà d'une trentaine de caractères il ne
+   *  tient pas dans une demi-colonne, et il déborderait sur le schéma. */
+  whatTitleOneLine?: true;
+  /** Remplace le petit schéma de la colonne de droite par un visuel animé
+   *  dédié. La mise en page en deux colonnes ne change pas ; `sketch` n'est
+   *  alors pas lu. */
+  whatVisual?: "agent";
   whatText: string;
-  sketch: ServiceSketch;
+  /** Le petit schéma de la colonne de droite. Absent quand `whatVisual` est
+   *  posé, et c'est la seule raison de l'omettre. */
+  sketch?: ServiceSketch;
   usesTitle: string;
   usesText: string;
-  /** Six à huit usages concrets. Le gabarit leur associe les icônes. */
-  uses: { title: string; text: string }[];
-  formsTitle: string;
-  formsText: string;
-  /** Les formes que le service peut prendre. Huit au maximum. */
-  forms: { title: string; text: string }[];
+  /** Remplace le surtitre commun « Usages concrets ». */
+  usesKicker?: string;
+  /** Les mots du titre de section peints en bleu. */
+  usesTitleAccents?: string[];
+  /** Les usages s'affichent en cartes avec un mini-aperçu illustré, au lieu
+   *  de la grille commune icône + titre + description. */
+  usesCards?: true;
+  /** Les formes sont REPLIÉES dans les cartes d'usages, par leur champ
+   *  `form`, et la section « plusieurs formes possibles » n'existe plus :
+   *  les deux disaient la même chose à deux endroits. `formsTitle`,
+   *  `formsText` et `forms` ne sont alors pas lus. */
+  mergeForms?: true;
+  /** Six à huit usages concrets. Le gabarit leur associe les icônes.
+   *  `form` nomme la forme d'agent correspondante, quand les deux sections
+   *  sont fusionnées. */
+  uses: { title: string; text: string; form?: string }[];
+  formsTitle?: string;
+  formsText?: string;
+  /** Les formes que le service peut prendre. Huit au maximum. Absentes
+   *  quand `mergeForms` est posé, et c'est la seule raison de les omettre. */
+  forms?: { title: string; text: string }[];
   howTitle: string;
+  /** Les mots du titre de section peints en bleu. */
+  howTitleAccents?: string[];
   howText: string;
+  /** Les cinq temps sont REPLIÉS dans le visuel de la section
+   *  « Qu'est-ce que… », et la section « Comment ça fonctionne » n'existe
+   *  plus : les deux disaient le même déroulé. `steps` reste lu, par ce
+   *  visuel et par le petit visuel du CTA. */
+  mergeHow?: true;
   /** Cinq étapes, pas plus : c'est une lecture, pas un cahier des charges. */
   steps: { title: string; text: string }[];
   coreKicker: string;
   coreTitle: string;
+  /** Les mots du titre peints en bleu. */
+  coreTitleAccents?: string[];
+  /** Tient le titre sur une seule ligne, au-dessus de 1024px. À ne mettre
+   *  que sur un titre court : au-delà d'une trentaine de caractères il ne
+   *  tient pas dans une demi-colonne, et il déborderait sur le visuel. */
+  coreTitleOneLine?: true;
   coreText: string;
+  /** Remplace le moyeu et ses pastilles par le visuel animé de l'agent et
+   *  de ses huit outils. La mise en page en deux colonnes ne change pas. */
+  coreVisual?: "agent";
   coreCentre: string;
   coreChips: string[];
   coreNote: string;
-  frameTitle: string;
-  frameText: string;
-  /** Complète `detail.requirements` pour arriver à cinq ou six points. */
-  frameExtra: string[];
   afterTitle: string;
+  /** Les mots du titre peints en bleu. */
+  afterTitleAccents?: string[];
   afterText: string;
-  after: { title: string; text: string }[];
+  /** `status` est le libellé affiché pendant que le volet est actif, de la
+   *  forme « [action] en cours ». Au repos, le panneau affiche « à jour ». */
+  after: { title: string; text: string; status: string }[];
   ctaTitle: string;
   ctaText: string;
   faqTitle: string;
@@ -74,35 +123,33 @@ const fr: Record<string, ServicePageContent> = {
   "assistants-agents-ia": {
     kicker: "Assistants & agents IA",
     h1: "Des assistants et des agents IA intégrés à vos outils",
+    h1Accents: ["assistants", "agents IA"],
+    whatKicker: "Comprendre les agents IA",
     whatTitle: "Qu’est-ce qu’un agent IA ?",
+    whatTitleAccents: ["agent IA ?"],
+    whatTitleOneLine: true,
     whatText:
-      "Un assistant IA répond à une demande : il cherche une information, rédige un texte, résume un document. Un agent IA va plus loin : il reçoit une demande, détermine les étapes à suivre et exécute des actions dans vos logiciels, à l’intérieur d’un périmètre que vous définissez. Ce n’est pas une fenêtre de discussion posée sur votre site : c’est un composant relié à vos données et à vos outils métier, dont chaque action autorisée est décidée à l’avance.",
-    sketch: { lead: "Une demande", nodes: ["Sources autorisées", "Agent IA", "Actions permises"], out: "Réponse préparée", note: "Validation humaine là où elle est nécessaire" },
-    usesTitle: "À quoi peut servir un agent IA",
+      "Un assistant IA aide vos équipes à rechercher, rédiger, résumer ou exploiter des informations plus rapidement. Un agent IA va plus loin : connecté à vos données et à vos logiciels métier, il peut analyser une demande, enchaîner plusieurs étapes et exécuter des actions selon des règles définies, tout en gardant un niveau de contrôle adapté à votre activité.",
+    whatVisual: "agent",
+    usesTitle: "À quoi peut servir un agent IA,\net quelles formes il peut prendre",
+    usesTitleAccents: ["servir", "formes"],
+    usesKicker: "Usages concrets et formes d’agents",
+    usesCards: true,
+    mergeForms: true,
     usesText: "Les usages ci-dessous sont ceux que nous rencontrons le plus souvent en entreprise. Votre besoin peut être différent : il est cadré à partir de vos processus métier.",
     uses: [
-      { title: "Répondre aux demandes courantes", text: "Préparer une réponse à partir de vos documents, avec les sources utilisées." },
-      { title: "Rechercher dans vos documents", text: "Retrouver une information précise dans des fichiers autorisés." },
-      { title: "Qualifier une demande entrante", text: "Identifier l’objet, l’urgence et la personne à qui la transmettre." },
-      { title: "Mettre à jour votre CRM", text: "Créer ou compléter une fiche après un échange, selon les champs convenus." },
-      { title: "Préparer un devis ou un dossier", text: "Rassembler les éléments nécessaires et proposer un document à relire." },
-      { title: "Analyser les emails reçus", text: "Classer, résumer et signaler ce qui demande une décision rapide." },
-      { title: "Produire un compte rendu", text: "Rédiger une synthèse à partir de notes ou d’un historique d’échanges." },
-      { title: "Enchaîner plusieurs actions", text: "Exécuter une suite d’étapes autorisées, et s’arrêter à une validation." },
+      { title: "Répondre aux demandes courantes", text: "Préparer une réponse à partir de vos documents, avec les sources utilisées.", form: "Agent conversationnel" },
+      { title: "Rechercher dans vos documents", text: "Retrouver une information précise dans des fichiers autorisés.", form: "Agent documentaire" },
+      { title: "Qualifier une demande entrante", text: "Identifier l’objet, l’urgence et la personne à qui la transmettre.", form: "Agent commercial" },
+      { title: "Mettre à jour votre CRM", text: "Créer ou compléter une fiche après un échange, selon les champs convenus.", form: "Agent opérations" },
+      { title: "Préparer un devis ou un dossier", text: "Rassembler les éléments nécessaires et proposer un document à relire.", form: "Agent administratif" },
+      { title: "Analyser les emails reçus", text: "Classer, résumer et signaler ce qui demande une décision rapide.", form: "Agent service client" },
+      { title: "Produire un compte rendu", text: "Rédiger une synthèse à partir de notes ou d’un historique d’échanges.", form: "Copilote métier" },
+      { title: "Enchaîner plusieurs actions", text: "Exécuter une suite d’étapes autorisées, et s’arrêter à une validation.", form: "Agent sur mesure" },
     ],
-    formsTitle: "Les formes que peut prendre un agent IA",
-    formsText: "Un agent est toujours conçu pour un métier et une tâche. Ces profils montrent les directions possibles, pas un catalogue de produits.",
-    forms: [
-      { title: "Agent documentaire", text: "Interroge vos documents internes et cite ses sources." },
-      { title: "Agent service client", text: "Prépare les réponses aux demandes reçues par email ou formulaire." },
-      { title: "Agent commercial", text: "Qualifie les prospects, prépare les relances et met à jour le suivi." },
-      { title: "Agent opérations", text: "Suit les dossiers en cours et prépare les étapes suivantes." },
-      { title: "Agent administratif", text: "Traite les pièces reçues et prépare les écritures à valider." },
-      { title: "Copilote métier", text: "Intégré à un logiciel existant, il assiste l’utilisateur dans son écran." },
-      { title: "Agent données", text: "Interroge vos bases et restitue un chiffre avec son origine." },
-      { title: "Agent sur mesure", text: "Conçu pour une tâche précise que vos outils ne couvrent pas." },
-    ],
-    howTitle: "Comment fonctionne un agent IA",
+    howTitle: "Comment fonctionne\nun agent IA",
+    howTitleAccents: ["fonctionne"],
+    mergeHow: true,
     howText: "Un agent suit toujours le même cycle, et chaque étape reste observable. Vous décidez où placer une validation humaine, et rien ne s’exécute en dehors du périmètre défini au départ.",
     steps: [
       { title: "Recevoir", text: "Une demande arrive : email, formulaire, message ou déclencheur dans un outil." },
@@ -113,20 +160,21 @@ const fr: Record<string, ServicePageContent> = {
     ],
     coreKicker: "Intégration dans votre environnement",
     coreTitle: "Vos outils restent au centre",
+    coreTitleAccents: ["outils", "centre"],
+    coreTitleOneLine: true,
+    coreVisual: "agent",
     coreText: "Un agent IA ne remplace pas votre environnement de travail : il s’y branche. Il lit et écrit dans les logiciels que vos équipes utilisent déjà, avec les droits d’accès que vous lui accordez.",
     coreCentre: "Agent IA",
     coreChips: ["CRM", "ERP", "Email", "Documents", "Base de données", "API", "Outils métier", "Agenda"],
     coreNote: "Les accès sont limités au nécessaire. Les actions sensibles restent soumises à validation humaine.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "Un agent utile est un agent limité. Ces points sont définis avant le développement : ils déterminent ce que la solution pourra faire, et ce qu’elle ne fera pas.",
-    frameExtra: ["Les tâches confiées et les objectifs attendus.", "Les actions autorisées, et celles qui restent interdites.", "Les critères qui permettront de juger le résultat."],
     afterTitle: "Votre agent évolue avec votre activité",
+    afterTitleAccents: ["évolue"],
     afterText: "Un agent vit dans un environnement qui change : vos documents, vos règles et vos outils évoluent. Voici ce que nous assurons après la mise en service.",
     after: [
-      { title: "Surveillance du fonctionnement", text: "Nous suivons les exécutions, les erreurs et les cas sortis du périmètre prévu." },
-      { title: "Ajustement des règles", text: "Les réponses et les actions sont corrigées à partir des retours de vos utilisateurs." },
-      { title: "Mise à jour des sources", text: "Les documents et les accès sont tenus à jour pour que l’agent reste fiable." },
-      { title: "Suivi des coûts d’usage", text: "La consommation des modèles IA est visible et estimée avant toute évolution." },
+      { title: "Surveillance du fonctionnement", text: "Nous suivons les exécutions, les erreurs et les cas sortis du périmètre prévu.", status: "surveillance en cours" },
+      { title: "Ajustement des règles", text: "Les réponses et les actions sont corrigées à partir des retours de vos utilisateurs.", status: "ajustement en cours" },
+      { title: "Mise à jour des sources", text: "Les documents et les accès sont tenus à jour pour que l’agent reste fiable.", status: "mise à jour en cours" },
+      { title: "Suivi des coûts d’usage", text: "La consommation des modèles IA est visible et estimée avant toute évolution.", status: "estimation en cours" },
     ],
     ctaTitle: "Voyons si un agent IA a sa place dans votre activité",
     ctaText: "Décrivez-nous une tâche précise qui prend du temps à votre équipe. Le premier échange sert à vérifier si un assistant ou un agent IA peut réellement y aider, et à quelles conditions.",
@@ -141,7 +189,10 @@ const fr: Record<string, ServicePageContent> = {
   "automatisations-intelligentes": {
     kicker: "Automatisations intelligentes",
     h1: "Des automatisations intelligentes pour vos processus métier",
+    h1Accents: ["automatisations intelligentes"],
+    whatKicker: "Comprendre l’automatisation",
     whatTitle: "Qu’est-ce qu’une automatisation intelligente ?",
+    whatTitleAccents: ["automatisation intelligente ?"],
     whatText:
       "Une automatisation relie un déclencheur, des étapes et des règles : un document arrive, son contenu est vérifié, puis il est transmis au bon outil. Elle devient intelligente quand une étape demande de comprendre un texte, de classer une demande ou d’extraire une information d’un document non structuré. Le reste du flux, lui, reste déterministe : une règle claire est préférable à un modèle là où un calcul suffit.",
     sketch: { lead: "Déclencheur", nodes: ["Vérification", "Action", "Mise à jour"], out: "Notification", note: "Un cas ambigu sort du flux et part en contrôle humain" },
@@ -184,16 +235,14 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Flux automatisé",
     coreChips: ["Boîte email", "Documents", "CRM", "Outil comptable", "ERP", "Tableur", "Signature", "Messagerie d’équipe"],
     coreNote: "Les fichiers d’origine sont conservés, et chaque exécution laisse une trace consultable.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "Une automatisation reproduit des décisions. Elles doivent donc être écrites avant d’être codées, exceptions comprises.",
-    frameExtra: ["Le déclencheur et les étapes du processus.", "Les exceptions, et ce qu’il faut en faire.", "Les contrôles, les reprises et la gestion des doublons."],
     afterTitle: "Vos flux évoluent avec vos règles",
+    afterTitleAccents: ["évoluent"],
     afterText: "Un processus automatisé n’est pas figé : vos règles changent, vos outils se mettent à jour. Voici ce que nous assurons après la mise en service.",
     after: [
-      { title: "Surveillance des exécutions", text: "Les échecs, les blocages et les files d’attente anormales sont détectés." },
-      { title: "Traitement des exceptions", text: "Les cas sortis du flux sont analysés, puis intégrés aux règles si c’est utile." },
-      { title: "Adaptation aux outils", text: "Une mise à jour d’un logiciel connecté peut demander un ajustement du flux." },
-      { title: "Suivi des volumes", text: "Les volumes traités et les coûts de plateforme restent visibles." },
+      { title: "Surveillance des exécutions", text: "Les échecs, les blocages et les files d’attente anormales sont détectés.", status: "surveillance en cours" },
+      { title: "Traitement des exceptions", text: "Les cas sortis du flux sont analysés, puis intégrés aux règles si c’est utile.", status: "traitement en cours" },
+      { title: "Adaptation aux outils", text: "Une mise à jour d’un logiciel connecté peut demander un ajustement du flux.", status: "adaptation en cours" },
+      { title: "Suivi des volumes", text: "Les volumes traités et les coûts de plateforme restent visibles.", status: "mesure en cours" },
     ],
     ctaTitle: "Voyons quel processus mérite d’être automatisé",
     ctaText: "Décrivez-nous une tâche que votre équipe répète chaque semaine. Le premier échange sert à vérifier si elle peut être automatisée de façon fiable, et ce qu’il faut cadrer avant.",
@@ -208,7 +257,10 @@ const fr: Record<string, ServicePageContent> = {
   "logiciels-applications-ia": {
     kicker: "Logiciels & applications IA",
     h1: "Des logiciels métier et applications IA sur mesure",
+    h1Accents: ["logiciels métier", "applications IA"],
+    whatKicker: "Comprendre le sur-mesure",
     whatTitle: "Qu’est-ce qu’un logiciel métier sur mesure ?",
+    whatTitleAccents: ["logiciel métier sur mesure ?"],
     whatText:
       "C’est une application conçue autour de votre fonctionnement réel : vos rôles, vos données, vos règles et les écrans dont vos équipes ont besoin. Elle peut remplacer un ensemble de fichiers devenu difficile à tenir, compléter un logiciel existant, ou devenir une fonctionnalité que vous proposez à vos propres clients. L’IA n’y est pas le point de départ : nous définissons d’abord le parcours utile, puis les endroits où elle apporte quelque chose.",
     sketch: { lead: "Vos utilisateurs", nodes: ["Écrans métier", "Règles et droits", "Données"], out: "Un outil utilisé", note: "L’IA intervient là où elle fait gagner du temps, pas partout" },
@@ -251,16 +303,14 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Votre application",
     coreChips: ["Rôles et droits", "Règles métier", "Vos données", "Écrans dédiés", "Historique", "Exports", "Connexions", "Assistance IA"],
     coreNote: "L’hébergement, les sauvegardes et les conditions d’accès sont définis avec vous avant le développement.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "Un développement sur mesure se décide sur un périmètre écrit. Ces points conditionnent le délai, le budget et la suite.",
-    frameExtra: ["Les rôles, les droits et les parcours prioritaires.", "Les données existantes à reprendre, et leur qualité.", "Les conditions d’hébergement, de sauvegarde et de maintenance."],
     afterTitle: "Votre application évolue avec votre activité",
+    afterTitleAccents: ["évolue"],
     afterText: "Un outil métier qui sert vraiment finit toujours par devoir évoluer. Voici ce que nous assurons après la mise en service.",
     after: [
-      { title: "Maintenance technique", text: "Mises à jour, correctifs et surveillance de la disponibilité." },
-      { title: "Nouvelles fonctionnalités", text: "Les demandes sont priorisées, estimées, puis développées par étapes." },
-      { title: "Accompagnement des utilisateurs", text: "Prise en main des nouveaux arrivants et retours sur les usages réels." },
-      { title: "Suivi des coûts", text: "Hébergement, stockage et services externes restent chiffrés et visibles." },
+      { title: "Maintenance technique", text: "Mises à jour, correctifs et surveillance de la disponibilité.", status: "maintenance en cours" },
+      { title: "Nouvelles fonctionnalités", text: "Les demandes sont priorisées, estimées, puis développées par étapes.", status: "arbitrage en cours" },
+      { title: "Accompagnement des utilisateurs", text: "Prise en main des nouveaux arrivants et retours sur les usages réels.", status: "accompagnement en cours" },
+      { title: "Suivi des coûts", text: "Hébergement, stockage et services externes restent chiffrés et visibles.", status: "estimation en cours" },
     ],
     ctaTitle: "Voyons si un outil sur mesure est la bonne réponse",
     ctaText: "Décrivez-nous comment votre équipe travaille aujourd’hui, et ce qui coince. Le premier échange sert aussi à vérifier si un logiciel existant ne suffirait pas.",
@@ -275,7 +325,10 @@ const fr: Record<string, ServicePageContent> = {
   "integrations-systemes-connectes": {
     kicker: "Intégrations & systèmes connectés",
     h1: "Des intégrations entre vos logiciels et vos données",
+    h1Accents: ["intégrations"],
+    whatKicker: "Comprendre les intégrations",
     whatTitle: "Qu’est-ce qu’une intégration entre vos systèmes ?",
+    whatTitleAccents: ["intégration", "?"],
     whatText:
       "Une intégration permet à deux logiciels d’échanger une information : un contact, un statut, une commande, un document. Elle supprime la recopie et la question « quelle version est la bonne ». Une automatisation organise les étapes d’un processus ; une intégration transporte les données entre les outils. Les deux travaillent souvent ensemble, mais ce ne sont pas les mêmes objets.",
     sketch: { lead: "Système A", nodes: ["Identifiant commun", "Règles de transfert", "Journal"], out: "Système B", note: "Une source de référence est désignée pour chaque donnée" },
@@ -318,16 +371,14 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Couche d’intégration",
     coreChips: ["CRM", "ERP", "API", "Base de données", "Site web", "Outils SaaS", "Documents", "Reporting"],
     coreNote: "Chaque échange est limité aux données nécessaires, et consigné pour pouvoir être vérifié.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "La faisabilité d’une intégration dépend de vos logiciels, pas de notre volonté. Ces points sont vérifiés avant de confirmer un périmètre.",
-    frameExtra: ["Les outils à connecter et le sens des échanges.", "La source de référence pour chaque donnée partagée.", "La fréquence attendue, et le comportement en cas d’interruption."],
     afterTitle: "Vos connexions demandent un suivi",
+    afterTitleAccents: ["un suivi"],
     afterText: "Une intégration dépend d’outils que vous ne maîtrisez pas entièrement : ils évoluent. Voici ce que nous assurons après la mise en service.",
     after: [
-      { title: "Surveillance des échanges", text: "Les erreurs de transfert et les interruptions sont détectées rapidement." },
-      { title: "Suivi des évolutions d’API", text: "Une modification côté éditeur peut demander une adaptation de la connexion." },
-      { title: "Contrôle de cohérence", text: "Les écarts entre deux systèmes sont repérés et corrigés." },
-      { title: "Suivi des limites d’usage", text: "Volumes, quotas et coûts des services connectés restent visibles." },
+      { title: "Surveillance des échanges", text: "Les erreurs de transfert et les interruptions sont détectées rapidement.", status: "surveillance en cours" },
+      { title: "Suivi des évolutions d’API", text: "Une modification côté éditeur peut demander une adaptation de la connexion.", status: "vérification en cours" },
+      { title: "Contrôle de cohérence", text: "Les écarts entre deux systèmes sont repérés et corrigés.", status: "contrôle en cours" },
+      { title: "Suivi des limites d’usage", text: "Volumes, quotas et coûts des services connectés restent visibles.", status: "mesure en cours" },
     ],
     ctaTitle: "Voyons quels systèmes gagneraient à être reliés",
     ctaText: "Dites-nous quelle information vos équipes recopient d’un outil à l’autre. Le premier échange sert à vérifier les accès disponibles et la faisabilité réelle.",
@@ -342,7 +393,10 @@ const fr: Record<string, ServicePageContent> = {
   "data-intelligence": {
     kicker: "Data & intelligence",
     h1: "Vos données d’entreprise, transformées en informations utiles",
+    h1Accents: ["données d’entreprise"],
+    whatKicker: "Comprendre la donnée",
     whatTitle: "Qu’est-ce que la Data & Intelligence appliquée à l’entreprise ?",
+    whatTitleAccents: ["Data & Intelligence", "?"],
     whatText:
       "C’est le travail qui mène de données dispersées à des informations sur lesquelles on peut décider : réunir les sources, corriger ce qui est incohérent, définir des indicateurs avec le métier, puis les rendre lisibles. Lorsque l’historique le permet, une étape supplémentaire devient possible : estimation, score ou recommandation. Un chiffre observé et une estimation restent toujours présentés comme deux choses différentes.",
     sketch: { lead: "Vos sources", nodes: ["Nettoyage", "Structuration", "Analyse"], out: "Indicateurs lisibles", note: "Une estimation n’est jamais présentée comme un chiffre constaté" },
@@ -385,16 +439,14 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Vos indicateurs",
     coreChips: ["Ventes", "Stocks", "Production", "Clients", "Finance", "Support", "Site web", "Fichiers internes"],
     coreNote: "La qualité des données disponibles détermine ce qui peut être affirmé. Nous le disons avant de livrer un chiffre.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "Un projet data honnête commence par ce qui est mesurable. Ces points déterminent ce qu’il sera possible d’affirmer.",
-    frameExtra: ["Les questions auxquelles vous voulez répondre.", "Les sources disponibles et la profondeur de l’historique.", "Les définitions d’indicateurs partagées entre les équipes."],
     afterTitle: "Vos indicateurs demandent un entretien",
+    afterTitleAccents: ["un entretien"],
     afterText: "Des données vivantes se dégradent : une source change, un format évolue. Voici ce que nous assurons après la mise en service.",
     after: [
-      { title: "Surveillance des alimentations", text: "Une source interrompue ou incomplète est détectée avant d’être lue." },
-      { title: "Contrôle de qualité", text: "Les écarts et les valeurs aberrantes sont suivis dans le temps." },
-      { title: "Révision des modèles", text: "Une estimation est réévaluée régulièrement, et corrigée si elle dérive." },
-      { title: "Évolution des indicateurs", text: "Les définitions sont ajustées quand votre activité change." },
+      { title: "Surveillance des alimentations", text: "Une source interrompue ou incomplète est détectée avant d’être lue.", status: "surveillance en cours" },
+      { title: "Contrôle de qualité", text: "Les écarts et les valeurs aberrantes sont suivis dans le temps.", status: "contrôle en cours" },
+      { title: "Révision des modèles", text: "Une estimation est réévaluée régulièrement, et corrigée si elle dérive.", status: "révision en cours" },
+      { title: "Évolution des indicateurs", text: "Les définitions sont ajustées quand votre activité change.", status: "ajustement en cours" },
     ],
     ctaTitle: "Voyons ce que vos données permettent réellement de dire",
     ctaText: "Dites-nous quelle décision vous prenez aujourd’hui sans chiffre fiable. Le premier échange sert à évaluer les données disponibles et ce qu’elles autorisent.",
@@ -409,7 +461,10 @@ const fr: Record<string, ServicePageContent> = {
   "formation-adoption-ia": {
     kicker: "Formation & adoption IA",
     h1: "Former vos équipes et installer des usages durables de l’IA",
+    h1Accents: ["usages durables"],
+    whatKicker: "Comprendre l’adoption",
     whatTitle: "Qu’est-ce que l’adoption de l’IA en entreprise ?",
+    whatTitleAccents: ["adoption de l’IA", "?"],
     whatText:
       "Découvrir un outil et l’utiliser dans son travail sont deux choses distinctes. L’adoption consiste à choisir des usages utiles pour votre métier, à les pratiquer sur de vraies situations, puis à fixer des repères partagés : ce que l’on peut confier à l’IA, comment vérifier une réponse, et quelles informations ne doivent pas sortir de l’entreprise. Cela vaut pour des outils d’intelligence artificielle existants comme pour une solution que nous vous livrons.",
     sketch: { lead: "Vos situations de travail", nodes: ["Comprendre", "Pratiquer", "Vérifier"], out: "Des usages installés", note: "Des repères écrits, utilisables sans nous" },
@@ -452,16 +507,14 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Vos équipes",
     coreChips: ["Cas pratiques", "Exercices métier", "Méthodes de vérification", "Règles de partage", "Référents internes", "Supports écrits", "Suivi d’adoption", "Questions ouvertes"],
     coreNote: "Aucune certification n’est délivrée, et aucune prise en charge financière n’est présumée.",
-    frameTitle: "Ce qu’il faut cadrer ensemble",
-    frameText: "Une formation se prépare avec vous. Ces points déterminent le contenu, la durée et ce que l’équipe pourra en faire ensuite.",
-    frameExtra: ["Les participants, leur métier et leur niveau de départ.", "Les outils autorisés dans votre entreprise.", "Ce que l’équipe doit savoir faire seule à la fin."],
     afterTitle: "L’adoption se construit après la formation",
+    afterTitleAccents: ["se construit"],
     afterText: "Les habitudes se prennent dans les semaines qui suivent, pas pendant la séance. Voici ce que nous proposons ensuite.",
     after: [
-      { title: "Point de suivi", text: "Une séance ultérieure pour traiter les blocages rencontrés sur le terrain." },
-      { title: "Appui aux référents", text: "Les personnes qui diffusent les usages en interne restent accompagnées." },
-      { title: "Mise à jour des contenus", text: "Les outils évoluent vite : les supports et les exemples sont revus." },
-      { title: "Nouveaux usages", text: "De nouvelles tâches sont examinées à mesure que l’équipe progresse." },
+      { title: "Point de suivi", text: "Une séance ultérieure pour traiter les blocages rencontrés sur le terrain.", status: "suivi en cours" },
+      { title: "Appui aux référents", text: "Les personnes qui diffusent les usages en interne restent accompagnées.", status: "appui en cours" },
+      { title: "Mise à jour des contenus", text: "Les outils évoluent vite : les supports et les exemples sont revus.", status: "mise à jour en cours" },
+      { title: "Nouveaux usages", text: "De nouvelles tâches sont examinées à mesure que l’équipe progresse.", status: "examen en cours" },
     ],
     ctaTitle: "Voyons comment former votre équipe utilement",
     ctaText: "Dites-nous où en est votre équipe avec l’IA aujourd’hui. Le premier échange sert à définir un format réaliste et des usages adaptés à votre métier.",
@@ -478,35 +531,33 @@ const en: Record<string, ServicePageContent> = {
   "assistants-agents-ia": {
     kicker: "AI assistants & agents",
     h1: "AI assistants and agents built into your tools",
+    h1Accents: ["AI assistants and agents"],
+    whatKicker: "Understanding AI agents",
     whatTitle: "What is an AI agent?",
+    whatTitleAccents: ["AI agent?"],
+    whatTitleOneLine: true,
     whatText:
-      "An AI assistant answers a request: it looks something up, drafts a text, summarises a document. An AI agent goes further: it receives a request, works out the steps to take and performs actions in your software, within a scope you define. It is not a chat window dropped onto your website, but a component connected to your data and your business tools, where every permitted action is decided in advance.",
-    sketch: { lead: "A request", nodes: ["Authorised sources", "AI agent", "Permitted actions"], out: "Prepared answer", note: "Human approval wherever it is needed" },
-    usesTitle: "What an AI agent can be used for",
+      "An AI assistant helps your teams search, draft, summarise or make use of information faster. An AI agent goes further: connected to your data and your business software, it can analyse a request, carry out a sequence of steps and perform actions under defined rules, while keeping a level of control that suits your business.",
+    whatVisual: "agent",
+    usesTitle: "What an AI agent can be used for,\nand the forms it can take",
+    usesTitleAccents: ["used for", "forms"],
+    usesKicker: "Concrete uses and agent types",
+    usesCards: true,
+    mergeForms: true,
     usesText: "These are the uses we meet most often in business. Your need may be different: it is scoped around your own processes.",
     uses: [
-      { title: "Answer routine requests", text: "Prepare a reply from your documents, with the sources used." },
-      { title: "Search your documents", text: "Find a precise detail inside authorised files." },
-      { title: "Qualify an incoming request", text: "Identify the subject, the urgency and who should handle it." },
-      { title: "Update your CRM", text: "Create or complete a record after an exchange, using agreed fields." },
-      { title: "Prepare a quote or a file", text: "Gather what is needed and propose a document to review." },
-      { title: "Analyse incoming email", text: "Sort, summarise and flag what needs a quick decision." },
-      { title: "Produce a write-up", text: "Draft a summary from notes or a history of exchanges." },
-      { title: "Chain several actions", text: "Run a sequence of permitted steps, and stop at an approval." },
-    ],
-    formsTitle: "The forms an AI agent can take",
-    formsText: "An agent is always designed for a job and a task. These profiles show possible directions, not a product catalogue.",
-    forms: [
-      { title: "Document agent", text: "Queries your internal documents and cites its sources." },
-      { title: "Customer service agent", text: "Prepares replies to requests received by email or form." },
-      { title: "Sales agent", text: "Qualifies leads, prepares follow-ups and updates tracking." },
-      { title: "Operations agent", text: "Follows open files and prepares the next steps." },
-      { title: "Admin agent", text: "Processes incoming paperwork and prepares entries for approval." },
-      { title: "Business copilot", text: "Built into existing software, it helps the user on their own screen." },
-      { title: "Data agent", text: "Queries your databases and returns a figure with its origin." },
-      { title: "Custom agent", text: "Designed for a specific task your tools do not cover." },
+      { title: "Answer routine requests", text: "Prepare a reply from your documents, with the sources used.", form: "Conversational agent" },
+      { title: "Search your documents", text: "Find a precise detail inside authorised files.", form: "Document agent" },
+      { title: "Qualify an incoming request", text: "Identify the subject, the urgency and who should handle it.", form: "Sales agent" },
+      { title: "Update your CRM", text: "Create or complete a record after an exchange, using agreed fields.", form: "Operations agent" },
+      { title: "Prepare a quote or a file", text: "Gather what is needed and propose a document to review.", form: "Admin agent" },
+      { title: "Analyse incoming email", text: "Sort, summarise and flag what needs a quick decision.", form: "Customer service agent" },
+      { title: "Produce a write-up", text: "Draft a summary from notes or a history of exchanges.", form: "Business copilot" },
+      { title: "Chain several actions", text: "Run a sequence of permitted steps, and stop at an approval.", form: "Custom agent" },
     ],
     howTitle: "How an AI agent works",
+    howTitleAccents: ["works"],
+    mergeHow: true,
     howText: "An agent always follows the same cycle, and every step stays observable. You decide where human approval sits, and nothing runs outside the scope set at the start.",
     steps: [
       { title: "Receive", text: "A request arrives: email, form, message or a trigger in a tool." },
@@ -517,20 +568,21 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "Inside your environment",
     coreTitle: "Your tools stay at the centre",
+    coreTitleAccents: ["tools", "centre"],
+    coreTitleOneLine: true,
+    coreVisual: "agent",
     coreText: "An AI agent does not replace your working environment, it plugs into it. It reads and writes in the software your teams already use, with the access rights you grant.",
     coreCentre: "AI agent",
     coreChips: ["CRM", "ERP", "Email", "Documents", "Database", "API", "Business tools", "Calendar"],
     coreNote: "Access is limited to what is necessary. Sensitive actions remain subject to human approval.",
-    frameTitle: "What we define together",
-    frameText: "A useful agent is a limited agent. These points are settled before development: they decide what the solution will do, and what it will not.",
-    frameExtra: ["The tasks it takes on, and the expected outcome.", "The permitted actions, and those that stay off-limits.", "The criteria we will judge the result by."],
     afterTitle: "Your agent changes as your business does",
+    afterTitleAccents: ["changes"],
     afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. Here is what we handle after go-live.",
     after: [
-      { title: "Monitoring", text: "We watch runs, errors and cases that fall outside the intended scope." },
-      { title: "Rule adjustments", text: "Answers and actions are corrected from your users' feedback." },
-      { title: "Source upkeep", text: "Documents and access are kept current so the agent stays reliable." },
-      { title: "Usage costs", text: "AI model consumption stays visible and is estimated before any change." },
+      { title: "Monitoring", text: "We watch runs, errors and cases that fall outside the intended scope.", status: "monitoring in progress" },
+      { title: "Rule adjustments", text: "Answers and actions are corrected from your users' feedback.", status: "adjustment in progress" },
+      { title: "Source upkeep", text: "Documents and access are kept current so the agent stays reliable.", status: "update in progress" },
+      { title: "Usage costs", text: "AI model consumption stays visible and is estimated before any change.", status: "estimate in progress" },
     ],
     ctaTitle: "Let's see whether an AI agent fits your business",
     ctaText: "Describe one specific task that takes your team's time. The first conversation checks whether an assistant or an agent can genuinely help, and on what terms.",
@@ -545,7 +597,10 @@ const en: Record<string, ServicePageContent> = {
   "automatisations-intelligentes": {
     kicker: "Intelligent automation",
     h1: "Intelligent automation for your business processes",
+    h1Accents: ["Intelligent automation"],
+    whatKicker: "Understanding automation",
     whatTitle: "What is intelligent automation?",
+    whatTitleAccents: ["intelligent automation?"],
     whatText:
       "An automation links a trigger, a set of steps and rules: a document arrives, its contents are checked, then it is passed to the right tool. It becomes intelligent when a step requires understanding a text, classifying a request or extracting information from an unstructured document. The rest of the flow stays deterministic: a clear rule beats a model wherever a calculation is enough.",
     sketch: { lead: "Trigger", nodes: ["Check", "Action", "Update"], out: "Notification", note: "An ambiguous case leaves the flow and goes to a person" },
@@ -588,16 +643,14 @@ const en: Record<string, ServicePageContent> = {
     coreCentre: "Automated flow",
     coreChips: ["Mailbox", "Documents", "CRM", "Accounting tool", "ERP", "Spreadsheet", "E-signature", "Team chat"],
     coreNote: "Original files are kept, and every run leaves a record you can consult.",
-    frameTitle: "What we define together",
-    frameText: "An automation reproduces decisions. They have to be written down before they are coded, exceptions included.",
-    frameExtra: ["The trigger and the steps of the process.", "The exceptions, and what should happen to them.", "The controls, the retries and duplicate handling."],
     afterTitle: "Your flows follow your rules",
+    afterTitleAccents: ["follow"],
     afterText: "An automated process is not frozen: your rules change, your tools get updated. Here is what we handle after go-live.",
     after: [
-      { title: "Run monitoring", text: "Failures, blockages and unusual queues are detected." },
-      { title: "Exception handling", text: "Cases that left the flow are reviewed, then folded into the rules if useful." },
-      { title: "Keeping up with tools", text: "An update to a connected system can require adjusting the flow." },
-      { title: "Volume tracking", text: "Processed volumes and platform costs stay visible." },
+      { title: "Run monitoring", text: "Failures, blockages and unusual queues are detected.", status: "monitoring in progress" },
+      { title: "Exception handling", text: "Cases that left the flow are reviewed, then folded into the rules if useful.", status: "handling in progress" },
+      { title: "Keeping up with tools", text: "An update to a connected system can require adjusting the flow.", status: "adaptation in progress" },
+      { title: "Volume tracking", text: "Processed volumes and platform costs stay visible.", status: "measurement in progress" },
     ],
     ctaTitle: "Let's see which process is worth automating",
     ctaText: "Describe a task your team repeats every week. The first conversation checks whether it can be automated reliably, and what has to be settled first.",
@@ -612,7 +665,10 @@ const en: Record<string, ServicePageContent> = {
   "logiciels-applications-ia": {
     kicker: "AI software & applications",
     h1: "Custom business software and AI applications",
+    h1Accents: ["Custom business software", "AI applications"],
+    whatKicker: "Understanding custom software",
     whatTitle: "What is custom business software?",
+    whatTitleAccents: ["custom business software?"],
     whatText:
       "It is an application designed around how you actually work: your roles, your data, your rules and the screens your teams need. It can replace a set of files that has become hard to maintain, extend software you already run, or become a feature you offer your own customers. AI is not the starting point: we define the useful path first, then where AI adds something.",
     sketch: { lead: "Your users", nodes: ["Business screens", "Rules and rights", "Data"], out: "A tool in daily use", note: "AI goes where it saves time, not everywhere" },
@@ -655,16 +711,14 @@ const en: Record<string, ServicePageContent> = {
     coreCentre: "Your application",
     coreChips: ["Roles and rights", "Business rules", "Your data", "Dedicated screens", "History", "Exports", "Connections", "AI assistance"],
     coreNote: "Hosting, backups and access conditions are agreed with you before development starts.",
-    frameTitle: "What we define together",
-    frameText: "Custom development is decided on a written scope. These points drive the timeline, the budget and what comes next.",
-    frameExtra: ["The roles, rights and priority user paths.", "The existing data to carry over, and its quality.", "Hosting, backup and maintenance conditions."],
     afterTitle: "Your application grows with your business",
+    afterTitleAccents: ["grows"],
     afterText: "A tool that genuinely gets used always ends up needing to change. Here is what we handle after go-live.",
     after: [
-      { title: "Technical maintenance", text: "Updates, fixes and availability monitoring." },
-      { title: "New features", text: "Requests are prioritised, estimated, then built in stages." },
-      { title: "User support", text: "Onboarding for newcomers and feedback from real use." },
-      { title: "Cost tracking", text: "Hosting, storage and external services stay costed and visible." },
+      { title: "Technical maintenance", text: "Updates, fixes and availability monitoring.", status: "maintenance in progress" },
+      { title: "New features", text: "Requests are prioritised, estimated, then built in stages.", status: "review in progress" },
+      { title: "User support", text: "Onboarding for newcomers and feedback from real use.", status: "support in progress" },
+      { title: "Cost tracking", text: "Hosting, storage and external services stay costed and visible.", status: "estimate in progress" },
     ],
     ctaTitle: "Let's see whether custom software is the right answer",
     ctaText: "Tell us how your team works today, and where it breaks down. The first conversation also checks whether an existing product would do the job.",
@@ -679,7 +733,10 @@ const en: Record<string, ServicePageContent> = {
   "integrations-systemes-connectes": {
     kicker: "Integrations & connected systems",
     h1: "Integrations between your software and your data",
+    h1Accents: ["Integrations"],
+    whatKicker: "Understanding integrations",
     whatTitle: "What is an integration between your systems?",
+    whatTitleAccents: ["integration", "?"],
     whatText:
       "An integration lets two pieces of software exchange information: a contact, a status, an order, a document. It removes re-keying and the question of which version is right. An automation organises the steps of a process; an integration moves data between tools. The two often work together, but they are not the same thing.",
     sketch: { lead: "System A", nodes: ["Shared identifier", "Transfer rules", "Log"], out: "System B", note: "One system of record is named for each piece of data" },
@@ -722,16 +779,14 @@ const en: Record<string, ServicePageContent> = {
     coreCentre: "Integration layer",
     coreChips: ["CRM", "ERP", "API", "Database", "Website", "SaaS tools", "Documents", "Reporting"],
     coreNote: "Each exchange is limited to the data required, and logged so it can be checked.",
-    frameTitle: "What we define together",
-    frameText: "Whether an integration is feasible depends on your software, not on our willingness. These points are checked before a scope is confirmed.",
-    frameExtra: ["The tools to connect and the direction of each exchange.", "The system of record for every shared field.", "The expected frequency, and the behaviour during an outage."],
     afterTitle: "Your connections need looking after",
+    afterTitleAccents: ["looking after"],
     afterText: "An integration depends on tools you do not fully control, and they change. Here is what we handle after go-live.",
     after: [
-      { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly." },
-      { title: "Following API changes", text: "A change on the vendor's side can require adapting the connection." },
-      { title: "Consistency checks", text: "Differences between two systems are spotted and corrected." },
-      { title: "Usage limits", text: "Volumes, quotas and the cost of connected services stay visible." },
+      { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly.", status: "monitoring in progress" },
+      { title: "Following API changes", text: "A change on the vendor's side can require adapting the connection.", status: "check in progress" },
+      { title: "Consistency checks", text: "Differences between two systems are spotted and corrected.", status: "check in progress" },
+      { title: "Usage limits", text: "Volumes, quotas and the cost of connected services stay visible.", status: "measurement in progress" },
     ],
     ctaTitle: "Let's see which systems should be connected",
     ctaText: "Tell us which information your teams copy from one tool to another. The first conversation checks the available access and what is genuinely feasible.",
@@ -746,7 +801,10 @@ const en: Record<string, ServicePageContent> = {
   "data-intelligence": {
     kicker: "Data & intelligence",
     h1: "Turning your business data into information you can use",
+    h1Accents: ["business data"],
+    whatKicker: "Understanding data work",
     whatTitle: "What is data and intelligence applied to business?",
+    whatTitleAccents: ["data and intelligence", "?"],
     whatText:
       "It is the work that leads from scattered data to information you can decide on: bringing the sources together, correcting what is inconsistent, defining indicators with the business, then making them readable. Where the history allows it, a further step becomes possible: an estimate, a score, a recommendation. An observed figure and an estimate are always presented as two different things.",
     sketch: { lead: "Your sources", nodes: ["Cleaning", "Structuring", "Analysis"], out: "Readable indicators", note: "An estimate is never shown as a recorded figure" },
@@ -789,16 +847,14 @@ const en: Record<string, ServicePageContent> = {
     coreCentre: "Your indicators",
     coreChips: ["Sales", "Stock", "Production", "Clients", "Finance", "Support", "Website", "Internal files"],
     coreNote: "The quality of the available data decides what can be claimed. We say so before delivering a figure.",
-    frameTitle: "What we define together",
-    frameText: "An honest data project starts with what is measurable. These points decide what it will be possible to state.",
-    frameExtra: ["The questions you want answered.", "The available sources and the depth of history.", "Indicator definitions shared across teams."],
     afterTitle: "Your indicators need upkeep",
+    afterTitleAccents: ["upkeep"],
     afterText: "Live data degrades: a source changes, a format moves. Here is what we handle after go-live.",
     after: [
-      { title: "Feed monitoring", text: "An interrupted or incomplete source is detected before it is read." },
-      { title: "Quality control", text: "Gaps and outliers are tracked over time." },
-      { title: "Model review", text: "An estimate is re-evaluated regularly, and corrected if it drifts." },
-      { title: "Indicator changes", text: "Definitions are adjusted when your activity changes." },
+      { title: "Feed monitoring", text: "An interrupted or incomplete source is detected before it is read.", status: "monitoring in progress" },
+      { title: "Quality control", text: "Gaps and outliers are tracked over time.", status: "check in progress" },
+      { title: "Model review", text: "An estimate is re-evaluated regularly, and corrected if it drifts.", status: "review in progress" },
+      { title: "Indicator changes", text: "Definitions are adjusted when your activity changes.", status: "adjustment in progress" },
     ],
     ctaTitle: "Let's see what your data can actually tell you",
     ctaText: "Tell us which decision you make today without a figure you trust. The first conversation assesses the data available and what it supports.",
@@ -813,7 +869,10 @@ const en: Record<string, ServicePageContent> = {
   "formation-adoption-ia": {
     kicker: "AI training & adoption",
     h1: "Training your teams and making AI use stick",
+    h1Accents: ["Training your teams"],
+    whatKicker: "Understanding adoption",
     whatTitle: "What does adopting AI in a company mean?",
+    whatTitleAccents: ["adopting AI", "?"],
     whatText:
       "Discovering a tool and using it in your work are two different things. Adoption means choosing uses that suit your business, practising them on real situations, then agreeing shared ground rules: what can be handed to AI, how an answer is checked, and which information must not leave the company. This applies to existing AI tools as much as to a solution we deliver.",
     sketch: { lead: "Your work situations", nodes: ["Understand", "Practise", "Verify"], out: "Habits that stick", note: "Written ground rules, usable without us" },
@@ -856,16 +915,14 @@ const en: Record<string, ServicePageContent> = {
     coreCentre: "Your teams",
     coreChips: ["Practical cases", "Business exercises", "Verification methods", "Sharing rules", "Internal champions", "Written material", "Adoption follow-up", "Open questions"],
     coreNote: "No certification is issued, and no funding scheme is assumed.",
-    frameTitle: "What we define together",
-    frameText: "Training is prepared with you. These points decide the content, the length and what the team can do with it afterwards.",
-    frameExtra: ["The participants, their work and their starting level.", "The tools approved inside your company.", "What the team must be able to do unaided at the end."],
     afterTitle: "Adoption is built after the training",
+    afterTitleAccents: ["is built"],
     afterText: "Habits form in the weeks that follow, not during the session. Here is what we offer next.",
     after: [
-      { title: "Follow-up session", text: "A later meeting to work through what blocked people in practice." },
-      { title: "Support for champions", text: "The people spreading the practice internally keep their support." },
-      { title: "Updated material", text: "Tools move fast: material and examples are reviewed." },
-      { title: "New uses", text: "Further tasks are examined as the team progresses." },
+      { title: "Follow-up session", text: "A later meeting to work through what blocked people in practice.", status: "follow-up in progress" },
+      { title: "Support for champions", text: "The people spreading the practice internally keep their support.", status: "support in progress" },
+      { title: "Updated material", text: "Tools move fast: material and examples are reviewed.", status: "update in progress" },
+      { title: "New uses", text: "Further tasks are examined as the team progresses.", status: "review in progress" },
     ],
     ctaTitle: "Let's see how to train your team usefully",
     ctaText: "Tell us where your team stands with AI today. The first conversation sets a realistic format and uses that suit your business.",

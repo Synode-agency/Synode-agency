@@ -107,7 +107,7 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
           <text x="43" y={80 + i * 40} fill="#E8EEF7" fontSize="10.2">{label}</text>
         </g>)}
 
-        <text x="15" y="270" fill="#8FA0B8" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="8.4">{fr ? "Autonomie de l’équipe" : "Team autonomy"}</text>
+        <text x="15" y="270" fill="#8FA0B8" fontSize="8.4">{fr ? "Autonomie de l’équipe" : "Team autonomy"}</text>
         <rect x="15" y="280" width="134" height="6" rx="3" fill="#1A2D4A" />
         <rect data-role="progress" className={styles.softTransition} x="15" y="280" width="0" height="6" rx="3" fill="#0A6CF0" />
         <text data-role="autonomy" className={`${styles.micro} ${styles.greenText}`} x="15" y="303">0 %</text>

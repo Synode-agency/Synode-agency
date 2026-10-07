@@ -32,7 +32,7 @@
   margin: 0 0 10px;
   padding-left: 4px;
   color: #8fa0b8;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-sans);
   font-size: 9.5px;
   line-height: 1;
 }
@@ -68,7 +68,7 @@
 
 .scene .micro {
   fill: #8fa0b8;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-sans);
   font-size: 9.5px;
 }
 

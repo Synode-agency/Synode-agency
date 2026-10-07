@@ -12,9 +12,8 @@ import { renderLines } from "@/lib/lines";
 import { SolutionsDashboard } from "./solutions-dashboard";
 import { PageHero } from "@/components/site/page-hero";
 import { Booking } from "@/components/site/booking";
-import { AssemblyPicker } from "@/components/site/assembly-picker";
 import { SecurityPanel } from "@/components/site/security-panel";
-import { MethodTabs } from "@/components/site/method-tabs";
+import { MethodFrame } from "@/components/site/method-frame";
 import { PricingDoc } from "@/components/site/pricing-doc";
 
 /**
@@ -137,36 +136,28 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         </ul>
       </Band>
 
-      {/* ---- Comment tout s'assemble. Trois colonnes séparées par un filet,
-          sans une seule ligne de liaison : c'est la progression de gauche à
-          droite qui dit l'assemblage, pas un réseau de traits. ---- */}
-      <Band id="assemblage" tone="base" className="solutions-rhythm solutions-full">
-        <Lede
-          kicker={fr ? "Comment tout s’assemble" : "How it all fits together"}
-          title={fr ? "Plusieurs expertises.\nUne solution IA sur mesure." : "Several capabilities.\nOne solution."}
-          accents={fr ? ["solution IA sur mesure"] : ["One solution"]}
-          text={fr ? "Nous sélectionnons les briques adaptées à votre objectif : agents IA, automatisations, intégrations, logiciels métier, exploitation des données et formation. Elles forment un système cohérent, connecté à votre environnement de travail." : "We combine the blocks your need calls for — AI agents, automations, integrations, business software, data and support — into one coherent solution, built into your working environment."}
-        />
-        {/* Une addition, et rien d'autre. Six termes, un filet, un résultat.
-            Aucune boîte, aucune ligne de liaison : le signe « + » et le
-            signe « = » disent l'assemblage mieux qu'un schéma, et ils le
-            disent en une seconde. */}
-        <AssemblyPicker locale={locale} />
-      </Band>
+      {/* ---- Le déroulé d'un projet : le texte à gauche, le cadre des six
+          étapes à droite, les deux de la même hauteur.
 
-      {/* ---- Ce que comprend un projet. Quatre temps, chacun avec une
-          mini-interface dessinée en CSS : plan de modules, composants de
-          code, document coché, courbe de monitoring. ---- */}
-      <Band id="methode" tone="base" className="solutions-rhythm solutions-full technical-band">
-        <div className="section-heading">
-          <Lede
-            kicker={fr ? "Conception & Développement IA" : "AI design & development"}
-            title={fr ? "De votre besoin au déploiement :\nnotre méthode pour votre projet IA" : "From your need to deployment:\nour method for your AI project"}
-            accents={fr ? ["méthode"] : ["method"]}
-            text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
-          />
+          La bande ne porte plus `solutions-full` : elle n'impose donc plus
+          la hauteur d'écran, et son rembourrage est le même en haut et en
+          bas, celui de `solutions-rhythm`.
+
+          Le `\n` du titre est retiré : dans une demi-colonne, la coupe
+          forcée tombait au mauvais endroit et le titre se replie très bien
+          tout seul. ---- */}
+      <Band id="methode" tone="base" className="solutions-rhythm technical-band solutions-ink-band mfr-band">
+        <div className="mfr-layout">
+          <div className="mfr-copy">
+            <Lede
+              kicker={fr ? "Conception & Développement IA" : "AI design & development"}
+              title={fr ? "Notre méthode pour\nvotre projet IA." : "Our method for\nyour AI project."}
+              accents={fr ? ["méthode"] : ["method"]}
+              text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
+            />
+          </div>
+          <MethodFrame locale={locale} />
         </div>
-        <MethodTabs locale={locale} />
       </Band>
 
       {/* ---- Sécurité : le texte à gauche, un petit panneau d'état à

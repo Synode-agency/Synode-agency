@@ -1,4 +1,4 @@
-import { ArrowRight, Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ServiceSketch } from "@/lib/service-pages";
 import type { Locale } from "@/lib/content";
@@ -13,9 +13,11 @@ import type { Locale } from "@/lib/content";
  * serveur. Pas de 3D, pas de dégradé, pas de forme abstraite.
  *
  * ── Le point à ne pas défaire ───────────────────────────────────────────
- * `ServiceSketch` a SIX dessins distincts, choisis par `kind` (le `visual`
- * de la famille). Six pages qui montreraient le même schéma avec six jeux
- * d'étiquettes ne diraient plus rien : c'est justement ce dessin qui fait
+ * `ServiceSketch` a un dessin distinct par service, choisi par `kind` (le
+ * `visual` de la famille). Le cas 0, celui des agents, n'y est plus : cette
+ * page montre un agent au travail sur toute la largeur de la section, dans
+ * `AgentStory`. Des pages qui montreraient le même schéma avec plusieurs
+ * jeux d'étiquettes ne diraient plus rien : c'est justement ce dessin qui fait
  * la différence entre un agent, un flux, une application et un pipeline de
  * données. Les quatre autres blocs, eux, sont volontairement identiques
  * partout : c'est ce qui tient les six pages dans le même système.
@@ -33,21 +35,6 @@ export function ServiceSketch({ kind, data, locale }: { kind: number; data: Serv
   return (
     <figure className={`svc-sketch svc-sketch--${kind}`} aria-label={label}>
       <div className="svc-sketch-body" aria-hidden>
-        {/* ---- 0 · Un agent entre ses sources et ses actions ---- */}
-        {kind === 0 && (
-          <>
-            <span className="sk-pill sk-pill--in">{data.lead}</span>
-            <span className="sk-wire" />
-            <div className="sk-agent">
-              <span className="sk-side">{data.nodes[0]}</span>
-              <span className="sk-hub">{data.nodes[1]}</span>
-              <span className="sk-side">{data.nodes[2]}</span>
-            </div>
-            <span className="sk-wire" />
-            <span className="sk-pill sk-pill--out"><Check />{data.out}</span>
-          </>
-        )}
-
         {/* ---- 1 · Une chaîne d'étapes ---- */}
         {kind === 1 && (
           <ol className="sk-chain">
@@ -160,21 +147,3 @@ export function ServiceCore({ centre, chips, icon: Icon, locale }: { centre: str
   );
 }
 
-/** Le petit visuel du CTA : le service, son bénéfice, ses trois premiers temps. */
-export function ServiceCtaArt({ icon: Icon, title, benefit, steps }: { icon: LucideIcon; title: string; benefit: string; steps: string[] }) {
-  return (
-    <div className="svc-cta-art" aria-hidden>
-      <span className="svc-cta-mark"><Icon /></span>
-      <strong>{title}</strong>
-      <p>{benefit}</p>
-      <span className="svc-cta-path">
-        {steps.map((step, i) => (
-          <span key={step}>
-            {i > 0 && <ArrowRight />}
-            <em>{step}</em>
-          </span>
-        ))}
-      </span>
-    </div>
-  );
-}
