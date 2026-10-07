@@ -14,6 +14,11 @@ import type { ReactNode } from "react";
  * titre pleine largeur, pas de hauteur de fenêtre imposée, pas d'espace vide
  * à combler. Ces pages sont plus sobres par construction.
  *
+ * `kicker` est optionnel et se place AU-DESSUS du `h1`, hors du titre : les
+ * six pages services s'en servent pour annoncer le service, et un surtitre
+ * glissé dans le `h1` abîmerait le titre pour un lecteur d'écran comme pour
+ * un moteur de recherche.
+ *
  * `aside` est rendu en enfant direct de la grille, sans enveloppe : chaque
  * illustration garde ainsi ses propres règles de largeur et d'alignement.
  * Sans illustration, la grille passe à une colonne plutôt que de laisser un
@@ -22,6 +27,7 @@ import type { ReactNode } from "react";
 export function PageHero({
   id = "top",
   layout = "inner",
+  kicker,
   title,
   aside,
   strip,
@@ -30,6 +36,7 @@ export function PageHero({
 }: {
   id?: string;
   layout?: "feature" | "inner";
+  kicker?: string;
   title: ReactNode;
   aside?: ReactNode;
   strip?: ReactNode;
@@ -55,6 +62,7 @@ export function PageHero({
         ) : (
           <div className={grid}>
             <div className="studio-hero-copy">
+              {kicker && <span className="studio-hero-kicker">{kicker}</span>}
               <h1>{title}</h1>
               {children}
             </div>

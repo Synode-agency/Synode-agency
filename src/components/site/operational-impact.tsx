@@ -1,5 +1,5 @@
-import { GitMerge, Database, ShieldCheck, UserCheck } from "lucide-react";
 import { renderLines } from "@/lib/lines";
+import { ImpactSplit } from "@/components/site/impact-split";
 import type { Locale } from "@/lib/content";
 
 /**
@@ -33,18 +33,6 @@ export function OperationalImpact({ locale }: { locale: Locale }) {
         text: "A well-integrated system acts on the way the business runs: it reduces friction between tools, makes the execution of a business process more reliable, makes data usable at the right moment and leaves teams the decisions that call for their judgement.",
       };
 
-  const items = fr ? [
-    { icon: GitMerge, title: "Continuité des processus", text: "Réduisez les ruptures entre vos outils, vos équipes et les différentes étapes de vos processus métier grâce à une meilleure orchestration des systèmes.", keyword: "Orchestration" },
-    { icon: ShieldCheck, title: "Fiabilité opérationnelle", text: "Intégrez vos règles métier, contrôles et validations directement dans votre système IA afin de fiabiliser l’exécution de vos processus.", keyword: "Règles métier" },
-    { icon: Database, title: "Exploitation des données", text: "Centralisez, contextualisez et rendez vos données exploitables au bon moment pour faciliter le pilotage et la prise de décision.", keyword: "Pilotage" },
-    { icon: UserCheck, title: "Capacité opérationnelle augmentée", text: "Automatisez certaines étapes de vos processus métier tout en conservant un contrôle humain sur les décisions importantes et les situations complexes.", keyword: "Validation humaine" },
-  ] : [
-    { icon: GitMerge, title: "Process continuity", text: "Reduce the breaks between your tools, your teams and the successive steps of a business process through better orchestration of your systems.", keyword: "Orchestration" },
-    { icon: ShieldCheck, title: "Operational reliability", text: "Build your business rules, checks and approvals into your AI system itself, so that your processes run reliably.", keyword: "Business rules" },
-    { icon: Database, title: "Data you can use", text: "Centralise and contextualise your data, and make it usable at the right moment to support oversight and decision-making.", keyword: "Oversight" },
-    { icon: UserCheck, title: "Extended operational capacity", text: "Automate selected steps of your business processes while keeping human control over the decisions that matter and the situations that are complex.", keyword: "Human approval" },
-  ];
-
   return (
     <section className="operational-impact" aria-labelledby={`operational-impact-${locale}`}>
       <div className="operational-impact-heading">
@@ -52,16 +40,7 @@ export function OperationalImpact({ locale }: { locale: Locale }) {
         <h2 id={`operational-impact-${locale}`}>{renderLines(heading.title, [heading.accent], "title-accent")}</h2>
         <p>{renderLines(heading.text)}</p>
       </div>
-      <ul className="impact-rail">
-        {items.map(({ icon: Icon, title, text, keyword }) => (
-          <li key={title}>
-            <Icon className="impact-rail-icon" aria-hidden />
-            <h3>{title}</h3>
-            <p>{text}</p>
-            <span className="impact-rail-keyword">{keyword}</span>
-          </li>
-        ))}
-      </ul>
+      <ImpactSplit locale={locale} />
     </section>
   );
 }

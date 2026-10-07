@@ -5,13 +5,13 @@ import {
 } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
+import { SolutionSlices } from "@/components/site/solution-slices";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { renderLines } from "@/lib/lines";
 import { SolutionsDashboard } from "./solutions-dashboard";
 import { PageHero } from "@/components/site/page-hero";
 import { Booking } from "@/components/site/booking";
-import { SolutionFamilies } from "./solution-families";
 import { AssemblyPicker } from "@/components/site/assembly-picker";
 import { SecurityPanel } from "@/components/site/security-panel";
 import { MethodTabs } from "@/components/site/method-tabs";
@@ -102,7 +102,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
 
       <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
         <Lede kicker={fr ? "Solutions IA pour votre entreprise" : "AI solutions for your business"} title={fr ? "Nos solutions IA sur mesure" : "Our custom AI solutions"} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} text={fr ? "Notre agence IA à Bruxelles combine agents IA, automatisation des processus, logiciels métier, intégrations, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
-        <SolutionFamilies locale={locale} anchors />
+        <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
         <p className="families-note">
           {fr
             ? "Les solutions peuvent être accompagnées dans le temps par du monitoring, de la maintenance et des évolutions selon les besoins du projet. *"
@@ -208,9 +208,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <div className="cta-booking-copy">
             <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
             <Lede
-              title={fr ? "Parlons de votre projet\nd’intelligence artificielle" : "Your need isn’t listed here?"}
-              accents={fr ? ["projet", "d’intelligence artificielle"] : ["need"]}
-              text={fr ? "Vous avez un processus à automatiser, un agent IA à concevoir ou un logiciel métier à faire évoluer ? Présentez-nous votre contexte pour évaluer la pertinence et la faisabilité d’une solution IA sur mesure." : "Every business works differently. Let’s talk about your tools, your data and your processes, and find the AI solution that actually fits."}
+              title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."}
+
+              text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
             />
             <div className="btn-row">
               <Link href="#calendrier-solutions" className="btn btn--primary">{fr ? "Réserver un échange" : "Book a call"}<ArrowRight aria-hidden /></Link>

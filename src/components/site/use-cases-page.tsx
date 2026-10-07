@@ -4,7 +4,7 @@ import { Band, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { renderLines } from "@/lib/lines";
-import { BusinessUseCaseCards } from "@/components/site/business-use-case-cards";
+import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { UseCaseTerminal } from "@/components/site/use-case-terminal";
 import { businessUseCases } from "@/lib/business-use-cases";
@@ -54,11 +54,12 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
       <Band id="exemples" tone="white" className="studio-section use-cases-catalog">
         <Lede
           title={fr ? "Des solutions IA intégrées à vos processus métier" : "AI solutions integrated into your business processes"}
+          accents={fr ? ["solutions IA", "processus métier"] : ["AI solutions", "business processes"]}
           text={fr
             ? "Agents IA, automatisations, intégrations, analyse de données et logiciels métier peuvent intervenir dans de nombreux processus d’entreprise : opérations, service client, ventes, finance, gestion documentaire ou planification. Chaque solution est cadrée selon votre environnement, vos données, vos règles métier et le niveau de contrôle humain requis."
             : "AI agents, automations, integrations, data analysis and business software can support many company processes: operations, customer service, sales, finance, document management or planning. Every solution is scoped around your environment, data, business rules and the required level of human control."}
         />
-        <div className="section-gap"><BusinessUseCaseCards items={cases} locale={locale} /></div>
+        <UseCaseAccordion items={cases} locale={locale} rich anchors />
       </Band>
 
       <Band id="impact-operationnel" tone="base" className="studio-section operational-impact-band">
