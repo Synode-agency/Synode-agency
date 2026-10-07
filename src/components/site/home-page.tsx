@@ -9,7 +9,7 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { HeroStage } from "@/components/site/hero-stage";
 import { PageHero } from "@/components/site/page-hero";
 import { TrustSteps } from "@/components/site/trust-steps";
-import { MethodTabs } from "@/components/site/method-tabs";
+import { MethodFrame } from "@/components/site/method-frame";
 import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { ToolsSection } from "@/components/site/tools/tools-section";
@@ -120,9 +120,16 @@ export function HomePage({ locale }: { locale: Locale }) {
       <TrustSteps locale={locale} />
     </Band>
 
-    <Band id="approche" tone="base" className="studio-section home-dark-band home-method-dark">
-      <div className="section-heading"><Lede kicker={fr ? "Conception & Développement IA" : "AI design & development"} title={fr ? "De votre besoin au déploiement :\nnotre méthode pour votre projet IA" : "From your need to deployment:\nour method for your AI project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} /></div>
-      <MethodTabs locale={locale} />
+    <Band id="approche" tone="base" className="studio-section home-dark-band home-method-dark mfr-band">
+      {/* Même composition que la section jumelle de la page Solutions : le
+          texte à gauche, le cadre des six étapes à droite. Les deux pages
+          partagent le composant, elles doivent partager la mise en page. */}
+      <div className="mfr-layout">
+        <div className="mfr-copy">
+          <div className="section-heading"><Lede kicker={fr ? "Conception & Développement IA" : "AI design & development"} title={fr ? "Notre méthode pour\nvotre projet IA." : "Our method for\nyour AI project."} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} /></div>
+        </div>
+        <MethodFrame locale={locale} />
+      </div>
     </Band>
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
@@ -131,7 +138,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     </Band>
 
     <Band id="outils" tone="base" className="studio-section home-tools-light">
-      <div className="section-heading"><Lede kicker={fr ? "Diagnostics IA" : "AI diagnostics"} title={fr ? "Du problème métier à\nun projet IA mieux préparé" : "From a business problem to\na better prepared AI project"} accents={fr ? ["projet IA"] : ["AI project"]} text={fr ? "Identifiez le processus à examiner, vérifiez les premières conditions de faisabilité puis structurez votre besoin avant d’échanger avec Synode. Chaque outil répond à une question différente et fonctionne sans transmettre vos réponses." : "Identify the process to examine, check the first feasibility conditions and structure your need before speaking with Synode. Each tool answers a different question and works without sending your answers."} /></div>
+      <div className="section-heading"><Lede kicker={fr ? "Diagnostics IA" : "AI diagnostics"} title={fr ? "Diagnostiquez vos processus\navant d’intégrer l’IA" : "Assess your processes\nbefore bringing in AI"} accents={fr ? ["vos processus"] : ["your processes"]} text={fr ? "Identifiez le processus à examiner, vérifiez les premières conditions de faisabilité puis structurez votre besoin avant d’échanger avec Synode. Chaque outil répond à une question différente et fonctionne sans transmettre vos réponses." : "Identify the process to examine, check the first feasibility conditions and structure your need before speaking with Synode. Each tool answers a different question and works without sending your answers."} /></div>
       <ToolsSection locale={locale} />
     </Band>
 

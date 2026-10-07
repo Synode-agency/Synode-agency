@@ -1,8 +1,8 @@
 import Link from "next/link";
 import {
   Activity, ArrowRight, BadgeCheck, BarChart3, BellRing, CalendarRange, Check, ClipboardList, Contact,
-  Database, FileOutput, FileSearch, FileText, Filter, FolderKanban, Globe, Inbox, Layers, LayoutDashboard,
-  Lightbulb, ListChecks, ListOrdered, Lock, Mail, MessageSquare, NotebookPen, PackageCheck, PenLine, Plug,
+  Database, FileOutput, FileText, FolderKanban, Globe, Inbox, Layers, LayoutDashboard,
+  Lightbulb, ListOrdered, Lock, MessageSquare, PackageCheck, PenLine, Plug,
   Puzzle, Repeat, Rocket, ScanText, ScrollText, Search, SearchCheck, Send, ShieldCheck, Shuffle, Smartphone,
   Table2, Target, TrendingUp, TriangleAlert, UserCheck, Users,
 } from "lucide-react";
@@ -13,9 +13,14 @@ import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
 import { AgentDemo } from "./agent-demo";
 import { brickIcons } from "./solution-visuals";
-import { ServiceCore, ServiceCtaArt, ServiceFlow, ServiceSketch } from "./service-visuals";
+import { ServiceCore, ServiceFlow, ServiceSketch } from "./service-visuals";
+import { AgentBrief } from "./agent-brief";
+import { AgentUseCards } from "./agent-use-cards";
+import { AfterPanel } from "./after-panel";
+import { AgentNetwork } from "./agent-network";
 import { ServiceHeroIllustration } from "@/components/hero-illustrations";
 import { servicePage } from "@/lib/service-pages";
+import { renderLines } from "@/lib/lines";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { type solutionFamilies } from "@/lib/solution-details";
 
@@ -31,9 +36,9 @@ import { type solutionFamilies } from "@/lib/solution-details";
  *
  * ── Le rythme des fonds, à ne pas défaire ───────────────────────────────
  * hero bleu nuit · définition blanc · usages bleu clair · formes blanc ·
- * fonctionnement bleu clair · intégration BLEU NUIT · cadrage blanc ·
- * accompagnement bleu clair · CTA bleu nuit (une carte, pas une bande) ·
- * FAQ bleu clair · footer blanc.
+ * fonctionnement bleu clair · intégration BLEU NUIT · accompagnement bleu
+ * clair · CTA bleu nuit (une carte, pas une bande) · FAQ bleu clair ·
+ * footer blanc.
  *
  * Deux grandes bandes sombres seulement, le hero et l'intégration, plus la
  * carte du CTA. Chaque bande porte sa classe de ton explicitement
@@ -58,9 +63,9 @@ type Family = ReturnType<typeof solutionFamilies>[number];
 
 /** Les icônes des usages, dans l'ordre des `uses` de chaque service. Elles
  *  sont ici et non dans le contenu : c'est une décision graphique, et elles
- *  n'ont pas à être traduites. */
+ *  n'ont pas à être traduites. La page des agents n'y figure pas : ses
+ *  usages passent par `AgentUseCards`, qui dessine ses propres aperçus. */
 const USE_ICONS: Record<string, LucideIcon[]> = {
-  "assistants-agents-ia": [Inbox, FileSearch, Filter, Contact, FileText, Mail, NotebookPen, ListChecks],
   "automatisations-intelligentes": [Inbox, ScanText, ShieldCheck, UserCheck, FileOutput, BellRing, BarChart3, Send],
   "logiciels-applications-ia": [FolderKanban, ClipboardList, Users, Table2, Smartphone, LayoutDashboard, PenLine, Puzzle],
   "integrations-systemes-connectes": [Globe, Contact, PackageCheck, Database, Plug, Shuffle, Repeat, ScrollText],
@@ -76,6 +81,8 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
      erreur de configuration : elle doit casser le build, pas se publier à
      moitié vide. */
   if (!p) throw new Error(`service-pages.ts : contenu manquant pour « ${family.slug} » (${locale}).`);
+  if (!p.mergeForms && (!p.forms || !p.formsTitle || !p.formsText)) throw new Error(`service-pages.ts : « ${family.slug} » n'a ni section « formes » ni \`mergeForms\`.`);
+  if (!p.whatVisual && !p.sketch) throw new Error(`service-pages.ts : « ${family.slug} » n'a ni \`sketch\` ni \`whatVisual\`.`);
 
   const Icon = brickIcons[family.visual];
   const icons = USE_ICONS[family.slug] ?? [];
@@ -83,16 +90,13 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
   const { operations } = getContent(locale).solutions;
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
-  /* Les prérequis validés, complétés par ceux de la page : cinq ou six
-     points, sans recopier une ligne d'un fichier dans l'autre. */
-  const framePoints = [...d.requirements, ...p.frameExtra];
 
   return <Shell locale={locale}>
     {/* ===== 1 · HERO — bleu nuit ===== */}
     <PageHero
       className="svc-hero"
       kicker={p.kicker}
-      title={p.h1}
+      title={renderLines(p.h1, p.h1Accents, "title-accent")}
       aside={
         family.slug === "assistants-agents-ia" ? (
           /* La seule famille dont on peut montrer le déroulé complet, de la
@@ -110,125 +114,139 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
 
     {/* ===== 2 · QU'EST-CE QUE… — blanc ===== */}
     <Band id="definition" className="svc-band svc-white svc-rhythm">
+      {/* Toujours deux colonnes : le texte à gauche, un visuel à droite. Ce
+          qu'on y met vient du contenu et non du slug — le petit schéma
+          commun, ou un visuel animé dédié au service. */}
       <div className="svc-split">
-        <div className="svc-split-copy">
-          <Lede title={p.whatTitle} text={p.whatText} />
+        <div className={p.whatTitleOneLine ? "svc-split-copy svc-what svc-what--line" : "svc-split-copy svc-what"}>
+          <Lede kicker={p.whatKicker} title={p.whatTitle} accents={p.whatTitleAccents} text={p.whatText} />
         </div>
-        <ServiceSketch kind={family.visual} data={p.sketch} locale={locale} />
+        {p.whatVisual === "agent"
+          ? <AgentBrief locale={locale} />
+          : <ServiceSketch kind={family.visual} data={p.sketch!} locale={locale} />}
       </div>
     </Band>
 
     {/* ===== 3 · À QUOI ÇA PEUT SERVIR — bleu clair ===== */}
     <Band id="usages" className="svc-band svc-tint svc-rhythm">
       <div className="section-heading">
-        <Lede kicker={fr ? "Usages concrets" : "Concrete uses"} title={p.usesTitle} text={p.usesText} />
+        <Lede kicker={p.usesKicker ?? (fr ? "Usages concrets" : "Concrete uses")} title={p.usesTitle} accents={p.usesTitleAccents} text={p.usesText} />
       </div>
-      <ul className="svc-uses">
-        {p.uses.map((use, i) => {
-          const UseIcon = icons[i] ?? Check;
-          return (
-            <li key={use.title}>
-              <span className="svc-use-icon"><UseIcon aria-hidden /></span>
-              <strong>{use.title}</strong>
-              <p>{use.text}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </Band>
-
-    {/* ===== 4 · LES FORMES — blanc ===== */}
-    <Band id="formes" className="svc-band svc-white svc-rhythm">
-      <div className="section-heading">
-        <Lede kicker={fr ? "Plusieurs formes possibles" : "Several possible forms"} title={p.formsTitle} text={p.formsText} />
-      </div>
-      <ol className="svc-forms">
-        {p.forms.map((form, i) => (
-          <li key={form.title}>
-            <em aria-hidden>{String(i + 1).padStart(2, "0")}</em>
-            <strong>{form.title}</strong>
-            <p>{form.text}</p>
-          </li>
-        ))}
-      </ol>
-      <p className="svc-related">
+      {/* Les mêmes titres et les mêmes descriptions dans les deux
+          compositions : seules les cartes ajoutent un mini-aperçu. */}
+      {p.usesCards ? (
+        <AgentUseCards items={p.uses} locale={locale} />
+      ) : (
+        <ul className="svc-uses">
+          {p.uses.map((use, i) => {
+            const UseIcon = icons[i] ?? Check;
+            return (
+              <li key={use.title}>
+                <span className="svc-use-icon"><UseIcon aria-hidden /></span>
+                <strong>{use.title}</strong>
+                <p>{use.text}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {p.mergeForms && <p className="svc-related">
         <span>{fr ? "Souvent combiné avec" : "Often combined with"}</span>
         {d.related.map(index => {
           const related = summaries[index];
           return <Link key={related.slug} className="go" href={`${path(locale, ROUTES.solutions)}/${related.slug}`}>{related.title}<ArrowRight aria-hidden /></Link>;
         })}
-      </p>
+      </p>}
     </Band>
 
-    {/* ===== 5 · COMMENT ÇA FONCTIONNE — bleu clair ===== */}
-    <Band id="fonctionnement" className="svc-band svc-tint svc-rhythm">
-      <div className="svc-split svc-split--flow">
-        <div className="svc-split-copy">
-          <Lede kicker={fr ? "Fonctionnement" : "How it works"} title={p.howTitle} text={p.howText} />
+    {/* ===== 4 · LES FORMES — blanc =====
+        Absente quand les formes sont repliées dans les cartes d'usages. Le
+        ton de la section suivante bascule alors au blanc : deux bandes bleu
+        clair voisines n'en feraient plus qu'une. */}
+    {!p.mergeForms && (
+      <Band id="formes" className="svc-band svc-white svc-rhythm">
+        <div className="section-heading">
+          <Lede kicker={fr ? "Plusieurs formes possibles" : "Several possible forms"} title={p.formsTitle!} text={p.formsText} />
         </div>
-        <ServiceFlow steps={p.steps} locale={locale} />
-      </div>
-    </Band>
+        <ol className="svc-forms">
+          {p.forms!.map((form, i) => (
+            <li key={form.title}>
+              <em aria-hidden>{String(i + 1).padStart(2, "0")}</em>
+              <strong>{form.title}</strong>
+              <p>{form.text}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="svc-related">
+          <span>{fr ? "Souvent combiné avec" : "Often combined with"}</span>
+          {d.related.map(index => {
+            const related = summaries[index];
+            return <Link key={related.slug} className="go" href={`${path(locale, ROUTES.solutions)}/${related.slug}`}>{related.title}<ArrowRight aria-hidden /></Link>;
+          })}
+        </p>
+      </Band>
+    )}
+
+    {/* ===== 5 · COMMENT ÇA FONCTIONNE — bleu clair =====
+        Absente quand les cinq temps sont repliés dans le visuel de la
+        section « Qu'est-ce que… » : les deux disaient le même déroulé. */}
+    {!p.mergeHow && (
+      <Band id="fonctionnement" className="svc-band svc-tint svc-rhythm">
+        <div className="svc-split">
+          <div className="svc-split-copy">
+            <Lede kicker={fr ? "Fonctionnement" : "How it works"} title={p.howTitle} accents={p.howTitleAccents} text={p.howText} />
+          </div>
+          <ServiceFlow steps={p.steps} locale={locale} />
+        </div>
+      </Band>
+    )}
 
     {/* ===== 6 · INTÉGRATION DANS L'ENTREPRISE — bleu nuit ===== */}
     <Band id="integration" className="svc-band svc-ink svc-rhythm">
-      <div className="svc-split svc-split--core">
+      {/* Toujours deux colonnes, comme les autres sections : le texte à
+          gauche, le visuel à droite. Ce qu'on met à droite vient du contenu
+          et non du slug : le moyeu et ses pastilles, ou le visuel animé. */}
+      <div className={p.coreTitleOneLine ? "svc-split svc-split--core svc-core--line" : "svc-split svc-split--core"}>
         <div className="svc-split-copy">
-          <Lede kicker={p.coreKicker} title={p.coreTitle} text={p.coreText} />
+          <Lede kicker={p.coreKicker} title={p.coreTitle} accents={p.coreTitleAccents} text={renderLines(p.coreText)} />
           <p className="svc-core-note"><ShieldCheck aria-hidden />{p.coreNote}</p>
         </div>
-        <ServiceCore centre={p.coreCentre} chips={p.coreChips} icon={Icon} locale={locale} />
+        {p.coreVisual === "agent"
+          ? <AgentNetwork locale={locale} />
+          : <ServiceCore centre={p.coreCentre} chips={p.coreChips} icon={Icon} locale={locale} />}
       </div>
     </Band>
 
-    {/* ===== 7 · CE QU'IL FAUT CADRER — blanc ===== */}
-    <Band id="cadrage" className="svc-band svc-white svc-rhythm">
-      <div className="section-heading">
-        <Lede kicker={fr ? "Avant le développement" : "Before development"} title={p.frameTitle} text={p.frameText} />
-      </div>
-      <ul className="svc-frame">
-        {framePoints.map(point => (
-          <li key={point}><Check aria-hidden /><span>{point}</span></li>
-        ))}
-      </ul>
-    </Band>
-
-    {/* ===== 8 · APRÈS LA MISE EN SERVICE — bleu clair ===== */}
+    {/* ===== 7 · APRÈS LA MISE EN SERVICE — bleu clair =====
+        La pastille de paiement récurrent et la note de pied entrent dans le
+        panneau. Elles viennent toujours de `content.ts`, écrites une seule
+        fois pour tout le site : c'est un engagement contractuel, il ne doit
+        pas exister en six exemplaires. */}
     <Band id="accompagnement" className="svc-band svc-tint svc-rhythm">
       <div className="section-heading">
-        <Lede kicker={fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} text={p.afterText} />
+        <Lede kicker={fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} accents={p.afterTitleAccents} text={p.afterText} />
       </div>
-      <p className="svc-after-meta">
-        <span className="svc-after-pill"><Activity aria-hidden />{operations.recurringLabel}</span>
-        {operations.familyNote}
-      </p>
-      <div className="svc-after">
-        {p.after.map((item, i) => (
-          <article key={item.title}>
-            <span className="svc-after-index" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </div>
+      <AfterPanel items={p.after} pill={operations.recurringLabel} note={operations.familyNote} locale={locale} />
     </Band>
 
-    {/* ===== 9 · CTA — bleu nuit, une carte posée ===== */}
+    {/* ===== 8 · CTA — bleu nuit, une carte posée ===== */}
     <CardPanel id="echange" className="dark-cta solutions-cta svc-cta">
+      {/* Le texte à gauche, les deux actions à droite l'une au-dessus de
+          l'autre, et la mention sous elles. Pas de carte : le CTA ferme la
+          page, il n'a rien à illustrer. */}
       <div className="col card-body cta-panel cta-booking-grid">
         <div className="cta-booking-copy">
           <Lede title={p.ctaTitle} text={p.ctaText} />
-          <div className="btn-row">
-            <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.ctaShort}<ArrowRight aria-hidden /></Link>
-            <Link className="btn btn--ghost" href={formHref}>{fr ? "Nous contacter" : "Contact us"}</Link>
-          </div>
+        </div>
+        <div className="svc-cta-actions">
+          <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.ctaShort}<ArrowRight aria-hidden /></Link>
+          <Link className="btn btn--ghost" href={formHref}>{fr ? "Nous contacter" : "Contact us"}</Link>
           <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
         </div>
-        <ServiceCtaArt icon={Icon} title={family.title} benefit={family.benefit} steps={p.steps.slice(0, 3).map(step => step.title)} />
       </div>
     </CardPanel>
 
-    {/* ===== 10 · FAQ — bleu clair, dernière section de la page ===== */}
+    {/* ===== 9 · FAQ — bleu clair, dernière section de la page ===== */}
     <Band id="faq" className="svc-band svc-tint svc-rhythm svc-faq">
       <Lede kicker={fr ? "Questions fréquentes" : "Frequently asked"} title={p.faqTitle} />
       <div className="section-gap"><FaqAccordion items={[...p.faqExtra, ...d.faq]} /></div>

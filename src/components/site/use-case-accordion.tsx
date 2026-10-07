@@ -39,9 +39,9 @@ export function UseCaseAccordion({
 }) {
   const fr = locale === "fr";
   const base = useId();
-  /* Un seul ouvert à la fois. Le premier l'est au chargement : une section
-     entièrement fermée se lit comme une liste de titres sans contenu. */
-  const [open, setOpen] = useState<number | null>(0);
+  /* Un seul ouvert à la fois. Tout commence fermé : le visiteur choisit le
+     cas qu'il souhaite développer, sur l'accueil comme sur la page dédiée. */
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <div className={rich ? "uca uca--rich" : "uca"}>

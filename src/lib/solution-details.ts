@@ -6,6 +6,10 @@ export type SolutionDetail = {
   possibilities: string[];
   scenario: { title: string; before: string; tools: string[]; steps: [string, string][]; outcome: string };
   examples: [string, string][];
+  /** ⚠ PLUS AUCUNE PAGE NE LIT CE CHAMP. Il alimentait la section « Ce qu'il
+   *  faut cadrer ensemble » des six pages services, retirée du gabarit. Le
+   *  texte est conservé tel quel au cas où la section revienne sous une
+   *  autre forme ; ne pas s'appuyer dessus sans vérifier qu'elle existe. */
   requirements: string[];
   integration: string;
   related: number[];

@@ -1,6 +1,13 @@
 /* Light studio direction. Shared rhythm; illustration internals remain intact. */
 :root,
 .dark {
+  /* ⚠ PLUS AUCUNE POLICE À LARGEUR FIXE SUR LE SITE.
+     Les étiquettes, codes et statuts lisaient `var(--font-mono)`, un jeton
+     du thème Tailwind qui vaut une pile monospace. Le redéfinir ici ne
+     suffisait pas : Tailwind le déclare PLUS LOIN dans le bundle, à égale
+     spécificité, donc sa valeur gagnait. Ces règles lisent désormais
+     `--font-sans`, la police du site. Ne pas revenir à `--font-mono` ni
+     écrire de pile monospace en dur. */
   --background: #f8f9fb;
   --surface-dark: #171f2c;
   --container-max: 1240px;
@@ -481,7 +488,7 @@ main > .band#top .lede-title {
   border-bottom: 1px solid #29425f;
   background: #10233a;
   color: #9cb0c9;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.7rem;
 }
 .terminal-dots {
@@ -515,7 +522,7 @@ main > .band#top .lede-title {
 }
 .terminal-process {
   padding: 0.85rem 0 0.75rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 .terminal-process > strong {
   display: flex;
@@ -539,7 +546,7 @@ main > .band#top .lede-title {
   gap: 0;
   padding: 0;
   list-style: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 .terminal-lines li {
   display: grid;
@@ -616,7 +623,7 @@ main > .band#top .lede-title {
   padding: 0.8rem 0.9rem 0.9rem;
   border-top: 1px solid #29425f;
   background: #0e2036;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 .terminal-integrations strong {
   display: flex;
@@ -3652,7 +3659,7 @@ footer.band--white .wordmark-type {
   border-bottom: 1px solid #29425f;
   background: #10233a;
   color: #9cb0c9;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.7rem;
 }
 .hero-panel-bar--plain {
@@ -3718,7 +3725,7 @@ footer.band--white .wordmark-type {
 .hero-work-preview-journey li::before {
   content: "0" counter(journey);
   color: #6683a6;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
 }
 
@@ -3818,7 +3825,7 @@ footer.band--white .wordmark-type {
   align-items: center;
   gap: 0.35rem;
   color: #8fa6c2;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   white-space: nowrap;
 }
@@ -3970,7 +3977,7 @@ footer.band--white .wordmark-type {
   gap: 1rem;
 }
 .solutions-wall-head code {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -4061,7 +4068,7 @@ footer.band--white .wordmark-type {
   gap: 1rem;
 }
 .solutions-brick-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   letter-spacing: 0.02em;
@@ -4093,7 +4100,7 @@ footer.band--white .wordmark-type {
    ligne est réservée en permanence, sinon le nom sauterait d'un cran au
    moment où la brique s'ouvre. */
 .solutions-brick-meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   line-height: 1.1;
   letter-spacing: 0.02em;
@@ -4107,7 +4114,7 @@ footer.band--white .wordmark-type {
 }
 
 .solutions-brick-slice em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   letter-spacing: 0.02em;
@@ -4282,7 +4289,7 @@ footer.band--white .wordmark-type {
   gap: 0.4rem;
   margin: 0;
   padding: 0.95rem 0.9rem 1rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
 }
 .work-console-state > div {
@@ -4301,7 +4308,7 @@ footer.band--white .wordmark-type {
   padding: 0.95rem 0.9rem 1.05rem;
   border-top: 1px solid #29425f;
   background: #0e2036;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 .work-console-build > strong {
   display: block;
@@ -4560,7 +4567,7 @@ a.tool-card:hover {
   justify-content: space-between;
   gap: 0.75rem;
   width: 100%;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4628,7 +4635,7 @@ a.tool-card:hover {
 }
 .tool-slot-label {
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4677,7 +4684,7 @@ a.tool-card:hover {
 }
 .diag-progress > span {
   color: #8fa6c2;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -4704,7 +4711,7 @@ a.tool-card:hover {
 }
 .diag-subject > span {
   color: #6683a6;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4857,7 +4864,7 @@ a.tool-card:hover {
 }
 .diag-result-label {
   color: #6683a6;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4893,7 +4900,7 @@ a.tool-card:hover {
 .diag-result h3 {
   margin-bottom: 0.7rem;
   color: #9fb2c9;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -4962,7 +4969,7 @@ a.tool-card:hover {
 }
 .diag-profile dd b {
   color: #dce9f8;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 400;
   text-align: right;
@@ -5170,7 +5177,7 @@ a.tool-card:hover {
   padding-inline: 0.65rem;
   border-bottom: 1px solid #1d3350;
   background: #0e2036;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
 }
 .mini-app-name {
@@ -5263,7 +5270,7 @@ a.tool-card:hover {
   display: block;
   margin-top: 0.1rem;
   color: #f4f8ff;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
 }
@@ -5294,7 +5301,7 @@ a.tool-card:hover {
 }
 .mini-progress b {
   color: #a8c3e8;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   font-weight: 400;
 }
@@ -5339,7 +5346,7 @@ a.tool-card:hover {
 }
 .mini-rows b {
   color: #dce9f8;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   font-weight: 400;
   text-align: right;
@@ -5517,7 +5524,7 @@ a.tool-card:hover {
   align-self: flex-start;
   gap: 0.5rem;
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -5651,10 +5658,12 @@ main > .band.home-impact-light .isp {
    Sous 1024px le flux naturel reprend, pour ne pas comprimer les
    compositions qui se replient en colonne. */
 @media (min-width: 1024px) {
+  /* `.home-method-dark` n'y est plus : sa composition en deux colonnes est
+     dimensionnée par le cadre des six étapes, et la hauteur d'écran y
+     laissait un vide sous le contenu. Les quatre autres la gardent. */
   main > .band:is(
       .home-impact-light,
       .home-trust-light,
-      .home-method-dark,
       .home-tools-light,
       .home-faq-light
     ) {
@@ -5716,7 +5725,7 @@ main > .band.home-impact-light .isp {
 }
 .tools-tab-kind {
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -5757,7 +5766,7 @@ main > .band.home-impact-light .isp {
 .tool-params-title,
 .tool-readout-label {
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -5846,7 +5855,7 @@ main > .band.home-impact-light .isp {
 .tool-field-head output {
   flex: none;
   color: var(--brand);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
 }
 .tool-field-head output span {
@@ -5912,7 +5921,7 @@ main > .band.home-impact-light .isp {
 }
 .tool-readout-progress {
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 1.125rem;
   letter-spacing: 0.04em;
 }
@@ -5920,7 +5929,7 @@ main > .band.home-impact-light .isp {
   margin-top: 0.4rem;
 }
 .tool-readout-score {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   line-height: 1;
 }
 .tool-readout-score b {
@@ -5970,7 +5979,7 @@ main > .band.home-impact-light .isp {
 }
 .tool-opportunities li > span {
   color: var(--brand);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
 }
 .tool-opportunities strong {
@@ -6035,7 +6044,7 @@ main > .band.home-impact-light .isp {
 }
 .tool-brief-output dt {
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.5625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -6055,7 +6064,7 @@ main > .band.home-impact-light .isp {
 .tool-observations h4 {
   margin-bottom: 0.6rem;
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -6183,7 +6192,7 @@ main > .band.home-impact-light .isp {
 .tool-readout .diag-approaches h3 {
   margin-bottom: 1rem;
   color: var(--text-mono);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -6265,7 +6274,7 @@ main > .band.home-impact-light .isp {
   background: #ffffff;
   color: inherit;
   cursor: pointer;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8125rem;
   transition: border-color 160ms, background-color 160ms, color 160ms;
 }
@@ -6471,314 +6480,6 @@ main > .band.home-impact-light .isp {
   color: var(--muted-foreground);
 }
 
-/* =====================================================================
-   COMMENT TOUT S'ASSEMBLE — L'ANALYSE, MONTRÉE
-
-   Le visiteur choisit un besoin ; les six briques sont passées en revue,
-   celles qui conviennent sont retenues une à une, et la solution se
-   compose en dessous. Le choix des briques est le travail de Synode :
-   aucune ligne n'est cliquable, seuls les besoins le sont.
-
-   Le bloc est COUCHÉ : une barre de besoins, une rangée de six briques,
-   une bande de résultat. Trois bandes larges et basses plutôt que deux
-   colonnes hautes — c'est ce qui le fait tenir dans la section sans
-   l'étirer vers le bas.
-
-   Les couleurs sont écrites en LITTÉRAUX et non en jetons. Ce bloc a sa
-   propre échelle de gris, plus fine que celle du site, et la bande qui le
-   porte est toujours blanche : lui donner les jetons de la bande le ferait
-   dériver au premier changement de rythme des sections.
-   ===================================================================== */
-.apick {
-  width: 100%;
-}
-.apick-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #6b6f76;
-}
-
-/* ---- La barre du haut ---- */
-/* 24px et non 14px : la ligne était collée au panneau « Notre sélection ».
-   La section ne grandit pas pour autant — son contenu est centré dans une
-   hauteur d'écran, donc ces 10px sont pris sur le vide, pas ajoutés au
-   fond blanc. */
-.apick-needs {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-  margin-bottom: 24px;
-}
-.apick-needs-main {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px 14px;
-}
-.apick-seg {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 2px;
-  border: 1px solid #e3e6ea;
-  border-radius: 7px;
-  background: #f7f8fa;
-}
-.apick-seg button {
-  padding: 5px 10px;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  background: transparent;
-  font: inherit;
-  font-size: 12px;
-  white-space: nowrap;
-  color: #8a8f98;
-  cursor: pointer;
-  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
-}
-.apick-seg button.is-on {
-  border-color: #e3e6ea;
-  background: #ffffff;
-  color: #2e2e2e;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
-}
-.apick-meter {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.apick-meter em {
-  font-style: normal;
-  color: #8a8f98;
-}
-
-/* ---- Notre sélection : les six briques sur une rangée ----
-   Le `gap` de 1px sur un fond gris dessine les séparateurs. C'est ce qui
-   permet à la grille de se replier en 3×2 puis 2×3 sans qu'aucune bordure
-   ne reste orpheline au bout d'une rangée.
-
-   `minmax(max(130px, calc((100% - 5px) / 6)), 1fr)` : les six colonnes
-   tiennent tant qu'elles font plus de 130px, et `auto-fit` les replie par
-   paquets entiers ensuite. Une brique ne se retrouve donc jamais seule sur
-   sa ligne. */
-.apick-panel {
-  overflow: hidden;
-  border: 1px solid #e3e6ea;
-  border-radius: 10px;
-  background: #ffffff;
-}
-.apick-panel-head {
-  display: block;
-  padding: 8px 14px;
-  border-bottom: 1px solid #eceef1;
-  background: #f7f8fa;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #6b6f76;
-}
-.apick-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(130px, calc((100% - 5px) / 6)), 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  background: #eceef1;
-}
-.apick-cell {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px 12px;
-  background: #ffffff;
-  transition: background-color 350ms ease;
-}
-/* Nom et description sur une ligne : la hauteur des six cellules ne doit
-   pas changer quand une pastille passe d'un état à l'autre. */
-.apick-cell strong,
-.apick-cell small {
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.apick-cell strong {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #2e2e2e;
-  transition: color 350ms ease;
-}
-.apick-cell small {
-  font-size: 11.5px;
-  color: #8a8f98;
-}
-.apick-chip {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 7px;
-  border: 1px solid #eceef1;
-  border-radius: var(--r-pill);
-  background: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  white-space: nowrap;
-  color: #a0a5ad;
-  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
-}
-.apick-chip svg {
-  width: 8px;
-  height: 8px;
-  flex: none;
-}
-.apick-cell.is-kept {
-  background: #fafcff;
-}
-.apick-cell.is-kept .apick-chip {
-  border-color: #cfe0fb;
-  background: #eef4fe;
-  color: #0b6be6;
-}
-.apick-cell.is-skip strong {
-  color: #a0a5ad;
-}
-
-/* ---- Votre solution : une bande, pas une carte ---- */
-.apick-band {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  margin-top: 14px;
-  padding: 12px 14px;
-  border: 1px solid #e3e6ea;
-  border-radius: 10px;
-  background: #ffffff;
-  transition: border-color 400ms ease;
-}
-.apick-band.is-done {
-  border-color: #0b6be6;
-}
-.apick-band-label {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #6b6f76;
-}
-
-/* Toutes les étiquettes sont rendues ; celles qui ne sont pas encore
-   retenues restent repliées à zéro. C'est ce qui permet d'animer leur
-   apparition par une TRANSITION plutôt que par un montage : l'élément est
-   déjà là, il s'ouvre. La bordure reste transparente tant qu'il est
-   replié, sinon on verrait un trait de 2px traîner dans la bande. */
-.apick-tags {
-  flex: 1 1 320px;
-  min-height: 26px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  row-gap: 6px;
-}
-.apick-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  height: 26px;
-  max-width: 0;
-  margin-right: 0;
-  padding-inline: 0;
-  overflow: hidden;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  background: #ffffff;
-  font-size: 12.5px;
-  white-space: nowrap;
-  color: #2e2e2e;
-  opacity: 0;
-  transition:
-    max-width 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    padding 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    margin 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 450ms ease;
-}
-.apick-tag.is-in {
-  max-width: 200px;
-  margin-right: 6px;
-  padding-inline: 9px;
-  border-color: #eceef1;
-  opacity: 1;
-}
-.apick-tag i {
-  flex: none;
-  width: 3px;
-  height: 11px;
-  border-radius: 2px;
-  background: #0b6be6;
-}
-
-.apick-band-out {
-  flex: none;
-  max-width: 100%;
-}
-.apick-band-out strong {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  font-size: 16px;
-  font-weight: 500;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.apick-band-out em {
-  font-style: normal;
-  font-family: var(--font-mono);
-}
-.apick-band-out p {
-  margin-top: 2px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #6b6f76;
-}
-
-/* L'état final s'affiche d'un coup, et rien ne se déplie. Le composant
-   coupe aussi le passage au besoin suivant, côté JavaScript. */
-@media (prefers-reduced-motion: reduce) {
-  .apick-seg button,
-  .apick-cell,
-  .apick-cell strong,
-  .apick-chip,
-  .apick-band,
-  .apick-tag {
-    transition: none;
-  }
-}
-
-/* Sous 640px la phrase du besoin repasse à la ligne sous les étiquettes,
-   et le titre bleu cesse d'exiger sa ligne entière. */
-@media (max-width: 640px) {
-  .apick-band-out {
-    flex: 1 1 100%;
-  }
-  .apick-band-out strong {
-    white-space: normal;
-  }
-}
 
 /* La mention sous les six solutions. Elle a sa propre respiration : collée
    aux cartes, elle se lisait comme une sixième ligne de contenu alors que
@@ -6885,7 +6586,7 @@ main > .band.home-impact-light .isp {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10px;
   color: var(--agd-muted);
@@ -6982,7 +6683,7 @@ main > .band.home-impact-light .isp {
   box-shadow: 0 10px 24px var(--agd-shadow);
 }
 .agd-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: var(--agd-muted);
 }
@@ -7068,7 +6769,7 @@ main > .band.home-impact-light .isp {
   height: 18px;
   border-radius: 4px;
   background: var(--agd-blue-soft);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 9px;
   color: var(--agd-blue);
@@ -7085,7 +6786,7 @@ main > .band.home-impact-light .isp {
 .agd-sources span {
   flex: none;
   margin-left: auto;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: var(--agd-faint);
   transition: color 300ms ease;
@@ -7119,7 +6820,7 @@ main > .band.home-impact-light .isp {
   padding: 3px 8px;
   border-radius: 5px;
   background: var(--agd-blue-soft);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10px;
   white-space: nowrap;
@@ -7151,7 +6852,7 @@ main > .band.home-impact-light .isp {
 }
 .agd-cites.is-in { opacity: 1; }
 .agd-cites em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10px;
   color: var(--agd-muted);
@@ -7160,7 +6861,7 @@ main > .band.home-impact-light .isp {
   padding: 3px 7px;
   border: 1px solid var(--agd-line);
   border-radius: 5px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 400;
   white-space: nowrap;
@@ -7528,7 +7229,7 @@ main > .band.home-impact-light .isp {
 }
 .slc-rail em {
   flex: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   color: #a0a8b6;
@@ -7593,7 +7294,7 @@ main > .band.home-impact-light .isp {
   stroke-width: 1.7;
 }
 .slc-copy-top em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   white-space: nowrap;
@@ -8002,7 +7703,7 @@ main > .band.home-impact-light .isp {
 }
 .uca-head em {
   flex: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   color: #a0a8b6;
@@ -8265,7 +7966,7 @@ main > .band.home-impact-light .isp {
   stroke-width: 1.7;
 }
 .tst-top em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   color: #a0a8b6;
@@ -8295,7 +7996,7 @@ main > .band.home-impact-light .isp {
   border: 1px solid #e3e6ea;
   border-radius: var(--r-pill);
   background: #ffffff;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10.5px;
   white-space: nowrap;
   color: #a0a8b6;
@@ -8430,7 +8131,7 @@ main > .band.home-impact-light .isp {
 }
 .isp-row-copy em {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10.5px;
   letter-spacing: 1.6px;
@@ -8472,7 +8173,7 @@ main > .band.home-impact-light .isp {
 }
 .isp-view-label {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -8618,7 +8319,7 @@ main > .band.home-impact-light .isp {
   justify-content: space-between;
   gap: 12px;
   margin-top: 8px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: #8a8f98;
 }
@@ -8698,7 +8399,7 @@ main > .band.home-impact-light .isp {
   border-top: 1px solid #eceef1;
 }
 .pdoc-head span {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -8706,7 +8407,7 @@ main > .band.home-impact-light .isp {
   color: #6b6f76;
 }
 .pdoc-head em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   white-space: nowrap;
@@ -8717,7 +8418,7 @@ main > .band.home-impact-light .isp {
   color: #5a5a5a;
 }
 .pdoc-foot em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   white-space: nowrap;
@@ -8753,7 +8454,7 @@ main > .band.home-impact-light .isp {
   gap: 12px;
 }
 .pdoc-col-top > em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 12px;
   color: #a0a5ad;
@@ -8854,297 +8555,6 @@ main > .band.home-impact-light .isp {
   }
 }
 
-/* =====================================================================
-   LES SIX ÉTAPES D'UN PROJET, EN ONGLETS
-
-   Le même composant sur l'accueil et sur la page Solutions. Les couleurs
-   sont écrites en LITTÉRAUX : les deux bandes qui le portent sont en bleu
-   nuit, et ce bloc garde sa propre échelle quoi qu'il arrive au rythme des
-   sections autour de lui.
-
-   La barre de progression est une animation CSS de 4s et le minuteur du
-   composant un intervalle de 4s. Les deux valeurs doivent rester égales ;
-   aucune des deux ne lit l'autre.
-   ===================================================================== */
-.mtabs {
-  margin-top: 56px;
-  overflow: hidden;
-  border: 1px solid #24406a;
-  border-radius: 14px;
-  background: #0f1d33;
-}
-
-/* ---- La rangée d'onglets ----
-   Deux groupes de trois. C'est ce qui interdit la rangée de cinq plus un :
-   un `auto-fit` sur les six onglets replierait le sixième tout seul. */
-.mtabs-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  border-bottom: 1px solid #24406a;
-}
-.mtabs-group {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.mtabs-tab {
-  position: relative;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 16px 18px 18px;
-  border: 0;
-  border-right: 1px solid #1e3352;
-  background: transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 300ms ease;
-}
-.mtabs-tab em {
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-size: 12px;
-  font-weight: 700;
-  color: #4f6383;
-  transition: color 300ms ease;
-}
-.mtabs-tab > span {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #8fa0b8;
-  transition: color 300ms ease;
-}
-.mtabs-tab.is-on {
-  background: #10264a;
-}
-.mtabs-tab.is-on em,
-.mtabs-tab.is-past em {
-  color: #8ec1ff;
-}
-.mtabs-tab.is-on > span {
-  color: #ffffff;
-}
-.mtabs-tab.is-past > span {
-  color: #c9d3e2;
-}
-.mtabs-tab:focus-visible {
-  outline: 2px solid #8ec1ff;
-  outline-offset: -2px;
-}
-
-/* La barre : vide à venir, pleine une fois passée, et remplie en 4s sur
-   l'onglet actif. Au retour à 01 les cinq autres repassent à « à venir »,
-   donc à zéro, sans transition : rien ne se vide à rebours. */
-.mtabs-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: #1e3352;
-}
-.mtabs-bar::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 100%;
-  background: #0a6cf0;
-}
-.mtabs-tab.is-past .mtabs-bar::after {
-  width: 100%;
-}
-.mtabs-tab.is-on .mtabs-bar::after {
-  animation: mtabs-fill 4s linear 1 both;
-}
-/* Après un clic, la lecture s'arrête : la barre de l'onglet choisi est
-   pleine tout de suite, elle ne rejoue pas les 4s. */
-.mtabs[data-auto="false"] .mtabs-tab.is-on .mtabs-bar::after {
-  width: 100%;
-  animation: none;
-}
-@keyframes mtabs-fill {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-/* ---- Le panneau ----
-
-   Les six panneaux occupent la MÊME cellule de grille et seul l'actif est
-   visible. La hauteur du bloc vaut donc celle du panneau le plus haut et
-   ne bouge plus d'une étape à l'autre, quel que soit le nombre de lignes
-   d'une description. Une hauteur en dur aurait menti à la première
-   retouche de texte ou à la première traduction plus longue.
-
-   `visibility: hidden` et non `display: none` : un panneau masqué doit
-   continuer à occuper sa place pour que la grille le mesure. Il sort tout
-   de même de l'ordre de tabulation, et il porte `aria-hidden`.
-
-   `gap: 1px` sur un fond de filet : le séparateur des deux colonnes est
-   dessiné par la grille, donc il disparaît de lui-même quand elles se
-   replient l'une sous l'autre. */
-.mtabs-panels {
-  display: grid;
-}
-.mtabs-panel {
-  grid-area: 1 / 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
-  gap: 1px;
-  background: #1e3352;
-  visibility: hidden;
-}
-.mtabs-panel.is-on {
-  visibility: visible;
-}
-.mtabs-main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 30px 32px;
-  background: #0f1d33;
-}
-.mtabs-step {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-family: var(--font-mono);
-}
-.mtabs-step em {
-  font-style: normal;
-  font-size: 13px;
-  font-weight: 700;
-  color: #8ec1ff;
-}
-.mtabs-step span {
-  font-size: 11px;
-  color: #6f84a3;
-}
-.mtabs-main h3 {
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: -0.8px;
-  line-height: 1.2;
-  color: #ffffff;
-  text-wrap: balance;
-}
-.mtabs-text {
-  max-width: 520px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #b6c2d4;
-}
-
-.mtabs-out {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 30px 32px;
-  background: #10264a;
-}
-.mtabs-out-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #8ec1ff;
-}
-.mtabs-out-value {
-  font-size: 22px;
-  line-height: 1.35;
-  color: #ffffff;
-  text-wrap: balance;
-}
-.mtabs-pills {
-  margin-top: auto;
-}
-.mtabs-pills-label {
-  display: block;
-  margin-bottom: 10px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: #6f84a3;
-}
-.mtabs-pills ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.mtabs-pills li {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 9px;
-  border: 1px solid #22324c;
-  border-radius: var(--r-pill);
-  font-size: 11.5px;
-  white-space: nowrap;
-  color: #4f6383;
-  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
-}
-.mtabs-pills li em {
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-size: 10px;
-}
-.mtabs-pills li.is-done {
-  border-color: #2f5fa8;
-  background: #16335a;
-  color: #e8eef7;
-}
-
-/* La lecture automatique est coupée côté composant ; ici c'est la barre
-   qui cesse de se remplir, et l'étape 01 s'affiche pleine. */
-@media (prefers-reduced-motion: reduce) {
-  .mtabs-tab,
-  .mtabs-tab em,
-  .mtabs-tab > span,
-  .mtabs-pills li {
-    transition: none;
-  }
-  .mtabs-tab.is-on .mtabs-bar::after {
-    width: 100%;
-    animation: none;
-  }
-}
-
-/* Sous 560px, trois onglets par rangée tombent sous 110px : la rangée
-   passe en deux colonnes, le filet de droite tombe en bout de rangée. */
-@media (max-width: 560px) {
-  .mtabs {
-    margin-top: 36px;
-  }
-  .mtabs-group {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .mtabs-tab:nth-child(2n) {
-    border-right: 0;
-  }
-  .mtabs-tab:nth-child(n + 3) {
-    border-top: 1px solid #1e3352;
-  }
-  .mtabs-main,
-  .mtabs-out {
-    padding: 22px 20px;
-  }
-  .mtabs-main h3 {
-    font-size: 22px;
-  }
-  .mtabs-text {
-    font-size: 15px;
-  }
-  .mtabs-out-value {
-    font-size: 19px;
-  }
-}
-
 /* ---- Sécurité & contrôle : quatre réglages et le panneau qu'ils
    commandent.
 
@@ -9216,7 +8626,7 @@ main > .band.home-impact-light .isp {
   stroke-width: 1.8;
 }
 .sec-cell-top em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -9543,7 +8953,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: #4f6383;
   cursor: pointer;
@@ -9568,7 +8978,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: #c9d3e2;
 }
@@ -9615,7 +9025,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 }
 .sol-app-hello-module span {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: #6f84a3;
 }
@@ -9686,7 +9096,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   color: #ffffff;
 }
 .sol-card-value em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10px;
   letter-spacing: 0;
@@ -9697,7 +9107,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   color: #b6c2d4;
 }
 .sol-card-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: #4f6383;
   transition: color 300ms ease;
@@ -9899,6 +9309,11 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 .site-theme-alternating main > .band.svc-ink {
   background: var(--surface-dark);
   color: #ffffff;
+  /* ⚠ `--dark-accent` n'est défini que par `.home-dark-band`, et cette bande
+     ne porte pas cette classe. Sans ce jeton ici, la règle des mots peints
+     sur bande sombre lit une variable vide : la déclaration devient invalide
+     et le mot reste BLANC au lieu d'être bleu. 8,79:1 sur le bleu nuit. */
+  --dark-accent: #8fc0ff;
   --foreground: #ffffff;
   --muted-foreground: #c2d3e9;
   --text-mono: #a8c3e8;
@@ -9931,7 +9346,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
 /* ---- Le surtitre du hero, au-dessus du h1 et hors de lui ---- */
 .studio-hero-kicker {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -9957,7 +9372,38 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .svc-split--flow,
 .svc-split--core {
-  align-items: start;
+  align-items: stretch;
+}
+/* ---- Le surtitre reste en HAUT ; le titre, le paragraphe et la ligne au
+   bouclier se centrent sur le visuel d'en face.
+
+   Le problème : les trois premiers vivent dans le même bloc `.lede`, et la
+   ligne au bouclier est à côté, dans la colonne. Rien ne permet de centrer
+   un groupe qui traverse deux parents.
+
+   D'où le `display: contents` sur le bloc de titres : sa boîte disparaît et
+   ses trois enfants deviennent des éléments de la colonne, au même niveau
+   que la ligne au bouclier. La gouttière du bloc est alors reprise sur la
+   colonne, sinon elle disparaîtrait avec la boîte. Ensuite, deux marges
+   automatiques — au-dessus du titre et sous la ligne — se partagent
+   l'espace libre : le groupe se centre, et le surtitre ne bouge pas.
+
+   Ne pas remettre `align-items: start` sur la grille : sans l'étirement de
+   la colonne, il n'y a pas d'espace libre à partager. ---- */
+.svc-split--core > .svc-split-copy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.875rem, 0.6rem + 0.9vw, 1.5rem);
+}
+.svc-split--core > .svc-split-copy > .lede {
+  display: contents;
+}
+.svc-split--core > .svc-split-copy > .lede > .lede-title {
+  margin-top: auto;
+}
+.svc-split--core > .svc-split-copy > .svc-core-note {
+  margin-top: 0;
+  margin-bottom: auto;
 }
 .svc-split-copy .lede-text {
   max-width: 54ch;
@@ -10035,7 +9481,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   background: #ffffff;
 }
 .svc-forms em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
   font-weight: 600;
@@ -10095,7 +9541,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   border: 1px solid #c3d4ee;
   border-radius: 9px;
   background: #ffffff;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--brand);
 }
@@ -10204,163 +9650,254 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   color: #4e8ff0;
 }
 
-/* ---- 7 · Ce qu'il faut cadrer : six points, deux colonnes ---- */
-.svc-frame {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
+/* ---- 8 · Après la mise en service : le panneau de suivi ----
+
+   Un seul panneau, des lignes fines, aucune illustration. Les séparations
+   entre les quatre volets sont dessinées par un `gap: 1px` sur un fond gris :
+   elles deviennent horizontales d'elles-mêmes quand la grille se replie, et
+   aucun volet ne porte de bordure propre.
+
+   Deux grilles imbriquées, deux groupes de deux : c'est ce qui interdit le
+   volet seul sur une ligne à la largeur intermédiaire. Quatre colonnes au
+   large, 2 × 2 en tablette, une seule en téléphone, jamais de case vide.
+
+   ⚠ La hauteur du panneau ne bouge pas pendant la boucle : seules la teinte
+   du volet actif, sa barre et son statut changent. Ne pas y mettre de
+   contenu qui n'existe que sur le volet actif. ---- */
+.afp {
+  margin-top: 56px;
   overflow: hidden;
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--hairline);
-}
-.svc-frame > li {
-  display: flex;
-  gap: 12px;
-  padding: 18px 20px;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
   background: #ffffff;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
-.svc-frame svg {
-  flex: none;
-  width: 17px;
-  height: 17px;
-  margin-top: 3px;
-  stroke-width: 2;
-  color: var(--brand);
 }
 
-/* ---- 8 · Après la mise en service ----
-   La pastille et la note disent le paiement récurrent. Elles sont lues
-   dans `content.ts`, écrites une seule fois pour tout le site. */
-.svc-after-meta {
+/* ---- Le bandeau d'état ---- */
+.afp-head {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px 16px;
-  font-size: 13px;
-  line-height: 1.6;
-  color: #5a5a5a;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 14px 22px;
+  border-bottom: 1px solid #dde3eb;
+  background: #fafbfc;
 }
-.svc-after-pill {
+.afp-live {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
-  border: 1px solid #c3d4ee;
+  gap: 14px;
+}
+.afp-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
-  background: #ffffff;
-  font-size: 12.5px;
-  color: #0a4fb0;
+  background: #2db37a;
+  box-shadow: 0 0 0 2px rgb(45 179 122 / 12%);
 }
-.svc-after-pill svg {
-  width: 15px;
-  height: 15px;
+/* Le suivi est actif : le point respire. Deux temps de 0,9s, donc 1,8s de
+   cycle complet. */
+.afp-dot.is-live {
+  animation: afp-pulse 1.8s ease-in-out infinite;
 }
-.svc-after {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: 24px;
-  overflow: hidden;
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--hairline);
+@keyframes afp-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgb(45 179 122 / 12%); }
+  50% { box-shadow: 0 0 0 5px rgb(45 179 122 / 18%); }
 }
-.svc-after article {
-  display: grid;
-  gap: 8px;
-  align-content: start;
-  padding: 22px 20px 24px;
-  background: #ffffff;
-}
-.svc-after-index {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--brand);
-}
-.svc-after h3 {
-  font-size: 15px;
+.afp-live strong {
+  font-size: 13.5px;
   font-weight: 500;
-  line-height: 1.35;
+  color: #2e2e2e;
+}
+.afp-live em {
+  font-style: normal;
+  font-size: 11px;
+  color: #8a8f98;
+}
+.afp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  border: 1px solid #d6e2fa;
+  border-radius: 6px;
+  background: #f4f8fe;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.afp-pill svg {
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+/* ---- Les quatre volets ---- */
+.afp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  gap: 1px;
+  background: #dde3eb;
+}
+.afp-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1px;
+  background: #dde3eb;
+}
+.afp-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px;
+  min-width: 0;
+  overflow: hidden;
+  padding: 26px 22px 24px;
+  background: #ffffff;
+  transition: background-color 0.4s ease;
+}
+.afp-cell.is-on {
+  background: #fafcff;
+}
+/* La barre du volet actif. La durée doit rester celle de `STEP_MS` dans le
+   composant. Sans la classe, elle est pleine et immobile : c'est l'état du
+   survol et celui du mouvement réduit. */
+.afp-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 100%;
+  background: #0b6be6;
+}
+.afp-bar.is-filling {
+  animation: afp-fill 2.6s linear forwards;
+}
+@keyframes afp-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.afp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.afp-top em {
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #0b6be6;
+}
+.afp-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #2db37a;
+  transition: color 0.3s ease;
+}
+.afp-state i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.afp-state.is-on {
+  color: #0b6be6;
+}
+.afp-cell h3 {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
   color: #1f3a5f;
 }
-.svc-after p {
-  font-size: 13px;
-  line-height: 1.65;
+.afp-cell p {
+  max-width: 300px;
+  font-size: 14.5px;
+  line-height: 1.55;
   color: #5a5a5a;
+}
+
+/* ---- La note contractuelle ---- */
+.afp-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border-top: 1px solid #dde3eb;
+  background: #fafbfc;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #6b6f76;
+}
+.afp-foot svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: #0b6be6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .afp-cell,
+  .afp-state {
+    transition: none;
+  }
+  .afp-dot.is-live,
+  .afp-bar.is-filling {
+    animation: none;
+  }
 }
 
 /* ---- 9 · Le petit visuel du CTA ----
    Mêmes couleurs que la carte de projet qu'il remplace : la carte du CTA
    est en bleu nuit, et ces valeurs y sont déjà éprouvées. */
-.svc-cta-art {
+/* ---- Le CTA des six pages services : deux blocs, répartis à égalité.
+
+   La grille commune des CTA pose deux colonnes de 0,85fr et 1,15fr dans une
+   boîte de 58rem : la carte de droite y occupait plus de la moitié de la
+   largeur, bien au-delà de ce que son contenu demande. Ici, les deux
+   colonnes prennent la largeur de leur contenu, la carte est plafonnée à
+   300px, et `space-evenly` répartit tout l'espace restant à parts égales,
+   aux deux bords comme entre les blocs.
+
+   Ces règles sont scopées à `.svc-cta` : la grille commune sert aussi le CTA
+   de l'accueil et celui de la page Solutions, qui gardent leur composition.
+   ---- */
+.svc-cta .cta-booking-grid {
+  grid-template-columns: minmax(0, auto) minmax(0, auto);
+  justify-content: space-evenly;
+  gap: 2.5rem;
+  width: 100%;
+}
+.svc-cta .cta-booking-copy {
+  max-width: 34rem;
+}
+
+/* Les deux actions, l'une au-dessus de l'autre, et la mention sous elles.
+   La colonne est plafonnée : étirés sur toute la largeur du panneau, deux
+   boutons empilés se liraient comme deux bandeaux. */
+.svc-cta-actions {
+  display: grid;
+  justify-items: stretch;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 20rem;
   min-width: 0;
-  display: grid;
-  gap: 10px;
-  padding: 1.6rem;
-  border: 1px solid #375a84;
-  border-radius: 14px;
-  background: #12345c;
 }
-.svc-cta-mark {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid #3b618f;
-  border-radius: 10px;
-  background: #183f6b;
+.svc-cta-actions .cta-note {
+  margin-top: 0.5rem;
 }
-.svc-cta-mark svg {
-  width: 19px;
-  height: 19px;
-  stroke-width: 1.6;
-  color: #9ec8ff;
-}
-.svc-cta-art strong {
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #ffffff;
-}
-.svc-cta-art > p {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: #c2d3e9;
-}
-.svc-cta-path {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 6px;
-  padding-top: 14px;
-  border-top: 1px solid #375a84;
-}
-.svc-cta-path > span {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.svc-cta-path em {
-  padding: 5px 11px;
-  border: 1px solid #3b618f;
-  border-radius: 999px;
-  background: #183f6b;
-  font-style: normal;
-  font-size: 11.5px;
-  color: #c2d3e9;
-}
-.svc-cta-path svg {
-  width: 13px;
-  height: 13px;
-  color: #6f93c0;
+@media (max-width: 900px) {
+  /* Repliées en une colonne, les actions se centrent sous le texte. */
+  .svc-cta .svc-cta-actions {
+    justify-self: center;
+  }
 }
 
 /* ---- 10 · La FAQ ferme la page. Rien après elle, le CTA est au-dessus. ---- */
@@ -10375,16 +9912,13 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    n'est forcé sur un écran étroit : ils se replient en colonne. ---- */
 @media (max-width: 1100px) {
   .svc-uses,
-  .svc-forms,
-  .svc-after {
+  .svc-forms {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 640px) {
   .svc-uses,
-  .svc-forms,
-  .svc-after,
-  .svc-frame {
+  .svc-forms {
     grid-template-columns: minmax(0, 1fr);
   }
   .svc-core-hub {
@@ -10461,53 +9995,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   width: 1px;
   height: 16px;
   background: #dde3ee;
-}
-
-/* ---- 0 · Assistants & agents IA : un moyeu entre ses sources et ses
-   actions. Les deux filets horizontaux sortent du moyeu et traversent la
-   gouttière de la grille ; ils sont donc calés sur sa valeur. ---- */
-.sk-agent {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  column-gap: 16px;
-  width: 100%;
-}
-.sk-side {
-  padding: 10px 12px;
-  border: 1px solid #dde3ee;
-  border-radius: 10px;
-  background: #f7f9fc;
-  font-size: 12px;
-  line-height: 1.4;
-  text-align: center;
-  color: #5a5a5a;
-}
-.sk-hub {
-  position: relative;
-  padding: 12px 16px;
-  border: 1px solid #0b6be6;
-  border-radius: 10px;
-  background: #eff5fd;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-  color: #0a4fb0;
-}
-.sk-hub::before,
-.sk-hub::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 1px;
-  background: #c3d4ee;
-}
-.sk-hub::before {
-  right: 100%;
-}
-.sk-hub::after {
-  left: 100%;
 }
 
 /* ---- 1 · Automatisations : une chaîne de cinq temps, reliés. ---- */
@@ -10714,7 +10201,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   color: #5a5a5a;
 }
 .sk-steps em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 10.5px;
   color: #0b6be6;
@@ -10777,17 +10264,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 @media (max-width: 480px) {
-  /* Le moyeu et ses deux côtés ne tiennent plus sur une ligne : les trois
-     repères passent en colonne, et les filets horizontaux disparaissent
-     plutôt que de pointer dans le vide. */
-  .sk-agent {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 10px;
-  }
-  .sk-hub::before,
-  .sk-hub::after {
-    content: none;
-  }
   .sk-link {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -10807,4 +10283,1374 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     border-bottom: 1px solid #eef1f6;
     overflow-x: auto;
   }
+}
+
+/* =====================================================================
+   PAGES SERVICES · LA HAUTEUR D'ÉCRAN ET LE TITRE DE DÉFINITION
+   ===================================================================== */
+
+/* ---- Un mot peint dans un titre, sur la bande bleu nuit des pages
+   services. Elle ne porte pas `home-dark-band`, donc `--brand` y tomberait
+   à 3,25:1 sur le bleu nuit. Même bleu clair que le hero. ---- */
+.svc-ink :is(h1, h2, h3) .title-accent {
+  color: var(--dark-accent);
+}
+
+/* ---- Le titre de « Qu'est-ce que… » sur une seule ligne.
+   Ce qui le coupait n'était pas la largeur de la colonne mais la mesure
+   des titres, `max-width: 20ch`, et un titre de 26 caractères la dépasse.
+   La mesure est donc levée, et le corps plafonné un cran sous celui des
+   autres titres de section : à 42px, ce titre réclame plus de place que la
+   demi-colonne n'en offre, et il déborderait sur le schéma.
+
+   Réservé aux titres courts, par `whatTitleOneLine` dans le contenu. Les
+   cinq autres questions font quarante caractères et plus : elles gardent
+   le corps commun et passent à la ligne. Un titre qui déborde serait pire
+   qu'un titre sur deux lignes. ---- */
+@media (min-width: 1024px) {
+  .svc-what--line .lede-title {
+    max-width: none;
+    font-size: min(var(--fs-h2), 2.15rem);
+    white-space: nowrap;
+  }
+}
+
+/* ---- Les sections suivent la hauteur de leur CONTENU.
+
+   Elles ont porté `--hero-min-h`, la hauteur d'écran du hero. Sur les
+   sections les plus courtes cela laissait un tiers de bande en blanc, pour
+   rien. Le rythme vient désormais du seul rembourrage, `--home-section-pad-y`
+   au-dessus et en dessous, identique sur les six pages et symétrique par
+   construction : autant d'air au-dessus du surtitre qu'en dessous du
+   dernier élément.
+
+   Il n'y a donc plus de marges automatiques à répartir, plus de colonne
+   flex, et plus rien à centrer dans un espace libre : il n'y en a plus. ---- */
+
+/* =====================================================================
+   LES HUIT USAGES EN CARTES — PAGE « ASSISTANTS & AGENTS IA »
+
+   Une carte par usage : un mini-aperçu dessiné en haut, le titre et la
+   description en dessous. La grille commune `.svc-uses` reste en place,
+   elle sert les cinq autres pages services.
+
+   ── Deux points à ne pas défaire ────────────────────────────────────────
+   1. Les aperçus ont une hauteur MINIMALE, jamais fixe, et leurs libellés
+      ne passent pas à la ligne. Une traduction plus longue fait donc
+      grandir la boîte au lieu d'être coupée.
+   2. La seule animation est le survol. Huit aperçus animés dans une même
+      section se disputeraient l'attention du titre.
+   ────────────────────────────────────────────────────────────────────────
+   ===================================================================== */
+.auc {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.auc-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  padding: 14px 14px 20px;
+  border: 1px solid #e3e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+}
+/* Le bloc de texte occupe toute la hauteur restante de la carte, et
+   l'étiquette de forme est poussée en bas par une marge automatique. Les
+   cartes d'une même rangée faisant la même hauteur, leurs étiquettes
+   tombent donc sur la même ligne, quelle que soit la longueur des
+   descriptions. En colonne, chacune reste à la même distance du bas. */
+.auc-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-inline: 6px;
+}
+.auc-copy h3 {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  line-height: 1.3;
+  color: #1f3a5f;
+}
+.auc-copy p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #5a5a5a;
+}
+
+/* ---- Le cadre commun aux huit aperçus ---- */
+.auc-art {
+  display: flex;
+  min-height: 104px;
+  padding: 12px;
+  border: 1px solid #e8ecf4;
+  border-radius: 10px;
+  background: #f7f9fd;
+}
+/* Les pièces partagées : lignes de texte factices, étiquettes, avatar. */
+.auc-line {
+  flex: none;
+  height: 4px;
+  border-radius: 999px;
+  background: #e3e8f0;
+}
+.auc-tag {
+  flex: none;
+  padding: 3px 7px;
+  border-radius: 999px;
+  font-style: normal;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.auc-tag--blue {
+  background: #eaf2fe;
+  color: #0b6be6;
+}
+.auc-tag--warm {
+  background: #fdf1e4;
+  color: #a0632e;
+}
+.auc-tag--grey {
+  background: #f1f3f6;
+  color: #6b6f76;
+}
+.auc-tag--plain {
+  border: 1px solid #e3e8f0;
+  background: #ffffff;
+  color: #6b6f76;
+}
+.auc-avatar {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #e3e8f0;
+}
+
+/* ---- 1 · Répondre aux demandes courantes ---- */
+.auc-chat {
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+.auc-bubble {
+  max-width: 100%;
+  padding: 6px 9px;
+  font-size: 11px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.auc-bubble--ask {
+  align-self: flex-start;
+  border: 1px solid #e3e8f0;
+  border-radius: 4px 10px 10px 10px;
+  background: #ffffff;
+  color: #5a5a5a;
+}
+.auc-bubble--reply {
+  align-self: flex-end;
+  border-radius: 10px 4px 10px 10px;
+  background: #0b6be6;
+  color: #ffffff;
+}
+.auc-source {
+  align-self: flex-end;
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+
+/* ---- 2 · Rechercher dans vos documents ---- */
+.auc-search {
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+.auc-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid #b9d1f7;
+  border-radius: 7px;
+  background: #ffffff;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #5a5a5a;
+}
+.auc-field svg {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  stroke-width: 2.2;
+  color: #0b6be6;
+}
+/* La ligne trouvée : plus haute, surlignée, et marquée au bord gauche. */
+.auc-hit {
+  width: 70%;
+  height: 9px;
+  border-left: 2px solid #0b6be6;
+  border-radius: 0 3px 3px 0;
+  background: #d6e4fb;
+}
+
+/* ---- 3 · Qualifier une demande entrante ---- */
+.auc-triage {
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.auc-from {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.auc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* ---- 4 · Mettre à jour votre CRM ---- */
+.auc-crm {
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+.auc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.auc-row em {
+  font-style: normal;
+  color: #8a8f98;
+}
+.auc-row b {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 400;
+  color: #2e2e2e;
+}
+/* Le champ en cours de saisie. */
+.auc-row--edit {
+  padding: 4px 7px;
+  border: 1px solid #0b6be6;
+  border-radius: 6px;
+  background: #ffffff;
+}
+.auc-row--edit em {
+  color: #0b6be6;
+}
+.auc-caret {
+  width: 1.5px;
+  height: 10px;
+  margin-left: 2px;
+  background: #0b6be6;
+}
+
+/* ---- 5 · Préparer un devis ou un dossier ---- */
+.auc-doc {
+  align-items: center;
+  gap: 12px;
+}
+.auc-sheet {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 60px;
+  height: 76px;
+  padding: 8px 7px;
+  border: 1px solid #e3e8f0;
+  border-radius: 4px;
+  background: #ffffff;
+}
+.auc-sheet-title {
+  width: 70%;
+  height: 4px;
+  border-radius: 999px;
+  background: #0b6be6;
+}
+.auc-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.auc-checks em {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-style: normal;
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #2e2e2e;
+}
+.auc-checks em svg {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  stroke-width: 2.6;
+  color: #0b6be6;
+}
+.auc-pill {
+  align-self: flex-start;
+  margin-top: 2px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #eaf2fe;
+  font-size: 10.5px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+
+/* ---- 6 · Analyser les emails reçus ---- */
+.auc-inbox {
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.auc-mail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.auc-mail .auc-line {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.auc-mail .auc-tag {
+  margin-left: auto;
+  font-size: 9.5px;
+}
+
+/* ---- 7 · Produire un compte rendu ---- */
+.auc-notes {
+  align-items: center;
+  gap: 10px;
+}
+.auc-scraps {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.auc-scraps i {
+  height: 3px;
+  border-radius: 999px;
+  background: #d5dbe5;
+}
+.auc-arrow {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+  color: #0b6be6;
+}
+.auc-synth {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  padding: 8px 8px 9px;
+  border: 1px solid #b9d1f7;
+  border-radius: 6px;
+  background: #ffffff;
+}
+.auc-synth em {
+  font-style: normal;
+  font-size: 9.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.auc-synth i {
+  height: 3px;
+  border-radius: 999px;
+  background: #c9d8f5;
+}
+.auc-synth i:first-of-type {
+  background: #9db8f2;
+}
+
+/* ---- 8 · Enchaîner plusieurs actions ---- */
+.auc-chain {
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+.auc-step {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #0b6be6;
+}
+.auc-step svg {
+  width: 11px;
+  height: 11px;
+  stroke-width: 3;
+  color: #ffffff;
+}
+.auc-link {
+  flex: 1 1 auto;
+  min-width: 8px;
+  max-width: 18px;
+  height: 2px;
+  background: #0b6be6;
+}
+/* Le dernier pas n'est pas franchi tout seul : le trait devient pointillé
+   et mène au contrôle. */
+.auc-link--dashed {
+  height: 0;
+  max-width: 22px;
+  border-top: 2px dashed #b9d1f7;
+  background: none;
+}
+.auc-gate {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid #0b6be6;
+  border-radius: 8px;
+  background: #ffffff;
+}
+.auc-gate svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2;
+  color: #0b6be6;
+}
+
+.auc-form {
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 0;
+  padding: 4px 10px;
+  border: 1px solid #d6e2fa;
+  border-radius: 999px;
+  background: #eaf2fe;
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: #0b6be6;
+}
+
+/* =====================================================================
+   « VOS OUTILS RESTENT AU CENTRE » — LE VISUEL DE LA COLONNE DE DROITE
+
+   Deux colonnes : le texte à gauche, le visuel à droite, centré et plafonné
+   à 540px. Pas de cadre, pas de fond, pas de légende : le robot, les huit
+   labels et les rayons sont posés à même la bande.
+
+   ⚠ Le rapport `520 / 380` n'est pas décoratif. Les rayons sont tracés dans
+   un SVG en `viewBox="0 0 520 380"` et les labels sont posés en pourcentage
+   du même repère : sans ce rapport, le SVG se centrerait dans sa boîte avec
+   des bandes vides et les rayons pointeraient à côté des labels.
+   ===================================================================== */
+/* ---- Le titre sur une seule ligne. Ce qui le coupait n'était pas la
+   colonne mais la mesure des titres, `max-width: 20ch`, et celui-ci fait 28
+   caractères. La mesure est donc levée, et le corps plafonné à 2rem : à
+   42px, ce titre réclame 590px alors que la demi-colonne en offre 500, et il
+   déborderait sur le visuel. Réservé aux titres courts, par
+   `coreTitleOneLine` dans le contenu : les cinq autres pages ont des titres
+   de quarante caractères et plus, qui gardent le corps commun. ---- */
+.svc-core--line .lede-title {
+  max-width: none;
+}
+@media (min-width: 1024px) {
+  .svc-core--line .lede-title {
+    font-size: min(var(--fs-h2), 2rem);
+    white-space: nowrap;
+  }
+}
+
+.ant {
+  justify-self: center;
+  width: 100%;
+  max-width: 540px;
+  min-width: 0;
+}
+.ant-scroll {
+  overflow-x: auto;
+}
+.ant-scene {
+  position: relative;
+  min-width: 460px;
+  aspect-ratio: 520 / 380;
+}
+
+/* ---- L'anneau, les rayons, le point ---- */
+.ant-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+}
+.ant-ring,
+.ant-ray {
+  stroke: #1e3352;
+  stroke-width: 1;
+  /* Le trait reste à 1px quel que soit l'étirement du repère. */
+  vector-effect: non-scaling-stroke;
+}
+.ant-ray {
+  stroke-linecap: round;
+  transition: stroke 0.35s ease;
+}
+.ant-ray.is-on.ant-ray--read {
+  stroke: #4e8ff0;
+}
+.ant-ray.is-on.ant-ray--write {
+  stroke: #34d399;
+}
+.ant-ray.is-on.ant-ray--approve {
+  stroke: #f5b454;
+}
+.ant-dot {
+  fill: #ffffff;
+}
+/* L'onde part de l'anneau à chaque changement d'outil. Son rayon et son
+   opacité sont écrits par le composant : pas de transition ici. */
+.ant-wave {
+  fill: none;
+  stroke: #4e8ff0;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---- Les huit outils ---- */
+.ant-tool {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px 9px 9px;
+  border: 1px solid #1e3352;
+  border-radius: 12px;
+  background: #13223a;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+.ant-tool.is-on {
+  background: #16263d;
+}
+.ant-tool.is-on.ant-tool--read {
+  border-color: #4e8ff0;
+}
+.ant-tool.is-on.ant-tool--write {
+  border-color: #34d399;
+}
+.ant-tool.is-on.ant-tool--approve {
+  border-color: #f5b454;
+}
+.ant-code {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #24406a;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  color: #8fa0b8;
+  transition: color 0.35s ease;
+}
+.ant-tool.is-on.ant-tool--read .ant-code {
+  color: #4e8ff0;
+}
+.ant-tool.is-on.ant-tool--write .ant-code {
+  color: #34d399;
+}
+.ant-tool.is-on.ant-tool--approve .ant-code {
+  color: #f5b454;
+}
+.ant-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ant-meta strong {
+  font-size: 13.5px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.ant-meta em {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 10px;
+  white-space: nowrap;
+  color: #5f7393;
+  transition: color 0.35s ease;
+}
+/* Le point reprend la couleur du texte : une seule valeur à changer. */
+.ant-meta em i {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.ant-tool.is-on.ant-tool--read .ant-meta em {
+  color: #4e8ff0;
+}
+.ant-tool.is-on.ant-tool--write .ant-meta em {
+  color: #34d399;
+}
+.ant-tool.is-on.ant-tool--approve .ant-meta em {
+  color: #f5b454;
+}
+
+/* ---- L'agent, au centre ----
+   Le positionnement et l'échelle sont sur l'enveloppe, le flottement sur
+   l'élément intérieur : un seul élément ne peut pas porter les deux, le
+   calcul par image écraserait le centrage. ---- */
+/* ---- L'agent, ancré sur le CENTRE DU CERCLE ----
+
+   ⚠ `left` et `top` sont indispensables : sans eux, un élément en position
+   absolue reste à sa position statique, en haut à gauche de la scène, et le
+   `translate(-50%, -50%)` l'y maintient. C'est ce qui sortait le robot du
+   cercle.
+
+   Les 2px de correction ne sont pas un réglage à l'œil. Le bloc mesure
+   114px — antenne 18, tête 82, ombre au sol 14 — et son centre tombe donc à
+   57px, alors que le centre de la TÊTE est à 59. Sans eux, c'est le bloc qui
+   serait centré, et la tête descendrait de deux pixels sous l'anneau. ---- */
+.ant-bot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120px;
+  transform: translate(-50%, calc(-50% - 2px)) scale(0.88);
+}
+.ant-bot-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ant-antenna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ant-ball {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #4e8ff0;
+}
+.ant-stem {
+  width: 2px;
+  height: 9px;
+  background: #4e8ff0;
+}
+.ant-head {
+  position: relative;
+  width: 96px;
+  height: 82px;
+  padding: 8px;
+  border: 1.5px solid #4e8ff0;
+  border-radius: 26px;
+  background: #2a3a52;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 25%);
+}
+.ant-ear {
+  position: absolute;
+  top: 24px;
+  width: 6px;
+  height: 26px;
+  border-radius: 3px;
+  background: #4e8ff0;
+}
+.ant-ear--l {
+  left: -8px;
+}
+.ant-ear--r {
+  right: -8px;
+}
+/* ---- Le visage se lit comme un ÉCRAN : une surface sombre dans une coque
+   plus claire, et les traits en blanc par-dessus.
+
+   C'est la lecture que le site emploie partout ailleurs — fonds bleu nuit,
+   texte blanc, bleu réservé à la structure — et c'est la seule qui donne du
+   contraste là où il compte, sur les yeux et la bouche. Le bleu électrique
+   en aplat de visage faisait l'inverse : il mangeait les traits, 2,4:1 avec
+   le bleu pâle d'origine et 4,6:1 en blanc.
+
+   Les trois valeurs viennent de la palette du composant, aucune n'est
+   nouvelle : #0F1D33 est le fond de la carte, #1E3352 son filet discret,
+   et le blanc celui des noms d'outils. La coque garde son ardoise et son
+   contour bleu clair, donc l'enchaînement se lit : carte sombre, coque
+   claire cerclée de bleu, écran sombre, traits blancs.
+
+   Contrastes : traits blancs sur l'écran, 16,9:1. Écran sur la coque,
+   1,49:1, un palier d'aplat comme ceux du reste du site, appuyé par le
+   filet. ---- */
+.ant-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 100%;
+  border: 1px solid #1e3352;
+  border-radius: 18px;
+  background: #0f1d33;
+}
+.ant-eyes {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.ant-eye {
+  width: 9px;
+  height: 13px;
+  border-radius: 5px;
+  background: #ffffff;
+}
+.ant-mouth {
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+.ant-floor {
+  width: 64px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 28%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ant-ray,
+  .ant-tool,
+  .ant-code,
+  .ant-meta em {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   « QU'EST-CE QU'UN AGENT IA ? » — LE VISUEL DE LA COLONNE DE DROITE
+
+   Deux colonnes : le paragraphe à gauche, la carte animée à droite. Le
+   paragraphe y est volontairement plus étroit que la mesure commune des
+   sections : à côté d'une carte de 440px, une ligne de 54 caractères
+   déséquilibrait la composition.
+   ===================================================================== */
+.svc-what .lede-text {
+  max-width: 44ch;
+}
+.abr {
+  /* Caler sur le HAUT de la colonne de texte : le surtitre et la carte
+     partent de la même ligne. `.svc-split` centre ses colonnes l'une sur
+     l'autre, ce qui faisait descendre la carte de la moitié de l'écart de
+     hauteur entre les deux. */
+  align-self: start;
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+  min-width: 0;
+}
+/* Pas de cadre autour : ni fond, ni bordure, ni arrondi, ni ombre. Les
+   éléments sont posés à même la bande, et le rembourrage tombe avec le
+   cadre qu'il servait à décoller. Les encadrés INTÉRIEURS — les puces, la
+   carte de réponse, le filet du pied — gardent les leurs : ce sont eux qui
+   portent l'état de l'animation. */
+.abr-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- La scène : les cinq mots en cercle, la tête au centre ----
+
+   ⚠ Le rapport `560 / 360` n'est pas décoratif. Les traits sont tracés dans
+   un SVG en `viewBox="0 0 560 360"` et les mots sont posés en pourcentage du
+   même repère : sans ce rapport, le SVG se centrerait dans sa boîte avec des
+   bandes vides et les traits pointeraient à côté des mots.
+
+   Les traits partent du CENTRE, pas du bord de la tête : celle-ci est un
+   élément HTML de taille fixe, donc son rayon en unités SVG change avec la
+   largeur de la carte. C'est son fond blanc, dessiné par-dessus, qui masque
+   la portion inutile de chaque trait. ---- */
+.abr-orbit {
+  position: relative;
+  aspect-ratio: 560 / 360;
+  width: 100%;
+}
+.abr-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+}
+.abr-wire {
+  stroke: #e3e6ea;
+  stroke-width: 1;
+  /* Le trait reste à 1px quel que soit l'étirement du repère. */
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.3s ease;
+}
+.abr-wire.is-done {
+  stroke: #b9d1f7;
+}
+.abr-wire.is-on {
+  stroke: #0b6be6;
+  stroke-width: 1.5;
+}
+
+/* ---- Les cinq mots ---- */
+.abr-word {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 7px 13px;
+  border: 1px solid #e3e6ea;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #6b6f76;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+.abr-word.is-done {
+  border-color: #b9d1f7;
+  color: #2e2e2e;
+}
+.abr-word.is-on {
+  border-color: #0b6be6;
+  background: #f4f8fe;
+  font-weight: 500;
+  color: #0b6be6;
+  box-shadow: 0 0 0 3px rgb(11 107 230 / 10%);
+}
+/* « humain » : la validation du dernier temps, dite sous le mot pour ne pas
+   élargir la pastille au point de sortir de la scène. */
+.abr-word em {
+  font-style: normal;
+  font-size: 10px;
+  color: #0b6be6;
+}
+
+/* ---- L'agent, au centre de la scène ---- */
+.abr-bot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+}
+
+/* =====================================================================
+   LE ROBOT DE LA CARTE
+
+   Les deux niveaux imbriqués sont volontaires : `.abr-eyes` porte le regard
+   avec une transition, `.abr-eye` le clignement écrit à chaque image. Mettre
+   les deux sur le même élément ferait que l'un écraserait l'autre.
+   ===================================================================== */
+.abr-antenna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.abr-ball {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #0b6be6;
+}
+.abr-antenna i {
+  width: 2px;
+  height: 8px;
+  background: #0b6be6;
+}
+.abr-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.abr-head {
+  position: relative;
+  width: 80px;
+  height: 68px;
+  padding: 7px;
+  border: 2px solid #0b6be6;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgb(20 40 80 / 7%);
+  /* L'inclinaison change à l'étape, pas à l'image : la transition est donc
+     ici et non dans le composant. */
+  transition: transform 0.45s ease, box-shadow 0.3s ease;
+}
+.abr-head.is-working {
+  box-shadow:
+    0 0 0 5px rgb(11 107 230 / 8%),
+    0 10px 22px rgb(11 107 230 / 14%);
+}
+.abr-ear {
+  position: absolute;
+  top: 23px;
+  width: 4px;
+  height: 17px;
+  border-radius: 2px;
+  background: #0b6be6;
+}
+.abr-ear--l {
+  left: -6px;
+}
+.abr-ear--r {
+  right: -6px;
+}
+.abr-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+  border-radius: 15px;
+  background: #eaf2fe;
+}
+.abr-eyes {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.35s ease;
+}
+.abr-eye {
+  width: 8px;
+  height: 11px;
+  border-radius: 4px;
+  background: #0b2a55;
+}
+.abr-arc {
+  width: 10px;
+  height: 6px;
+  overflow: visible;
+  fill: none;
+  stroke: #0b2a55;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+.abr-mouth {
+  width: 24px;
+  height: 10px;
+  overflow: visible;
+  fill: none;
+  stroke: #0b2a55;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.abr-cheek {
+  position: absolute;
+  top: 33px;
+  width: 8px;
+  height: 4px;
+  border-radius: 999px;
+  background: #9dc0f5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.abr-cheek.is-on {
+  opacity: 1;
+}
+.abr-cheek--l {
+  left: 9px;
+}
+.abr-cheek--r {
+  right: 9px;
+}
+.abr-floor {
+  height: 5px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: rgb(20 40 80 / 8%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abr-wire,
+  .abr-word,
+  .abr-head,
+  .abr-eyes,
+  .abr-cheek {
+    transition: none;
+  }
+}
+
+/* =====================================================================
+   LE DÉROULÉ D'UN PROJET — LE TEXTE ET LE CADRE DES SIX ÉTAPES
+   Page Solutions, section « Conception & Développement IA ».
+
+   Deux colonnes de même hauteur : le texte à gauche, le cadre à droite.
+   `align-items: stretch` aligne les deux bords, haut et bas, sans mesurer
+   quoi que ce soit.
+
+   ── Deux points à ne pas défaire ────────────────────────────────────────
+   1. La bande ne porte PAS `solutions-full` : plus de hauteur d'écran
+      imposée, donc plus de vide sous le contenu. Son rembourrage vient de
+      `solutions-rhythm`, identique en haut et en bas par construction.
+   2. Le bloc de texte part du HAUT, il n'est pas centré verticalement. Le
+      cadre est plus haut que lui, et un centrage ajouterait la moitié de
+      cette différence au-dessus du surtitre : celui-ci ne tomberait plus à
+      la même hauteur que dans les autres sections.
+   ────────────────────────────────────────────────────────────────────────
+
+   Le surtitre, le titre et le paragraphe ne reçoivent AUCUNE règle ici :
+   ni corps, ni interligne, ni graisse, ni couleur, ni marge. Ils gardent
+   exactement le style du reste du site.
+   ===================================================================== */
+.mfr-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  align-items: stretch;
+  gap: 48px 64px;
+}
+/* Le surtitre reste EN HAUT, à la même hauteur que dans les autres
+   sections ; seuls le titre et le paragraphe se centrent sur le cadre d'en
+   face.
+
+   Les trois éléments vivent dans le même bloc `.lede`, on ne peut donc pas
+   les traiter séparément depuis le composant. La mécanique est donc dans la
+   mise en page : le bloc s'étire sur toute la hauteur de la colonne
+   (`flex: 1`), puis deux marges automatiques, l'une au-dessus du titre et
+   l'autre sous le paragraphe, se partagent l'espace libre. Le groupe
+   titre + paragraphe se centre dans ce qui reste sous le surtitre, et le
+   surtitre ne bouge pas d'un pixel.
+
+   Ne pas remettre de `justify-content` ici : il déplacerait le surtitre
+   avec le reste, ce qui est exactement ce qu'on évite. */
+.mfr-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.mfr-copy > .lede {
+  flex: 1;
+}
+.mfr-copy .lede-title {
+  margin-top: auto;
+}
+.mfr-copy .lede-text {
+  margin-bottom: auto;
+}
+/* La seule mesure levée : le plafond de largeur du titre, qui vaut 60 % de
+   la colonne ailleurs et n'a pas de sens dans une demi-colonne. */
+.mfr-copy .lede-title {
+  max-width: none;
+}
+
+/* =====================================================================
+   LE CADRE DES SIX ÉTAPES
+
+   ⚠ SA HAUTEUR NE BOUGE JAMAIS d'une étape à l'autre, sinon la page
+   sauterait toutes les quatre secondes. Trois règles y veillent, et il
+   faut les trois : le corps est en `flex: 1; min-height: 0`, la
+   description absorbe le reste en `flex: 1` avec `overflow: hidden`, et
+   l'encart de résultat a une hauteur FIXE. En retirer une seule fait
+   grandir le cadre sur l'étape au texte le plus long.
+   ===================================================================== */
+.mfr {
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 14px;
+  background: #0f1d33;
+}
+
+/* ---- L'en-tête ---- */
+.mfr-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #24406a;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.mfr-head-label {
+  letter-spacing: 1.4px;
+  color: #6f84a3;
+}
+.mfr-head-step {
+  color: #8ec1ff;
+}
+
+/* ---- Le corps ---- */
+.mfr-body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
+}
+.mfr-list {
+  display: grid;
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid #1e3352;
+}
+.mfr-step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0 14px;
+  border: 0;
+  border-bottom: 1px solid #1a2d4a;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.mfr-step:last-child {
+  border-bottom: 0;
+}
+.mfr-step:focus-visible {
+  outline: 2px solid #0a6cf0;
+  outline-offset: -2px;
+}
+.mfr-step em {
+  flex: none;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+.mfr-step > span {
+  overflow: hidden;
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+.mfr-step.is-on {
+  background: #10264a;
+}
+.mfr-step.is-on em {
+  color: #8ec1ff;
+}
+.mfr-step.is-on > span {
+  color: #ffffff;
+}
+.mfr-step.is-done em {
+  color: #8ec1ff;
+}
+.mfr-step.is-done > span {
+  color: #c9d3e2;
+}
+.mfr-step.is-next em {
+  color: #4f6383;
+}
+.mfr-step.is-next > span {
+  color: #8fa0b8;
+}
+/* La barre qui se remplit pendant les quatre secondes de l'étape. La durée
+   doit rester celle de `STEP_MS` dans le composant. */
+.mfr-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  background: #0a6cf0;
+  animation: mfr-fill 4s linear forwards;
+}
+@keyframes mfr-fill {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* ---- Le détail de l'étape ---- */
+.mfr-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 22px 22px 18px;
+}
+.mfr-detail-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: #6f84a3;
+}
+.mfr-detail h3 {
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #ffffff;
+}
+/* La description absorbe la hauteur restante. C'est elle qui encaisse la
+   différence de longueur entre les six étapes, et c'est pour ça que le
+   cadre ne grandit pas. */
+.mfr-desc {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #b6c2d4;
+}
+.mfr-out {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  height: 76px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #2f5fa8;
+  border-radius: 10px;
+  background: #10264a;
+}
+.mfr-out span {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  color: #8ec1ff;
+}
+.mfr-out strong {
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+/* ---- Le pied : l'avancement ---- */
+.mfr-foot {
+  flex: none;
+  display: flex;
+  gap: 4px;
+  padding: 12px 18px;
+  border-top: 1px solid #24406a;
+}
+.mfr-foot i {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: #1e3352;
+  transition: background-color 0.3s ease;
+}
+.mfr-foot i.is-done {
+  background: #2f5fa8;
+}
+.mfr-foot i.is-on {
+  background: #0a6cf0;
+}
+
+/* ---- Sous 640px, la liste de six lignes laisse trop peu de place au
+   détail : le détail passe au-dessus et la liste devient une grille de
+   trois colonnes sous lui. Le cadre suit alors son contenu, et la
+   description n'est plus rognée. ---- */
+@media (max-width: 640px) {
+  .mfr {
+    min-height: auto;
+  }
+  .mfr-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mfr-detail {
+    order: 1;
+  }
+  .mfr-list {
+    order: 2;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid #1e3352;
+    border-right: 0;
+  }
+  .mfr-step {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px 12px;
+  }
+  .mfr-desc {
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mfr-step,
+  .mfr-step em,
+  .mfr-step > span,
+  .mfr-foot i {
+    transition: none;
+  }
+  .mfr-bar {
+    animation: none;
+    height: 100%;
+  }
+}
+
+/* =====================================================================
+   ⚠ LE TON DE LA BANDE « DÉROULÉ D'UN PROJET », ÉCRIT EN DUR
+
+   `.technical-band` déclare bien le bleu nuit, mais à une spécificité d'une
+   seule classe : le filet pair/impair du thème, à trois classes, l'écrase.
+   Cette bande n'était donc sombre que parce qu'elle tombait sur un rang
+   IMPAIR. La section « Comment tout s'assemble » qui la précédait a été
+   supprimée, elle est passée sur un rang pair, et le thème l'aurait peinte
+   en BLANC : texte blanc sur fond blanc.
+
+   Son ton est donc posé explicitement, comme celui des bandes des pages
+   services. À spécificité égale avec le filet du thème, ce bloc doit rester
+   APRÈS lui dans la feuille.
+   ===================================================================== */
+.site-theme-alternating main > .band.solutions-ink-band {
+  background: var(--surface-dark);
+  color: #ffffff;
+  --foreground: #ffffff;
+  --muted-foreground: #c2d3e9;
+  --text-mono: #a8c3e8;
+  --hairline: rgb(188 215 255 / 18%);
+  --border: rgb(188 215 255 / 22%);
+  --surface: #10233a;
+  --surface-2: #142b45;
+  --dark-accent: #8fc0ff;
+}
+.site-theme-alternating main > .band.solutions-ink-band .lede-kicker {
+  color: #9ec8ff;
 }
