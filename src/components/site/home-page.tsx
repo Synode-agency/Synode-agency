@@ -1,15 +1,16 @@
 import Link from "next/link";
-import { Activity, ArrowRight, Check, LockKeyhole, Plug, UserCheck } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
+import { SolutionSlices } from "@/components/site/solution-slices";
 import { renderLines } from "@/lib/lines";
 import { Booking } from "@/components/site/booking";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { HeroStage } from "@/components/site/hero-stage";
 import { PageHero } from "@/components/site/page-hero";
-import { SolutionFamilies } from "@/components/site/solution-families";
+import { TrustSteps } from "@/components/site/trust-steps";
 import { MethodTabs } from "@/components/site/method-tabs";
-import { BusinessUseCaseCards } from "@/components/site/business-use-case-cards";
+import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { ToolsSection } from "@/components/site/tools/tools-section";
 import { HomeWorkCards } from "@/components/site/home-work-cards";
@@ -50,17 +51,6 @@ export function HomePage({ locale }: { locale: Locale }) {
     ],
   };
 
-  const trustItems = fr ? [
-    { icon: LockKeyhole, title: "Confidentialité des données", text: "Vos données sont utilisées uniquement dans le cadre défini pour votre solution IA, avec des accès limités aux personnes et systèmes autorisés afin de préserver leur confidentialité." },
-    { icon: UserCheck, title: "Contrôle humain", text: "Les décisions sensibles et les actions importantes peuvent rester soumises à une validation humaine afin de conserver un niveau de contrôle adapté à votre activité et à vos processus métier." },
-    { icon: Plug, title: "Accès et intégrations sécurisés", text: "Les connexions à vos logiciels, bases de données et outils métier sont configurées avec des droits d’accès adaptés et limitées aux informations nécessaires au fonctionnement de votre solution IA." },
-    { icon: Activity, title: "Suivi technique", text: "Le fonctionnement de votre système IA peut être surveillé afin de détecter les erreurs, comportements anormaux ou problèmes d’intégration et de maintenir la solution dans de bonnes conditions d’exploitation." },
-  ] : [
-    { icon: LockKeyhole, title: "Data confidentiality", text: "Your data is used only within the scope defined for your AI solution, with access restricted to authorised people and systems in order to keep it confidential." },
-    { icon: UserCheck, title: "Human control", text: "Sensitive decisions and important actions can remain subject to human approval, to keep a level of control that suits your business and your processes." },
-    { icon: Plug, title: "Secure access and integrations", text: "Connections to your software, databases and business tools are configured with appropriate access rights and limited to the information your AI solution needs to operate." },
-    { icon: Activity, title: "Technical monitoring", text: "Your AI system can be monitored to detect errors, unusual behaviour or integration problems, and to keep the solution in good operating condition." },
-  ];
 
   const capabilityItems = fr ? [
     "Conseil & consultance IA",
@@ -107,13 +97,13 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <Band id="cas-usage" tone="white" className="studio-section home-usecases-light">
       <div className="section-heading daily-section-heading"><Lede kicker={fr ? "Usages de l’IA en entreprise" : "AI use cases for business"} title={fr ? "Quand l’IA s’intègre à vos processus métier" : "When AI becomes part of your business processes"} accents={fr ? ["processus"] : ["processes"]} text={fr ? "L’IA devient une véritable couche opérationnelle dans l’entreprise : elle peut relier vos outils, exploiter vos données et vos connaissances internes, orchestrer des processus complexes et assister vos équipes là où le temps, l’information et les décisions se dispersent." : "AI becomes an operational layer within the business: it can connect your tools, use your data and internal knowledge, orchestrate complex processes and support your teams wherever time, information and decisions become scattered."} /><div className="daily-section-aside"><p className="section-side-text">{fr ? "Ces exemples montrent comment l’intelligence artificielle peut répondre à des difficultés fréquentes en entreprise. Votre besoin peut être différent : nous l’étudions à partir de votre organisation, de vos outils, de vos données et de vos priorités." : "These examples show how artificial intelligence can address common business challenges. Your need may be different: we study it in the context of your organisation, tools, data and priorities."}</p><Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Découvrir tous les cas d’usage" : "Explore all use cases"}<ArrowRight aria-hidden /></Link></div></div>
-      <BusinessUseCaseCards items={featuredBusinessUseCases(locale)} locale={locale} preserveHomeAnchors />
+      <UseCaseAccordion items={featuredBusinessUseCases(locale)} locale={locale} />
       <div className="daily-open-callout"><div><span className="eyebrow"><span className="status-dot" />{fr ? "Votre situation est unique" : "Your situation is unique"}</span><h3>{renderLines(fr ? "Votre besoin ne correspond pas exactement à\nces cas d’usage IA ? C’est normal." : "Your need doesn’t quite match\nthese AI use cases? That is normal.")}</h3><p>{renderLines(fr ? "Une solution IA sur mesure commence par votre organisation, vos contraintes et\nvos priorités, pas par une liste de fonctionnalités prédéfinies." : "A custom AI solution starts with your organisation, constraints and\npriorities, not a predefined list of features.")}</p></div><Link className="btn btn--primary" href={contactHref}>{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link></div>
     </Band>
 
     <Band id="offre" tone="base" className="studio-section home-solutions-light solutions-light">
       <div className="section-heading"><Lede kicker={fr ? "Solutions IA sur mesure" : "Custom AI solutions"} title={fr ? "Nos solutions pour intégrer l’IA à vos processus métier" : "Our solutions for integrating AI into your business processes"} accents={["solutions"]} text={fr ? "Chaque solution IA sur mesure est conçue en combinant les expertises adaptées à votre environnement, afin de connecter vos outils, mieux exploiter vos données et faire évoluer vos processus métier." : "Every custom AI solution combines the capabilities suited to your environment to connect your tools, make better use of your data and improve your business processes."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions IA" : "Explore all our AI solutions"}<ArrowRight aria-hidden /></Link></div>
-      <SolutionFamilies locale={locale} showIndex={false} />
+      <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
       <p className="families-note">
         {fr
           ? "Les solutions peuvent être accompagnées dans le temps par du monitoring, de la maintenance et des évolutions selon les besoins du projet.\u2009*"
@@ -127,7 +117,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <Band id="confiance" tone="white" className="studio-section trust-section home-trust-light">
       <div className="section-heading"><Lede kicker={fr ? "Sécurité, confidentialité et contrôle des systèmes IA" : "Security, confidentiality and control of AI systems"} title={fr ? "Des solutions IA conçues pour protéger vos données et garder le contrôle." : "AI solutions designed to protect your data and keep you in control."} accents={fr ? ["protéger vos données", "garder le contrôle."] : ["protect your data", "keep you in control."]} text={fr ? "La confidentialité, la protection des données, la gestion des accès et les validations humaines sont intégrées dès la conception de chaque projet IA. Les informations de votre entreprise restent accessibles uniquement aux systèmes et aux personnes autorisées, selon les besoins définis avec vous." : "Confidentiality, data protection, access management and human approvals are built in from the design stage of every AI project. Your company information stays available only to authorised systems and people, according to the needs agreed with you."} /></div>
-      <div className="trust-grid">{trustItems.map(({ icon: Icon, title, text }, index) => <article key={title} className="trust-card"><div><span className="trust-icon"><Icon aria-hidden /></span><span className="trust-index" aria-hidden>0{index + 1}</span></div><h3>{title}</h3><p>{text}</p></article>)}</div>
+      <TrustSteps locale={locale} />
     </Band>
 
     <Band id="approche" tone="base" className="studio-section home-dark-band home-method-dark">
@@ -147,7 +137,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <CardPanel id="conclusion" className="booking-cta dark-cta">
       <div className="col card-body cta-panel cta-booking-grid">
-        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet de solution IA sur mesure." : "Let’s discuss your custom AI solution project."} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise en Belgique." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company in Belgium."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
+        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
         <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
       </div>
     </CardPanel>

@@ -348,36 +348,6 @@ main > .band#top .lede-title {
   border-radius: 50%;
   background: var(--brand);
 }
-.daily-problems-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-.daily-problem-card {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(1.35rem, 2.3vw, 1.8rem);
-  /* Le fond était un gris neutre, et sur une bande blanche il ne disait
-     rien. Un bleu très pâle rattache la carte à la palette Synode sans
-     monter le contraste : la hiérarchie du titre et du texte ne change
-     pas. */
-  border: 1px solid #dde7f4;
-  border-radius: 10px;
-  background: #f4f8fd;
-}
-.daily-problem-top {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  color: var(--text-mono);
-  font-size: 0.75rem;
-  margin-bottom: 1.35rem;
-}
-.daily-problem-top > span:last-child {
-  margin-left: auto;
-  color: #a1a8b3;
-}
 .feature-icon {
   display: inline-flex;
   width: 30px;
@@ -392,20 +362,6 @@ main > .band#top .lede-title {
 .feature-icon svg {
   width: 16px;
   height: 16px;
-}
-.daily-problem-card h3 {
-  max-width: 28ch;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  line-height: 1.35;
-}
-.daily-problem-card > p {
-  max-width: 58ch;
-  margin-top: 0.65rem;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
 }
 .daily-examples {
   display: flex;
@@ -493,9 +449,6 @@ main > .band#top .lede-title {
   line-height: 1.35;
 }
 
-.use-cases-catalog .daily-problem-card {
-  scroll-margin-top: calc(var(--header-h) + 1.5rem);
-}
 .use-cases-final-cta {
   margin-top: 0;
 }
@@ -724,65 +677,6 @@ main > .band#top .lede-title {
    page en gabarit. Les quatre temps sont donc posés à plat, séparés par un
    filet vertical d'un cheveu, et le filet tombe dès que la grille se
    replie. */
-.impact-rail {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
-  margin: clamp(2.75rem, 5vw, 4.25rem) 0 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--hairline);
-}
-.impact-rail > li {
-  min-width: 0;
-  /* Colonne flex pour que le mot de registre descende au bas de la cellule.
-     Les quatre paragraphes n'ont pas la même longueur : sans cela, les
-     quatre mots flottaient chacun à une hauteur différente. */
-  display: flex;
-  flex-direction: column;
-  padding: clamp(1.75rem, 2.6vw, 2.4rem) clamp(1.25rem, 2.2vw, 2rem);
-}
-.impact-rail > li + li {
-  border-left: 1px solid var(--hairline);
-}
-.impact-rail > li:first-child {
-  padding-left: 0;
-}
-.impact-rail > li:last-child {
-  padding-right: 0;
-}
-.impact-rail-icon {
-  width: 22px;
-  height: 22px;
-  color: var(--brand);
-  stroke-width: 1.25;
-}
-.impact-rail h3 {
-  margin-top: 1.35rem;
-  font-size: 1.0625rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
-.impact-rail p {
-  margin-top: 0.6rem;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-.impact-rail-keyword {
-  display: block;
-  /* `auto` pousse le mot en bas, `padding-top` garde l'écart minimal avec
-     le paragraphe le plus long, celui qui fixe la hauteur de la ligne. */
-  margin-top: auto;
-  padding-top: 1.1rem;
-  /* Le bleu de la bande, pas un littéral : le mot reste lisible si la
-     section change de fond. 5,07:1 sur le #F2F6FC actuel. */
-  color: var(--brand);
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 @media (max-width: 900px) {
   .band:not(#top):not(#faq) > .col > .lede .lede-title,
   .band:not(#top):not(#faq) > .col > .section-heading .lede-title {
@@ -795,21 +689,6 @@ main > .band#top .lede-title {
   .use-cases-catalog > .col > .lede {
     width: 100%;
     max-width: 100%;
-  }
-  .impact-rail {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .impact-rail > li:nth-child(3) {
-    border-left: 0;
-  }
-  .impact-rail > li:nth-child(n + 3) {
-    border-top: 1px solid var(--hairline);
-  }
-  .impact-rail > li:nth-child(odd) {
-    padding-left: 0;
-  }
-  .impact-rail > li:nth-child(even) {
-    padding-right: 0;
   }
 }
 @media (max-width: 600px) {
@@ -827,16 +706,6 @@ main > .band#top .lede-title {
   }
   .terminal-integrations {
     grid-template-columns: 1fr;
-  }
-  .impact-rail {
-    grid-template-columns: 1fr;
-  }
-  .impact-rail > li {
-    padding-inline: 0;
-  }
-  .impact-rail > li + li {
-    border-left: 0;
-    border-top: 1px solid var(--hairline);
   }
 }
 .solution-offer {
@@ -1167,7 +1036,6 @@ main > .band#top .lede-title {
   .daily-section-heading .section-side-text {
     max-width: 62ch;
   }
-  .daily-problems-grid,
   .solution-offer,
   .approach-layout,
   .faq-layout {
@@ -2269,11 +2137,7 @@ footer.band--white .wordmark-type {
 
 /* La palette claire des six familles. Partagée par l'accueil et par la
    page Solutions : c'est le MÊME jeu de couleurs des deux côtés, seul le
-   fond de la carte diffère, et il est repris plus bas. La classe ne porte
-   donc plus le nom d'une page. */
-.solutions-light .family-card,
-.solutions-light .family-card--0,
-.solutions-light .family-card--5 {
+   fond de la carte diffère {
   border-color: #cbd8e8;
   background: #ffffff;
   box-shadow: 0 20px 48px -42px rgb(19 39 79 / 45%);
@@ -2283,16 +2147,7 @@ footer.band--white .wordmark-type {
   --text-mono: #71839a;
   --hairline: #d9e3ef;
 }
-.solutions-light .family-card p {
-  color: #5f6f84;
-}
-.solutions-light .family-card-top,
-.solutions-light .family-benefit,
-.solutions-light .family-link {
-  color: #075fc4;
-}
-.solutions-light .family-example,
-.solutions-light .family-link {
+.solutions-light .family-example {
   border-top-color: #d9e3ef;
 }
 .solutions-light .family-example > span {
@@ -2370,11 +2225,7 @@ footer.band--white .wordmark-type {
    l'ombre ne ferait que salir le blanc de la section.
 
    Les surfaces internes des illustrations repassent au blanc. Posées sur
-   #f2f6fc elles auraient gardé leur #edf4fc, trop proche pour se lire :
-   seules leurs bordures auraient encore dessiné les formes. */
-.solutions-families-band .family-card,
-.solutions-families-band .family-card--0,
-.solutions-families-band .family-card--5 {
+   #f2f6fc elles auraient gardé leur #edf4fc {
   background: #f2f6fc;
   box-shadow: none;
 }
@@ -2450,97 +2301,13 @@ footer.band--white .wordmark-type {
 }
 
 /* Six solution families: a composed rectangle, in a stable reading order. */
-.family-bento {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-.family-card {
-  padding: 1.5rem;
-  scroll-margin-top: 110px;
-}
-.family-card--0,
-.family-card--5 {
-  grid-column: span 2;
-  background: #122840;
-}
-.family-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-  color: #8bbfff;
-}
-.family-card-top > svg {
-  width: 23px;
-  height: 23px;
-  stroke-width: 1.5;
-}
-.family-card-top > span {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-}
-.family-card h3 {
-  font-size: 1.15rem;
-  line-height: 1.35;
-  text-wrap: balance;
-}
-.family-card p {
-  font-size: 0.85rem;
-}
-.family-benefit {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #aed0ff;
-  margin-top: 1rem;
-}
-.family-card .brick-art {
-  flex: 1;
-  min-height: 145px;
-  margin-block: 1.5rem;
-  padding: 0;
-}
-.family-card .brick-art--0 {
-  min-height: 230px;
-}
-.family-card--0 h3,
-.family-card--5 h3 {
-  font-size: 1.5rem;
-}
-.family-example {
-  border-top: 1px solid #34547b;
-  padding-top: 1rem;
-}
-.family-example > span {
-  color: #91b6e5;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.family-example p {
-  margin-top: 0.4rem;
-  font-size: 0.78rem;
-}
-.family-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  color: #fff;
-  border-top: 1px solid #34547b;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  font-size: 0.78rem;
-}
-.family-link svg {
-  width: 16px;
-  height: 16px;
-  flex: none;
-}
-.family-link:hover {
-  color: #aed0ff;
-}
+/* La carte entière est cliquable. Le lien « Découvrez … » reste le SEUL
+   lien du balisage : c'est son `::after` qui s'étire sur toute la carte.
+   Envelopper l'article dans un second lien aurait imbriqué deux `<a>`, ce
+   qui est invalide et donne deux arrêts clavier pour une seule
+   destination. */
+/* Le focus clavier arrive sur le lien, mais c'est la carte qu'il faut
+   voir : sans ça,
 .training-art {
   max-width: 330px;
   margin: 1rem auto;
@@ -2580,65 +2347,6 @@ footer.band--white .wordmark-type {
 .training-art-team span svg {
   width: 16px;
 }
-@media (max-width: 1100px) {
-  .family-bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .family-card--0,
-  .family-card--5 {
-    grid-column: auto;
-  }
-  .family-card--0 h3,
-  .family-card--5 h3 {
-    font-size: 1.15rem;
-  }
-}
-@media (max-width: 600px) {
-  .family-bento {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .family-card {
-    padding: 1.35rem;
-  }
-  .family-card .brick-art {
-    flex: none;
-  }
-}
-
-/* Equal visual weight for all six families. */
-.family-bento {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.family-card,
-.family-card--0,
-.family-card--5 {
-  grid-column: auto;
-  background: #10233a;
-}
-.family-card h3,
-.family-card--0 h3,
-.family-card--5 h3 {
-  font-size: 1.15rem;
-}
-.family-card .brick-art,
-.family-card .brick-art--0 {
-  flex: none;
-  height: 230px;
-  min-height: 230px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.family-copy {
-  flex: 1;
-}
-.family-example {
-  min-height: 115px;
-}
-.family-card .agent-token {
-  font-size: 0.625rem;
-}
-
 /* Sur desktop le hero suit la hauteur disponible, dans la limite de
    `--hero-min-h`. Une fenêtre plus haute que ce plafond laisse apparaître
    la section suivante au lieu d'étirer le vide au-dessus du bandeau. */
@@ -2873,55 +2581,6 @@ footer.band--white .wordmark-type {
 }
 
 /* Homepage reassurance and team previews. */
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-.trust-card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 1.5rem;
-  border: 1px solid #dce5f1;
-  border-radius: 10px;
-  background: #ffffff;
-}
-.trust-card > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.trust-icon {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 1px solid #c8dcf7;
-  border-radius: 8px;
-  background: #eef5ff;
-  color: #0067ea;
-}
-.trust-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 1.5;
-}
-.trust-index {
-  color: #8195af;
-  font-size: 0.65rem;
-}
-.trust-card h3 {
-  margin-block: 1.5rem 0.65rem;
-  color: #294a72;
-  font-size: 1rem;
-  font-weight: 500;
-}
-.trust-card p {
-  color: #626a76;
-  font-size: 0.82rem;
-  line-height: 1.7;
-}
 .home-team-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3149,22 +2808,6 @@ footer.band--white .wordmark-type {
   border-color: #09264d;
   background: #8fc0ff;
 }
-.home-usecases-dark .daily-problem-card {
-  border-color: #28486f;
-  background: #10325b;
-}
-.home-usecases-dark .daily-problem-card h3 {
-  color: #ffffff;
-}
-.home-usecases-dark .daily-problem-card > p {
-  color: #c2d3e9;
-}
-.home-usecases-dark .daily-problem-top {
-  color: #a8c3e8;
-}
-.home-usecases-dark .daily-problem-top > span:last-child {
-  color: #7295c0;
-}
 .home-usecases-dark .feature-icon {
   border-color: #345a88;
   background: #173e6b;
@@ -3200,40 +2843,11 @@ footer.band--white .wordmark-type {
 .home-solutions-light {
   background: #f7f9fc;
 }
-.solutions-light .family-card {
-  color: #19304f;
-  --foreground: #19304f;
-  --muted-foreground: #5f6f84;
-  --text-mono: #71839a;
-  --hairline: #d9e3ef;
-}
 .home-solutions-dark {
   background: var(--surface-dark);
 }
-.home-solutions-dark .family-card {
-  border-color: #365d8c;
-  box-shadow: 0 18px 45px -34px #000;
-}
 .home-trust-dark {
   background: var(--surface-dark);
-}
-.home-trust-dark .trust-card {
-  border-color: #29425f;
-  background: #10233a;
-}
-.home-trust-dark .trust-icon {
-  border-color: #365f91;
-  background: #173e6b;
-  color: #9ec8ff;
-}
-.home-trust-dark .trust-index {
-  color: #789ac3;
-}
-.home-trust-dark .trust-card h3 {
-  color: #ffffff;
-}
-.home-trust-dark .trust-card p {
-  color: #c2d3e9;
 }
 .home-method-dark {
   /* Cette section se contente de 45rem là où les autres visent 48rem. Le
@@ -3547,10 +3161,7 @@ footer.band--white .wordmark-type {
 }
 .site-theme-dark
   :is(
-    .daily-problem-card,
-    .trust-card,
     .home-work-card,
-    .family-example-grid article,
     .project-showcase,
     .founder-card,
     .calendar-demo,
@@ -3564,10 +3175,7 @@ footer.band--white .wordmark-type {
 }
 .site-theme-dark
   :is(
-    .daily-problem-card,
-    .trust-card,
     .home-work-card,
-    .family-example-grid article,
     .project-showcase,
     .founder-card,
     .calendar-demo
@@ -3575,7 +3183,7 @@ footer.band--white .wordmark-type {
   :is(p, small) {
   color: #c2d3e9;
 }
-.site-theme-dark :is(.trust-card, .operations-card) h3,
+.site-theme-dark :is(.operations-card) h3,
 .site-theme-dark .founder-copy .founder-role {
   color: #ffffff !important;
 }
@@ -3593,150 +3201,15 @@ footer.band--white .wordmark-type {
   background: #142b45;
 }
 .site-theme-dark .site-theme-dark 
-.family-purpose {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-.family-small-title {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-.family-possibilities {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
-}
-.family-possibilities li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  padding-block: 1rem;
-  border-bottom: 1px solid #dce2eb;
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-.family-possibilities svg {
-  width: 20px;
-  height: 20px;
-  flex: none;
-  color: #0067ea;
-  margin-top: 0.2rem;
-}
-.scenario-tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-block: 2rem;
-}
-.scenario-tools > span {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.scenario-tools > span > span {
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #34547b;
-  background: #10325b;
-  border-radius: 6px;
-  font-size: 0.8rem;
-}
-.scenario-tools svg {
-  width: 14px;
-  height: 14px;
-  color: #91b6e5;
-}
-.scenario-steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  list-style: none;
-  gap: 1rem;
-  padding: 0;
-}
-.scenario-steps li {
-  padding: 1.5rem;
-  border: 1px solid #34547b;
-  border-radius: 10px;
-  background: #10325b;
-}
-.scenario-number {
-  color: #8bbfff;
-  font-size: 0.75rem;
-}
-.scenario-steps h3 {
-  margin-block: 1.3rem 0.7rem;
-  font-size: 1.15rem;
-  font-weight: 500;
-}
-.scenario-steps p,
-.scenario-outcome p {
-  color: #c2d3e9;
-  line-height: 1.75;
-  font-size: 0.9rem;
-}
-.scenario-outcome {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #34547b;
-}
-.scenario-outcome > svg {
-  width: 25px;
-  height: 25px;
-  color: #8bbfff;
-  flex: none;
-}
-.scenario-outcome h3 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
+/* Les exemples d'une page de famille. Ces règles avaient été emportées
+   par le nettoyage des anciennes cartes de solutions : elles partageaient
+   le préfixe `.family-` sans rien d'autre en commun. */
 .family-example-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
-.family-example-grid article {
-  border: 1px solid #dce2eb;
-  border-radius: 10px;
-  padding: 2rem;
-  background: #fafbfd;
-}
-.family-example-grid svg {
-  color: #0067ea;
-  width: 24px;
-  height: 24px;
-}
-.family-example-grid h3 {
-  font-size: 1.2rem;
-  margin-block: 1.3rem 0.7rem;
-  font-weight: 500;
-}
-.family-example-grid p {
-  color: #626a76;
-  line-height: 1.7;
-  font-size: 0.95rem;
-}
-.family-related {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
-}
-@media (max-width: 1100px) {
-  .family-bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .family-purpose {
-    gap: 2rem;
-  }
-}
 @media (max-width: 760px) {
-  .family-purpose,
-  .scenario-steps,
   .home-work-card {
     grid-template-columns: 1fr;
   }
@@ -3744,147 +3217,12 @@ footer.band--white .wordmark-type {
     min-height: 200px;
   }
 }
-@media (max-width: 600px) {
-  .family-bento,
-  .family-example-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .family-example {
-    min-height: 0;
-  }
-}
-.family-bento {
-  grid-auto-rows: 1fr;
-}
-@media (max-width: 600px) {
-  .family-bento {
-    grid-auto-rows: auto;
-  }
-}
 
-/* Ongoing operations are part of every live solution, not a seventh family. */
-.operations-band {
+/* Ongoing operations are part of every live solution{
   border-bottom: 1px solid #e1e8f2;
-}
-.operations-heading {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: end;
 }
 .operations-heading .lede {
   max-width: 680px;
-}
-.operations-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.4rem;
-  margin-top: 1.8rem;
-}
-.operations-meta p {
-  max-width: 48ch;
-  color: #626a76;
-  font-size: 0.78rem;
-  line-height: 1.65;
-}
-.operations-recurring {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.65rem 0.8rem;
-  border: 1px solid #bad3f5;
-  border-radius: 6px;
-  background: #edf5ff;
-  color: #0054bf;
-  font-size: 0.72rem;
-  font-weight: 500;
-}
-.operations-recurring svg {
-  width: 16px;
-  height: 16px;
-}
-.operations-cycle {
-  display: grid;
-  list-style: none;
-  padding: 0;
-  border: 1px solid #d8e3f1;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #f8fafd;
-}
-.operations-cycle li {
-  display: grid;
-  grid-template-columns: 32px 1fr 18px;
-  align-items: center;
-  gap: 0.8rem;
-  min-height: 58px;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e1e8f2;
-}
-.operations-cycle li:last-child {
-  border-bottom: 0;
-}
-.operations-cycle span {
-  color: #7890ad;
-  font-size: 0.65rem;
-}
-.operations-cycle strong {
-  color: #294a72;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-.operations-cycle svg {
-  width: 16px;
-  height: 16px;
-  color: #0067ea;
-}
-.operations-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
-}
-.operations-card {
-  position: relative;
-  min-width: 0;
-  padding: 1.5rem;
-  border: 1px solid #dce5f1;
-  border-radius: 10px;
-  background: linear-gradient(145deg, #ffffff, #f7fafe);
-}
-.operations-icon {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #c9dcf7;
-  border-radius: 8px;
-  background: #eef5ff;
-  color: #0067ea;
-}
-.operations-icon svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 1.5;
-}
-.operations-index {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  color: #8195af;
-  font-size: 0.65rem;
-}
-.operations-card h3 {
-  margin-block: 1.5rem 0.7rem;
-  color: #294a72;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.operations-card p {
-  color: #626a76;
-  font-size: 0.82rem;
-  line-height: 1.7;
 }
 
 /* Project gallery: a real project with room for its future screenshot. */
@@ -4230,12 +3568,6 @@ footer.band--white .wordmark-type {
   color: #626a76;
 }
 @media (max-width: 1050px) {
-  .operations-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .trust-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
   .home-team-card {
     grid-template-columns: 145px 1fr;
   }
@@ -4244,7 +3576,6 @@ footer.band--white .wordmark-type {
   }
   }
 @media (max-width: 760px) {
-  .operations-heading,
   .project-showcase,
   .founder-grid,
   .home-team-grid,
@@ -4271,12 +3602,6 @@ footer.band--white .wordmark-type {
   }
   .founder-copy {
     padding: 1.5rem;
-  }
-  .operations-grid {
-    grid-template-columns: 1fr;
-  }
-  .trust-grid {
-    grid-template-columns: 1fr;
   }
   .home-team-card {
     grid-template-columns: 120px 1fr;
@@ -5187,7 +4512,6 @@ footer.band--white .wordmark-type {
    Petite, en italique, centrée dans la colonne et sur son propre axe. La
    largeur est donnée en pourcentage de la colonne plutôt qu'en `ch` : c'est
    le nombre de lignes qui compte ici, et `balance` les égalise. */
-
 
 
 /* =====================================================================
@@ -6295,7 +5619,7 @@ main > .band:is(
 
 /* Le même écart entre le bloc de titres et le contenu, quelle que soit la
    façon dont la section compose son en-tête : `.section-heading` pour la
-   plupart, `.section-gap` pour la FAQ, `.impact-rail` pour Résultats
+   plupart, `.section-gap` pour la FAQ, `.isp` pour Résultats
    recherchés. La portée est limitée à l'accueil, car ces trois classes
    servent aussi aux pages intérieures, qui gardent leur rythme. */
 main > .band:is(
@@ -6313,7 +5637,7 @@ main > .band:is(
 main > .band.home-faq-light .section-gap {
   margin-top: var(--home-heading-gap);
 }
-main > .band.home-impact-light .impact-rail {
+main > .band.home-impact-light .isp {
   margin-top: var(--home-heading-gap);
 }
 
@@ -6869,14 +6193,6 @@ main > .band.home-impact-light .impact-rail {
 /* La mention sous les six familles. Une note de bas de section, pas un
    paragraphe de corps : petite, en italique, sur toute la largeur, et
    dans le gris discret déjà utilisé pour les mentions du site. */
-.families-note {
-  margin-top: clamp(1.5rem, 2.5vw, 2rem);
-  color: var(--text-mono);
-  font-size: 0.8125rem;
-  font-style: italic;
-  line-height: 1.6;
-}
-
 /* =====================================================================
    LE PARCOURS DE RÉSERVATION, EN TROIS ÉTATS
 
@@ -7461,6 +6777,1886 @@ main > .band.home-impact-light .impact-rail {
   }
   .apick-band-out strong {
     white-space: normal;
+  }
+}
+
+/* La mention sous les six solutions. Elle a sa propre respiration : collée
+   aux cartes, elle se lisait comme une sixième ligne de contenu alors que
+   c'est un aparté. Plus petite, en italique, et nettement décollée. */
+.families-note {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--text-mono);
+  font-size: 0.75rem;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* =====================================================================
+   L'AGENT AU TRAVAIL
+
+   Un agent IA qui traite une demande client en quatre temps : il cherche,
+   comprend, prépare, puis ATTEND une validation humaine. Posé dans le
+   visuel de la carte « Assistants & Agents IA » et dans le hero de sa page
+   de famille.
+
+   Tout est écrit en littéraux : le bloc est blanc sur fond très pâle, et
+   il ne doit pas déteindre selon la bande qui le porte.
+   ===================================================================== */
+.agd {
+  /* La palette, en jetons sombres. Elle n'a PAS de variante claire : ce
+     bloc ne vit que dans le hero de sa page de famille, sur bleu nuit.
+     Les jetons restent parce qu'ils rendent la palette lisible d'un coup
+     d'œil et évitent de semer vingt littéraux dans soixante règles. */
+  --agd-card: #13223a;
+  --agd-stage: #0f1d33;
+  --agd-stage-line: #24406a;
+  --agd-line: #1e3352;
+  --agd-line-soft: #1a2d4a;
+  --agd-field: #10264a;
+  --agd-blue: #4e8ff0;
+  --agd-blue-rgb: 78 143 240;
+  --agd-blue-soft: #16335a;
+  --agd-blue-mark: #1e4a85;
+  --agd-blue-dim: #2f5fa8;
+  --agd-blue-edge: #2f5fa8;
+  --agd-title: #ffffff;
+  --agd-text: #e8eef7;
+  --agd-text-2: #c9d3e2;
+  --agd-text-3: #b6c2d4;
+  --agd-muted: #8fa0b8;
+  --agd-faint: #5f7393;
+  --agd-green: #34d399;
+  --agd-green-soft: #123a2a;
+  --agd-green-bg: #10301f;
+  --agd-green-edge: #1f5c3f;
+  --agd-amber: #f5b454;
+  --agd-amber-soft: #3a2e17;
+  --agd-wait: #10264a;
+  --agd-shadow: rgb(0 0 0 / 30%);
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---- L'agent et son état ---- */
+.agd-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.agd-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--agd-blue);
+  border-radius: 50%;
+  background: var(--agd-card);
+  color: var(--agd-blue);
+  box-shadow: 0 0 0 3px rgb(var(--agd-blue-rgb) / 6%);
+  transition: box-shadow 400ms ease;
+}
+.agd-avatar.is-busy {
+  box-shadow: 0 0 0 6px rgb(var(--agd-blue-rgb) / 10%);
+}
+.agd-avatar svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
+}
+.agd-who {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.agd-who strong {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--agd-title);
+}
+.agd-who em {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--agd-muted);
+}
+.agd-state {
+  flex: none;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  white-space: nowrap;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+.agd-state i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+/* Le point ne clignote que tant que l'agent travaille. Une fois envoyé, un
+   point qui bat encore laisserait croire que ce n'est pas fini. */
+.agd-state i.is-blink {
+  animation: agd-blink 600ms steps(1, end) infinite;
+}
+@keyframes agd-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.3; }
+}
+.agd-state--work { background: var(--agd-blue-soft); color: var(--agd-blue); }
+.agd-state--wait { background: var(--agd-amber-soft); color: var(--agd-amber); }
+.agd-state--sent { background: var(--agd-green-soft); color: var(--agd-green); }
+
+/* ---- Les trois étapes ---- */
+.agd-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.agd-step {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.agd-step > i {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--agd-line);
+  overflow: hidden;
+}
+.agd-step > i b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--agd-blue);
+}
+.agd-step > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 11.5px;
+  color: var(--agd-faint);
+  transition: color 300ms ease;
+}
+.agd-step.is-now > span { color: var(--agd-title); }
+.agd-step.is-done > span { color: var(--agd-text-2); }
+.agd-step-tick {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  stroke-width: 3;
+  color: var(--agd-green);
+}
+
+/* ---- La carte de travail ---- */
+.agd-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 196px;
+  padding: 14px;
+  border: 1px solid var(--agd-line);
+  border-radius: 10px;
+  background: var(--agd-card);
+  box-shadow: 0 10px 24px var(--agd-shadow);
+}
+.agd-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--agd-muted);
+}
+
+/* Le champ de recherche, et le curseur qui bat. */
+.agd-query {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  background: var(--agd-field);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--agd-text);
+}
+.agd-query svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  stroke-width: 1.8;
+  color: var(--agd-blue);
+}
+.agd-caret {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--agd-blue);
+  animation: agd-caret 900ms steps(1, end) infinite;
+}
+@keyframes agd-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Les sources trouvées, qui arrivent l'une après l'autre. */
+.agd-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.agd-sources li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 6px 8px;
+  border: 1px solid var(--agd-line-soft);
+  border-radius: 7px;
+  background: var(--agd-card);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+.agd-sources li.is-in {
+  opacity: 1;
+  transform: none;
+}
+/* Le reflet qui balaie la ligne pendant qu'elle est analysée. */
+.agd-sources li.is-scan::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgb(var(--agd-blue-rgb) / 8%), transparent);
+  animation: agd-scan 900ms linear infinite;
+}
+@keyframes agd-scan {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+.agd-sources em {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--agd-blue-soft);
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 9px;
+  color: var(--agd-blue);
+}
+.agd-sources b {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--agd-text-2);
+}
+.agd-sources span {
+  flex: none;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--agd-faint);
+  transition: color 300ms ease;
+}
+.agd-sources span.is-done { color: var(--agd-green); }
+
+/* Le message du client, dont les passages utiles se surlignent. */
+.agd-msg {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--agd-text);
+}
+.agd-msg mark {
+  background: transparent;
+  color: inherit;
+  border-radius: 3px;
+  padding: 1px 2px;
+  transition: background-color 400ms ease, color 400ms ease;
+}
+.agd-msg mark.is-on {
+  background: var(--agd-blue-mark);
+  color: var(--agd-title);
+}
+.agd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.agd-tags em {
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: var(--agd-blue-soft);
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  white-space: nowrap;
+  color: var(--agd-blue);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+.agd-tags em.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Le brouillon, et les sources qu'il cite. */
+.agd-draft {
+  min-height: 86px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--agd-text);
+}
+.agd-cites {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.agd-cites.is-in { opacity: 1; }
+.agd-cites em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--agd-muted);
+}
+.agd-cites b {
+  padding: 3px 7px;
+  border: 1px solid var(--agd-line);
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--agd-text-3);
+}
+
+/* ---- La validation humaine ----
+   C'est le point du bloc : rien ne part sans elle. Elle reste visible mais
+   en retrait tant que l'agent travaille, pour qu'on sache dès la première
+   seconde qu'elle viendra. */
+.agd-approve {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--agd-line);
+  border-radius: 9px;
+  background: var(--agd-card);
+  transition: opacity 350ms ease, background-color 350ms ease, border-color 350ms ease;
+}
+.agd-approve > span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  transition: color 350ms ease;
+}
+/* Le texte du bouton reste BLANC dans les deux variantes : c'est la seule
+   couleur du bloc qui ne passe pas par un jeton. Un `var(--agd-card)` l'y
+   aurait rendu sombre sur fond bleu dans la version de nuit. */
+.agd-approve > b {
+  flex: none;
+  padding: 5px 11px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #ffffff;
+  transition: background-color 350ms ease, box-shadow 350ms ease, transform 150ms ease;
+}
+.agd-approve--idle { opacity: 0.45; }
+.agd-approve--idle > span { color: var(--agd-muted); }
+.agd-approve--idle > b { background: var(--agd-blue-dim); }
+
+.agd-approve--wait {
+  border-color: var(--agd-blue-edge);
+  background: var(--agd-wait);
+}
+.agd-approve--wait > span { color: var(--agd-title); }
+.agd-approve--wait > b {
+  background: var(--agd-blue);
+  box-shadow: 0 0 0 4px rgb(var(--agd-blue-rgb) / 18%);
+}
+.agd-approve--wait > b.is-press { transform: scale(0.95); }
+
+.agd-approve--sent {
+  border-color: var(--agd-green-edge);
+  background: var(--agd-green-bg);
+}
+.agd-approve--sent > span { color: var(--agd-green); }
+.agd-approve--sent > b { background: var(--agd-green); }
+
+/* Le composant n'arme aucune horloge sous ce réglage et affiche l'état
+   final ; ici ce sont les battements et le reflet qui tombent. */
+@media (prefers-reduced-motion: reduce) {
+  .agd-state i.is-blink,
+  .agd-caret,
+  .agd-sources li.is-scan::after {
+    animation: none;
+  }
+  .agd-avatar,
+  .agd-step > span,
+  .agd-sources li,
+  .agd-sources span,
+  .agd-msg mark,
+  .agd-tags em,
+  .agd-cites,
+  .agd-approve,
+  .agd-approve > span,
+  .agd-approve > b {
+    transition: none;
+  }
+}
+
+/* Dans le hero d'une page de famille, le bloc a plus de place : il se
+   centre sans la carte de la colonne de droite. */
+/* ---- La zone qui porte le bloc, dans le hero de sa page de famille.
+
+   Elle ne redéfinit plus de jetons : la palette est sombre par défaut, il
+   n'y a plus de variante claire à neutraliser.
+
+   Sous 900px, le hero passe en colonne et le bloc se centre : sa largeur
+   maximale de 340px suffit, et aucune largeur fixe ne peut déborder. ---- */
+.family-hero-art--demo {
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  padding: 22px;
+  border: 1px solid #24406a;
+  border-radius: 12px;
+  background: #0f1d33;
+}
+@media (max-width: 900px) {
+  .family-hero-art--demo {
+    min-height: 0;
+    width: 100%;
+  }
+}
+
+/* =====================================================================
+   LA SCÈNE DU ROBOT — carte 01 des tranches
+
+   Une tête au centre, trois mots autour, des lignes qui se tracent. Le
+   SVG des lignes et les étiquettes HTML partagent le MÊME repère : la
+   scène a un rapport fixe de 300 × 260, le `viewBox` emploie ces unités,
+   et les étiquettes sont posées en pourcentages de la même boîte. C'est ce
+   qui fait tomber chaque ligne exactement sur son mot.
+
+   ⚠ Rien de ce qui bouge à chaque image ne porte de transition CSS : la
+   boucle `requestAnimationFrame` réécrit ces valeurs soixante fois par
+   seconde, et une transition se battrait contre elle. Les transitions
+   ci-dessous ne portent que sur ce qui change rarement — l'état d'un mot,
+   la coche, le halo du robot.
+   ===================================================================== */
+.rbs {
+  position: relative;
+  container-type: inline-size;
+  width: min(100%, 300px);
+  aspect-ratio: 300 / 260;
+  margin-inline: auto;
+  /* Le corps des mots suit la largeur de la scène, borné entre 10 et 13px.
+     Dans une colonne de 260px, un corps fixe de 13px faisait sortir
+     « Rechercher » du cadre, qui le rognait. */
+  font-size: clamp(10px, 4.33cqw, 13px);
+}
+.rbs-wires {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---- Le robot ---- */
+.rbs-bot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 1.5px solid #0b6be6;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow:
+    0 0 0 4px rgb(11 107 230 / 6%),
+    0 8px 18px rgb(20 40 80 / 6%);
+  transition: box-shadow 300ms ease;
+}
+.rbs-bot.is-searching {
+  box-shadow:
+    0 0 0 6px rgb(11 107 230 / 10%),
+    0 10px 24px rgb(11 107 230 / 12%);
+}
+/* La tête, et ses deux yeux. */
+.rbs-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 30px;
+  height: 22px;
+  border: 2px solid #0b6be6;
+  border-radius: 6px;
+}
+.rbs-head i {
+  width: 3px;
+  height: 5px;
+  border-radius: 2px;
+  background: #0b6be6;
+}
+/* L'antenne : une tige et son voyant. */
+.rbs-ant {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+}
+.rbs-ant span {
+  order: -1;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #0b6be6;
+}
+.rbs-ant i {
+  width: 2px;
+  height: 6px;
+  background: #0b6be6;
+}
+/* Les deux oreilles. */
+.rbs-ear {
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 6px;
+  border-radius: 2px;
+  background: #0b6be6;
+  transform: translateY(-50%);
+}
+.rbs-ear--l { left: 14px; }
+.rbs-ear--r { right: 14px; }
+
+/* ---- Les trois mots ----
+   Trois états : inactif, visé par le robot, atteint. */
+.rbs-word {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  max-width: 46%;
+  padding: 0.54em 0.92em;
+  border: 1px solid #e3e8f0;
+  border-radius: 7px;
+  background: #ffffff;
+  font-size: 1em;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #a0a8b6;
+  box-shadow: 0 2px 6px rgb(20 40 80 / 4%);
+  transition: border-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
+}
+.rbs-word.is-aiming {
+  border-color: #c9d8f5;
+  color: #3a3a3a;
+}
+.rbs-word.is-on {
+  border-color: #9db8f2;
+  color: #1f3a5f;
+  box-shadow: 0 6px 16px rgb(11 107 230 / 10%);
+  animation: rbs-pop 300ms ease-out 1;
+}
+@keyframes rbs-pop {
+  0% { scale: 1; }
+  45% { scale: 1.08; }
+  100% { scale: 1; }
+}
+/* La coche glisse en élargissant son logement : une apparition par
+   `opacity` seule aurait fait sauter le mot d'un cran. */
+.rbs-check {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  width: 0;
+  margin-right: 0;
+  color: #0b6be6;
+  transition: width 300ms ease, margin-right 300ms ease;
+}
+.rbs-word.is-on .rbs-check {
+  width: 11px;
+  margin-right: 5px;
+}
+.rbs-check svg {
+  flex: none;
+  width: 11px;
+  height: 11px;
+  stroke-width: 3;
+}
+
+/* Aucune boucle n'est armée sous ce réglage, et le composant pose
+   directement l'état final. Ici c'est le rebond qui tombe. */
+@media (prefers-reduced-motion: reduce) {
+  .rbs-word,
+  .rbs-check,
+  .rbs-bot {
+    transition: none;
+  }
+  .rbs-word.is-on {
+    animation: none;
+  }
+}
+
+/* =====================================================================
+   LES SIX SOLUTIONS, EN TRANCHES
+
+   Posées côte à côte comme des dos de livres : l'ouverte prend ce qui
+   reste, les cinq autres se resserrent à 72px. Le même composant sur
+   l'accueil et sur la page Solutions.
+
+   La bascule entre l'alignement et l'empilement se décide sur la largeur
+   RÉELLE du conteneur, mesurée par un `ResizeObserver`, et non sur celle
+   de la fenêtre : les deux sections n'ont pas la même colonne, et une
+   requête média se serait trompée sur l'une des deux.
+   ===================================================================== */
+.slc {
+  margin-top: 64px;
+  display: flex;
+  gap: 10px;
+  height: 560px;
+}
+.slc-card {
+  position: relative;
+  flex: 0 0 72px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dde3ee;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgb(20 40 80 / 4%);
+  cursor: pointer;
+  transition:
+    flex 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+.slc-card.is-on {
+  flex: 1 1 0;
+  border-color: #9db8f2;
+  box-shadow: 0 24px 50px rgb(11 107 230 / 10%);
+}
+.slc-card:focus-visible {
+  outline: 2px solid #0b6be6;
+  outline-offset: 2px;
+}
+
+/* ---- La bande fermée ---- */
+.slc-rail {
+  position: absolute;
+  inset: 0;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-block: 22px;
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+.slc-card.is-on .slc-rail {
+  opacity: 0;
+  pointer-events: none;
+}
+.slc-rail-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #d6e2fa;
+  border-radius: 9px;
+  background: #eef3fd;
+  color: #0b6be6;
+}
+.slc-rail-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.7;
+}
+.slc-rail em {
+  flex: none;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: #a0a8b6;
+}
+/* Le titre à la verticale. `flex: 1 1 auto` avec `min-height: 0` le laisse
+   se rogner plutôt que déborder de la bande sur les petites hauteurs. */
+.slc-rail b {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #1f3a5f;
+}
+
+/* ---- Le contenu ouvert ----
+   `min-width` est posée en ligne par le composant, à la largeur finale
+   mesurée : sans elle, le texte se recompose à chaque image pendant les
+   0,65s d'ouverture et la carte tremble. */
+.slc-open {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 36px;
+  padding: 34px 36px;
+  opacity: 0;
+  transition: opacity 450ms ease 0ms;
+}
+.slc-card.is-on .slc-open {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+.slc-copy {
+  flex: 1 1 300px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.slc-copy-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.slc-copy-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #0b6be6;
+  color: #ffffff;
+}
+.slc-copy-icon svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.7;
+}
+.slc-copy-top em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #a0a8b6;
+}
+.slc-copy h3 {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  color: #1f3a5f;
+  text-wrap: balance;
+}
+.slc-text {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+.slc-benefit {
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #0b6be6;
+}
+.slc-example {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid #e8ecf4;
+}
+.slc-example > span {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 11.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #6b6f76;
+}
+.slc-example p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+.slc-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid #e8ecf4;
+  font-size: 14.5px;
+  color: #0b6be6;
+}
+.slc-link svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+
+/* ---- La colonne visuelle ----
+   Elle disparaît quand la tranche ouverte descend sous 680px : à deux
+   colonnes dans moins que ça, le texte passait à trois mots par ligne. */
+.slc-visual {
+  container-type: inline-size;
+  flex: 1 1 260px;
+  min-width: 0;
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  border: 1px solid #e8ecf4;
+  border-radius: 12px;
+  background: #f7f9fd;
+}
+.slc-art {
+  width: 100%;
+  max-width: 280px;
+}
+
+/* 02 — trois carrés reliés */
+.slc-art--flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slc-flow-part { display: contents; }
+.slc-flow-link {
+  width: 26px;
+  height: 2px;
+  background: #e3e6ea;
+  transition: background-color 400ms ease;
+}
+.slc-flow-link.is-on { background: #9db8f2; }
+.slc-art--flow b {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #a0a8b6;
+  transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease;
+}
+.slc-art--flow b svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.7;
+}
+.slc-art--flow b.is-on {
+  border-color: #9db8f2;
+  background: #eef3fd;
+  color: #0b6be6;
+}
+.slc-art--flow b.is-full {
+  border-color: #0b6be6;
+  background: #0b6be6;
+  color: #ffffff;
+}
+
+/* 03 — une mini-interface */
+.slc-art--app {
+  overflow: hidden;
+  border: 1px solid #e3e6ea;
+  border-radius: 10px;
+  background: #ffffff;
+}
+.slc-app-bar {
+  display: block;
+  height: 14px;
+  background: #eef3fd;
+}
+.slc-app-body { display: flex; }
+.slc-app-side {
+  flex: none;
+  width: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 8px;
+  border-right: 1px solid #e8ecf4;
+}
+.slc-app-side i { height: 4px; border-radius: 2px; background: #e3e6ea; }
+.slc-app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 12px;
+}
+.slc-app-tiles { display: flex; gap: 6px; margin-bottom: 4px; }
+.slc-app-tiles i { flex: 1; height: 22px; border-radius: 5px; background: #eef3fd; }
+.slc-app-line {
+  height: 5px;
+  border-radius: 3px;
+  background: #d6e2fa;
+  transition: width 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 04 — quatre outils autour d'un cœur */
+.slc-art--grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.slc-art--grid span {
+  padding: 13px 10px;
+  border: 1px solid #e3e6ea;
+  border-radius: 9px;
+  background: #ffffff;
+  font-size: 12.5px;
+  text-align: center;
+  color: #8a8f98;
+  transition: border-color 400ms ease, color 400ms ease;
+}
+.slc-art--grid span.is-on {
+  border-color: #9db8f2;
+  color: #0b6be6;
+}
+.slc-grid-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 42px;
+  height: 42px;
+  transform: translate(-50%, -50%);
+  border: 3px solid #f7f9fd;
+  border-radius: 10px;
+  background: #0b6be6;
+}
+
+/* 05 — sept barres */
+.slc-art--data {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.slc-data-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  height: 92px;
+}
+.slc-data-bars i {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(#5b9bf5, #0b6be6);
+  transition: height 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.slc-art--data > span {
+  font-size: 11.5px;
+  color: #6b6f76;
+}
+
+/* 06 — trois temps d'une formation */
+.slc-art--learn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.slc-learn-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #eef3fd;
+}
+.slc-learn-box svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.7;
+  color: #0b6be6;
+}
+.slc-learn-box p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8a8f98;
+}
+.slc-learn-box p span { transition: color 400ms ease, font-weight 400ms ease; }
+.slc-learn-box p span.is-on { color: #1f3a5f; }
+.slc-learn-box p span.is-now { color: #1f3a5f; font-weight: 600; }
+.slc-learn-box p em { font-style: normal; color: #a0a8b6; }
+.slc-learn-go {
+  font-size: 12.5px;
+  color: #0b6be6;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.slc-learn-go.is-on { opacity: 1; }
+
+/* =====================================================================
+   DISPOSITION EMPILÉE — sous 930px de conteneur
+   ===================================================================== */
+.slc--stacked {
+  flex-direction: column;
+  height: auto;
+}
+.slc--stacked .slc-card {
+  flex: 0 0 72px;
+  transition:
+    flex 550ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+.slc--stacked .slc-card.is-on {
+  flex: 0 0 580px;
+}
+/* La bande redevient une ligne : icône, numéro et titre à l'horizontale. */
+.slc--stacked .slc-rail {
+  width: auto;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 72px;
+  inset: 0 0 auto 0;
+  padding: 0 22px;
+}
+.slc--stacked .slc-rail b {
+  flex: 1 1 auto;
+  min-height: 0;
+  writing-mode: horizontal-tb;
+  transform: none;
+  text-align: left;
+}
+.slc--stacked .slc-open {
+  min-width: 0 !important;
+}
+
+@media (max-width: 700px) {
+  .slc--stacked .slc-card.is-on { flex: 0 0 820px; }
+}
+@media (max-width: 520px) {
+  .slc--stacked .slc-card.is-on { flex: 0 0 600px; }
+  .slc--stacked .slc-visual { display: none; }
+  .slc-open { padding: 24px 20px; }
+  .slc-copy h3 { font-size: 22px; }
+}
+
+/* Les visuels tournent sans fin et les tranches changent de largeur : les
+   deux sont décoratifs, et c'est ce que ce réglage demande de supprimer.
+   Le composant coupe aussi les deux minuteurs. */
+@media (prefers-reduced-motion: reduce) {
+  .slc-card,
+  .slc-rail,
+  .slc-open,
+  .slc-flow-link,
+  .slc-art--flow b,
+  .slc-app-line,
+  .slc-art--grid span,
+  .slc-data-bars i,
+  .slc-learn-box p span,
+  .slc-learn-go {
+    transition: none;
+  }
+}
+
+/* =====================================================================
+   LES CAS D'USAGE, EN ACCORDÉONS
+
+   Un seul conteneur, des éléments séparés par un filet. Le titre, la
+   catégorie et le numéro vivent dans l'en-tête et NULLE PART ailleurs :
+   la partie ouverte commence directement par l'explication.
+
+   L'ouverture est animée par `grid-template-rows: 0fr → 1fr`. C'est la
+   seule façon d'animer une hauteur inconnue sans la mesurer en
+   JavaScript : la transition s'ajuste d'elle-même à la longueur du texte,
+   et une traduction plus longue ne la casse pas.
+   ===================================================================== */
+.uca {
+  margin-top: 56px;
+  overflow: hidden;
+  border: 1px solid #dde3ee;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.uca-item + .uca-item {
+  border-top: 1px solid #e8ecf4;
+}
+.uca-item {
+  scroll-margin-top: 110px;
+  border-radius: 10px;
+  transition: background-color 250ms ease, box-shadow 250ms ease;
+}
+/* L'élément ouvert se lit comme une carte encadrée, posée dans la liste.
+   Le cadre est un `box-shadow` INSET, pas une bordure : une bordure
+   élargirait la boîte d'un pixel et ferait sauter toute la liste à
+   l'ouverture. Le bloc passe au-dessus de ses voisins (`z-index`) et les
+   deux filets de séparation qui le touchent s'effacent, sinon ils
+   traverseraient le cadre à ses deux extrémités. */
+.uca-item.is-on {
+  position: relative;
+  z-index: 1;
+  background: #eff5fd;
+  box-shadow:
+    inset 0 0 0 1px #c3d4ee,
+    0 1px 3px rgb(16 35 58 / 5%);
+}
+.uca-item + .uca-item.is-on,
+.uca-item.is-on + .uca-item {
+  border-top-color: transparent;
+}
+
+/* ---- L'en-tête, seul endroit où le titre est écrit ---- */
+.uca-head {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.uca-head button {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.uca--rich .uca-head button {
+  padding: 18px 24px;
+}
+.uca-head button:focus-visible {
+  outline: 2px solid #0b6be6;
+  outline-offset: -2px;
+}
+/* Le repère de l'élément ouvert : un filet de 2px au bord gauche, qui ne
+   déplace rien quand il apparaît. */
+.uca-item.is-on .uca-head button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: #0b6be6;
+}
+.uca-head em {
+  flex: none;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: #a0a8b6;
+  transition: color 250ms ease;
+}
+.uca-item.is-on .uca-head em {
+  color: #0b6be6;
+}
+.uca-titles {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.uca-titles small {
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: #8a8f98;
+}
+/* Le titre est écrit en entier, sur plusieurs lignes si besoin : une liste
+   qu'on parcourt ne peut pas se permettre de couper ses intitulés. */
+.uca-titles strong {
+  font-size: 15.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #5a5a5a;
+  text-wrap: balance;
+  transition: color 250ms ease;
+}
+.uca--rich .uca-titles strong {
+  font-size: 16.5px;
+}
+.uca-item.is-on .uca-titles strong {
+  color: #1f3a5f;
+}
+.uca-chevron {
+  flex: none;
+  margin-left: auto;
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.8;
+  color: #a0a8b6;
+  transition: transform 250ms ease, color 250ms ease;
+}
+.uca-item.is-on .uca-chevron {
+  transform: rotate(180deg);
+  color: #0b6be6;
+}
+
+/* ---- Le panneau ---- */
+.uca-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 250ms ease;
+}
+.uca-item.is-on .uca-panel {
+  grid-template-rows: 1fr;
+}
+.uca-panel-in {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+.uca-item.is-on .uca-panel-in {
+  opacity: 1;
+  transform: none;
+}
+.uca-text {
+  padding: 0 20px 18px 54px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #5a5a5a;
+}
+.uca--rich .uca-text {
+  padding: 0 24px 20px 58px;
+  font-size: 15px;
+}
+/* L'exemple : un filet au-dessus, pas un encadré. */
+.uca-example {
+  margin: 0 20px 18px 54px;
+  padding-top: 14px;
+  border-top: 1px solid #d5e2f4;
+}
+.uca--rich .uca-example {
+  margin: 0 24px 22px 58px;
+  padding-top: 16px;
+}
+.uca-example > span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #0a4fb0;
+}
+.uca-example p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+.uca--rich .uca-example p {
+  font-size: 14.5px;
+}
+
+/* L'encart « Votre situation est unique » suit l'accordéon sur l'accueil.
+   Son `margin-top: 1rem` global le collait au dernier bloc ; il respire ici
+   autant que l'accordéon respire sous son chapeau. */
+.uca + .daily-open-callout {
+  margin-top: 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uca-item,
+  .uca-head em,
+  .uca-titles strong,
+  .uca-chevron,
+  .uca-panel,
+  .uca-panel-in {
+    transition: none;
+  }
+}
+
+/* Sur une colonne étroite, le numéro quitte la ligne du titre et le
+   contenu s'aligne sur le bord : un retrait de 54px y mangeait un tiers de
+   la largeur utile. */
+@media (max-width: 560px) {
+  .uca {
+    margin-top: 40px;
+  }
+  .uca + .daily-open-callout {
+    margin-top: 40px;
+  }
+  .uca-head button,
+  .uca--rich .uca-head button {
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .uca-text,
+  .uca--rich .uca-text {
+    padding: 0 16px 16px;
+  }
+  .uca-example,
+  .uca--rich .uca-example {
+    margin: 0 16px 16px;
+  }
+}
+
+/* =====================================================================
+   SÉCURITÉ, CONFIDENTIALITÉ ET CONTRÔLE — QUATRE CONTRÔLES FRANCHIS
+
+   Quatre cartes, mais pas quatre promesses posées côte à côte : quatre
+   étapes d'un même parcours, franchies dans l'ordre et validées par une
+   pastille verte. La barre de progression de chaque carte se remplit en
+   1,4s, la même durée que le pas du composant — les deux valeurs doivent
+   rester égales, aucune des deux ne lit l'autre.
+   ===================================================================== */
+.tst {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+  gap: 12px;
+}
+/* Deux groupes de deux : c'est ce qui interdit la rangée de trois plus un
+   à la largeur intermédiaire. */
+.tst-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.tst-card {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+  padding: 24px 22px 22px;
+  border: 1px solid #dde3ee;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: default;
+  transition: background-color 350ms ease, border-color 350ms ease, box-shadow 350ms ease;
+}
+.tst-card:focus-visible {
+  outline: 2px solid #0b6be6;
+  outline-offset: 2px;
+}
+.tst-card.is-now {
+  border-color: #b9d1f7;
+  background: #f7faff;
+  box-shadow: 0 14px 34px rgb(11 107 230 / 10%);
+}
+.tst-card.is-done {
+  border-color: #d6e2fa;
+}
+
+/* ---- La barre de progression ---- */
+.tst-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #e8ecf4;
+}
+.tst-bar::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #0b6be6;
+}
+.tst-card.is-done .tst-bar::after {
+  width: 100%;
+}
+.tst-card.is-now .tst-bar::after {
+  animation: tst-fill 1400ms linear 1 both;
+}
+/* Au survol, la carte visée est pleine tout de suite : elle ne rejoue pas
+   les 1,4s, et la remise à zéro du cycle ne joue aucune animation inverse
+   — une étape « à venir » est simplement à 0, sans transition. */
+.tst[data-auto="false"] .tst-card.is-now .tst-bar::after {
+  width: 100%;
+  animation: none;
+}
+@keyframes tst-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ---- Le haut de carte ---- */
+.tst-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tst-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d6e2fa;
+  border-radius: 9px;
+  background: #eef3fd;
+  color: #0b6be6;
+  transition: background-color 350ms ease, border-color 350ms ease, color 350ms ease;
+}
+.tst-card:is(.is-now, .is-done) .tst-icon {
+  border-color: #0b6be6;
+  background: #0b6be6;
+  color: #ffffff;
+}
+.tst-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.7;
+}
+.tst-top em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: #a0a8b6;
+}
+
+.tst-card h3 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #1f3a5f;
+  text-wrap: balance;
+}
+.tst-card p {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+
+/* ---- La pastille de contrôle ---- */
+.tst-pill {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding: 4px 10px;
+  border: 1px solid #e3e6ea;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #a0a8b6;
+  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
+}
+.tst-pill svg {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  stroke-width: 3;
+}
+.tst-card.is-done .tst-pill {
+  border-color: #bfe5d0;
+  background: #e7f6ee;
+  color: #22a06b;
+}
+
+/* Le cycle est coupé côté composant, qui affiche les quatre étapes
+   franchies. Ici ce sont les transitions et le remplissage qui tombent. */
+@media (prefers-reduced-motion: reduce) {
+  .tst-card,
+  .tst-icon,
+  .tst-pill {
+    transition: none;
+  }
+  .tst-card.is-now .tst-bar::after {
+    width: 100%;
+    animation: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .tst {
+    margin-top: 44px;
+  }
+  .tst-group {
+    grid-template-columns: 1fr;
+  }
+  .tst-card {
+    padding: 20px 18px 18px;
+  }
+}
+
+/* =====================================================================
+   RÉSULTATS RECHERCHÉS — LA LISTE ET SON APERÇU
+
+   Un seul panneau en deux parties. Les séparateurs sont dessinés par un
+   `gap: 1px` sur un fond de filet : ils passent donc de verticaux à
+   horizontaux tout seuls quand l'aperçu repasse sous la liste.
+
+   Les couleurs sont écrites en littéraux : ce bloc a sa propre échelle de
+   gris, et la bande qui le porte est blanche.
+   ===================================================================== */
+.isp {
+  margin-top: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  background: #eceef1;
+}
+
+/* ---- La liste ---- */
+.isp-list {
+  flex: 1 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: #eceef1;
+}
+.isp-row {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 0;
+  background: #ffffff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 300ms ease;
+}
+.isp-row.is-on {
+  background: #f4f8fe;
+}
+.isp-row:focus-visible {
+  outline: 2px solid #0b6be6;
+  outline-offset: -2px;
+}
+/* Le repère, collé au bord : il marque la ligne active sans déplacer son
+   contenu d'un pixel. */
+.isp-row-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: transparent;
+  transition: background-color 300ms ease;
+}
+.isp-row.is-on .isp-row-mark {
+  background: #0b6be6;
+}
+.isp-row-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #eef4fe;
+  color: #0b6be6;
+  transition: background-color 300ms ease, color 300ms ease;
+}
+.isp-row.is-on .isp-row-icon {
+  background: #0b6be6;
+  color: #ffffff;
+}
+.isp-row-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.7;
+}
+.isp-row-copy {
+  min-width: 0;
+}
+.isp-row-copy em {
+  display: block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.isp-row-copy strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #6b6f76;
+  transition: color 300ms ease;
+}
+.isp-row.is-on .isp-row-copy strong {
+  color: #2e2e2e;
+}
+
+/* ---- L'aperçu ---- */
+.isp-view {
+  flex: 1.3 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 32px;
+  background: #ffffff;
+}
+.isp-stage {
+  display: grid;
+  place-items: center;
+  height: 150px;
+  padding: 20px;
+  border: 1px solid #eceef1;
+  border-radius: 10px;
+  background: #f7f8fa;
+}
+.isp-view-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.isp-view h3 {
+  margin-top: 10px;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  color: #3a3a3a;
+  text-wrap: balance;
+}
+.isp-view p {
+  max-width: 560px;
+  margin-top: 12px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #5a5a5a;
+}
+
+/* ---- 01 · les maillons qui se relient ---- */
+.isp-chain {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+}
+.isp-chain-part {
+  display: contents;
+}
+.isp-chain-link {
+  flex: 1;
+  height: 2px;
+  background: #d5dae1;
+  transition: background-color 400ms ease;
+}
+.isp-chain-link.is-on {
+  background: #0b6be6;
+}
+.isp-chain b {
+  flex: none;
+  padding: 6px 11px;
+  border: 1px solid #d5dae1;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #3a3a3a;
+}
+
+/* ---- 02 · les contrôles qui se cochent ---- */
+.isp-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+}
+.isp-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid #eceef1;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #3a3a3a;
+}
+.isp-rule i {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #d5dae1;
+  color: #ffffff;
+  transition: background-color 400ms ease;
+}
+.isp-rule.is-on i {
+  background: #22a06b;
+}
+.isp-rule i svg {
+  width: 9px;
+  height: 9px;
+}
+
+/* ---- 03 · les barres qui bougent ---- */
+.isp-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  height: 100%;
+}
+.isp-bars i {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: #c9daf5;
+  transition: height 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.isp-bars i:nth-child(4) {
+  background: #0b6be6;
+}
+
+/* ---- 04 · le partage automatisé / humain ---- */
+.isp-split {
+  width: 100%;
+  max-width: 340px;
+}
+.isp-split-bar {
+  display: flex;
+  overflow: hidden;
+  height: 30px;
+  border-radius: 6px;
+}
+.isp-split-auto,
+.isp-split-human {
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.isp-split-auto {
+  flex: 3;
+  background: #dce8fb;
+  color: #0b6be6;
+}
+.isp-split-human {
+  flex: 1;
+  background: #0b6be6;
+  color: #ffffff;
+}
+.isp-split-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #8a8f98;
+}
+.isp-split-foot em {
+  font-style: normal;
+  white-space: nowrap;
+}
+
+/* Les mini-visuels sont décoratifs et tournent sans fin : c'est ce que ce
+   réglage demande de supprimer, pas de ralentir. Le composant arrête aussi
+   les deux minuteurs côté JavaScript. */
+@media (prefers-reduced-motion: reduce) {
+  .isp-row,
+  .isp-row-mark,
+  .isp-row-icon,
+  .isp-row-copy strong,
+  .isp-chain-link,
+  .isp-rule i,
+  .isp-bars i {
+    transition: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .isp {
+    margin-top: 44px;
+  }
+  .isp-row {
+    padding: 16px 18px;
+  }
+  .isp-view {
+    padding: 24px 20px;
+  }
+  .isp-view h3 {
+    font-size: 22px;
+  }
+  .isp-view p {
+    font-size: 15px;
   }
 }
 
@@ -8650,5 +9846,965 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   }
   .sol-card {
     min-height: 86px;
+  }
+}
+
+/* =====================================================================
+   LES SIX PAGES SERVICES — UN SEUL SYSTÈME
+
+   Un gabarit, onze sections, six contenus. Tout ce qui suit est partagé
+   par les six pages : si une règle ne vaut que pour l'une d'entre elles,
+   c'est que le gabarit est en train de se défaire.
+
+   ── LE RYTHME DES FONDS, ET POURQUOI IL EST ÉCRIT À LA MAIN ────────────
+   Le thème du site peint les bandes selon leur rang : impair en bleu nuit,
+   pair en blanc (`main > .band:nth-of-type(odd)`). Le hero compte comme
+   premier `section`, donc la première bande tombe sur un rang pair.
+
+   Ce rythme automatique ne donne pas celui voulu ici — blanc, bleu clair,
+   blanc, bleu clair, BLEU NUIT, blanc, bleu clair, bleu clair. Chaque
+   bande porte donc son ton explicitement, et aucune ne dépend de son rang.
+   C'est aussi ce qui permet d'insérer ou de retirer une section plus tard
+   sans inverser toutes les suivantes.
+
+   Spécificité égale au filet impair/pair du thème : ce bloc doit rester
+   APRÈS lui dans la feuille.
+   ===================================================================== */
+.site-theme-alternating main > .band.svc-white {
+  background: #ffffff;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+}
+.site-theme-alternating main > .band.svc-tint {
+  background: #f2f6fc;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f2f6fc;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+}
+.site-theme-alternating main > .band.svc-ink {
+  background: var(--surface-dark);
+  color: #ffffff;
+  --foreground: #ffffff;
+  --muted-foreground: #c2d3e9;
+  --text-mono: #a8c3e8;
+  --hairline: rgb(188 215 255 / 18%);
+  --border: rgb(188 215 255 / 22%);
+  --surface: #10233a;
+  --surface-2: #142b45;
+}
+/* Le chapeau, repeint à la main pour la même raison : le filet du thème le
+   met en bleu pâle sur tout rang impair, y compris sur mes bandes claires. */
+.site-theme-alternating main > .band:is(.svc-white, .svc-tint) .lede-kicker {
+  color: var(--brand);
+}
+.site-theme-alternating main > .band.svc-ink .lede-kicker {
+  color: #9ec8ff;
+}
+
+/* ---- Le rythme vertical, celui de l'accueil et de la page Solutions ----
+   Les trois pages respirent donc sur la même mesure, et le chapeau tombe
+   à la même hauteur quand on passe de l'une à l'autre. */
+main > .band.svc-rhythm {
+  padding-block: var(--home-section-pad-y);
+}
+main > .band.svc-rhythm .section-heading {
+  margin-bottom: var(--home-heading-gap);
+}
+main > .band.svc-rhythm > .col > .lede + .section-gap {
+  margin-top: var(--home-heading-gap);
+}
+
+/* ---- Le surtitre du hero, au-dessus du h1 et hors de lui ---- */
+.studio-hero-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9ec8ff;
+}
+.svc-hero .studio-hero-copy {
+  gap: 1.1rem;
+}
+.svc-hero .studio-hero-copy > .btn-row {
+  margin-top: 0.5rem;
+}
+
+/* ---- Les sections en deux colonnes : texte à gauche, visuel à droite ----
+   Trois sections s'en servent (définition, fonctionnement, intégration).
+   Sous 1024px tout s'empile, texte d'abord : forcer deux colonnes sur une
+   tablette étroite écrase le schéma sans rien apporter. */
+.svc-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.75rem);
+}
+.svc-split--flow,
+.svc-split--core {
+  align-items: start;
+}
+.svc-split-copy .lede-text {
+  max-width: 54ch;
+}
+@media (max-width: 1023px) {
+  .svc-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+}
+
+/* ---- 3 · Les usages : huit encadrés, un filet entre eux ----
+   `gap: 1px` sur un fond de filet dessine les séparations, et elles
+   deviennent horizontales d'elles-mêmes quand la grille se replie. */
+.svc-uses {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--hairline);
+}
+.svc-uses > li {
+  display: grid;
+  gap: 8px;
+  padding: 20px 18px 22px;
+  background: #ffffff;
+}
+.svc-use-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d7e4f7;
+  border-radius: 9px;
+  background: #eff5fd;
+}
+.svc-use-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 1.7;
+  color: #0a4fb0;
+}
+.svc-uses strong {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #1f3a5f;
+}
+.svc-uses p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+
+/* ---- 4 · Les formes : la même grille, sans encadré ---- */
+.svc-forms {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  background: var(--hairline);
+  border-block: 1px solid var(--hairline);
+}
+.svc-forms > li {
+  display: grid;
+  gap: 6px;
+  padding: 18px 16px 20px;
+  background: #ffffff;
+}
+.svc-forms em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brand);
+}
+.svc-forms strong {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.svc-forms p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+/* Les deux familles voisines, en fin de section : du maillage interne, pas
+   une nouvelle section. */
+.svc-related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-top: 26px;
+}
+.svc-related > span {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mono);
+}
+
+/* ---- 5 · Les cinq temps du fonctionnement ----
+   Une colonne de cinq, reliés par un filet vertical. Le même dessin sur
+   les six pages : c'est le contenu des étapes qui distingue un agent d'un
+   flux de données, pas la forme de la liste. */
+.svc-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.svc-flow > li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--hairline);
+}
+.svc-flow > li:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+.svc-flow-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #c3d4ee;
+  border-radius: 9px;
+  background: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--brand);
+}
+/* Le filet qui relie une étape à la suivante. Il descend depuis la
+   pastille jusqu'au bord de la ligne, pas plus loin : la dernière étape
+   n'en a donc pas besoin. */
+.svc-flow > li:not(:last-child) .svc-flow-mark::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1px;
+  height: 28px;
+  background: var(--hairline);
+}
+.svc-flow strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.svc-flow p {
+  margin-top: 3px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+
+/* ---- 6 · La bande bleu nuit : ce qui reste au centre ----
+   Deux rangées de pastilles et un moyeu entre elles. Les couleurs sont
+   écrites en littéral : la bande redéfinit `--surface`, et un enfant qui
+   le lirait prendrait la valeur de la bande, pas la sienne. */
+.svc-core {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: clamp(20px, 2.5vw, 28px);
+  border: 1px solid rgb(188 215 255 / 18%);
+  border-radius: 14px;
+  background: #10233a;
+}
+.svc-core-row {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.svc-core-row li {
+  padding: 7px 13px;
+  border: 1px solid rgb(188 215 255 / 22%);
+  border-radius: 999px;
+  background: #142b45;
+  font-size: 12.5px;
+  color: #c2d3e9;
+}
+.svc-core-hub {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border: 1px solid #4e8ff0;
+  border-radius: 12px;
+  background: #142b45;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ffffff;
+}
+.svc-core-hub svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.6;
+  color: #4e8ff0;
+}
+.svc-core-hub::before,
+.svc-core-hub::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 16px;
+  background: rgb(188 215 255 / 28%);
+}
+.svc-core-hub::before {
+  bottom: 100%;
+}
+.svc-core-hub::after {
+  top: 100%;
+}
+.svc-core-note {
+  display: flex;
+  gap: 9px;
+  margin-top: 1.25rem;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #a8c3e8;
+}
+.svc-core-note svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  color: #4e8ff0;
+}
+
+/* ---- 7 · Ce qu'il faut cadrer : six points, deux colonnes ---- */
+.svc-frame {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--hairline);
+}
+.svc-frame > li {
+  display: flex;
+  gap: 12px;
+  padding: 18px 20px;
+  background: #ffffff;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+.svc-frame svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  margin-top: 3px;
+  stroke-width: 2;
+  color: var(--brand);
+}
+
+/* ---- 8 · Après la mise en service ----
+   La pastille et la note disent le paiement récurrent. Elles sont lues
+   dans `content.ts`, écrites une seule fois pour tout le site. */
+.svc-after-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+.svc-after-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1px solid #c3d4ee;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 12.5px;
+  color: #0a4fb0;
+}
+.svc-after-pill svg {
+  width: 15px;
+  height: 15px;
+}
+.svc-after {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--hairline);
+}
+.svc-after article {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: 22px 20px 24px;
+  background: #ffffff;
+}
+.svc-after-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brand);
+}
+.svc-after h3 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #1f3a5f;
+}
+.svc-after p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #5a5a5a;
+}
+
+/* ---- 9 · Le petit visuel du CTA ----
+   Mêmes couleurs que la carte de projet qu'il remplace : la carte du CTA
+   est en bleu nuit, et ces valeurs y sont déjà éprouvées. */
+.svc-cta-art {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+  padding: 1.6rem;
+  border: 1px solid #375a84;
+  border-radius: 14px;
+  background: #12345c;
+}
+.svc-cta-mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #3b618f;
+  border-radius: 10px;
+  background: #183f6b;
+}
+.svc-cta-mark svg {
+  width: 19px;
+  height: 19px;
+  stroke-width: 1.6;
+  color: #9ec8ff;
+}
+.svc-cta-art strong {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+.svc-cta-art > p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #c2d3e9;
+}
+.svc-cta-path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid #375a84;
+}
+.svc-cta-path > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.svc-cta-path em {
+  padding: 5px 11px;
+  border: 1px solid #3b618f;
+  border-radius: 999px;
+  background: #183f6b;
+  font-style: normal;
+  font-size: 11.5px;
+  color: #c2d3e9;
+}
+.svc-cta-path svg {
+  width: 13px;
+  height: 13px;
+  color: #6f93c0;
+}
+
+/* ---- 10 · La FAQ ferme la page. Rien après elle, le CTA est au-dessus. ---- */
+.svc-faq .lede {
+  text-align: center;
+}
+.svc-faq .lede-title {
+  margin-inline: auto;
+}
+
+/* ---- Le repli. Quatre colonnes, puis deux, puis une. Aucun diagramme
+   n'est forcé sur un écran étroit : ils se replient en colonne. ---- */
+@media (max-width: 1100px) {
+  .svc-uses,
+  .svc-forms,
+  .svc-after {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .svc-uses,
+  .svc-forms,
+  .svc-after,
+  .svc-frame {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .svc-core-hub {
+    text-align: center;
+  }
+}
+
+/* =====================================================================
+   LES SIX SCHÉMAS DE « QU'EST-CE QUE… »
+
+   Un cadre commun, six dessins. Le cadre, la légende, les pastilles et les
+   filets sont partagés : c'est ce qui fait que les six pages se ressemblent
+   malgré des dessins différents. Ne pas donner à l'un une couleur, un
+   arrondi ou une graisse que les cinq autres n'ont pas.
+
+   Aucun ne dépasse quatre repères, et aucun ne porte de texte tronqué : si
+   une étiquette ne tient pas, c'est l'étiquette qu'il faut raccourcir dans
+   `service-pages.ts`, pas la boîte qu'il faut rogner.
+   ===================================================================== */
+.svc-sketch {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: clamp(18px, 2.4vw, 28px);
+  border: 1px solid var(--hairline);
+  border-radius: 14px;
+  background: #ffffff;
+}
+.svc-sketch-body {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.svc-sketch figcaption {
+  display: flex;
+  gap: 9px;
+  padding-top: 13px;
+  border-top: 1px solid var(--hairline);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #5a5a5a;
+}
+.svc-sketch figcaption svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  color: var(--brand);
+}
+
+/* ---- Les pièces communes aux six dessins ---- */
+.sk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid #dde3ee;
+  border-radius: 999px;
+  background: #f7f9fc;
+  font-size: 12.5px;
+  color: #5a5a5a;
+}
+.sk-pill--out {
+  border-color: #bcd5f5;
+  background: #eff5fd;
+  color: #0a4fb0;
+}
+.sk-pill svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+.sk-wire {
+  width: 1px;
+  height: 16px;
+  background: #dde3ee;
+}
+
+/* ---- 0 · Assistants & agents IA : un moyeu entre ses sources et ses
+   actions. Les deux filets horizontaux sortent du moyeu et traversent la
+   gouttière de la grille ; ils sont donc calés sur sa valeur. ---- */
+.sk-agent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 16px;
+  width: 100%;
+}
+.sk-side {
+  padding: 10px 12px;
+  border: 1px solid #dde3ee;
+  border-radius: 10px;
+  background: #f7f9fc;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+  color: #5a5a5a;
+}
+.sk-hub {
+  position: relative;
+  padding: 12px 16px;
+  border: 1px solid #0b6be6;
+  border-radius: 10px;
+  background: #eff5fd;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #0a4fb0;
+}
+.sk-hub::before,
+.sk-hub::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 1px;
+  background: #c3d4ee;
+}
+.sk-hub::before {
+  right: 100%;
+}
+.sk-hub::after {
+  left: 100%;
+}
+
+/* ---- 1 · Automatisations : une chaîne de cinq temps, reliés. ---- */
+.sk-chain {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.sk-chain li {
+  position: relative;
+  padding: 10px 14px;
+  border: 1px solid #dde3ee;
+  border-radius: 10px;
+  background: #f7f9fc;
+  font-size: 12.5px;
+  text-align: center;
+  color: #5a5a5a;
+}
+.sk-chain li + li {
+  margin-top: 16px;
+}
+.sk-chain li + li::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 16px;
+  background: #dde3ee;
+}
+.sk-chain .is-start {
+  border-color: #c3d4ee;
+  background: #ffffff;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.sk-chain .is-end {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-color: #bcd5f5;
+  background: #eff5fd;
+  color: #0a4fb0;
+}
+.sk-chain .is-end svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+/* ---- 2 · Intégrations : deux systèmes et les canaux entre eux. ---- */
+.sk-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.sk-box {
+  padding: 16px 14px;
+  border: 1px solid #c3d4ee;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: center;
+  color: #1f3a5f;
+}
+.sk-rows {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.sk-rows li {
+  display: grid;
+  grid-template-columns: minmax(8px, 1fr) auto minmax(8px, 1fr);
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  text-align: center;
+  color: #5a5a5a;
+}
+.sk-rows i {
+  height: 1px;
+  background: #dde3ee;
+}
+
+/* ---- 3 · Logiciels métier : la maquette d'une interface. ----
+   Ce n'est pas une capture d'un produit : les lignes de contenu sont des
+   filets, volontairement, et aucun chiffre n'y figure. ---- */
+.sk-app {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #dde3ee;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.sk-app-bar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef1f6;
+  background: #f7f9fc;
+}
+.sk-app-bar i {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #cfd8e6;
+}
+.sk-app-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+.sk-app-nav {
+  list-style: none;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 10px;
+  border-right: 1px solid #eef1f6;
+  background: #fbfcff;
+}
+.sk-app-nav li {
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-size: 11.5px;
+  color: #5a5a5a;
+}
+.sk-app-nav li:first-child {
+  background: #eff5fd;
+  font-weight: 500;
+  color: #0a4fb0;
+}
+.sk-app-main {
+  display: grid;
+  gap: 9px;
+  align-content: start;
+  padding: 14px 14px 16px;
+}
+.sk-app-title {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.sk-app-row {
+  height: 8px;
+  border-radius: 4px;
+  background: #eef1f6;
+}
+.sk-app-row--short {
+  width: 62%;
+}
+.sk-app-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  justify-self: start;
+  margin-top: 4px;
+  padding: 6px 12px;
+  border: 1px solid #bcd5f5;
+  border-radius: 999px;
+  background: #eff5fd;
+  font-size: 11.5px;
+  color: #0a4fb0;
+}
+.sk-app-done svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2;
+}
+
+/* ---- 4 · Data : des sources, un traitement numéroté, une lecture. ---- */
+.sk-data {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.sk-steps {
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #dde3ee;
+  border-radius: 10px;
+  background: #dde3ee;
+}
+.sk-steps li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #ffffff;
+  font-size: 12px;
+  color: #5a5a5a;
+}
+.sk-steps em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10.5px;
+  color: #0b6be6;
+}
+.sk-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  width: 100%;
+  height: 54px;
+  padding: 0 2px;
+}
+.sk-bars i {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: #c3d4ee;
+}
+.sk-bars i:last-child {
+  background: #0b6be6;
+}
+
+/* ---- 5 · Formation : une progression, pas un classement. ---- */
+.sk-path {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.sk-levels {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.sk-levels li {
+  display: grid;
+  gap: 7px;
+  padding: 11px 14px;
+  border: 1px solid #dde3ee;
+  border-radius: 10px;
+  background: #ffffff;
+}
+.sk-levels strong {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.sk-gauge {
+  height: 4px;
+  border-radius: 999px;
+  background: #eef1f6;
+}
+.sk-gauge i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #0b6be6;
+}
+
+@media (max-width: 480px) {
+  /* Le moyeu et ses deux côtés ne tiennent plus sur une ligne : les trois
+     repères passent en colonne, et les filets horizontaux disparaissent
+     plutôt que de pointer dans le vide. */
+  .sk-agent {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+  }
+  .sk-hub::before,
+  .sk-hub::after {
+    content: none;
+  }
+  .sk-link {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sk-rows li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sk-rows i {
+    display: none;
+  }
+  .sk-app-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sk-app-nav {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    border-right: 0;
+    border-bottom: 1px solid #eef1f6;
+    overflow-x: auto;
   }
 }

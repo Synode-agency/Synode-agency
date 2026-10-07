@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SolutionDetailPage } from "@/components/site/solution-detail-page";
+import { ServicePage } from "@/components/site/service-page";
 import { findSolution, solutionFamilies } from "@/lib/solution-details";
 import { path } from "@/lib/content";
 
@@ -22,5 +22,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const family = findSolution(locale, slug);
   if (!family) notFound();
-  return <SolutionDetailPage locale={locale} family={family} />;
+  return <ServicePage locale={locale} family={family} />;
 }
