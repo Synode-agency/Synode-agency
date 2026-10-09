@@ -1,859 +1,990 @@
+/**
+ * Le contenu du site, en français et en anglais.
+ *
+ * L'anglais n'est PAS une traduction mot à mot : c'est la même substance
+ * écrite dans le registre d'un lecteur anglophone. Le positionnement, l'offre
+ * et les cibles sont identiques, parce qu'inventer une stratégie anglophone
+ * dont personne n'a décidé serait du contenu fabriqué.
+ *
+ * Règle de fond, tenue partout dans ce fichier : aucun client, témoignage,
+ * chiffre de performance, certification, délai garanti, adresse ni numéro
+ * légal n'est inventé. Ce qui manque est marqué par un emplacement réservé
+ * visible et listé dans `docs/SITE_A_COMPLETER.md`.
+ *
+ * Les cas d'usage et les réalisations vivent dans leurs propres fichiers :
+ * ils sont volumineux et ils changeront à un autre rythme que le reste.
+ */
+
 export const locales = ["fr", "en"] as const;
 export type Locale = (typeof locales)[number];
 
-/** Route prefix per locale — FR is the default and lives at the root. */
+/** Le français est la langue par défaut et vit à la racine. */
 export const localePrefix = (locale: Locale) => (locale === "fr" ? "" : "/en");
 
-/** Build a locale-aware path: path("en", "/contact") -> "/en/contact". */
+/** path("en", "/contact") -> "/en/contact" */
 export const path = (locale: Locale, sub = "/") => {
   const prefix = localePrefix(locale);
   if (sub === "/") return prefix || "/";
   return `${prefix}${sub}`;
 };
 
-/* La navigation. « Services » porte un menu déroulant dont les entrées sont
-   construites à partir de `services.families` : une seule source pour le menu
-   et pour les pages, donc un service ajouté à la liste apparaît partout. */
+export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");
+
+/**
+ * Les adresses sont les mêmes dans les deux langues : le sélecteur ne fait
+ * que remplacer le préfixe `/en`. Traduire les URL casserait ce mécanisme et
+ * obligerait à maintenir deux tables de correspondance.
+ */
+export const ROUTES = {
+  home: "/",
+  solutions: "/solutions",
+  useCases: "/cas-usage",
+  method: "/methode",
+  work: "/realisations",
+  tools: "/outils",
+  aiDiagnostic: "/outils/diagnostic-potentiel-ia",
+  team: "/equipe",
+  contact: "/contact",
+  thanks: "/merci",
+  legalNotice: "/mentions-legales",
+  privacy: "/confidentialite",
+} as const;
+
+/** Les ancres de la page Contact, citées depuis toute la navigation. */
+export const ANCHORS = {
+  booking: "reservation",
+  form: "formulaire",
+} as const;
+
 const nav = {
   fr: [
-    { href: "/", label: "Accueil" },
-    { href: "/#services", label: "Services", menu: "services" },
-    { href: "/realisations", label: "Réalisations" },
-    { href: "/faq", label: "FAQ" },
-    { href: "/equipe", label: "La team" },
+    { href: ROUTES.home, label: "Accueil" },
+    { href: ROUTES.solutions, label: "Solutions" },
+    { href: ROUTES.useCases, label: "Cas d’usage" },
+    { href: ROUTES.work, label: "Réalisations" },
+    { href: ROUTES.team, label: "Équipe" },
+    { href: ROUTES.contact, label: "Contact" },
   ],
   en: [
-    { href: "/en", label: "Home" },
-    { href: "/en#services", label: "Services", menu: "services" },
-    { href: "/en/realisations", label: "Work" },
-    { href: "/en/faq", label: "FAQ" },
-    { href: "/en/equipe", label: "The team" },
+    { href: ROUTES.home, label: "Home" },
+    { href: ROUTES.solutions, label: "Solutions" },
+    { href: ROUTES.useCases, label: "Use cases" },
+    { href: ROUTES.work, label: "Work" },
+    { href: ROUTES.team, label: "Team" },
+    { href: ROUTES.contact, label: "Contact" },
   ],
 } as const;
 
+/* ==========================================================================
+   FRANÇAIS
+   ========================================================================== */
 const fr = {
   locale: "fr" as Locale,
   htmlLang: "fr",
+
   site: {
     name: "Synode",
+    /* ⚠ À confirmer avant mise en ligne : voir docs/SITE_A_COMPLETER.md. */
     email: "contact@synode-agency.com",
     location: "Bruxelles, Belgique",
-    vat: "BE 0000.000.000",
+    tagline:
+      "Des solutions IA sur mesure, conçues autour de votre activité et qui font avancer vos opérations.",
     nav: nav.fr,
-    ctaLabel: "Réserver un audit",
-    homeLabel: "Synode, accueil",
+    cta: "Réserver un échange gratuit",
+    ctaShort: "Réserver un échange",
     menuOpen: "Ouvrir le menu",
     menuClose: "Fermer le menu",
-    tagline: "Automatisation, agents IA et solutions sur mesure pour les PME.",
+    homeLabel: "Synode, retour à l’accueil",
+    skip: "Aller au contenu",
+    langLabel: "Langue",
+    footerNav: "Navigation",
+    footerContact: "Contact",
+    footerLegal: "Informations légales",
+    copyright: "Synode",
   },
 
-  /* ------------------------------------------------------------------
-     Les services.
-
-     Deux familles, huit prestations chacune. Les seize sont listées dans la
-     section « Nos services » de l'accueil ; il n'y a pas de page qui les
-     rassemble, elles y sont déjà. Chaque prestation a en revanche sa page,
-     `/services/<slug>`, et le slug est le même en français et en anglais :
-     le sélecteur de langue ne fait que remplacer le préfixe `/en`, une
-     traduction des URL le casserait.
-
-     `lead` est la phrase du menu déroulant et de la carte. Le contenu
-     détaillé de chaque page arrive à l'étape suivante, une fois le gabarit
-     validé sur une prestation.
-     ------------------------------------------------------------------ */
-  services: {
-    eyebrow: "Services",
-    title: "Des solutions d’automatisation & agents IA pour connecter, simplifier et accélérer vos processus métier",
-    titleAccent: "d’automatisation & agents IA",
-    body: "De l’automatisation de processus aux agents IA, en passant par les intégrations et les outils métier sur mesure, nos services s’adaptent aux différentes étapes du fonctionnement de votre entreprise.",
-    countLabel: "services",
-    familyLabel: "Famille",
-    detailEyebrow: "Service",
-    backLabel: "Tous les services",
-    ctaLabel: "Réserver un audit",
-    families: [
-      {
-        slug: "automatisation",
-        title: "Automatisation",
-        lead: "Vos outils se parlent, et le travail répétitif disparaît.",
-        items: [
-          { slug: "workflows-integrations", title: "Automatisation des processus & intégrations", lead: "Connectez vos logiciels et automatisez vos processus métier pour éviter les doubles saisies et faire circuler les données automatiquement entre vos outils.", summary: "Connectez vos logiciels et faites circuler vos données automatiquement, sans double saisie.", description: "Nous relions vos logiciels pour déclencher les bonnes actions à chaque étape de votre activité : création d’un client, transmission d’une commande ou mise à jour d’un dossier. Les intégrations utilisent les API disponibles et vos règles métier, avec des contrôles pour repérer les erreurs de synchronisation. Vous réduisez les doubles saisies tout en gardant la maîtrise du processus." },
-          { slug: "traitement-documents", title: "Documents, devis & facturation", lead: "Automatisez le traitement de documents, devis et factures : extraction des données, génération, classement et envoi selon vos règles métier.", summary: "Créez, traitez et classez automatiquement vos devis, factures et documents métier.", description: "Le traitement de documents automatise les étapes répétitives autour des devis, factures et pièces justificatives. Les données utiles sont extraites, vérifiées puis transmises à vos outils de gestion ; les fichiers peuvent être générés, classés et envoyés selon vos règles. Une validation humaine peut être conservée avant un envoi ou lorsqu’une information doit être confirmée." },
-          { slug: "emails-demandes", title: "Emails, demandes & communication", lead: "L’automatisation des emails, formulaires et demandes clients permet de les trier, de les transmettre et de déclencher les bonnes actions.", summary: "Triez vos emails et demandes clients pour déclencher automatiquement la bonne action.", description: "L’automatisation des emails et des demandes centralise les messages reçus via vos boîtes mail et formulaires. Selon leur objet, leur origine ou les informations renseignées, ils sont classés, transmis au bon interlocuteur et associés à une action de suivi. Vous structurez le traitement des demandes clients sans devoir déplacer chaque information à la main." },
-          { slug: "relances-suivis", title: "Relances, rendez-vous & suivis", lead: "Automatisez vos relances, rappels et suivis pour les devis, factures, paiements, rendez-vous et dossiers en attente.", summary: "Automatisez vos rappels, relances et suivis pour les devis, paiements et rendez-vous.", description: "Nous construisons des scénarios de relance adaptés aux devis sans réponse, aux factures en attente et aux rendez-vous à confirmer. Le calendrier, le canal et les conditions d’arrêt sont définis avec vous : une réponse ou un paiement peut interrompre la séquence. Les équipes retrouvent l’historique du suivi et interviennent lorsque le dossier le nécessite." },
-          { slug: "synchronisation-crm", title: "Automatisation commerciale & CRM", lead: "L’automatisation CRM simplifie la gestion des prospects, opportunités et données clients pour fluidifier votre suivi commercial et garder vos informations à jour.", summary: "Gardez vos prospects, opportunités et données CRM à jour tout au long du cycle commercial.", description: "L’automatisation commerciale et l’automatisation CRM relient vos formulaires, échanges clients et outils de vente. Elles permettent de créer ou mettre à jour les fiches prospects, d’attribuer les opportunités et de déclencher les tâches de suivi. Les règles de synchronisation et de détection des doublons sont adaptées à votre organisation pour conserver des données commerciales exploitables." },
-          { slug: "administration-operations", title: "Administration & opérations internes", lead: "Automatisez les tâches administratives, validations, créations de dossiers et processus internes qui ralentissent vos équipes au quotidien.", summary: "Automatisez les tâches administratives, validations et processus internes de votre entreprise.", description: "Nous automatisons les circuits administratifs qui passent aujourd’hui par des emails, fichiers et ressaisies : création de dossiers, demandes de validation, attribution de tâches ou notifications internes. Chaque étape suit les responsabilités et conditions propres à votre entreprise. Les exceptions restent visibles et les décisions qui nécessitent une approbation demeurent sous contrôle humain." },
-          { slug: "tableaux-de-bord", title: "Données, rapports & tableaux de bord", lead: "Centralisez vos données et automatisez la mise à jour de vos tableaux de bord, indicateurs et rapports à partir de vos différents outils.", summary: "Centralisez vos données et mettez à jour automatiquement vos rapports et tableaux de bord.", description: "Vos données sont regroupées depuis les outils pertinents pour alimenter des tableaux de bord et rapports métier. Nous définissons avec vous les indicateurs, les sources et la fréquence de mise à jour, puis automatisons la collecte et les calculs. Vos équipes consultent une vue cohérente de l’activité et peuvent repérer les écarts sans reconstruire leurs fichiers de reporting." },
-          { slug: "portails-outils-internes", title: "Portails & outils métier automatisés", lead: "Créez des portails clients, outils internes et interfaces métier sur mesure pour centraliser vos données, automatisations et processus dans un seul environnement.", summary: "Centralisez vos processus, données et automatisations dans des outils métier adaptés à votre activité.", description: "Un portail client ou un outil métier sur mesure rassemble les informations et actions utiles à un processus précis. Consultation de dossiers, dépôt de documents, suivi de demandes ou validations : l’interface est reliée à vos outils et automatisations. Les accès sont définis par rôle afin que chaque utilisateur dispose des informations nécessaires à son travail." },
-        ],
-      },
-      {
-        slug: "agents-ia",
-        title: "Agents IA",
-        lead: "Des assistants qui lisent, répondent et agissent sur vos données.",
-        items: [
-          { slug: "agent-telephonique", title: "Agent téléphonique IA", lead: "Un agent IA capable de répondre aux appels, comprendre les demandes, qualifier les prospects et prendre des rendez-vous automatiquement.", summary: "Accueillez les appels, qualifiez les demandes et préparez la prise de rendez-vous.", description: "Un agent téléphonique IA peut accueillir les appels, identifier le motif de la demande et recueillir les informations utiles avant un transfert ou une prise de rendez-vous. Les scénarios sont définis selon vos horaires, votre activité et les connexions possibles à votre agenda ou CRM. Les demandes complexes sont orientées vers un interlocuteur humain selon les règles convenues." },
-          { slug: "agent-conversationnel", title: "Agent conversationnel IA", lead: "Un agent d’intelligence artificielle disponible sur votre site, WhatsApp ou par email pour répondre aux questions, guider vos clients et faciliter le support client.", summary: "Répondez aux questions clients sur votre site ou vos canaux de messagerie avec un agent IA.", description: "Un agent conversationnel IA accompagne vos visiteurs et clients sur les canaux retenus, comme votre site, WhatsApp ou l’email. Il répond à partir des informations que vous validez, guide vers les ressources utiles et peut déclencher des actions autorisées dans vos outils. Le périmètre des réponses et le passage au support client humain sont définis dès la conception." },
-          { slug: "qualification-prospects", title: "Agent de qualification de prospects", lead: "Analysez automatiquement les demandes entrantes afin d’identifier les besoins, qualifier les prospects et aider vos équipes commerciales à prioriser les opportunités.", summary: "Analysez les demandes entrantes et aidez vos commerciaux à prioriser les prospects pertinents.", description: "Cet agent de qualification de prospects analyse les demandes entrantes et structure les informations utiles : besoin exprimé, contexte, délai et critères de votre équipe commerciale. Il aide à prioriser les opportunités et à préparer une réponse pertinente. Les critères sont explicites et ajustables ; vos équipes gardent la décision finale sur le traitement des prospects." },
-          { slug: "assistant-documentaire", title: "Assistant documentaire IA", lead: "Interrogez vos documents, procédures et bases de connaissances grâce à un assistant IA capable de rechercher et synthétiser les informations utiles.", summary: "Retrouvez et synthétisez les informations de vos documents grâce à un assistant IA.", description: "Un assistant documentaire IA permet de rechercher une réponse dans vos documents, procédures et bases de connaissances en langage naturel. Il retrouve les passages pertinents et synthétise les informations, avec des références aux sources lorsque le contenu le permet. Le périmètre documentaire et les droits d’accès sont définis pour que les réponses restent adaptées aux utilisateurs autorisés." },
-          { slug: "support-interne", title: "Agent de support interne IA", lead: "Aidez vos équipes à retrouver rapidement des procédures, informations métier et réponses internes à partir de votre documentation.", summary: "Aidez vos équipes à trouver les procédures et réponses utiles dans votre documentation interne.", description: "L’agent de support interne IA aide vos collaborateurs à retrouver les procédures, consignes et informations métier déjà présentes dans votre documentation. Il oriente vers la bonne ressource et peut préparer une demande pour l’équipe compétente lorsque la réponse manque. Cette assistance réduit les recherches répétitives tout en laissant les cas particuliers aux personnes responsables." },
-          { slug: "agent-prospection", title: "Agent de prospection IA", lead: "Identifiez, analysez et qualifiez des entreprises ou prospects grâce à un agent IA conçu pour préparer et structurer votre prospection commerciale.", summary: "Identifiez des entreprises cibles et préparez votre prospection commerciale avec un agent IA.", description: "Un agent de prospection IA aide à repérer des entreprises correspondant à vos critères et à structurer les informations utiles à votre démarche commerciale. Il peut analyser les sources autorisées, préparer des fiches de qualification et proposer des angles de prise de contact. Les résultats sont soumis à vos contrôles ; les envois et décisions commerciales restent encadrés par vos règles." },
-          { slug: "agent-email-demandes", title: "Agent email & demandes IA", lead: "Analysez automatiquement vos emails et demandes entrantes pour les classer, extraire les informations importantes et préparer les actions adaptées.", summary: "Classez les emails, extrayez les informations utiles et préparez des réponses à valider.", description: "Cet agent IA analyse le sens des emails et demandes entrantes pour en extraire les éléments utiles, proposer une catégorie et préparer la suite du traitement. Il peut résumer un échange, suggérer une réponse ou alimenter un dossier dans vos outils. Les messages sensibles ou incertains sont orientés vers une validation humaine selon les conditions définies avec votre équipe." },
-          { slug: "agent-commercial", title: "Agent commercial IA", lead: "Un assistant IA pour résumer les échanges clients, préparer les rendez-vous, enrichir le CRM et suggérer les prochaines actions commerciales.", summary: "Résumez les échanges clients, préparez les rendez-vous et suggérez les prochaines actions commerciales.", description: "L’agent commercial IA accompagne vos équipes dans la préparation et le suivi des échanges clients. À partir des données autorisées, il peut résumer une conversation, préparer un rendez-vous, suggérer une mise à jour du CRM et proposer les prochaines actions. Les recommandations restent vérifiables et les engagements envers vos clients sont validés par vos commerciaux." },
-        ],
-      },
-    ],
-    /* Ce que chaque page de service dira. Rédigé à l'étape suivante, une
-       prestation d'abord, puis les autres sur le même gabarit. */
-    detailPlaceholder: "Le détail de cette prestation est en cours de rédaction.",
-  },
-
-  /* ------------------------------------------------------------------
-     Les deux sections de la landing dont nous n'avons pas encore la
-     matière. Leur place est réservée et leur intention écrite ; le contenu
-     arrive quand il existe. Rien n'est inventé.
-
-     ⚠ Ces blocs s'affichent en clair sur le site. Ils doivent être remplis
-     ou retirés avant la mise en ligne — c'est un point bloquant du README.
-     ------------------------------------------------------------------ */
-  landing: {
-    results: {
-      eyebrow: "Résultats",
-      title: "Ce que ça change,\n^en chiffres.",
-      text: "Ici : des chiffres mesurés chez de vrais clients, chacun rattaché à un projet et à une date.",
-      note: "Aucun chiffre tant qu'il n'est pas mesuré.",
-    },
-    tools: {
-      eyebrow: "Outils gratuits",
-      title: "Des outils à utiliser\n^sans nous parler.",
-      text: "Ici : un ou deux outils libres d'accès, sans inscription. Un calculateur de temps administratif, une checklist de conformité.",
-      note: "À construire. C'est ce qui fait trouver le site sans acheter de publicité.",
-    },
-  },
-  hero: {
-    titleLead: "Des processus plus intelligents",
-    titleAccent: "grâce à l’automatisation et aux agents IA",
-    subtitle:
-      "Synode conçoit des solutions d’automatisation, des agents IA et des outils métier sur mesure pour connecter vos outils, automatiser les tâches répétitives et faire gagner du temps à vos équipes.",
-    primaryCta: "Demander un audit",
-    secondaryCta: "Voir nos réalisations",
-    pillars: [
-      { icon: "Zap", title: "Automatisation", text: "Vos outils connectés bout à bout, zéro double encodage." },
-      { icon: "Bot", title: "Agents IA", text: "Ils lisent, qualifient et agissent sur vos données, 24/7." },
-      { icon: "AppWindow", title: "Logiciels sur mesure", text: "Applications web, outils internes, portails, dashboards." },
-      { icon: "ArrowLeftRight", title: "Site web & applications", text: "Une présence digitale sur mesure pour votre activité." },
-    ],
-    /* Decorative interface mock in the hero. It is hidden from screen
-       readers, so none of this copy is ever read aloud: it exists to be
-       looked at, and to show the shape of what the agency delivers. */
-    /* ------------------------------------------------------------------
-       Les trois systèmes du hero. Même structure, trois contenus : la barre
-       latérale, le titre, le badge, trois étapes, deux cartes. Ils se jouent
-       l'un après l'autre, puis la pile s'arrête sur le dernier.
-
-       ⚠ Les trois valeurs `gainValue` sont des PLACEHOLDERS. Aucune n'est
-       mesurée, et « +6 h / semaine » est le chiffre qu'affiche atta-ai.com.
-       À remplacer par des valeurs constatées chez de vrais clients, ou à
-       retirer, avant toute mise en ligne. Point bloquant n° 0 du README.
-       ------------------------------------------------------------------ */
-    systems: [
-      {
-        id: "demandes",
-        appName: "Synode",
-        badge: "Automatisé",
-        nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
-        title: "Votre activité,\nplus simple avec Synode",
-        steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
-        caseLabel: "Exemple concret",
-        caseText: "Un client demande un devis. Synode classe la demande, prépare le devis et relance automatiquement.",
-        caseEmphasis: ["devis", "relance"],
-        docLabel: "Devis",
-        gainLabel: "Temps gagné",
-        gainValue: "+6 h / semaine",
-      },
-      {
-        id: "impayes",
-        appName: "Synode",
-        badge: "Suivi actif",
-        nav: ["Factures en retard", "Relances", "Paiements", "Clients"],
-        title: "Vos impayés,\nmieux suivis avec Synode",
-        steps: ["Facture échue", "Relance envoyée", "Paiement suivi"],
-        caseLabel: "Exemple concret",
-        caseText: "Une facture dépasse l'échéance. Synode détecte le retard, envoie une relance et suit le paiement automatiquement.",
-        caseEmphasis: ["relance", "suit le paiement"],
-        docLabel: "Facture",
-        gainLabel: "Temps gagné",
-        gainValue: "+4 h / semaine",
-      },
-      {
-        id: "planning",
-        appName: "Synode",
-        badge: "Organisé",
-        nav: ["Rendez-vous", "Confirmations", "Disponibilités", "Notifications"],
-        title: "Votre planning,\nplus fluide avec Synode",
-        steps: ["Créneau choisi", "Rendez-vous confirmé", "Rappel envoyé"],
-        caseLabel: "Exemple concret",
-        caseText: "Un prospect choisit un créneau. Synode vérifie les disponibilités, confirme le rendez-vous et envoie le rappel automatiquement.",
-        caseEmphasis: ["disponibilités", "rappel"],
-        docLabel: "Agenda",
-        gainLabel: "Temps gagné",
-        gainValue: "+5 h / semaine",
-      },
-    ],
-  },
-  problem: {
-    eyebrow: "Le constat",
-    answerLabel: "Ce qu'on y répond",
-    title: "L'automatisation et le digital avancent vite. ^Les entreprises, pas toujours.",
-    intro:
-      "Beaucoup de PME savent qu'il existe mieux, sans savoir ce qui peut réellement être automatisé,\nquels outils choisir, ni s'il faut acheter un logiciel ou en développer un.",
-    /* Four columns, matching the design. The figures are illustrative and
-       carry no source: see `stat.value`. */
-    /* Trois constats, et chacun renvoie à la prestation précise qui le règle
-       plutôt qu'à une famille entière. C'est ce qui fait la différence entre
-       « on fait de l'automatisation » et « voici ce qu'on fait de votre
-       problème ». Les `slug` pointent vers `/services/<slug>`. */
-    items: [
-      {
-        title: "Trop de tâches manuelles",
-        text: "Des heures perdues chaque semaine sur des tâches répétitives qui pourraient être automatisées.",
-        answer: "Workflows & intégrations",
-        slug: "workflows-integrations",
-      },
-      {
-        title: "Des outils et données dispersés",
-        text: "Informations éclatées, doubles encodages et logiciels qui ne communiquent pas.",
-        answer: "Synchronisation CRM & données",
-        slug: "synchronisation-crm",
-      },
-      {
-        title: "Un suivi encore trop manuel",
-        text: "Relances oubliées, dossiers qui stagnent et opportunités perdues.",
-        answer: "Relances & suivis automatiques",
-        slug: "relances-suivis",
-      },
-      {
-        title: "Des demandes qui attendent",
-        text: "Appels manqués, messages sans réponse et devis qui traînent : le client, lui, ne rappelle pas.",
-        answer: "Agent téléphonique",
-        slug: "agent-telephonique",
-      },
-    ],
-  },
-  offer: {
-    eyebrow: "Notre offre",
-    title: "Deux offres au cœur. ^Une troisième au besoin.",
-    /** Set back in the title: it is not what we lead with. */
-    titleSoft: "Une troisième au besoin.",
-    subtitle: "La solution adaptée à votre problème, définie ensemble.",
-    subtitleNote: "Tarifs sur devis.",
-    resultLabel: "Résultat",
-    secondaryLabel: "En complément",
-    ctaPrimary: "Réserver un audit",
-    ctaSecondary: "Discuter de votre projet",
-    cards: [
-      {
-        icon: "Workflow",
-        number: "01",
-        title: "Automatisation & Agents IA",
-        forWho: "Pour les entreprises qui perdent du temps dans des tâches manuelles et répétitives.",
-        includes: [
-          "Workflows & intégrations",
-          "Agents & assistants IA",
-          "Traitement de documents",
-          "E-mails automatiques",
-        ],
-        result: "Moins de travail manuel, moins d'erreurs, plus de temps pour ce qui compte.",
-      },
-      {
-        icon: "Blocks",
-        number: "02",
-        title: "Solutions sur mesure & Outils métier",
-        forWho: "Pour les entreprises dont le besoin ne rentre dans aucun logiciel existant.",
-        includes: [
-          "Application web sur mesure",
-          "Outil interne & portail client",
-          "Tableau de bord",
-          "Mise en place de CRM",
-        ],
-        result: "Un environnement de travail adapté à votre fonctionnement, plutôt que l'inverse.",
-      },
-      {
-        icon: "Globe",
-        number: "03",
-        title: "Sites web & applications mobiles",
-        forWho: "Pour celles dont la vitrine en ligne ne reflète plus le niveau de service.",
-        includes: [
-          "Site vitrine",
-          "Application mobile",
-          "Refonte & performance",
-          "E-commerce",
-        ],
-        result: "Une présence en ligne à la hauteur de ce que vous livrez vraiment.",
-      },
-    ],
-  },
-  method: {
-    eyebrow: "Méthode & qui nous aidons",
-    title: "Nous aidons les entreprises à simplifier\nce qui les ralentit.",
-    steps: [
-      { title: "Audit & analyse", text: "Comprendre votre fonctionnement, vos outils et vos points de friction. Première heure offerte." },
-      { title: "Recommandations", text: "Ce qui vaut la peine d'être automatisé, développé, connecté — ou laissé tel quel. Priorisé et chiffré." },
-      { title: "Implémentation", text: "Nous construisons, intégrons et testons sur vos vraies données, avec démonstration à vos équipes." },
-      { title: "Suivi & amélioration", text: "Nous vérifions que ça tient dans la durée, mesurons l'utilité réelle et faisons évoluer la solution." },
-    ],
-  },
-  realisations: {
-    eyebrow: "Réalisations & démonstrateurs",
-    title: "Des systèmes qui tournent, ^pas des promesses.",
-    titleAccent: "systèmes",
-    filterCta: "Parler du vôtre",
-    scrollCta: "Voir nos réalisations",
-    videoPending: "Démo vidéo à venir",
-    worksCount: "projets",
-    worksPrev: "Projet précédent",
-    worksNext: "Projet suivant",
-    emptyCategory: "Les premières réalisations de cette catégorie arrivent bientôt. Parlez-nous de la vôtre, elle pourrait être la première publiée ici.",
-    categories: [
-      { id: "automation", label: "Automatisation & Agents IA", short: "Automatisation", icon: "Bot", note: "Les tâches répétitives passent à des agents qui travaillent seuls, sous votre contrôle." },
-      { id: "software", label: "Logiciels sur mesure & Outils métier", short: "Logiciels", icon: "Code2", note: "Un outil taillé pour votre métier, là où les logiciels du marché ne suivent plus." },
-      { id: "web", label: "Site web & applications mobiles", short: "Web & mobile", icon: "Smartphone", note: "Un site ou une application mobile qui tient la route et grandit avec vous." },
-    ],
-    body: "Des réalisations concrètes qui illustrent notre savoir-faire\nen automatisation, agents IA et développement sur mesure.",
-    items: [
-      { code: "D/01", category: "automation", short: "Boîte partagée", tag: "Tri, CRM et réponse IA", domain: "Automatisation & Agents IA", title: "Boîte partagée triée, qualifiée et répondue", desc: "Un agent lit les mails entrants d'une adresse info@, les classe, crée la fiche dans le CRM et rédige une réponse mise en attente de validation humaine.", result: "−3 h de tri par semaine · première réponse en 2 min" , video: "/demos/demo-inbox.mp4", poster: "/demos/poster-inbox.jpg" },
-      { code: "D/02", category: "automation", short: "Assistant documentaire", tag: "Recherche sourcée", domain: "Automatisation & Agents IA", title: "Assistant interne sur 400 documents", desc: "Procédures, contrats et fiches techniques indexés. L'équipe pose sa question en langage naturel et reçoit une réponse sourcée, avec le passage exact.", result: "Aucune réponse sans source affichée" , video: "/demos/demo-assistant.mp4", poster: "/demos/poster-assistant.jpg" },
-      { code: "D/07", category: "automation", short: "Relances d'impayés", tag: "Rappels automatiques", domain: "Automatisation & Agents IA", title: "Relances d'impayés, du rappel à l'encaissement", desc: "Les factures émises sont rapprochées des paiements reçus. Passée l'échéance, le rappel part seul, avec la bonne pièce jointe et le bon ton ; l'équipe n'intervient que sur les cas litigieux.", result: "Plus d'échéance oubliée, relance au bon moment" , video: "/demos/demo-dunning.mp4", poster: "/demos/poster-dunning.jpg" },
-      { code: "D/03", category: "software", short: "Tableau de bord", tag: "Chiffres en direct", domain: "Solutions sur mesure", title: "Tableau de bord d'activité temps réel", desc: "Dossiers, échéances et marges agrégés depuis trois sources, rafraîchis en continu, avec alertes sur seuil, rôles par utilisateur et export comptable.", result: "Remplace une consolidation Excel hebdomadaire" , video: "/demos/demo-dashboard.mp4", poster: "/demos/poster-dashboard.jpg" },
-      { code: "D/04", category: "software", short: "Devis automatisé", tag: "Du formulaire à la signature", domain: "Outils métier & CRM", title: "Du formulaire web au devis signé", desc: "Une demande arrive, est qualifiée, chiffrée selon vos règles, transformée en PDF, envoyée pour signature et poussée dans le CRM. Relance automatique à J+3.", result: "Devis envoyé en minutes, plus en jours" , video: "/demos/demo-quote.mp4", poster: "/demos/poster-quote.jpg" },
-      { code: "D/05", category: "web", short: "Site vitrine", tag: "Vitrine sur mesure", domain: "Site web & applications", title: "Site vitrine rapide et évolutif", desc: "Un site construit page par page avec le client : contenu structuré, formulaire connecté à la boîte mail et au CRM, et des pages qui se chargent en moins d'une seconde sur mobile.", result: "Chargé en moins d'une seconde sur mobile" , video: "/demos/demo-site.mp4", poster: "/demos/poster-site.jpg" },
-      { code: "D/06", category: "web", short: "Application mobile", tag: "Terrain, même hors ligne", domain: "Site web & applications", title: "Application mobile pour équipe terrain", desc: "Les interventions, photos et signatures sont saisies sur le téléphone, même sans réseau, puis synchronisées dès le retour de connexion et visées depuis le bureau.", result: "Saisie hors ligne, synchronisée au retour du réseau" , video: "/demos/demo-mobile.mp4", poster: "/demos/poster-mobile.jpg" },
-    ],
-    cta: {
-      title: "Le prochain système montré ici sera peut-être le vôtre.",
-      body: "Les projets de lancement bénéficient d'un tarif préférentiel, en échange du droit de les présenter ici une fois livrés.",
-      button: "En discuter",
-      steps: [
-        { label: "Votre projet", sub: "cadré avec vous" },
-        { label: "Tarif préférentiel", sub: "en échange de la vitrine" },
-        { label: "Présenté ici", sub: "une fois livré, si vous l'acceptez" },
+  home: {
+    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
+    metaDescription: "Synode conçoit des agents IA, des automatisations et des logiciels métier sur mesure à Bruxelles et en Belgique, intégrés à vos outils et à vos données.",
+    hero: {
+      title:
+        "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations.",
+      text: "Nous concevons des assistants, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
+      secondaryCta: "Voir les cas d’usage",
+      /* Ce que le visiteur doit comprendre en une ligne, sous les boutons.
+         Ce ne sont pas des liens : à l'arrivée il a deux choix, pas six. */
+      stack: [
+        "Assistants IA",
+        "Automatisations",
+        "Intégrations",
+        "Outils métier",
+        "Données & tableaux de bord",
       ],
     },
+
+    problems: {
+      kicker: "Ce qui vous ralentit",
+      title: "Quatre situations\n^qu’on retrouve partout.",
+      text: "Vous en reconnaîtrez probablement une. C’est en général par là qu’un projet commence.",
+      items: [
+        {
+          title: "Des tâches refaites à la main chaque semaine",
+          text: "Les mêmes gestes, le même jour, sur les mêmes dossiers. Personne n’a le temps de s’arrêter pour les traiter autrement.",
+          useCase: "preparer-rendez-vous",
+        },
+        {
+          title: "Des outils qui ne se parlent pas",
+          text: "L’information est dans le mail, le devis dans un dossier, le suivi dans un tableur. On recopie d’un écran à l’autre.",
+          useCase: "vue-commune",
+        },
+        {
+          title: "Des demandes difficiles à traiter",
+          text: "Les messages arrivent de partout, il faut les lire pour savoir de quoi il s’agit, et les urgents se noient dans le reste.",
+          useCase: "trier-emails",
+        },
+        {
+          title: "De l’information qu’on ne retrouve pas",
+          text: "La bonne procédure existe. Elle est dans un document que personne ne retrouve, ou chez la personne absente.",
+          useCase: "recherche-documents",
+        },
+      ],
+    },
+
+    useCases: {
+      kicker: "Cas d’usage",
+      title: "Ce qu’une solution IA\n^peut prendre en charge.",
+      text: "Quatre exemples parmi ceux que nous détaillons. Chacun part d’un problème réel, pas d’une technologie.",
+      cta: "Explorer les cas d’usage",
+    },
+
+    offer: {
+      kicker: "Notre offre",
+      title: "Une seule offre,\n^construite pour vous.",
+      text: "Un petit projet ciblé et un outil métier complet relèvent de la même offre. Ce qui change, c’est le périmètre, le budget et l’accompagnement, pas la nature du travail.",
+      /* Les briques ne sont pas un menu : ce sont les matériaux possibles. */
+      bricks: [
+        { title: "Assistants et agents IA", text: "Analyse, recherche, préparation de réponses, aide à la décision." },
+        { title: "Automatisations", text: "Traitement des demandes, des documents, des tâches et des circuits de validation." },
+        { title: "Intégrations", text: "Connexion à vos logiciels et à vos données existants." },
+        { title: "Outils métier", text: "Interfaces, espaces internes, bases de données et tableaux de bord." },
+      ],
+      note: "L’IA fait partie de chaque projet, avec une utilité identifiée. Si elle n’apporte rien à votre problème, nous vous le disons et nous réorientons la demande.",
+      cta: "Découvrir notre approche",
+    },
+      /* Le schéma d'architecture de la bande Offre. Trois étages : ce que
+         l'entreprise possède déjà, ce que nous construisons entre les deux,
+         et ce qui en sort. C'est l'argument de la section, montré. */
+      architecture: {
+        caption: "Ce que nous construisons, et où cela se place",
+        toolsLabel: "Vos outils, tels qu’ils sont",
+        tools: ["CRM", "Email", "Documents", "Agenda", "Logiciel métier"],
+        coreLabel: "La solution Synode",
+        core: ["Assistants IA", "Automatisations", "Intégrations", "Interface métier"],
+        outLabel: "Vos processus",
+        out: ["Demandes traitées", "Documents produits", "Suivi à jour"],
+        humanLabel: "Vous gardez la validation sur ce qui compte",
+      },
+
+
+    proof: {
+      kicker: "Ce que nous construisons",
+      title: "Des preuves, pas des promesses.",
+      text: "Nous démarrons. Plutôt que d’afficher des logos que nous n’avons pas, nous montrons ce qui existe réellement aujourd’hui.",
+      cta: "Voir les réalisations",
+    },
+
+    method: {
+      kicker: "Méthode",
+      title: "Comment un projet\n^se déroule.",
+      text: "Cinq temps, et aucun ne commence avant que le précédent soit validé avec vous.",
+      steps: [
+        { title: "Comprendre", text: "Votre problème, sa fréquence, vos outils et ce qu’il vous coûte aujourd’hui." },
+        { title: "Proposer", text: "Un périmètre écrit, des livrables, un prix et des critères de réussite." },
+        { title: "Construire", text: "Par jalons, avec des démonstrations que vous validez au fur et à mesure." },
+        { title: "Déployer", text: "Tests sur vos critères, formation de vos équipes, documentation transmise." },
+        { title: "Suivre", text: "Surveillance du fonctionnement et interventions dans le cadre convenu." },
+      ],
+      cta: "Comment se déroule un projet ?",
+    },
+
+    team: {
+      kicker: "L’équipe",
+      title: "Deux associés,\n^un interlocuteur par sujet.",
+      text: "Vous savez toujours à qui vous parlez : celui qui comprend et suit votre besoin, et celui qui conçoit et réalise la solution.",
+      cta: "Rencontrer l’équipe",
+    },
+
+    faq: {
+      kicker: "Questions fréquentes sur nos solutions IA",
+      title: "Questions fréquentes sur les solutions IA sur mesure",
+      items: [
+        {
+          q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
+          a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution IA à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
+        },
+        {
+          q: "Combien coûte une solution IA sur mesure ?",
+          a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel IA sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
+        },
+        {
+          q: "Y a-t-il des coûts récurrents après la mise en service ?",
+          a: "Oui. Une solution IA s’appuie sur des services payants — modèles IA, hébergement, plateformes d’automatisation — qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
+        },
+        {
+          q: "Comment se déroule un projet avec Synode ?",
+          a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution IA et accompagnons sa mise en service.",
+        },
+        {
+          q: "Mes données restent-elles confidentielles ?",
+          a: "La confidentialité et la gestion des accès sont prises en compte lors de la conception. Les outils et services utilisés, ainsi que les modalités de traitement des données, sont définis selon les exigences de votre projet.",
+        },
+        {
+          q: "Assurez-vous la maintenance après le déploiement ?",
+          a: "Oui. Synode assure l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
+        },
+      ],
+    },
+
+    cta: {
+      title: "Quel processus aimeriez-vous\n^simplifier en premier ?",
+      text: "Un échange de 30 minutes, gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet, et rien ne vous engage à la suite.",
+      secondary: "Décrire mon besoin par écrit",
+    },
   },
+
+  /* ---------------------------------------------------------------- Solutions */
+  solutions: {
+    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
+    metaDescription:
+      "Découvrez les solutions IA sur mesure de Synode à Bruxelles : agents IA, automatisations, logiciels métier, intégrations, data et formation pour entreprises.",
+    kicker: "Notre offre",
+    title: "Une solution construite\n^à partir de votre besoin.",
+    text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
+
+    bricksTitle: "Nos solutions IA sur mesure",
+    bricksText: "Six familles complémentaires pour les indépendants, TPE et PME. Un projet peut en combiner plusieurs, selon votre besoin. Aucun forfait imposé.",
+    bricks: [
+      {
+            "slug": "assistants-agents-ia",
+            "title": "Assistants & Agents IA",
+            "text": "Des assistants IA pour rechercher, rédiger et analyser vos informations, ainsi que des agents IA capables d’exécuter des actions dans un cadre défini.",
+            "benefit": "Accéder plus vite à l’information et accélérer les tâches quotidiennes.",
+            "example": "Un agent IA prépare une réponse client à partir de vos documents, cite ses sources et demande votre validation avant envoi.",
+            "visual": 0
+      },
+      {
+            "slug": "automatisations-intelligentes",
+            "title": "Automatisations intelligentes",
+            "text": "Des automatisations intelligentes pour relier les étapes répétitives de vos processus métier et traiter les informations qui circulent entre vos outils.",
+            "benefit": "Réduire les saisies manuelles, les oublis et les tâches répétitives.",
+            "example": "Une facture reçue par email est extraite, contrôlée et transmise au bon outil, tandis que les cas ambigus vous sont signalés.",
+            "visual": 1
+      },
+      {
+            "slug": "logiciels-applications-ia",
+            "title": "Logiciels & Applications IA sur mesure",
+            "text": "Des logiciels métier et applications IA sur mesure conçus autour de vos processus, de vos utilisateurs et de vos règles de fonctionnement.",
+            "benefit": "Disposer d’un outil métier adapté au travail réel de vos équipes.",
+            "example": "Vos interventions sont centralisées dans une interface métier avec suivi, historique et comptes rendus assistés par IA.",
+            "visual": 3
+      },
+      {
+            "slug": "integrations-systemes-connectes",
+            "title": "Intégrations & systèmes connectés",
+            "text": "Des intégrations entre vos logiciels, CRM, ERP, sites web et bases de données pour synchroniser les informations utiles.",
+            "benefit": "Faire circuler les données entre vos outils sans double saisie.",
+            "example": "Une demande validée sur votre site crée ou met à jour la fiche correspondante dans le CRM et l’outil de gestion.",
+            "visual": 2
+      },
+      {
+            "slug": "data-intelligence",
+            "title": "Data & Intelligence",
+            "text": "Centralisation et analyse de données, tableaux de bord, détection d’anomalies, prévisions et recommandations lorsque les données le permettent.",
+            "benefit": "Transformer vos données métier en indicateurs utiles à la décision.",
+            "example": "Les données de ventes et de stocks sont réunies pour détecter les anomalies et anticiper les besoins à partir de l’historique disponible.",
+            "visual": 4
+      },
+      {
+            "slug": "formation-adoption-ia",
+            "title": "Formation & Adoption IA",
+            "text": "Des formations IA et ateliers pratiques pour comprendre les usages, adopter les bons réflexes et prendre en main vos solutions d’intelligence artificielle.",
+            "benefit": "Rendre vos équipes autonomes et responsables dans leurs usages de l’IA.",
+            "example": "À partir de situations réelles, votre équipe apprend à utiliser l’IA pour préparer, vérifier et améliorer ses réponses clients.",
+            "visual": 5
+      }
+],
+
+    operations: {
+      kicker: "Après la mise en service",
+      title: "Votre solution évolue.\n^Nous restons à vos côtés.",
+      text: "Pour chaque solution mise en service, notre proposition distingue le coût de création et le paiement récurrent lié à son exploitation. Son montant dépend de la complexité, des volumes et des services nécessaires, avec des conditions définies avant le démarrage.",
+      recurringLabel: "Paiement récurrent · défini au contrat",
+      familyNote: "Ce suivi accompagne les six familles de solutions. Il ne constitue pas une septième offre.",
+      cycle: ["Conception", "Déploiement", "Surveillance", "Amélioration"],
+      items: [
+        { title: "Surveillance & maintenance", text: "Nous suivons le fonctionnement de la solution et intervenons dans le périmètre convenu en cas de problème." },
+        { title: "Optimisation continue", text: "Nous ajustons les comportements et adaptons la solution lorsque les usages ou les technologies évoluent." },
+        { title: "Suivi des coûts techniques", text: "Nous rendons visibles les coûts d’hébergement, de modèles IA, de stockage et de services externes." },
+        { title: "Assistance & évolutions", text: "Le support prévu est précisé au contrat. Les nouvelles fonctionnalités importantes font l’objet d’un devis séparé." },
+      ],
+    },
+
+    domainsTitle: "Quatre territoires d’intervention",
+    domainsText: "Ils servent à comprendre notre activité. Ce ne sont ni quatre offres distinctes, ni les limites de ce que nous savons faire.",
+    domainsCta: "Voir les cas d’usage",
+
+    deliverablesTitle: "Ce que vous recevez",
+    deliverables: [
+      "Un périmètre écrit et validé avant le démarrage.",
+      "Une solution testée selon les critères convenus ensemble.",
+      "La documentation de son fonctionnement.",
+      "Une prise en main avec les personnes qui vont l’utiliser.",
+      "Les modalités de suivi, écrites elles aussi.",
+    ],
+    deliverablesNote: "Le devis fixe les livrables exacts de votre projet. Cette liste décrit le socle, pas une promesse automatique.",
+
+    sizingTitle: "Comment un projet est dimensionné",
+    sizingText: "Six facteurs, et ils comptent plus que la taille de votre entreprise.",
+    sizing: [
+      { title: "L’objectif", text: "Ce que la solution doit changer, et comment on saura que c’est le cas." },
+      { title: "La complexité", text: "Le nombre de cas particuliers et d’exceptions à traiter." },
+      { title: "Les données", text: "Leur disponibilité, leur qualité et les droits d’accès." },
+      { title: "Les intégrations", text: "Le nombre d’outils à connecter et ce qu’ils permettent réellement." },
+      { title: "Les utilisateurs", text: "Combien de personnes s’en servent, et avec quel niveau de contrôle." },
+      { title: "Les contraintes", text: "Confidentialité, validation humaine obligatoire, volumes à absorber." },
+    ],
+    sizingNote: "Un petit besoin peut démarrer par un périmètre réduit, et s’étendre ensuite si l’utilité est démontrée.",
+
+    pricingTitle: "Comment nous facturons",
+    pricing: [
+      { title: "Création", text: "Cadrage, développement, intégrations, tests et déploiement. Prix et échéancier propres au projet." },
+      { title: "Exploitation, maintenance & monitoring", text: "Un paiement récurrent propre à chaque solution mise en service. Il couvre uniquement les services, la surveillance et les interventions précisés au contrat." },
+      { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
+    ],
+    pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
+
+    faqTitle: "Questions fréquentes sur les solutions IA sur mesure",
+    faq: [
+      { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
+      { q: "Combien coûte une solution IA sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
+      { q: "Comment se déroule un projet IA avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution IA, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
+      { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
+      { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
+      { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+    ],
+
+    notInList: {
+      title: "Votre besoin ne figure pas ici ?",
+      text: "Chaque projet est conçu à partir de votre contexte. Les exemples de ce site montrent notre manière de travailler, pas un catalogue fermé.",
+      cta: "Parlons de votre besoin",
+    },
+  },
+
+  /* ------------------------------------------------------------------ Méthode */
+  method: {
+    metaTitle: "Notre méthode : du premier échange au suivi",
+    metaDescription:
+      "Six étapes, ce que fait Synode, ce que vous apportez et ce qui sort de chacune. Aucun délai universel annoncé : il dépend du périmètre.",
+    kicker: "Méthode",
+    title: "Ce qui se passe,\n^étape par étape.",
+    text: "Chaque étape a une sortie visible. Vous savez à tout moment où en est le projet et ce qui vous est demandé.",
+    columns: { work: "Ce que nous faisons", client: "Ce que vous apportez", output: "Ce qui en sort" },
+    steps: [
+      {
+        title: "Premier échange",
+        work: "Comprendre votre besoin, vos outils, vos contraintes et la priorité du projet.",
+        client: "Partir d’un cas concret, récent de préférence.",
+        output: "Un résumé du besoin et la prochaine étape proposée.", brief: "On cadre votre besoin en 30 minutes, gratuit et sans engagement", accents: ["besoin", "30 minutes", "sans engagement"],
+      },
+      {
+        title: "Analyse et proposition",
+        work: "Évaluer la faisabilité, définir le périmètre du projet et préciser les critères de réussite.",
+        client: "Confirmer les données disponibles, les contraintes et les personnes impliquées dans la décision.",
+        output: "Une proposition, un devis et des critères de réussite.", brief: "Vos données et contraintes donnent la faisabilité, le périmètre et le devis", accents: ["données", "contraintes", "faisabilité", "périmètre", "devis"],
+      },
+      {
+        title: "Conception",
+        work: "Définir le fonctionnement de la solution IA, les accès nécessaires et les étapes qui nécessitent une validation humaine.",
+        client: "Valider le périmètre, les règles métier et les exemples qui serviront de référence.",
+        output: "Un plan de réalisation partagé.", brief: "Vos règles métier deviennent le plan\nde réalisation", accents: ["règles métier", "plan", "de réalisation"],
+      },
+      {
+        title: "Construction",
+        work: "Développer la solution et la confronter progressivement à vos processus et à vos cas réels.",
+        client: "Tester les parcours, valider les premiers résultats et nous transmettre vos retours.",
+        output: "Une version prête pour la recette.", brief: "On développe sur vos cas réels, guidés par vos retours", accents: ["cas réels", "retours"],
+      },
+      {
+        title: "Recette et déploiement",
+        work: "Tester, corriger, documenter et mettre la solution IA en service dans votre environnement.",
+        client: "Valider les critères de réussite définis au début du projet avant la mise en production.",
+        output: "La solution en service, et sa documentation transmise.", brief: "Votre validation ouvre la mise en service et la documentation", accents: ["validation", "mise en service", "documentation"],
+      },
+      {
+        title: "Suivi",
+        work: "Surveiller le fonctionnement de la solution, assurer sa maintenance et cadrer les évolutions nécessaires.",
+        client: "Signaler les incidents, les nouveaux besoins et les évolutions de vos processus métier.",
+        output: "Une maintenance suivie, et les évolutions chiffrées.", brief: "Vos retours d’usage orientent la maintenance\net les évolutions", accents: ["retours d’usage", "maintenance", "évolutions"],
+      },
+    ],
+    notesTitle: "Quatre choses que nous préférons dire d’avance",
+    notes: [
+      { title: "Un changement de périmètre se chiffre", text: "Ajouter un cas non prévu en cours de route est possible, mais cela se discute et se chiffre. Nous ne l’absorbons pas en silence, et nous ne le découvrons pas non plus à la facture." },
+      { title: "Le projet dépend de vos accès", text: "Une donnée indisponible ou un accès qui tarde décale la suite. C’est la cause de retard la plus fréquente, et la plus facile à éviter en la nommant tôt." },
+      { title: "Vos données restent les vôtres", text: "Nous travaillons sur le strict nécessaire, et les conditions de traitement sont écrites avant le démarrage." },
+      { title: "Maintenance et nouveauté ne sont pas la même chose", text: "Corriger ce qui ne fonctionne plus comme convenu relève de la maintenance. Ajouter une fonction qui n’existait pas relève d’un nouveau devis." },
+    ],
+    noDelay: "Nous n’annonçons pas de délai universel de livraison. Il dépend du périmètre, de vos accès et de votre disponibilité pour valider.",
+    cta: "Commençons par votre situation actuelle",
+  },
+
+  /* ------------------------------------------------------------------- Équipe */
   team: {
-    eyebrow: "L'équipe",
-    /* Le second retour n'est rendu que sous 768px (voir team.tsx) : sur
-       téléphone le titre tient sur trois lignes, sur desktop sur deux.
-       L'espace avant « un » est ce qui recolle la ligne quand le <br>
-       est masqué. */
-    title: "La team Synode. ^Deux expertises, un même objectif.",
-    /** The word the title turns brand blue. */
-    titleAccent: "Synode",
-    body: "Deux profils complémentaires pour transformer vos besoins en automatisations, outils et solutions digitales sur mesure.",
-    position: "Co-fondateur",
-    members: [
+    metaTitle: "L’équipe Synode",
+    metaDescription:
+      "Deux associés : qui comprend et suit votre besoin, qui conçoit et réalise la solution. Comment nous travaillons avec vous.",
+    kicker: "L’équipe",
+    title: "Pourquoi nous\n^construisons Synode.",
+    vision:
+      "Beaucoup d’entreprises entendent parler d’IA sans jamais voir ce que cela changerait chez elles. Les démonstrations impressionnent, puis rien n’arrive dans le travail réel. Nous avons fait Synode pour l’autre chemin : partir d’une tâche précise qui coûte du temps, et construire ce qui la prend en charge.",
+    peopleTitle: "Deux profils, une même exigence.",
+    people: [
       {
-        name: "Killian",
-        photo: "/equipe/KillianEquipe.webp",
-        photoSize: { width: 1100, height: 971 },
-        role: "Développeur & Expert IA",
-        badge: { label: "Concevoir", sub: "des idées durables" },
-        text: "Développement des applications, outils internes et intégrations : il construit ce qui n'existe pas encore et connecte ce que vous avez déjà.",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · Développeur & Expert IA",
+        text: "Conception des workflows et des agents : il cartographie vos processus, choisit ce qui vaut la peine d’être automatisé et le met en production.",
       },
       {
-        name: "Antonino",
-        photo: "/equipe/AntoEquipe.webp",
-        photoSize: { width: 1100, height: 1100 },
-        role: "Développeur & Expert IA",
-        badge: { label: "Automatiser", sub: "et faire grandir" },
-        text: "Conception des workflows et des agents : il cartographie vos processus, choisit ce qui vaut la peine d'être automatisé et le met en production.",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Développeur & Expert IA",
+        text: "Développement des applications, outils internes et intégrations : il construit ce qui n’existe pas encore et connecte ce que vous avez déjà.",
       },
     ],
-    values: [
-      { label: "Esprit", strong: "collaboratif" },
-      { label: "Vision", strong: "long terme" },
-      { label: "Solutions", strong: "concrètes" },
-      { label: "Passion", strong: "du développement" },
+    complementTitle: "Notre complémentarité",
+    complementText:
+      "Deux expertises, un même objectif : relier la compréhension de vos processus à la construction d’outils utiles. Workflows, agents, applications et intégrations se complètent dans une solution pensée pour votre activité.",
+    workingTitle: "Notre manière de travailler",
+    working: [
+      "Un interlocuteur identifié pour votre projet, du premier échange au suivi.",
+      "Des explications en langage courant, pas en vocabulaire technique.",
+      "Des étapes visibles : vous savez toujours où en est le projet.",
+      "Des décisions écrites, pour que personne n’ait à se souvenir de ce qui avait été dit.",
     ],
+    cta: "Échangeons sur votre projet",
   },
-  audience: {
-    eyebrow: "Qui nous aidons",
-    title: "Les entreprises qui n'ont pas d'équipe IT.",
-    body: "Synode accompagne les entreprises et les indépendants qui perdent du temps dans l'administratif, jonglent avec plusieurs outils et ne savent pas toujours quoi automatiser, connecter ou développer en priorité.",
-    rulesTitle: "Nos règles",
-    rules: [
-      "Comprendre le métier avant de proposer une technologie.",
-      "Pas de sur-mesure quand un outil existant suffit.",
-      "Périmètre écrit, prix fixe, aucune facturation surprise.",
-      "Le code et les données vous appartiennent.",
-    ],
-  },
-  ctaBand: {
-    title: "Une heure pour voir ce qui\npeut changer.",
-    titleAccent: "changer.",
-    body: "Nous chiffrons après l'audit, quand le périmètre est clair\net le gain estimé.",
-    button: "Réserver l'audit gratuit",
-    note: "Un échange d'une heure, gratuit et sans engagement,\ndont vous repartez avec un premier avis écrit.",
-    diagram: {
-      call: "Un échange d'une heure",
-      slot: "Choisissez un créneau",
-      result: "Des pistes concrètes",
-      markAlt: "Synode",
-    },
-  },
-  faq: {
-    eyebrow: "Questions fréquentes",
-    title: "Ce qu'on nous demande avant de signer.",
-    body: "Les mêmes questions reviennent toujours.\nVoici l'essentiel avant notre premier échange.",
-    items: [
-      {
-        q: "Combien de temps avant que ça tourne vraiment ?",
-        a: "L'audit dure une heure. Ensuite, comptez quatre semaines minimum avant une première mise en production. Un outil sur mesure demande plus : le périmètre et le délai sont écrits avant de commencer, pas découverts en route.",
-      },
-      {
-        q: "Combien ça coûte ?",
-        a: "Nous ne chiffrons pas avant l'audit : tant que le périmètre n'est pas clair, un prix serait inventé. Ensuite c'est un devis à prix fixe sur un périmètre écrit, pas une facturation à l'heure qui dérive.",
-      },
-      {
-        q: "Faut-il changer nos outils actuels ?",
-        a: "Non, et c'est rarement souhaitable. Nous nous connectons à ce que vous utilisez déjà. Le sur-mesure n'arrive que quand aucun outil existant ne fait le travail.",
-      },
-      {
-        q: "Où vont nos données, et servent-elles à entraîner une IA ?",
-        a: "Vos données restent les vôtres, le code livré aussi. Quand un modèle d'IA est nécessaire, nous passons par des offres professionnelles qui n'entraînent pas leurs modèles sur vos contenus, et nous vous disons précisément ce qui sort de chez vous.",
-      },
-      {
-        q: "Vous démarrez votre activité : pourquoi vous confier un projet ?",
-        a: "Vous parlez directement aux deux personnes qui conçoivent et développent, sans couche commerciale entre vous et le travail. Nos démonstrateurs sont fonctionnels et se montrent en visio. Et les projets de lancement bénéficient d'un tarif préférentiel.",
-      },
-    ],
-  },
+
+  /* ------------------------------------------------------------------ Contact */
   contact: {
-    eyebrow: "Contact",
-    title: "Dites-nous ce qui vous fait\nperdre du temps.",
-    titleAccent: "perdre du temps.",
-    stats: [
-      { label: "E-mail", value: "contact@synode-agency.com" },
-    ],
-    body: "Réponse sous 24 h ouvrées,\navec un avis honnête sur votre besoin.",
-    info: [
-      { label: "E-mail", value: "contact@synode-agency.com", href: "mailto:contact@synode-agency.com" },
-      { label: "Téléphone", value: "+32 487 30 18 90", href: "tel:+32487301890" },
-      { label: "Premier échange", value: "Audit d'une heure, gratuit", href: "" },
-    ],
-    timelines: ["Urgent — 1 mois", "Sous 3 mois", "Sous 6 mois", "Pas encore de date"],
-    form: {
-      lastName: "Nom",
-      firstName: "Prénom",
-      email: "E-mail professionnel",
-      phone: "Numéro de téléphone",
-      timeline: "Délai souhaité",
-      message: "Le problème à résoudre",
-      messagePlaceholder: "Décrivez brièvement votre fonctionnement actuel et ce qui pourrait être amélioré.",
-      sending: "Envoi…",
-      sentTitle: "Demande envoyée",
-      errLastName: "Indiquez votre nom.",
-      errFirstName: "Indiquez votre prénom.",
-      errEmail: "Indiquez votre e-mail.",
-      errEmailInvalid: "Cet e-mail semble invalide.",
-      errPhone: "Indiquez un numéro de téléphone.",
-      errMessage: "Décrivez le problème en quelques mots (10 caractères min.).",
+    metaTitle: "Parlons de votre projet",
+    metaDescription:
+      "Réservez un échange gratuit de 30 minutes, ou décrivez votre besoin par écrit. Sans engagement.",
+    kicker: "Contact",
+    title: "Parlons de\n^votre projet.",
+    text: "Deux façons de commencer, au choix. Vous n’avez rien à remplir pour accéder au calendrier.",
+
+    booking: {
+      title: "Réserver un échange de 30 minutes",
+      text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
+      openLabel: "Ouvrir le calendrier",
+      unavailableTitle: "Réservation pas encore disponible",
+      unavailableText:
+        "Le calendrier n’est pas encore branché sur cette version du site. En attendant, décrivez votre besoin par le formulaire ci-dessous : nous vous répondons et nous proposons un créneau.",
     },
-    submit: "Envoyer la demande",
-    note: "Vos informations servent uniquement à traiter votre demande : aucune newsletter,\naucune revente, aucune conservation en base de données.",
-    success: "Merci, votre demande est bien reçue. Nous revenons vers vous sous 24 h ouvrées.",
-    error: "Une erreur est survenue. Réessayez ou écrivez-nous directement.",
+
+    form: {
+      title: "Décrire votre besoin par écrit",
+      text: "Si vous préférez écrire, ou si aucun créneau ne vous convient.",
+      fields: {
+        name: { label: "Nom", placeholder: "Votre nom" },
+        email: { label: "Email de contact", placeholder: "vous@exemple.com", hint: "Une adresse personnelle convient : nous travaillons aussi avec des indépendants." },
+        company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
+        need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche ou la situation qui vous coûte le plus de temps.", hint: "Un exemple concret vaut mieux qu’une description générale." },
+        phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
+        website: { label: "Site internet", placeholder: "Facultatif", optional: "Facultatif" },
+        timeline: { label: "Échéance envisagée", optional: "Facultatif" },
+        budget: { label: "Budget envisagé", optional: "Facultatif" },
+      },
+      timelineOptions: ["À définir", "Dès que possible", "Dans 1 à 3 mois", "Dans 3 à 6 mois", "Plus tard"],
+      budgetOptions: ["À définir", "Moins de 5 000 €", "5 000 à 15 000 €", "15 000 à 40 000 €", "Plus de 40 000 €"],
+      submit: "Envoyer mon message",
+      sending: "Envoi en cours…",
+      privacyNote: "Vos informations servent uniquement à traiter votre demande. Pas de newsletter, pas de revente.",
+      privacyLink: "Comment nous traitons vos données",
+      errors: {
+        name: "Indiquez votre nom.",
+        email: "Indiquez une adresse email.",
+        emailInvalid: "Cette adresse email semble incorrecte.",
+        need: "Décrivez votre besoin en quelques mots (10 caractères minimum).",
+        website: "Cette adresse de site semble incorrecte.",
+        tooLong: "Ce champ est trop long.",
+        rateLimited: "Vous venez d’envoyer une demande. Patientez un instant avant de recommencer.",
+        server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",
+        notConfigured:
+          "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement en attendant.",
+      },
+    },
+
+    direct: { title: "Ou directement", emailLabel: "Par email" },
+  },
+
+  thanks: {
+    metaTitle: "Message bien reçu",
+    title: "Votre message\n^a bien été reçu.",
+    text: "Nous l’avons enregistré et nous revenons vers vous. Si votre demande est urgente, réservez directement un créneau : c’est le chemin le plus rapide.",
+    /* On ne promet pas de délai : la référence l'interdit tant qu'il n'est
+       pas tenable. */
+    notBooked: "Ce message n’est pas un rendez-vous. Pour en fixer un, passez par le calendrier.",
+    bookCta: "Réserver un échange",
+    homeCta: "Revenir à l’accueil",
+  },
+
+  notFound: {
+    title: "Cette page\n^n’existe pas.",
+    text: "Le lien est peut-être ancien, ou l’adresse comporte une faute. Voici les pages les plus consultées.",
+    homeCta: "Revenir à l’accueil",
+  },
+
+  /* ------------------------------------------------------------------- Légal */
+  legal: {
+    noticeTitle: "Mentions légales",
+    noticeDescription: "Informations légales du site Synode.",
+    privacyTitle: "Politique de confidentialité",
+    privacyDescription: "Quelles données nous traitons, pourquoi, et avec quels prestataires.",
+    draftLabel: "Brouillon",
+    draftText:
+      "Cette page est incomplète. Les informations manquantes doivent être confirmées avant toute mise en ligne : elles sont listées dans la documentation du projet.",
+    updated: "Dernière mise à jour",
   },
 } as const;
 
+/* ==========================================================================
+   ENGLISH
+
+   Written for an English-speaking reader, not translated word for word. The
+   offer, the targets and the claims are identical: only the register moves.
+   ========================================================================== */
 const en = {
   locale: "en" as Locale,
   htmlLang: "en",
+
   site: {
     name: "Synode",
     email: "contact@synode-agency.com",
     location: "Brussels, Belgium",
-    vat: "BE 0000.000.000",
+    tagline:
+      "Custom AI solutions, built around how your business actually works, to move your operations forward.",
     nav: nav.en,
-    ctaLabel: "Book an audit",
-    homeLabel: "Synode, home",
-    menuOpen: "Open the menu",
-    menuClose: "Close the menu",
-    tagline: "Automation, AI agents and custom solutions for SMEs.",
+    cta: "Book a free call",
+    ctaShort: "Book a call",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    homeLabel: "Synode, back to home",
+    skip: "Skip to content",
+    langLabel: "Language",
+    footerNav: "Navigation",
+    footerContact: "Contact",
+    footerLegal: "Legal",
+    copyright: "Synode",
   },
 
-  /* See the French block above for how this is structured. Slugs are shared
-     between both languages on purpose. */
-  services: {
-    eyebrow: "Our services",
-    title: "Sixteen ways to give you your time back.",
-    titleAccent: "give you your time back",
-    body: "Two families, sixteen services. Each one solves a specific kind of wasted time, and each one has its own page.",
-    countLabel: "services",
-    familyLabel: "Family",
-    detailEyebrow: "Service",
-    backLabel: "All services",
-    ctaLabel: "Book an audit",
-    families: [
-      {
-        slug: "automatisation",
-        title: "Automation",
-        lead: "Your tools talk to each other, and the repetitive work disappears.",
-        items: [
-          { slug: "workflows-integrations", title: "Process automation & integrations", lead: "Connect your software and automate business processes to eliminate duplicate entry and move data automatically between your tools.", summary: "Connect your software and automate business processes to eliminate duplicate entry.", description: "Connect your software around real business events: a new customer, an order or a case update. Integrations use available APIs and your business rules, with checks to detect synchronisation errors. Reduce duplicate entry while keeping control over the workflow." },
-          { slug: "traitement-documents", title: "Documents, quotes & invoicing", lead: "Automate document, quote and invoice processing: extract data, generate files, organise them and send them according to your business rules.", summary: "Automate document processing, quote creation and invoicing workflows.", description: "Automate repetitive work around quotes, invoices and supporting documents. Extract and check key data before sending it to your management tools, and generate, file or send documents according to your rules. Keep human approval before sending or when information needs confirmation." },
-          { slug: "emails-demandes", title: "Emails, requests & communication", lead: "Automate the sorting and routing of emails, forms and customer requests, and trigger the right actions.", summary: "Sort emails and customer requests, then trigger the right actions in your tools.", description: "Centralise requests from email inboxes and forms. Sort and route messages by topic, source or submitted information, then create the appropriate follow-up task. Structure customer communication without manually moving every piece of information between tools." },
-          { slug: "relances-suivis", title: "Follow-ups, appointments & reminders", lead: "Automate reminders and follow-ups for quotes, invoices, payments, appointments and pending cases.", summary: "Schedule quote follow-ups, payment reminders and appointment notifications.", description: "Build follow-up sequences for unanswered quotes, pending invoices and appointments. Define timing, channels and stop conditions together: a reply or payment can end a sequence. Your team keeps access to the history and handles cases that need personal attention." },
-          { slug: "synchronisation-crm", title: "Sales & CRM automation", lead: "Automate lead, opportunity and CRM data management to simplify sales follow-up and keep your records current.", summary: "Connect sales tools to your CRM to keep leads and opportunities up to date.", description: "Connect forms, customer conversations and sales tools to create or update CRM records, assign opportunities and trigger follow-up tasks. Synchronisation and duplicate detection follow your organisation’s rules. Keep useful sales data available without repetitive manual updates." },
-          { slug: "administration-operations", title: "Administration & internal operations", lead: "Automate administrative tasks, approvals, case creation and internal processes that slow your teams down.", summary: "Automate approvals, case creation and repetitive administrative tasks.", description: "Automate administrative workflows such as case creation, approval requests, task assignment and internal notifications. Each step follows your responsibilities and business conditions. Exceptions remain visible, and decisions requiring approval stay under human control." },
-          { slug: "tableaux-de-bord", title: "Data, reports & dashboards", lead: "Centralise your data and automatically update dashboards, metrics and reports from your different tools.", summary: "Centralise data and automatically refresh metrics, reports and dashboards.", description: "Bring relevant data sources together to populate business dashboards and reports. Define metrics, sources and refresh schedules, then automate collection and calculations. Teams get a consistent view of activity without rebuilding reporting spreadsheets." },
-          { slug: "portails-outils-internes", title: "Automated portals & business tools", lead: "Build custom client portals, internal tools and business interfaces to bring data, automation and processes together.", summary: "Bring data and processes together in a custom client portal or business tool.", description: "Create a custom client portal or business tool around a specific workflow. Case tracking, document uploads, requests and approvals connect to your existing software and automations. Role-based access gives each user the information needed for their work." },
-        ],
-      },
-      {
-        slug: "agents-ia",
-        title: "AI agents",
-        lead: "Assistants that read, answer and act on your data.",
-        items: [
-          { slug: "agent-telephonique", title: "AI voice agent", lead: "An AI agent that answers calls, understands requests, qualifies leads and books appointments automatically.", summary: "Answer calls, qualify requests and help customers book appointments.", description: "An AI voice agent can answer calls, identify the request and collect useful information before transferring the caller or booking an appointment. Scenarios reflect your hours, business and available calendar or CRM integrations. Complex requests go to a human under agreed rules." },
-          { slug: "agent-conversationnel", title: "AI conversational agent", lead: "An AI agent on your website, WhatsApp or email to answer questions, guide customers and support customer service.", summary: "Answer customer questions on your website or messaging channels with an AI agent.", description: "An AI conversational agent guides customers on selected channels such as your website, WhatsApp or email. It uses approved information, points to useful resources and can trigger authorised actions in your tools. Define answer boundaries and handover to human customer support from the start." },
-          { slug: "qualification-prospects", title: "Lead qualification agent", lead: "Analyse incoming requests to identify needs, qualify leads and help your sales team prioritise opportunities.", summary: "Analyse incoming enquiries and help sales teams prioritise relevant leads.", description: "Analyse incoming enquiries and organise the information your sales team needs: requirements, context, timing and qualification criteria. Help prioritise opportunities and prepare relevant responses. Criteria remain explicit and adjustable, with final decisions made by your team." },
-          { slug: "assistant-documentaire", title: "AI document assistant", lead: "Search your documents, procedures and knowledge bases with an AI assistant that finds and summarises useful information.", summary: "Find and summarise information in your documents with an AI assistant.", description: "Search documents, procedures and knowledge bases using natural language. The assistant retrieves relevant passages and summarises information with source references where the content allows. Define the document scope and access rights for authorised users." },
-          { slug: "support-interne", title: "AI internal support agent", lead: "Help your teams quickly find procedures, business information and internal answers in your documentation.", summary: "Help teams find procedures and answers in your internal documentation.", description: "Help employees find procedures, guidance and business information in your internal documentation. The agent points to the right resource and can prepare a request for the relevant team when an answer is missing. Specific cases remain with the responsible people." },
-          { slug: "agent-prospection", title: "AI prospecting agent", lead: "Identify, analyse and qualify companies or leads with an AI agent that prepares and structures your sales prospecting.", summary: "Identify target companies and prepare sales prospecting with an AI agent.", description: "Identify companies matching your criteria and organise information for sales prospecting. The agent can analyse authorised sources, prepare qualification records and suggest contact angles. Your team reviews results, with outreach and sales decisions governed by your rules." },
-          { slug: "agent-email-demandes", title: "AI email & request agent", lead: "Automatically analyse incoming emails and requests to categorise them, extract key information and prepare the right actions.", summary: "Sort emails, extract key information and prepare replies for review.", description: "Analyse the meaning of incoming emails and requests to extract key information, suggest a category and prepare next steps. Summarise conversations, draft replies or populate records in your tools. Sensitive or uncertain messages go through human review under agreed conditions." },
-          { slug: "agent-commercial", title: "AI sales agent", lead: "An AI assistant to summarise customer conversations, prepare meetings, enrich your CRM and suggest next sales actions.", summary: "Summarise customer conversations, prepare meetings and suggest next sales actions.", description: "Help sales teams prepare and follow up on customer conversations. Using authorised data, the assistant can summarise exchanges, prepare meetings, suggest CRM updates and propose next actions. Recommendations remain reviewable, and customer commitments are approved by your team." },
-        ],
-      },
-    ],
-    detailPlaceholder: "The detail of this service is being written.",
-  },
+  home: {
+    metaTitle: "Custom AI solutions in Brussels and Belgium",
+    metaDescription: "Synode designs AI agents, automations and custom business software in Brussels and Belgium, integrated with your tools and data.",
+    hero: {
+      title:
+        "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations.",
+      text: "We build assistants, automations and internal tools that take work off your plate and put your own data to use.",
+      secondaryCta: "See the use cases",
+      stack: ["AI assistants", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
+    },
 
-  /* See the French block. Same three reserved sections. */
-  landing: {
-    results: {
-      eyebrow: "Results",
-      title: "What it changes,\n^in numbers.",
-      text: "Here: figures measured at real clients, each tied to a project and a date.",
-      note: "No figure until it is measured.",
-    },
-    tools: {
-      eyebrow: "Free tools",
-      title: "Tools you can use\n^without talking to us.",
-      text: "Here: one or two openly available tools, no sign-up. An admin-time calculator, a compliance checklist.",
-      note: "To be built. This is what gets the site found without buying ads.",
-    },
-  },
-  hero: {
-    titleLead: "The agency that puts AI to work",
-    titleAccent: "for your business.",
-    subtitle:
-      "Process automation, AI agents plugged into your data, and custom software and business tools. We measure the payoff before writing a line of code.",
-    primaryCta: "Request an audit",
-    secondaryCta: "See our work",
-    pillars: [
-      { icon: "Zap", title: "Automation", text: "Your tools wired end to end, zero double entry." },
-      { icon: "Bot", title: "AI agents", text: "They read, qualify and act on your data, 24/7." },
-      { icon: "AppWindow", title: "Custom software", text: "Web apps, internal tools, portals, dashboards." },
-      { icon: "ArrowLeftRight", title: "Websites & applications", text: "A digital presence tailored to your business." },
-    ],
-    /* See the French block for how this is structured, and for the warning
-       on the three `gainValue` placeholders. */
-    systems: [
-      {
-        id: "demandes",
-        appName: "Synode",
-        badge: "Automated",
-        nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
-        title: "Your business,\nsimpler with Synode",
-        steps: ["Request received", "Quote sent", "Automatic follow-up"],
-        caseLabel: "A concrete example",
-        caseText: "A client asks for a quote. Synode files the request, drafts the quote and follows up on its own.",
-        caseEmphasis: ["quote", "follows up"],
-        docLabel: "Quote",
-        gainLabel: "Time saved",
-        gainValue: "+6 h / week",
-      },
-      {
-        id: "impayes",
-        appName: "Synode",
-        badge: "Tracking on",
-        nav: ["Overdue invoices", "Reminders", "Payments", "Clients"],
-        title: "Your unpaid invoices,\ntracked with Synode",
-        steps: ["Invoice overdue", "Reminder sent", "Payment tracked"],
-        caseLabel: "A concrete example",
-        caseText: "An invoice goes past its due date. Synode spots the delay, sends a reminder and tracks the payment on its own.",
-        caseEmphasis: ["reminder", "tracks the payment"],
-        docLabel: "Invoice",
-        gainLabel: "Time saved",
-        gainValue: "+4 h / week",
-      },
-      {
-        id: "planning",
-        appName: "Synode",
-        badge: "Organised",
-        nav: ["Appointments", "Confirmations", "Availability", "Notifications"],
-        title: "Your schedule,\nsmoother with Synode",
-        steps: ["Slot picked", "Appointment confirmed", "Reminder sent"],
-        caseLabel: "A concrete example",
-        caseText: "A prospect picks a slot. Synode checks availability, confirms the appointment and sends the reminder on its own.",
-        caseEmphasis: ["availability", "reminder"],
-        docLabel: "Calendar",
-        gainLabel: "Time saved",
-        gainValue: "+5 h / week",
-      },
-    ],
-  },
-  problem: {
-    eyebrow: "The situation",
-    answerLabel: "What we answer with",
-    title: "Automation and digital technology move fast. Companies, not always.",
-    intro:
-      "Plenty of SMEs know there's a better way, without knowing what can actually be automated, which tools to pick, or whether to buy software or build it.",
-    items: [
-      {
-        title: "Too many manual tasks",
-        text: "Hours lost every week on repetitive tasks that could be automated.",
-        answer: "Workflows & integrations",
-        slug: "workflows-integrations",
-      },
-      {
-        title: "Scattered tools and data",
-        text: "Information split across systems, double entry, and software that doesn't talk to each other.",
-        answer: "CRM & data sync",
-        slug: "synchronisation-crm",
-      },
-      {
-        title: "Follow-up still too manual",
-        text: "Forgotten reminders, stalled files and lost opportunities.",
-        answer: "Automatic follow-ups",
-        slug: "relances-suivis",
-      },
-      {
-        title: "Requests left waiting",
-        text: "Missed calls, unanswered messages and quotes that drag on. The client does not call back.",
-        answer: "Voice agent",
-        slug: "agent-telephonique",
-      },
-    ],
-  },
-  offer: {
-    eyebrow: "What we offer",
-    title: "Two core offers. A third when you need it.",
-    titleSoft: "A third when you need it.",
-    subtitle: "The right solution for your problem, defined together.",
-    subtitleNote: "Priced on quote.",
-    resultLabel: "Outcome",
-    secondaryLabel: "On the side",
-    ctaPrimary: "Book an audit",
-    ctaSecondary: "Talk about your project",
-    cards: [
-      {
-        icon: "Workflow",
-        number: "01",
-        title: "Automation & AI agents",
-        forWho: "For companies losing time on manual, repetitive tasks.",
-        includes: [
-          "Workflows & integrations",
-          "AI agents & assistants",
-          "Document processing",
-          "Automated e-mails",
-        ],
-        result: "Less manual work, fewer errors, more time for what matters.",
-      },
-      {
-        icon: "Blocks",
-        number: "02",
-        title: "Custom solutions & business tools",
-        forWho: "For companies whose needs don't fit any existing software.",
-        includes: [
-          "Custom web application",
-          "Internal tool & client portal",
-          "Dashboard",
-          "CRM setup",
-        ],
-        result: "A work environment that fits how you operate, instead of the other way around.",
-      },
-      {
-        icon: "Globe",
-        number: "03",
-        title: "Websites & mobile apps",
-        forWho: "For those whose online presence no longer matches the level of service.",
-        includes: [
-          "Marketing site",
-          "Mobile application",
-          "Rebuild & performance",
-          "E-commerce",
-        ],
-        result: "An online presence that matches what you actually deliver.",
-      },
-    ],
-  },
-  method: {
-    eyebrow: "Method & who we help",
-    title: "We help companies simplify\nwhat slows them down.",
-    steps: [
-      { title: "Audit & analysis", text: "Understand how you work, your tools and your friction points. First hour on us." },
-      { title: "Recommendations", text: "What's worth automating, building, connecting — or leaving as is. Prioritised and quoted." },
-      { title: "Implementation", text: "We build, integrate and test on your real data, with a walkthrough for your teams." },
-      { title: "Follow-up & improvement", text: "We check it holds up over time, measure real usefulness and evolve the solution." },
-    ],
-  },
-  realisations: {
-    eyebrow: "Work & demonstrators",
-    title: "Systems that run,\nnot promises.",
-    titleAccent: "Systems",
-    filterCta: "Talk about yours",
-    scrollCta: "See our work",
-    videoPending: "Demo video coming",
-    worksCount: "projects",
-    worksPrev: "Previous project",
-    worksNext: "Next project",
-    emptyCategory: "The first projects in this category are on their way. Tell us about yours — it could be the first one published here.",
-    categories: [
-      { id: "automation", label: "Automation & AI agents", short: "Automation", icon: "Bot", note: "Repetitive work handed to agents that run on their own, under your control." },
-      { id: "software", label: "Custom software & business tools", short: "Software", icon: "Code2", note: "A tool cut for your trade, where off-the-shelf software stops following." },
-      { id: "web", label: "Websites & mobile apps", short: "Web & mobile", icon: "Smartphone", note: "A site or a mobile app that holds up and grows with you." },
-    ],
-    body: "Concrete projects that show what we do\nin automation, AI agents and custom development.",
-    items: [
-      { code: "D/01", category: "automation", short: "Shared inbox", tag: "Sorting, CRM and AI reply", domain: "Automation & AI agents", title: "Shared inbox sorted, qualified and answered", desc: "An agent reads incoming mail from an info@ address, classifies it, creates the CRM record and drafts a reply held for human approval.", result: "−3 h of sorting per week · first reply in 2 min" , video: "/demos/demo-inbox.mp4", poster: "/demos/poster-inbox.jpg" },
-      { code: "D/02", category: "automation", short: "Document assistant", tag: "Sourced search", domain: "Automation & AI agents", title: "Internal assistant over 400 documents", desc: "Procedures, contracts and spec sheets indexed. The team asks in plain language and gets a sourced answer, with the exact passage.", result: "No answer without a shown source" , video: "/demos/demo-assistant.mp4", poster: "/demos/poster-assistant.jpg" },
-      { code: "D/07", category: "automation", short: "Payment chasing", tag: "Automatic reminders", domain: "Automation & AI agents", title: "Unpaid invoices, from reminder to payment", desc: "Issued invoices are matched against incoming payments. Past the due date the reminder goes out on its own, with the right attachment and the right tone; the team only steps in on disputed cases.", result: "No missed due date, chased at the right time" , video: "/demos/demo-dunning.mp4", poster: "/demos/poster-dunning.jpg" },
-      { code: "D/03", category: "software", short: "Activity dashboard", tag: "Live figures", domain: "Custom software", title: "Real-time activity dashboard", desc: "Cases, deadlines and margins aggregated from three sources, refreshed continuously, with threshold alerts, per-user roles and accounting export.", result: "Replaces a weekly Excel consolidation" , video: "/demos/demo-dashboard.mp4", poster: "/demos/poster-dashboard.jpg" },
-      { code: "D/04", category: "software", short: "Automated quote", tag: "From form to signature", domain: "Business tools & CRM", title: "From web form to signed quote", desc: "A request comes in, gets qualified, priced against your rules, turned into a PDF, sent for signature and pushed to the CRM. Automatic follow-up at D+3.", result: "Quote sent in minutes, not days" , video: "/demos/demo-quote.mp4", poster: "/demos/poster-quote.jpg" },
-      { code: "D/05", category: "web", short: "Marketing site", tag: "Custom marketing site", domain: "Websites & apps", title: "A fast, scalable marketing site", desc: "A site built page by page with the client: structured content, a form wired to the inbox and the CRM, and pages that load in under a second on mobile.", result: "Loads in under a second on mobile" , video: "/demos/demo-site.mp4", poster: "/demos/poster-site.jpg" },
-      { code: "D/06", category: "web", short: "Mobile app", tag: "Field work, even offline", domain: "Websites & apps", title: "Mobile app for field teams", desc: "Jobs, photos and signatures are captured on the phone, offline if needed, then synced as soon as the connection is back and signed off from the office.", result: "Offline capture, synced when the network returns" , video: "/demos/demo-mobile.mp4", poster: "/demos/poster-mobile.jpg" },
-    ],
-    cta: {
-      title: "The next system shown here could be yours.",
-      body: "Launch projects get preferential pricing, in exchange for the right to feature them here once delivered.",
-      button: "Let's talk",
-      steps: [
-        { label: "Your project", sub: "scoped with you" },
-        { label: "Preferential pricing", sub: "in exchange for the showcase" },
-        { label: "Shown here", sub: "once delivered, if you agree" },
+    problems: {
+      kicker: "What slows you down",
+      title: "Four situations\n^we find everywhere.",
+      text: "You will probably recognise one of them. That is usually where a project starts.",
+      items: [
+        {
+          title: "The same work, redone by hand every week",
+          text: "Same steps, same day, same files. Nobody has time to stop and deal with it differently.",
+          useCase: "preparer-rendez-vous",
+        },
+        {
+          title: "Tools that do not talk to each other",
+          text: "The context is in an email, the quote in a folder, the follow-up in a spreadsheet. People retype from one screen to the next.",
+          useCase: "vue-commune",
+        },
+        {
+          title: "Incoming requests that are hard to handle",
+          text: "Messages arrive from everywhere, you have to read them to know what they are about, and the urgent ones sink into the rest.",
+          useCase: "trier-emails",
+        },
+        {
+          title: "Information nobody can find",
+          text: "The right procedure exists. It is in a document nobody can locate, or with the person who is away.",
+          useCase: "recherche-documents",
+        },
       ],
     },
+
+    useCases: {
+      kicker: "Use cases",
+      title: "What an AI solution\n^can take on.",
+      text: "Four examples from the ones we document. Each starts with a real problem, not with a technology.",
+      cta: "Explore the use cases",
+    },
+
+    offer: {
+      kicker: "What we sell",
+      title: "One offer,\n^built for you.",
+      text: "A small, targeted project and a full internal tool are the same offer. What changes is the scope, the budget and the support, not the nature of the work.",
+      bricks: [
+        { title: "AI assistants and agents", text: "Reading, searching, summarising, drafting, helping a decision along." },
+        { title: "Automations", text: "Handling requests, documents, tasks and approval routes." },
+        { title: "Integrations", text: "Connecting the software and the data you already have." },
+        { title: "Internal tools", text: "Interfaces, internal spaces, databases and dashboards." },
+      ],
+      note: "AI is part of every project, with a purpose we can point to. If it adds nothing to your problem, we say so and steer the request elsewhere.",
+      cta: "See how we work",
+    },
+      architecture: {
+        caption: "What we build, and where it sits",
+        toolsLabel: "Your tools, as they are",
+        tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
+        coreLabel: "The Synode solution",
+        core: ["AI assistants", "Automations", "Integrations", "Business interface"],
+        outLabel: "Your processes",
+        out: ["Requests handled", "Documents produced", "Follow-up current"],
+        humanLabel: "You keep approval on what matters",
+      },
+
+
+    proof: {
+      kicker: "What we are building",
+      title: "Evidence, not promises.",
+      text: "We are starting out. Rather than show logos we do not have, we show what actually exists today.",
+      cta: "See our work",
+    },
+
+    method: {
+      kicker: "Method",
+      title: "How a project\n^runs.",
+      text: "Five stages, and none starts before the previous one is signed off with you.",
+      steps: [
+        { title: "Understand", text: "Your problem, how often it happens, your tools, and what it costs you today." },
+        { title: "Propose", text: "A written scope, deliverables, a price and success criteria." },
+        { title: "Build", text: "In milestones, with demos you sign off as we go." },
+        { title: "Ship", text: "Testing against your criteria, training your people, handing over the documentation." },
+        { title: "Support", text: "Watching how it runs and stepping in within the agreed scope." },
+      ],
+      cta: "How does a project run?",
+    },
+
+    team: {
+      kicker: "The team",
+      title: "Two partners,\n^one person per subject.",
+      text: "You always know who you are talking to: the one who understands and follows your need, and the one who designs and builds the solution.",
+      cta: "Meet the team",
+    },
+
+    faq: {
+      kicker: "Frequently asked questions about our AI solutions",
+      title: "Common questions about custom AI solutions",
+      items: [
+        {
+          q: "Do I need to change my software to use an AI solution?",
+          a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or suggest a more suitable solution.",
+        },
+        {
+          q: "How much does a custom AI solution cost?",
+          a: "The price depends on the project, its features and its complexity. We start with a free conversation to understand your need before preparing a tailored proposal. Any recurring costs are stated as well.",
+        },
+        {
+          q: "Are there recurring costs after go-live?",
+          a: "Yes. An AI solution relies on paid services — AI models, hosting, automation platforms — billed by subscription for as long as it runs. Synode never absorbs these costs. Either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you subscribe to and pay those services directly with the providers. Amounts are estimated before work starts.",
+        },
+        {
+          q: "How does a project with Synode work?",
+          a: "We begin by understanding your need. We then assess feasibility, prepare a proposal, build the solution and support its go-live.",
+        },
+        {
+          q: "Will my data remain confidential?",
+          a: "Confidentiality and access management are considered during design. The tools and services involved, along with how data is handled, are defined according to your project requirements.",
+        },
+        {
+          q: "Do you provide maintenance after deployment?",
+          a: "Yes. Synode runs, monitors and maintains your AI solution under the terms set out in the contract. Technical costs and significant changes are defined separately.",
+        },
+      ],
+    },
+
+    cta: {
+      title: "Which process would you\n^simplify first?",
+      text: "A 30-minute call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit, and nothing commits you to what comes next.",
+      secondary: "Write to us instead",
+    },
   },
+
+  solutions: {
+    metaTitle: "Custom AI solutions for freelancers and small companies",
+    metaDescription:
+      "Six families of custom AI solutions: assistants, automations, software, integrations, data and training. For freelancers and small businesses.",
+    kicker: "What we sell",
+    title: "A solution built\n^from your need.",
+    text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
+
+    bricksTitle: "Our custom AI solutions",
+    bricksText: "Six complementary families for freelancers and small businesses. A project can combine several, depending on your needs. No fixed packages.",
+    bricks: [
+      {
+            "slug": "assistants-agents-ia",
+            "title": "AI Assistants & Agents",
+            "text": "AI assistants that search, draft or analyse information, and AI agents that carry out a sequence of actions within an agreed scope.",
+            "benefit": "Find information and prepare the next step.",
+            "example": "A customer reply drafted from your documents, with sources and your approval.",
+            "visual": 0
+      },
+      {
+            "slug": "automatisations-intelligentes",
+            "title": "Intelligent Automations",
+            "text": "Intelligent automations that connect the repetitive steps of your business processes, using AI when information needs to be understood, classified or processed.",
+            "benefit": "Fewer manual steps along the way.",
+            "example": "An emailed invoice is extracted and checked; ambiguous cases are sent to you for review.",
+            "visual": 1
+      },
+      {
+            "slug": "logiciels-applications-ia",
+            "title": "Custom AI Software & Applications",
+            "text": "Custom AI software and applications built for your team, or artificial intelligence features integrated into products used by your customers.",
+            "benefit": "Software that fits how people work.",
+            "example": "Service jobs in one interface, with a report drafted for a team member to review.",
+            "visual": 3
+      },
+      {
+            "slug": "integrations-systemes-connectes",
+            "title": "Integrations & Connected Systems",
+            "text": "Connections between your software, CRM, ERP and databases to share the information that matters.",
+            "benefit": "Tools that work together.",
+            "example": "An approved website request updates the CRM and reaches your management software.",
+            "visual": 2
+      },
+      {
+            "slug": "data-intelligence",
+            "title": "Data & Intelligence",
+            "text": "Centralisation and analysis of data, dashboards, forecasting, scoring or recommendations when the quality and volume of the data support them.",
+            "benefit": "Better-informed decisions.",
+            "example": "Sales and stock in one view to spot anomalies and estimate needs when enough history is available.",
+            "visual": 4
+      },
+      {
+            "slug": "formation-adoption-ia",
+            "title": "AI Training & Adoption",
+            "text": "AI training and practical workshops to learn how to use artificial intelligence and adopt your solutions, with or without a Synode project.",
+            "benefit": "A team comfortable with its new ways of working.",
+            "example": "Using real situations, your team learns to draft and review customer replies.",
+            "visual": 5
+      }
+],
+
+    operations: {
+      kicker: "After go-live",
+      title: "Your solution evolves.\n^We stay by your side.",
+      text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
+      recurringLabel: "Recurring payment · defined in the contract",
+      familyNote: "This support applies across all six solution families. It is not a seventh offer.",
+      cycle: ["Design", "Deployment", "Monitoring", "Improvement"],
+      items: [
+        { title: "Monitoring & maintenance", text: "We monitor how the solution runs and intervene within the agreed scope when an issue occurs." },
+        { title: "Continuous optimisation", text: "We adjust behaviours and adapt the solution as usage patterns or technologies change." },
+        { title: "Technical cost tracking", text: "We make hosting, AI model, storage and external service costs visible." },
+        { title: "Support & changes", text: "The included support is stated in the contract. Significant new features receive a separate quote." },
+      ],
+    },
+
+    domainsTitle: "Four areas we work in",
+    domainsText: "They are there to explain what we do. They are neither four separate packages nor the limits of what we can build.",
+    domainsCta: "See the use cases",
+
+    deliverablesTitle: "What you get",
+    deliverables: [
+      "A written scope, agreed before anything starts.",
+      "A solution tested against the criteria we set together.",
+      "Documentation of how it works.",
+      "A handover with the people who will actually use it.",
+      "Support terms, in writing as well.",
+    ],
+    deliverablesNote: "Your quote sets the exact deliverables. This list describes the baseline, not an automatic promise.",
+
+    sizingTitle: "How a project is sized",
+    sizingText: "Six factors, and they matter more than the size of your company.",
+    sizing: [
+      { title: "The goal", text: "What the solution has to change, and how we will know it did." },
+      { title: "Complexity", text: "How many edge cases and exceptions there are to handle." },
+      { title: "The data", text: "Whether it exists, whether it is clean, and who is allowed to see it." },
+      { title: "Integrations", text: "How many tools to connect, and what they actually allow." },
+      { title: "Users", text: "How many people use it, and with how much control." },
+      { title: "Constraints", text: "Confidentiality, mandatory human approval, volume to absorb." },
+    ],
+    sizingNote: "A small need can start with a narrow scope and grow later, once the value is proven.",
+
+    pricingTitle: "How we charge",
+    pricing: [
+      { title: "Build", text: "Scoping, development, integrations, testing and deployment. Price and schedule specific to the project." },
+      { title: "Running, maintenance & monitoring", text: "A recurring payment specific to each live solution. It covers only the services, monitoring and support stated in the contract." },
+      { title: "Significant changes", text: "New scope, new quote, written agreement before any work." },
+    ],
+    pricingNote: "The proposal clearly separates the build cost, recurring payment and any third-party services. There is no public price list or “unlimited everything”: the budget reflects the actual scope.",
+
+    faqTitle: "Common questions about custom AI solutions",
+    faq: [
+      { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the AI solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
+      { q: "How much does a custom AI solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
+      { q: "How does a project with Synode run?", a: "In five steps: scoping the need, designing the solution, development and integration, rollout and training, then follow-up and evolution." },
+      { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions can stay subject to human approval." },
+      { q: "Do you handle maintenance after deployment?", a: "Yes, if you take our support service: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
+      { q: "How long does it take to build a solution?", a: "It depends on the scope and the integrations. The schedule, its steps and its deadlines are set in the quote, before work starts." },
+      { q: "Can the solution evolve later on?", a: "Yes. Significant changes or new features go through a fresh scoping exercise, a new quote and a written agreement before any work begins." },
+    ],
+
+    notInList: {
+      title: "Your need is not on this page?",
+      text: "Every project is built from your own context. The examples here show how we work, not a closed catalogue.",
+      cta: "Tell us about it",
+    },
+  },
+
+  method: {
+    metaTitle: "Our method: from the first call to ongoing support",
+    metaDescription:
+      "Six stages, what Synode does, what you bring and what comes out of each. No universal delivery time: it depends on the scope.",
+    kicker: "Method",
+    title: "What happens,\n^stage by stage.",
+    text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
+    columns: { work: "What we do", client: "What you bring", output: "What comes out" },
+    steps: [
+      { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We frame your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
+      { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
+      { title: "Design", work: "Define how the AI solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan.", brief: "Your business rules become the build plan", accents: ["business rules", "build plan"], },
+      { title: "Build", work: "Develop the solution and test it progressively against your processes and your real cases.", client: "Test the flows, review the first results and send us your feedback.", output: "A version ready for acceptance.", brief: "We build on your real cases, guided by your feedback", accents: ["real cases", "feedback"], },
+      { title: "Acceptance and go-live", work: "Test, fix, document and put the AI solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
+      { title: "Support", work: "Watch how the solution runs, maintain it and scope the changes it needs.", client: "Report incidents, new needs and changes in your business processes.", output: "Maintenance tracked, and changes quoted.", brief: "Your usage feedback drives maintenance and changes", accents: ["usage feedback", "maintenance", "changes"], },
+    ],
+    notesTitle: "Four things we would rather say upfront",
+    notes: [
+      { title: "A change of scope gets quoted", text: "Adding an unplanned case mid-project is possible, but it gets discussed and priced. We do not absorb it silently, and you do not discover it on the invoice." },
+      { title: "The project depends on your access", text: "Data that is not available, or an access that takes weeks, pushes everything back. It is the most common cause of delay and the easiest to avoid by naming it early." },
+      { title: "Your data stays yours", text: "We work on strictly what is needed, and the processing terms are written down before anything starts." },
+      { title: "Maintenance and new features are different things", text: "Fixing something that stopped working as agreed is maintenance. Adding a capability that did not exist is a new quote." },
+    ],
+    noDelay: "We do not advertise a universal delivery time. It depends on the scope, on your access, and on how quickly you can sign things off.",
+    cta: "Let’s start with where you are",
+  },
+
   team: {
-    eyebrow: "The team",
-    title: "The Synode team.\nTwo skill sets, one goal.",
-    titleAccent: "Synode",
-    body: "Two complementary profiles to turn your needs into automations, tools and custom digital solutions.",
-    position: "Co-founder",
-    members: [
+    metaTitle: "The Synode team",
+    metaDescription:
+      "Two partners: one who understands and follows your need, one who designs and builds the solution. How we work with you.",
+    kicker: "The team",
+    title: "Why we are\n^building Synode.",
+    vision:
+      "Plenty of companies hear about AI without ever seeing what it would change for them. The demos are impressive, then nothing reaches the actual work. We built Synode for the other route: start from one specific task that costs real time, and build the thing that takes it on.",
+    peopleTitle: "Two perspectives, one shared standard.",
+    people: [
       {
-        name: "Killian",
-        photo: "/equipe/KillianEquipe.webp",
-        photoSize: { width: 1100, height: 971 },
-        role: "Developer & AI expert",
-        badge: { label: "Design", sub: "things that last" },
-        text: "Application, internal tool and integration development: he builds what doesn't exist yet and connects what you already have.",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · Developer & AI Expert",
+        text: "Workflow and agent design: he maps your processes, identifies what is worth automating and brings it into production.",
       },
       {
-        name: "Antonino",
-        photo: "/equipe/AntoEquipe.webp",
-        photoSize: { width: 1100, height: 1100 },
-        role: "Developer & AI expert",
-        badge: { label: "Automate", sub: "and scale up" },
-        text: "Workflow and agent design: he maps your processes, picks what is worth automating and ships it to production.",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Developer & AI Expert",
+        text: "Applications, internal tools and integrations: he builds what does not yet exist and connects what you already use.",
       },
     ],
-    values: [
-      { label: "Collaborative", strong: "mindset" },
-      { label: "Long-term", strong: "vision" },
-      { label: "Concrete", strong: "solutions" },
-      { label: "Passion for", strong: "development" },
+    complementTitle: "How we complement each other",
+    complementText: "Two areas of expertise, one shared goal: connecting an understanding of your processes with the tools you need. Workflows, agents, applications and integrations come together in a solution designed for your business.",
+    workingTitle: "How we work",
+    working: [
+      "One named contact for your project, from the first call through to support.",
+      "Plain explanations, not technical vocabulary.",
+      "Visible stages: you always know where the project stands.",
+      "Decisions in writing, so nobody has to remember what was said.",
     ],
+    cta: "Let’s talk about your project",
   },
-  audience: {
-    eyebrow: "Who we help",
-    title: "Companies with no IT team.",
-    body: "Synode works with companies and independents who lose time on admin, juggle several tools and don't always know what to automate, connect or build first.",
-    rulesTitle: "Our rules",
-    rules: [
-      "Understand the business before proposing a technology.",
-      "No custom build when an existing tool will do.",
-      "Scope in writing, fixed price, no surprise invoicing.",
-      "The code and the data belong to you.",
-    ],
-  },
-  ctaBand: {
-    title: "One hour to see\nwhat could change.",
-    titleAccent: "change.",
-    body: "We quote after the audit, once the scope is clear\nand the gain estimated.",
-    button: "Book the free audit",
-    note: "A one-hour conversation, free and with no commitment,\nthat you leave with a first written take.",
-    diagram: {
-      call: "A one-hour conversation",
-      slot: "Pick a slot",
-      result: "Concrete leads",
-      markAlt: "Synode",
-    },
-  },
-  faq: {
-    eyebrow: "Frequently asked",
-    title: "What people ask us before signing.",
-    body: "The same questions always come up.\nHere is what matters before we first talk.",
-    items: [
-      {
-        q: "How long before it actually runs?",
-        a: "The audit takes one hour. After that, count four weeks minimum before a first system goes live. A custom tool takes longer: the scope and the deadline are written down before we start, not discovered along the way.",
-      },
-      {
-        q: "What does it cost?",
-        a: "We don't quote before the audit: as long as the scope is unclear, any price would be made up. After that it's a fixed-price quote on a written scope, not hourly billing that drifts.",
-      },
-      {
-        q: "Do we have to replace our current tools?",
-        a: "No, and it's rarely a good idea. We connect to what you already use. Custom work only happens when no existing tool does the job.",
-      },
-      {
-        q: "Where does our data go, and is it used to train an AI?",
-        a: "Your data stays yours, and so does the code we deliver. When an AI model is needed, we use professional tiers that don't train their models on your content, and we tell you exactly what leaves your systems.",
-      },
-      {
-        q: "You're just starting out: why trust you with a project?",
-        a: "You talk straight to the two people who design and build it, with no sales layer between you and the work. Our demos are working systems and we walk you through them on a call. And launch projects get preferential pricing.",
-      },
-    ],
-  },
+
   contact: {
-    eyebrow: "Contact",
-    title: "Tell us what's\neating your time.",
-    titleAccent: "eating your time.",
-    stats: [
-      { label: "E-mail", value: "contact@synode-agency.com" },
-    ],
-    body: "Reply within one business day, with an honest first take:\nif your need doesn't warrant a build, we'll say so.",
-    info: [
-      { label: "E-mail", value: "contact@synode-agency.com", href: "mailto:contact@synode-agency.com" },
-      { label: "Phone", value: "+32 487 30 18 90", href: "tel:+32487301890" },
-      { label: "First call", value: "One-hour audit, free", href: "" },
-    ],
-    timelines: ["Urgent — 1 month", "Within 3 months", "Within 6 months", "No date yet"],
-    form: {
-      lastName: "Last name",
-      firstName: "First name",
-      email: "Work e-mail",
-      phone: "Phone number",
-      timeline: "Timeline",
-      message: "The problem to solve",
-      messagePlaceholder: "Briefly describe your current setup and what could be improved.",
-      sending: "Sending…",
-      sentTitle: "Request sent",
-      errLastName: "Please enter your last name.",
-      errFirstName: "Please enter your first name.",
-      errEmail: "Please enter your e-mail.",
-      errEmailInvalid: "That e-mail looks invalid.",
-      errPhone: "Please enter a phone number.",
-      errMessage: "Describe the problem in a few words (10 characters min.).",
+    metaTitle: "Let’s talk about your project",
+    metaDescription: "Book a free 30-minute call, or describe your need in writing. No strings attached.",
+    kicker: "Contact",
+    title: "Let’s talk about\n^your project.",
+    text: "Two ways to start, your choice. You do not have to fill anything in to reach the calendar.",
+
+    booking: {
+      title: "Book a 30-minute call",
+      text: "A first call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit.",
+      openLabel: "Open the calendar",
+      unavailableTitle: "Booking is not live yet",
+      unavailableText:
+        "The calendar is not connected on this version of the site yet. In the meantime, describe your need in the form below: we will reply and suggest a time.",
     },
-    submit: "Send request",
-    note: "Your information is only used to handle your request: no newsletter,\nno resale, nothing stored in a database.",
-    success: "Thanks, your request is in. We'll get back to you within one business day.",
-    error: "Something went wrong. Try again or e-mail us directly.",
+
+    form: {
+      title: "Describe your need in writing",
+      text: "If you would rather write, or if none of the slots suit you.",
+      fields: {
+        name: { label: "Name", placeholder: "Your name" },
+        email: { label: "Contact email", placeholder: "you@example.com", hint: "A personal address is fine: we work with freelancers too." },
+        company: { label: "Company or activity", placeholder: "Optional", optional: "Optional" },
+        need: { label: "What would you like to improve?", placeholder: "Describe the task or situation that costs you the most time.", hint: "One concrete example beats a general description." },
+        phone: { label: "Phone", placeholder: "Optional", optional: "Optional" },
+        website: { label: "Website", placeholder: "Optional", optional: "Optional" },
+        timeline: { label: "Timeline in mind", optional: "Optional" },
+        budget: { label: "Budget in mind", optional: "Optional" },
+      },
+      timelineOptions: ["To be defined", "As soon as possible", "In 1 to 3 months", "In 3 to 6 months", "Later"],
+      budgetOptions: ["To be defined", "Under €5,000", "€5,000 to €15,000", "€15,000 to €40,000", "Over €40,000"],
+      submit: "Send my message",
+      sending: "Sending…",
+      privacyNote: "Your details are used only to handle your request. No newsletter, no reselling.",
+      privacyLink: "How we handle your data",
+      errors: {
+        name: "Please enter your name.",
+        email: "Please enter an email address.",
+        emailInvalid: "That email address looks wrong.",
+        need: "Describe your need in a few words (10 characters minimum).",
+        website: "That website address looks wrong.",
+        tooLong: "This field is too long.",
+        rateLimited: "You have just sent a request. Give it a moment before trying again.",
+        server: "We could not save your request. Your text is still here: try again in a moment.",
+        notConfigured:
+          "Sending messages is not switched on in this version of the site. Your text is kept below; write to us directly in the meantime.",
+      },
+    },
+
+    direct: { title: "Or directly", emailLabel: "By email" },
+  },
+
+  thanks: {
+    metaTitle: "Message received",
+    title: "Your message\n^has been received.",
+    text: "We have saved it and we will get back to you. If it is urgent, book a slot directly: that is the fastest route.",
+    notBooked: "This message is not a meeting. To set one up, use the calendar.",
+    bookCta: "Book a call",
+    homeCta: "Back to home",
+  },
+
+  notFound: {
+    title: "This page\n^does not exist.",
+    text: "The link may be old, or the address has a typo. Here are the pages people visit most.",
+    homeCta: "Back to home",
+  },
+
+  legal: {
+    noticeTitle: "Legal notice",
+    noticeDescription: "Legal information for the Synode site.",
+    privacyTitle: "Privacy policy",
+    privacyDescription: "What data we process, why, and with which providers.",
+    draftLabel: "Draft",
+    draftText:
+      "This page is incomplete. The missing information has to be confirmed before the site goes live: it is listed in the project documentation.",
+    updated: "Last updated",
   },
 } as const;
 
@@ -863,5 +994,3 @@ export type Content = typeof fr;
 export function getContent(locale: Locale): Content {
   return content[locale] as Content;
 }
-
-export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");

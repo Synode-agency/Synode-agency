@@ -1,94 +1,70 @@
-import { ArrowUpRight, Mail } from "lucide-react";
-import {
-  PencilLineIcon,
-  PhoneLinearIcon,
-  TimeLineIcon,
-} from "@/components/site/icons";
-import { SiteHeader } from "@/components/site/site-header";
-import { SiteFooter } from "@/components/site/site-footer";
+import { Suspense } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Band, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
-import { Reveal } from "@/components/site/reveal";
-import { AuditForm } from "@/components/sections/audit-form";
-import { getContent, type Locale } from "@/lib/content";
-import styles from "./contact-page.module.css";
+import { ContactHeroDoors } from "@/components/site/hero-asides";
+import { Lede } from "@/components/site/lede";
+import { Booking } from "@/components/site/booking";
+import { ContactForm } from "@/components/site/contact-form";
+import { ANCHORS, getContent, type Locale } from "@/lib/content";
 
-/** Standalone contact page — scrollable, the form is the whole point. */
+/**
+ * La page Contact.
+ *
+ * Les deux chemins sont INDÉPENDANTS et de même rang : réserver un créneau,
+ * ou écrire. Rien n'oblige à remplir le formulaire pour accéder au
+ * calendrier, et l'architecture y tient parce que c'est exactement la
+ * friction qui fait partir un visiteur pressé.
+ *
+ * Chacun a son ancre, citée depuis toute la navigation du site.
+ */
 export function ContactPage({ locale }: { locale: Locale }) {
-  const { contact } = getContent(locale);
+  const { contact, site } = getContent(locale);
 
   return (
-    <>
-      <SiteHeader locale={locale} />
-      <main className="flex-1">
-        {/* Same card as the home hero, with the fixed navbar inside it. It
-            grows with the form rather than being pinned to one screen: the
-            page is meant to scroll here. */}
-        <section className="page-shell relative px-[var(--page-gutter)] pt-[var(--page-gutter-top)] pb-[var(--page-gutter)]">
-          <div className="hero-card relative flex min-h-[calc(100dvh-var(--page-gutter-top)-var(--page-gutter))] flex-col overflow-hidden rounded-[var(--r-lg)] border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)]">
-            <div
-              aria-hidden
-              className="h-[calc(var(--header-h)+var(--page-gutter-top)+var(--header-drop))]"
-            />
+    <Shell locale={locale}>
+      <PageHero
+        title={locale === "fr" ? <>Parlons de votre <span>projet IA</span></> : <>Let’s discuss your <span>AI project</span></>}
+        aside={<ContactHeroDoors locale={locale} />}
+      >
+        <p>{contact.text}</p>
+        <div className="btn-row">
+          {/* Les libellés restent courts : les titres complets sont déjà les
+              H2 des deux sections visées, et les répéter trois fois sur la
+              page n'aide ni le lecteur ni l'indexation. */}
+          <Link href={`#${ANCHORS.booking}`} className="btn btn--primary">{site.ctaShort}<ArrowRight aria-hidden /></Link>
+          <Link href={`#${ANCHORS.form}`} className="btn btn--ghost">{locale === "fr" ? "Écrire à l’équipe" : "Write to the team"}</Link>
+        </div>
+      </PageHero>
 
-            <div className={`container-page relative z-10 ${styles.content}`}>
-              <div className={styles.grid}>
-                <div className={styles.intro}>
-                <PageHero
-                  eyebrow={contact.eyebrow}
-                  title={contact.title}
-                  titleAccent={contact.titleAccent}
-                  body={contact.body}
-                  align="left"
-                  stagger
-                  action={
-                    <div className={styles.facts}>
-                      {contact.info.slice(0, 2).map((item, i) => {
-                        const Glyph = i === 0 ? Mail : PhoneLinearIcon;
-                        return (
-                          <a
-                            key={item.label}
-                            href={item.href}
-                            className={styles.fact}
-                          >
-                            <span className="contact-fact-tile" aria-hidden>
-                              <Glyph />
-                            </span>
-                            <span className="contact-fact-copy">
-                              <i>{item.label}</i>
-                              <b>{item.value}</b>
-                            </span>
-                            <ArrowUpRight className={styles.linkArrow} aria-hidden />
-                          </a>
-                        );
-                      })}
-                    </div>
-                  }
-                />
-                <div className={styles.promise}>
-                  <TimeLineIcon aria-hidden />
-                  <span>{locale === "fr" ? "Un premier échange pour y voir clair." : "A first conversation to find clarity."}</span>
-                </div>
-                </div>
+      <Band id={ANCHORS.booking} tone="white">
+        <Lede title={contact.booking.title} text={contact.booking.text} />
+        <div className="section-gap">
+          <Booking locale={locale} />
+        </div>
+      </Band>
 
-                <Reveal
-                  delay={520}
-                  className={`reveal-right ${styles.panel}`}
-                >
-                  <PencilLineIcon aria-hidden className={styles.panelMark} />
+      <Band id={ANCHORS.form} tone="base">
+        <Lede title={contact.form.title} text={contact.form.text} />
+        <div className="section-gap">
+          {/* `useSearchParams` impose une frontière de Suspense : sans elle,
+              toute la page basculerait en rendu dynamique. */}
+          <Suspense fallback={<div className="form-skeleton" aria-hidden />}>
+            <ContactForm locale={locale} />
+          </Suspense>
+        </div>
+      </Band>
 
-                  <div className={styles.formHeading}>
-                    <span className={styles.formEyebrow}>{locale === "fr" ? "FAISONS LE PREMIER PAS" : "LET’S TAKE THE FIRST STEP"}</span>
-                    <h2>{locale === "fr" ? "Parlons de votre besoin." : "Tell us what you need."}</h2>
-                    <p>{locale === "fr" ? "Quelques mots suffisent pour commencer." : "A few words are all it takes to start."}</p>
-                  </div>
-                  <AuditForm locale={locale} />
-                </Reveal>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <SiteFooter locale={locale} />
-    </>
+      <Band id="direct" tone="white">
+        <Lede title={contact.direct.title} />
+        <p className="prose-body section-gap-sm">
+          {contact.direct.emailLabel} :{" "}
+          <a href={`mailto:${site.email}`} className="go">
+            {site.email}
+          </a>
+        </p>
+      </Band>
+    </Shell>
   );
 }

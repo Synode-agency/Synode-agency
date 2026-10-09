@@ -1,98 +1,76 @@
-import { renderLines } from "@/lib/lines";
 import type { ReactNode } from "react";
-import { Reveal } from "@/components/site/reveal";
-import { cn } from "@/lib/utils";
-
-/* Staggered: the wrapper stops animating and each line carries its own
-   entrance, 120ms apart and quicker than a full-block slide, so the four
-   of them read as one movement. */
-function Line({
-  i,
-  stagger,
-  children,
-}: {
-  i: number;
-  stagger: boolean;
-  children: ReactNode;
-}) {
-  if (!stagger) return <>{children}</>;
-  return (
-    <Reveal delay={i * 120} className="page-hero-step reveal-left">
-      {children}
-    </Reveal>
-  );
-}
 
 /**
- * Headline block shared by the standalone pages (Réalisations, Contact):
- * eyebrow, big title, lead paragraph, and an optional call to action.
+ * Le hero commun aux pages principales, en deux dispositions.
+ *
+ * `feature` est réservée à l'accueil : le titre est centré sur toute la
+ * largeur de la colonne, au-dessus de la grille, et le hero suit la hauteur
+ * de la fenêtre. C'est la page la plus forte visuellement, et elle doit le
+ * rester seule.
+ *
+ * `inner` sert les pages internes, et c'est la valeur par défaut : le titre
+ * entre dans la colonne de gauche, aligné à gauche, avec le paragraphe puis
+ * les actions sous lui ; l'illustration occupe la colonne de droite. Pas de
+ * titre pleine largeur, pas de hauteur de fenêtre imposée, pas d'espace vide
+ * à combler. Ces pages sont plus sobres par construction.
+ *
+ * `kicker` est optionnel et se place AU-DESSUS du `h1`, hors du titre : les
+ * six pages services s'en servent pour annoncer le service, et un surtitre
+ * glissé dans le `h1` abîmerait le titre pour un lecteur d'écran comme pour
+ * un moteur de recherche.
+ *
+ * `aside` est rendu en enfant direct de la grille, sans enveloppe : chaque
+ * illustration garde ainsi ses propres règles de largeur et d'alignement.
+ * Sans illustration, la grille passe à une colonne plutôt que de laisser un
+ * vide à droite.
  */
 export function PageHero({
-  eyebrow,
+  id = "top",
+  layout = "inner",
+  kicker,
   title,
-  titleAccent,
-  body,
-  action,
-  align = "center",
-  oneLine = false,
-  stagger = false,
+  aside,
+  strip,
+  className,
+  children,
 }: {
-  eyebrow: string;
-  title: string;
-  /** Part of the title to set in brand blue. */
-  titleAccent?: string;
-  body: string;
-  /** Optional call to action under the paragraph. */
-  action?: ReactNode;
-  align?: "left" | "center";
-  /** Left alignment only: hold the headline on one line on wide screens and
-      give the paragraph that same measure. Needs a full-width column. */
-  oneLine?: boolean;
-  /** Bring the block in line by line rather than in one piece. */
-  stagger?: boolean;
+  id?: string;
+  layout?: "feature" | "inner";
+  kicker?: string;
+  title: ReactNode;
+  aside?: ReactNode;
+  strip?: ReactNode;
+  className?: string;
+  children: ReactNode;
 }) {
-  const centered = align === "center";
-
-  const Frame = stagger ? "div" : Reveal;
+  const grid = ["studio-hero-grid", aside ? null : "studio-hero-grid--single"].filter(Boolean).join(" ");
+  const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, className]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <Frame
-      className={cn(
-        "page-hero-copy flex flex-col gap-6",
-        centered
-          ? "mx-auto max-w-[62ch] items-center text-center"
-          : cn(
-              !stagger && "reveal-left",
-              "max-w-4xl items-start text-left",
-              oneLine && "page-hero-left",
-            ),
-      )}
-    >
-      <Line i={0} stagger={stagger}>
-        <span className="eyebrow inline-flex items-center gap-2.5 text-brand">
-          {eyebrow}
-        </span>
-      </Line>
-
-      <Line i={1} stagger={stagger}>
-        <h1
-          className={cn(
-          "page-hero-title text-[length:var(--fs-h2)] leading-[1.06] font-semibold",
-            centered ? "max-w-[18ch]" : "max-w-none",
-          )}
-        >
-        {renderLines(title, titleAccent ? [titleAccent] : [])}
-        </h1>
-      </Line>
-
-      <Line i={2} stagger={stagger}>
-        <p className="page-hero-body max-w-[62ch] text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
-          {renderLines(body)}
-        </p>
-      </Line>
-
-      {action && <Line i={3} stagger={stagger}>{action}</Line>}
-
-    </Frame>
+    <section id={id} className={shell}>
+      <div className="col studio-hero-inner">
+        {layout === "feature" ? (
+          <>
+            <h1>{title}</h1>
+            <div className={grid}>
+              <div className="studio-hero-copy">{children}</div>
+              {aside}
+            </div>
+          </>
+        ) : (
+          <div className={grid}>
+            <div className="studio-hero-copy">
+              {kicker && <span className="studio-hero-kicker">{kicker}</span>}
+              <h1>{title}</h1>
+              {children}
+            </div>
+            {aside}
+          </div>
+        )}
+      </div>
+      {strip ? <div className="col">{strip}</div> : null}
+    </section>
   );
 }

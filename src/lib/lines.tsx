@@ -41,7 +41,7 @@ const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export function renderLines(
   text: string,
-  accents: string[] = [],
+  accents: readonly string[] = [],
   accentClass = "text-brand",
 ): ReactNode[] {
   /* Le marqueur de registre se traite avant les coupes : il ne découpe pas
