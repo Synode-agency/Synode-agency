@@ -206,12 +206,12 @@ export function WorkSpotlight({ locale }: { locale: Locale }) {
   );
   const shot = (sizes: string) => (
     <Image
-      src="/demos/nexus-dashboard-workspace.png"
+      src="/demos/nexus-dashboard-v2.png"
       alt={fr
         ? "Nexus, logiciel de prospection B2B : le tableau de bord et ses quatre étapes, Discovery, Qualification, Leads et Outreach, sur des données de démonstration."
         : "Nexus, B2B prospecting software: the dashboard and its four stages — Discovery, Qualification, Leads and Outreach — on demonstration data."}
-      width={1448}
-      height={1086}
+      width={1536}
+      height={1024}
       sizes={sizes}
     />
   );
