@@ -12,14 +12,13 @@ import { Lede } from "./lede";
 import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
 import { AgentDemo } from "./agent-demo";
-import { brickIcons } from "./solution-visuals";
-import { ServiceCore } from "./service-visuals";
 import { AgentBrief } from "./agent-brief";
 import { AutomationGraph } from "./automation-graph";
 import { AdoptionVisual, DataVisual, IntegrationVisual, SoftwareVisual } from "@/components/understand-visuals";
 import { UseCards } from "./use-cards";
 import { AfterPanel } from "./after-panel";
 import { AgentNetwork } from "./agent-network";
+import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
 import { ServiceHeroIllustration } from "@/components/hero-illustrations";
 import { servicePage } from "@/lib/service-pages";
 import { renderLines } from "@/lib/lines";
@@ -91,7 +90,6 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
   if (!p.mergeForms && (!p.forms || !p.formsTitle || !p.formsText)) throw new Error(`service-pages.ts : « ${family.slug} » n'a ni section « formes » ni \`mergeForms\`.`);
   if (!p.whatVisual) throw new Error(`service-pages.ts : « ${family.slug} » n'a pas de \`whatVisual\`.`);
 
-  const Icon = brickIcons[family.visual];
   const icons = USE_ICONS[family.slug] ?? [];
   const summaries = getContent(locale).solutions.bricks;
   const { operations } = getContent(locale).solutions;
@@ -203,16 +201,20 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
     {/* ===== 5 · INTÉGRATION DANS L'ENTREPRISE — bleu nuit ===== */}
     <Band id="integration" className="svc-band svc-ink svc-rhythm">
       {/* Toujours deux colonnes, comme les autres sections : le texte à
-          gauche, le visuel à droite. Ce qu'on met à droite vient du contenu
-          et non du slug : le moyeu et ses pastilles, ou le visuel animé. */}
+          gauche, le visuel à droite. Lequel vient du contenu et non du slug.
+          Aucun de ces visuels n'a de carte de fond : ils sont posés à même
+          la bande. Ne pas leur en redonner une. */}
       <div className={p.coreTitleOneLine ? "svc-split svc-split--core svc-core--line" : "svc-split svc-split--core"}>
         <div className="svc-split-copy">
           <Lede kicker={p.coreKicker} title={p.coreTitle} accents={p.coreTitleAccents} text={renderLines(p.coreText)} />
           <p className="svc-core-note"><ShieldCheck aria-hidden />{p.coreNote}</p>
         </div>
-        {p.coreVisual === "agent"
-          ? <AgentNetwork locale={locale} />
-          : <ServiceCore centre={p.coreCentre} chips={p.coreChips} icon={Icon} locale={locale} />}
+        {p.coreVisual === "agent" ? <AgentNetwork locale={locale} />
+          : p.coreVisual === "automation" ? <FlowVisual locale={locale} />
+          : p.coreVisual === "software" ? <AppVisual locale={locale} />
+          : p.coreVisual === "integration" ? <LayerVisual locale={locale} />
+          : p.coreVisual === "data" ? <KpiVisual locale={locale} />
+          : <TeamsVisual locale={locale} />}
       </div>
     </Band>
 

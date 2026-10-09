@@ -49,13 +49,9 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
         <noscript>
           {/* Scroll-reveal content stays visible without JS */}
           <style>{`.reveal{opacity:1 !important;transform:none !important;animation:none !important}`}</style>
-          {/* La séquence du mock est en pause tant que `data-shown` n'est pas
-              posé, et c'est JavaScript qui le pose. Sans lui, le mock
-              resterait figé sur sa première image, donc vide : ici il
-              s'affiche directement terminé, et seule la première carte de
-              la pile est montrée puisque rien ne peut faire glisser les
-              suivantes. */}
-          <style>{`.hero-app,.hero-app *{animation:none !important;opacity:1 !important}.hero-app-cursor{display:none !important}.hero-system:not(:first-child){display:none !important}.hero-app-nav-row.is-active{background:var(--sys-tint);color:var(--sys-ink);font-weight:600}`}</style>
+          {/* Sans JavaScript, la pile du hero reste sur sa première carte :
+              elle est déjà dessinée en entier, seules les animations et la
+              rotation manquent. Rien à corriger ici. */}
         </noscript>
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">

@@ -1522,9 +1522,7 @@
   /* =====================================================================
      LES RÉALISATIONS
      ===================================================================== */
-  .work-card { height: 100%; align-items: flex-start; }
   .work-status { font-size: var(--fs-micro); color: var(--text-mono); }
-  .work-go { margin-top: auto; padding-top: 0.75rem; }
 
   /* =====================================================================
      LE FORMULAIRE

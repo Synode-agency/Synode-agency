@@ -120,67 +120,6 @@ const fr = {
         "Outils métier",
         "Données & tableaux de bord",
       ],
-
-      /* --------------------------------------------------------------
-         LES TROIS SYSTÈMES DU MOCK.
-
-         C'est le seul élément visuel repris de la version précédente du
-         site, et il n'apparaît qu'ICI. Trois interfaces empilées qui se
-         relaient, chacune racontant un scénario en trois temps.
-
-         Entièrement décoratif et masqué aux technologies d'assistance :
-         rien de ce texte n'est lu à voix haute. Il existe pour montrer la
-         FORME de ce que nous livrons, pas pour être une capture d'un
-         produit réel — et c'est pour ça qu'aucune de ces trois cartes ne
-         porte le moindre chiffre.
-         -------------------------------------------------------------- */
-      systems: [
-        {
-          id: "demandes",
-          appName: "Synode",
-          badge: "Automatisé",
-          nav: ["Demandes clients", "Devis & factures", "Planning", "Documents"],
-          title: "Vos demandes clients,\nprises en charge",
-          steps: ["Demande reçue", "Devis envoyé", "Relance automatique"],
-          caseLabel: "Exemple de fonctionnement",
-          caseText:
-            "Un client demande un devis. La demande est classée, le devis préparé, et la relance part si personne ne répond.",
-          caseEmphasis: ["devis", "relance"],
-          docLabel: "Devis",
-          gainLabel: "Demandes traitées",
-          gainValue: "En hausse",
-        },
-        {
-          id: "impayes",
-          appName: "Synode",
-          badge: "Suivi actif",
-          nav: ["Factures en retard", "Relances", "Paiements", "Clients"],
-          title: "Vos impayés,\npris en charge",
-          steps: ["Facture échue", "Relance envoyée", "Paiement suivi"],
-          caseLabel: "Exemple de fonctionnement",
-          caseText:
-            "Une facture dépasse son échéance. Le retard est détecté, une relance part, et le paiement est suivi.",
-          caseEmphasis: ["relance", "suivi"],
-          docLabel: "Facture",
-          gainLabel: "Factures réglées",
-          gainValue: "En hausse",
-        },
-        {
-          id: "planning",
-          appName: "Synode",
-          badge: "Organisé",
-          nav: ["Rendez-vous", "Confirmations", "Disponibilités", "Notifications"],
-          title: "Vos rendez-vous,\npris en charge",
-          steps: ["Créneau choisi", "Rendez-vous confirmé", "Rappel envoyé"],
-          caseLabel: "Exemple de fonctionnement",
-          caseText:
-            "Un prospect choisit un créneau. Les disponibilités sont vérifiées, le rendez-vous confirmé, et le rappel envoyé la veille.",
-          caseEmphasis: ["disponibilités", "rappel"],
-          docLabel: "Agenda",
-          gainLabel: "Rendez-vous tenus",
-          gainValue: "En hausse",
-        },
-      ],
     },
 
     problems: {
@@ -656,56 +595,6 @@ const en = {
       text: "We build assistants, automations and internal tools that take work off your plate and put your own data to use.",
       secondaryCta: "See the use cases",
       stack: ["AI assistants", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
-
-      /* See the French block: decorative, hidden from assistive tech, and
-         deliberately carrying no figures. */
-      systems: [
-        {
-          id: "demandes",
-          appName: "Synode",
-          badge: "Automated",
-          nav: ["Client requests", "Quotes & invoices", "Schedule", "Documents"],
-          title: "Your client requests,\ntaken care of",
-          steps: ["Request received", "Quote sent", "Follow-up fires"],
-          caseLabel: "How it runs",
-          caseText:
-            "A client asks for a quote. The request is filed, the quote drafted, and a follow-up goes out if nobody replies.",
-          caseEmphasis: ["quote", "follow-up"],
-          docLabel: "Quote",
-          gainLabel: "Requests handled",
-          gainValue: "Trending up",
-        },
-        {
-          id: "impayes",
-          appName: "Synode",
-          badge: "Tracking on",
-          nav: ["Overdue invoices", "Reminders", "Payments", "Clients"],
-          title: "Your unpaid invoices,\ntaken care of",
-          steps: ["Invoice overdue", "Reminder sent", "Payment tracked"],
-          caseLabel: "How it runs",
-          caseText:
-            "An invoice passes its due date. The delay is caught, a reminder goes out, and the payment is tracked.",
-          caseEmphasis: ["reminder", "tracked"],
-          docLabel: "Invoice",
-          gainLabel: "Invoices settled",
-          gainValue: "Trending up",
-        },
-        {
-          id: "planning",
-          appName: "Synode",
-          badge: "Organised",
-          nav: ["Meetings", "Confirmations", "Availability", "Notifications"],
-          title: "Your meetings,\ntaken care of",
-          steps: ["Slot chosen", "Meeting confirmed", "Reminder sent"],
-          caseLabel: "How it runs",
-          caseText:
-            "A prospect picks a slot. Availability is checked, the meeting confirmed, and the reminder sent the day before.",
-          caseEmphasis: ["Availability", "reminder"],
-          docLabel: "Calendar",
-          gainLabel: "Meetings kept",
-          gainValue: "Trending up",
-        },
-      ],
     },
 
     problems: {
