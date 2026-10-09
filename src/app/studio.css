@@ -13166,3 +13166,33 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     transition: none;
   }
 }
+
+/* =====================================================================
+   LES MOTS ET LES LIBELLÉS PEINTS EN BLEU
+   ===================================================================== */
+
+/* ---- Les deux titres de colonne du pied de page, sur tout le site.
+   Le pied est sur fond blanc : `--brand` y tient à 5,09:1. ---- */
+.site-footer-title {
+  color: var(--brand);
+}
+
+/* ---- Le surtitre de la carte de rappel du bas de l'accueil. C'est le seul
+   surtitre peint du site : il tient lieu de titre à cette carte, le `h2` en
+   dessous étant une question. Fond blanc, donc `--brand`. ---- */
+.eyebrow--accent {
+  color: var(--brand);
+}
+
+/* ---- Un mot peint dans le titre d'une carte de CTA.
+   ⚠ `.dark-cta` posait son fond sombre sans redéfinir `--dark-accent` :
+   les mots peints y prenaient `--brand`, soit 2,9:1 sur ce fond. La carte
+   reprend donc le bleu clair des autres bandes sombres, comme
+   `.home-dark-band` et `.svc-ink`. Les boutons gardent `--brand` : leur
+   fond ne bouge pas. ---- */
+.dark-cta {
+  --dark-accent: #8fc0ff;
+}
+.dark-cta :is(h1, h2, h3) .title-accent {
+  color: var(--dark-accent);
+}

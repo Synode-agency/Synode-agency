@@ -54,7 +54,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
       <Band id="exemples" tone="white" className="studio-section use-cases-catalog">
         <Lede
           title={fr ? "Des solutions IA intégrées à vos processus métier" : "AI solutions integrated into your business processes"}
-          accents={fr ? ["solutions IA", "processus métier"] : ["AI solutions", "business processes"]}
+          accents={fr ? ["solutions IA"] : ["AI solutions"]}
           text={fr
             ? "Agents IA, automatisations, intégrations, analyse de données et logiciels métier peuvent intervenir dans de nombreux processus d’entreprise : opérations, service client, ventes, finance, gestion documentaire ou planification. Chaque solution est cadrée selon votre environnement, vos données, vos règles métier et le niveau de contrôle humain requis."
             : "AI agents, automations, integrations, data analysis and business software can support many company processes: operations, customer service, sales, finance, document management or planning. Every solution is scoped around your environment, data, business rules and the required level of human control."}

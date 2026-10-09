@@ -144,7 +144,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <CardPanel id="conclusion" className="booking-cta dark-cta">
       <div className="col card-body cta-panel cta-booking-grid">
-        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
+        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."} accents={fr ? ["votre projet"] : undefined} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
         <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
       </div>
     </CardPanel>
@@ -157,7 +157,9 @@ export function HomePage({ locale }: { locale: Locale }) {
     <Band tone="white" className="home-cta-reminder">
       <div className="home-cta-reminder-card">
         <div>
-          <span className="eyebrow">{fr ? "Votre projet IA" : "Your AI project"}</span>
+          {/* Le seul surtitre peint en bleu du site : il tient lieu de titre de
+              cette carte de rappel, le h2 en dessous étant une question. */}
+          <span className="eyebrow eyebrow--accent">{fr ? "Votre projet IA" : "Your AI project"}</span>
           <h2>{fr ? "Votre besoin mérite d’être étudié ?" : "Is your need worth exploring?"}</h2>
           <p>{fr ? "Présentez-nous votre processus et vérifions ensemble si une solution IA sur mesure est pertinente pour votre activité." : "Tell us about your process and let’s assess whether a custom AI solution makes sense for your business."}</p>
         </div>

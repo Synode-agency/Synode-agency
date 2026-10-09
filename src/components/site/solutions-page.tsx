@@ -187,7 +187,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
           title={fr ? "Prix d’une solution IA sur mesure :\nnotre tarification" : "How we charge"}
-          accents={fr ? ["Prix d’une solution IA sur mesure"] : ["How we charge"]}
+          accents={fr ? ["notre tarification"] : ["How we charge"]}
           text={fr ? "Le budget d’un projet IA dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
         />
         <PricingDoc locale={locale} />
@@ -200,6 +200,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
             <Lede
               title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."}
+              accents={fr ? ["votre projet"] : undefined}
 
               text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
             />
