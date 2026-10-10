@@ -3398,88 +3398,6 @@ footer.band--white .wordmark-type {
   color: #626a76;
 }
 
-/* Supplied cofounder portraits. */
-.founder-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-}
-.founder-card {
-  overflow: hidden;
-  border: 1px solid #dce2eb;
-  border-radius: 14px;
-  background: white;
-}
-.founder-photo {
-  position: relative;
-  height: clamp(300px, 32vw, 400px);
-  overflow: hidden;
-  background: radial-gradient(ellipse at 50% 100%, #d6e6ff, #f4f8fd 70%);
-}
-.founder-photo::before {
-  content: '';
-  position: absolute;
-  width: 70%;
-  aspect-ratio: 1;
-  border: 1px solid #c6d9f1;
-  border-radius: 50%;
-  left: 15%;
-  top: 18%;
-  box-shadow:
-    0 0 0 25px #edf4ff,
-    0 0 0 26px #dce8f8;
-}
-.founder-photo img {
-  position: absolute;
-  bottom: 0;
-  left: 5%;
-  width: 90%;
-  height: 93%;
-  object-fit: contain;
-  object-position: center bottom;
-}
-.founder-photo-label {
-  position: absolute;
-  z-index: 1;
-  left: 1.5rem;
-  top: 1.3rem;
-  font-size: 0.65rem;
-  color: #526984;
-}
-.founder-photo-name {
-  position: absolute;
-  bottom: 1rem;
-  left: 1.5rem;
-  font-size: 0.7rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #d1e0f3;
-  background: #ffffffe8;
-  border-radius: 5px;
-  color: #0054bf;
-}
-.founder-copy {
-  padding: 2rem;
-}
-.founder-copy .eyebrow {
-  color: #0067ea;
-}
-.founder-copy h3 {
-  font-size: 1.8rem;
-  font-weight: 500;
-  margin-block: 0.8rem 0.5rem;
-  letter-spacing: -0.03em;
-}
-.founder-copy .founder-role {
-  font-size: 0.8rem;
-  color: #464444;
-  margin-bottom: 1.2rem;
-}
-.founder-copy p {
-  color: #626a76;
-  font-size: 0.9rem;
-  line-height: 1.8;
-}
-
 /* Booking preview: visually complete, explicitly not live availability. */
 .calendar-demo {
   border: 1px solid #dce2eb;
@@ -3735,49 +3653,6 @@ footer.band--white .wordmark-type {
   font-size: 0.625rem;
 }
 
-/* ---- Équipe : les deux portraits réels. Plus sobre, plus humain, mais
-   la même place dans la grille que les autres illustrations. ---- */
-.hero-team-portraits {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-  width: min(100%, 29rem);
-  justify-self: center;
-}
-.hero-team-portraits figure {
-  min-width: 0;
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid #34516f;
-  border-radius: 14px;
-  background: #0e2036;
-}
-.hero-team-portraits img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-}
-.hero-team-portraits figcaption {
-  padding: 0.8rem 0.9rem 0.9rem;
-  border-top: 1px solid #29425f;
-}
-.hero-team-portraits strong {
-  display: block;
-  color: #f4f8ff;
-  font-size: 0.9375rem;
-  font-weight: 500;
-}
-.hero-team-portraits figcaption span {
-  display: block;
-  margin-top: 0.3rem;
-  color: #a8c3e8;
-  font-size: 0.6875rem;
-  line-height: 1.5;
-}
-
 /* ---- Contact : les deux portes d'entrée, de même rang. Aucun créneau
    n'est annoncé ici : la réservation reste gérée plus bas dans la page. ---- */
 .hero-contact-door {
@@ -3855,15 +3730,11 @@ footer.band--white .wordmark-type {
   .use-case-terminal {
     width: 100%;
   }
-  .hero-team-portraits {
-    width: 100%;
-  }
 }
 @media (max-width: 760px) {
   .solutions-wall,
   .sol-app,
   .hero-panel,
-  .hero-team-portraits,
   .use-case-terminal {
     width: min(100%, 30rem);
     margin-inline: auto;
@@ -3899,6 +3770,9 @@ footer.band--white .wordmark-type {
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: center;
   gap: clamp(2rem, 4vw, 4rem);
+}
+.page-hero--inner .studio-hero-grid--single {
+  grid-template-columns: minmax(0, 1fr);
 }
 /* Le titre tient dans sa colonne : ni centré, ni débordant sur la droite. */
 .page-hero--inner h1 {
@@ -4289,68 +4163,6 @@ footer.band--white .wordmark-type {
   }
 }
 
-/* ---- Réalisations : la console de fabrication. ---- */
-.work-console-state {
-  display: grid;
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0.95rem 0.9rem 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-}
-.work-console-state > div {
-  display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
-  gap: 0.6rem;
-}
-.work-console-state dt {
-  color: #7f9bbd;
-}
-.work-console-state dd {
-  margin: 0;
-  color: #8ce2bd;
-}
-.work-console-build {
-  padding: 0.95rem 0.9rem 1.05rem;
-  border-top: 1px solid #29425f;
-  background: #0e2036;
-  font-family: var(--font-sans);
-}
-.work-console-build > strong {
-  display: block;
-  margin-bottom: 0.6rem;
-  color: #9fb2c9;
-  font-size: 0.58rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-}
-.work-console-build ol {
-  display: grid;
-  gap: 0.35rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.work-console-build li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #dce9f8;
-  font-size: 0.6875rem;
-}
-.work-console-build li svg {
-  width: 12px;
-  height: 12px;
-  color: #8ce2bd;
-  stroke-width: 2;
-}
-.work-console-build li.is-current {
-  color: #8fc0ff;
-}
-.work-console-build li.is-current svg {
-  color: #8fc0ff;
-}
-
 /* ---- L'aperçu de projet, descendu dans sa carte. ----
    Le panneau garde son dessin ; il perd seulement sa largeur de colonne de
    hero et se centre dans le cadre de la carte. */
@@ -4668,11 +4480,6 @@ a.tool-card:hover {
   min-width: 0;
   width: min(100%, 30rem);
   justify-self: center;
-}
-.diag-lead {
-  color: var(--text-mono);
-  font-size: 0.8125rem;
-  line-height: 1.7;
 }
 .diag-panel {
   display: flex;
@@ -5099,50 +4906,10 @@ a.tool-card:hover {
   width: 13px;
   height: 13px;
 }
-.diag-explainer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  border-top: 1px solid var(--hairline);
-}
-.diag-explainer-grid article {
-  padding: 1.5rem clamp(1.25rem, 2.2vw, 2rem);
-}
-.diag-explainer-grid article + article {
-  border-left: 1px solid var(--hairline);
-}
-.diag-explainer-grid article:first-child {
-  padding-left: 0;
-}
-.diag-explainer-grid article:last-child {
-  padding-right: 0;
-}
-.diag-explainer-grid h3 {
-  font-size: 1rem;
-  font-weight: 500;
-}
-.diag-explainer-grid p {
-  margin-top: 0.5rem;
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-  line-height: 1.65;
-}
 @media (min-width: 1101px) {
   .diag-result-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     gap: 1.75rem;
-  }
-}
-@media (max-width: 900px) {
-  .diag-explainer-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .diag-explainer-grid article {
-    padding-inline: 0;
-  }
-  .diag-explainer-grid article + article {
-    border-left: 0;
-    border-top: 1px solid var(--hairline);
   }
 }
 @media (max-width: 760px) {
@@ -8863,7 +8630,10 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   --brand: #0067ea;
   --brand-foreground: #ffffff;
 }
-.site-theme-alternating main > .band.svc-tint {
+/* ⚠ `.tint-band` est l'alias de ce bleu clair pour les pages hors services,
+   et il ne doit pas en devenir une COPIE : une bande de ton différent d'une
+   page à l'autre, c'est la fin du rythme de couleurs du site. */
+.site-theme-alternating main > .band:is(.svc-tint, .tint-band) {
   background: #f2f6fc;
   color: #464444;
   --foreground: #464444;
@@ -8894,7 +8664,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 }
 /* Le chapeau, repeint à la main pour la même raison : le filet du thème le
    met en bleu pâle sur tout rang impair, y compris sur mes bandes claires. */
-.site-theme-alternating main > .band:is(.svc-white, .svc-tint) .lede-kicker {
+.site-theme-alternating main > .band:is(.svc-white, .svc-tint, .tint-band) .lede-kicker {
   color: var(--brand);
 }
 .site-theme-alternating main > .band.svc-ink .lede-kicker {
@@ -11447,567 +11217,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 /* =====================================================================
-   LES RÉALISATIONS DE L'ACCUEIL — LE PROJECTEUR À ONGLETS
-
-   Deux onglets à gauche, une fenêtre d'aperçu à droite. Sous 760px de
-   largeur de COMPOSANT, le projecteur devient deux blocs dépliables ; la
-   bascule est décidée en JavaScript par un `ResizeObserver`, parce que la
-   largeur de ce bloc ne suit pas celle de la fenêtre.
-
-   ⚠ La fenêtre de l'aperçu a trois étages : barre de titre, contenu, pied.
-   Le contenu est en `flex: 1; min-height: 0` et l'image est en
-   `position: absolute` dans sa zone. Sans ces deux règles, l'image pousse
-   le pied hors du cadre et le lien « Découvrir le projet » disparaît.
-   ===================================================================== */
-.wsp {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: var(--home-heading-gap);
-  overflow: hidden;
-  border: 1px solid #dde3eb;
-  border-radius: 16px;
-  background: #ffffff;
-}
-
-/* ---- Les deux onglets ---- */
-.wsp-tabs {
-  flex: 1 1 380px;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  border-right: 1px solid #eceef1;
-}
-.wsp-tab {
-  position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 0;
-  padding: 32px 34px;
-  border: 0;
-  border-bottom: 1px solid #eceef1;
-  background: #ffffff;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.wsp-tab:last-child {
-  border-bottom: 0;
-}
-.wsp-tab.is-on {
-  background: #fafcff;
-}
-.wsp-tab:focus-visible {
-  outline: 2px solid #0b6be6;
-  outline-offset: -2px;
-}
-/* La barre de progression de l'onglet actif. Sa durée doit rester celle de
-   `TAB_MS` dans le composant. Sans la classe, elle est pleine et immobile :
-   c'est l'état après un survol, et celui du mouvement réduit. */
-.wsp-bar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: #e3ebf8;
-}
-.wsp-bar i {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: #0b6be6;
-}
-.wsp-bar i.is-filling {
-  animation: wsp-fill 7s linear forwards;
-}
-@keyframes wsp-fill {
-  from { height: 0; }
-  to { height: 100%; }
-}
-.wsp-tab-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.wsp-tab-top em {
-  font-style: normal;
-  font-size: 14px;
-  color: #8a8f98;
-}
-.wsp-tab strong {
-  font-size: 27px;
-  font-weight: 500;
-  letter-spacing: -0.6px;
-  line-height: 1.2;
-  color: #2e2e2e;
-  transition: color 0.3s ease;
-}
-.wsp-tab.is-on strong {
-  color: #1f3a5f;
-}
-.wsp-tab-text {
-  font-size: 17.5px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
-
-/* ---- La pastille de statut et les libellés ---- */
-.wsp-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  border: 1px solid transparent;
-  border-radius: 999px;
-  font-size: 13.5px;
-  white-space: nowrap;
-}
-.wsp-pill--sm {
-  font-size: 12.5px;
-}
-.wsp-pill i {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: currentColor;
-}
-.wsp-pill--green {
-  border-color: #cbebd9;
-  background: #edf8f2;
-  color: #1e8a5c;
-}
-.wsp-pill--blue {
-  border-color: #d6e2fa;
-  background: #f4f8fe;
-  color: #0b6be6;
-}
-.wsp-tags {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-}
-.wsp-tags li {
-  padding: 4px 10px;
-  border: 1px solid #eceef1;
-  border-radius: 6px;
-  background: #f7f8fa;
-  font-size: 14px;
-  color: #5a5a5a;
-}
-
-/* ---- L'aperçu ---- */
-/* ⚠ La scène N'IMPOSE PLUS DE HAUTEUR. Les deux fenêtres sont empilées dans
-   la même case de grille, et c'est la plus haute qui la lui donne : celle de
-   l'image, dont la zone porte le rapport du fichier. L'image entre donc
-   entière à toutes les largeurs, et aucune hauteur n'est écrite à la main.
-
-   Les 44px d'encart sont devenus un rembourrage : les fenêtres ne sont plus
-   en position absolue, ce sont elles qui poussent les bords de la scène. */
-.wsp-stage {
-  display: grid;
-  flex: 1.5 1 520px;
-  min-width: 0;
-  padding: 44px;
-  background:
-    radial-gradient(#dde3eb 1px, transparent 1px) 0 0 / 22px 22px,
-    #f7f8fa;
-}
-/* Les deux fenêtres sont superposées et TOUTES RENDUES : c'est ce qui
-   permet de les croiser en fondu plutôt que de les monter et démonter. */
-.wsp-win {
-  /* Les deux dans la MÊME case : la scène prend la hauteur de la plus haute,
-     et passer de l'une à l'autre ne déplace rien. */
-  grid-area: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid #dde3eb;
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 30px 60px rgb(20 40 80 / 10%);
-  opacity: 0;
-  transform: translateY(12px) scale(0.98);
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.wsp-win.is-on {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-.wsp-win-bar {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 12px 16px;
-  border-bottom: 1px solid #eceef1;
-  font-size: 12.5px;
-  color: #8a8f98;
-}
-.wsp-win-bar i {
-  flex: none;
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: #e3e6ea;
-}
-.wsp-win-bar i:nth-of-type(3) {
-  margin-right: 7px;
-}
-.wsp-fake {
-  margin-left: auto;
-  padding: 3px 9px;
-  border: 1px solid #d6e2fa;
-  border-radius: 999px;
-  background: #f4f8fe;
-  font-size: 11.5px;
-  font-weight: 400;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-/* ⚠ `min-height: 0` et l'image en absolu : sans eux, la capture pousse le
-   pied de la fenêtre hors du cadre. */
-/* ⚠ La zone de l'image porte LE RAPPORT DE L'IMAGE, et c'est elle qui donne
-   sa hauteur à la fenêtre, donc à la scène. L'image entre ainsi entière à
-   toutes les largeurs, sans bande ni rognage, et sans hauteur écrite à la
-   main qu'il faudrait corriger à chaque changement d'image.
-
-   Ce rapport et le fond sont à changer EN MÊME TEMPS que l'image : le fond
-   est le gris de son coin, relevé sur le fichier, et il ne se voit que si
-   le rapport ne correspond plus. */
-.wsp-shot {
-  flex: none;
-  aspect-ratio: 1448 / 1086;
-  background: #f8f8fa;
-}
-.wsp-shot img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.wsp-scen-wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-}
-/* La fenêtre du scénario est plus courte que celle de l'image. Les deux
-   partageant la même case de grille, elle est étirée sur la hauteur de la
-   plus haute et son contenu se centre dedans. */
-.wsp-win {
-  min-height: 100%;
-}
-.wsp-win-foot {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-top: 1px solid #eceef1;
-}
-.wsp-win-foot b {
-  padding-right: 20px;
-  font-size: 13.5px;
-  font-weight: 400;
-  color: #a0a5ad;
-}
-.wsp-go {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 20px;
-  font-size: 17px;
-  color: #0b6be6;
-  transition: background-color 0.2s ease;
-}
-.wsp-go:hover {
-  background: #f4f8fe;
-}
-.wsp-go svg {
-  width: 17px;
-  height: 17px;
-}
-.wsp-soon {
-  padding: 16px 20px;
-  font-size: 16px;
-  color: #8a8f98;
-}
-
-/* =====================================================================
-   LE SCÉNARIO DU SECOND PROJET
-
-   Il montre un déroulé, pas un produit : le projet n'existe pas encore. La
-   dernière étape est la validation humaine, et c'est le propos du bloc.
-   ===================================================================== */
-.wsp-scen {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 26px 24px;
-}
-.wsp-step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 16px;
-}
-/* Le trait qui relie une étape à la suivante, au centre du carré. */
-.wsp-step:not(:last-child) {
-  padding-bottom: 18px;
-}
-.wsp-step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 40px;
-  width: 1px;
-  height: 18px;
-  background: #dde3eb;
-  transition: background-color 0.4s ease;
-}
-.wsp-step.is-done:not(:last-child)::after {
-  background: #9db8f2;
-}
-.wsp-step-num {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #dde3eb;
-  border-radius: 10px;
-  background: #ffffff;
-  font-size: 13px;
-  color: #a0a5ad;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-}
-.wsp-step.is-on .wsp-step-num {
-  border-color: #0b6be6;
-  background: #0b6be6;
-  color: #ffffff;
-  box-shadow: 0 0 0 5px rgb(11 107 230 / 12%);
-}
-.wsp-step.is-done .wsp-step-num {
-  border-color: #c9d8f5;
-  background: #f4f8fe;
-  color: #0b6be6;
-}
-.wsp-step-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-.wsp-step-copy strong {
-  font-size: 17px;
-  font-weight: 400;
-  color: #8a8f98;
-  transition: color 0.4s ease;
-}
-.wsp-step.is-on .wsp-step-copy strong,
-.wsp-step.is-done .wsp-step-copy strong {
-  color: #2e2e2e;
-}
-.wsp-step-copy em {
-  font-style: normal;
-  font-size: 13.5px;
-  color: #8a8f98;
-}
-.wsp-step-state {
-  font-size: 13px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.wsp-step.is-done .wsp-step-state {
-  color: #1e8a5c;
-}
-
-/* =====================================================================
-   LES RÉALISATIONS SUR COLONNE ÉTROITE — DEUX BLOCS DÉPLIABLES
-   ===================================================================== */
-.wsp--compact {
-  display: block;
-  margin-top: 48px;
-  border-radius: 14px;
-}
-.wsp-fold {
-  transition: background-color 0.3s ease;
-}
-.wsp-fold.is-open {
-  background: #fafcff;
-}
-.wsp-fold-head {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-}
-.wsp-fold-head button {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  padding: 22px 20px;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.wsp-fold:not(:last-child) .wsp-fold-head button {
-  border-bottom: 1px solid #eceef1;
-}
-.wsp-fold-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.wsp-chev {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #dde3eb;
-  border-radius: 8px;
-}
-.wsp-chev svg {
-  width: 16px;
-  height: 16px;
-  color: #0b6be6;
-  transition: transform 0.3s ease;
-}
-.wsp-fold.is-open .wsp-chev svg {
-  transform: rotate(180deg);
-}
-.wsp-fold-head strong {
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.25;
-  color: #2e2e2e;
-}
-.wsp-fold.is-open .wsp-fold-head strong {
-  color: #1f3a5f;
-}
-.wsp-fold-text {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
-.wsp-fold-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 0 20px 22px;
-}
-.wsp-fold-body .wsp-tags li {
-  background: #ffffff;
-  font-size: 13px;
-}
-.wsp-mini {
-  overflow: hidden;
-  border: 1px solid #dde3eb;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 14px 30px rgb(20 40 80 / 8%);
-}
-.wsp-mini-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 12px;
-  border-bottom: 1px solid #eceef1;
-  font-size: 12px;
-  color: #8a8f98;
-}
-.wsp-mini-bar i {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #e3e6ea;
-}
-.wsp-mini-bar i:nth-of-type(3) {
-  margin-right: 6px;
-}
-.wsp-mini-shot {
-  display: block;
-}
-/* Même raison qu'au-dessus : l'image n'est pas rognable. Sur colonne
-   étroite elle garde donc son propre rapport, 4/3. */
-.wsp-mini-shot img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.wsp-scen--compact {
-  padding: 18px 16px;
-}
-.wsp-scen--compact .wsp-step {
-  grid-template-columns: 34px minmax(0, 1fr) auto;
-  gap: 12px;
-}
-.wsp-scen--compact .wsp-step-num {
-  width: 34px;
-  height: 34px;
-  font-size: 12px;
-}
-.wsp-scen--compact .wsp-step:not(:last-child) {
-  padding-bottom: 14px;
-}
-.wsp-scen--compact .wsp-step:not(:last-child)::after {
-  left: 17px;
-  top: 34px;
-  height: 14px;
-}
-.wsp-scen--compact .wsp-step-copy strong {
-  font-size: 15px;
-}
-.wsp-scen--compact .wsp-step-state {
-  font-size: 12px;
-}
-.wsp--compact .wsp-go {
-  padding: 0;
-  font-size: 16px;
-}
-.wsp--compact .wsp-go:hover {
-  background: transparent;
-}
-.wsp--compact .wsp-soon {
-  padding: 0;
-  font-size: 15px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wsp-tab,
-  .wsp-tab strong,
-  .wsp-win,
-  .wsp-step-num,
-  .wsp-step-copy strong,
-  .wsp-step::after,
-  .wsp-fold,
-  .wsp-chev svg,
-  .wsp-go {
-    transition: none;
-  }
-  .wsp-bar i.is-filling {
-    animation: none;
-  }
-}
-
-/* =====================================================================
    LES TROIS CARTES DU HERO
 
    ⚠ Chaque carte est dessinée sur une base FIXE de 580 × 330px, dans une
@@ -13195,4 +12404,89 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .dark-cta :is(h1, h2, h3) .title-accent {
   color: var(--dark-accent);
+}
+
+/* ---- LE FOND DE LA SECTION QUI PORTE UNE CARTE DE CTA ----
+   La carte du CTA n'est pas une bande : c'est un objet posé, et `.card-shell`
+   n'a pas de fond propre, donc elle prend celui de la page. Les pages
+   Réalisations et Équipe demandent un fond explicite sous leur carte, le même
+   bleu clair que les bandes claires du site : la coquille se lit alors comme
+   une section entière, et la carte s'y détache.
+
+   ⚠ Cette classe va sur la COQUILLE, pas sur la carte. La carte, elle, garde
+   `dark-cta`. */
+/* ⚠ La coquille des cartes est PLAFONNÉE à `--container-max` et centrée : un
+   fond posé sur elle s'arrêtait donc au conteneur et laissait deux marges
+   blanches sur les grands écrans. Pour que la section soit entièrement bleu
+   clair, la coquille traverse l'écran et c'est la CARTE qui reprend le
+   plafond, au pixel près : largeur du conteneur moins ses deux retraits.
+   Ne pas réduire ces deux règles à un simple `background`. */
+.cta-shell--tint {
+  max-width: none;
+  background: #f2f6fc;
+}
+.cta-shell--tint > .card-panel {
+  max-width: calc(var(--container-max) - var(--band-pad-x) * 2);
+  margin-inline: auto;
+}
+
+/* ---- LA PAGE /MERCI ----
+   Sa bande unique est bleu nuit, et les mots peints de son titre doivent
+   prendre le bleu clair des heros : `--brand` tombe à 2,9:1 sur ce fond,
+   et `.band--blue` le pousse même à blanc, donc invisible.
+
+   Même jeton et même règle que `.home-dark-band`, `.svc-ink` et `.dark-cta` :
+   un seul bleu clair pour tous les fonds sombres du site. */
+.thanks-band {
+  --dark-accent: #8fc0ff;
+}
+.thanks-band :is(h1, h2, h3) .title-accent {
+  color: var(--dark-accent);
+}
+
+/* ---- LA SECTION DU CTA DE LA PAGE RÉALISATIONS ----
+   Le fond coloré est la boîte de la coquille : c'est donc son remplissage
+   vertical qui donne de l'air autour de la carte, et non un réglage sur la
+   carte elle-même. */
+.cta-shell--tall {
+  padding-block: clamp(4rem, 7vw, 7rem);
+}
+
+
+/* ---- LE TITRE DU CTA DE LA PAGE ÉQUIPE, SUR UNE SEULE LIGNE ----
+   « Parlons de votre projet » fait 23 caractères, et la mesure commune des
+   titres est de 20 : la ligne se coupait après « votre » et laissait
+   « projet » seul. La mesure est donc levée pour ce titre.
+
+   Le corps n'a pas besoin d'être plafonné : à 2,6rem, 23 caractères
+   réclament environ 440px et la colonne du CTA en offre 544.
+
+   ⚠ Scopé à `team-cta` : les autres CTA du site gardent la mesure commune,
+   leurs titres sont écrits pour elle. ---- */
+.team-cta .cta-booking-copy .lede-title {
+  max-width: none;
+}
+
+/* ---- LA PAGE CONTACT ---- */
+/* Le formulaire dans une carte, sur TOUTE la largeur de la section : la
+   carte prend la colonne de la bande, donc la même largeur que la barre de
+   navigation en haut de page. Ne pas lui remettre de plafond : c'est ce qui
+   la rendait plus étroite que la section. */
+.contact-form-card {
+  width: 100%;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+/* ⚠ Le calendrier du hero est une carte BLANCHE posée sur un fond sombre :
+   sans ces jetons, son texte héritait du blanc de la bande et disparaissait.
+   La règle existait déjà pour la carte du CTA de l'accueil, elle couvre
+   maintenant aussi le hero de Contact. */
+.home-hero-dark .booking--card {
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  color: #464444;
 }

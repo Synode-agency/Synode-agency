@@ -1,14 +1,14 @@
 import Image from "next/image";
-import { ArrowRight, CalendarClock, Check, Clock3, Globe2, MessageSquareText, Video } from "lucide-react";
-import { getContent, type Locale } from "@/lib/content";
+import { ArrowRight, CalendarClock, Clock3, Globe2, MessageSquareText, Video } from "lucide-react";
+import type { Locale } from "@/lib/content";
 import type { WorkItem } from "@/lib/work";
 
 /**
  * Les illustrations de hero des pages internes.
  *
- * Chacune montre quelque chose qui EXISTE déjà : les deux portraits des
- * associés, les deux portes d'entrée du contact, un projet réellement en
- * cours. Aucune donnée inventée, aucun chiffre, aucun client. Le cadre reste
+ * Chacune montre quelque chose qui EXISTE déjà : les deux portes d'entrée
+ * du contact ou un projet réellement en cours. Aucune donnée inventée,
+ * aucun chiffre, aucun client. Le cadre reste
  * celui des panneaux sombres du site : filet fin, fond #0B192C, libellés en
  * mono.
  */
@@ -54,64 +54,6 @@ export function ProjectPanelPreview({ item, locale }: { item: WorkItem; locale: 
  * précis : l'état d'un système en service, puis les étapes de construction,
  * la dernière encore ouverte. Rien ici n'affirme un résultat client.
  */
-const BUILD_STEPS = ["architecture", "development", "integrations", "testing"] as const;
-
-export function WorkHeroTerminal({ locale }: { locale: Locale }) {
-  const fr = locale === "fr";
-  const state = [
-    ["status", "deployed"],
-    ["agents", "active"],
-    ["integrations", "connected"],
-    ["monitoring", "enabled"],
-  ] as const;
-
-  return (
-    <figure className="hero-panel work-console" aria-label={fr ? "Les étapes de construction d’un système Synode" : "The build stages of a Synode system"}>
-      <figcaption className="hero-panel-bar">
-        <span className="terminal-dots" aria-hidden><i /><i /><i /></span>
-        <span>project.synode</span>
-      </figcaption>
-      <dl className="work-console-state">
-        {state.map(([key, value]) => (
-          <div key={key}>
-            <dt>{key}</dt>
-            <dd>{value}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="work-console-build">
-        <strong>build</strong>
-        <ol>
-          {BUILD_STEPS.map((step) => (
-            <li key={step}><Check aria-hidden />{step}</li>
-          ))}
-          <li className="is-current"><ArrowRight aria-hidden />production</li>
-        </ol>
-      </div>
-      <p className="hero-panel-note">{fr ? "Composition illustrative du déroulement d’un projet." : "Illustrative view of how a project unfolds."}</p>
-    </figure>
-  );
-}
-
-/** Équipe : les deux portraits réels, sobrement. */
-export function TeamHeroPortraits({ locale }: { locale: Locale }) {
-  const { team } = getContent(locale);
-
-  return (
-    <div className="hero-team-portraits">
-      {team.people.map((person) => (
-        <figure key={person.first}>
-          <Image src={person.photo} alt={person.first} width={560} height={700} sizes="(max-width: 760px) 45vw, 22vw" />
-          <figcaption>
-            <strong>{person.first}</strong>
-            <span>{person.role}</span>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-  );
-}
-
 /** Contact : les deux portes d'entrée, de même rang, sans disponibilité fictive. */
 export function ContactHeroDoors({ locale }: { locale: Locale }) {
   const fr = locale === "fr";

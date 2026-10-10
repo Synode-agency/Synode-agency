@@ -44,7 +44,7 @@ const fr: readonly BusinessUseCase[] = [
     title: "Exploiter les connaissances de toute l’entreprise",
     description: "Les informations importantes sont souvent dispersées entre contrats, procédures, emails, dossiers clients et outils internes.",
     tags: ["Contrats", "Procédures", "Drive", "SharePoint", "CRM"],
-    example: "Un assistant connecté aux sources autorisées retrouve les informations pertinentes, les croise, cite leurs sources et aide les équipes à répondre ou à prendre une décision.",
+    example: "Un agent IA connecté aux sources autorisées retrouve les informations pertinentes, les croise, cite leurs sources et aide les équipes à répondre ou à prendre une décision.",
   },
   {
     slug: "demandes-complexes",
@@ -159,7 +159,7 @@ const en: readonly BusinessUseCase[] = [
     title: "Use knowledge from across the business",
     description: "Important information is often scattered across contracts, procedures, emails, customer files and internal tools.",
     tags: ["Contracts", "Procedures", "Drive", "SharePoint", "CRM"],
-    example: "An assistant connected to authorised sources finds and cross-checks relevant information, cites its sources and helps teams respond or make a decision.",
+    example: "An AI agent connected to authorised sources finds and cross-checks relevant information, cites its sources and helps teams respond or make a decision.",
   },
   {
     slug: "complex-requests",

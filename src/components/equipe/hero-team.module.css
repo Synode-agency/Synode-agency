@@ -1,0 +1,216 @@
+/* =====================================================================
+   LE VISUEL DU HERO DE LA PAGE ÉQUIPE
+
+   Les deux associés dans un cadre, le client à part, et une liaison entre
+   les deux. Les couleurs sont celles des fonds sombres du site ; le client,
+   lui, est une carte CLAIRE : c'est une autre entreprise, pas un troisième
+   associé, et cette différence de traitement est le propos du visuel.
+   ===================================================================== */
+
+.root {
+  width: 100%;
+  max-width: 560px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) 56px minmax(0, 1fr);
+  align-items: center;
+}
+
+/* ---- Le cadre de l'équipe ---- */
+.frame {
+  min-width: 0;
+  padding: 16px 16px 18px;
+  border: 1px solid #24406a;
+  border-radius: 20px;
+  background: #121d31;
+}
+.frameHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.frameHead em,
+.frameHead i {
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.frameHead em {
+  color: #8ec1ff;
+}
+.frameHead i {
+  color: #6f84a3;
+}
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+/* ---- Une place : la silhouette, le nom, le rôle ---- */
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+.person strong {
+  margin-top: 12px;
+  font-size: 14.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.person em {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8fa0b8;
+}
+
+/* `--float` est écrit par l'horloge : le flottement est une translation, pas
+   une marge, donc il ne pousse rien autour de lui. */
+.shot,
+.clientShot {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1 / 1.12;
+  overflow: hidden;
+  border-radius: 16px;
+  transform: translateY(var(--float, 0px));
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.shot {
+  border: 1px solid #24406a;
+  background: #13223a;
+}
+/* L'associé en charge du sujet : il se détache et monte d'un cran. */
+.shotOn {
+  border-color: #4e8ff0;
+  background: #16335a;
+  box-shadow: 0 0 0 5px rgb(78 143 240 / 14%);
+  transform: translateY(calc(var(--float, 0px) - 6px));
+}
+.shot svg {
+  width: 78%;
+  fill: #4e8ff0;
+}
+
+/* ---- Le client ---- */
+.clientShot {
+  border: 1px solid #dde3eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 calc(5px * var(--lit, 0)) rgb(142 193 255 / 25%);
+}
+.clientShot svg {
+  width: 78%;
+  fill: #c9d8f5;
+}
+.building {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #d6e2fa;
+  border-radius: 8px;
+  background: #f4f8fe;
+}
+.building svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: #0b6be6;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- La liaison ---- */
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 8px;
+  margin-inline: 6px;
+}
+.rail {
+  width: 100%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #2f5fa8 0 5px, transparent 5px 10px);
+}
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgb(78 143 240 / 30%);
+  transform: translate(-50%, -50%);
+}
+
+/* ---- La pastille, sous l'ensemble ---- */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin: 22px auto 0;
+  padding: 8px 14px;
+  border: 1px solid #2f5fa8;
+  border-radius: 999px;
+  background: #13223a;
+  font-size: 12px;
+  white-space: nowrap;
+  color: #c9d3e2;
+}
+.pill i {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #34d399;
+}
+
+/* ⚠ Sous `prefers-reduced-motion`, l'horloge n'est pas armée : le visuel rend
+   son état final. Il ne reste que les transitions à couper. */
+@media (prefers-reduced-motion: reduce) {
+  .shot,
+  .clientShot {
+    transition: none;
+  }
+}
+
+/* Sous cette largeur, la pastille ne tient plus sur une ligne dans la
+   colonne : elle se replie en deux lignes centrées plutôt que de déborder. */
+@media (max-width: 520px) {
+  .pill {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* ---- Les deux libellés secondaires sur très petit écran ----
+   Le visuel ne se met pas à l'échelle, il se partage la largeur de la
+   colonne : à 375px, la colonne du client ne fait plus que 93px et
+   « votre entreprise » à 11px en réclame 88. Un cran de moins leur rend la
+   marge qui manque, et rien ne déborde. */
+@media (max-width: 420px) {
+  .person strong {
+    font-size: 13.5px;
+  }
+  .person em {
+    font-size: 10px;
+  }
+}

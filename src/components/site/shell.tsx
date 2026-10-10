@@ -80,16 +80,21 @@ export function CardPanel({
   id,
   variant,
   className,
+  shellClassName,
   children,
 }: {
   id?: string;
   variant?: "hero" | "blue";
   className?: string;
+  /** Le fond de la SECTION qui porte la carte, quand la page en veut un
+   *  explicite : `cta-shell--tint`. Sans lui, la carte est posée sur le fond
+   *  courant de la page. */
+  shellClassName?: string;
   children: ReactNode;
 }) {
   const v = variant === "hero" ? "card-panel--hero" : variant === "blue" ? "card-panel--blue" : "";
   return (
-    <div className="card-shell">
+    <div className={["card-shell", shellClassName].filter(Boolean).join(" ")}>
       <section id={id} className={["card-panel", v, className].filter(Boolean).join(" ")}>
         {children}
       </section>

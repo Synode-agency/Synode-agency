@@ -1,0 +1,338 @@
+/* =====================================================================
+   LA PILE DE CARTES DU HERO DE LA PAGE RÉALISATIONS
+
+   ⚠ Toute la géométrie est posée au pixel sur une base de 560 × 460 pour la
+   scène, et de 300 × 300 pour une carte. Rien ici n'est en pourcentage de la
+   colonne du hero, et rien ne doit l'être : c'est le `transform: scale()` du
+   composant qui adapte l'ensemble. Les pourcentages qu'on trouve plus bas
+   sont tous RELATIFS À LA CARTE, jamais à la page.
+   ===================================================================== */
+
+/* La colonne droite du hero fait environ 545px au plus large, soit presque
+   exactement la largeur de dessin de la scène. Le plafond l'empêche de
+   grandir AU-DELÀ de cette largeur quand le hero se replie en une colonne
+   sur tablette : la scène ne doit jamais s'afficher à plus de son échelle 1,
+   elle ne gagnerait rien à être agrandie. */
+.root {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  aspect-ratio: 560 / 460;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 560px;
+  height: 460px;
+  transform-origin: 0 0;
+}
+
+/* ---- Une carte ----
+   ⚠ `transform-origin` reste au centre : les emplacements de la pile sont
+   calculés pour une rotation autour du centre. */
+.card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 12px;
+  background: #13223a;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 30%);
+  transition:
+    left 0.8s cubic-bezier(0.3, 0.7, 0.2, 1),
+    top 0.8s cubic-bezier(0.3, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.3, 0.7, 0.2, 1),
+    opacity 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.cardFront {
+  border-color: #4e8ff0;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 45%);
+}
+
+/* ---- La vignette ---- */
+.thumb {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  margin: 7px 7px 0;
+  padding: 9px;
+  box-sizing: border-box;
+  border: 1px solid #1e3352;
+  border-radius: 8px;
+  background: #0b1a2e;
+}
+
+/* ---- Vignette « tableau » ---- */
+.table {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.tableRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tableMark {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+.tableLine {
+  flex: 1;
+  min-width: 0;
+  height: 5px;
+  border-radius: 999px;
+  background: #24406a;
+}
+.tablePill {
+  flex: none;
+  width: 22px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+/* ---- Vignette « barres » ---- */
+.bars {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+.bar {
+  flex: 1;
+  min-width: 0;
+  border-radius: 2px 2px 0 0;
+}
+
+/* ---- Vignette « conversation » ---- */
+.chat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.bubble {
+  flex: none;
+  height: 12px;
+  border-radius: 6px;
+}
+.bubbleRight {
+  align-self: flex-end;
+}
+.typing {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 12px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #16335a;
+}
+.typing i {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: #8ec1ff;
+}
+
+/* ---- Vignette « flux » ----
+   Le trait court derrière les trois blocs, le point le parcourt au-dessus. */
+.flow {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flowLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #2f5fa8;
+}
+.flowBlock {
+  position: relative;
+  width: 24%;
+  height: 22px;
+  box-sizing: border-box;
+  border: 1px solid #2f5fa8;
+  border-radius: 5px;
+  background: #16335a;
+}
+.flowDone {
+  border-color: #1f5c3f;
+  background: #123a2a;
+}
+.flowDot {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgb(78 143 240 / 35%);
+  transform: translate(-50%, -50%);
+}
+
+/* ---- Vignette « courbe » ---- */
+.curve {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.curve svg {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+.curve path {
+  fill: none;
+  stroke: #4e8ff0;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  /* Le `viewBox` est étiré par `preserveAspectRatio="none"` : sans ça, le
+     trait serait écrasé avec lui. */
+  vector-effect: non-scaling-stroke;
+}
+.tabs {
+  flex: none;
+  display: flex;
+  gap: 4px;
+}
+.tabs i {
+  flex: 1;
+  height: 14px;
+  box-sizing: border-box;
+  border: 1px solid #1e3352;
+  border-radius: 4px;
+  background: #13223a;
+}
+.tabOn {
+  border-color: #2f5fa8;
+  background: #16335a;
+}
+
+/* ---- Le pied de la carte ---- */
+.foot {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px 10px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 6px;
+}
+.meta em {
+  font-size: 9.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8fa0b8;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.status i {
+  flex: none;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.internal {
+  border-color: #1f5c3f;
+  background: #123a2a;
+  color: #34d399;
+}
+.demo {
+  border-color: #2f5fa8;
+  background: #16335a;
+  color: #8ec1ff;
+}
+.client {
+  border-color: #5a4520;
+  background: #3a2e17;
+  color: #f5b454;
+}
+/* Deux lignes au maximum : un titre plus long est coupé par l'ellipse, il ne
+   pousse pas la vignette. */
+.title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+/* ---- L'indicateur, sous la pile ---- */
+.dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.dots i {
+  width: 8px;
+  height: 4px;
+  border-radius: 999px;
+  background: #2a4a78;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+.dotOn {
+  width: 26px;
+  background: #8ec1ff;
+}
+
+/* ⚠ Sous `prefers-reduced-motion`, ni horloge ni rotation : la pile est
+   figée, carte 1 devant. Il ne reste que les transitions à couper. */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .dots i {
+    transition: none;
+  }
+}

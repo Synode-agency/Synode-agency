@@ -13,7 +13,7 @@ import { MethodFrame } from "@/components/site/method-frame";
 import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { ToolsSection } from "@/components/site/tools/tools-section";
-import { WorkSpotlight } from "@/components/site/work-spotlight";
+import { HomeWorkCards } from "@/components/site/home-work-cards";
 import { featuredBusinessUseCases } from "@/lib/business-use-cases";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
@@ -55,7 +55,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   const capabilityItems = fr ? [
     "Conseil & consultance IA",
     "Cadrage des besoins",
-    "Assistants & agents IA",
+    "Agents IA",
     "Automatisations",
     "Intégrations",
     "Logiciels métier",
@@ -65,7 +65,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   ] : [
     "AI consulting",
     "Needs assessment",
-    "AI assistants & agents",
+    "AI agents",
     "Automations",
     "Integrations",
     "Business software",
@@ -134,7 +134,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
       <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations en\nsolutions IA sur mesure" : "Our work in custom AI solutions"} accents={fr ? ["solutions IA"] : ["AI solutions"]} text={fr ? "Découvrez nos projets IA, démonstrateurs et solutions développées autour des agents IA, de l’automatisation, des intégrations et des outils métier. Chaque réalisation est présentée avec un statut clair, qu’il s’agisse d’un projet interne, d’un démonstrateur ou d’un projet client autorisé." : "Explore our AI projects, demonstrators and solutions built around AI agents, automation, integrations and business tools. Every piece of work is presented with a clear status, whether it is an internal project, a demonstrator or an authorised client project."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations IA" : "See all our AI work"}<ArrowRight aria-hidden /></Link></div>
-      <WorkSpotlight locale={locale} />
+      <HomeWorkCards locale={locale} />
     </Band>
 
     <Band id="outils" tone="base" className="studio-section home-tools-light">
@@ -150,7 +150,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     </CardPanel>
 
     <Band id="faq" tone="base" className="studio-section home-faq home-faq-light">
-      <Lede kicker={home.faq.kicker} title={home.faq.title} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} />
+      <Lede kicker={home.faq.kicker} title={home.faq.title} accents={fr ? ["solutions IA"] : ["custom AI solutions"]} />
       <div className="section-gap"><FaqAccordion items={home.faq.items} /></div>
     </Band>
 

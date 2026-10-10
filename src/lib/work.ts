@@ -58,11 +58,11 @@ const fr = {
   intro: {
     kicker: "Réalisations",
     title: "Ce que nous construisons,\n^et où nous en sommes.",
-    text: "Nous démarrons, et nous préférons le dire. Cette page ne montre que ce qui existe réellement : pas de logo client que nous n’avons pas, pas de capture reconstituée.",
+    text: "Découvrez les projets IA de Synode : outils internes et logiciels métier conçus autour de processus d’entreprise concrets. Chaque projet présente son état réel, sans résultat inventé ni référence client non autorisée.",
   },
   empty: {
-    title: "Les démonstrations arrivent",
-    text: "Nous préparons une à deux démonstrations avec des données fictives, identifiées comme telles, pour montrer un parcours complet de bout en bout. Elles seront publiées ici quand elles fonctionneront réellement.",
+    title: "D’autres projets sont en préparation",
+    text: "Les prochains projets rejoindront cette page lorsqu’ils seront suffisamment avancés pour être présentés avec un statut et un contenu fidèles à leur état réel.",
   },
   clientsEmpty: {
     title: "Pas encore de projet client publié",
@@ -79,8 +79,8 @@ const fr = {
     cta: "Un besoin similaire ? Parlons-en",
   },
   cta: {
-    title: "Construisons une solution\n^adaptée à votre activité.",
-    text: "Votre projet ne ressemblera à aucun de ceux-ci, et c’est normal : chacun part d’un contexte différent.",
+    title: "Construisons votre\nsolution IA.",
+    text: "Votre solution IA sur mesure partira de vos processus, de vos outils et de vos données. Présentez-nous le besoin métier que vous souhaitez améliorer.",
   },
   todoLabel: "À compléter avant mise en ligne",
   todoText:
@@ -121,11 +121,11 @@ const en = {
   intro: {
     kicker: "Work",
     title: "What we are building,\n^and where we stand.",
-    text: "We are starting out, and we would rather say so. This page only shows what genuinely exists: no client logos we do not have, no reconstructed screenshots.",
+    text: "Explore Synode’s AI projects: internal tools and business software designed around concrete business processes. Every project shows its actual status, with no invented results or unauthorised client references.",
   },
   empty: {
-    title: "Demos are on the way",
-    text: "We are preparing one or two demos with fictional data, labelled as such, to show a full journey end to end. They will be published here once they actually work.",
+    title: "More projects are in preparation",
+    text: "Future projects will join this page once they are advanced enough to be presented with a status and content that accurately reflect their current state.",
   },
   clientsEmpty: {
     title: "No client project published yet",
@@ -142,8 +142,8 @@ const en = {
     cta: "Something similar in mind? Let’s talk",
   },
   cta: {
-    title: "Let’s build something\n^that fits your business.",
-    text: "Your project will look like none of these, and that is normal: each one starts from a different context.",
+    title: "Let’s build your\nAI solution.",
+    text: "Your custom AI solution will start from your processes, tools and data. Tell us about the business need you want to improve.",
   },
   todoLabel: "To complete before launch",
   todoText:
@@ -181,6 +181,24 @@ export function work(locale: Locale) {
 
 export function workItems(locale: Locale) {
   return work(locale).items;
+}
+
+/** Contenu du second projet, partagé entre ses cartes et les données
+ * structurées de la page Réalisations. */
+export function projectTwoCardCopy(locale: Locale) {
+  const fr = locale === "fr";
+  return {
+    title: fr ? "Projet 2" : "Project 2",
+    text: fr
+      ? "De la demande reçue à l’action validée, sur des données fictives identifiées comme telles. Elle sera publiée ici quand elle fonctionnera réellement."
+      : "From the incoming request to the approved action, on fictional data labelled as such. It will be published here once it genuinely runs.",
+    tags: fr
+      ? ["Agent IA", "Automatisation", "Validation humaine"]
+      : ["AI agent", "Automation", "Human approval"],
+    status: fr ? "En préparation" : "In preparation",
+    publication: fr ? "Publication à venir" : "Publication to come",
+    soon: fr ? "bientôt" : "soon",
+  };
 }
 
 export function findWork(locale: Locale, slug: string) {

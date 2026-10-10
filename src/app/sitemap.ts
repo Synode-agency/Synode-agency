@@ -29,7 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: ROUTES.useCases, priority: 0.8 },
     { path: ROUTES.work, priority: 0.8 },
     ...workItems("fr").map((w) => ({ path: `${ROUTES.work}/${w.slug}`, priority: 0.6 })),
-    { path: ROUTES.aiDiagnostic, priority: 0.7 },
     { path: ROUTES.contact, priority: 0.8 },
     { path: ROUTES.team, priority: 0.6 },
     { path: ROUTES.legalNotice, priority: 0.2 },

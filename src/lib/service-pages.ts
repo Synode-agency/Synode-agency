@@ -111,10 +111,10 @@ export type ServicePageContent = {
 };
 
 const fr: Record<string, ServicePageContent> = {
-  "assistants-agents-ia": {
-    kicker: "Assistants & agents IA",
-    h1: "Des assistants et des agents IA intégrés à vos outils",
-    h1Accents: ["assistants", "agents IA"],
+  "agents-ia": {
+    kicker: "Agents IA",
+    h1: "Des agents IA intégrés à vos outils",
+    h1Accents: ["agents IA"],
     whatKicker: "Comprendre les agents IA",
     whatTitle: "Qu’est-ce qu’un agent IA ?",
     whatTitleAccents: ["agent IA ?"],
@@ -158,19 +158,19 @@ const fr: Record<string, ServicePageContent> = {
     ],
     ctaTitle: "Voyons si un agent IA a sa place dans votre activité",
     ctaTitleAccents: ["agent IA"],
-    ctaText: "Décrivez-nous une tâche précise qui prend du temps à votre équipe. Le premier échange sert à vérifier si un assistant ou un agent IA peut réellement y aider, et à quelles conditions.",
+    ctaText: "Décrivez-nous une tâche précise qui prend du temps à votre équipe. Le premier échange sert à vérifier si un agent IA peut réellement y aider, et à quelles conditions.",
     faqTitle: "Questions fréquentes sur les agents IA",
     faqTitleAccents: ["agents IA"],
     faqExtra: [
       { q: "Quelle est la différence entre un agent IA et un chatbot ?", a: "Un chatbot répond dans une fenêtre de discussion. Un agent IA est relié à vos outils : il peut rechercher dans vos données, préparer un document ou créer une tâche, dans un périmètre défini. Le dialogue n’est qu’une des façons de le déclencher." },
       { q: "Peut-il utiliser les logiciels que nous avons déjà ?", a: "C’est le principe. Nous vérifions d’abord les accès réellement disponibles sur votre CRM, votre messagerie ou vos espaces de documents, puis nous limitons l’agent aux opérations nécessaires." },
-      { q: "Combien de temps faut-il pour en mettre un en service ?", a: "Cela dépend du périmètre, de la qualité de votre documentation et des accès disponibles. Un assistant limité à une tâche précise se met en place plus vite qu’un agent qui agit dans plusieurs logiciels. La durée est estimée après le cadrage." },
+      { q: "Combien de temps faut-il pour en mettre un en service ?", a: "Cela dépend du périmètre, de la qualité de votre documentation et des accès disponibles. Un agent IA limité à une tâche précise se met en place plus vite qu’un agent qui agit dans plusieurs logiciels. La durée est estimée après le cadrage." },
     ],
   },
 
   "automatisations-intelligentes": {
     kicker: "Automatisation des processus métier",
-    h1: "Automatisez vos processus métier avec l’intelligence artificielle",
+    h1: "Automatisez vos processus métier avec l’IA",
     h1Accents: ["Automatisez"],
     whatKicker: "Comprendre l’automatisation des processus",
     whatTitle: "Qu’est-ce qu’une automatisation ?",
@@ -179,7 +179,7 @@ const fr: Record<string, ServicePageContent> = {
       "Une automatisation intelligente relie vos logiciels, vos données et vos règles métier pour exécuter automatiquement les étapes répétitives d’un processus. L’intelligence artificielle intervient lorsqu’il faut comprendre un texte, classer une demande ou extraire une information ; les opérations simples restent gérées par des règles déterministes, plus fiables et plus faciles à contrôler.",
     whatVisual: "automation",
     usesTitle: "Quels processus métier automatiser,\net avec quelles solutions ?",
-    usesTitleAccents: ["processus", "solutions"],
+    usesTitleAccents: ["processus", "solutions ?"],
     usesKicker: "Cas d’usage de l’automatisation intelligente",
     usesCards: true,
     mergeForms: true,
@@ -202,7 +202,7 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Flux automatisé",
     coreChips: ["Boîte email", "Documents", "CRM", "Outil comptable", "ERP", "Tableur", "Signature", "Messagerie d’équipe"],
     coreNote: "Les fichiers d’origine sont conservés, et chaque exécution laisse une trace consultable.",
-    afterTitle: "Vos automatisations évoluent avec vos processus",
+    afterTitle: "Vos automatisations évoluent\navec vos processus",
     afterTitleAccents: ["évoluent"],
     afterText: "Une automatisation de processus n’est jamais figée : vos règles métier changent, vos volumes évoluent et vos logiciels sont mis à jour. Après la mise en service, nous suivons le fonctionnement du flux et adaptons la solution lorsque votre activité l’exige.",
     after: [
@@ -215,7 +215,7 @@ const fr: Record<string, ServicePageContent> = {
     ctaTitleAccents: ["automatiser"],
     ctaText: "Décrivez une tâche répétitive qui mobilise votre équipe chaque semaine. Un premier échange permet d’évaluer la faisabilité de son automatisation, les logiciels à connecter et les règles à définir pour obtenir un fonctionnement fiable.",
     faqTitle: "Questions fréquentes sur\nl’automatisation des processus",
-    faqTitleAccents: ["l’automatisation des processus"],
+    faqTitleAccents: ["l’automatisation"],
     faqExtra: [
       { q: "Faut-il changer nos logiciels pour automatiser ?", a: "Non. Une automatisation s’appuie sur les outils existants et leurs accès. Nous vérifions ce qui est disponible avant de proposer un périmètre, et nous ne remplaçons un outil que si cela se justifie." },
       { q: "Que deviennent les cas particuliers ?", a: "Ils ne sont jamais traités au hasard. Un cas qui ne correspond pas aux règles convenues est sorti du flux et signalé à une personne. C’est une partie importante du cadrage." },
@@ -257,7 +257,7 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Votre application",
     coreChips: ["Rôles et droits", "Règles métier", "Vos données", "Écrans dédiés", "Historique", "Exports", "Connexions", "Assistance IA"],
     coreNote: "L’hébergement, les sauvegardes et les conditions d’accès sont définis avec vous avant le développement.",
-    afterTitle: "Votre logiciel métier évolue avec votre activité",
+    afterTitle: "Votre logiciel métier évolue\navec votre activité",
     afterTitleAccents: ["évolue"],
     afterText: "Une application métier utilisée au quotidien doit évoluer avec vos équipes, vos processus et vos volumes. Après sa mise en service, nous assurons la maintenance technique, le suivi des usages et le développement progressif des nouvelles fonctionnalités prioritaires.",
     after: [
@@ -281,9 +281,9 @@ const fr: Record<string, ServicePageContent> = {
   "integrations-systemes-connectes": {
     kicker: "Intégration de logiciels & API",
     h1: "Connectez vos logiciels, API et données d’entreprise",
-    h1Accents: ["Connectez", "API", "données"],
+    h1Accents: ["Connectez", "logiciels", "API", "données"],
     whatKicker: "Comprendre l’intégration de systèmes",
-    whatTitle: "Qu’est-ce qu’une intégration entre logiciels ?",
+    whatTitle: "Qu’est-ce qu’une intégration\nentre logiciels ?",
     whatTitleAccents: ["intégration"],
     whatText:
       "Une intégration de logiciels permet à plusieurs systèmes d’échanger automatiquement des données : contacts, statuts, commandes, documents ou informations métier. Elle réduit la double saisie et maintient une source de référence claire. L’automatisation organise les étapes d’un processus, tandis que l’intégration transporte les données entre un CRM, un ERP, un site web, une API ou une base de données.",
@@ -312,7 +312,7 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Couche d’intégration",
     coreChips: ["CRM", "ERP", "API", "Base de données", "Site web", "Outils SaaS", "Documents", "Reporting"],
     coreNote: "Chaque échange est limité aux données nécessaires, et consigné pour pouvoir être vérifié.",
-    afterTitle: "Vos intégrations demandent un suivi technique",
+    afterTitle: "Vos intégrations demandent\nun suivi technique",
     afterTitleAccents: ["suivi technique"],
     afterText: "Une connexion entre logiciels dépend d’API, de formats et de services externes qui peuvent évoluer. Après la mise en service, nous surveillons les échanges, les erreurs, les quotas et les changements techniques susceptibles d’affecter la synchronisation.",
     after: [
@@ -422,7 +422,7 @@ const fr: Record<string, ServicePageContent> = {
     coreCentre: "Vos équipes",
     coreChips: ["Cas pratiques", "Exercices métier", "Méthodes de vérification", "Règles de partage", "Référents internes", "Supports écrits", "Suivi d’adoption", "Questions ouvertes"],
     coreNote: "Aucune certification n’est délivrée, et aucune prise en charge financière n’est présumée.",
-    afterTitle: "L’adoption de l’IA continue après la formation",
+    afterTitle: "L’adoption de l’IA continue\naprès la formation",
     afterTitleAccents: ["continue"],
     afterText: "Les nouveaux usages ne s’installent pas pendant une seule séance : ils se construisent dans les semaines suivantes, au contact des situations réelles. Nous proposons un suivi des équipes, un appui aux référents internes et une mise à jour régulière des exemples et supports.",
     after: [
@@ -445,10 +445,10 @@ const fr: Record<string, ServicePageContent> = {
 };
 
 const en: Record<string, ServicePageContent> = {
-  "assistants-agents-ia": {
-    kicker: "AI assistants & agents",
-    h1: "AI assistants and agents built into your tools",
-    h1Accents: ["AI assistants and agents"],
+  "agents-ia": {
+    kicker: "AI agents",
+    h1: "AI agents built into your tools",
+    h1Accents: ["AI agents"],
     whatKicker: "Understanding AI agents",
     whatTitle: "What is an AI agent?",
     whatTitleAccents: ["AI agent?"],
@@ -492,13 +492,13 @@ const en: Record<string, ServicePageContent> = {
     ],
     ctaTitle: "Let's see whether an AI agent fits your business",
     ctaTitleAccents: ["AI agent"],
-    ctaText: "Describe one specific task that takes your team's time. The first conversation checks whether an assistant or an agent can genuinely help, and on what terms.",
+    ctaText: "Describe one specific task that takes your team's time. The first conversation checks whether an AI agent can genuinely help, and on what terms.",
     faqTitle: "Frequently asked questions about AI agents",
     faqTitleAccents: ["AI agents"],
     faqExtra: [
       { q: "What is the difference between an AI agent and a chatbot?", a: "A chatbot answers inside a chat window. An AI agent is connected to your tools: it can search your data, prepare a document or create a task, within a defined scope. Conversation is only one of the ways to trigger it." },
       { q: "Can it use the software we already have?", a: "That is the point. We first check the access actually available in your CRM, mailbox or document spaces, then restrict the agent to the operations it needs." },
-      { q: "How long does it take to put one in service?", a: "It depends on the scope, the quality of your documentation and the available access. An assistant limited to one task is faster to deliver than an agent acting across several systems. We estimate the time after scoping." },
+      { q: "How long does it take to put one in service?", a: "It depends on the scope, the quality of your documentation and the available access. An AI agent limited to one task is faster to deliver than an agent acting across several systems. We estimate the time after scoping." },
     ],
   },
 

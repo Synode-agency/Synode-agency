@@ -103,7 +103,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       kicker={p.kicker}
       title={renderLines(p.h1, p.h1Accents, "title-accent")}
       aside={
-        family.slug === "assistants-agents-ia" ? (
+        family.slug === "agents-ia" ? (
           /* La seule famille dont on peut montrer le déroulé complet, de la
              recherche à la validation humaine. */
           <div className="family-hero-art family-hero-art--demo"><AgentDemo locale={locale} /></div>

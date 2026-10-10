@@ -7,7 +7,7 @@ import { path } from "@/lib/content";
 const locale = "fr";
 
 /* Métadonnées propres aux cinq services optimisés. La page générale des
-   solutions et la page Assistants & Agents IA gardent leur contenu actuel. */
+   solutions et la page Agents IA gardent leur contenu actuel. */
 const SERVICE_SEO: Record<string, { title: string; description: string }> = {
   "automatisations-intelligentes": {
     title: "Automatisation des processus métier avec l’IA | Synode",

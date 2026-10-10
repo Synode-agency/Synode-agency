@@ -111,7 +111,7 @@ Les modifications futures portent uniquement sur les éléments explicitement de
 
 | Famille | Ce que nous pouvons concevoir | Exemple de besoin |
 | --- | --- | --- |
-| 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
+| 01 Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
 | 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
 | 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
 | 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
@@ -133,7 +133,7 @@ Les familles se combinent selon le besoin. Formation & Adoption IA comprend la f
 
 | Famille | Route FR |
 | --- | --- |
-| Assistants & Agents IA | `/solutions/assistants-agents-ia` |
+| Agents IA | `/solutions/agents-ia` |
 | Automatisations intelligentes | `/solutions/automatisations-intelligentes` |
 | Logiciels & Applications IA sur mesure | `/solutions/logiciels-applications-ia` |
 | Intégrations & systèmes connectés | `/solutions/integrations-systemes-connectes` |

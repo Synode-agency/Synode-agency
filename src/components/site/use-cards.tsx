@@ -67,7 +67,7 @@ type Copy = (typeof COPY)["fr"] | (typeof COPY)["en"];
 
 /** Un aperçu par usage, dans l'ordre des `items`. */
 function Preview({ set, kind, c, sc }: { set: string; kind: number; c: Copy; sc: SetCopy }) {
-  if (set !== "assistants-agents-ia") return <SetPreview set={set} kind={kind} c={sc} />;
+  if (set !== "agents-ia") return <SetPreview set={set} kind={kind} c={sc} />;
   switch (kind) {
     /* ---- 1 · Répondre aux demandes courantes ---- */
     case 0:
