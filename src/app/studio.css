@@ -12480,13 +12480,28 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   background: #ffffff;
 }
 
-/* ⚠ Le calendrier du hero est une carte BLANCHE posée sur un fond sombre :
-   sans ces jetons, son texte héritait du blanc de la bande et disparaissait.
-   La règle existait déjà pour la carte du CTA de l'accueil, elle couvre
-   maintenant aussi le hero de Contact. */
-.home-hero-dark .booking--card {
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  color: #464444;
+/* ⚠ LE CALENDRIER DU HERO DE CONTACT EST UNE CARTE BLANCHE SUR FOND SOMBRE.
+   Il hérite sinon de TOUS les jetons de la bande sombre : texte blanc sur
+   carte blanche, filets clairs invisibles, et un bouton principal en bleu
+   clair sur blanc. La carte repasse donc en entier sur le jeu de jetons des
+   fonds clairs.
+
+   Les deux classes sont visées parce que le composant en rend une ou
+   l'autre : `booking--card` quand le calendrier Cal.com est branché,
+   `calendar-demo` quand c'est l'aperçu de démonstration.
+
+   ⚠ Règle à part, et non ajoutée à `.dark-cta .calendar-demo` : la carte du
+   CTA de l'accueil garde ses propres filets, et étendre cette règle
+   changerait son dessin sans qu'on l'ait demandé. */
+.home-hero-dark :is(.booking--card, .calendar-demo) {
+  color: #19304f;
+  --foreground: #19304f;
+  --muted-foreground: #5f6f84;
+  --text-mono: #71839a;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
 }

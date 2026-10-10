@@ -464,7 +464,7 @@ const en: Record<string, ServicePageContent> = {
     usesText: "These are the uses we meet most often in business. Your need may be different: it is scoped around your own processes.",
     uses: [
       { title: "Answer routine requests", text: "Prepare a reply from your documents, with the sources used.", form: "Conversational agent" },
-      { title: "Search your documents", text: "Find a precise detail inside authorised files.", form: "Document agent" },
+      { title: "Search your documents", text: "Find one specific detail inside authorised files.", form: "Document agent" },
       { title: "Qualify an incoming request", text: "Identify the subject, the urgency and who should handle it.", form: "Sales agent" },
       { title: "Update your CRM", text: "Create or complete a record after an exchange, using agreed fields.", form: "Operations agent" },
       { title: "Prepare a quote or a file", text: "Gather what is needed and propose a document to review.", form: "Admin agent" },

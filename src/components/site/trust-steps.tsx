@@ -40,7 +40,7 @@ const ITEMS = {
     { title: "Suivi technique", text: "Le fonctionnement de votre système IA peut être surveillé afin de détecter les erreurs, comportements anormaux ou problèmes d’intégration et de maintenir la solution dans de bonnes conditions d’exploitation.", pill: "exécution surveillée" },
   ],
   en: [
-    { title: "Data confidentiality", text: "Your data is used only within the scope defined for your AI solution, with access restricted to authorised people and systems in order to keep it confidential.", pill: "access checked" },
+    { title: "Data confidentiality", text: "Your data is used only within the scope defined for your AI solution, with access restricted to the people and systems that are authorised to see it.", pill: "access checked" },
     { title: "Human control", text: "Sensitive decisions and important actions can remain subject to human approval, to keep a level of control that suits your business and your processes.", pill: "action approved" },
     { title: "Secure access and integrations", text: "Connections to your software, databases and business tools are configured with appropriate access rights and limited to the information your AI solution needs to run.", pill: "access limited" },
     { title: "Technical monitoring", text: "Your AI system can be watched, so that errors, unusual behaviour or integration problems are detected and the solution is kept in good running order.", pill: "run monitored" },
