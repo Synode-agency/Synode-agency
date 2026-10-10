@@ -42,7 +42,6 @@ export const ROUTES = {
   method: "/methode",
   work: "/realisations",
   tools: "/outils",
-  aiDiagnostic: "/outils/diagnostic-potentiel-ia",
   team: "/equipe",
   contact: "/contact",
   thanks: "/merci",
@@ -109,12 +108,12 @@ const fr = {
     hero: {
       title:
         "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations.",
-      text: "Nous concevons des assistants, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
+      text: "Nous concevons des agents IA, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
       secondaryCta: "Voir les cas d’usage",
       /* Ce que le visiteur doit comprendre en une ligne, sous les boutons.
          Ce ne sont pas des liens : à l'arrivée il a deux choix, pas six. */
       stack: [
-        "Assistants IA",
+        "Agents IA",
         "Automatisations",
         "Intégrations",
         "Outils métier",
@@ -163,7 +162,7 @@ const fr = {
       text: "Un petit projet ciblé et un outil métier complet relèvent de la même offre. Ce qui change, c’est le périmètre, le budget et l’accompagnement, pas la nature du travail.",
       /* Les briques ne sont pas un menu : ce sont les matériaux possibles. */
       bricks: [
-        { title: "Assistants et agents IA", text: "Analyse, recherche, préparation de réponses, aide à la décision." },
+        { title: "Agents IA", text: "Analyse, recherche, préparation de réponses, aide à la décision." },
         { title: "Automatisations", text: "Traitement des demandes, des documents, des tâches et des circuits de validation." },
         { title: "Intégrations", text: "Connexion à vos logiciels et à vos données existants." },
         { title: "Outils métier", text: "Interfaces, espaces internes, bases de données et tableaux de bord." },
@@ -179,7 +178,7 @@ const fr = {
         toolsLabel: "Vos outils, tels qu’ils sont",
         tools: ["CRM", "Email", "Documents", "Agenda", "Logiciel métier"],
         coreLabel: "La solution Synode",
-        core: ["Assistants IA", "Automatisations", "Intégrations", "Interface métier"],
+        core: ["Agents IA", "Automatisations", "Intégrations", "Interface métier"],
         outLabel: "Vos processus",
         out: ["Demandes traitées", "Documents produits", "Suivi à jour"],
         humanLabel: "Vous gardez la validation sur ce qui compte",
@@ -265,9 +264,9 @@ const fr = {
     bricksText: "Six familles complémentaires pour les indépendants, TPE et PME. Un projet peut en combiner plusieurs, selon votre besoin. Aucun forfait imposé.",
     bricks: [
       {
-            "slug": "assistants-agents-ia",
-            "title": "Assistants & Agents IA",
-            "text": "Des assistants IA pour rechercher, rédiger et analyser vos informations, ainsi que des agents IA capables d’exécuter des actions dans un cadre défini.",
+            "slug": "agents-ia",
+            "title": "Agents IA",
+            "text": "Des agents IA pour rechercher, rédiger et analyser vos informations, capables d’enchaîner plusieurs étapes et d’exécuter des actions dans un cadre défini.",
             "benefit": "Accéder plus vite à l’information et accélérer les tâches quotidiennes.",
             "example": "Un agent IA prépare une réponse client à partir de vos documents, cite ses sources et demande votre validation avant envoi.",
             "visual": 0
@@ -441,35 +440,37 @@ const fr = {
 
   /* ------------------------------------------------------------------- Équipe */
   team: {
-    metaTitle: "L’équipe Synode",
+    metaTitle: "Équipe IA à Bruxelles : Antonino et Killian",
     metaDescription:
-      "Deux associés : qui comprend et suit votre besoin, qui conçoit et réalise la solution. Comment nous travaillons avec vous.",
+      "Découvrez l’équipe de Synode, agence IA à Bruxelles : deux développeurs spécialisés en agents IA, automatisations, intégrations et logiciels métier sur mesure.",
     kicker: "L’équipe",
     title: "Pourquoi nous\n^construisons Synode.",
     vision:
-      "Beaucoup d’entreprises entendent parler d’IA sans jamais voir ce que cela changerait chez elles. Les démonstrations impressionnent, puis rien n’arrive dans le travail réel. Nous avons fait Synode pour l’autre chemin : partir d’une tâche précise qui coûte du temps, et construire ce qui la prend en charge.",
-    peopleTitle: "Deux profils, une même exigence.",
+      "Synode est une agence IA à Bruxelles fondée par Antonino et Killian. Nous concevons des agents IA, des automatisations, des intégrations et des logiciels métier sur mesure à partir des processus, des outils et des données de chaque entreprise.",
+    peopleTitle: "Deux développeurs :\ndes expertises IA complémentaires",
     people: [
       {
         first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · Développeur & Expert IA",
-        text: "Conception des workflows et des agents : il cartographie vos processus, choisit ce qui vaut la peine d’être automatisé et le met en production.",
+        text: "Antonino analyse vos processus métier, conçoit les workflows et développe les agents IA. Il identifie les tâches qui méritent d’être automatisées et prépare leur intégration dans votre environnement.",
       },
       {
         first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Développeur & Expert IA",
-        text: "Développement des applications, outils internes et intégrations : il construit ce qui n’existe pas encore et connecte ce que vous avez déjà.",
+        text: "Killian développe les applications IA, les logiciels métier et les intégrations entre vos outils. Il transforme le besoin cadré en une solution utilisable, testée et adaptée à votre activité.",
       },
     ],
-    complementTitle: "Notre complémentarité",
+    complementTitle: "Complémentaires\npour vos projets IA",
     complementText:
-      "Deux expertises, un même objectif : relier la compréhension de vos processus à la construction d’outils utiles. Workflows, agents, applications et intégrations se complètent dans une solution pensée pour votre activité.",
-    workingTitle: "Notre manière de travailler",
+      "Notre équipe réunit l’analyse des processus, la conception d’agents IA, l’automatisation, le développement d’applications et l’intégration de logiciels. Ces compétences se combinent pour construire une solution IA cohérente avec votre organisation.",
+    workingTitle: "Comment nous accompagnons\nvotre projet IA",
     working: [
-      "Un interlocuteur identifié pour votre projet, du premier échange au suivi.",
-      "Des explications en langage courant, pas en vocabulaire technique.",
-      "Des étapes visibles : vous savez toujours où en est le projet.",
-      "Des décisions écrites, pour que personne n’ait à se souvenir de ce qui avait été dit.",
+      "Un interlocuteur identifié pour votre projet IA, du cadrage initial à la mise en service.",
+      "Une analyse de vos processus, de vos données et des logiciels à connecter avant le développement.",
+      "Des étapes visibles, des tests sur vos cas réels et des validations humaines définies avec vous.",
+      "Une documentation claire et des modalités de maintenance précisées avant le déploiement.",
     ],
-    cta: "Échangeons sur votre projet",
+    cta: "Parlons de votre projet",
+    ctaText:
+      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions IA sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
   },
 
   /* ------------------------------------------------------------------ Contact */
@@ -479,7 +480,7 @@ const fr = {
       "Réservez un échange gratuit de 30 minutes, ou décrivez votre besoin par écrit. Sans engagement.",
     kicker: "Contact",
     title: "Parlons de\n^votre projet.",
-    text: "Deux façons de commencer, au choix. Vous n’avez rien à remplir pour accéder au calendrier.",
+    text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
 
     booking: {
       title: "Réserver un échange de 30 minutes",
@@ -592,9 +593,9 @@ const en = {
     hero: {
       title:
         "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations.",
-      text: "We build assistants, automations and internal tools that take work off your plate and put your own data to use.",
+      text: "We build AI agents, automations and internal tools that take work off your plate and put your own data to use.",
       secondaryCta: "See the use cases",
-      stack: ["AI assistants", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
+      stack: ["AI agents", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
     },
 
     problems: {
@@ -637,7 +638,7 @@ const en = {
       title: "One offer,\n^built for you.",
       text: "A small, targeted project and a full internal tool are the same offer. What changes is the scope, the budget and the support, not the nature of the work.",
       bricks: [
-        { title: "AI assistants and agents", text: "Reading, searching, summarising, drafting, helping a decision along." },
+        { title: "AI agents", text: "Reading, searching, summarising, drafting, helping a decision along." },
         { title: "Automations", text: "Handling requests, documents, tasks and approval routes." },
         { title: "Integrations", text: "Connecting the software and the data you already have." },
         { title: "Internal tools", text: "Interfaces, internal spaces, databases and dashboards." },
@@ -650,7 +651,7 @@ const en = {
         toolsLabel: "Your tools, as they are",
         tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
         coreLabel: "The Synode solution",
-        core: ["AI assistants", "Automations", "Integrations", "Business interface"],
+        core: ["AI agents", "Automations", "Integrations", "Business interface"],
         outLabel: "Your processes",
         out: ["Requests handled", "Documents produced", "Follow-up current"],
         humanLabel: "You keep approval on what matters",
@@ -726,7 +727,7 @@ const en = {
   solutions: {
     metaTitle: "Custom AI solutions for freelancers and small companies",
     metaDescription:
-      "Six families of custom AI solutions: assistants, automations, software, integrations, data and training. For freelancers and small businesses.",
+      "Six families of custom AI solutions: agents, automations, software, integrations, data and training. For freelancers and small businesses.",
     kicker: "What we sell",
     title: "A solution built\n^from your need.",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
@@ -735,9 +736,9 @@ const en = {
     bricksText: "Six complementary families for freelancers and small businesses. A project can combine several, depending on your needs. No fixed packages.",
     bricks: [
       {
-            "slug": "assistants-agents-ia",
-            "title": "AI Assistants & Agents",
-            "text": "AI assistants that search, draft or analyse information, and AI agents that carry out a sequence of actions within an agreed scope.",
+            "slug": "agents-ia",
+            "title": "AI Agents",
+            "text": "AI agents that search, draft or analyse information, and carry out a sequence of actions within an agreed scope.",
             "benefit": "Find information and prepare the next step.",
             "example": "A customer reply drafted from your documents, with sources and your approval.",
             "visual": 0
@@ -879,34 +880,36 @@ const en = {
   },
 
   team: {
-    metaTitle: "The Synode team",
+    metaTitle: "AI team in Brussels: Antonino and Killian",
     metaDescription:
-      "Two partners: one who understands and follows your need, one who designs and builds the solution. How we work with you.",
+      "Meet the Synode team, an AI agency in Brussels: two developers specialising in AI agents, automation, integrations and custom business software.",
     kicker: "The team",
     title: "Why we are\n^building Synode.",
     vision:
-      "Plenty of companies hear about AI without ever seeing what it would change for them. The demos are impressive, then nothing reaches the actual work. We built Synode for the other route: start from one specific task that costs real time, and build the thing that takes it on.",
-    peopleTitle: "Two perspectives, one shared standard.",
+      "Synode is an AI agency in Brussels founded by Antonino and Killian. We design AI agents, automations, integrations and custom business software around each company’s processes, tools and data.",
+    peopleTitle: "Two developers with complementary AI expertise",
     people: [
       {
         first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · Developer & AI Expert",
-        text: "Workflow and agent design: he maps your processes, identifies what is worth automating and brings it into production.",
+        text: "Antonino analyses business processes, designs workflows and develops AI agents. He identifies the tasks worth automating and prepares their integration into your environment.",
       },
       {
         first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Developer & AI Expert",
-        text: "Applications, internal tools and integrations: he builds what does not yet exist and connects what you already use.",
+        text: "Killian develops AI applications, business software and integrations between your tools. He turns the scoped need into a usable, tested solution suited to your business.",
       },
     ],
-    complementTitle: "How we complement each other",
-    complementText: "Two areas of expertise, one shared goal: connecting an understanding of your processes with the tools you need. Workflows, agents, applications and integrations come together in a solution designed for your business.",
-    workingTitle: "How we work",
+    complementTitle: "A complementary team\nfor your AI projects",
+    complementText: "Our team combines process analysis, AI agent design, automation, application development and software integration. These capabilities come together in an AI solution aligned with your organisation.",
+    workingTitle: "How we support\nyour AI project",
     working: [
-      "One named contact for your project, from the first call through to support.",
-      "Plain explanations, not technical vocabulary.",
-      "Visible stages: you always know where the project stands.",
-      "Decisions in writing, so nobody has to remember what was said.",
+      "One named contact for your AI project, from initial scoping to go-live.",
+      "An analysis of your processes, data and software connections before development starts.",
+      "Visible stages, tests on real cases and human approvals defined with you.",
+      "Clear documentation and maintenance terms agreed before deployment.",
     ],
     cta: "Let’s talk about your project",
+    ctaText:
+      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom AI solutions the same way: one named contact per subject, from scoping to go-live.",
   },
 
   contact: {
@@ -914,7 +917,7 @@ const en = {
     metaDescription: "Book a free 30-minute call, or describe your need in writing. No strings attached.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project.",
-    text: "Two ways to start, your choice. You do not have to fill anything in to reach the calendar.",
+    text: "A first call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit.",
 
     booking: {
       title: "Book a 30-minute call",

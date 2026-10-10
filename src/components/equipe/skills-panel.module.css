@@ -1,0 +1,147 @@
+/* =====================================================================
+   LE PANNEAU « COMPÉTENCES RÉUNIES »
+
+   Cinq lignes séparées par un filet, et une ligne de résultat qui ne
+   s'allume qu'à la fin. Les transitions portent sur les couleurs et sur la
+   largeur des jauges, jamais sur la position : rien ne bouge dans le
+   panneau, il se remplit.
+   ===================================================================== */
+
+.panel {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #eceef1;
+  background: #fafbfc;
+  font-size: 12px;
+}
+.head span {
+  white-space: nowrap;
+  color: #6b6f76;
+}
+.head em {
+  font-style: normal;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+
+/* ---- Une compétence ---- */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px;
+  border-bottom: 1px solid #eceef1;
+}
+.num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #dde3eb;
+  border-radius: 999px;
+  background: #ffffff;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1;
+  color: #a0a5ad;
+  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+.label {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  color: #8a8f98;
+  transition: color 0.5s ease;
+}
+.rowOn .num {
+  border-color: #0b6be6;
+  background: #0b6be6;
+  color: #ffffff;
+}
+.rowOn .label {
+  color: #2e2e2e;
+}
+.gauge {
+  flex: none;
+  width: 44px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eceef1;
+}
+.gauge b {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: #0b6be6;
+  transition: width 0.5s ease;
+}
+
+/* ---- La ligne de résultat ---- */
+.result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  transition: background-color 0.5s ease;
+}
+.resultOn {
+  background: #f4f8fe;
+}
+.tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #dde3eb;
+  transition: background-color 0.5s ease;
+}
+.resultOn .tick {
+  background: #2db37a;
+}
+.tick svg {
+  width: 16px;
+  height: 16px;
+  stroke: #ffffff;
+  stroke-width: 2.4;
+}
+.result span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.result strong {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.result em {
+  font-size: 12px;
+  font-style: normal;
+  color: #6b6f76;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .num,
+  .label,
+  .gauge b,
+  .result,
+  .tick {
+    transition: none;
+  }
+}

@@ -116,7 +116,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <div className="section-heading">
           <Lede
             kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
-            title={fr ? "Des cas d’usage IA pour vos enjeux métier" : "Use cases for your business challenges"}
+            title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "Use cases for your business challenges"}
             accents={fr ? ["cas d’usage IA"] : ["Use cases"]}
             text={fr ? "Nos solutions IA pour entreprises répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "See how our AI solutions can answer concrete business problems, from handling customer requests to document analysis, by way of lead qualification and day-to-day steering."}
           />
@@ -171,7 +171,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <Lede
             kicker={fr ? "Sécurité & contrôle" : "Security & control"}
             title={fr ? "Sécurité et contrôle\nde vos solutions IA" : "Reliable AI solutions you stay in control of"}
-            accents={fr ? ["solutions IA"] : ["stay in control"]}
+            accents={fr ? ["Sécurité", "contrôle"] : ["stay in control"]}
             text={fr ? "La protection des données, la gestion des accès, la validation humaine et le monitoring sont intégrés dès la conception. Les mesures retenues dépendent des usages, des logiciels connectés et des risques du projet." : "Security, data confidentiality, access management, human control and technical monitoring are defined against the needs and the risks of each project."}
           />
         </div>
@@ -187,7 +187,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
           title={fr ? "Prix d’une solution IA sur mesure :\nnotre tarification" : "How we charge"}
-          accents={fr ? ["notre tarification"] : ["How we charge"]}
+          accents={fr ? ["tarification"] : ["How we charge"]}
           text={fr ? "Le budget d’un projet IA dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
         />
         <PricingDoc locale={locale} />
@@ -215,7 +215,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </CardPanel>
 
       <Band id="faq" tone="base" className="solutions-rhythm solutions-faq-light">
-        <Lede kicker={fr ? "Questions fréquentes sur nos solutions IA" : "Frequently asked questions about our AI solutions"} title={solutions.faqTitle} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} />
+        <Lede kicker={fr ? "Questions fréquentes sur nos solutions IA" : "Frequently asked questions about our AI solutions"} title={solutions.faqTitle} accents={fr ? ["solutions IA"] : ["custom AI solutions"]} />
         <div className="section-gap"><FaqAccordion items={solutions.faq} /></div>
       </Band>
     </Shell>

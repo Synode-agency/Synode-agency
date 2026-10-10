@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     languages: { fr: "/equipe", en: "/en/equipe" },
   },
   openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/equipe`, type: "website" },
+  twitter: { card: "summary_large_image", title: c.metaTitle, description: c.metaDescription },
 };
 
 export default function Page() {

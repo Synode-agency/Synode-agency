@@ -69,7 +69,7 @@ const fr = {
       text: "Automatiser certaines étapes répétitives et orchestrer le passage d’une action à l’autre.",
     },
     agents: {
-      title: "Assistants & Agents IA",
+      title: "Agents IA",
       text: "Analyser, rechercher, contextualiser ou préparer les informations nécessaires à vos équipes.",
     },
     integration: {
@@ -157,7 +157,7 @@ const en: typeof fr = {
       text: "Automate repetitive steps and orchestrate the move from one action to the next.",
     },
     agents: {
-      title: "AI assistants & agents",
+      title: "AI agents",
       text: "Analyse, search, contextualise or prepare the information your teams need.",
     },
     integration: {

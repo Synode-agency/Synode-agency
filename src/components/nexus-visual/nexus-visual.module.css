@@ -1,0 +1,552 @@
+/* =====================================================================
+   LE VISUEL DE LA CARTE NEXUS
+
+   ⚠ Toute la géométrie est posée au pixel sur une base de 800 × 500. Rien
+   ici n'est en pourcentage de la carte, et rien ne doit l'être : c'est le
+   `transform: scale()` du composant qui adapte la scène. Remplacer une
+   mesure par un `%` ou un `clamp()` casse l'alignement de toute la scène.
+   ===================================================================== */
+
+.root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* ⚠ Même valeur que `.visual` dans `home-work-cards.module.css` : les deux
+     cartes de projet partagent ce fond, sur l'accueil comme sur la page
+     Réalisations. Si l'une change, l'autre change. */
+  background: #eef2f8;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.scene {
+  position: absolute;
+  left: 0;
+  width: 800px;
+  height: 500px;
+  transform-origin: 0 0;
+}
+
+/* ---- La fenêtre de l'application ---- */
+.win {
+  position: absolute;
+  left: 140px;
+  top: 50px;
+  width: 520px;
+  height: 400px;
+  box-sizing: border-box;
+  border: 1px solid #233149;
+  border-radius: 14px;
+  background: #0f1726;
+  box-shadow: 0 40px 80px rgb(15 23 38 / 28%);
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #1c2840;
+  border-radius: 13px 13px 0 0;
+  background: #121b2d;
+}
+.dots {
+  display: flex;
+  gap: 5px;
+}
+.dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #2a3854;
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  border-radius: 4px;
+  background: #0b6be6;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+}
+.brand {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.product {
+  margin-left: auto;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #7d8ba3;
+}
+
+/* ---- La barre latérale ---- */
+.side {
+  position: absolute;
+  left: 0;
+  top: 38px;
+  bottom: 0;
+  width: 48px;
+  padding-top: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border-right: 1px solid #1c2840;
+}
+.tile {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #1c2840;
+  border-radius: 6px;
+  background: #152036;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.tileOn {
+  border-color: #4e8ff0;
+  background: #17284a;
+}
+
+/* ---- La zone principale ---- */
+.main {
+  position: absolute;
+  left: 64px;
+  right: 16px;
+  top: 54px;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid #233149;
+  border-radius: 9px;
+  background: #152036;
+  transition: border-color 0.3s ease;
+}
+/* La bordure bleue ne dure que le temps de la saisie. */
+.searchTyping {
+  border-color: #4e8ff0;
+}
+.searchIcon {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: #5e6e8a;
+}
+/* ⚠ 11,5px et non 12,5 : la zone principale fait 438px, dont 24 de retrait,
+   14 d'icône et 81 pour le compteur, soit environ 300px pour la requête. À
+   12,5px ses 52 caractères en demandent 325 et la ligne débordait. Le
+   `overflow` est un garde-fou, pas une solution : si la requête s'allonge,
+   c'est la taille qu'il faut revoir. */
+.query {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #e6ecf5;
+}
+.caret {
+  width: 1px;
+  height: 14px;
+  background: #4e8ff0;
+  opacity: 0;
+}
+.count {
+  flex: none;
+  margin-left: auto;
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #7d8ba3;
+}
+
+/* ---- Le tableau ----
+   Les en-têtes et les lignes partagent la même grille et le même retrait :
+   c'est la seule façon qu'ils restent alignés. */
+.head,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px 92px 86px;
+  gap: 10px;
+  align-items: center;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+.head {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44px;
+  height: 12px;
+}
+.head span {
+  font-size: 10px;
+  white-space: nowrap;
+  color: #5e6e8a;
+}
+.rows {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 58px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.row {
+  height: 42px;
+  border: 1px solid #1c2840;
+  border-radius: 8px;
+  background: #131d31;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+/* La ligne retenue, une fois la fiche ouverte. */
+.rowOn {
+  border-color: #4e8ff0;
+  background: #17284a;
+}
+.who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.rowMark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 9.5px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+}
+.rowName {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.rowName strong {
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.rowName em {
+  font-size: 9.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #7d8ba3;
+}
+.size {
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #7d8ba3;
+}
+.score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gauge {
+  flex: 1;
+  height: 4px;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #1f2c45;
+}
+.gauge b {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+}
+.score > span {
+  flex: none;
+  width: 20px;
+  font-size: 11px;
+  text-align: right;
+  white-space: nowrap;
+  color: #e6ecf5;
+}
+.statusCell {
+  display: flex;
+  justify-content: flex-start;
+}
+.pill {
+  padding: 3px 8px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 10px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.ok {
+  border-color: #1f5c3f;
+  background: #123a2a;
+  color: #34d399;
+}
+.wait {
+  border-color: #2f5fa8;
+  background: #16335a;
+  color: #8ec1ff;
+}
+.off {
+  border-color: #2a3854;
+  background: #1a2334;
+  color: #8c97ab;
+}
+
+/* ---- La fiche de l'entreprise ----
+   Elle flotte au-dessus de la fenêtre et dépasse de son bord droit, avec
+   40px de marge jusqu'au bord de la scène. */
+.sheet {
+  position: absolute;
+  left: 510px;
+  top: 106px;
+  width: 250px;
+  box-sizing: border-box;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 30px 60px rgb(20 40 80 / 16%);
+}
+.sheetHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-bottom: 1px solid #eceef1;
+}
+.sheetMark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #0b6be6;
+  color: #ffffff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+}
+.sheetWho {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.sheetWho strong {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #1f3a5f;
+}
+/* Le seul libellé de la scène qui peut être tronqué : il est plus long que
+   sa colonne, et l'ellipse vaut mieux qu'un retour à la ligne. */
+.sheetWho em {
+  overflow: hidden;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #8a8f98;
+}
+.sheetScore {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid #cbebd9;
+  border-radius: 999px;
+  background: #edf8f2;
+  font-size: 10px;
+  white-space: nowrap;
+  color: #1e8a5c;
+}
+.why {
+  display: block;
+  padding: 12px 12px 0;
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #8a8f98;
+}
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0 10px;
+  list-style: none;
+}
+/* ⚠ 11,5px et non 12 : la fiche fait 250px, dont 20 de retrait, 15 de coche
+   et 8 d'écart, soit 207px utiles. À 12px, « Besoin probable : devis et
+   relances » en demande environ 200 et sortait de la carte blanche au
+   moindre écart de police. */
+.reasons li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #2e2e2e;
+}
+.reasons i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: #edf8f2;
+  color: #1e8a5c;
+  font-size: 9px;
+  font-style: normal;
+  line-height: 1;
+}
+.draft {
+  margin: 12px;
+  padding: 10px;
+  border: 1px solid #eceef1;
+  border-radius: 10px;
+  background: #f7f8fa;
+}
+.draftHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.draftHead em {
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8a8f98;
+}
+.draftState {
+  font-size: 10px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #0b6be6;
+  transition: color 0.3s ease;
+}
+.draftReady {
+  color: #1e8a5c;
+}
+/* ⚠ De VRAIES lettres, pas des lignes grises : un faux texte fait de barres
+   ne dit pas qu'un message est rédigé. La hauteur minimale réserve la place
+   du message fini, pour que la fiche ne grandisse pas en s'écrivant. */
+.message {
+  min-height: 58px;
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: #2e2e2e;
+}
+.msgCaret {
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  margin-left: 1px;
+  vertical-align: -1px;
+  background: #0b6be6;
+  opacity: 0;
+}
+
+/* ---- La carte des leads qualifiés ----
+   Elle flotte au-dessus de la fenêtre et dépasse de son bord gauche, avec
+   40px de marge jusqu'au bord de la scène. */
+.kpi {
+  position: absolute;
+  left: 40px;
+  top: 386px;
+  width: 210px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  /* 10px de retrait et 9px d'écart, et non 12 et 10 : « Leads qualifiés
+     cette semaine » à 10,5px demande 142px, et la carte n'en offrait que
+     142. Ces trois pixels sont la marge. */
+  gap: 9px;
+  padding: 10px;
+  border: 1px solid #dde3eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 20px 40px rgb(20 40 80 / 14%);
+}
+.kpiIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d6e2fa;
+  border-radius: 9px;
+  background: #f4f8fe;
+  color: #0b6be6;
+}
+.kpiIcon svg {
+  width: 17px;
+  height: 17px;
+}
+.kpiBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.kpiBody em {
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8a8f98;
+}
+.kpiLine {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.kpiLine strong {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.1;
+  white-space: nowrap;
+  color: #1f3a5f;
+}
+.kpiDelta {
+  font-size: 11px;
+  white-space: nowrap;
+  color: #1e8a5c;
+}
+
+/* ⚠ L'horloge n'est pas armée sous `prefers-reduced-motion` : la scène rend
+   son état final. Il ne reste que les transitions de couleur à couper. */
+@media (prefers-reduced-motion: reduce) {
+  .search,
+  .tile,
+  .row,
+  .pill,
+  .draftState {
+    transition: none;
+  }
+}

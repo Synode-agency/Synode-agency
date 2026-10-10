@@ -17,7 +17,7 @@ export function OfferCard({
       <div className="solution-offer-copy">
         <span className="eyebrow"><span className="status-dot" />{fr ? "Une offre. Votre solution." : "One offer. Your solution."}</span>
         <h2>{fr ? "Solutions IA sur mesure" : "Custom AI solutions"}</h2>
-        <p>{fr ? "Un assistant, un processus automatisé ou un outil métier complet. Nous construisons la solution qui répond à votre besoin, connectée à votre façon de travailler." : "An assistant, an automated process or a complete internal tool. We build the solution your business needs, connected to the way you work."}</p>
+        <p>{fr ? "Un agent IA, un processus automatisé ou un outil métier complet. Nous construisons la solution qui répond à votre besoin, connectée à votre façon de travailler." : "An AI agent, an automated process or a complete internal tool. We build the solution your business needs, connected to the way you work."}</p>
         <ul className="domain-badges" aria-label={fr ? "Quatre domaines d’application" : "Four application areas"}>
           {domains(locale).map(d => <li key={d.slug}><Link href={`${path(locale, ROUTES.home)}#${d.slug}`}>{d.title}<ArrowRight aria-hidden /></Link></li>)}
         </ul>

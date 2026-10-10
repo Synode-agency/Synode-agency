@@ -42,7 +42,7 @@ Synode conçoit et développe des solutions pour indépendants, TPE et PME. Nous
 
 | Famille | Ce que nous pouvons concevoir | Exemple de besoin |
 | --- | --- | --- |
-| 01 Assistants & Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
+| 01 Agents IA | Assistants documentaires avec sources, copilotes métier, agents vocaux et agents capables d’exécuter des actions encadrées | Retrouver une information, préparer une réponse ou qualifier une demande |
 | 02 Automatisations intelligentes | Workflows, tri d’emails, extraction de documents, traitement administratif et circuits de validation | Transformer des documents reçus en données vérifiées et exploitables |
 | 03 Logiciels & Applications IA sur mesure | Logiciels métier internes, interfaces sur mesure et fonctionnalités ou produits IA destinés aux clients de l’entreprise | Centraliser une activité ou intégrer un copilote dans un produit |
 | 04 Intégrations & systèmes connectés | Connexions entre API, CRM, ERP, outils existants et bases de données | Synchroniser les informations et limiter les doubles saisies |
@@ -69,7 +69,7 @@ Routes proposées, à adapter aux conventions existantes sans casser les URL act
 
 | Famille | Route FR |
 | --- | --- |
-| Assistants & Agents IA | `/solutions/assistants-agents-ia` |
+| Agents IA | `/solutions/agents-ia` |
 | Automatisations intelligentes | `/solutions/automatisations-intelligentes` |
 | Logiciels & Applications IA sur mesure | `/solutions/logiciels-applications-ia` |
 | Intégrations & systèmes connectés | `/solutions/integrations-systemes-connectes` |
@@ -92,7 +92,7 @@ Repères pédagogiques et scénarios à développer :
 
 | Famille | Explication attendue | Exemple principal illustratif |
 | --- | --- | --- |
-| Assistants & Agents IA | Distinguer un assistant qui aide à chercher, rédiger ou analyser à la demande, et un agent qui peut enchaîner des étapes et utiliser des outils dans un périmètre autorisé. Ces notions se recouvrent selon les systèmes ; ne pas promettre une autonomie sans contrôle. | Une PME reçoit une question client : l’assistant retrouve les informations dans une documentation autorisée et prépare une réponse sourcée ; un agent peut aussi créer une tâche dans le CRM, avec validation humaine avant les actions sensibles. |
+| Agents IA | Distinguer un assistant qui aide à chercher, rédiger ou analyser à la demande, et un agent qui peut enchaîner des étapes et utiliser des outils dans un périmètre autorisé. Ces notions se recouvrent selon les systèmes ; ne pas promettre une autonomie sans contrôle. | Une PME reçoit une question client : l’assistant retrouve les informations dans une documentation autorisée et prépare une réponse sourcée ; un agent peut aussi créer une tâche dans le CRM, avec validation humaine avant les actions sensibles. |
 | Automatisations intelligentes | Expliquer le déclencheur, les étapes et les règles d’un flux ; montrer où l’IA aide à comprendre ou classer une information. Toute automatisation n’utilise pas nécessairement de l’IA. | Une facture reçue par email est extraite, contrôlée puis transmise à l’outil comptable ; les données ambiguës sont envoyées à une personne pour validation. |
 | Logiciels & Applications IA sur mesure | Définir un outil métier comme une application conçue autour du travail réel des utilisateurs. Distinguer outil interne et produit ou fonctionnalité IA proposé aux clients. | Une société de services centralise ses demandes et interventions dans une interface ; l’IA prépare un compte rendu que le collaborateur relit avant envoi. |
 | Intégrations & systèmes connectés | Expliquer comment les logiciels échangent leurs données. Une intégration relie les outils ; une automatisation organise les étapes du processus, les deux peuvent se combiner. | Une demande validée sur le site crée ou met à jour le contact dans le CRM et transmet les informations utiles à l’outil de gestion, sans ressaisie. |

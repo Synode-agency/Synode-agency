@@ -21,8 +21,12 @@ export function ThanksPage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="blue">
-        <Lede as="h1" title={thanks.title} text={thanks.text} align="center" />
+      {/* ⚠ La bande est bleu nuit parce qu'elle est la PREMIÈRE section de la
+          page, pas à cause de son `tone` : le thème peint par rang. D'où
+          `thanks-band`, qui lui donne le bleu clair des mots peints des
+          heros — le bleu de marque n'y tiendrait que 2,9:1. */}
+      <Band id="top" tone="blue" className="thanks-band">
+        <Lede as="h1" title={thanks.title} accents={["message"]} text={thanks.text} align="center" />
         <p className="thanks-note">{thanks.notBooked}</p>
         <div className="btn-row cta-actions">
           <Link href={bookHref} className="btn btn--primary">

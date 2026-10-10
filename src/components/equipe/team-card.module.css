@@ -1,0 +1,100 @@
+/* =====================================================================
+   LES DEUX CARTES D'ASSOCIÉS
+
+   Photo à gauche, texte à droite. Deux `auto-fit` imbriqués : la grille
+   décide du nombre de cartes par rangée, et chaque carte décide si sa photo
+   et son texte tiennent côte à côte. Aucun point de rupture n'est écrit.
+   ===================================================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  border-color: #c9d8f5;
+  box-shadow: 0 20px 44px rgb(20 40 80 / 7%);
+}
+
+/* ---- La photo ----
+   Fond plat et neutre, le même que les zones image des cartes de projet, et
+   une bordure droite qui sépare les deux moitiés de la carte. */
+.photo {
+  position: relative;
+  min-height: 300px;
+  overflow: hidden;
+  border-right: 1px solid #eceef1;
+  background: #eef2f8;
+}
+.photo img {
+  object-fit: cover;
+}
+/* ---- Le texte ---- */
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 26px 26px 24px;
+}
+.headline {
+  width: fit-content;
+  padding: 4px 10px;
+  border: 1px solid #d6e2fa;
+  border-radius: 999px;
+  background: #f4f8fe;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.copy h3 {
+  margin: 6px 0 0;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: #2e2e2e;
+}
+.role {
+  margin: 0;
+  font-size: 12.5px;
+  color: #6b6f76;
+}
+.rule {
+  display: block;
+  height: 1px;
+  margin-block: 6px;
+  background: #eceef1;
+}
+.text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  text-wrap: pretty;
+  color: #5a5a5a;
+}
+
+/* L'accroche est la seule ligne que la carte ne peut pas replier : sous
+   cette largeur, elle déborderait de sa pastille. */
+@media (max-width: 420px) {
+  .headline {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

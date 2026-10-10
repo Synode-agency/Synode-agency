@@ -1,0 +1,55 @@
+/* =====================================================================
+   LA PAGE ÉQUIPE EN DEUX BLOCS
+
+   Le texte à gauche, exactement comme avant, et le visuel ajouté à droite.
+   La grille est la seule chose que ce module apporte : les textes gardent
+   leur position, leur couleur, leur typographie et leurs marges.
+
+   `auto-fit` décide seul du passage à une colonne, à partir de la largeur
+   réelle de la bande et non d'un point de rupture : sous environ 1000px, le
+   visuel passe donc sous le texte, aligné à gauche comme lui.
+   ===================================================================== */
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 48px 72px;
+  align-items: center;
+}
+
+.visual {
+  width: 100%;
+  max-width: 520px;
+  min-width: 0;
+  justify-self: start;
+}
+
+/* ---- La variante à trois enfants ----
+   La section « Comment nous accompagnons » a un titre, une liste et un
+   visuel. `auto-fit` ne sait pas exprimer ça : il ferait trois colonnes ou
+   trois rangées. Le placement est donc explicite, et il ne s'applique qu'à
+   partir de 1000px — en dessous, les trois enfants s'empilent dans l'ordre
+   du document, le visuel arrivant sous la liste. */
+.splitList {
+  display: grid;
+  gap: 48px 72px;
+}
+@media (min-width: 1000px) {
+  .splitList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+  }
+  .splitList > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .splitList > :nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+  }
+  .splitList > :nth-child(3) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}

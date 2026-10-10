@@ -1,0 +1,350 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
+  gap: 28px;
+  margin-top: 72px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 16px;
+  background: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid #eceef1;
+  /* ⚠ Même valeur que `.root` dans `nexus-visual.module.css` : les deux
+     cartes de projet partagent ce fond. Si l'une change, l'autre change. */
+  background: #eef2f8;
+}
+
+.scenarioVisual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: clamp(24px, 8%, 64px);
+}
+
+.fictional {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  padding: 3px 10px;
+  border: 1px solid #d6e2fa;
+  border-radius: 999px;
+  background: #f4f8fe;
+  color: #0b6be6;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.scenario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.step:not(:last-child) {
+  padding-bottom: 14px;
+}
+
+.step:not(:last-child)::after {
+  position: absolute;
+  top: 36px;
+  left: 18px;
+  width: 1px;
+  height: 14px;
+  background: #dde3eb;
+  content: "";
+  transition: background-color 0.4s ease;
+}
+
+.step.done:not(:last-child)::after {
+  background: #9db8f2;
+}
+
+.stepNumber {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dde3eb;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #a0a5ad;
+  font-size: 12.5px;
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.step strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #8a8f98;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.stepState {
+  color: #0b6be6;
+  font-size: 12.5px;
+  white-space: nowrap;
+  transition: color 0.4s ease;
+}
+
+.active .stepNumber {
+  border-color: #0b6be6;
+  background: #0b6be6;
+  color: #ffffff;
+  box-shadow: 0 0 0 5px rgb(11 107 230 / 12%);
+}
+
+.active strong,
+.done strong {
+  color: #1f3a5f;
+}
+
+.done .stepNumber {
+  border-color: #c9d8f5;
+  background: #f4f8fe;
+  color: #0b6be6;
+}
+
+.done .stepState {
+  color: #1e8a5c;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px 32px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.meta > span:first-child {
+  color: #8a8f98;
+  font-size: 14px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 13.5px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.status i {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.green {
+  border-color: #cbebd9;
+  background: #edf8f2;
+  color: #1e8a5c;
+}
+
+.green i {
+  background: #2db37a;
+}
+
+.blue {
+  border-color: #d6e2fa;
+  background: #f4f8fe;
+  color: #0b6be6;
+}
+
+.content :is(h2, h3) {
+  margin: 0;
+  color: #1f3a5f;
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+
+.content p {
+  margin: 0;
+  color: #5a5a5a;
+  font-size: 17.5px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tags li {
+  padding: 4px 10px;
+  border: 1px solid #eceef1;
+  border-radius: 6px;
+  background: #f7f8fa;
+  color: #5a5a5a;
+  font-size: 14px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.linkFooter,
+.staticFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding: 16px 32px;
+  border-top: 1px solid #eceef1;
+}
+
+.linkFooter {
+  color: #0b6be6;
+  font-size: 17px;
+}
+
+.linkFooter:focus-visible {
+  outline: 2px solid #0b6be6;
+  outline-offset: -3px;
+}
+
+.linkFooter svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+
+.staticFooter {
+  color: #8a8f98;
+  font-size: 16px;
+}
+
+.staticFooter span:last-child {
+  font-size: 13px;
+}
+
+@media (max-width: 430px) {
+  .content {
+    padding-inline: 24px;
+  }
+
+  .linkFooter,
+  .staticFooter {
+    padding-inline: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .step::after,
+  .stepNumber,
+  .step strong,
+  .stepState {
+    transition: none;
+  }
+}
+
+/* ---- LA DISPOSITION EN RANGÉE, SUR LA PAGE RÉALISATIONS ----
+   Une carte par rangée, le visuel à gauche sur toute la hauteur, le contenu
+   et le pied empilés à droite. Rien d'autre ne change : mêmes libellés,
+   mêmes couleurs, mêmes tailles de texte que sur l'accueil.
+
+   ⚠ La carte passe de `flex` à `grid` : les trois enfants sont placés
+   explicitement, sinon le pied se glisserait sous le visuel. */
+.row {
+  grid-template-columns: minmax(0, 1fr);
+  /* L'air entre le chapeau de la section et la première carte. La valeur
+     rejoint celle de l'accueil en haut de ce fichier (72px) sur grand écran,
+     et redescend au pas commun du site (2,5rem) sur téléphone. */
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.row .card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.row .visual {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  min-height: 420px;
+  aspect-ratio: auto;
+  border-right: 1px solid #eceef1;
+  border-bottom: 0;
+}
+
+.row .content {
+  grid-column: 2;
+  grid-row: 1;
+  padding-block: 34px;
+}
+
+.row .linkFooter,
+.row .staticFooter {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+/* Sous cette largeur, deux colonnes écraseraient le visuel : la carte
+   reprend la disposition de l'accueil. */
+@media (max-width: 860px) {
+  .row .card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row .visual {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    border-right: 0;
+    border-bottom: 1px solid #eceef1;
+  }
+}

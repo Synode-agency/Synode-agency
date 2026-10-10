@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
      lien externe, lui, s'en souviendra. */
   async redirects() {
     const pairs = [
+      /* La famille « Assistants & Agents IA » s'appelle « Agents IA » depuis
+         octobre 2026 : son ancienne adresse est indexée, elle doit mener à la
+         nouvelle plutôt qu'à une 404. */
+      ["/solutions/assistants-agents-ia", "/solutions/agents-ia"],
       ["/services", "/solutions"],
       ["/services/:slug", "/solutions"],
       ["/expertise", "/solutions"],

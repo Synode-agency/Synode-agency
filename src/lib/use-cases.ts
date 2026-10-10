@@ -60,13 +60,13 @@ const frCases: readonly UseCase[] = [
       "Avant chaque rendez-vous, quelqu’un ouvre le CRM, relit les derniers échanges, regarde le site du prospect et rassemble le tout à la main. Une demi-heure par rendez-vous, plusieurs fois par semaine, et la qualité dépend du temps qui restait.",
     steps: [
       "Le rendez-vous est créé dans l’agenda.",
-      "L’assistant rassemble ce qui existe déjà : historique, échanges, informations publiques sur l’entreprise.",
+      "L’agent IA rassemble ce qui existe déjà : historique, échanges, informations publiques sur l’entreprise.",
       "Une fiche de préparation arrive avant le rendez-vous, avec les sources citées.",
     ],
     benefit: "Arriver préparé sans y passer la demi-heure, et avec le même niveau de préparation pour tous les rendez-vous.",
     metric: "Le temps de préparation par rendez-vous, mesuré avant et après sur vos propres agendas.",
     needs: ["Un agenda accessible", "Un CRM ou un historique des échanges", "Une personne qui valide le format utile de la fiche"],
-    limit: "La fiche vaut ce que valent vos données. Un CRM peu rempli donne une fiche peu remplie : l’assistant ne devine pas ce qui n’a jamais été écrit.",
+    limit: "La fiche vaut ce que valent vos données. Un CRM peu rempli donne une fiche peu remplie : l’agent IA ne devine pas ce qui n’a jamais été écrit.",
     demo: null,
   },
   {
@@ -77,7 +77,7 @@ const frCases: readonly UseCase[] = [
       "Une demande arrive par le site, une autre par email, une troisième par téléphone. Chacune finit dans un endroit différent, et au moment de faire le point personne ne sait vraiment combien il y a d’opportunités ouvertes.",
     steps: [
       "Une demande arrive, quel que soit son canal.",
-      "L’assistant identifie l’activité, le besoin exprimé et ce qui manque pour décider.",
+      "L’agent IA identifie l’activité, le besoin exprimé et ce qui manque pour décider.",
       "La fiche est créée dans votre outil de suivi, avec les manques signalés plutôt que devinés.",
     ],
     benefit: "Avoir une seule liste d’opportunités, alimentée automatiquement, dans laquelle on peut faire confiance.",
@@ -94,7 +94,7 @@ const frCases: readonly UseCase[] = [
       "Une boîte partagée reçoit des demandes de nature très différente. Il faut ouvrir chaque message pour savoir de quoi il s’agit, et les urgents se retrouvent derrière les autres parce qu’on les lit dans l’ordre d’arrivée.",
     steps: [
       "Le message arrive dans la boîte partagée.",
-      "L’assistant identifie le sujet, extrait les informations utiles et évalue l’urgence.",
+      "L’agent IA identifie le sujet, extrait les informations utiles et évalue l’urgence.",
       "Le message est classé et transmis ; les cas ambigus sont mis de côté pour une validation humaine.",
     ],
     benefit: "Traiter d’abord ce qui est urgent, et ne plus lire vingt messages pour en trouver un.",
@@ -128,13 +128,13 @@ const frCases: readonly UseCase[] = [
       "Une part importante des messages reçus appelle une réponse qui existe déjà quelque part : dans un ancien email, dans une procédure, sur le site. On la réécrit à chaque fois, avec des formulations légèrement différentes.",
     steps: [
       "La question arrive.",
-      "L’assistant cherche dans votre documentation validée et prépare une réponse, avec les sources.",
+      "L’agent IA cherche dans votre documentation validée et prépare une réponse, avec les sources.",
       "Votre équipe relit, ajuste si besoin, et envoie.",
     ],
     benefit: "Répondre plus vite et de façon cohérente, sans que la réponse dépende de qui était disponible.",
     metric: "Le temps de réponse, et la part de réponses envoyées sans correction.",
     needs: ["Une documentation à jour et validée", "Les canaux à couvrir", "Une relecture humaine avant envoi, au moins au début"],
-    limit: "L’assistant ne répond bien que sur ce qui est documenté. Sur une question hors périmètre, il doit dire qu’il ne sait pas, et c’est ainsi qu’il est réglé.",
+    limit: "L’agent IA ne répond bien que sur ce qui est documenté. Sur une question hors périmètre, il doit dire qu’il ne sait pas, et c’est ainsi qu’il est réglé.",
     demo: null,
   },
   {
@@ -145,7 +145,7 @@ const frCases: readonly UseCase[] = [
       "Un message part chez quelqu’un qui n’est pas concerné, qui le transfère, parfois deux fois. Le client attend pendant ce temps, et personne ne sait à quel moment sa demande a réellement commencé à être traitée.",
     steps: [
       "La demande arrive.",
-      "L’assistant identifie le sujet réel et le rapproche de votre organisation interne.",
+      "L’agent IA identifie le sujet réel et le rapproche de votre organisation interne.",
       "Elle est transmise au bon interlocuteur, avec un résumé de ce qui est demandé.",
     ],
     benefit: "Réduire les allers-retours internes, et pouvoir dire quand une demande a été prise en charge.",
@@ -162,13 +162,13 @@ const frCases: readonly UseCase[] = [
       "La réponse existe : dans une procédure, un compte rendu, un contrat. Mais il faut savoir où chercher, et souvent demander à la personne qui s’en souvient. Quand elle est absente, on refait le travail.",
     steps: [
       "La question est posée en langage courant.",
-      "L’assistant cherche dans les documents auxquels la personne a droit.",
+      "L’agent IA cherche dans les documents auxquels la personne a droit.",
       "Il répond avec les extraits et les sources, ou dit qu’il n’a pas trouvé.",
     ],
     benefit: "Rendre la connaissance interne utilisable sans dépendre de la mémoire d’une personne.",
     metric: "La part de réponses jugées utiles et correctement sourcées, sur une liste de questions réelles que vous fournissez.",
     needs: ["Des documents accessibles et à jour", "Des droits d’accès définis", "Une liste de questions réelles pour régler le système"],
-    limit: "Une documentation contradictoire produit des réponses contradictoires. L’assistant cite ses sources justement pour que ce soit visible plutôt que masqué.",
+    limit: "Une documentation contradictoire produit des réponses contradictoires. L’agent IA cite ses sources justement pour que ce soit visible plutôt que masqué.",
     demo: null,
   },
   {
@@ -199,13 +199,13 @@ const enCases: readonly UseCase[] = [
       "Before every meeting, somebody opens the CRM, rereads the last exchanges, looks at the prospect’s website and pulls it together by hand. Half an hour a meeting, several times a week, and the quality depends on how much time was left.",
     steps: [
       "The meeting is created in the calendar.",
-      "The assistant gathers what already exists: history, past exchanges, public information about the company.",
+      "The AI agent gathers what already exists: history, past exchanges, public information about the company.",
       "A prep sheet arrives before the meeting, with its sources cited.",
     ],
     benefit: "Turning up prepared without spending the half hour, and with the same preparation for every meeting rather than the important ones only.",
     metric: "Preparation time per meeting, measured before and after on your own calendars.",
     needs: ["A calendar we can read", "A CRM or a history of exchanges", "Someone to say what makes a prep sheet useful"],
-    limit: "The sheet is only as good as your data. A thin CRM gives a thin sheet: the assistant does not invent what was never written down.",
+    limit: "The sheet is only as good as your data. A thin CRM gives a thin sheet: the AI agent does not invent what was never written down.",
     demo: null,
   },
   {
@@ -216,7 +216,7 @@ const enCases: readonly UseCase[] = [
       "One enquiry arrives through the website, another by email, a third by phone. Each ends up somewhere different, and when it is time to review the pipeline nobody really knows how many open opportunities there are.",
     steps: [
       "An enquiry arrives, whatever the channel.",
-      "The assistant identifies the business, the stated need and what is missing to decide.",
+      "The AI agent identifies the business, the stated need and what is missing to decide.",
       "The record is created in your tracker, with the gaps flagged rather than guessed.",
     ],
     benefit: "One list of opportunities, filled automatically, that you can actually trust.",
@@ -233,7 +233,7 @@ const enCases: readonly UseCase[] = [
       "A shared inbox receives requests of very different kinds. You have to open each message to know what it is about, and the urgent ones end up behind the rest because people read in the order they arrived.",
     steps: [
       "The message lands in the shared inbox.",
-      "The assistant identifies the subject, pulls out the useful details and judges urgency.",
+      "The AI agent identifies the subject, pulls out the useful details and judges urgency.",
       "The message is filed and routed; ambiguous cases are set aside for a person to decide.",
     ],
     benefit: "Handling what is urgent first, and no longer reading twenty messages to find one.",
@@ -267,13 +267,13 @@ const enCases: readonly UseCase[] = [
       "A good share of incoming messages have an answer that already exists somewhere: in an old email, a procedure, the website. It gets rewritten every time, worded slightly differently each time.",
     steps: [
       "The question arrives.",
-      "The assistant searches your approved documentation and drafts a reply, with sources.",
+      "The AI agent searches your approved documentation and drafts a reply, with sources.",
       "Your team reads it, adjusts if needed, and sends.",
     ],
     benefit: "Replying faster and more consistently, without the answer depending on who happened to be free.",
     metric: "Response time, and the share of replies sent without edits.",
     needs: ["Documentation that is current and approved", "The channels to cover", "A human read before sending, at least at first"],
-    limit: "The assistant only answers well on what is documented. On anything outside that, it has to say it does not know, and that is how it is set up.",
+    limit: "The AI agent only answers well on what is documented. On anything outside that, it has to say it does not know, and that is how it is set up.",
     demo: null,
   },
   {
@@ -284,7 +284,7 @@ const enCases: readonly UseCase[] = [
       "A message goes to somebody it does not concern, who forwards it, sometimes twice. The customer waits through all of it, and nobody can say when their request actually started being handled.",
     steps: [
       "The request arrives.",
-      "The assistant works out the real subject and matches it to how you are organised.",
+      "The AI agent works out the real subject and matches it to how you are organised.",
       "It goes to the right person, with a summary of what is being asked.",
     ],
     benefit: "Fewer internal hand-offs, and being able to say when a request was picked up.",
@@ -301,13 +301,13 @@ const enCases: readonly UseCase[] = [
       "The answer exists: in a procedure, a meeting note, a contract. But you have to know where to look, and often ask the person who remembers. When they are away, the work gets redone.",
     steps: [
       "The question is asked in plain language.",
-      "The assistant searches the documents that person is allowed to see.",
+      "The AI agent searches the documents that person is allowed to see.",
       "It answers with extracts and sources, or says it did not find anything.",
     ],
     benefit: "Making internal knowledge usable without depending on one person’s memory.",
     metric: "The share of answers judged useful and correctly sourced, against a list of real questions you supply.",
     needs: ["Documents that are accessible and current", "Access rights defined", "A list of real questions to tune the system"],
-    limit: "Contradictory documentation produces contradictory answers. The assistant cites its sources precisely so that this is visible rather than hidden.",
+    limit: "Contradictory documentation produces contradictory answers. The AI agent cites its sources precisely so that this is visible rather than hidden.",
     demo: null,
   },
   {

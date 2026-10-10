@@ -8,7 +8,7 @@ import { diagnosticContent } from "@/lib/ai-diagnostic-content";
 /** Chaque approche renvoie vers la famille de Solutions correspondante. */
 const META: Record<ApproachId, { icon: LucideIcon; slug?: string }> = {
   automation: { icon: Workflow, slug: "automatisations-intelligentes" },
-  agents: { icon: Bot, slug: "assistants-agents-ia" },
+  agents: { icon: Bot, slug: "agents-ia" },
   integration: { icon: Plug, slug: "integrations-systemes-connectes" },
   data: { icon: Database, slug: "data-intelligence" },
   software: { icon: AppWindow, slug: "logiciels-applications-ia" },

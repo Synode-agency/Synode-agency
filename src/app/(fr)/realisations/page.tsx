@@ -1,17 +1,15 @@
 import type { Metadata } from "next";
 import { WorkPage } from "@/components/site/work-page";
 
-const fr = true;
-const title = fr ? "Réalisations et démonstrations" : "Work and demos";
-const description = fr
-  ? "Ce que nous construisons, et où nous en sommes. Seulement ce qui existe réellement : pas de logo client que nous n’avons pas."
-  : "What we are building, and where we stand. Only what genuinely exists: no client logos we do not have.";
+const title = "Réalisations IA, projets et démonstrateurs";
+const description = "Découvrez les réalisations IA de Synode : Nexus, logiciel de prospection B2B, et un démonstrateur d’agent IA, d’automatisation et de validation humaine.";
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/realisations", languages: { fr: "/realisations", en: "/en/realisations" } },
   openGraph: { title, description, url: "/realisations", type: "website" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export default function Page() {
