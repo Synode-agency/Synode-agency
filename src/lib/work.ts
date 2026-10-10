@@ -191,7 +191,7 @@ export function projectTwoCardCopy(locale: Locale) {
     title: fr ? "Projet 2" : "Project 2",
     text: fr
       ? "De la demande reçue à l’action validée, sur des données fictives identifiées comme telles. Elle sera publiée ici quand elle fonctionnera réellement."
-      : "From the incoming request to the approved action, on fictional data labelled as such. It will be published here once it genuinely runs.",
+      : "From the incoming request to the approved action, on clearly fictional data. It will be published here once it genuinely runs.",
     tags: fr
       ? ["Agent IA", "Automatisation", "Validation humaine"]
       : ["AI agent", "Automation", "Human approval"],

@@ -605,7 +605,7 @@ const en = {
       items: [
         {
           title: "The same work, redone by hand every week",
-          text: "Same steps, same day, same files. Nobody has time to stop and deal with it differently.",
+          text: "Same steps, same day, same files, and nobody has the time to stop and change how it is done.",
           useCase: "preparer-rendez-vous",
         },
         {
@@ -638,7 +638,7 @@ const en = {
       title: "One offer,\n^built for you.",
       text: "A small, targeted project and a full internal tool are the same offer. What changes is the scope, the budget and the support, not the nature of the work.",
       bricks: [
-        { title: "AI agents", text: "Reading, searching, summarising, drafting, helping a decision along." },
+        { title: "AI agents", text: "Reading, searching, summarising, drafting, supporting a decision." },
         { title: "Automations", text: "Handling requests, documents, tasks and approval routes." },
         { title: "Integrations", text: "Connecting the software and the data you already have." },
         { title: "Internal tools", text: "Interfaces, internal spaces, databases and dashboards." },
@@ -653,7 +653,7 @@ const en = {
         coreLabel: "The Synode solution",
         core: ["AI agents", "Automations", "Integrations", "Business interface"],
         outLabel: "Your processes",
-        out: ["Requests handled", "Documents produced", "Follow-up current"],
+        out: ["Requests handled", "Documents produced", "Tracking up to date"],
         humanLabel: "You keep approval on what matters",
       },
 
@@ -708,7 +708,7 @@ const en = {
         },
         {
           q: "Will my data remain confidential?",
-          a: "Confidentiality and access management are considered during design. The tools and services involved, along with how data is handled, are defined according to your project requirements.",
+          a: "Confidentiality and access control are built in from the design stage. The tools and services involved, along with how data is handled, are defined according to your project requirements.",
         },
         {
           q: "Do you provide maintenance after deployment?",
@@ -719,7 +719,7 @@ const en = {
 
     cta: {
       title: "Which process would you\n^simplify first?",
-      text: "A 30-minute call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit, and nothing commits you to what comes next.",
+      text: "A 30-minute call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit, and nothing commits you to what comes next.",
       secondary: "Write to us instead",
     },
   },
@@ -779,7 +779,7 @@ const en = {
             "slug": "formation-adoption-ia",
             "title": "AI Training & Adoption",
             "text": "AI training and practical workshops to learn how to use artificial intelligence and adopt your solutions, with or without a Synode project.",
-            "benefit": "A team comfortable with its new ways of working.",
+            "benefit": "A team confident with their new way of working.",
             "example": "Using real situations, your team learns to draft and review customer replies.",
             "visual": 5
       }
@@ -787,13 +787,13 @@ const en = {
 
     operations: {
       kicker: "After go-live",
-      title: "Your solution evolves.\n^We stay by your side.",
+      title: "Your solution evolves.\n^We keep it running.",
       text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
       recurringLabel: "Recurring payment · defined in the contract",
       familyNote: "This support applies across all six solution families. It is not a seventh offer.",
       cycle: ["Design", "Deployment", "Monitoring", "Improvement"],
       items: [
-        { title: "Monitoring & maintenance", text: "We monitor how the solution runs and intervene within the agreed scope when an issue occurs." },
+        { title: "Monitoring & maintenance", text: "We watch how the solution runs and step in, within the agreed scope, when something goes wrong." },
         { title: "Continuous optimisation", text: "We adjust behaviours and adapt the solution as usage patterns or technologies change." },
         { title: "Technical cost tracking", text: "We make hosting, AI model, storage and external service costs visible." },
         { title: "Support & changes", text: "The included support is stated in the contract. Significant new features receive a separate quote." },
@@ -917,11 +917,11 @@ const en = {
     metaDescription: "Book a free 30-minute call, or describe your need in writing. No strings attached.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project.",
-    text: "A first call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit.",
+    text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
 
     booking: {
       title: "Book a 30-minute call",
-      text: "A first call, free and with no strings attached. We are there to understand your situation and find a first angle. It is not a full technical audit.",
+      text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
       openLabel: "Open the calendar",
       unavailableTitle: "Booking is not live yet",
       unavailableText:
