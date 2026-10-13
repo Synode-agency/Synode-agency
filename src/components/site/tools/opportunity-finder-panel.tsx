@@ -28,7 +28,7 @@ const PAIN_CANDIDATES: Record<PainId, readonly CandidateId[]> = {
 
 const content = {
   fr: {
-    title: "Qu’est-ce qui ralentit le plus votre activité ?",
+    title: "Qu’est-ce qui ralentit le plus votre activité ?",
     help: "Sélectionnez les situations que vos équipes rencontrent régulièrement. Il ne s’agit pas encore de choisir une technologie.",
     pains: {
       emails: "Trop d’emails ou de demandes à traiter",

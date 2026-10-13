@@ -47,7 +47,7 @@ const fr = {
   },
   intro: {
     kicker: "Réalisations",
-    title: "Ce que nous construisons,\n^et où nous en sommes.",
+    title: "Ce que nous construisons,\n^et où nous en sommes",
     text: "Découvrez les projets IA de Synode : outils internes et logiciels métier conçus autour de processus d’entreprise concrets. Chaque projet présente son état réel, sans résultat inventé ni référence client non autorisée.",
   },
   empty: {
@@ -66,12 +66,12 @@ const fr = {
     goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Aucun chiffre ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     limitsTitle: "Limites et validation humaine",
     backLabel: "Toutes les réalisations",
-    cta: "Un besoin similaire ?",
+    cta: "Un besoin similaire ?",
     ctaText:
       "Nous concevons des solutions IA sur mesure à partir de vos processus, de vos outils et de vos données. Décrivez-nous le besoin que vous voulez traiter.",
   },
   cta: {
-    title: "Construisons une solution IA\nadaptée à votre activité.",
+    title: "Construisons une solution IA\nadaptée à votre activité",
     text: "Votre solution IA sur mesure partira de vos processus, de vos outils et de vos données. Présentez-nous le besoin métier que vous souhaitez améliorer.",
   },
   todoLabel: "À compléter avant mise en ligne",
@@ -118,7 +118,7 @@ const en = {
   },
   intro: {
     kicker: "Work",
-    title: "What we are building,\n^and where we stand.",
+    title: "What we are building,\n^and where we stand",
     text: "Explore Synode’s AI projects: internal tools and business software designed around concrete business processes. Every project shows its actual status, with no invented results or unauthorised client references.",
   },
   empty: {
@@ -142,7 +142,7 @@ const en = {
       "We build custom AI solutions from your processes, your tools and your data. Tell us about the need you want to tackle.",
   },
   cta: {
-    title: "Let’s build an AI solution\nthat fits your business.",
+    title: "Let’s build an AI solution\nthat fits your business",
     text: "Your custom AI solution will start from your processes, tools and data. Tell us about the business need you want to improve.",
   },
   todoLabel: "To complete before launch",

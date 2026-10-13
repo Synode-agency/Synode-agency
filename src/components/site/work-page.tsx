@@ -4,6 +4,7 @@ import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { HeroGallery } from "@/components/realisations";
 import { HeroDashboard } from "@/components/nexus";
+import { HeroCompact } from "@/components/hero-compact";
 import { ContextSection } from "@/components/nexus/context-section";
 import { GoalsSection } from "@/components/nexus/goals-section";
 import { nexusSections } from "@/components/nexus/nexus-sections";
@@ -186,7 +187,22 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           text={item.problem}
         />
         <p className="work-status section-gap-sm">{item.status}</p>
-        <HeroDashboard locale={locale} />
+        <div className="hero-visual-desktop"><HeroDashboard locale={locale} /></div>
+        <HeroCompact
+          title={locale === "fr" ? "Nexus · Vue d’ensemble" : "Nexus · Overview"}
+          status={locale === "fr" ? "outil interne" : "internal tool"}
+          tiles={locale === "fr" ? [
+            { label: "Total leads", value: "570" },
+            { label: "Leads qualifiés", value: "128" },
+            { label: "Leads contactés", value: "64" },
+            { label: "Jobs en cours", value: "3" },
+          ] : [
+            { label: "Total leads", value: "570" },
+            { label: "Qualified leads", value: "128" },
+            { label: "Leads contacted", value: "64" },
+            { label: "Jobs running", value: "3" },
+          ]}
+        />
       </Band>
 
       {/* ⚠ Les deux bandes portent leur ton par une CLASSE, pas par `tone` :

@@ -37,7 +37,7 @@ const COPY = {
     hours: ["9:00", "10:00", "11:00", "14:00", "15:00"],
     mail: "e-mail reçu",
     from: "Marie L.",
-    ask: "« Un rendez-vous mardi matin serait possible ? »",
+    ask: "« Un rendez-vous mardi matin serait possible ? »",
     checking: "IA vérifie",
     proposed: "proposé…",
     confirmed: "✓ confirmé",

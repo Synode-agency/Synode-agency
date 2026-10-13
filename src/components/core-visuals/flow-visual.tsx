@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 import { Box, Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scene";
 
 /**
@@ -14,6 +15,27 @@ import { Box, Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from ".
  *
  * Les noms d'outils sont des catégories (« Boîte email », « ERP »), jamais
  * des produits : rien ici ne doit ressembler à un écosystème imposé.
+ *
+ * ── SUR TÉLÉPHONE, UNE AUTRE COMPOSITION ────────────────────────────────
+ * La scène est un repère de 480×320 dont les pastilles et les textes sont
+ * posés en pourcentage : son corps de texte descend à 7,5 unités, soit
+ * moins de 7px dans une colonne de 400. Les huit noms d'outils et les trois
+ * jauges deviennent illisibles, et il n'y a rien à y gagner.
+ *
+ * Sous 900px, c'est `HeroCompact` qui prend la place : quatre lignes, un
+ * couple par ligne, et l'active qui avance. C'est exactement ce que la
+ * scène raconte — la donnée circule d'un de vos outils vers un autre — dit
+ * avec du texte qu'on peut lire.
+ *
+ * ⚠ Rien n'est inventé : les quatre couples, le titre et la mention de
+ * trace viennent de `COPY`, le même objet que la scène. Les trois jauges
+ * « lire · traiter · envoyer » ne sont pas reprises : elles détaillent le
+ * fonctionnement interne du flux, que le paragraphe de la section explique
+ * déjà, et quatre lignes de trois mots n'auraient rien ajouté.
+ *
+ * C'est le CSS qui choisit laquelle des deux s'affiche : `.cv--flow` sous
+ * 900px, la card au-dessus. Jamais les deux.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const CYCLE = 3400;
@@ -96,8 +118,10 @@ export function FlowVisual({ locale }: { locale: Locale }) {
   const done = s >= 5;
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="cv--flow"
       label={c.label}
       shapes={
         <>
@@ -147,5 +171,16 @@ export function FlowVisual({ locale }: { locale: Locale }) {
         {done ? c.kept : c.run(pass * PAIRS.length + i + 1, c.from[src], c.to[dst])}
       </T>
     </Scene>
+
+    {/* ---- La composition du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      title={c.centre}
+      status={c.kept}
+      rows={PAIRS.map(([a, b], k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: `${c.from[a]} → ${c.to[b]}`,
+      }))}
+    />
+    </>
   );
 }

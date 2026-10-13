@@ -23,13 +23,13 @@ export function OperationalImpact({ locale }: { locale: Locale }) {
     ? {
         kicker: "Résultats recherchés",
         accent: "fonctionnement réel",
-        title: "Des systèmes IA conçus pour\nle fonctionnement réel de votre entreprise.",
+        title: "Des systèmes IA conçus pour\nle fonctionnement réel de votre entreprise",
         text: "Un système bien intégré agit sur le fonctionnement lui-même : il réduit les frictions entre les outils, fiabilise l’exécution d’un processus métier, rend les données exploitables au bon moment et laisse aux équipes les décisions qui demandent leur jugement.",
       }
     : {
         kicker: "Intended outcomes",
         accent: "actually operates",
-        title: "AI systems designed around\nhow your business actually operates.",
+        title: "AI systems designed around\nhow your business actually operates",
         text: "A well-integrated system acts on the way the business runs: it reduces friction between tools, makes the execution of a business process more reliable, makes data usable at the right moment and leaves teams the decisions that call for their judgement.",
       };
 

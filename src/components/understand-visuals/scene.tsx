@@ -100,17 +100,22 @@ export function useSceneClock(loop: number, onFrame: (t: number) => void) {
 /** L'enveloppe commune : la scène, son rapport, son SVG et ses textes. */
 export function Scene({
   rootRef,
+  className,
   label,
   shapes,
   children,
 }: {
   rootRef: React.RefObject<HTMLDivElement | null>;
+  /** Une classe en plus sur la racine, pour que la page puisse masquer
+   *  CETTE scène sans masquer les autres : elles partagent `.unv`. Elle ne
+   *  porte aucun dessin, seulement de quoi la désigner. */
+  className?: string;
   label: string;
   shapes: ReactNode;
   children?: ReactNode;
 }) {
   return (
-    <div className="unv" ref={rootRef}>
+    <div className={className ? `unv ${className}` : "unv"} ref={rootRef}>
       <div className="unv-scene" role="img" aria-label={label}>
         <svg className="unv-shapes" viewBox={`0 0 ${W} ${H}`} aria-hidden>
           {shapes}

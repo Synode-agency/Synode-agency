@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { CompactPanel } from "@/components/compact-panel";
 import { Scene, T, clamp, ease, span, useSceneClock } from "./scene";
 
 /**
@@ -19,6 +20,20 @@ import { Scene, T, clamp, ease, span, useSceneClock } from "./scene";
  *    seul. C'est la règle que la section explique : pour chaque donnée, un
  *    système fait foi.
  * ────────────────────────────────────────────────────────────────────────
+ *
+ * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
+ * Une donnée passe du système A au système B, et chaque échange est
+ * consigné. Le bandeau porte les deux systèmes et le journal, les quatre
+ * lignes portent les données échangées, et le pied garde les trois
+ * mécanismes — source de référence, identifiant commun, règles de transfert
+ * — que la scène étiquetait sur son schéma.
+ *
+ * La scène est un repère à coordonnées absolues dont les textes sont en
+ * `cqw` : dans une colonne de 400px ils tombent sous 8px. Sous 900px c'est
+ * `CompactPanel` qui prend la place, et `.unv--integration` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const CYCLE = 1600;
@@ -32,7 +47,7 @@ const COPY = {
     id: "identifiant commun", rules: "règles de transfert",
     items: ["Contact", "Statut", "Commande", "Document"],
     log: "Journal", synced: "synchronisé",
-    alt: "Une donnée passe du système A au système B à intervalle régulier ; chaque échange est consigné dans un journal.",
+    alt: "Une donnée passe du système A au système B à intervalle régulier ; chaque échange est consigné dans un journal.",
   },
   en: {
     a: "System A", b: "System B", source: "system of record",
@@ -94,8 +109,10 @@ export function IntegrationVisual({ locale }: { locale: Locale }) {
   const entries = still ? [{ item: c.items[0], minute: 1 }] : log;
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="unv--integration"
       label={c.alt}
       shapes={
         <>
@@ -150,5 +167,18 @@ export function IntegrationVisual({ locale }: { locale: Locale }) {
         </T>
       ))}
     </Scene>
+
+    {/* ---- Le panneau du téléphone. Voir l'en-tête du fichier. ---- */}
+    <CompactPanel
+      head={`${c.a} → ${c.b}`}
+      chip={c.log}
+      rows={c.items.map((name, k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: name,
+        state: c.synced,
+      }))}
+      foot={`${c.source} · ${c.id} · ${c.rules}`}
+    />
+    </>
   );
 }

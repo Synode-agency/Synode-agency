@@ -28,7 +28,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
         <Lede
           as="h1"
           kicker="Design system"
-          title={fr ? "Un système,\n^pas une charte." : "A system,\n^not a style sheet."}
+          title={fr ? "Un système,\n^pas une charte" : "A system,\n^not a style sheet"}
           text={
             fr
               ? "Tout le site se compose avec ce qui suit. Cette page est rendue par le site lui-même : si une valeur change dans la feuille de style, elle change ici aussi."
@@ -41,7 +41,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band tone="white" id="principe">
         <Lede
           kicker={fr ? "Le principe" : "The principle"}
-          title={fr ? "C'est le fond qui\n^découpe la page." : "The background is\n^what cuts the page."}
+          title={fr ? "C'est le fond qui\n^découpe la page" : "The background is\n^what cuts the page"}
           text={
             fr
               ? "Une page Synode est une suite de bandes pleine largeur. Chacune porte son fond, et c'est le changement de fond, pas un cadre, qui sépare deux sections. Deux exceptions seulement : le hero et le CTA final, qui sont des cartes encartées à bords arrondis. La page s'ouvre et se referme sur un objet posé, et se lit à plat entre les deux."
@@ -54,7 +54,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="couleur" tone="base">
         <Lede
           kicker={fr ? "Couleur" : "Colour"}
-          title={fr ? "Trois valeurs,\n^et tout le reste en dérive." : "Three values,\n^everything else derives."}
+          title={fr ? "Trois valeurs,\n^et tout le reste en dérive" : "Three values,\n^everything else derives"}
           text={
             fr
               ? "Chaque paire texte sur fond a été mesurée avant d'être écrite. Les ratios ci-dessous sont les limites du système, pas des décorations : ils disent ce qui ne peut pas bouger."
@@ -87,7 +87,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="tons" tone="base">
         <Lede
           kicker={fr ? "Les fonds" : "Backgrounds"}
-          title={fr ? "Quatre fonds,\n^et deux ne servent qu'une fois." : "Four backgrounds,\n^two of them once only."}
+          title={fr ? "Quatre fonds,\n^et deux ne servent qu'une fois" : "Four backgrounds,\n^two of them once only"}
           text={
             fr
               ? "Deux bandes voisines ne portent jamais le même fond, sinon elles n'en font qu'une. Le bleu et l'encre sont des accents : une page qui en compte trois n'a plus de point d'appui, et la couleur cesse de vouloir dire quelque chose."
@@ -106,7 +106,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="typographie" tone="white">
         <Lede
           kicker={fr ? "Typographie" : "Type"}
-          title={fr ? "Une famille,\n^dix corps." : "One family,\n^ten sizes."}
+          title={fr ? "Une famille,\n^dix corps" : "One family,\n^ten sizes"}
           text={
             fr
               ? "Helvetica Neue, pour les titres comme pour le texte. La différence se fait par le corps et la graisse, jamais par un changement de police : deux familles mal appariées font plus amateur qu'une seule tenue fermement."
@@ -142,7 +142,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="rayons" tone="base">
         <Lede
           kicker={fr ? "Rayons" : "Radii"}
-          title={fr ? "Cinq valeurs,\n^une seule règle." : "Five values,\n^one rule."}
+          title={fr ? "Cinq valeurs,\n^une seule règle" : "Five values,\n^one rule"}
           text={
             fr
               ? "Un contenu prend toujours un rayon plus petit que son contenant. Deux rayons égaux emboîtés font une bavure optique le long de l'angle."
@@ -172,7 +172,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="composants" tone="white">
         <Lede
           kicker={fr ? "Composants" : "Components"}
-          title={fr ? "Ce avec quoi\n^on compose." : "What we build with."}
+          title={fr ? "Ce avec quoi\n^on compose" : "What we build with"}
         />
 
         <div className="ds-demo">
@@ -248,7 +248,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
       <Band id="accessibilite" tone="ink">
         <Lede
           kicker={fr ? "Accessibilité" : "Accessibility"}
-          title={fr ? "Ce qui n'est\n^pas négociable." : "What is not\n^up for debate."}
+          title={fr ? "Ce qui n'est\n^pas négociable" : "What is not\n^up for debate"}
           text={
             fr
               ? "Ces règles ne sont pas un supplément qu'on ajoute à la fin. Elles font partie du système, au même titre qu'une couleur."

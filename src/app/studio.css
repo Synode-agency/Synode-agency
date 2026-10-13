@@ -355,7 +355,7 @@ main > .band#top.work-detail-hero .title-accent {
     max-width: 100%;
   }
   .band:not(#top):not(#faq) > .col > .lede > .lede-title,
-  .band:not(#top):not(#faq) > .col > .section-heading .lede .lede-title {
+  .band:not(#top):not(#faq) > .col > .section-heading:not(.daily-section-heading) .lede .lede-title {
     max-width: 60%;
   }
   .band:not(#top):not(#faq) > .col > .lede > .lede-text,
@@ -7891,12 +7891,39 @@ main > .band.home-impact-light .isp {
   }
 }
 
+/* ---- Les trois postes, simplifiés sur téléphone ----
+
+   Sous 560px les colonnes sont empilées une par une : chacune devient une
+   carte pleine largeur, et ce qui se lisait comme une comparaison en trois
+   colonnes se lit maintenant comme trois paragraphes. Les éléments qui ne
+   servaient que la comparaison deviennent du bruit.
+
+   ⚠ Rien n'est supprimé du contenu : le numéro, le libellé, le titre et le
+   texte des trois postes restent intégralement là. Seul le diagramme part,
+   et il est décoratif, déjà `aria-hidden` dans le composant.
+
+   L'état actif reste lisible sans lui : le fond de la carte et le numéro
+   passent au bleu, et la pastille garde son cadre. ---- */
 @media (max-width: 560px) {
   .pdoc {
     margin-top: 44px;
   }
   .pdoc-col {
+    gap: 12px;
     padding: 22px 20px 24px;
+  }
+  /* Le diagramme de coût : trois traits et des paliers, qui disaient
+     « ponctuel / continu / par paliers » en regard des deux autres
+     colonnes. Seul sous un titre, il ne dit plus rien que le texte ne
+     dise. */
+  .pdoc-shape {
+    display: none;
+  }
+  /* Le numéro contre son libellé. `space-between` les renvoyait aux deux
+     bords de la carte, avec 200px de vide entre eux. */
+  .pdoc-col-top {
+    justify-content: flex-start;
+    gap: 10px;
   }
   .pdoc-col h3 {
     font-size: 18px;
@@ -10627,25 +10654,25 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 /* =====================================================================
-   SOUS 900px : LE MÊME CADRE, RECOMPOSÉ
+   SOUS 900px : LE CADRE DE LA MÉTHODE, EN LISTE
 
-   Sur deux colonnes, la liste des six étapes tient dans 190px et les noms
-   y passent sur une ligne. Empilé, cette même liste n'a plus la largeur de
-   ses noms : « Cadrage du besoin » devenait « Cadrage du besoi », rogné par
-   le `text-overflow` de la version de bureau.
+   Sur deux colonnes, les six étapes tiennent dans une bande de 190px à
+   gauche et le détail occupe la droite. Empilé, ce dessin ne tient plus :
+   une première version mettait les six étapes en grille de deux colonnes
+   sur trois rangées, avec un panneau de détail et six segments
+   d'avancement. Trois mécaniques pour une seule information, c'était trop
+   pour un écran de téléphone.
 
-   Le cadre est donc recomposé de haut en bas : l'en-tête, le détail de
-   l'étape, la grille des six étapes en deux colonnes de trois rangées, puis
-   l'avancement. Les noms y ont deux lignes, et plus rien n'est rogné, ni le
-   nom, ni la description.
+   La forme retenue est la plus simple qui garde tout le contenu : une liste
+   verticale de six lignes, puis le détail de l'étape choisie juste en
+   dessous. On tape une ligne, on lit son détail sous elle. Les segments
+   d'avancement disparaissent : la ligne allumée dit déjà où l'on en est.
 
    ⚠ Au-dessus de 900px, ce bloc ne s'applique pas et rien n'y est touché.
    La version de bureau garde sa hauteur écrite de 420px et sa description
    rognée, qui sont ce qui l'empêche de sauter toutes les quatre secondes.
    ===================================================================== */
 @media (max-width: 900px) {
-  /* La hauteur suit le contenu : c'est la mesure du panneau qui tient le
-     cadre immobile, plus un chiffre écrit. */
   .mfr {
     min-height: auto;
   }
@@ -10667,12 +10694,45 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     pointer-events: none;
   }
 
-  /* ---- Le détail, au-dessus de la grille ---- */
-  .mfr-detail {
+  /* ---- La liste, d'abord ---- */
+  .mfr-list {
     order: 1;
-    padding: 20px 18px 18px;
+    grid-template-rows: auto;
+    grid-template-columns: minmax(0, 1fr);
+    border-right: 0;
+    border-bottom: 1px solid #1e3352;
+  }
+  .mfr-step {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+    height: auto;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1a2d4a;
+  }
+  .mfr-step:last-child {
+    border-bottom: 0;
+  }
+  /* Le nom tient en entier : plus de `text-overflow`, qui coupait au milieu
+     d'un mot, et deux lignes au besoin. */
+  .mfr-step > span {
+    font-size: 14.5px;
+    line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-overflow: clip;
+    overflow: visible;
+  }
+
+  /* ---- Le détail, ensuite ---- */
+  .mfr-detail {
+    order: 2;
+    padding: 18px 16px 20px;
+    border-top: 1px solid #1e3352;
   }
   .mfr-detail h3 {
+    font-size: 19px;
     text-wrap: pretty;
   }
   /* La description n'absorbe plus rien et n'est plus rognée : c'est la
@@ -10681,7 +10741,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   .mfr-desc {
     flex: none;
     overflow: visible;
-    font-size: 14px;
+    font-size: 14.5px;
   }
   .mfr-out {
     margin-top: auto;
@@ -10691,66 +10751,15 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     line-height: 1.4;
   }
 
-  /* ---- Les six étapes, en deux colonnes ---- */
-  .mfr-list {
-    order: 2;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    border-top: 1px solid #1e3352;
-    border-right: 0;
-  }
-  .mfr-step {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 6px;
-    height: 84px;
-    padding: 12px 14px;
-    border-bottom: 1px solid #1a2d4a;
-  }
-  /* Le filet vertical ne va que sur la colonne de gauche. Les six cases
-     sont dans l'ordre du document, donc ce sont les impaires. */
-  .mfr-step:nth-child(odd) {
-    border-right: 1px solid #1a2d4a;
-  }
-  /* ⚠ ÉCART ASSUMÉ avec la demande, qui donne un filet bas à chaque case :
-     la dernière RANGÉE en a deux, et juste en dessous vient le filet haut
-     du pied, en #24406A. Deux filets collés dans deux bleus voisins se
-     lisent comme une ligne épaissie et ratée. Les deux cases du bas en sont
-     donc privées, exactement comme la version de bureau en prive sa
-     dernière ligne. */
-  .mfr-step:nth-last-child(-n + 2) {
-    border-bottom: 0;
-  }
-  /* Le nom tient en ENTIER sur deux lignes. Pas de `text-overflow` : il
-     coupait le mot au milieu. Le `line-clamp` est une borne de sécurité,
-     pas le mode normal — à 320px, le plus long des six noms tient sur ses
-     deux lignes. */
-  .mfr-step > span {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-size: 13px;
-    line-height: 1.3;
-    white-space: normal;
-    overflow-wrap: break-word;
-    text-overflow: clip;
-  }
+  /* ---- L'avancement : la ligne allumée le dit déjà ---- */
   .mfr-foot {
-    padding: 12px 16px;
+    display: none;
   }
-}
 
-/* ---- Les plus petits écrans. Le nom descend d'un demi-point et les cases
-   se resserrent, à hauteur inchangée : c'est ce qui garde la grille
-   régulière d'un téléphone à l'autre. ---- */
-@media (max-width: 360px) {
-  .mfr-step {
-    padding: 12px;
-  }
-  .mfr-step > span {
-    font-size: 12.5px;
+  /* ---- L'écart entre le texte de la section et le cadre, aligné sur celui
+     des heros : 40px partout sur le site. ---- */
+  .mfr-layout {
+    gap: 40px;
   }
 }
 
@@ -12831,6 +12840,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     margin-inline: 0;
     text-align: left;
   }
+  /* Le lien fléché de fin de section s'aligne sur le texte qui le précède,
+     et non au centre : il prolonge le paragraphe, il ne le conclut pas. */
   main > .band:is(
     .home-usecases-light,
     .home-solutions-light,
@@ -12838,7 +12849,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     .home-work-light,
     .home-tools-light
   ) > .col > .section-heading > .go {
-    align-self: center;
+    align-self: flex-start;
   }
   .home-usecases-light .daily-section-aside {
     align-items: flex-start;
@@ -12876,16 +12887,20 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     text-align: left;
   }
 
-  /* CTA du bloc Cas d'usage. */
+  /* ---- L'encadré « Votre situation est unique » du bloc Cas d'usage.
+
+     C'est un appel à l'action, pas un bloc de lecture : il suit donc la
+     règle des CTA et se centre, surtitre, titre, paragraphe et bouton.
+     Il ne porte pas `.dark-cta`, d'où ces règles à part. ---- */
   .home-usecases-light .daily-open-callout {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
   }
   .home-usecases-light .daily-open-callout > div {
-    margin-inline: 0;
+    margin-inline: auto;
   }
   .home-usecases-light .daily-open-callout .eyebrow {
-    justify-content: flex-start;
+    justify-content: center;
   }
   .home-usecases-light .daily-open-callout .btn {
     align-self: center;
@@ -12961,8 +12976,15 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     justify-content: flex-start;
   }
   /* La copie garde tout son contenu en premier : titre, paragraphe,
-     boutons puis phrase de réassurance. La maquette vient seulement après. */
-  .solutions-page-hero .studio-hero-copy {
+     boutons puis phrase de réassurance. Le visuel vient seulement après.
+
+     ⚠ C'est l'ASIDE qu'on déplace, et non la copie. L'ordre portait sur
+     `.sol-app`, la maquette elle-même ; depuis qu'elle est enveloppée pour
+     pouvoir être masquée sur téléphone, elle n'est plus un enfant direct de
+     la grille et son `order` ne décidait plus de rien. La copie, elle,
+     restait en `order: 1`, donc derrière tout ce qui n'en avait pas : la
+     card compacte passait au-dessus du titre. */
+  .solutions-page-hero .studio-hero-grid > :not(.studio-hero-copy) {
     order: 1;
   }
   .solutions-page-hero .sol-app {
@@ -13125,8 +13147,13 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     align-items: flex-start;
     text-align: left;
   }
+  /* Le lien « Voir plus de cas d'usage » se cale sur le bord gauche du
+     paragraphe, comme le reste de l'en-tête. L'en-tête est une colonne en
+     `align-items: flex-start` sous 1024px : il suffit de ne plus l'en
+     sortir. La consigne de centrer les CTA ne vaut pas pour ce lien, qui
+     n'est pas un bouton mais la suite de la phrase au-dessus. */
   main > .band#cas-concrets > .col > .section-heading > .go {
-    align-self: center;
+    align-self: flex-start;
   }
   .solutions-families-band .families-note {
     margin-inline: 0;
@@ -13510,11 +13537,66 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     border-radius: 12px;
     font-size: 16px;
   }
+  /* ⚠ UN SEUL CORPS DE BOUTON SUR TOUT LE SITE, et cette règle est ce qui le
+     garantit. Une règle héritée met les boutons des heros à 0,75rem, soit
+     12px, sous 1023px : `.studio-hero-copy .btn` vaut (0,2,0) et l'emporte
+     sur `.btn`, donc le corps commun ne les atteignait pas. Ils étaient les
+     plus petits boutons du site alors qu'ils en sont les premiers.
+     Le rembourrage revient lui aussi à celui des autres. */
+  .studio-hero-copy .btn {
+    padding-inline: 1.5rem;
+    font-size: 16px;
+  }
   .btn-row:has(> .btn ~ .btn) {
     gap: 10px;
   }
   .btn-row:has(> .btn ~ .btn) > .btn {
     max-width: none;
+  }
+
+  /* ---- PLEINE LARGEUR, POUR TOUS LES BOUTONS DU SITE.
+
+     Jusqu'ici chaque bouton était large comme son libellé, donc aucun
+     n'avait la taille d'un autre : « Nous contacter » faisait la moitié de
+     « Réserver un échange gratuit » juste au-dessus. En pleine largeur, ils
+     ont tous exactement la même, sur toutes les pages, sans règle par page.
+
+     La rangée de deux actions se replie d'elle-même : `.btn-row` est en
+     `flex-wrap: wrap`, donc deux boutons à 100% s'empilent, et le `gap: 10px`
+     posé juste au-dessus devient leur écart vertical.
+
+     ⚠ UNE SEULE exception, le bouton de l'en-tête. Ce n'est pas une action
+     de page mais un élément de barre de navigation : en pleine largeur il
+     ferait exploser la hauteur de l'en-tête. Il est de toute façon masqué
+     sous 720px, mais la bande 720-900px existe et il faut l'exclure.
+
+     Le plafond de 19rem du callout d'accueil tombe ici : ce sélecteur vaut
+     (0,2,0) comme le sien, et il est écrit plus bas. ---- */
+  .btn:not(.site-header-cta) {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* ---- La note sous les boutons des CTA, sur UNE ligne.
+
+     Demande explicite, et elle a un prix qu'il faut assumer : le texte ne
+     change pas, donc c'est le corps qui cède. Mesuré à la vraie Helvetica
+     Neue, dans la colonne réelle du CTA sur un écran de 440px, qui fait
+     358px une fois retirés les deux retraits de la coquille et ceux de la
+     colonne :
+
+         « 30 minutes, sans engagement. Un besoin
+           concret suffit pour commencer. »     394px à 12px, 345px à 10,5
+
+     11px donnait encore 361px, trois de trop : la ligne se cassait. 10,5 est
+     la première valeur qui passe, avec treize pixels de marge.
+
+     ⚠ La valeur vaut pour TOUTES les notes du site, pas seulement celles de
+     l'accueil et de Solutions, pour qu'elles gardent le même corps d'une
+     page à l'autre. Celle de Cas d'usage est plus longue encore et reste sur
+     deux lignes : il lui faudrait 9,5px, et là on ne lirait plus rien. ---- */
+  .cta-note {
+    font-size: 10.5px;
   }
 }
 
@@ -13566,10 +13648,16 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ===================================================================== */
 @media (max-width: 900px) {
   /* ---- Les cas d'usage ---- */
-  .uca-head button {
+  /* ⚠ Le rembourrage horizontal est CONSERVÉ, et les deux variantes de
+     l'accordéon sont alignées sur la même valeur. Il était tombé à zéro
+     dans un premier jet : sur l'accueil, les numéros se collaient au filet
+     de la card. Sur la page Cas d'usage, la variante `--rich` vaut (0,2,1)
+     et gardait son propre rembourrage, d'où l'écart entre les deux pages. */
+  .uca-head button,
+  .uca--rich .uca-head button {
     min-height: 64px;
     gap: 12px;
-    padding: 14px 0;
+    padding: 14px 18px;
   }
   .uca-head em {
     width: 22px;
@@ -13596,8 +13684,11 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     font-size: 15px;
     line-height: 1.6;
   }
-  .uca-panel-in {
-    padding: 0 0 18px;
+  /* Le texte ouvert s'aligne sur le TITRE, pas sur le numéro : 18px de
+     rembourrage, plus les 22px du numéro et les 12px d'écart. */
+  .uca-panel-in,
+  .uca--rich .uca-panel-in {
+    padding: 0 18px 18px 52px;
   }
   /* Le filet de l'élément ouvert ne décale plus rien : la ligne n'a plus de
      rembourrage latéral, le repère passe donc en soulignement du bloc. */
@@ -13656,14 +13747,32 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      Navigation et Contact côte à côte, et non l'une sous l'autre : à deux
      entrées par colonne, l'empilement donnait un pied de trois écrans de
      haut pour quatre liens. */
+  /* ⚠ UNE colonne, et non deux. Le bloc de contact n'a plus de titre : il
+     tombe donc juste sous la navigation, à la suite de son entrée
+     « Contact », ce qui est exactement sa place. L'adresse y dispose de
+     toute la largeur, donc elle tient sur une ligne à n'importe quelle
+     taille d'écran, sans avoir à rapetisser. */
   .site-footer-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 28px 20px;
+  }
+  /* Il se colle à la navigation plutôt que de flotter entre les deux. */
+  .site-footer-col--contact {
+    margin-top: -18px;
   }
   .site-footer-brand {
     grid-column: 1 / -1;
   }
-  .site-footer-tagline {
+  /* ⚠ La mesure de 34ch tombe. Elle vaut 284px à ce corps, alors que la
+     colonne d'un téléphone en offre 350 à 400 : elle rétrécissait donc le
+     texte et lui ajoutait une troisième ligne. Sans elle, la phrase fait
+     661px et tient sur deux lignes dès 350px de colonne. */
+  /* ⚠ `.site-footer` en préfixe, et non `.site-footer-tagline` seul : la
+     mesure de 34ch vient d'une autre feuille, et l'ordre de chargement des
+     deux n'est pas garanti par la lecture du bundle. À poids supérieur, la
+     question ne se pose plus. */
+  .site-footer .site-footer-tagline {
+    max-width: none;
     font-size: 15px;
   }
   .site-footer-title {
@@ -13675,6 +13784,25 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     align-items: center;
     min-height: 40px;
     font-size: 15px;
+  }
+  /* L'adresse garde le corps des autres liens, 15px : c'est le lien le plus
+     important du pied, il n'a pas à être le plus petit. C'est la colonne qui
+     s'élargit pour lui, pas lui qui rétrécit. */
+  .site-footer-col a[href^="mailto"] {
+    white-space: nowrap;
+  }
+  /* ---- La barre du bas : les deux liens légaux prennent exactement le
+     corps, la graisse et la couleur du copyright qui leur fait face. La
+     règle des liens du pied, plus haut, leur donnait 15px et une hauteur de
+     cible de 40px, ce qui les faisait paraître plus gros que lui. ---- */
+  .site-footer-bottom,
+  .site-footer-legal .site-footer-link {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-mono);
+  }
+  .site-footer-legal .site-footer-link {
+    min-height: 0;
   }
   /* La barre du bas passe à la ligne plutôt que de comprimer ses liens. */
   .site-footer-bottom {
@@ -13794,3 +13922,899 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   }
 }
 
+
+/* ---- L'ESPACE AU-DESSUS DU SURTITRE, LE MÊME SUR TOUTES LES PAGES.
+
+   Deux rembourrages se superposent dans un hero : celui de la bande, et
+   celui de sa colonne. Le premier est commun, 36px. Le second ne l'était
+   pas : la colonne vaut 3,5rem en haut partout, SAUF sur les pages internes
+   où `.page-hero--inner .studio-hero-inner` la ramène à 2,5rem. Seize
+   pixels d'écart entre l'accueil et les douze autres pages, invisibles tant
+   qu'on ne les compare pas côte à côte.
+
+   L'accueil fait foi : 36 + 56 = 92px au-dessus du surtitre, partout.
+
+   Seul le HAUT est repris. Le bas des pages internes garde ses 3rem, qui
+   règlent la distance au visuel et n'ont rien à voir avec ce réglage. ---- */
+
+
+/* =====================================================================
+   LE RYTHME DES HEROS, LE MÊME SUR TOUTES LES PAGES
+
+   Un hero empilait jusqu'ici CINQ écarts différents selon la page : 1,1rem
+   sur les six pages services, 1,4rem sous 420px, 1,6rem ailleurs, et 2,25
+   ou 2,75rem entre le surtitre et le titre selon la disposition. D'une page
+   à l'autre, seuls les mots devaient changer ; c'est tout l'espacement qui
+   changeait avec eux.
+
+   ⚠ Les écarts passent en MARGES et non en `gap`. Le `gap` dépend du
+   conteneur, et les deux dispositions n'ont pas la même : sur l'accueil le
+   surtitre et le titre sont dans la colonne du hero, sur les autres pages
+   ils sont dans la colonne de texte. Une marge posée sur l'élément lui-même
+   vaut dans les deux cas.
+
+   ⚠ Tout est préfixé par `.studio-hero` pour la spécificité : les six pages
+   services ont leurs propres règles en `.svc-hero .studio-hero-copy`, qui
+   vaut (0,3,0) et aurait battu un sélecteur plus court.
+
+   Le rythme, réglé à l'œil sur un iPhone 17 Pro Max : 40px au-dessus du
+   surtitre, 25px sous lui, 25px sous le titre, 30px au-dessus des boutons,
+   14px sous eux pour la mention, et 40px avant le visuel.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .studio-hero .studio-hero-inner,
+  .studio-hero .studio-hero-copy {
+    gap: 0;
+  }
+  .studio-hero .studio-hero-copy {
+    margin-top: 0;
+  }
+  .studio-hero .studio-hero-kicker {
+    display: block;
+    margin-bottom: 25px;
+  }
+  .studio-hero h1 {
+    margin-bottom: 25px;
+  }
+  .studio-hero .studio-hero-copy > p {
+    margin-block: 0;
+  }
+  .studio-hero .studio-hero-copy > p + p {
+    margin-top: 16px;
+  }
+  .studio-hero .studio-hero-copy > .btn-row {
+    margin-top: 30px;
+  }
+  .studio-hero .hero-reassurance {
+    margin-top: 14px;
+  }
+  /* Le visuel, sous les boutons. */
+  .studio-hero .studio-hero-grid {
+    gap: 40px;
+  }
+
+  /* ---- L'ESPACE AU-DESSUS DU SURTITRE : 20px, VISIBLES.
+
+     ⚠ La barre de navigation est en `position: fixed` : elle recouvre le
+     haut de la page. Le rembourrage du hero paie donc d'abord sa hauteur,
+     64px, et seulement ensuite l'écart demandé. 64 + 20 = 84px de
+     rembourrage pour 20px vus sous la barre. Si la barre changeait de
+     hauteur, c'est ce 64 qu'il faudrait suivre. ---- */
+  .studio-hero {
+    padding-top: 64px;
+  }
+  .studio-hero .studio-hero-inner {
+    padding-top: 40px;
+  }
+}
+
+
+/* ---- Sous 900px, la maquette de bureau du hero de l'accueil cède la place
+   à la card compacte. Les deux sont dans la page, une seule s'affiche : la
+   bascule est en CSS et non en JavaScript, donc le serveur et le navigateur
+   rendent la même chose et il n'y a pas de saut au chargement. ---- */
+@media (max-width: 900px) {
+  /* ⚠ UNE SEULE classe pour les treize visuels, et c'est voulu : la plupart
+     sont des modules CSS, dont les classes sont hachées à la compilation et
+     ne peuvent donc pas être visées d'ici. L'enveloppe, elle, est écrite
+     dans la page. */
+  .hero-visual-desktop {
+    display: none;
+  }
+}
+
+
+/* ---- Le hero de l'accueil s'arrête SUR le filet de la bande animée.
+
+   Elle est le dernier élément de la section, et elle porte déjà ses deux
+   filets. Les 56px de rembourrage bas ajoutaient une bande de fond sombre
+   sous le filet du bas, qui ne séparait rien : la section suivante commence
+   juste après avec son propre fond.
+
+   Le rembourrage tombe donc à zéro, et le filet devient la limite de la
+   section. L'espace AU-DESSUS de la bande ne bouge pas : il vient de la
+   colonne du hero, pas d'ici. ---- */
+@media (max-width: 900px) {
+  .home-page-hero {
+    padding-bottom: 0;
+  }
+}
+
+
+/* =====================================================================
+   LES CTA, CENTRÉS SUR TÉLÉPHONE
+
+   Exception assumée à la règle d'alignement à gauche du site mobile. Un
+   appel à l'action n'est pas un bloc de lecture : c'est un bloc d'adresse,
+   court, isolé dans sa card, et le centrage y rassemble le regard là où on
+   veut qu'il aille. Tout le reste du site reste à gauche.
+
+   ⚠ La liste est écrite en entier, et elle couvre les cinq familles de CTA
+   du site : la card avec calendrier de l'accueil, de Solutions et de Cas
+   d'usage, celle sans calendrier des six pages services, celles de
+   Réalisations et d'Équipe, le rappel de l'accueil, et la bande de /merci.
+   Un CTA ajouté plus tard devra être ajouté ici.
+
+   ⚠ `.studio-hero` n'y est pas : le hero a ses propres boutons et il reste
+   aligné à gauche.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ⚠ TOUT est préfixé par `.dark-cta`, et c'est une question de poids. Les
+     CTA de l'accueil et de Solutions ont leurs propres règles d'alignement
+     en `.home-booking-cta .cta-booking-copy` et `.solutions-page-cta
+     .cta-booking-copy`, qui valent (0,2,0) et (0,3,0). Un sélecteur plus
+     court serait ignoré sur ces deux pages, et le centrage n'aurait eu lieu
+     que sur les six pages services. Toutes les cards de CTA du site portent
+     `.dark-cta`, donc le préfixe est sûr. */
+  .dark-cta .cta-booking-copy,
+  .dark-cta .cta-booking-copy > .lede,
+  .dark-cta .lede,
+  .dark-cta .svc-cta-actions,
+  .home-cta-reminder-card,
+  .thanks-band .lede {
+    align-items: center;
+    text-align: center;
+  }
+  .dark-cta .cta-booking-copy .cta-note,
+  .dark-cta .svc-cta-actions .cta-note,
+  .dark-cta .cta-note,
+  .home-cta-reminder-card .btn,
+  .thanks-band .lede-text {
+    margin-inline: auto;
+    text-align: center;
+  }
+  /* Les actions : la rangée se centre, et chaque bouton garde son libellé
+     centré comme partout ailleurs. */
+  .dark-cta .cta-booking-copy > .btn-row,
+  .dark-cta .btn-row,
+  .btn-row.cta-actions {
+    align-items: center;
+    justify-content: center;
+  }
+  .dark-cta .svc-cta-actions,
+  .svc-cta .svc-cta-actions {
+    justify-self: center;
+  }
+}
+
+
+/* ---- LES CARTES « SÉCURITÉ, CONFIDENTIALITÉ ET CONTRÔLE » SUR TÉLÉPHONE.
+
+   La carte empilait l'icône, le numéro, le titre, le texte et la pastille :
+   cinq rangées pour quatre cartes, soit une section très haute pour peu de
+   mots. Le titre remonte à côté de l'icône, ce qui rend une rangée à chaque
+   carte.
+
+   Une grille nommée plutôt qu'un jeu de `flex` : la rangée du haut doit
+   contenir DEUX éléments qui ne sont pas frères dans le balisage — l'icône
+   est dans `.tst-top`, le titre est à côté. Les zones les réunissent sans
+   toucher au HTML.
+
+   `.tst-bar` n'y figure pas : elle est en `position: absolute`, donc elle
+   ne prend aucune place dans la grille. ---- */
+@media (max-width: 900px) {
+  .tst-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "mark title"
+      "text text"
+      "pill pill";
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 10px;
+  }
+  .tst-top {
+    grid-area: mark;
+  }
+  .tst-card h3 {
+    grid-area: title;
+    font-size: 16.5px;
+  }
+  .tst-card p {
+    grid-area: text;
+  }
+  .tst-pill {
+    grid-area: pill;
+    justify-self: start;
+  }
+}
+
+
+/* ---- « RÉSULTATS RECHERCHÉS » : LE SCHÉMA TOMBE SUR TÉLÉPHONE.
+
+   Chacun des quatre résultats est illustré par un petit schéma animé de
+   150px de haut, posé au-dessus de son explication. Sur un écran large il
+   accompagne la lecture ; sur un téléphone il prend un tiers de la hauteur
+   visible pour dire ce que le texte dit juste en dessous, et il repousse
+   l'explication hors de l'écran.
+
+   Il disparaît donc, et seule l'explication reste. Le reste de la section
+   ne bouge pas : la liste des quatre résultats, le choix au tap et le
+   défilement automatique fonctionnent comme avant. ---- */
+@media (max-width: 900px) {
+  .isp-stage {
+    display: none;
+  }
+  .isp-view {
+    gap: 0;
+    padding: 20px 18px 22px;
+  }
+}
+
+
+/* =====================================================================
+   LE DIAGNOSTIC IA : CHAQUE ÉTAPE PORTE SES QUESTIONS, SUR TÉLÉPHONE
+
+   Le parcours est fait de trois onglets en rangée, et du panneau de l'outil
+   choisi en dessous. Sur un écran large, les trois tiennent côte à côte et
+   le panneau est sous les yeux. Sur un téléphone, les trois onglets
+   s'empilent, le panneau tombe sous le troisième, et il faut redescendre
+   pour répondre à la question de l'étape qu'on vient de choisir.
+
+   Les questions reviennent donc SOUS leur étape : étape 1, ses questions,
+   étape 2, ses questions, étape 3, ses questions.
+
+   ⚠ Comment, sans toucher au balisage : la rangée d'onglets passe en
+   `display: contents`, donc sa boîte disparaît et ses trois boutons
+   deviennent enfants directs de la zone. Les six éléments sont alors des
+   frères, et un `order` suffit à les entrelacer. Les panneaux inactifs
+   portent `hidden`, donc un seul s'affiche à la fois : on voit l'étape
+   choisie et ses questions, les deux autres étapes restant repliées.
+
+   ⚠ Les ordres sont posés par POSITION. Ajouter un quatrième outil demande
+   d'ajouter sa paire ici.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .tools-zone {
+    display: flex;
+    flex-direction: column;
+  }
+  .tools-tabs {
+    display: contents;
+  }
+  .tools-tabs > :nth-child(1) {
+    order: 1;
+  }
+  .tools-tabs > :nth-child(2) {
+    order: 3;
+  }
+  .tools-tabs > :nth-child(3) {
+    order: 5;
+  }
+  /* Les trois panneaux : deuxième, troisième et quatrième `div` de la zone,
+     la première étant la rangée d'onglets. */
+  .tools-zone > div:nth-of-type(2) {
+    order: 2;
+  }
+  .tools-zone > div:nth-of-type(3) {
+    order: 4;
+  }
+  .tools-zone > div:nth-of-type(4) {
+    order: 6;
+  }
+  /* La mention et le pied passent après tout le parcours. */
+  .tools-zone > .tools-disclaimer {
+    order: 7;
+  }
+  .tools-zone > .tools-foot {
+    order: 8;
+  }
+  /* Un onglet occupe toute la largeur et devient une ligne de parcours. */
+  .tools-tab {
+    width: 100%;
+  }
+}
+
+
+/* ---- L'adresse de contact est soulignée, sur toutes les tailles d'écran :
+   c'est le seul lien du pied qu'on vient y chercher, et le soulignement le
+   désigne comme cliquable sans qu'on ait à le survoler. ---- */
+.site-footer-mail {
+  color: #0b6be6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* Le survol et le focus ne la font pas changer de couleur : elle est déjà la
+   seule du pied à en avoir une. */
+.site-footer-mail:hover {
+  color: #0b6be6;
+}
+
+
+/* ---- Le titre « Quand l'IA s'intègre… » tient sur DEUX lignes au bureau.
+
+   Sa coupe est écrite dans le texte, mais la mesure commune des titres,
+   `max-width: 20ch`, vaut 448px au corps de bureau : les deux moitiés en
+   demandent 463 et 474 en anglais, donc la seconde se recoupait et le titre
+   partait sur trois lignes. En français il passait de justesse, d'où l'écart
+   entre les deux langues.
+
+   La mesure est levée pour ce seul titre. Sa colonne en offre près de 780,
+   donc les deux lignes écrites sont celles qui s'affichent, dans les deux
+   langues. ---- */
+@media (min-width: 901px) {
+  .daily-section-heading .lede-title {
+    max-width: none;
+  }
+}
+
+/* ---- Le bouton principal du hero d'accueil : BLANC SUR TÉLÉPHONE SEULEMENT.
+
+   Au bureau il reprend le bleu clair des mots peints du titre, avec une
+   encre bleu nuit. Ce n'est pas écrit ici : `.home-hero-dark` pose déjà
+   `--brand: #8fc0ff` et `--brand-foreground: #0b192c`, et `.btn--primary`
+   lit ces deux jetons. Voir la règle de `.home-hero-dark` plus haut, et son
+   commentaire : 9,37:1, contre 3,25:1 pour le bleu de bouton ordinaire, qui
+   avait été essayé puis écarté sur ce fond.
+
+   ⚠ La borne à 900px est donc indispensable. Sans elle, cette règle écrase
+   les jetons sur TOUTES les tailles, et le bureau perd le bleu clair. C'est
+   exactement ce qui s'était passé en la posant.
+
+   Sur téléphone, en revanche, le blanc est voulu : le jeu de boutons
+   mobiles écrit `background` en dur et ignore les jetons, et c'est le blanc
+   qui a été retenu à l'œil. ---- */
+@media (max-width: 900px) {
+  .btn.btn--white-blue,
+  .btn.btn--white-blue:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #0b6be6;
+  }
+}
+
+/* ---- Le même bouton, dans le callout « Votre situation est unique ».
+
+   Sur fond bleu plein, le bouton doit s'inverser. Au bureau il le fait déjà
+   seul : le callout pose `--brand: #fff`, et `.btn--primary` lit ce jeton.
+
+   ⚠ Sur téléphone, le jeu de boutons mobiles écrit `background` EN DUR et
+   ignore donc le jeton : le bouton repassait bleu sur bleu. Il faut le
+   nommer explicitement, et non reprendre `--brand`, pour le déloger.
+   Le bureau n'est pas touché : la règle est sous 900px. ---- */
+@media (max-width: 900px) {
+  .daily-open-callout .btn--primary,
+  .daily-open-callout .btn--primary:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #0b6be6;
+  }
+}
+
+/* Les titres de section de l'accueil suivent tous l'échelle mobile commune. */
+@media (max-width: 900px) {
+  .site-theme-alternating main > .studio-section .section-heading .lede-title,
+  main > .band#cas-usage.home-usecases-light > .col > .section-heading .lede-title {
+    font-size: 29px;
+  }
+}
+
+
+
+/* =====================================================================
+   « QU'EST-CE QU'UNE AUTOMATISATION ? » : LE FLUX, SUR TÉLÉPHONE
+
+   La scène de bureau est un repère de 640×370 dont les huit nœuds sont
+   posés en POURCENTAGE de ce repère. C'est ce qui lui permet de tenir dans
+   n'importe quelle largeur sans se déformer, et c'est aussi ce qui la rend
+   illisible en bas d'échelle : dans une colonne de 400px, les boîtes
+   tombent à 35px et les libellés sous les 8px.
+
+   Le commentaire de `.aug` le prévoyait : « si la lisibilité ne suffit plus
+   en bas de l'échelle, c'est une composition différente qu'il faut pour le
+   téléphone, pas des tailles mixtes. » C'est celle-ci.
+
+   ⚠ Ce n'est PAS un second contenu. Les noms, les états et l'horloge sont
+   ceux de la scène ; seule la mise en page change. Si le flux évolue, il
+   évolue dans `automation-graph.tsx` et les deux suivent ensemble.
+
+   Ce que la liste doit continuer de dire, et qui est l'argument de la
+   section : une exécution sur trois tombe sur un cas ambigu, s'arrête, et
+   appelle une personne. Les quatre étapes du milieu restent alors grises et
+   le contrôle humain passe en orange. C'est pour ça qu'il est DÉTACHÉ en bas
+   de liste, avec un trait en pointillé : il est une sortie du flux, pas une
+   étape de plus.
+   ===================================================================== */
+.aug-flow {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .aug-scene {
+    display: none;
+  }
+  .aug-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ---- Une étape ----
+     `38px minmax(0, 1fr) 20px` : la pastille et la marque gardent leur
+     largeur, c'est le libellé qui se réduit. L'inverse écraserait une icône
+     avant de toucher au texte. */
+  .aug-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 20px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1.5px solid #d5dbe3;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgb(20 40 80 / 5%);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* ---- Le trait entre deux étapes ----
+     Il vit dans l'écart de 10px, et il s'allume dès que l'étape du dessous
+     est atteinte : c'est lui qui donne le sens de circulation, que la scène
+     disait avec ses courbes et ses points. */
+  .aug-step + .aug-step::before {
+    content: "";
+    position: absolute;
+    left: 32px;
+    top: -13px;
+    width: 2px;
+    height: 13px;
+    background: #d5dbe3;
+    transition: background-color 0.3s ease;
+  }
+  .aug-step.is-run::before,
+  .aug-step.is-done::before {
+    background: #0b6be6;
+  }
+
+  /* ---- Les états, aux couleurs exactes de la scène ---- */
+  .aug-step.is-run {
+    border-color: #0b6be6;
+    box-shadow: 0 0 0 4px rgb(11 107 230 / 14%);
+  }
+  .aug-step.is-done {
+    border-color: #2db37a;
+  }
+  .aug-step.is-alert {
+    border-color: #f5b454;
+    box-shadow: 0 0 0 4px rgb(245 180 84 / 20%);
+  }
+
+  /* ---- La pastille d'icône ---- */
+  .aug-step-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #f4f6f9;
+    transition: background-color 0.3s ease;
+  }
+  .aug-step-icon svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke-width: 1.8;
+    color: #5a5a5a;
+    transition: color 0.3s ease;
+  }
+  .aug-step--ai .aug-step-icon {
+    background: #eaf2fe;
+  }
+  .aug-step--ai .aug-step-icon svg {
+    color: #0b6be6;
+  }
+  .aug-step.is-alert .aug-step-icon {
+    background: #fdf3e2;
+  }
+  .aug-step.is-alert .aug-step-icon svg {
+    color: #d98a1c;
+  }
+
+  /* ---- Le libellé et son complément ---- */
+  .aug-step-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .aug-step-text b {
+    overflow: hidden;
+    font-size: 14.5px;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #2e2e2e;
+  }
+  .aug-step-text em {
+    overflow: hidden;
+    font-style: normal;
+    font-size: 11.5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #71757c;
+  }
+
+  /* ---- La marque de fin d'étape ----
+     La case fait 20px qu'elle soit vide ou non : sans cela, la colonne du
+     libellé changerait de largeur à chaque étape franchie et le texte
+     sauterait de deux pixels toutes les demi-secondes. */
+  .aug-step-mark {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+  }
+  .aug-step-mark svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+  }
+  .aug-step-ok {
+    stroke: #2db37a;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+  }
+  .aug-step-warn {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* ---- La sortie du flux ----
+     Détachée, et reliée par un trait en POINTILLÉ : le flux ne continue pas
+     par là, il s'y arrête. */
+  .aug-step--branch {
+    margin-top: 8px;
+  }
+  .aug-step + .aug-step--branch::before {
+    top: -21px;
+    height: 21px;
+    width: 0;
+    background: none;
+    border-left: 2px dashed #d5dbe3;
+    transition: border-color 0.3s ease;
+  }
+  .aug-step--branch.is-run::before,
+  .aug-step--branch.is-alert::before {
+    border-color: #f5b454;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aug-step,
+  .aug-step::before,
+  .aug-step-icon,
+  .aug-step-icon svg {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   LES HUIT CARTES D'USAGE DES PAGES SERVICE : SANS APERÇU SUR TÉLÉPHONE
+
+   Chaque carte porte un mini-aperçu dessiné — lignes grises, pastilles,
+   étiquettes, mini-cadres — composé pour un tiers de colonne de bureau.
+   Pleine largeur sur téléphone, il devient un grand cadre gris de 104px
+   avant chaque titre : huit fois dans la même section, c'est lui qu'on
+   parcourt, et plus les usages.
+
+   UNE règle couvre les six pages service : les huit séries d'aperçus
+   partagent le même conteneur `.auc-art`, quel que soit le service. Les
+   textes, eux, ne bougent pas d'un pixel.
+
+   Le retrait du retrait intérieur de `.auc-copy` va avec : ses 6px
+   alignaient le texte sur le bord intérieur du cadre d'aperçu. Sans cadre,
+   ils ne sont plus l'alignement de rien.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .auc-art {
+    display: none;
+  }
+  .auc-card {
+    padding: 16px;
+  }
+  .auc-copy {
+    margin-inline: 0;
+  }
+}
+
+
+/* =====================================================================
+   « INTÉGRATION À VOS OUTILS MÉTIER » : LA SCÈNE CÈDE LA PLACE
+
+   La scène du flux est un repère de 480×320 dont les textes sont en `cqw` :
+   dans une colonne de 400px, son plus petit corps tombe sous 7px. Huit noms
+   d'outils et trois jauges à cette taille ne se lisent pas.
+
+   Sous 900px elle est donc masquée, et `HeroCompact` prend sa place — la
+   même carte compacte que les heros, dont la feuille dit qu'elle ne vit que
+   sur fond bleu nuit. Cette bande, `svc-ink`, en est une.
+
+   ⚠ La classe est `.cv--flow` et NON `.cv` : les cinq visuels de la bande
+   bleu nuit des pages service partagent `.cv`, et masquer `.cv` masquerait
+   les quatre autres, qui n'ont pas encore leur version compacte.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .cv--flow,
+  .cv--app,
+  .cv--layer,
+  .cv--kpi,
+  .cv--teams {
+    display: none;
+  }
+}
+
+
+/* ---- Deux titres de « Qu'est-ce que… » tiennent sur DEUX lignes au bureau.
+
+   Même cause que pour le titre d'une seule ligne juste au-dessus : ce qui
+   les coupait n'était pas la colonne mais la mesure commune des titres,
+   `max-width: 20ch`. Mesuré à la face Medium, letter-spacing compris, le
+   plafond vaut 11,12 em et les deux moitiés en réclament :
+
+     « Qu'est-ce qu'une » / « intégration entre logiciels ? »   7,33 / 11,33
+     « Qu'est-ce que la Data & » / « Intelligence… »           10,07 / 11,35
+
+   Dix pixels de trop sur la seconde ligne dans les deux cas, et le titre
+   partait sur trois lignes. Aucune autre coupe ne passe sous le plafond :
+   les cinq autres, mesurées, vont de 12,2 à 20,9 em.
+
+   La mesure est donc levée, et c'est la COLONNE qui borne, ce qui ne peut
+   pas faire déborder : au pire elle ajouterait une ligne. Elle en offre
+   environ 12,9 em là où elle est la plus étroite en proportion, vers
+   1520px, où le corps plafonne à 42px pendant qu'elle reste à 547px. Les
+   deux moitiés passent, avec 0,8 et 1,5 em de marge.
+
+   ⚠ Réservé aux deux titres qui le portent, par `whatTitleTwoLines` dans le
+   contenu. Les quatre autres pages gardent le plafond commun : il est une
+   mesure de confort de lecture, pas une gêne à contourner. ---- */
+@media (min-width: 901px) {
+  .svc-what--two .lede-title {
+    max-width: none;
+  }
+}
+
+
+/* =====================================================================
+   « SÉCURITÉ ET CONTRÔLE » : LE TITRE À CÔTÉ DE SON ICÔNE
+
+   Les quatre cellules empilent icône, titre, texte. Sur une colonne de
+   400px la ligne d'en-tête ne porte qu'une pastille de 30px et un numéro de
+   20, avec trois cents pixels de vide entre les deux, et le titre attend en
+   dessous. Mis à côté, le titre occupe ce vide et la carte gagne une ligne
+   entière, quatre fois.
+
+   ⚠ `display: contents` sur l'en-tête est ce qui le permet : il efface sa
+   boîte, l'icône et le numéro deviennent des enfants directs de la cellule,
+   et le titre peut donc se placer ENTRE eux. Sans cela, le titre resterait
+   enfermé sous un bloc qui occupe toute la largeur.
+
+   Les trois placements sont ÉCRITS et non laissés au placement automatique :
+   dans l'ordre du DOM, l'icône, le numéro puis le titre tomberaient dans cet
+   ordre, et le numéro se retrouverait entre l'icône et son titre.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .sec-cell {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 8px;
+    padding: 16px 18px;
+  }
+  .sec-cell-top {
+    display: contents;
+  }
+  .sec-cell-icon {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .sec-cell h3 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .sec-cell-top em {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .sec-cell p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+
+/* =====================================================================
+   « APRÈS LA MISE EN SERVICE » : LES QUATRE VOLETS, SUR TÉLÉPHONE
+   Les six pages service.
+
+   Le gâchis de place est dans `min-height: 220px`. Il est là pour que les
+   quatre volets fassent la même hauteur côte à côte au bureau, deux par
+   deux. Empilés sur un téléphone, ils ne sont plus côte à côte : plus rien
+   n'est à égaliser, et chaque volet réserve deux cent vingt pixels pour un
+   titre et deux lignes de texte. Quatre fois de suite.
+
+   Trois corrections, toutes de place et aucune de contenu :
+     - la hauteur minimale tombe, chaque volet prend celle de son texte ;
+     - `max-width: 300px` sur le paragraphe tombe aussi : dans une colonne
+       de 400 il ajoutait des lignes sans servir de mesure de lecture ;
+     - le numéro et l'état se rejoignent, au lieu d'être renvoyés aux deux
+       bords avec trois cents pixels de vide entre eux.
+
+   La barre de progression du volet actif RESTE : c'est elle qui dit que le
+   suivi tourne, et c'est le propos de la section. Le bandeau d'état et la
+   note contractuelle restent aussi, cette dernière étant un engagement.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .afp-cell {
+    gap: 8px;
+    min-height: 0;
+    padding: 18px;
+  }
+  .afp-top {
+    justify-content: flex-start;
+  }
+  .afp-cell h3 {
+    margin-top: 2px;
+    font-size: 17px;
+  }
+  .afp-cell p {
+    max-width: none;
+  }
+}
+
+
+/* =====================================================================
+   LES QUATRE SCÈNES DE « QU'EST-CE QUE… » CÈDENT LA PLACE
+
+   Même cause que pour la bande bleu nuit : ce sont des repères à
+   coordonnées absolues dont les textes sont en `cqw`, et dans une colonne
+   de 400px ils tombent sous 8px. `CompactPanel` prend la place, en thème
+   clair cette fois — `HeroCompact` est réglé pour le bleu nuit et sa
+   feuille dit de ne pas le servir ailleurs.
+
+   ⚠ Les classes sont `.unv--*` et NON `.unv` : les visuels de cette section
+   partagent `.unv`, et masquer `.unv` masquerait aussi celui de la page
+   Agents IA, qui n'a pas encore sa version compacte.
+
+   Le graphe d'automatisation n'est pas dans cette liste : il n'utilise pas
+   `.unv` et il a sa propre liste verticale, `.aug-flow`, plus haut dans
+   cette feuille.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .unv--software,
+  .unv--integration,
+  .unv--data,
+  .unv--adoption {
+    display: none;
+  }
+}
+
+
+/* ---- Le titre anglais de la section Solutions de l'accueil prend TOUTE la
+   largeur de la colonne sur téléphone.
+
+   Il portait deux coupes mobiles écrites dans le texte, qui le posaient sur
+   trois segments ; le deuxième se recoupait sous le plafond des titres et il
+   sortait sur quatre lignes. Les coupes sont retirées du contenu, et le
+   plafond est levé ici : la colonne en offre 400px là où `max-width: 24ch`
+   n'en donne que 387. Mesuré, l'anglais tient alors sur deux lignes, 384 et
+   369px.
+
+   ⚠ Levé pour l'ANGLAIS SEULEMENT, et c'est la raison d'être du sélecteur de
+   langue. Le français de ce même titre se replie mieux SOUS le plafond :
+   342 / 340px, deux lignes équilibrées, contre 389 / 294 sans lui. Lever la
+   mesure pour les deux aurait réparé l'un en abîmant l'autre. ---- */
+@media (max-width: 900px) {
+  html[lang="en"] #offre .lede-title {
+    max-width: none;
+  }
+}
+
+
+/* ---- Le surtitre « Questions fréquentes » des six pages service passe à
+   GAUCHE, comme celui de la FAQ de l'accueil.
+
+   La FAQ de ces pages centre tout son en-tête sur l'axe de 48rem des
+   questions, surtitre compris. L'accueil et la page Solutions, eux, font
+   depuis toujours l'inverse sur ce seul bloc : `.lede` à gauche et seul le
+   `.lede-title` centré. Les six pages service s'alignent donc sur ce motif.
+
+   ⚠ Le titre doit être recentré EXPLICITEMENT. Il tenait son centrage par
+   héritage du `text-align` de son `.lede` ; en passant celui-ci à gauche, il
+   serait parti à gauche avec le surtitre. Le bloc de 48rem et son
+   `margin-inline: auto` ne bougent pas : c'est l'axe des questions, et c'est
+   lui qui fait que l'en-tête tombe au-dessus d'elles.
+
+   Bureau seulement. Sous 900px tout est déjà à gauche, surtitre comme
+   titre, et cette règle n'a rien à y faire. ---- */
+@media (min-width: 901px) {
+  /* ⚠ `text-align: left` ne suffisait PAS, et c'était mon erreur : le bloc
+     restait large de 48rem et centré dans la colonne, donc le surtitre se
+     posait au bord gauche de CE bloc, à presque deux cents pixels du bord de
+     la colonne. Il faut aussi rendre au bloc toute la largeur et lui retirer
+     son centrage, pour que le surtitre tombe sur le même axe que « Après la
+     mise en service » et tous les autres surtitres de la page, qui vivent
+     dans un `.lede` en `width: 100%`. */
+  .svc-faq > .col > .lede {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    text-align: left;
+  }
+  /* Le titre reste centré, et son axe ne bouge pas d'un pixel : il était
+     centré dans un bloc centré, il est maintenant centré dans la colonne.
+     Deux centrages concentriques ont le même milieu. */
+  .svc-faq > .col > .lede > .lede-title {
+    margin-inline: auto;
+    text-align: center;
+  }
+}
+
+
+/* ---- Six titres de « Usages concrets » tiennent sur DEUX lignes au bureau.
+
+   Les douze titres de cette section sont écrits en deux moitiés, séparées
+   par une coupe dans le texte. Mais le titre d'une section est mesuré à 60%
+   de sa colonne, soit 16,19 em au bureau le plus large, et six de ces vingt-
+   quatre moitiés dépassent cette mesure ou la frôlent :
+
+     Quels usages pour un logiciel métier,            15,60 em
+     Quels objectifs pour une formation IA,           15,97 em
+     Which needs can custom software address,         18,63 em
+     Which software should you connect,               17,32 em
+     How can you use your business data,              16,86 em
+     What should business AI training achieve,         19,77 em
+
+   La moitié trop longue se recoupait donc, et le titre sortait sur trois
+   lignes. La mesure est levée pour ces six-là : la colonne entière offre
+   26,98 em, donc chaque moitié tient, et la coupe écrite est celle qui
+   s'affiche.
+
+   ⚠ La spécificité est délibérée. La règle d'origine vaut (2,5,0), parce que
+   ses deux `:not(#top)` et `:not(#faq)` comptent comme des identifiants. Une
+   classe utilitaire seule ne la déloge pas : il faut reprendre son sélecteur
+   entier et y ajouter la classe. C'est le même piège qu'ailleurs dans cette
+   feuille, et toujours le même remède.
+
+   ⚠ Les six AUTRES titres gardent la mesure, et l'un d'eux en dépend : le
+   titre anglais des automatisations n'a plus de coupe écrite, il se replie
+   tout seul, et c'est la mesure de 16,19 em qui le coupe au bon endroit.
+   Lever la mesure pour lui le renverrait sur « …and with which » /
+   « solutions? ». ---- */
+@media (min-width: 901px) {
+  .band:not(#top):not(#faq) > .col > .section-heading.svc-uses-head--two .lede .lede-title {
+    max-width: none;
+  }
+}
+
+/* Sur mobile, la FAQ des pages service suit l'axe gauche de ses questions. */
+@media (max-width: 900px) {
+  .svc-faq > .col > .lede,
+  .svc-faq > .col > .lede > .lede-title {
+    margin-inline: 0;
+    text-align: left;
+  }
+}

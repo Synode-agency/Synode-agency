@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import type { Locale } from "@/lib/content";
+import { CompactPanel } from "@/components/compact-panel";
 import { Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scene";
 
 /**
@@ -15,6 +16,22 @@ import { Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scen
  * règle que la section énonce : un chiffre observé et une estimation ne se
  * présentent pas de la même façon. Lui donner le même aplat que les autres
  * dirait l'inverse.
+ * ────────────────────────────────────────────────────────────────────────
+ *
+ * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
+ * Cinq sources entrent dans deux étapes. Le bandeau porte les deux
+ * étapes, les cinq lignes portent les sources.
+ *
+ * La légende « constaté / estimé » n'est PAS reprise, et c'est délibéré :
+ * elle nommait deux séries d'un graphique, l'une pleine et l'autre en
+ * pointillés. Sans le graphique elle ne légende plus rien, et deux mots
+ * seuls en pied de panneau ne se comprendraient pas.
+ *
+ * La scène est un repère à coordonnées absolues dont les textes sont en
+ * `cqw` : dans une colonne de 400px ils tombent sous 8px. Sous 900px c'est
+ * `CompactPanel` qui prend la place, et `.unv--data` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène.
  * ────────────────────────────────────────────────────────────────────────
  */
 
@@ -96,7 +113,8 @@ export function DataVisual({ locale }: { locale: Locale }) {
   });
 
   return (
-    <div ref={scene} className="unv-wrap">
+    <>
+    <div ref={scene} className="unv-wrap unv--data">
       <Scene
         rootRef={root}
         label={c.alt}
@@ -149,5 +167,12 @@ export function DataVisual({ locale }: { locale: Locale }) {
         </T>
       </Scene>
     </div>
+
+    {/* ---- Le panneau du téléphone. Voir l'en-tête du fichier. ---- */}
+    <CompactPanel
+      head={c.steps.join(" · ")}
+      rows={c.sources.map((name, k) => ({ num: String(k + 1).padStart(2, "0"), label: name }))}
+    />
+    </>
   );
 }

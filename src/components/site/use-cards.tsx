@@ -36,7 +36,7 @@ import type { Locale } from "@/lib/content";
 
 const COPY = {
   fr: {
-    ask: "Quels sont vos horaires ?",
+    ask: "Quels sont vos horaires ?",
     reply: "Du lundi au vendredi, 8h–18h.",
     source: "source · FAQ.pdf",
     query: "délai de livraison",

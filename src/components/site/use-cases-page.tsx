@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
+import { HeroCompact } from "@/components/hero-compact";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { Booking } from "@/components/site/booking";
@@ -43,7 +44,28 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
         kicker={fr ? "Cas d’usage" : "Use cases"}
         kickerMobileOnly
         title={fr ? <>Des <span>systèmes IA</span> intégrés à vos processus métier</> : <><span>AI systems</span> integrated into your business processes</>}
-        aside={<UseCaseTerminal locale={locale} />}
+        aside={<>
+          <div className="hero-visual-desktop"><UseCaseTerminal locale={locale} /></div>
+          <HeroCompact
+            title="customer-request.workflow"
+            status={fr ? "Système actif" : "System active"}
+            rows={(fr ? [
+              ["input", "Demande reçue"],
+              ["context", "Contexte chargé"],
+              ["ai.agent", "Demande analysée"],
+              ["rules", "Règles métier vérifiées"],
+              ["human", "Validation humaine"],
+              ["systems", "Outils mis à jour"],
+            ] : [
+              ["input", "Request received"],
+              ["context", "Context loaded"],
+              ["ai.agent", "Request analysed"],
+              ["rules", "Business rules checked"],
+              ["human", "Human approval"],
+              ["systems", "Systems updated"],
+            ]).map(([state, label], i) => ({ num: String(i + 1).padStart(2, "0"), label, state }))}
+          />
+        </>}
       >
         <p>{fr ? "Découvrez comment l’intelligence artificielle peut connecter vos outils, exploiter vos données, orchestrer des processus complexes et assister vos équipes au quotidien. Agents IA, automatisations, intégrations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can connect your tools, use your data, orchestrate complex processes and support your teams every day. AI agents, automations, integrations and business software are combined around your tools, data and business rules."}</p>
         <div className="btn-row">
@@ -72,8 +94,8 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
           <div className="cta-booking-copy">
             <span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span>
             <Lede
-              title={fr ? "Identifions votre\ncas d’usage IA." : "Let’s identify your\nAI use case."}
-              accents={fr ? ["cas d’usage IA."] : ["AI use case."]}
+              title={fr ? "Identifions votre\ncas d’usage IA" : "Let’s identify your\nAI use case"}
+              accents={fr ? ["cas d’usage IA"] : ["AI use case"]}
               text={fr
                 ? "En 30 minutes, Synode analyse avec vous un processus, ses contraintes et les outils concernés afin d’identifier un cas d’usage de l’intelligence artificielle pertinent pour votre entreprise."
                 : "In 30 minutes, Synode reviews a process, its constraints and the tools involved with you to identify a relevant artificial intelligence use case for your business."}

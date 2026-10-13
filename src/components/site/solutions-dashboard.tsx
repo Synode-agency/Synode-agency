@@ -136,7 +136,7 @@ export function SolutionsDashboard({ locale }: { locale: Locale }) {
 
         <div className="sol-app-hello">
           <div>
-            <strong>{fr ? "Bonjour !" : "Hello!"}</strong>
+            <strong>{fr ? "Bonjour !" : "Hello!"}</strong>
             <p>{fr ? "Voici un résumé de votre activité." : "Here is a summary of your activity."}</p>
           </div>
           <div className="sol-app-hello-module">
