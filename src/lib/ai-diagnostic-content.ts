@@ -13,7 +13,7 @@ const fr = {
     "Examinez un processus métier et les conditions nécessaires à une automatisation, une intégration ou une assistance par l’intelligence artificielle.",
   lead:
     "Six questions sur le fonctionnement réel d’un processus, puis une première lecture de sa faisabilité et des approches à étudier. Aucune inscription, aucune adresse email, aucune réponse enregistrée sur nos serveurs.",
-  processLabel: "Quel processus souhaitez-vous analyser ?",
+  processLabel: "Quel processus souhaitez-vous analyser ?",
   processPlaceholder: "Ex. traitement des demandes clients",
   processHelp: "Un processus précis donne un résultat plus utile qu’une activité entière.",
   start: "Commencer le diagnostic",
@@ -35,8 +35,8 @@ const fr = {
   humanNote: "Niveau de validation humaine à conserver",
   disclaimer:
     "Ce diagnostic est indicatif. La pertinence d’une solution IA dépend également de la qualité des données, des contraintes techniques, des outils utilisés, des risques et des règles métier propres à votre entreprise.",
-  ctaKicker: "Votre processus mérite une analyse plus précise ?",
-  ctaTitle: "Transformons ce diagnostic en solution concrète.",
+  ctaKicker: "Votre processus mérite une analyse plus précise ?",
+  ctaTitle: "Transformons ce diagnostic en solution concrète",
   ctaText:
     "Nous pouvons analyser plus précisément votre processus, vos outils, vos données et vos contraintes afin de déterminer quelle combinaison de technologies serait réellement pertinente.",
   toBrief: "Préparer votre brief",
@@ -124,7 +124,7 @@ const en: typeof fr = {
   disclaimer:
     "This diagnostic is indicative. Whether an AI solution is relevant also depends on data quality, technical constraints, the tools in use, the risks and the business rules specific to your company.",
   ctaKicker: "Does your process deserve a closer look?",
-  ctaTitle: "Let’s turn this diagnostic into a concrete solution.",
+  ctaTitle: "Let’s turn this diagnostic into a concrete solution",
   ctaText:
     "We can look more precisely at your process, your tools, your data and your constraints to determine which combination of technologies would genuinely be relevant.",
   toBrief: "Prepare your brief",
@@ -214,7 +214,7 @@ export function diagnosticSummary(locale: Locale, result: DiagnosticResult): str
 
   const body = result.level === "limited"
     ? fr
-      ? " Un projet IA n’y apporterait probablement pas assez pour justifier son coût aujourd’hui ; un autre processus de votre activité serait sans doute plus pertinent."
+      ? " Un projet IA n’y apporterait probablement pas assez pour justifier son coût aujourd’hui ; un autre processus de votre activité serait sans doute plus pertinent."
       : " An AI project would probably not bring enough here to justify its cost today; another process in your business is likely a better candidate."
     : result.level === "moderate"
       ? fr

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 import { Box, Dot, Scene, T, curve, ease, onCurve, polyline, py, span, useSceneClock } from "./scene";
 
 /**
@@ -14,6 +15,20 @@ import { Box, Dot, Scene, T, curve, ease, onCurve, polyline, py, span, useSceneC
  *
  * Les six barres n'ont aucune échelle et aucun chiffre : ce sont des
  * hauteurs relatives, pas des résultats.
+ *
+ * ── SUR TÉLÉPHONE, UNE CARTE COMPACTE ───────────────────────────────────
+ * Huit sources qui passent un contrôle qualité. La liste garde la source
+ * incomplète, sans quoi le bloc ne dirait plus qu'une chose et la fausserait :
+ * ce n'est pas « huit sources alimentent vos indicateurs », c'est « une
+ * source non vérifiée n'est pas comptée ».
+ *
+ * La scène est un repère de 480×320 dont les textes sont en `cqw` : dans une
+ * colonne de 400px ils tombent sous 8px. Sous 900px c'est donc `HeroCompact`
+ * qui prend la place, et `.cv--kpi` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène. Rien
+ * n'est réécrit, rien n'est inventé.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const LOOP = 7600;
@@ -43,7 +58,7 @@ const COPY = {
     warn: "1 source à compléter",
     run: "réunir · vérifier · présenter",
     rule: "un chiffre n’est affiché que si sa source est vérifiée",
-    label: "Huit sources de données passent un contrôle qualité avant d’alimenter vos indicateurs ; une source incomplète n’est pas comptée.",
+    label: "Huit sources de données passent un contrôle qualité avant d’alimenter vos indicateurs ; une source incomplète n’est pas comptée.",
   },
   en: {
     sources: ["Sales", "Stock", "Production", "Customers", "Finance", "Support", "Website", "Internal files"],
@@ -130,8 +145,10 @@ export function KpiVisual({ locale }: { locale: Locale }) {
   const level = checked / 7;
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="cv--kpi"
       sceneRef={node => { stage.current = node; }}
       label={c.label}
       shapes={
@@ -187,5 +204,20 @@ export function KpiVisual({ locale }: { locale: Locale }) {
         {n >= 8 ? c.rule : c.run}
       </T>
     </Scene>
+
+    {/* ---- La carte du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      title={c.title}
+      status={c.check}
+      rows={c.sources.map((name, k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: name,
+        /* La huitième source est celle qui manque, et c'est l'argument de la
+           section : un chiffre n'est affiché que si sa source est vérifiée.
+           Elle est la seule à porter un état, pour qu'on la repère. */
+        ...(k === WARN ? { state: c.warn } : {}),
+      }))}
+    />
+    </>
   );
 }

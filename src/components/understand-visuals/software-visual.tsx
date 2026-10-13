@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import type { Locale } from "@/lib/content";
+import { CompactPanel } from "@/components/compact-panel";
 import { Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scene";
 
 /**
@@ -10,6 +11,19 @@ import { Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scen
  * Trois rôles se branchent tour à tour sur la même application, et chacun y
  * trouve ses écrans. C'est l'argument de la section : l'outil est fait pour
  * ceux qui s'en servent, et l'IA n'occupe qu'un écran sur six.
+ *
+ * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
+ * Trois rôles ouvrent la même application, qui leur présente leurs
+ * écrans. La liste garde les six écrans et le bandeau garde les trois rôles.
+ * L'écran assisté par l'IA reste marqué, en bleu : c'est le seul des six qui
+ * ne soit pas un écran ordinaire, et la scène le disait en le teintant.
+ *
+ * La scène est un repère à coordonnées absolues dont les textes sont en
+ * `cqw` : dans une colonne de 400px ils tombent sous 8px. Sous 900px c'est
+ * `CompactPanel` qui prend la place, et `.unv--software` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const LOOP = 7000;
@@ -113,7 +127,8 @@ export function SoftwareVisual({ locale }: { locale: Locale }) {
   });
 
   return (
-    <div ref={scene} className="unv-wrap">
+    <>
+    <div ref={scene} className="unv-wrap unv--software">
       <Scene
         rootRef={root}
         label={c.alt}
@@ -173,5 +188,19 @@ export function SoftwareVisual({ locale }: { locale: Locale }) {
         ))}
       </Scene>
     </div>
+
+    {/* ---- Le panneau du téléphone. Voir l'en-tête du fichier. ---- */}
+    <CompactPanel
+      head={c.roles.join(" · ")}
+      rows={c.screens.map((name, k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: name,
+        /* Le seul écran assisté par l'IA. L'index vient de `AI_CELL`, celui
+           dont la scène se sert : un second 3 écrit à la main se
+           désynchroniserait au premier changement d'ordre des écrans. */
+        ...(k === AI_CELL ? { ai: true as const } : {}),
+      }))}
+    />
+    </>
   );
 }

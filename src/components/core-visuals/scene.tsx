@@ -133,11 +133,16 @@ export function useSceneClock(loop: number, onFrame: (t: number) => void) {
 export function Scene({
   rootRef,
   sceneRef,
+  className,
   label,
   shapes,
   children,
 }: {
   rootRef: React.RefObject<HTMLDivElement | null>;
+  /** Une classe en plus sur la racine, pour que la page puisse masquer
+   *  CETTE scène sans masquer les quatre autres : elles partagent `.cv`.
+   *  Elle ne porte aucun dessin, seulement de quoi la désigner. */
+  className?: string;
   /** La scène, pour les visuels qui s'effacent en fin de boucle : le fondu
    *  porte sur elle, donc sur le SVG et le HTML ensemble. Ce n'est pas
    *  `rootRef`, que la règle d'immutabilité du projet interdit d'écrire
@@ -148,7 +153,7 @@ export function Scene({
   children?: ReactNode;
 }) {
   return (
-    <div className="cv" ref={rootRef}>
+    <div className={className ? `cv ${className}` : "cv"} ref={rootRef}>
       <div className="cv-scene" ref={sceneRef} role="img" aria-label={label}>
         <svg className="cv-shapes" viewBox={`0 0 ${W} ${H}`} aria-hidden>
           {shapes}

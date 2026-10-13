@@ -137,6 +137,28 @@ const RUN = {
   },
 };
 
+/** L'ORDRE DE LECTURE DU FLUX SUR TÉLÉPHONE.
+ *
+ * Les index renvoient à `NODES`, donc aux mêmes noms et aux mêmes états que
+ * la scène : il n'y a pas un second contenu à maintenir, et pas une seconde
+ * horloge. Deux replis seulement :
+ *
+ *  - le modèle IA (7) n'a pas de ligne propre. Sur la scène c'est une laisse
+ *    en pointillé sous l'analyse ; dans une liste, une ligne « Modèle IA »
+ *    se lirait comme une étape du flux, ce qu'elle n'est pas. Il devient le
+ *    sous-titre de l'analyse, qui est ce qui s'en sert.
+ *
+ *  - le contrôle humain (6) est détaché en fin de liste. C'est une SORTIE du
+ *    flux, pas une étape de plus, et c'est l'argument de la section : une
+ *    exécution sur trois s'arrête là et n'exécute aucune des quatre étapes
+ *    au-dessus, qui restent grises. Le détachement est ce qui le dit.
+ *
+ * Archiver (2) et Transmettre (3) partent en même temps de l'analyse. Ils se
+ * suivent dans la liste et s'allument au même instant : c'est ainsi que le
+ * parallélisme se lit, sans avoir à le dessiner.
+ */
+const FLOW = [0, 1, 2, 3, 4, 5, 6] as const;
+
 function statesAt(t: number, ambiguous: boolean) {
   const plan = ambiguous ? RUN.ambiguous : RUN.normal;
   const nodes: NodeState[] = plan.nodes.map((win, i) => {
@@ -167,6 +189,10 @@ export function AutomationGraph({ locale }: { locale: Locale }) {
   const root = useRef<HTMLDivElement | null>(null);
   const scene = useRef<HTMLDivElement | null>(null);
   const dots = useRef<(SVGGElement | null)[]>([]);
+  /* La liste du téléphone suit le même fondu que la scène. Deux refs plutôt
+     qu'un parent commun : un niveau de DOM en plus changerait la mise en
+     page de bureau, et elle ne doit pas bouger. */
+  const flow = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const el = root.current;
@@ -210,9 +236,9 @@ export function AutomationGraph({ locale }: { locale: Locale }) {
       for (let i = slot; i < 2; i += 1) dots.current[i]?.setAttribute("opacity", "0");
 
       /* ---- La fin de boucle s'efface ---- */
-      if (scene.current) {
-        scene.current.style.opacity = t >= FADE_FROM ? `${(1 - (t - FADE_FROM) / (LOOP - FADE_FROM)).toFixed(3)}` : "1";
-      }
+      const dim = t >= FADE_FROM ? `${(1 - (t - FADE_FROM) / (LOOP - FADE_FROM)).toFixed(3)}` : "1";
+      if (scene.current) scene.current.style.opacity = dim;
+      if (flow.current) flow.current.style.opacity = dim;
 
       raf = requestAnimationFrame(frame);
     };
@@ -312,6 +338,54 @@ export function AutomationGraph({ locale }: { locale: Locale }) {
                   </span>
                 )}
               </div>
+            );
+          })}
+        </div>
+
+        {/* ---- LA COMPOSITION DU TÉLÉPHONE.
+
+            La scène est un repère de 640×370 dont les nœuds sont posés en
+            pourcentage : réduite à 400px de large, elle met ses boîtes à
+            35px et ses libellés sous les 8px. Le commentaire de `.aug` dans
+            la feuille de style le disait déjà : en bas d'échelle il faut une
+            composition différente, pas des tailles mixtes. La voici.
+
+            Le même flux, les mêmes noms, les mêmes états, la même horloge.
+            C'est le CSS qui choisit laquelle des deux s'affiche. ---- */}
+        <div className="aug-flow" ref={flow} role="img" aria-label={c.alt}>
+          {FLOW.map(i => {
+            const node = NODES[i];
+            const Icon = node.icon;
+            const state = view.nodes[i];
+            const meta = i === 1 ? c.names[7] : c.metas[i];
+            return (
+              <span
+                key={c.names[i]}
+                className={[
+                  "aug-step",
+                  `is-${state}`,
+                  node.ai ? "aug-step--ai" : "",
+                  i === 6 ? "aug-step--branch" : "",
+                ].filter(Boolean).join(" ")}
+              >
+                <span className="aug-step-icon"><Icon aria-hidden /></span>
+                <span className="aug-step-text">
+                  <b>{c.names[i]}</b>
+                  {meta && <em>{meta}</em>}
+                </span>
+                <span className="aug-step-mark" aria-hidden>
+                  {state === "done" && (
+                    <svg className="aug-step-ok" viewBox="0 0 12 12"><path d="M2.5 6.3 5 8.8l4.5-5" /></svg>
+                  )}
+                  {state === "alert" && (
+                    <svg className="aug-step-warn" viewBox="0 0 12 12">
+                      <path d="M6 1 11.2 10.6H.8z" fill="#f5b454" stroke="none" />
+                      <path d="M6 4.4v2.7" stroke="#ffffff" strokeWidth="1.4" strokeLinecap="round" />
+                      <circle cx="6" cy="8.9" r="0.75" fill="#ffffff" stroke="none" />
+                    </svg>
+                  )}
+                </span>
+              </span>
             );
           })}
         </div>

@@ -107,7 +107,7 @@ const fr = {
     metaDescription: "Synode conçoit des agents IA, des automatisations et des logiciels métier sur mesure à Bruxelles et en Belgique, intégrés à vos outils et à vos données.",
     hero: {
       title:
-        "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations.",
+        "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations",
       text: "Nous concevons des agents IA, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
       secondaryCta: "Voir les cas d’usage",
       /* Ce que le visiteur doit comprendre en une ligne, sous les boutons.
@@ -123,7 +123,7 @@ const fr = {
 
     problems: {
       kicker: "Ce qui vous ralentit",
-      title: "Quatre situations\n^qu’on retrouve partout.",
+      title: "Quatre situations\n^qu’on retrouve partout",
       text: "Vous en reconnaîtrez probablement une. C’est en général par là qu’un projet commence.",
       items: [
         {
@@ -151,14 +151,14 @@ const fr = {
 
     useCases: {
       kicker: "Cas d’usage",
-      title: "Ce qu’une solution IA\n^peut prendre en charge.",
+      title: "Ce qu’une solution IA\n^peut prendre en charge",
       text: "Quatre exemples parmi ceux que nous détaillons. Chacun part d’un problème réel, pas d’une technologie.",
       cta: "Explorer les cas d’usage",
     },
 
     offer: {
       kicker: "Notre offre",
-      title: "Une seule offre,\n^construite pour vous.",
+      title: "Une seule offre,\n^construite pour vous",
       text: "Un petit projet ciblé et un outil métier complet relèvent de la même offre. Ce qui change, c’est le périmètre, le budget et l’accompagnement, pas la nature du travail.",
       /* Les briques ne sont pas un menu : ce sont les matériaux possibles. */
       bricks: [
@@ -187,14 +187,14 @@ const fr = {
 
     proof: {
       kicker: "Ce que nous construisons",
-      title: "Des preuves, pas des promesses.",
+      title: "Des preuves, pas des promesses",
       text: "Nous démarrons. Plutôt que d’afficher des logos que nous n’avons pas, nous montrons ce qui existe réellement aujourd’hui.",
       cta: "Voir les réalisations",
     },
 
     method: {
       kicker: "Méthode",
-      title: "Comment un projet\n^se déroule.",
+      title: "Comment un projet\n^se déroule",
       text: "Cinq temps, et aucun ne commence avant que le précédent soit validé avec vous.",
       steps: [
         { title: "Comprendre", text: "Votre problème, sa fréquence, vos outils et ce qu’il vous coûte aujourd’hui." },
@@ -203,12 +203,12 @@ const fr = {
         { title: "Déployer", text: "Tests sur vos critères, formation de vos équipes, documentation transmise." },
         { title: "Suivre", text: "Surveillance du fonctionnement et interventions dans le cadre convenu." },
       ],
-      cta: "Comment se déroule un projet ?",
+      cta: "Comment se déroule un projet ?",
     },
 
     team: {
       kicker: "L’équipe",
-      title: "Deux associés,\n^un interlocuteur par sujet.",
+      title: "Deux associés,\n^un interlocuteur par sujet",
       text: "Vous savez toujours à qui vous parlez : celui qui comprend et suit votre besoin, et celui qui conçoit et réalise la solution.",
       cta: "Rencontrer l’équipe",
     },
@@ -218,34 +218,34 @@ const fr = {
       title: "Questions fréquentes sur les solutions IA sur mesure",
       items: [
         {
-          q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
+          q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
           a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution IA à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
         },
         {
-          q: "Combien coûte une solution IA sur mesure ?",
+          q: "Combien coûte une solution IA sur mesure ?",
           a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel IA sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
         },
         {
-          q: "Y a-t-il des coûts récurrents après la mise en service ?",
-          a: "Oui. Une solution IA s’appuie sur des services payants — modèles IA, hébergement, plateformes d’automatisation — qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
+          q: "Y a-t-il des coûts récurrents après la mise en service ?",
+          a: "Oui. Une solution IA s’appuie sur des services payants — modèles IA, hébergement, plateformes d’automatisation — qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
         },
         {
-          q: "Comment se déroule un projet avec Synode ?",
+          q: "Comment se déroule un projet avec Synode ?",
           a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution IA et accompagnons sa mise en service.",
         },
         {
-          q: "Mes données restent-elles confidentielles ?",
+          q: "Mes données restent-elles confidentielles ?",
           a: "La confidentialité et la gestion des accès sont prises en compte lors de la conception. Les outils et services utilisés, ainsi que les modalités de traitement des données, sont définis selon les exigences de votre projet.",
         },
         {
-          q: "Assurez-vous la maintenance après le déploiement ?",
+          q: "Assurez-vous la maintenance après le déploiement ?",
           a: "Oui. Synode assure l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
         },
       ],
     },
 
     cta: {
-      title: "Quel processus aimeriez-vous\n^simplifier en premier ?",
+      title: "Quel processus aimeriez-vous\n^simplifier en premier ?",
       text: "Un échange de 30 minutes, gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet, et rien ne vous engage à la suite.",
       secondary: "Décrire mon besoin par écrit",
     },
@@ -257,7 +257,7 @@ const fr = {
     metaDescription:
       "Découvrez les solutions IA sur mesure de Synode à Bruxelles : agents IA, automatisations, logiciels métier, intégrations, data et formation pour entreprises.",
     kicker: "Notre offre",
-    title: "Une solution construite\n^à partir de votre besoin.",
+    title: "Une solution construite\n^à partir de votre besoin",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
 
     bricksTitle: "Nos solutions IA sur mesure",
@@ -315,7 +315,7 @@ const fr = {
 
     operations: {
       kicker: "Après la mise en service",
-      title: "Votre solution évolue.\n^Nous restons à vos côtés.",
+      title: "Votre solution évolue.\n^Nous restons à vos côtés",
       text: "Pour chaque solution mise en service, notre proposition distingue le coût de création et le paiement récurrent lié à son exploitation. Son montant dépend de la complexité, des volumes et des services nécessaires, avec des conditions définies avant le démarrage.",
       recurringLabel: "Paiement récurrent · défini au contrat",
       familyNote: "Ce suivi accompagne les six familles de solutions. Il ne constitue pas une septième offre.",
@@ -360,21 +360,21 @@ const fr = {
       { title: "Exploitation, maintenance & monitoring", text: "Un paiement récurrent propre à chaque solution mise en service. Il couvre uniquement les services, la surveillance et les interventions précisés au contrat." },
       { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
     ],
-    pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
+    pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
 
     faqTitle: "Questions fréquentes sur les solutions IA sur mesure",
     faq: [
-      { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
-      { q: "Combien coûte une solution IA sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
-      { q: "Comment se déroule un projet IA avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution IA, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
-      { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
-      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
-      { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
-      { q: "Une solution IA sur mesure peut-elle|évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+      { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
+      { q: "Combien coûte une solution IA sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
+      { q: "Comment se déroule un projet IA avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution IA, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
+      { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
+      { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
+      { q: "Une solution IA sur mesure peut-elle|évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
     notInList: {
-      title: "Votre besoin ne figure pas ici ?",
+      title: "Votre besoin ne figure pas ici ?",
       text: "Chaque projet est conçu à partir de votre contexte. Les exemples de ce site montrent notre manière de travailler, pas un catalogue fermé.",
       cta: "Parlons de votre besoin",
     },
@@ -386,7 +386,7 @@ const fr = {
     metaDescription:
       "Six étapes, ce que fait Synode, ce que vous apportez et ce qui sort de chacune. Aucun délai universel annoncé : il dépend du périmètre.",
     kicker: "Méthode",
-    title: "Ce qui se passe,\n^étape par étape.",
+    title: "Ce qui se passe,\n^étape par étape",
     text: "Chaque étape a une sortie visible. Vous savez à tout moment où en est le projet et ce qui vous est demandé.",
     columns: { work: "Ce que nous faisons", client: "Ce que vous apportez", output: "Ce qui en sort" },
     steps: [
@@ -444,7 +444,7 @@ const fr = {
     metaDescription:
       "Découvrez l’équipe de Synode, agence IA à Bruxelles : deux développeurs spécialisés en agents IA, automatisations, intégrations et logiciels métier sur mesure.",
     kicker: "L’équipe",
-    title: "Pourquoi nous\n^construisons Synode.",
+    title: "Pourquoi nous\n^construisons Synode",
     vision:
       "Synode est une agence IA à Bruxelles fondée par Antonino et Killian. Nous concevons des agents IA, des automatisations, des intégrations et des logiciels métier sur mesure à partir des processus, des outils et des données de chaque entreprise.",
     peopleTitle: "Deux développeurs :\ndes expertises IA complémentaires",
@@ -470,7 +470,7 @@ const fr = {
     ],
     cta: "Parlons de votre projet",
     ctaText:
-      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions IA sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
+      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions IA sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
   },
 
   /* ------------------------------------------------------------------ Contact */
@@ -479,7 +479,7 @@ const fr = {
     metaDescription:
       "Réservez un échange gratuit de 30 minutes avec Synode, agence IA à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement et sans devis automatique.",
     kicker: "Contact",
-    title: "Parlons de\n^votre projet.",
+    title: "Parlons de\n^votre projet",
     text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
 
     booking: {
@@ -498,7 +498,7 @@ const fr = {
         name: { label: "Nom", placeholder: "Votre nom" },
         email: { label: "Email de contact", placeholder: "vous@exemple.com", hint: "Une adresse personnelle convient : nous travaillons aussi avec des indépendants." },
         company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
-        need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche ou la situation qui vous coûte le plus de temps.", hint: "Un exemple concret vaut mieux qu’une description générale." },
+        need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche ou la situation qui vous coûte le plus de temps.", hint: "Un exemple concret vaut mieux qu’une description générale." },
         phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
         website: { label: "Site internet", placeholder: "Facultatif", optional: "Facultatif" },
         timeline: { label: "Échéance envisagée", optional: "Facultatif" },
@@ -520,7 +520,7 @@ const fr = {
         rateLimited: "Vous venez d’envoyer une demande. Patientez un instant avant de recommencer.",
         server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",
         notConfigured:
-          "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement en attendant.",
+          "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement en attendant.",
       },
     },
 
@@ -529,7 +529,7 @@ const fr = {
 
   thanks: {
     metaTitle: "Message bien reçu",
-    title: "Votre message\n^a bien été reçu.",
+    title: "Votre message\n^a bien été reçu",
     text: "Nous l’avons enregistré et nous revenons vers vous. Si votre demande est urgente, réservez directement un créneau : c’est le chemin le plus rapide.",
     /* On ne promet pas de délai : la référence l'interdit tant qu'il n'est
        pas tenable. */
@@ -539,7 +539,7 @@ const fr = {
   },
 
   notFound: {
-    title: "Cette page\n^n’existe pas.",
+    title: "Cette page\n^n’existe pas",
     text: "Le lien est peut-être ancien, ou l’adresse comporte une faute. Voici les pages les plus consultées.",
     homeCta: "Revenir à l’accueil",
   },
@@ -592,7 +592,7 @@ const en = {
     metaDescription: "Synode designs AI agents, automations and custom business software in Brussels and Belgium, integrated with your tools and data.",
     hero: {
       title:
-        "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations.",
+        "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations",
       text: "We build AI agents, automations and internal tools that take work off your plate and put your own data to use.",
       secondaryCta: "See the use cases",
       stack: ["AI agents", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
@@ -600,7 +600,7 @@ const en = {
 
     problems: {
       kicker: "What slows you down",
-      title: "Four situations\n^we find everywhere.",
+      title: "Four situations\n^we find everywhere",
       text: "You will probably recognise one of them. That is usually where a project starts.",
       items: [
         {
@@ -628,14 +628,14 @@ const en = {
 
     useCases: {
       kicker: "Use cases",
-      title: "What an AI solution\n^can take on.",
+      title: "What an AI solution\n^can take on",
       text: "Four examples from the ones we document. Each starts with a real problem, not with a technology.",
       cta: "Explore the use cases",
     },
 
     offer: {
       kicker: "What we sell",
-      title: "One offer,\n^built for you.",
+      title: "One offer,\n^built for you",
       text: "A small, targeted project and a full internal tool are the same offer. What changes is the scope, the budget and the support, not the nature of the work.",
       bricks: [
         { title: "AI agents", text: "Reading, searching, summarising, drafting, supporting a decision." },
@@ -660,14 +660,14 @@ const en = {
 
     proof: {
       kicker: "What we are building",
-      title: "Evidence, not promises.",
+      title: "Evidence, not promises",
       text: "We are starting out. Rather than show logos we do not have, we show what actually exists today.",
       cta: "See our work",
     },
 
     method: {
       kicker: "Method",
-      title: "How a project\n^runs.",
+      title: "How a project\n^runs",
       text: "Five stages, and none starts before the previous one is signed off with you.",
       steps: [
         { title: "Understand", text: "Your problem, how often it happens, your tools, and what it costs you today." },
@@ -681,7 +681,7 @@ const en = {
 
     team: {
       kicker: "The team",
-      title: "Two partners,\n^one person per subject.",
+      title: "Two partners,\n^one person per subject",
       text: "You always know who you are talking to: the one who understands and follows your need, and the one who designs and builds the solution.",
       cta: "Meet the team",
     },
@@ -729,7 +729,7 @@ const en = {
     metaDescription:
       "Six families of custom AI solutions from Synode in Brussels: AI agents, automations, business software, integrations, data and team training.",
     kicker: "What we sell",
-    title: "A solution built\n^from your need.",
+    title: "A solution built\n^from your need",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
     bricksTitle: "Our custom AI solutions",
@@ -787,7 +787,7 @@ const en = {
 
     operations: {
       kicker: "After go-live",
-      title: "Your solution evolves.\n^We keep it running.",
+      title: "Your solution evolves.\n^We keep it running",
       text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
       recurringLabel: "Recurring payment · defined in the contract",
       familyNote: "This support applies across all six solution families. It is not a seventh offer.",
@@ -857,7 +857,7 @@ const en = {
     metaDescription:
       "Six stages, what Synode does, what you bring and what comes out of each. No universal delivery time: it depends on the scope.",
     kicker: "Method",
-    title: "What happens,\n^stage by stage.",
+    title: "What happens,\n^stage by stage",
     text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
     columns: { work: "What we do", client: "What you bring", output: "What comes out" },
     steps: [
@@ -884,7 +884,7 @@ const en = {
     metaDescription:
       "Meet the Synode team, an AI agency in Brussels: two developers specialising in AI agents, automation, integrations and custom business software.",
     kicker: "The team",
-    title: "Why we are\n^building Synode.",
+    title: "Why we are\n^building Synode",
     vision:
       "Synode is an AI agency in Brussels founded by Antonino and Killian. We design AI agents, automations, integrations and custom business software around each company’s processes, tools and data.",
     peopleTitle: "Two developers with complementary AI expertise",
@@ -916,7 +916,7 @@ const en = {
     metaTitle: "Let’s talk about your project",
     metaDescription: "Book a free 30-minute call with Synode, an AI agency in Brussels, or describe your need in writing. No strings attached and no automated quote.",
     kicker: "Contact",
-    title: "Let’s talk about\n^your project.",
+    title: "Let’s talk about\n^your project",
     text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
 
     booking: {
@@ -966,7 +966,7 @@ const en = {
 
   thanks: {
     metaTitle: "Message received",
-    title: "Your message\n^has been received.",
+    title: "Your message\n^has been received",
     text: "We have saved it and we will get back to you. If it is urgent, book a slot directly: that is the fastest route.",
     notBooked: "This message is not a meeting. To set one up, use the calendar.",
     bookCta: "Book a call",
@@ -974,7 +974,7 @@ const en = {
   },
 
   notFound: {
-    title: "This page\n^does not exist.",
+    title: "This page\n^does not exist",
     text: "The link may be old, or the address has a typo. Here are the pages people visit most.",
     homeCta: "Back to home",
   },

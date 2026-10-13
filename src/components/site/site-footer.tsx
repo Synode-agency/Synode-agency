@@ -42,12 +42,14 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             ))}
           </nav>
 
-          <div className="site-footer-col">
-            <h2 className="site-footer-title">{site.footerContact}</h2>
-            <NavLink href={path(locale, ROUTES.contact)} locale={locale} className="site-footer-link">
-              Contact
-            </NavLink>
-            <a href={`mailto:${site.email}`} className="site-footer-link">
+          {/* ⚠ Ce bloc n'a plus ni titre ni lien « Contact » : le titre
+              redisait le mot que la colonne de navigation porte déjà en
+              dernière entrée, et le lien y menait deux fois. Il ne reste que
+              ce qu'on ne trouve nulle part ailleurs, l'adresse et le lieu.
+              Sur téléphone, la grille passe à une colonne et ce bloc tombe
+              donc juste sous la navigation, à la suite de « Contact ». */}
+          <div className="site-footer-col site-footer-col--contact">
+            <a href={`mailto:${site.email}`} className="site-footer-link site-footer-mail">
               {site.email}
             </a>
             <span className="site-footer-place">{site.location}</span>

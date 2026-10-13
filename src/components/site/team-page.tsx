@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
+import { HeroCompact } from "@/components/hero-compact";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { ContactPanel, HeroDirectory, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
@@ -42,7 +43,20 @@ export function TeamPage({ locale }: { locale: Locale }) {
         className="team-hero"
         kicker={locale === "fr" ? "Agence IA à Bruxelles" : "AI agency in Brussels"}
         title={locale === "fr" ? <>Les <span>experts IA</span> de Synode</> : <>The <span>AI experts</span> behind Synode</>}
-        aside={<HeroDirectory locale={locale} />}
+        aside={<>
+          <div className="hero-visual-desktop"><HeroDirectory locale={locale} /></div>
+          <HeroCompact
+            title={locale === "fr" ? "synode / équipe" : "synode / team"}
+            status={locale === "fr" ? "disponible" : "available"}
+            rows={locale === "fr" ? [
+              { num: "01", label: "Antonino", state: "Processus · Agents IA" },
+              { num: "02", label: "Killian", state: "Applications · Intégrations" },
+            ] : [
+              { num: "01", label: "Antonino", state: "Processes · AI agents" },
+              { num: "02", label: "Killian", state: "Applications · Integrations" },
+            ]}
+          />
+        </>}
       >
         <p>{team.vision}</p>
         <div className="btn-row">

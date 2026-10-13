@@ -4,6 +4,7 @@ import {
   LifeBuoy, Mail, MessagesSquare, Target, UserPlus,
 } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
+import { HeroCompact } from "@/components/hero-compact";
 import { Lede } from "@/components/site/lede";
 import { SolutionSlices } from "@/components/site/solution-slices";
 import { FaqAccordion } from "@/components/site/faq-accordion";
@@ -92,7 +93,28 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         kicker={fr ? "Solutions IA" : "AI solutions"}
         kickerMobileOnly
         title={renderLines(solutions.title)}
-        aside={<SolutionsDashboard locale={locale} />}
+        aside={<>
+          <div className="hero-visual-desktop"><SolutionsDashboard locale={locale} /></div>
+          <HeroCompact
+            title={fr ? "Votre activité, en résumé" : "Your activity, at a glance"}
+            status={fr ? "à jour" : "up to date"}
+            tiles={fr ? [
+              { label: "Agents IA actifs", value: "6" },
+              { label: "Tâches automatisées", value: "24" },
+              { label: "Applications métier", value: "3" },
+              { label: "Outils connectés", value: "12" },
+              { label: "Demandes traitées", value: "128" },
+              { label: "Équipe formée", value: "92%" },
+            ] : [
+              { label: "Active AI agents", value: "6" },
+              { label: "Automated tasks", value: "24" },
+              { label: "Business applications", value: "3" },
+              { label: "Connected tools", value: "12" },
+              { label: "Requests handled", value: "128" },
+              { label: "Team trained", value: "92%" },
+            ]}
+          />
+        </>}
       >
         <p>{fr ? "Synode conçoit et développe des solutions d’intelligence artificielle adaptées aux processus des entreprises. Agents IA, automatisation, logiciels métier, intégrations et analyse de données sont combinés selon vos objectifs, vos outils et vos contraintes." : "Every AI project starts from a specific business need. We then design a custom solution, combining artificial intelligence, process automation, integrations, business software and data wherever your environment and your constraints call for it."}</p>
         <div className="btn-row">
@@ -165,7 +187,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <div className="mfr-copy">
             <Lede
               kicker={fr ? "Conception & Développement IA" : "AI design & development"}
-              title={fr ? "Notre méthode\npour votre projet IA." : "Our method\nfor your AI project."}
+              title={fr ? "Notre méthode\npour votre projet IA" : "Our method\nfor your AI project"}
               accents={fr ? ["méthode"] : ["method"]}
               text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
             />
@@ -201,7 +223,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
           title={fr ? "Prix d’une solution IA sur mesure :\nnotre tarification" : "How we charge"}
-          accents={fr ? ["tarification"] : ["How we charge"]}
+          accents={fr ? ["tarification"] : ["charge"]}
           text={fr ? "Le budget d’un projet IA dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
         />
         <PricingDoc locale={locale} />
@@ -213,8 +235,8 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <div className="cta-booking-copy">
             <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
             <Lede
-              title={fr ? "Parlons de votre projet de solution IA." : "Let’s discuss your AI solution project."}
-              accents={fr ? ["votre projet"] : undefined}
+              title={fr ? "Parlons de votre projet de solution IA" : "Let’s discuss your AI solution project"}
+              accents={fr ? ["votre projet"] : ["project"]}
 
               text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
             />
@@ -222,7 +244,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
               <Link href="#calendrier-solutions" className="btn btn--primary">{fr ? "Réserver un échange" : "Book a call"}<ArrowRight aria-hidden /></Link>
               <Link href={formHref} className="btn btn--ghost">{fr ? "Nous contacter" : "Contact us"}</Link>
             </div>
-            <p className="cta-note">{fr ? "30 minutes, sans engagement." : "30 minutes. No commitment."}<br />{site.ctaShort}</p>
+            <p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}{/* La coupe ne vaut qu'au bureau : sur téléphone les deux phrases
+                 tiennent sur une ligne, 286px pour 340 de colonne. L'espace est
+                 AVANT la coupe, pour ne rien décaler au bureau. */}<br className="only-desktop" />{site.ctaShort}</p>
           </div>
           <div id="calendrier-solutions" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
         </div>

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 import { Box, Dot, Scene, T, curve, ease, onCurve, px, span, useSceneClock } from "./scene";
 
 /**
@@ -14,6 +15,20 @@ import { Box, Dot, Scene, T, curve, ease, onCurve, px, span, useSceneClock } fro
  *
  * Les initiales (ML, JV, SC, TB, AD) sont illustratives. Ce ne sont pas des
  * personnes réelles, et aucun chiffre d'adoption n'est affiché.
+ *
+ * ── SUR TÉLÉPHONE, UNE CARTE COMPACTE ───────────────────────────────────
+ * Un parcours de huit étapes. Les cinq pastilles de personnes et leurs
+ * jauges d'autonomie ne sont pas reprises : à cette largeur elles devenaient
+ * cinq ronds gris, et le compte « 5/5 autonomes » dit la même chose en
+ * en-tête.
+ *
+ * La scène est un repère de 480×320 dont les textes sont en `cqw` : dans une
+ * colonne de 400px ils tombent sous 8px. Sous 900px c'est donc `HeroCompact`
+ * qui prend la place, et `.cv--teams` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène. Rien
+ * n'est réécrit, rien n'est inventé.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const LOOP = 8000;
@@ -93,8 +108,10 @@ export function TeamsVisual({ locale }: { locale: Locale }) {
   const share = n / STEPS;
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="cv--teams"
       sceneRef={node => { stage.current = node; }}
       label={c.label}
       shapes={
@@ -149,5 +166,13 @@ export function TeamsVisual({ locale }: { locale: Locale }) {
         />
       ))}
     </Scene>
+
+    {/* ---- La carte du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      title={c.title}
+      status={c.count(5)}
+      rows={c.steps.map((name, k) => ({ num: String(k + 1).padStart(2, "0"), label: name }))}
+    />
+    </>
   );
 }

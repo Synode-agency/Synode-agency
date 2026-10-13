@@ -1,0 +1,140 @@
+/* =====================================================================
+   LE PANNEAU COMPACT DES BANDES CLAIRES
+
+   La palette est celle des blocs clairs du site, reprise à l'identique du
+   bloc devis et des cartes d'usage : filets #e3e6ea, bandeaux #f7f8fa,
+   encre #2e2e2e, gris de complément #6e7177, accent #0b6be6. Elle est
+   écrite ici plutôt que prise au thème parce que ce panneau ne vit que sur
+   fond clair, quelle que soit la page, donc il n'a pas de variante à suivre.
+
+   ⚠ Il n'existe QUE sous 900px. Au-dessus, c'est le visuel de bureau qui
+   s'affiche, et c'est la page qui décide lequel des deux montrer.
+   ===================================================================== */
+
+.panel {
+  display: none;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e3e6ea;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 44px rgb(20 40 80 / 6%);
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 900px) {
+  .panel {
+    display: block;
+  }
+}
+
+/* ---- Le bandeau ---- */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #eceef1;
+  background: #f7f8fa;
+}
+/* Le titre cède la place au mot de droite plutôt que de le pousser dehors :
+   c'est lui qui s'ellipse, parce qu'un état coupé ne veut plus rien dire. */
+.headText {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #2e2e2e;
+}
+.chip {
+  flex: none;
+  font-style: normal;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+
+/* ---- Les lignes ----
+   `auto minmax(0, 1fr) auto` : le repère et l'état gardent leur largeur, et
+   c'est le libellé qui se réduit. L'inverse couperait un numéro. */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 0 14px;
+  transition: background-color 0.3s ease;
+}
+.row + .row {
+  border-top: 1px solid #f0f2f5;
+}
+/* La barre de la ligne active est en `inset` et non en bordure : une
+   bordure décalerait le texte de trois pixels à chaque changement. */
+.rowOn {
+  background: #f4f8fe;
+  box-shadow: inset 3px 0 0 #0b6be6;
+}
+.num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-style: normal;
+  color: #8a8f98;
+  transition: color 0.3s ease;
+}
+.rowOn .num {
+  color: #0b6be6;
+}
+.label {
+  overflow: hidden;
+  font-size: 12.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.rowOn .label {
+  color: #2e2e2e;
+}
+.state {
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #8a8f98;
+  transition: color 0.3s ease;
+}
+.rowOn .state {
+  color: #0b6be6;
+}
+
+/* La ligne assistée par l'IA est bleue même au repos : c'est ce qu'elle est,
+   pas un état qu'elle traverse. */
+.rowAi .num,
+.rowAi .label {
+  color: #0b6be6;
+}
+
+/* ---- Le pied ---- */
+.foot {
+  padding: 11px 14px;
+  border-top: 1px solid #eceef1;
+  background: #fafbfc;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #6e7177;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .num,
+  .label,
+  .state {
+    transition: none;
+  }
+}

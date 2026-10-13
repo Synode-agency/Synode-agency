@@ -53,7 +53,7 @@ export const fr: readonly Question[] = [
   {
     id: "frequency",
     kind: "single",
-    label: "À quelle fréquence ce processus est-il réalisé ?",
+    label: "À quelle fréquence ce processus est-il réalisé ?",
     options: [
       { id: "rare", label: "Rarement" },
       { id: "monthly", label: "Quelques fois par mois" },
@@ -65,7 +65,7 @@ export const fr: readonly Question[] = [
   {
     id: "tools",
     kind: "single",
-    label: "Combien d’outils ou logiciels sont utilisés pendant ce processus ?",
+    label: "Combien d’outils ou logiciels sont utilisés pendant ce processus ?",
     help: "Email, CRM, ERP, Excel, Drive, logiciel métier, formulaires, bases de données…",
     options: [
       { id: "one", label: "1" },
@@ -77,7 +77,7 @@ export const fr: readonly Question[] = [
   {
     id: "reentry",
     kind: "single",
-    label: "Les mêmes informations sont-elles copiées ou ressaisies entre plusieurs outils ?",
+    label: "Les mêmes informations sont-elles copiées ou ressaisies entre plusieurs outils ?",
     options: [
       { id: "never", label: "Jamais" },
       { id: "rarely", label: "Rarement" },
@@ -89,7 +89,7 @@ export const fr: readonly Question[] = [
   {
     id: "dataAvailability",
     kind: "single",
-    label: "Disposez-vous de données historiques ou structurées liées à ce processus ?",
+    label: "Disposez-vous de données historiques ou structurées liées à ce processus ?",
     options: [
       { id: "no", label: "Non" },
       { id: "few", label: "Très peu" },
@@ -101,7 +101,7 @@ export const fr: readonly Question[] = [
   {
     id: "documents",
     kind: "single",
-    label: "Le processus implique-t-il des emails, documents, demandes écrites ou autres contenus qu’il faut comprendre ou analyser ?",
+    label: "Le processus implique-t-il des emails, documents, demandes écrites ou autres contenus qu’il faut comprendre ou analyser ?",
     options: [
       { id: "few", label: "Très peu" },
       { id: "some", label: "Un peu" },
@@ -112,7 +112,7 @@ export const fr: readonly Question[] = [
   {
     id: "humanApproval",
     kind: "single",
-    label: "Certaines étapes nécessitent-elles obligatoirement une validation humaine ?",
+    label: "Certaines étapes nécessitent-elles obligatoirement une validation humaine ?",
     help: "Un besoin élevé de validation n’est pas un défaut : il oriente la solution vers une architecture avec contrôle humain.",
     options: [
       { id: "no", label: "Non" },

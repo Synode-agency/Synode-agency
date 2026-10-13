@@ -102,7 +102,7 @@ const COPY = {
     draft: "Premier message préparé",
     writing: "rédaction…",
     ready: "✓ prêt à envoyer",
-    message: "Bonjour, nous aidons les menuiseries à automatiser leurs devis et relances. Un échange de 20 minutes ?",
+    message: "Bonjour, nous aidons les menuiseries à automatiser leurs devis et relances. Un échange de 20 minutes ?",
     kpi: "Leads qualifiés cette semaine",
   },
   en: {

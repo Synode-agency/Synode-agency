@@ -43,12 +43,22 @@ export type ServicePageContent = {
    *  que sur un titre court : au-delà d'une trentaine de caractères il ne
    *  tient pas dans une demi-colonne, et il déborderait sur le schéma. */
   whatTitleOneLine?: true;
+  /** La mesure des titres, `max-width: 20ch`, est levée pour que le titre
+   *  tienne sur DEUX lignes au bureau. À ne poser que sur un titre dont les
+   *  deux moitiés ont été mesurées : la colonne en offre environ 12,9 em au
+   *  pire cas, le plafond n'en donne que 11,12. Voir `.svc-what--two`. */
+  whatTitleTwoLines?: true;
   /** Remplace le petit schéma de la colonne de droite par un visuel animé
    *  dédié. La mise en page en deux colonnes ne change pas ; `sketch` n'est
    *  alors pas lu. */
   whatVisual?: "agent" | "automation" | "software" | "integration" | "data" | "adoption";
   whatText: string;
   usesTitle: string;
+  /** La mesure des titres de section, 60% de la colonne, est levée pour que
+   *  les DEUX moitiés écrites de `usesTitle` tiennent chacune sur sa ligne.
+   *  À ne poser que sur un titre mesuré : la mesure vaut 16,19 em au bureau
+   *  le plus large, la colonne entière 26,98. Voir `.svc-uses-head--two`. */
+  usesTitleTwoLines?: true;
   usesText: string;
   /** Remplace le surtitre commun « Usages concrets ». */
   usesKicker?: string;
@@ -116,8 +126,8 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Des agents IA intégrés à vos outils",
     h1Accents: ["agents IA"],
     whatKicker: "Comprendre les agents IA",
-    whatTitle: "Qu’est-ce qu’un agent IA ?",
-    whatTitleAccents: ["agent IA ?"],
+    whatTitle: "Qu’est-ce qu’un agent IA ?",
+    whatTitleAccents: ["agent IA ?"],
     whatTitleOneLine: true,
     whatText:
       "Un assistant IA aide vos équipes à rechercher, rédiger, résumer ou exploiter des informations plus rapidement. Un agent IA va plus loin : connecté à vos données et à vos logiciels métier, il peut analyser une demande, enchaîner plusieurs étapes et exécuter des actions selon des règles définies, tout en gardant un niveau de contrôle adapté à votre activité.",
@@ -162,9 +172,9 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur les agents IA",
     faqTitleAccents: ["agents IA"],
     faqExtra: [
-      { q: "Quelle est la différence entre un agent IA et un chatbot ?", a: "Un chatbot répond dans une fenêtre de discussion. Un agent IA est relié à vos outils : il peut rechercher dans vos données, préparer un document ou créer une tâche, dans un périmètre défini. Le dialogue n’est qu’une des façons de le déclencher." },
-      { q: "Peut-il utiliser les logiciels que nous avons déjà ?", a: "C’est le principe. Nous vérifions d’abord les accès réellement disponibles sur votre CRM, votre messagerie ou vos espaces de documents, puis nous limitons l’agent aux opérations nécessaires." },
-      { q: "Combien de temps faut-il pour en mettre un en service ?", a: "Cela dépend du périmètre, de la qualité de votre documentation et des accès disponibles. Un agent IA limité à une tâche précise se met en place plus vite qu’un agent qui agit dans plusieurs logiciels. La durée est estimée après le cadrage." },
+      { q: "Quelle est la différence entre un agent IA et un chatbot ?", a: "Un chatbot répond dans une fenêtre de discussion. Un agent IA est relié à vos outils : il peut rechercher dans vos données, préparer un document ou créer une tâche, dans un périmètre défini. Le dialogue n’est qu’une des façons de le déclencher." },
+      { q: "Peut-il utiliser les logiciels que nous avons déjà ?", a: "C’est le principe. Nous vérifions d’abord les accès réellement disponibles sur votre CRM, votre messagerie ou vos espaces de documents, puis nous limitons l’agent aux opérations nécessaires." },
+      { q: "Combien de temps faut-il pour en mettre un en service ?", a: "Cela dépend du périmètre, de la qualité de votre documentation et des accès disponibles. Un agent IA limité à une tâche précise se met en place plus vite qu’un agent qui agit dans plusieurs logiciels. La durée est estimée après le cadrage." },
     ],
   },
 
@@ -173,13 +183,13 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Automatisez vos processus métier avec l’IA",
     h1Accents: ["Automatisez"],
     whatKicker: "Comprendre l’automatisation des processus",
-    whatTitle: "Qu’est-ce qu’une automatisation ?",
-    whatTitleAccents: ["automatisation ?"],
+    whatTitle: "Qu’est-ce qu’une automatisation ?",
+    whatTitleAccents: ["automatisation ?"],
     whatText:
-      "Une automatisation intelligente relie vos logiciels, vos données et vos règles métier pour exécuter automatiquement les étapes répétitives d’un processus. L’intelligence artificielle intervient lorsqu’il faut comprendre un texte, classer une demande ou extraire une information ; les opérations simples restent gérées par des règles déterministes, plus fiables et plus faciles à contrôler.",
+      "Une automatisation intelligente relie vos logiciels, vos données et vos règles métier pour exécuter automatiquement les étapes répétitives d’un processus. L’intelligence artificielle intervient lorsqu’il faut comprendre un texte, classer une demande ou extraire une information ; les opérations simples restent gérées par des règles déterministes, plus fiables et plus faciles à contrôler.",
     whatVisual: "automation",
-    usesTitle: "Quels processus métier automatiser,\net avec quelles solutions ?",
-    usesTitleAccents: ["processus", "solutions ?"],
+    usesTitle: "Quels processus métier automatiser,\net avec quelles solutions ?",
+    usesTitleAccents: ["processus", "solutions ?"],
     usesKicker: "Cas d’usage de l’automatisation intelligente",
     usesCards: true,
     mergeForms: true,
@@ -217,9 +227,9 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur\nl’automatisation des processus",
     faqTitleAccents: ["l’automatisation"],
     faqExtra: [
-      { q: "Faut-il changer nos logiciels pour automatiser ?", a: "Non. Une automatisation s’appuie sur les outils existants et leurs accès. Nous vérifions ce qui est disponible avant de proposer un périmètre, et nous ne remplaçons un outil que si cela se justifie." },
-      { q: "Que deviennent les cas particuliers ?", a: "Ils ne sont jamais traités au hasard. Un cas qui ne correspond pas aux règles convenues est sorti du flux et signalé à une personne. C’est une partie importante du cadrage." },
-      { q: "Combien de temps faut-il pour automatiser un processus ?", a: "Un flux simple entre deux outils bien documentés se met en place rapidement. Un processus avec de nombreuses exceptions demande plus de cadrage que de développement. La durée est estimée après l’analyse." },
+      { q: "Faut-il changer nos logiciels pour automatiser ?", a: "Non. Une automatisation s’appuie sur les outils existants et leurs accès. Nous vérifions ce qui est disponible avant de proposer un périmètre, et nous ne remplaçons un outil que si cela se justifie." },
+      { q: "Que deviennent les cas particuliers ?", a: "Ils ne sont jamais traités au hasard. Un cas qui ne correspond pas aux règles convenues est sorti du flux et signalé à une personne. C’est une partie importante du cadrage." },
+      { q: "Combien de temps faut-il pour automatiser un processus ?", a: "Un flux simple entre deux outils bien documentés se met en place rapidement. Un processus avec de nombreuses exceptions demande plus de cadrage que de développement. La durée est estimée après l’analyse." },
     ],
   },
 
@@ -228,12 +238,13 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Des logiciels métier et des applications IA sur mesure",
     h1Accents: ["logiciels", "applications"],
     whatKicker: "Comprendre le développement sur mesure",
-    whatTitle: "Qu’est-ce qu’un logiciel métier sur mesure ?",
+    whatTitle: "Qu’est-ce qu’un logiciel métier sur mesure ?",
     whatTitleAccents: ["logiciel métier"],
     whatText:
       "Un logiciel métier sur mesure est une application conçue autour du fonctionnement réel de votre entreprise : vos processus, vos rôles, vos données et les écrans dont vos équipes ont besoin. Il peut remplacer des fichiers devenus difficiles à gérer, compléter un logiciel existant ou intégrer une fonctionnalité IA destinée à vos collaborateurs ou à vos clients. Nous définissons d’abord le parcours utile, puis les usages où l’intelligence artificielle apporte une valeur concrète.",
     whatVisual: "software",
-    usesTitle: "Quels usages pour un logiciel métier,\net quelles applications développer ?",
+    usesTitle: "Quels usages pour un logiciel métier,\net quelles applications|développer ?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["usages", "développer"],
     usesKicker: "Cas d’usage des logiciels sur mesure",
     usesCards: true,
@@ -272,9 +283,9 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur les\nlogiciels métier sur mesure",
     faqTitleAccents: ["logiciels métier sur mesure"],
     faqExtra: [
-      { q: "Pourquoi développer plutôt qu’acheter un logiciel existant ?", a: "Dans beaucoup de cas, un logiciel du marché suffit, et nous le disons. Le sur-mesure se justifie quand votre fonctionnement est spécifique, quand plusieurs outils devraient être reliés, ou quand aucune solution ne couvre le parcours central de votre activité." },
-      { q: "Peut-on commencer petit ?", a: "C’est la méthode que nous recommandons. Une première version couvre le parcours le plus utile, elle est testée par ses utilisateurs, puis étendue. Cela limite le risque et rend les arbitrages plus concrets." },
-      { q: "À qui appartient le code de l’application ?", a: "Les conditions de propriété, d’hébergement et de réversibilité sont écrites dans la proposition avant le démarrage, avec le périmètre et les responsabilités de chacun." },
+      { q: "Pourquoi développer plutôt qu’acheter un logiciel existant ?", a: "Dans beaucoup de cas, un logiciel du marché suffit, et nous le disons. Le sur-mesure se justifie quand votre fonctionnement est spécifique, quand plusieurs outils devraient être reliés, ou quand aucune solution ne couvre le parcours central de votre activité." },
+      { q: "Peut-on commencer petit ?", a: "C’est la méthode que nous recommandons. Une première version couvre le parcours le plus utile, elle est testée par ses utilisateurs, puis étendue. Cela limite le risque et rend les arbitrages plus concrets." },
+      { q: "À qui appartient le code de l’application ?", a: "Les conditions de propriété, d’hébergement et de réversibilité sont écrites dans la proposition avant le démarrage, avec le périmètre et les responsabilités de chacun." },
     ],
   },
 
@@ -283,12 +294,13 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Connectez vos logiciels, API et données d’entreprise",
     h1Accents: ["Connectez", "logiciels", "API", "données"],
     whatKicker: "Comprendre l’intégration de systèmes",
-    whatTitle: "Qu’est-ce qu’une intégration\nentre logiciels ?",
+    whatTitle: "Qu’est-ce qu’une\nintégration entre logiciels ?",
+    whatTitleTwoLines: true,
     whatTitleAccents: ["intégration"],
     whatText:
       "Une intégration de logiciels permet à plusieurs systèmes d’échanger automatiquement des données : contacts, statuts, commandes, documents ou informations métier. Elle réduit la double saisie et maintient une source de référence claire. L’automatisation organise les étapes d’un processus, tandis que l’intégration transporte les données entre un CRM, un ERP, un site web, une API ou une base de données.",
     whatVisual: "integration",
-    usesTitle: "Quels logiciels connecter,\net quelles données synchroniser ?",
+    usesTitle: "Quels logiciels connecter,\net quelles données synchroniser ?",
     usesTitleAccents: ["connecter", "synchroniser"],
     usesKicker: "Cas d’usage des systèmes connectés",
     usesCards: true,
@@ -324,12 +336,12 @@ const fr: Record<string, ServicePageContent> = {
     ctaTitle: "Identifions les logiciels et données à connecter",
     ctaTitleAccents: ["connecter"],
     ctaText: "Indiquez-nous quelles informations vos équipes recopient d’un logiciel à l’autre. Le premier échange permet d’identifier les API et accès disponibles, la source de référence et la faisabilité réelle de l’intégration.",
-    faqTitle: "Questions fréquentes sur les\nintégrations et systèmes connectés",
+    faqTitle: "Questions fréquentes sur~les \nintégrations et systèmes~connectés",
     faqTitleAccents: ["intégrations", "systèmes"],
     faqExtra: [
-      { q: "Faut-il un abonnement supplémentaire pour connecter nos outils ?", a: "Parfois. Certains éditeurs réservent l’accès par API à certaines formules, ou facturent au volume. Nous identifions ces conditions pendant le cadrage, pour qu’elles ne soient pas découvertes en cours de projet." },
-      { q: "Que se passe-t-il si un outil est indisponible ?", a: "Le transfert est mis en attente plutôt que perdu, puis rejoué selon les règles convenues. Les échecs restent visibles, et les doublons sont contrôlés à la reprise." },
-      { q: "Peut-on connecter un logiciel ancien ou interne ?", a: "Souvent oui, par sa base de données, un export ou une passerelle dédiée. La solution dépend de ce que le logiciel expose réellement et des autorisations disponibles." },
+      { q: "Faut-il un abonnement supplémentaire pour connecter nos outils ?", a: "Parfois. Certains éditeurs réservent l’accès par API à certaines formules, ou facturent au volume. Nous identifions ces conditions pendant le cadrage, pour qu’elles ne soient pas découvertes en cours de projet." },
+      { q: "Que se passe-t-il si un outil est indisponible ?", a: "Le transfert est mis en attente plutôt que perdu, puis rejoué selon les règles convenues. Les échecs restent visibles, et les doublons sont contrôlés à la reprise." },
+      { q: "Peut-on connecter un logiciel ancien ou interne ?", a: "Souvent oui, par sa base de données, un export ou une passerelle dédiée. La solution dépend de ce que le logiciel expose réellement et des autorisations disponibles." },
     ],
   },
 
@@ -338,12 +350,13 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Transformez vos données d’entreprise en décisions utiles",
     h1Accents: ["données"],
     whatKicker: "Comprendre l’analyse de données",
-    whatTitle: "Qu’est-ce que la Data & Intelligence en entreprise ?",
-    whatTitleAccents: ["Data & Intelligence"],
+    whatTitle: "Qu’est-ce que la Data &\nIntelligence en entreprise ?",
+    whatTitleTwoLines: true,
+    whatTitleAccents: ["Data &", "Intelligence"],
     whatText:
       "La Data & Intelligence transforme des données dispersées en informations exploitables pour piloter l’entreprise. Le travail consiste à centraliser les sources, corriger les incohérences, définir des indicateurs métier et les présenter dans des tableaux de bord lisibles. Lorsque l’historique le permet, ces données peuvent aussi alimenter une prévision, un score ou une recommandation, toujours distingués des chiffres réellement observés.",
     whatVisual: "data",
-    usesTitle: "Comment exploiter vos données,\net quels outils mettre en place ?",
+    usesTitle: "Comment exploiter vos données,\net quels outils mettre en place ?",
     usesTitleAccents: ["exploiter", "outils"],
     usesKicker: "Cas d’usage de la Data & Intelligence",
     usesCards: true,
@@ -382,9 +395,9 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur\nl’exploitation des données",
     faqTitleAccents: ["l’exploitation des données"],
     faqExtra: [
-      { q: "Faut-il beaucoup de données pour commencer ?", a: "Pas pour un tableau de bord : il suffit que vos données existantes soient accessibles et cohérentes. Pour une prévision ou un score, le volume, la qualité et la profondeur d’historique comptent, et nous les examinons avant de nous engager." },
-      { q: "Nos données sont-elles utilisées pour entraîner des modèles ?", a: "Pas en dehors du cadre défini avec vous. Les conditions d’usage, les accès et les services techniques concernés sont écrits dans la proposition avant le démarrage." },
-      { q: "Une prévision est-elle fiable ?", a: "Une prévision est une estimation, évaluée sur des données passées et accompagnée de ses limites. Elle peut aider à préparer une décision, mais elle ne la remplace pas, et nous ne la présentons jamais comme une certitude." },
+      { q: "Faut-il beaucoup de données pour commencer ?", a: "Pas pour un tableau de bord : il suffit que vos données existantes soient accessibles et cohérentes. Pour une prévision ou un score, le volume, la qualité et la profondeur d’historique comptent, et nous les examinons avant de nous engager." },
+      { q: "Nos données sont-elles utilisées pour entraîner des modèles ?", a: "Pas en dehors du cadre défini avec vous. Les conditions d’usage, les accès et les services techniques concernés sont écrits dans la proposition avant le démarrage." },
+      { q: "Une prévision est-elle fiable ?", a: "Une prévision est une estimation, évaluée sur des données passées et accompagnée de ses limites. Elle peut aider à préparer une décision, mais elle ne la remplace pas, et nous ne la présentons jamais comme une certitude." },
     ],
   },
 
@@ -393,12 +406,14 @@ const fr: Record<string, ServicePageContent> = {
     h1: "Formez vos équipes à l’IA et développez des usages durables",
     h1Accents: ["Formez", "développez"],
     whatKicker: "Comprendre l’adoption de l’intelligence artificielle",
-    whatTitle: "Comment réussir l’adoption de l’IA en entreprise ?",
+    whatTitle: "Comment réussir l’adoption\nde l’IA en entreprise ?",
+    whatTitleTwoLines: true,
     whatTitleAccents: ["adoption"],
     whatText:
       "Découvrir un outil d’intelligence artificielle et l’intégrer au travail quotidien sont deux étapes différentes. L’adoption de l’IA consiste à choisir des usages utiles pour votre métier, à les pratiquer sur des situations réelles et à définir des règles communes : quelles tâches confier à l’IA, comment vérifier ses réponses et quelles données protéger. Cette démarche s’applique aux outils existants comme aux solutions IA développées pour votre entreprise.",
     whatVisual: "adoption",
-    usesTitle: "Quels objectifs pour une formation IA,\net quel accompagnement choisir ?",
+    usesTitle: "Quels objectifs pour une formation IA,\net quel accompagnement choisir ?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["objectifs", "formation IA", "accompagnement"],
     usesKicker: "Cas d’usage et formats de formation IA",
     usesCards: true,
@@ -437,9 +452,9 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur\nla formation IA",
     faqTitleAccents: ["la formation IA"],
     faqExtra: [
-      { q: "Faut-il déjà utiliser l’IA pour suivre une formation ?", a: "Non. Nous adaptons le point de départ : une équipe qui n’a jamais utilisé ces outils travaille d’abord sur la compréhension et la vérification, avant d’aller vers des usages plus avancés." },
-      { q: "La formation est-elle liée à un outil en particulier ?", a: "Pas nécessairement. Nous travaillons avec les outils autorisés dans votre entreprise. Si vous n’en avez pas encore, nous aidons à choisir en fonction de vos usages et de vos contraintes de confidentialité." },
-      { q: "Combien de temps faut-il pour que les usages s’installent ?", a: "Une séance suffit à comprendre, pas à changer des habitudes. L’adoption se mesure sur plusieurs semaines, avec un point de suivi et des référents internes. Nous ne promettons pas de gain de productivité immédiat." },
+      { q: "Faut-il déjà utiliser l’IA pour suivre une formation ?", a: "Non. Nous adaptons le point de départ : une équipe qui n’a jamais utilisé ces outils travaille d’abord sur la compréhension et la vérification, avant d’aller vers des usages plus avancés." },
+      { q: "La formation est-elle liée à un outil en particulier ?", a: "Pas nécessairement. Nous travaillons avec les outils autorisés dans votre entreprise. Si vous n’en avez pas encore, nous aidons à choisir en fonction de vos usages et de vos contraintes de confidentialité." },
+      { q: "Combien de temps faut-il pour que les usages s’installent ?", a: "Une séance suffit à comprendre, pas à changer des habitudes. L’adoption se mesure sur plusieurs semaines, avec un point de suivi et des référents internes. Nous ne promettons pas de gain de productivité immédiat." },
     ],
   },
 };
@@ -512,7 +527,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "Intelligent automation connects your business software, rules and data to run repetitive process steps automatically. Artificial intelligence is used only when the workflow must understand text, classify a request or extract information, while straightforward rules remain deterministic and under control.",
     whatVisual: "automation",
-    usesTitle: "Which business processes can you automate,\nand with which solutions?",
+    usesTitle: "Which business processes can you automate, and with which solutions?",
     usesTitleAccents: ["business processes", "solutions?"],
     usesKicker: "Intelligent automation use cases",
     usesCards: true,
@@ -530,6 +545,7 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "Integration with your business tools",
     coreTitle: "Automate without replacing your software",
+    coreTitleAccents: ["Automate"],
     coreText: "Business process automation does not require you to change tools. It connects the software you already use and handles the repetitive steps between them, while your teams keep control of exceptions.",
     coreVisual: "automation",
     coreCentre: "Automated flow",
@@ -567,6 +583,7 @@ const en: Record<string, ServicePageContent> = {
       "Custom business software is designed around the way your company actually works: your roles, data, rules and the screens your teams need. It can replace hard-to-maintain files, extend an existing application or provide a new service to your customers. AI is added only where it creates a concrete operational benefit.",
     whatVisual: "software",
     usesTitle: "Which needs can custom software address,\nand which applications should you build?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["custom software", "applications"],
     usesKicker: "Custom software and AI application use cases",
     usesCards: true,
@@ -584,6 +601,7 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "Software designed for your processes",
     coreTitle: "A business application built around your work",
+    coreTitleAccents: ["business application"],
     coreText: "Custom business software follows your organisation rather than imposing a new one. Screens reflect each process, access rights match your roles and your business data remains under your control.",
     coreVisual: "software",
     coreCentre: "Your application",
@@ -616,11 +634,12 @@ const en: Record<string, ServicePageContent> = {
     h1Accents: ["Connect your software"],
     whatKicker: "Understanding software integration",
     whatTitle: "What is an integration between your systems?",
-    whatTitleAccents: ["integration", "?"],
+    whatTitleAccents: ["integration"],
     whatText:
       "Software integration allows two business applications to exchange data such as a contact, status, order or document. It eliminates duplicate entry and keeps information consistent. Automation organises the steps of a process, while an integration moves data between tools. The two often work together but serve different purposes.",
     whatVisual: "integration",
     usesTitle: "Which software should you connect,\nand which data should you synchronise?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["software", "data"],
     usesKicker: "Software integration and data synchronisation use cases",
     usesCards: true,
@@ -638,6 +657,7 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "Connected business systems",
     coreTitle: "Connect the software your teams already use",
+    coreTitleAccents: ["Connect"],
     coreText: "The goal is not to add another tool, but to synchronise data between your existing business systems. Your teams keep working in their usual software with reliable, up-to-date information.",
     coreVisual: "integration",
     coreCentre: "Integration layer",
@@ -669,12 +689,14 @@ const en: Record<string, ServicePageContent> = {
     h1: "Turn your business data into useful decisions",
     h1Accents: ["business data"],
     whatKicker: "Understanding business data analysis",
-    whatTitle: "How does data intelligence support your business?",
-    whatTitleAccents: ["data intelligence", "business?"],
+    whatTitle: "How does data intelligence\nsupport your business?",
+    whatTitleTwoLines: true,
+    whatTitleAccents: ["data intelligence"],
     whatText:
       "Business data analysis turns scattered information into reliable decision-making tools. Sources are connected, inconsistencies corrected and performance indicators defined with your teams before being displayed in clear dashboards. When the available history supports it, forecasting, scoring or recommendations can be added without confusing estimates with recorded facts.",
     whatVisual: "data",
     usesTitle: "How can you use your business data,\nand which tools should you implement?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["business data", "tools"],
     usesKicker: "Data analysis and dashboard use cases",
     usesCards: true,
@@ -692,6 +714,7 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "From business data to decision-making",
     coreTitle: "Centralise your data in useful dashboards",
+    coreTitleAccents: ["Centralise"],
     coreText: "Your business data already exists across management software, spreadsheets and online tools. We centralise it, verify its quality and turn it into dashboards your teams can use to make decisions.",
     coreVisual: "data",
     coreCentre: "Your indicators",
@@ -723,12 +746,14 @@ const en: Record<string, ServicePageContent> = {
     h1: "Train your teams in AI and build lasting practices",
     h1Accents: ["Train your teams in AI", "lasting practices"],
     whatKicker: "Understanding AI adoption in business",
-    whatTitle: "How do you successfully adopt AI in your company?",
+    whatTitle: "How do you successfully\nadopt AI in your company?",
+    whatTitleTwoLines: true,
     whatTitleAccents: ["adopt AI", "company?"],
     whatText:
       "Discovering an AI tool and using it effectively at work are two different things. Successful AI adoption means choosing relevant business use cases, practising with real situations and setting shared rules for verification, human control and confidential information. This applies to existing tools as well as custom AI solutions.",
     whatVisual: "adoption",
     usesTitle: "What should business AI training achieve,\nand which support format should you choose?",
+    usesTitleTwoLines: true,
     usesTitleAccents: ["AI training", "support format"],
     usesKicker: "AI training and adoption objectives",
     usesCards: true,
@@ -746,6 +771,7 @@ const en: Record<string, ServicePageContent> = {
     ],
     coreKicker: "From AI training to adoption",
     coreTitle: "Build responsible AI practices in your teams",
+    coreTitleAccents: ["Build"],
     coreText: "A well-trained team is not one that knows the most tools, but one that uses AI on the right tasks, checks every important answer and follows clear rules for sensitive information.",
     coreVisual: "adoption",
     coreCentre: "Your teams",

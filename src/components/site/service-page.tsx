@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Band, CardPanel, Shell } from "./shell";
+import { HeroCompact, type HeroRow, type HeroTile } from "@/components/hero-compact";
 import { Lede } from "./lede";
 import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
@@ -79,6 +80,120 @@ const USE_ICONS: Record<string, LucideIcon[]> = {
   "formation-adoption-ia": [Lightbulb, Target, MessageSquare, SearchCheck, Lock, FileText, Rocket, Users],
 };
 
+/**
+ * LE CONTENU DE LA CARD COMPACTE DES SIX HEROS DE SERVICE.
+ *
+ * ⚠ Chaque chaîne vient du visuel de bureau de la MÊME page, au mot près.
+ * Ce n'est pas un second contenu à écrire : c'est le même, dit plus court.
+ * Si un visuel de bureau change, c'est ici qu'il faut reporter.
+ */
+const HERO_COMPACT: Record<string, (fr: boolean) => {
+  title: string; status: string; rows?: readonly HeroRow[]; tiles?: readonly HeroTile[];
+}> = {
+  "agents-ia": fr => ({
+    title: fr ? "demande #2041 \u00b7 Marie L." : "request #2041 \u00b7 Marie L.",
+    status: fr ? "Validation requise" : "Approval needed",
+    rows: fr
+      ? [
+          { num: "01", label: "Rechercher", state: "Recherche\u2026" },
+          { num: "02", label: "Comprendre", state: "devis toiture" },
+          { num: "03", label: "Pr\u00e9parer", state: "R\u00e9daction\u2026" },
+        ]
+      : [
+          { num: "01", label: "Search", state: "Searching\u2026" },
+          { num: "02", label: "Understand", state: "roofing quote" },
+          { num: "03", label: "Draft", state: "Analysing\u2026" },
+        ],
+  }),
+  "automatisations-intelligentes": fr => ({
+    title: fr ? "workflow \u00b7 factures fournisseurs" : "workflow \u00b7 supplier invoices",
+    status: fr ? "actif" : "active",
+    rows: fr
+      ? [
+          { num: "01", label: "E-mail re\u00e7u", state: "F-118.pdf" },
+          { num: "02", label: "Extraction IA", state: "montant \u00b7 TVA" },
+          { num: "03", label: "Contr\u00f4le r\u00e8gles", state: "budget \u00b7 doublon" },
+          { num: "04", label: "Facture dans l\u2019ERP", state: "compta \u00e0 jour" },
+          { num: "05", label: "\u00c0 v\u00e9rifier", state: "hors budget" },
+        ]
+      : [
+          { num: "01", label: "Email received", state: "F-118.pdf" },
+          { num: "02", label: "AI extraction", state: "amount \u00b7 VAT" },
+          { num: "03", label: "Rule check", state: "budget \u00b7 duplicate" },
+          { num: "04", label: "Invoice in ERP", state: "accounts updated" },
+          { num: "05", label: "Review needed", state: "over budget" },
+        ],
+  }),
+  "logiciels-applications-ia": fr => ({
+    title: fr ? "Tableau de bord \u00b7 Atelier Brun" : "Dashboard \u00b7 Atelier Brun",
+    status: fr ? "ce mois" : "this month",
+    tiles: fr
+      ? [
+          { label: "Chiffre d\u2019affaires", value: "84 260 \u20ac" },
+          { label: "Projets en cours", value: "12" },
+          { label: "Demandes", value: "28" },
+          { label: "\u00c0 valider", value: "4" },
+        ]
+      : [
+          { label: "Revenue", value: "84 260 \u20ac" },
+          { label: "Active projects", value: "12" },
+          { label: "Requests", value: "28" },
+          { label: "To approve", value: "4" },
+        ],
+  }),
+  "integrations-systemes-connectes": fr => ({
+    title: fr ? "Nouveau lead du site \u2192 CRM + ERP" : "New website lead \u2192 CRM + ERP",
+    status: fr ? "0 double saisie" : "0 duplicate entry",
+    rows: fr
+      ? [
+          { num: "01", label: "Formulaire site web", state: "Nouveau lead" },
+          { num: "02", label: "CRM", state: "fiche cr\u00e9\u00e9e" },
+          { num: "03", label: "ERP", state: "fiche cr\u00e9\u00e9e" },
+          { num: "04", label: "\u00c9quipe", state: "assign\u00e9e" },
+        ]
+      : [
+          { num: "01", label: "Website form", state: "New lead" },
+          { num: "02", label: "CRM", state: "record created" },
+          { num: "03", label: "ERP", state: "record created" },
+          { num: "04", label: "Team", state: "assigned" },
+        ],
+  }),
+  "data-intelligence": fr => ({
+    title: fr ? "chiffre d\u2019affaires \u00b7 30 jours" : "revenue \u00b7 30 days",
+    status: fr ? "\u00e0 jour" : "up to date",
+    tiles: fr
+      ? [
+          { label: "Commandes", value: "382" },
+          { label: "Panier moyen", value: "126 \u20ac" },
+          { label: "Conversion", value: "4,8 %" },
+          { label: "Alerte", value: "stock bas" },
+        ]
+      : [
+          { label: "Orders", value: "382" },
+          { label: "Avg. basket", value: "\u20ac126" },
+          { label: "Conversion", value: "4.8%" },
+          { label: "Alert", value: "low stock" },
+        ],
+  }),
+  "formation-adoption-ia": fr => ({
+    title: fr ? "Piloter votre solution IA" : "Run your AI solution",
+    status: fr ? "en production" : "live",
+    rows: fr
+      ? [
+          { num: "01", label: "Comprendre votre agent" },
+          { num: "02", label: "Garder le contr\u00f4le" },
+          { num: "03", label: "Ajuster les r\u00e8gles" },
+          { num: "04", label: "Suivre les r\u00e9sultats" },
+        ]
+      : [
+          { num: "01", label: "Understand your agent" },
+          { num: "02", label: "Stay in control" },
+          { num: "03", label: "Adjust the rules" },
+          { num: "04", label: "Track the results" },
+        ],
+  }),
+};
+
 export function ServicePage({ locale, family }: { locale: Locale; family: Family }) {
   const fr = locale === "fr";
   const d = family.detail;
@@ -102,13 +217,16 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       className="svc-hero"
       kicker={renderLines(p.kicker)}
       title={renderLines(p.h1, p.h1Accents, "title-accent")}
-      aside={
-        family.slug === "agents-ia" ? (
-          /* La seule famille dont on peut montrer le déroulé complet, de la
-             recherche à la validation humaine. */
-          <div className="family-hero-art family-hero-art--demo"><AgentDemo locale={locale} /></div>
-        ) : <ServiceHeroIllustration slug={family.slug} locale={locale} />
-      }
+      aside={<>
+        <div className="hero-visual-desktop">
+          {family.slug === "agents-ia" ? (
+            /* La seule famille dont on peut montrer le déroulé complet, de
+               la recherche à la validation humaine. */
+            <div className="family-hero-art family-hero-art--demo"><AgentDemo locale={locale} /></div>
+          ) : <ServiceHeroIllustration slug={family.slug} locale={locale} />}
+        </div>
+        {HERO_COMPACT[family.slug] && <HeroCompact {...HERO_COMPACT[family.slug](fr)} />}
+      </>}
     >
       <p>{d.heroLead}</p>
       <div className="btn-row">
@@ -123,7 +241,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
           qu'on y met vient du contenu et non du slug — le petit schéma
           commun, ou un visuel animé dédié au service. */}
       <div className="svc-split">
-        <div className={p.whatTitleOneLine ? "svc-split-copy svc-what svc-what--line" : "svc-split-copy svc-what"}>
+        <div className={["svc-split-copy", "svc-what", p.whatTitleOneLine ? "svc-what--line" : "", p.whatTitleTwoLines ? "svc-what--two" : ""].filter(Boolean).join(" ")}>
           <Lede kicker={p.whatKicker} title={p.whatTitle} accents={p.whatTitleAccents} text={p.whatText} />
         </div>
         {p.whatVisual === "agent" ? <AgentBrief locale={locale} />
@@ -137,7 +255,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
 
     {/* ===== 3 · À QUOI ÇA PEUT SERVIR — bleu clair ===== */}
     <Band id="usages" className="svc-band svc-tint svc-rhythm">
-      <div className="section-heading">
+      <div className={p.usesTitleTwoLines ? "section-heading svc-uses-head--two" : "section-heading"}>
         <Lede kicker={p.usesKicker ?? (fr ? "Usages concrets" : "Concrete uses")} title={p.usesTitle} accents={p.usesTitleAccents} text={p.usesText} />
       </div>
       {/* Les mêmes titres et les mêmes descriptions dans les deux

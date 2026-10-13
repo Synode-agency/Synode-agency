@@ -177,7 +177,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
                   {fr ? "Tester ce créneau" : "Try this slot"}
                 </button>
                 <p className="calendar-alt">
-                  {fr ? "Aucun de ces horaires ne vous convient ?" : "None of these times work for you?"}{" "}
+                  {fr ? "Aucun de ces horaires ne vous convient ?" : "None of these times work for you?"}{" "}
                   <Link className="go" href={contactHref}>{fr ? "Nous contacter" : "Contact us"}</Link>
                 </p>
               </div>

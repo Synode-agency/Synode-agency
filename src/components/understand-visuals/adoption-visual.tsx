@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import type { Locale } from "@/lib/content";
+import { CompactPanel } from "@/components/compact-panel";
 import { Scene, T, clamp, ease, span, useSceneClock } from "./scene";
 
 /**
@@ -14,6 +15,20 @@ import { Scene, T, clamp, ease, span, useSceneClock } from "./scene";
  * Les trois repères se cochent APRÈS le passage de l'équipe, pas avant.
  * C'est l'argument de la section : l'adoption ne se décrète pas, elle se
  * constate une fois les usages pratiqués.
+ * ────────────────────────────────────────────────────────────────────────
+ *
+ * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
+ * Quatre personnes traversent trois temps, et trois repères partagés se
+ * cochent. Le panneau prend le parti inverse de la scène : il met les trois
+ * REPÈRES en lignes, parce que ce sont eux qui portent le propos, et range
+ * les trois temps en pied. Les quatre pastilles de personnes ne sont pas
+ * reprises : à cette largeur elles devenaient quatre ronds gris.
+ *
+ * La scène est un repère à coordonnées absolues dont les textes sont en
+ * `cqw` : dans une colonne de 400px ils tombent sous 8px. Sous 900px c'est
+ * `CompactPanel` qui prend la place, et `.unv--adoption` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène.
  * ────────────────────────────────────────────────────────────────────────
  */
 
@@ -119,7 +134,8 @@ export function AdoptionVisual({ locale }: { locale: Locale }) {
   });
 
   return (
-    <div ref={scene} className="unv-wrap">
+    <>
+    <div ref={scene} className="unv-wrap unv--adoption">
       <Scene
         rootRef={root}
         label={c.alt}
@@ -185,5 +201,13 @@ export function AdoptionVisual({ locale }: { locale: Locale }) {
         ))}
       </Scene>
     </div>
+
+    {/* ---- Le panneau du téléphone. Voir l'en-tête du fichier. ---- */}
+    <CompactPanel
+      head={c.title}
+      rows={c.marks.map(label => ({ label }))}
+      foot={c.steps.join(" · ")}
+    />
+    </>
   );
 }

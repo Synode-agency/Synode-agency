@@ -1,0 +1,180 @@
+/* =====================================================================
+   LA CARD COMPACTE DES HEROS
+
+   Les valeurs viennent du §5.2 du brief mobile. Elles sont écrites ici et
+   non reprises du thème : cette card ne vit que sur fond bleu nuit, quelle
+   que soit la page, donc elle n'a pas de variante à suivre.
+
+   ⚠ Elle n'existe QUE sous 900px. Au-dessus, c'est le visuel de bureau qui
+   s'affiche, et c'est la page qui décide lequel des deux montrer.
+   ===================================================================== */
+
+.card {
+  display: none;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 14px;
+  background: #13213a;
+  box-shadow: 0 24px 50px rgb(0 0 0 / 30%);
+  font-family: var(--font-sans);
+}
+
+@media (max-width: 900px) {
+  .card {
+    display: block;
+  }
+}
+
+/* ---- L'en-tête ---- */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #1e3352;
+  font-size: 12px;
+}
+/* Le titre cède la place au statut plutôt que de le pousser dehors : c'est
+   lui qui s'ellipse, parce qu'un statut coupé ne veut plus rien dire. */
+.title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #c9d3e2;
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  white-space: nowrap;
+  color: #8fa0b8;
+}
+.status i {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 999px;
+  background: #34d399;
+}
+
+/* ---- Les lignes ----
+   `auto minmax(0, 1fr) auto` : le repère et l'état gardent leur largeur, et
+   c'est le libellé qui se réduit. L'inverse couperait un numéro. */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 0 14px;
+  transition: background-color 0.3s ease;
+}
+.row + .row {
+  border-top: 1px solid #1e3352;
+}
+/* La barre de la ligne active est en `inset` et non en bordure : une
+   bordure décalerait le texte de trois pixels à chaque changement. */
+.rowOn {
+  background: #16294a;
+  box-shadow: inset 3px 0 0 #4e8ff0;
+}
+.num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-style: normal;
+  color: #6f84a3;
+  transition: color 0.3s ease;
+}
+.rowOn .num {
+  color: #8ec1ff;
+}
+.label {
+  overflow: hidden;
+  font-size: 12.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #b6c2d4;
+  transition: color 0.3s ease;
+}
+.rowOn .label {
+  color: #ffffff;
+}
+.state {
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #6f84a3;
+  transition: color 0.3s ease;
+}
+.rowOn .state {
+  color: #8ec1ff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .num,
+  .label,
+  .state {
+    transition: none;
+  }
+}
+
+/* ---- La variante « tuiles ».
+   Deux colonnes, toujours : c'est la seule grille de la card, et elle ne se
+   replie pas. Une tuile seule sur sa ligne perdrait le rapport de
+   comparaison qui justifie cette forme. ---- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 12px;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #1e3352;
+  border-radius: 10px;
+  background: #121f36;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.tileOn {
+  border-color: #4e8ff0;
+  background: #16294a;
+}
+.tileLabel {
+  overflow: hidden;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #8fa0b8;
+  transition: color 0.3s ease;
+}
+.tileOn .tileLabel {
+  color: #8ec1ff;
+}
+.tileValue {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .tileLabel {
+    transition: none;
+  }
+}
+

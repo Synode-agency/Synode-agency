@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 import { Box, Dot, Scene, T, ease, polyline, px, py, span, useSceneClock } from "./scene";
 
 /**
@@ -15,6 +16,19 @@ import { Box, Dot, Scene, T, ease, polyline, px, py, span, useSceneClock } from 
  * ⚠ L'étiquette de la donnée n'apparaît qu'une fois le point sorti de la
  * pastille de départ, sinon elle masque le nom du système d'où part
  * l'échange.
+ *
+ * ── SUR TÉLÉPHONE, UNE CARTE COMPACTE ───────────────────────────────────
+ * Quatre échanges entre vos systèmes. La liste garde les quatre couples
+ * ET la donnée échangée, que la scène écrivait dans une note de bas de
+ * cadre : un échange sans sa donnée ne dirait plus ce qui circule.
+ *
+ * La scène est un repère de 480×320 dont les textes sont en `cqw` : dans une
+ * colonne de 400px ils tombent sous 8px. Sous 900px c'est donc `HeroCompact`
+ * qui prend la place, et `.cv--layer` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène. Rien
+ * n'est réécrit, rien n'est inventé.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const CYCLE = 3000;
@@ -100,8 +114,10 @@ export function LayerVisual({ locale }: { locale: Locale }) {
   const route = trip(from, to);
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="cv--layer"
       label={c.label}
       shapes={
         <>
@@ -157,5 +173,17 @@ export function LayerVisual({ locale }: { locale: Locale }) {
         {s >= 2 ? c.kept : c.run(c.top[from], c.bottom[to], c.data[i])}
       </T>
     </Scene>
+
+    {/* ---- La carte du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      title={c.layer}
+      status={c.kept}
+      rows={SWAPS.map(([from, to], k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: `${c.top[from]} → ${c.bottom[to]}`,
+        state: c.data[k],
+      }))}
+    />
+    </>
   );
 }

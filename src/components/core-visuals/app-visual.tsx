@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 import { Box, Scene, T, ease, px, py, span, useSceneClock } from "./scene";
 
 /**
@@ -15,6 +16,19 @@ import { Box, Scene, T, ease, px, py, span, useSceneClock } from "./scene";
  * ⚠ Les positions des modules sont écrites à chaque image DANS le DOM, en
  * pourcentage du repère. Pas de transition CSS sur `left` et `top` : la
  * transition et l'horloge se battraient, et le vol saccaderait.
+ *
+ * ── SUR TÉLÉPHONE, UNE CARTE COMPACTE ───────────────────────────────────
+ * Huit modules qui se rangent dans une application : la scène les fait
+ * voler vers un cadre, puis les allume un par un. En liste, les huit noms se
+ * lisent, ce qui est tout ce que le vol illustrait.
+ *
+ * La scène est un repère de 480×320 dont les textes sont en `cqw` : dans une
+ * colonne de 400px ils tombent sous 8px. Sous 900px c'est donc `HeroCompact`
+ * qui prend la place, et `.cv--app` qui masque la scène.
+ *
+ * ⚠ Toutes les chaînes viennent de `COPY`, le même objet que la scène. Rien
+ * n'est réécrit, rien n'est inventé.
+ * ────────────────────────────────────────────────────────────────────────
  */
 
 const LOOP = 9000;
@@ -94,8 +108,10 @@ export function AppVisual({ locale }: { locale: Locale }) {
   const settled = still || said;
 
   return (
+    <>
     <Scene
       rootRef={root}
+      className="cv--app"
       sceneRef={node => { stage.current = node; }}
       label={c.label}
       shapes={
@@ -148,5 +164,13 @@ export function AppVisual({ locale }: { locale: Locale }) {
         {settled ? c.done : c.building}
       </T>
     </Scene>
+
+    {/* ---- La carte du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      title={c.title}
+      status={c.building}
+      rows={c.modules.map((name, k) => ({ num: String(k + 1).padStart(2, "0"), label: name }))}
+    />
+    </>
   );
 }
