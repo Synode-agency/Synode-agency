@@ -376,7 +376,7 @@ const fr: Record<string, ServicePageContent> = {
       { title: "Révision des modèles", text: "Une estimation est réévaluée régulièrement, et corrigée si elle dérive.", status: "révision en cours" },
       { title: "Évolution des indicateurs", text: "Les définitions sont ajustées quand votre activité change.", status: "ajustement en cours" },
     ],
-    ctaTitle: "Évaluons le potentiel de vos données d’entreprise",
+    ctaTitle: "Évaluons [[le potentiel de ]]vos données d’entreprise",
     ctaTitleAccents: ["données"],
     ctaText: "Présentez-nous la décision que vous devez aujourd’hui prendre sans indicateur fiable. Le premier échange permet d’identifier les sources disponibles, leur qualité et le type de tableau de bord, d’analyse ou de prévision réellement envisageable.",
     faqTitle: "Questions fréquentes sur\nl’exploitation des données",

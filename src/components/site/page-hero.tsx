@@ -19,6 +19,14 @@ import type { ReactNode } from "react";
  * glissé dans le `h1` abîmerait le titre pour un lecteur d'écran comme pour
  * un moteur de recherche.
  *
+ * `kickerMobileOnly` le réserve au téléphone. Cinq pages s'en servent —
+ * l'accueil, Solutions, Cas d'usage, Réalisations et Contact — pour situer
+ * la page au-dessus du titre là où il n'y a plus de barre de navigation
+ * visible pour le faire. Sur grand écran, ces cinq-là n'en veulent pas : le
+ * titre y suffit. C'est de l'affichage, pas du contenu conditionnel, donc le
+ * surtitre est dans le HTML dans les deux cas et c'est la feuille de style
+ * qui le montre ou non.
+ *
  * `aside` est rendu en enfant direct de la grille, sans enveloppe : chaque
  * illustration garde ainsi ses propres règles de largeur et d'alignement.
  * Sans illustration, la grille passe à une colonne plutôt que de laisser un
@@ -28,6 +36,7 @@ export function PageHero({
   id = "top",
   layout = "inner",
   kicker,
+  kickerMobileOnly = false,
   title,
   aside,
   strip,
@@ -36,7 +45,10 @@ export function PageHero({
 }: {
   id?: string;
   layout?: "feature" | "inner";
-  kicker?: string;
+  /* Un `ReactNode` et non une chaîne : les surtitres des pages services
+     passent par `renderLines`, qui y pose les coupes de téléphone. */
+  kicker?: ReactNode;
+  kickerMobileOnly?: boolean;
   title: ReactNode;
   aside?: ReactNode;
   strip?: ReactNode;
@@ -44,6 +56,10 @@ export function PageHero({
   children: ReactNode;
 }) {
   const grid = ["studio-hero-grid", aside ? null : "studio-hero-grid--single"].filter(Boolean).join(" ");
+  const kickerClass = ["studio-hero-kicker", kickerMobileOnly ? "studio-hero-kicker--mobile" : null]
+    .filter(Boolean)
+    .join(" ");
+  const kickerNode = kicker ? <span className={kickerClass}>{kicker}</span> : null;
   const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, className]
     .filter(Boolean)
     .join(" ");
@@ -53,6 +69,7 @@ export function PageHero({
       <div className="col studio-hero-inner">
         {layout === "feature" ? (
           <>
+            {kickerNode}
             <h1>{title}</h1>
             <div className={grid}>
               <div className="studio-hero-copy">{children}</div>
@@ -62,7 +79,7 @@ export function PageHero({
         ) : (
           <div className={grid}>
             <div className="studio-hero-copy">
-              {kicker && <span className="studio-hero-kicker">{kicker}</span>}
+              {kickerNode}
               <h1>{title}</h1>
               {children}
             </div>

@@ -93,7 +93,7 @@
   border: 1px solid #dde3eb;
   border-radius: 9px;
   background: #ffffff;
-  color: #a0a5ad;
+  color: #6e7177;
   font-size: 12.5px;
   transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -101,7 +101,7 @@
 .step strong {
   min-width: 0;
   overflow: hidden;
-  color: #8a8f98;
+  color: #71757c;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.25;
@@ -156,7 +156,7 @@
 }
 
 .meta > span:first-child {
-  color: #8a8f98;
+  color: #71757c;
   font-size: 14px;
 }
 
@@ -262,7 +262,7 @@
 }
 
 .staticFooter {
-  color: #8a8f98;
+  color: #71757c;
   font-size: 16px;
 }
 

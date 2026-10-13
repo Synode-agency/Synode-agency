@@ -15,10 +15,13 @@ import { ANCHORS, path, ROUTES, type Locale } from "@/lib/content";
  * le bas, et le bloc occupe la même place aux trois étapes.
  *
  * ── Un point à ne pas défaire ───────────────────────────────────────────
- * Le troisième état dit que le créneau est RETENU, pas réservé, et invite
- * à confirmer par le formulaire. Écrire « votre rendez-vous est validé »
- * ici serait faux : rien n'est envoyé nulle part, aucun email ne part, et
- * un visiteur attendrait un appel qui n'existe pas.
+ * AUCUN libellé de ce composant ne doit laisser croire qu'une réservation
+ * se fait. Le bouton dit « tester », le troisième écran dit que c'est à ça
+ * que ressemblera la réservation, et l'avertissement du haut est affiché
+ * dans les deux variantes. Trois formulations précédentes — « valider votre
+ * rendez-vous », « votre créneau est retenu », et l'avertissement masqué sur
+ * la page Contact — laissaient quelqu'un repartir en croyant avoir un
+ * rendez-vous. Rien n'est envoyé nulle part, aucun email ne part.
  *
  * Le jour où Cal.com sera connecté, ce composant ne s'affichera plus du
  * tout : `Booking` passera sur l'iframe. Si l'on veut malgré tout une vraie
@@ -41,7 +44,14 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
   const [day, setDay] = useState<number | null>(null);
   const [time, setTime] = useState<string | null>(null);
 
-  const month = new Date(2026, 8 + offset, 1);
+  /* ⚠ Le mois courant, CALCULÉ, et non une date écrite.
+     L'aperçu partait sur septembre 2026, écrit en dur : trois semaines plus
+     tard il proposait des créneaux déjà passés, ce qui est exactement ce
+     qu'une démonstration de réservation ne doit pas faire. `useState` le fige
+     au montage pour que le rendu du serveur et celui du client soient
+     identiques, et que la grille ne saute pas si l'on passe minuit. */
+  const [base] = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
+  const month = new Date(base.getFullYear(), base.getMonth() + offset, 1);
   const count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
   const blanks = (month.getDay() + 6) % 7;
   const monthLabel = month.toLocaleDateString(lang, { month: "long", year: "numeric" });
@@ -84,16 +94,18 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
           le visiteur l'apprend dans un CTA. Tant que Cal.com n'est pas
           branché, ce texte est la seule chose qui empêche quelqu'un
           d'attendre un appel qui n'existe pas. */}
-      {!isCta && (
-        <div className="calendar-demo-notice">
-          <Info aria-hidden />
-          <span>
-            {fr
-              ? "Aperçu interactif · dates et horaires fictifs. Aucune réservation n’est effectuée."
-              : "Interactive preview · illustrative dates and times. No booking is made."}
-          </span>
-        </div>
-      )}
+      {/* ⚠ Affiché dans les DEUX variantes. Il ne l'était pas dans la
+          compacte, c'est-à-dire sur la page Contact — la seule où quelqu'un
+          vient réellement pour réserver, donc la seule où le malentendu
+          coûte quelque chose. */}
+      <div className="calendar-demo-notice">
+        <Info aria-hidden />
+        <span>
+          {fr
+            ? "Aperçu interactif · dates et horaires fictifs. Aucune réservation n’est effectuée."
+            : "Interactive preview · illustrative dates and times. No booking is made."}
+        </span>
+      </div>
 
       <div className="calendar-demo-body">
         {/* La scène, de hauteur fixe. Les trois états s'y succèdent sans
@@ -162,7 +174,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
                   disabled={!time}
                   onClick={() => setStep("confirmed")}
                 >
-                  {fr ? "Valider votre rendez-vous" : "Confirm your appointment"}
+                  {fr ? "Tester ce créneau" : "Try this slot"}
                 </button>
                 <p className="calendar-alt">
                   {fr ? "Aucun de ces horaires ne vous convient ?" : "None of these times work for you?"}{" "}
@@ -177,7 +189,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
               <span className="calendar-done-icon" aria-hidden><CalendarCheck2 /></span>
               {/* Volontairement « retenu » et non « validé » : rien n'est
                   envoyé, aucun email ne part. Voir l'en-tête du fichier. */}
-              <h4>{fr ? "Votre créneau est retenu." : "Your slot is held."}</h4>
+              <h4>{fr ? "Voilà à quoi ressemble la réservation." : "This is what booking looks like."}</h4>
               <p>
                 {fr
                   ? "Cet aperçu n’enregistre aucune réservation. Confirmez-le en un message et nous vous renvoyons l’invitation et le lien de visioconférence."

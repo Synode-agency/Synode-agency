@@ -15,13 +15,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = findWork("en", slug);
   if (!item) return {};
+  const isNexus = slug === "nexus";
+  const title = isNexus ? "Nexus: AI-assisted B2B prospecting software" : item.title;
+  const description = isNexus
+    ? "See how Synode uses Nexus to research and qualify companies in Brussels and Belgium, then prepare more targeted B2B prospecting."
+    : item.problem;
   return {
-    title: item.title,
-    description: item.problem,
+    title,
+    description,
     alternates: {
       canonical: `/en/realisations/${slug}`,
-      languages: { fr: `/realisations/${slug}`, en: `/en/realisations/${slug}` },
+      languages: { fr: `/realisations/${slug}`, en: `/en/realisations/${slug}`, "x-default": `/realisations/${slug}` },
     },
+    openGraph: { title, description, url: `/en/realisations/${slug}`, type: "website", locale: "en_BE" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

@@ -1,0 +1,553 @@
+/* =====================================================================
+   LA CARD « GALERIE DE PROJETS » DU HERO DE RÉALISATIONS
+
+   Même famille que les cards des heros de l'Accueil, de Solutions et de Cas
+   d'usage : fond bleu nuit, filets fins, aucun dégradé décoratif.
+
+   ⚠ Seules les COULEURS changent pendant le cycle. Aucune transition ne
+   porte sur une dimension ou une position, donc la hauteur de la card est
+   fixée par son contenu et ne bouge pas d'une étape à l'autre.
+   ===================================================================== */
+
+.card {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  width: 100%;
+  max-width: 580px;
+  /* Collée au bord droit de sa colonne sur desktop. Quand le hero passe en
+     une colonne, c'est `start` qui s'applique, plus bas. */
+  justify-self: end;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 16px;
+  background: #13213a;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 30%);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ---- La barre latérale ---- */
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-block: 16px;
+  border-right: 1px solid #1e3352;
+  background: #0f1b30;
+}
+.logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+.gap {
+  height: 10px;
+}
+.tab {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 12px;
+  color: #6f84a3;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.tabOn {
+  border-color: #4e8ff0;
+  background: #16335a;
+  color: #ffffff;
+}
+
+/* ---- La zone principale ---- */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px 16px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12.5px;
+}
+.head em {
+  font-style: normal;
+  white-space: nowrap;
+  color: #c9d3e2;
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  color: #8fa0b8;
+}
+.live i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #34d399;
+}
+
+/* ---- Les filtres ----
+   Une seule rangée, jamais de retour à la ligne : le dépassement est masqué
+   à droite. C'est volontaire, un filtre coupé se lit comme une rangée qui
+   continue, pas comme une erreur. */
+.filters {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+}
+.filter {
+  flex: none;
+  padding: 5px 10px;
+  border: 1px solid #24406a;
+  border-radius: 7px;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8fa0b8;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+/* « Tous » est toujours actif : c'est le filtre par défaut de la galerie. */
+.filterAll {
+  border-color: #8ec1ff;
+  background: #8ec1ff;
+  color: #0f1d33;
+}
+.filterOn {
+  border-color: #2f5fa8;
+  background: #16335a;
+  color: #ffffff;
+}
+
+/* ---- Les quatre vignettes ---- */
+/* ⚠ `auto-fit` et non `repeat(2, …)`. À la largeur de dessin la grille fait
+   bien deux colonnes, mais la card rétrécit avec sa colonne de hero : entre
+   760 et 1250px de fenêtre elle tombe à 350-490px, la colonne d'une vignette
+   passe sous 110px, et « Outil interne · opérationnel », qui en réclame
+   178, serait rognée. Le minimum de 194px fait repasser la grille à une
+   colonne pile quand deux ne tiennent plus, sans point de rupture à tenir
+   à jour. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 194px), 1fr));
+  gap: 10px;
+}
+.thumb {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid #1e3352;
+  border-radius: 11px;
+  background: #13223a;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.thumbOn {
+  border-color: #4e8ff0;
+  background: #16294a;
+  box-shadow: 0 0 0 4px rgb(78 143 240 / 14%);
+}
+/* La place du premier projet client : elle est vide, et son cadre en
+   pointillés le dit. */
+.thumbEmpty {
+  border-style: dashed;
+  border-color: #2a4a78;
+  background: transparent;
+}
+.thumbEmpty.thumbOn {
+  border-color: #4e8ff0;
+}
+
+.shot {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 78px;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #1e3352;
+  border-radius: 7px;
+  background: #0b1a2e;
+}
+.name {
+  overflow: hidden;
+  font-size: 12.5px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #ffffff;
+}
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 2px 8px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 10px;
+  font-style: normal;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.state i {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.blue {
+  border-color: #2f5fa8;
+  background: #16335a;
+  color: #8ec1ff;
+}
+.warm {
+  border-color: #5a4520;
+  background: #3a2e17;
+  color: #f5b454;
+}
+.grey {
+  border-color: #2a4a78;
+  background: transparent;
+  color: #8fa0b8;
+}
+
+/* ---- Aperçu « tableau » ---- */
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tableRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.tableMark {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+}
+.tableLine {
+  flex: 1;
+  min-width: 0;
+  height: 4px;
+  border-radius: 999px;
+  background: #24406a;
+}
+.tablePill {
+  flex: none;
+  width: 18px;
+  height: 6px;
+  border-radius: 999px;
+  transition: background-color 0.3s ease;
+}
+
+/* ---- Aperçu « conversation » ---- */
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.chat i {
+  height: 9px;
+  border-radius: 5px;
+}
+/* Les trois largeurs étaient en style en ligne. Elles sont ici parce qu'une
+   largeur en ligne ne se surcharge pas, et que la variante compacte en
+   demande d'autres. Les valeurs de bureau sont inchangées. */
+.chatOne {
+  width: 64%;
+  background: #1e3352;
+}
+.chatTwo {
+  width: 52%;
+  background: #0a6cf0;
+}
+.chatThree {
+  width: 40%;
+  background: #1e3352;
+}
+.chatRight {
+  align-self: flex-end;
+}
+
+/* ---- Les deux longueurs de libellé. La compacte n'apparaît que sous
+   600px, et c'est la seule différence de TEXTE entre les deux versions. ---- */
+.short {
+  display: none;
+}
+/* Le symbole n'est dans l'en-tête que dans la variante compacte : au-dessus,
+   c'est la barre latérale qui le porte. */
+.headLogo {
+  display: none;
+}
+
+/* ---- Aperçu « flux » ----
+   La ligne court derrière les trois blocs, le point passe au-dessus. */
+.flow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flowLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #2f5fa8;
+}
+.flowBlock {
+  position: relative;
+  width: 24%;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1px solid #2f5fa8;
+  border-radius: 5px;
+  background: #16335a;
+}
+.flowDone {
+  border-color: #1f5c3f;
+  background: #123a2a;
+}
+.flowDot {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgb(78 143 240 / 35%);
+  transform: translate(-50%, -50%);
+}
+
+/* ---- Aperçu « + » ---- */
+.plus {
+  display: grid;
+  place-items: center;
+  flex: 1;
+  font-size: 20px;
+  line-height: 1;
+  color: #2f5fa8;
+}
+
+/* ⚠ Le hero passe en UNE colonne à 760px, et non à 1000 : c'est le point de
+   rupture de `.page-hero--inner` dans `studio.css`. Aligner la card à gauche
+   dès 1000px la décalerait alors qu'elle est encore dans la colonne de
+   droite. */
+@media (max-width: 760px) {
+  .card {
+    justify-self: start;
+    max-width: none;
+  }
+}
+
+/* =====================================================================
+   SOUS 600px : LA MÊME CARD, DEUX FOIS PLUS COURTE
+
+   La version de bureau fait environ 590px de haut sur un téléphone : la
+   barre latérale y est inutile, les aperçus y sont surdimensionnés et la
+   grille passe à une colonne, donc quatre vignettes l'une sous l'autre.
+
+   La variante compacte garde TOUT : les quatre projets, les quatre filtres,
+   les quatre aperçus, l'animation et ses trois rythmes. Ce qui change, ce
+   sont les dimensions, la grille en deux colonnes fixes, et deux libellés
+   qui passent à leur forme courte.
+
+   ⚠ Rien ici ne touche au-dessus de 600px. Le seuil est plus bas que celui
+   du hero (760px) : entre les deux, la card est déjà seule sur sa ligne et
+   dispose de 600 à 760px de large, où la version de bureau tient très bien.
+
+   La hauteur calculée à 375px : en-tête 41, filtres 29, grille 238, soit
+   310px avec le filet de la card. C'est 10px au-dessus du plafond demandé,
+   et je l'ai laissé tel quel plutôt que de rogner une valeur de la
+   spécification sans qu'on en parle : les deux candidates seraient la
+   hauteur de l'aperçu (40px) ou la hauteur minimale du nom (28px), et
+   chacune est ce qui tient l'alignement des quatre vignettes.
+   ===================================================================== */
+@media (max-width: 600px) {
+  .card {
+    /* Plus de barre latérale : une seule colonne. */
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgb(0 0 0 / 30%);
+  }
+  .side {
+    display: none;
+  }
+
+  /* Les trois blocs portent désormais leur propre rembourrage : l'en-tête
+     est une bande à filet, et `.main` n'en a plus. */
+  .main {
+    gap: 0;
+    padding: 0;
+  }
+
+  .head {
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #1e3352;
+    font-size: 11.5px;
+  }
+  .head em {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+  }
+  .headLogo {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex: none;
+    object-fit: contain;
+  }
+  .long {
+    display: none;
+  }
+  .short {
+    display: inline;
+  }
+
+  .filters {
+    gap: 5px;
+    padding: 10px 12px 0;
+  }
+  .filter {
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+  }
+
+  /* Deux colonnes FIXES, et non `auto-fit` : la largeur minimale de 194px de
+     la version de bureau ferait retomber la grille à une colonne dès 410px
+     de card, ce qui est précisément le cas qu'on vient corriger. Les noms
+     tiennent parce qu'ils passent sur deux lignes au lieu d'être rognés. */
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 10px 12px 12px;
+  }
+  .thumb {
+    gap: 6px;
+    padding: 6px;
+    border-radius: 10px;
+  }
+  .thumbOn {
+    box-shadow: 0 0 0 3px rgb(78 143 240 / 14%);
+  }
+  .shot {
+    justify-content: center;
+    height: 40px;
+    padding: 6px;
+    border-radius: 6px;
+  }
+  /* Deux lignes pleines plutôt qu'une ligne rognée. La hauteur minimale est
+     ce qui donne aux quatre vignettes la même hauteur, qu'un nom tienne sur
+     une ligne ou sur deux. */
+  .name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 28px;
+    font-size: 11.5px;
+    line-height: 1.25;
+    white-space: normal;
+    text-overflow: clip;
+  }
+  /* Le statut n'est plus une pastille : du texte et son point, à la couleur
+     du statut. Les fonds et les filets des trois tons tombent donc. */
+  .state,
+  .blue,
+  .warm,
+  .grey {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  /* ---- Les quatre aperçus, en version réduite ---- */
+  .table {
+    gap: 4px;
+  }
+  /* Trois lignes et non quatre : la quatrième ne tient pas dans 40px. Son
+     tour dans le cycle de 0,7s devient donc une respiration. */
+  .tableRow:nth-child(4) {
+    display: none;
+  }
+  .tableRow {
+    gap: 4px;
+  }
+  .tableMark {
+    width: 5px;
+    height: 5px;
+  }
+  .tableLine {
+    height: 3px;
+  }
+  .tablePill {
+    width: 12px;
+    height: 4px;
+  }
+
+  .chat {
+    gap: 4px;
+  }
+  .chat i {
+    height: 6px;
+    border-radius: 3px;
+  }
+  .chatOne {
+    width: 62%;
+  }
+  .chatTwo {
+    width: 50%;
+  }
+  .chatThree {
+    width: 38%;
+  }
+
+  .flowBlock {
+    height: 14px;
+    border-radius: 4px;
+  }
+  .flowDot {
+    width: 5px;
+    height: 5px;
+    box-shadow: 0 0 0 2px rgb(78 143 240 / 35%);
+  }
+
+  .plus {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .filter,
+  .thumb,
+  .tablePill {
+    transition: none;
+  }
+}

@@ -90,7 +90,12 @@ export async function POST(request: Request) {
   const errors: string[] = [];
   if (!name) errors.push("name");
   if (!email) errors.push("email");
-  else if (!EMAIL_RE.test(email)) errors.push("emailInvalid");
+  /* ⚠ « email » et NON « emailInvalid » : le formulaire marque ses champs
+     par leur `name`, et un nom qui n'en est pas un ne marquait rien du tout.
+     L'erreur revenait du serveur et ne s'affichait nulle part. Le message
+     montré, lui, s'appelle bien `errors.emailInvalid` dans les textes : ce
+     sont deux choses différentes, un champ et un libellé. */
+  else if (!EMAIL_RE.test(email)) errors.push("email");
   if (need.length < 10) errors.push("need");
 
   const website = clean(body.website, LIMITS.website);

@@ -35,7 +35,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: ROUTES.privacy, priority: 0.2 },
   ];
 
-  const lastModified = new Date();
+  /* ---- LA DATE DE DERNIÈRE MODIFICATION.
+
+     C'était `new Date()` : la date du BUILD. Chaque déploiement annonçait
+     donc que les trente pages du site venaient de changer, même celles dont
+     pas une ligne n'avait bougé. Un moteur de recherche qui le constate deux
+     ou trois fois cesse d'accorder du crédit au champ, et on perd le signal
+     le jour où une page change vraiment.
+
+     Elle vient maintenant de la DATE DU CONTENU, écrite ci-dessous à la
+     main. Une date de commit aurait été automatique, mais `git` n'est pas
+     disponible à la compilation sur un hébergeur, et un fichier retouché
+     pour une virgule n'est pas une page modifiée. Changer cette constante
+     fait partie d'une vraie mise à jour de contenu, au même titre que le
+     texte. ---- */
+  const lastModified = new Date("2026-10-13");
 
   return pages.flatMap(({ path: p, priority }) => {
     const fr = `${siteUrl}${p}`;

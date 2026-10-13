@@ -7,6 +7,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { SolutionsMenu } from "./solutions-menu";
+import { MobileMenu } from "@/components/nav/mobile-menu";
 import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -31,7 +32,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const [openedAt, setOpenedAt] = useState<string | null>(null);
   const open = openedAt === pathname;
   const setOpen = (value: boolean) => setOpenedAt(value ? pathname : null);
-  const headerRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
 
@@ -46,7 +46,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
-    const background = Array.from(document.querySelectorAll<HTMLElement>(".site-page > main, .site-page > footer"));
+    /* ⚠ `.site-header-bar` et non `header` : le panneau du menu est un
+       ENFANT du header, donc rendre le header inerte rendrait le menu inerte
+       avec lui. Sans cette ligne, le logo, le sélecteur de langue, le bouton
+       de réservation et le ☰ restaient dans l'arbre d'accessibilité DERRIÈRE
+       la modale. Le piège de focus tenait le clavier, mais le curseur virtuel
+       d'un lecteur d'écran, lui, y arrivait encore. */
+    const background = Array.from(document.querySelectorAll<HTMLElement>(".site-page > main, .site-page > footer, .site-header-bar"));
     const previousInert = background.map(element => element.inert);
     document.body.style.overflow = "hidden";
     background.forEach(element => { element.inert = true; });
@@ -63,6 +69,8 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     return () => media.removeEventListener("change", closeAtDesktop);
   }, []);
 
+  const closeMenu = () => { setOpen(false); burgerRef.current?.focus(); };
+  const otherLangHref = (target: Locale) => localePath(target, locale, pathname);
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const isCurrent = (href: string) => {
     const full = path(locale, href);
@@ -70,15 +78,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   };
 
   return (
-    <header ref={headerRef} className={cn("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
-      if (!open) return;
-      if (e.key === "Escape") { setOpen(false); burgerRef.current?.focus(); }
-      if (e.key === "Tab") {
-        const targets = Array.from(headerRef.current?.querySelectorAll<HTMLElement>("a,button") ?? []).filter(el => el.getClientRects().length > 0);
-        const first = targets[0], last = targets[targets.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
-      }
+    <header className={cn("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+      /* Le piège de focus vit DANS le panneau, qui s'en occupe lui-même.
+         Il reste ici de quoi fermer au clavier si le focus n'était pas
+         encore entré dans le panneau, le bouton ☰ par exemple. */
+      if (open && e.key === "Escape") closeMenu();
     }}>
       <div className="site-header-bar">
         <NavLink
@@ -126,32 +130,34 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Le menu de téléphone. Il couvre l'écran : un panneau à demi
-          transparent sur une pile de cartes blanches devient illisible. */}
-      <div id="menu-mobile" hidden={!open} className="site-menu">
-        <nav aria-label="Navigation" className="site-menu-nav">
-          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`mobile-${pathname}-${open}`} locale={locale} pathname={pathname} mobile onNavigate={() => setOpen(false)} /> : (
-            <NavLink
-              key={item.href}
-              href={path(locale, item.href)}
-              locale={locale}
-              onNavigate={() => setOpen(false)}
-              aria-current={isCurrent(item.href) ? "page" : undefined}
-              className={cn("site-menu-link", isCurrent(item.href) && "is-current")}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-
-        </nav>
-
-        <Link href={bookHref} className="btn btn--primary site-menu-cta" onClick={() => setOpen(false)}>
-          {site.cta}
-          <ArrowRight aria-hidden />
-        </Link>
-      </div>
+      {/* Le menu de téléphone, dans son composant. Il est remonté à chaque
+          changement de page : son accordéon Solutions repart alors de
+          l'état qui convient à la page affichée. */}
+      <MobileMenu
+        key={pathname}
+        locale={locale}
+        pathname={pathname}
+        open={open}
+        onClose={closeMenu}
+        otherLangHref={otherLangHref}
+      />
     </header>
   );
+}
+
+/**
+ * La même page dans l'autre langue.
+ *
+ * On retire le préfixe courant pour retrouver la route nue, puis on pose
+ * celui de la langue visée. Une seule écriture pour les DEUX sélecteurs du
+ * site, celui de la barre et celui du menu de téléphone : quelqu'un qui lit
+ * `/cas-usage` et bascule doit arriver sur `/en/cas-usage`, pas sur
+ * l'accueil, et les deux ne doivent pas pouvoir en décider autrement.
+ */
+export function localePath(target: Locale, locale: Locale, pathname: string) {
+  const bare = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
+  const href = target === "fr" ? bare : `/en${bare === "/" ? "" : bare}`;
+  return href || "/";
 }
 
 /**
@@ -170,19 +176,14 @@ function LangSwitch({
   pathname: string;
   label: string;
 }) {
-  /* On retire le préfixe courant pour retrouver la route nue, puis on pose
-     celui de l'autre langue. */
-  const bare = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
-
   return (
     <div className="lang" role="group" aria-label={label}>
       {(["fr", "en"] as const).map((l) => {
-        const href = l === "fr" ? bare : `/en${bare === "/" ? "" : bare}`;
         const current = l === locale;
         return (
           <Link
             key={l}
-            href={href || "/"}
+            href={localePath(l, locale, pathname)}
             hrefLang={l}
             aria-current={current ? "true" : undefined}
             className={cn("lang-item", current && "is-current")}

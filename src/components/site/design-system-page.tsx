@@ -109,8 +109,8 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "Une famille,\n^dix corps." : "One family,\n^ten sizes."}
           text={
             fr
-              ? "Anodina, pour les titres comme pour le texte. La différence se fait par le corps et la graisse, jamais par un changement de police : deux familles mal appariées font plus amateur qu'une seule tenue fermement."
-              : "Anodina, for headings and for running text. The difference comes from size and weight, never from a change of face: two badly paired families look more amateur than one held firmly."
+              ? "Helvetica Neue, pour les titres comme pour le texte. La différence se fait par le corps et la graisse, jamais par un changement de police : deux familles mal appariées font plus amateur qu'une seule tenue fermement."
+              : "Helvetica Neue, for headings and for running text. The difference comes from size and weight, never from a change of face: two badly paired families look more amateur than one held firmly."
           }
         />
         <ul className="rows ds-type">

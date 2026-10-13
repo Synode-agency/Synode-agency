@@ -230,7 +230,7 @@
   /* -------------------------------------------------------------------
      TYPOGRAPHIE — dix valeurs, et pas une onzième.
 
-     Une seule famille, Anodina. La différence entre un titre et un
+     Une seule famille, Helvetica Neue. La différence entre un titre et un
      paragraphe se fait par le corps et la graisse, jamais par un
      changement de police : deux familles mal appariées font plus amateur
      qu'une seule tenue fermement.
@@ -264,7 +264,7 @@
   --lh-body: 1.55;
 
   /* La chasse se resserre quand le corps grandit : à 88px, l'espacement
-     par défaut d'Anodina laisse des trous entre les lettres. */
+     par défaut d'Helvetica Neue laisse des trous entre les lettres. */
   --ls-display: -0.035em;
   --ls-title: -0.02em;
 
@@ -564,7 +564,7 @@
     max-width: 20ch;
     font-size: var(--fs-h2);
     /* 800 et non 700. Les deux références citées posent leurs titres en
-       très gras ; à 700, Anodina reste conversationnelle là où elle doit
+       très gras ; à 700, Helvetica Neue reste conversationnelle là où elle doit
        affirmer. */
     font-weight: 800;
     line-height: var(--lh-title);
@@ -1904,31 +1904,9 @@
   .site-burger svg { width: 1.25rem; height: 1.25rem; }
   @media (min-width: 960px) { .site-burger { display: none; } }
 
-  /* Le menu de téléphone couvre l'écran. Un panneau à demi transparent
-     par-dessus le contenu devient illisible. */
-  .site-menu {
-    position: fixed;
-    inset: 0;
-    z-index: 49;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: clamp(1.5rem, 4vw, 2.5rem);
-    padding: calc(var(--header-h) + 1rem) var(--band-pad-x) var(--band-pad-x);
-    background: var(--background);
-  }
-  .site-menu[hidden] { display: none; }
-  .site-menu-nav { display: flex; flex-direction: column; gap: 0.25rem; }
-  .site-menu-link {
-    padding: 0.85rem 0;
-    border-bottom: 1px solid var(--hairline);
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    letter-spacing: var(--ls-title);
-    color: var(--foreground);
-  }
-  .site-menu-link.is-current { color: var(--brand); }
-  .site-menu-cta { align-self: flex-start; }
+  /* L'ancien panneau de téléphone vivait ici. Il est maintenant dans
+     `components/nav/mobile-menu`, avec sa propre feuille de module : ses
+     valeurs ne concernent que lui et n'ont rien à faire dans la base. */
 
   /* =====================================================================
      LE PIED DE PAGE — le dernier panneau de la pile

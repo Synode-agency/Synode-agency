@@ -1,0 +1,381 @@
+/* =====================================================================
+   LE MENU DE TÉLÉPHONE
+
+   Les couleurs sont celles du sous-menu Solutions du bureau, à une nuance
+   près : le panneau est posé sur #171E2B et le sous-menu sur #0F1D33, donc
+   le sous-menu se détache du panneau comme il se détache de la barre sur
+   grand écran. Rien n'est inventé ici, et rien n'y est repris du thème :
+   le menu est le seul endroit du site où le fond est entièrement sombre
+   quelle que soit la page, donc ses valeurs sont écrites.
+
+   ⚠ Ce fichier ne concerne QUE le téléphone. Au-dessus de 1080px, le
+   panneau est retiré de la page par la dernière règle, et c'est la
+   navigation de bureau — `.site-nav`, `.solutions-dropdown` — qui prend le
+   relais, sans qu'une seule de ses règles soit touchée.
+   ===================================================================== */
+
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  overflow-y: auto;
+  /* Garde-fou, pas correctif : les largeurs sont calculées pour tenir dès
+     320px, et si un libellé plus long arrivait un jour, il vaut mieux qu'il
+     se coupe que de voir toute la page glisser de côté. */
+  overflow-x: hidden;
+  /* Le pouce ne doit pas entraîner la page derrière le panneau. */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  /* L'encoche en haut, la barre de gestes en bas. */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #171e2b;
+  font-family: var(--font-sans);
+}
+.panel[hidden] {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation: menu-in 0.25s ease both;
+  }
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---- L'en-tête ----
+   Collé en haut DU PANNEAU, pas de la page : c'est le panneau qui défile,
+   donc `sticky` s'y accroche. */
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 68px;
+  padding: 0 20px;
+  border-bottom: 1px solid #1e2a3e;
+  background: #171e2b;
+}
+/* ---- LA MARQUE.
+   Le même composant que la barre du site, les mêmes deux images : le
+   pictogramme détouré et le lettrage blanc. Seule la taille change, 34px
+   au lieu de 40.
+
+   ⚠ POURQUOI CES DEUX RÈGLES SUFFISENT : les deux images portent leur
+   taille en utilitaires Tailwind, qui vivent dans `@layer utilities`. Une
+   règle non calquée — un module CSS n'est dans aucune couche — l'emporte
+   sur une règle calquée quelle que soit sa spécificité. Rien n'est donc
+   touché dans `Wordmark`, et la barre de bureau garde ses 40px.
+
+   Les 34px ne sont pas un choix libre : à 320px de large, l'en-tête doit
+   loger la marque, la pastille de langue et la croix de 44px dans 280px.
+   34px y mettent 136px de marque, et le bloc des petits écrans plus bas
+   descend encore d'un cran pour tenir dans les 280. ---- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+}
+.brand :global(.wordmark-part:not(.wordmark-type)) {
+  width: 34px;
+  height: 34px;
+}
+.brand :global(.wordmark-type) {
+  height: 26px;
+}
+
+.lang {
+  display: flex;
+  flex: none;
+  gap: 2px;
+  margin-left: auto;
+  padding: 3px;
+  border: 1px solid #2a4a78;
+  border-radius: 999px;
+  background: #121a28;
+}
+.langItem {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  color: #8fa0b8;
+}
+.langCurrent {
+  background: #16335a;
+  color: #ffffff;
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid #2a4a78;
+  border-radius: 12px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+.close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---- Les six entrées ---- */
+.main {
+  padding: 12px 20px 0;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 68px;
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #1e3352;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  color: #ffffff;
+}
+.rowLabel {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+.rowToggle {
+  cursor: pointer;
+}
+/* Le point de la page en cours. 7px, à droite du mot et non au bord : il
+   appartient au libellé, pas à la ligne. */
+.dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 999px;
+  background: #0a6cf0;
+}
+.block {
+  display: contents;
+}
+
+.chevron {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  margin-left: auto;
+  border: 1px solid #2a4a78;
+  border-radius: 12px;
+  color: #ffffff;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.chevron svg {
+  width: 18px;
+  height: 18px;
+}
+.rowOpen .rowLabel {
+  color: #8ec1ff;
+}
+.rowOpen .chevron {
+  border-color: #4e8ff0;
+  background: #16335a;
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+  .rowOpen .chevron {
+    transform: none;
+  }
+}
+
+/* ---- Le sous-menu ----
+   La hauteur est écrite par le composant, qui la mesure. Ici, seulement
+   l'état fermé et la transition. */
+.subWrap {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .subWrap {
+    transition: none;
+  }
+}
+.sub {
+  margin-top: 14px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 18px;
+  background: #0f1d33;
+}
+.subAll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 60px;
+  padding: 0 18px;
+  border-bottom: 1px solid #24406a;
+  font-size: 17px;
+  font-weight: 500;
+  color: #8ec1ff;
+}
+.subAll svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.subList {
+  padding: 8px;
+}
+.solution {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  padding: 14px 12px;
+  border-radius: 12px;
+}
+.solution:active,
+.solutionCurrent {
+  background: #13294a;
+}
+.solutionIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #2f5fa8;
+  border-radius: 12px;
+  background: #16335a;
+  color: #4e8ff0;
+}
+.solutionIcon svg {
+  width: 22px;
+  height: 22px;
+}
+.solutionText {
+  min-width: 0;
+}
+.solutionText strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #ffffff;
+}
+.solutionText small {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #b6c2d4;
+}
+
+/* ---- L'action ---- */
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  margin: 28px 20px 0;
+  /* 16px et non 20 : le libellé mesure 217px à 17px, la flèche et son écart
+     30 de plus. À 375px il reste 263px de large, donc il tient sur une
+     ligne ; à 320px il n'en reste que 208 et il passe sur deux. D'où
+     l'interligne serré juste en dessous : deux lignes à 1,25 font 42px et
+     tiennent dans les 56 de hauteur, sans que le bouton grandisse. */
+  padding: 0 16px;
+  border-radius: 14px;
+  background: #0a6cf0;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  color: #ffffff;
+}
+.cta svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.ctaNote {
+  margin: 12px 20px 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  text-align: center;
+  color: #8fa0b8;
+}
+
+/* ---- Le pied ---- */
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 36px;
+  padding: 20px 20px 34px;
+  border-top: 1px solid #1e2a3e;
+  font-size: 14px;
+}
+.footLine {
+  color: #8fa0b8;
+}
+.footMail {
+  color: #8ec1ff;
+}
+/* Les deux lignes du pied tiennent chacune sur une ligne : l'adresse est
+   le texte le plus long du panneau et c'est le seul endroit où une coupe
+   serait laide. */
+.footLine,
+.footMail {
+  white-space: nowrap;
+}
+
+/* ---- LES PLUS PETITS ÉCRANS.
+   À 320px, l'en-tête n'a que 280px pour la marque, la pastille de langue et
+   la croix. La marque descend donc d'un cran et la pastille se resserre :
+   112 + 90 + 44 et deux écarts de 8, soit 262px. Les corps de texte, eux,
+   ne bougent pas — c'est tout l'objet de ce menu. ---- */
+@media (max-width: 360px) {
+  .head {
+    gap: 8px;
+    padding: 0 16px;
+  }
+  .brand :global(.wordmark-part:not(.wordmark-type)) {
+    width: 28px;
+    height: 28px;
+  }
+  .brand :global(.wordmark-type) {
+    height: 21px;
+  }
+  .langItem {
+    padding: 7px 10px;
+  }
+}
+
+/* ⚠ La dernière règle du fichier, et la frontière du périmètre : au-dessus
+   de 1080px le panneau n'existe pas, et c'est la navigation de bureau qui
+   s'affiche. 1080px est le seuil déjà posé pour `.site-nav` et le bouton ☰,
+   il n'y en a pas un second. */
+@media (min-width: 1080px) {
+  .panel {
+    display: none;
+  }
+}

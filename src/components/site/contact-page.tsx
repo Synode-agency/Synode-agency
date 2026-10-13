@@ -4,6 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
+import { renderLines } from "@/lib/lines";
 import { Booking } from "@/components/site/booking";
 import { ContactForm } from "@/components/site/contact-form";
 import { ANCHORS, getContent, type Locale } from "@/lib/content";
@@ -29,6 +30,8 @@ export function ContactPage({ locale }: { locale: Locale }) {
   return (
     <Shell locale={locale}>
       <PageHero
+        kicker="Contact"
+        kickerMobileOnly
         title={locale === "fr" ? <>Parlons de votre <span>projet IA</span></> : <>Let’s discuss your <span>AI project</span></>}
         aside={
           /* Le calendrier porte l'ancre : les liens du site arrivent donc
@@ -52,7 +55,10 @@ export function ContactPage({ locale }: { locale: Locale }) {
           et cette bande est la deuxième, donc elle serait blanche. Une carte
           blanche sur fond blanc ne se verrait pas. */}
       <Band id={ANCHORS.form} tone="base" className="tint-band">
-        <Lede title={contact.form.title} text={contact.form.text} />
+        {/* ⚠ `Lede` ne passe pas ses paragraphes par `renderLines` — des
+            coupes dormantes se réveilleraient ailleurs sur le site. Celle-ci
+            est donc appliquée ici. */}
+        <Lede title={contact.form.title} text={renderLines(contact.form.text)} />
         <div className="section-gap contact-form-card">
           {/* `useSearchParams` impose une frontière de Suspense : sans elle,
               toute la page basculerait en rendu dynamique. */}

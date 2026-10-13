@@ -1,0 +1,19 @@
+/* =====================================================================
+   L'ÉCRAN D'OUTREACH, À DROITE DE LA SECTION « OBJECTIFS »
+
+   ⚠ Même règle que pour les trois écrans de la section précédente : la
+   fenêtre est plus large que son bloc et se fait couper net à droite et en
+   bas. Elle ne doit pas rentrer.
+   ===================================================================== */
+
+.stage {
+  position: relative;
+  min-height: 600px;
+  height: 100%;
+}
+.one {
+  left: 9%;
+  top: 8%;
+  bottom: -6%;
+  width: 118%;
+}

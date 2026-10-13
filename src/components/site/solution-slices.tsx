@@ -153,14 +153,96 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
   /* Mesurées, jamais devinées : la largeur du conteneur décide de la
      disposition, et celle de la tranche ouverte fige son contenu. */
   const [width, setWidth] = useState(0);
+  /* Le bloc est-il à l'écran ? Le cycle des visuels n'a aucune raison de
+     tourner pendant qu'on lit le bas de la page. */
+  const [onScreen, setOnScreen] = useState(false);
+  /* La hauteur commune des six tranches sur téléphone. Mesurée, pour la
+     même raison que la largeur : la devinée, c'est ce qui laissait un vide
+     sous le lien. Voir le commentaire de l'effet qui la calcule. */
+  const [openH, setOpenH] = useState(0);
 
   useEffect(() => {
     const el = box.current;
     if (!el) return;
     const ro = new ResizeObserver(([entry]) => setWidth(entry.contentRect.width));
     ro.observe(el);
-    return () => ro.disconnect();
+    /* Le même élément, donc le même effet : poser une seconde ref sur le
+       bloc demanderait de les fusionner pour rien. */
+    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting), { threshold: 0.1 });
+    io.observe(el);
+    return () => { ro.disconnect(); io.disconnect(); };
   }, []);
+
+  /* ---- LA HAUTEUR COMMUNE DES SIX TRANCHES, SUR TÉLÉPHONE.
+     Sur deux colonnes, la hauteur est celle du bloc, 560px, et la tranche
+     ouverte la remplit. Empilée, il n'y a plus de bloc à remplir : la
+     hauteur était donc posée à la main, 600px sous 520px de large. Un
+     chiffre écrit à la main doit tenir le cas le plus défavorable, le
+     téléphone le plus étroit et la solution au texte le plus long, et il
+     laissait donc partout ailleurs un vide que `margin-top: auto` renvoyait
+     soit au milieu de la tranche, soit sous le lien.
+
+     Elle est maintenant MESURÉE : la plus haute des six décide, et les six
+     la prennent. Le vide tombe à zéro sur celle-là, et se réduit sur les
+     cinq autres à leur seule différence de texte, qu'aucun réglage ne peut
+     supprimer à hauteur égale.
+
+     Trois points qui expliquent la forme de ce code :
+
+     1. Les six contenus sont TOUS dans le document, y compris ceux des
+        tranches fermées : la bande de 72px les masque par `overflow`, elle
+        ne les retire pas. Ils sont donc déjà composés à la bonne largeur et
+        se mesurent sans rien déplacer.
+
+     2. La hauteur naturelle ne se lit pas sur la tranche ouverte, dont le
+        contenu est ÉTIRÉ par le `margin-top: auto` du bloc exemple. La
+        marge est donc neutralisée le temps de la lecture, puis rendue. Le
+        bas du dernier élément, lu depuis la carte, donne la hauteur du
+        contenu quelle que soit celle de la boîte.
+
+     3. Sous 520px seulement, là où la colonne visuelle est masquée. Au
+        dessus, elle passe sur une seconde ligne de la grille, et sa
+        position dépend de l'étirement qu'on vient de neutraliser : la
+        mesure s'y mordrait la queue. Cette bande garde donc une hauteur
+        écrite, et le média est celui de la feuille de style, au pixel. ---- */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 520px)");
+    let raf = 0;
+    const apply = () => {
+      if (!mq.matches) { setOpenH(0); return; }
+      let tallest = 0;
+      for (const card of cards.current) {
+        const open = card?.querySelector<HTMLElement>(".slc-open");
+        const copy = card?.querySelector<HTMLElement>(".slc-copy");
+        const example = card?.querySelector<HTMLElement>(".slc-example");
+        const last = copy?.lastElementChild as HTMLElement | null;
+        if (!open || !example || !last) continue;
+        const saved = example.style.marginTop;
+        example.style.marginTop = "0";
+        const bottom = last.offsetTop + last.offsetHeight;
+        example.style.marginTop = saved;
+        /* `offsetTop` part du bord intérieur de la carte, et la hauteur
+           posée est une hauteur de BORDURE À BORDURE — `box-sizing` est
+           global. Le filet de la carte s'ajoute donc aux deux bouts, sans
+           quoi il manquerait deux pixels et la carte, qui coupe ce qui
+           dépasse, mangerait le bas du lien. */
+        const cs = window.getComputedStyle(card as HTMLElement);
+        const frame = (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0);
+        const pad = parseFloat(window.getComputedStyle(open).paddingBottom) || 0;
+        tallest = Math.max(tallest, bottom + pad + frame);
+      }
+      if (tallest > 0) setOpenH(Math.ceil(tallest));
+    };
+    /* À l'image suivante : la mesure lit la mise en page, elle ne doit pas
+       la lire au milieu du rendu qui vient de la changer. */
+    const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(apply); };
+    schedule();
+    /* Les polices arrivent après : sans ce second passage, la hauteur reste
+       celle de la police de secours, plus étroite d'un cran. */
+    document.fonts?.ready.then(schedule).catch(() => {});
+    mq.addEventListener("change", schedule);
+    return () => { cancelAnimationFrame(raf); mq.removeEventListener("change", schedule); };
+  }, [width, items]);
 
   /* Le cycle des visuels. Il repart de zéro à chaque ouverture : l'effet
      dépend de `open`, donc il se remonte, et son compteur local repart
@@ -169,6 +251,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
      effet, et c'est le seul endroit qui en aurait besoin. */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!onScreen) return;
     queueMicrotask(() => setTick(0));
     let t = 0;
     const id = window.setInterval(() => {
@@ -176,7 +259,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
       setTick(t);
     }, TICK_MS);
     return () => window.clearInterval(id);
-  }, [open]);
+  }, [open, onScreen]);
 
   const onKey = useCallback((e: React.KeyboardEvent, i: number) => {
     const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
@@ -208,6 +291,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
             key={item.slug}
             ref={(el) => { cards.current[i] = el; }}
             className={on ? "slc-card is-on" : "slc-card"}
+            style={on && openH ? { flexBasis: openH } : undefined}
             tabIndex={0}
             aria-expanded={on}
             onMouseEnter={() => setOpen(i)}
