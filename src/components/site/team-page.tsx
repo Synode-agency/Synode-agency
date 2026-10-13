@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
-import { ContactPanel, HeroTeam, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
+import { ContactPanel, HeroDirectory, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
 import layout from "@/components/equipe/equipe.module.css";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
@@ -42,7 +42,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
         className="team-hero"
         kicker={locale === "fr" ? "Agence IA à Bruxelles" : "AI agency in Brussels"}
         title={locale === "fr" ? <>Les <span>experts IA</span> de Synode</> : <>The <span>AI experts</span> behind Synode</>}
-        aside={<HeroTeam locale={locale} />}
+        aside={<HeroDirectory locale={locale} />}
       >
         <p>{team.vision}</p>
         <div className="btn-row">

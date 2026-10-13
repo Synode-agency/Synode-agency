@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Activity, Check, LockKeyhole, Plug, UserCheck } from "lucide-react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * « Sécurité, confidentialité et contrôle » : quatre contrôles franchis
@@ -56,6 +57,7 @@ export function TrustSteps({ locale }: { locale: Locale }) {
   /* Coupé définitivement au premier survol, et jamais relancé. */
   const [auto, setAuto] = useState(true);
   const [still, setStill] = useState(false);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -63,9 +65,11 @@ export function TrustSteps({ locale }: { locale: Locale }) {
       return;
     }
     if (!auto) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setStep((n) => (n + 1) % STEPS), STEP_MS);
     return () => window.clearInterval(id);
-  }, [auto]);
+  }, [auto, onScreen]);
 
   /** À venir, en cours, ou franchie. */
   const state = (i: number) => {
@@ -82,7 +86,7 @@ export function TrustSteps({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="tst" data-auto={auto && !still ? "true" : "false"}>
+    <div className="tst" ref={root} data-auto={auto && !still ? "true" : "false"}>
       {/* Deux groupes de deux : c'est ce qui interdit la rangée de trois
           plus un à la largeur intermédiaire. Un `auto-fit` sur les quatre
           cartes ne saurait pas s'en empêcher. */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { renderLines } from "@/lib/lines";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -10,7 +11,7 @@ interface FaqItem {
 }
 
 /**
- * FAQ accordion, one answer open at a time.
+ * FAQ accordion. Plusieurs réponses peuvent être ouvertes à la fois.
  *
  * "One at a time" is not only a style choice: this section shares its screen
  * with the footer, and several answers open at once would push past the fold.
@@ -23,27 +24,31 @@ interface FaqItem {
  * animates to the content's natural height without measuring it in JS.
  */
 export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
-  // -1 = nothing open.
-  const [open, setOpen] = useState(-1);
+  /* Plusieurs réponses peuvent être ouvertes en même temps : sur téléphone,
+     refermer celle qu'on vient de lire pour en ouvrir une autre oblige à
+     retrouver sa place dans la liste. Tout part fermé. */
+  const [open, setOpen] = useState<readonly number[]>([]);
+  const toggle = (i: number) =>
+    setOpen(list => (list.includes(i) ? list.filter(n => n !== i) : [...list, i]));
 
   return (
     <div className="faq-list mx-auto flex w-full max-w-3xl flex-col">
       {items.map((item, i) => {
-        const isOpen = i === open;
+        const isOpen = open.includes(i);
         return (
           <div key={item.q}>
             <div className="faq-item" data-open={isOpen}>
               <h3>
                 <button
                   type="button"
-                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  onClick={() => toggle(i)}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
                   id={`faq-trigger-${i}`}
                   className="faq-trigger flex w-full items-center justify-between gap-6 py-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.4rem))] text-left"
                 >
                   <span className="faq-question text-[length:var(--fs-h4)] font-semibold leading-snug tracking-tight">
-                    {item.q}
+                    {renderLines(item.q)}
                   </span>
                   <ChevronDown
                     aria-hidden

@@ -39,14 +39,17 @@ export function UseCaseAccordion({
 }) {
   const fr = locale === "fr";
   const base = useId();
-  /* Un seul ouvert à la fois. Tout commence fermé : le visiteur choisit le
-     cas qu'il souhaite développer, sur l'accueil comme sur la page dédiée. */
-  const [open, setOpen] = useState<number | null>(null);
+  /* Plusieurs cas peuvent être ouverts à la fois. Tout commence fermé : le
+     visiteur choisit ce qu'il développe, sur l'accueil comme sur la page
+     dédiée. Refermer pour lire le suivant lui ferait perdre sa place. */
+  const [open, setOpen] = useState<readonly number[]>([]);
+  const toggle = (i: number) =>
+    setOpen(list => (list.includes(i) ? list.filter(n => n !== i) : [...list, i]));
 
   return (
     <div className={rich ? "uca uca--rich" : "uca"}>
       {items.map((item, i) => {
-        const on = i === open;
+        const on = open.includes(i);
         return (
           <div
             key={item.slug}
@@ -58,7 +61,7 @@ export function UseCaseAccordion({
                 type="button"
                 aria-expanded={on}
                 aria-controls={`${base}-p${i}`}
-                onClick={() => setOpen(on ? null : i)}
+                onClick={() => toggle(i)}
               >
                 <em aria-hidden>{String(i + 1).padStart(2, "0")}</em>
                 <span className="uca-titles">

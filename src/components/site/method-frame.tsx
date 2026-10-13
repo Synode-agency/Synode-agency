@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * LE DÉROULÉ D'UN PROJET, EN CADRE À HAUTEUR FIXE.
@@ -59,6 +60,36 @@ const COPY = {
   en: { head: "FLOW · 6 STEPS", step: (n: string) => `step ${n} / 06`, of: (n: number) => `step ${n} of 6`, out: "OUTPUT", group: "The six steps of a project" },
 } as const;
 
+/**
+ * Le panneau de détail d'une étape.
+ *
+ * Sorti en composant parce qu'il est rendu SEPT fois sous 900px : une fois
+ * pour de vrai, et six fois dans le bloc de mesure. Deux écritures du même
+ * panneau finiraient par divergir, et la mesure porterait alors sur autre
+ * chose que ce qui s'affiche.
+ */
+function Detail({
+  step, index, copy, style,
+}: {
+  step: Step;
+  index: number;
+  copy: (typeof COPY)["fr"] | (typeof COPY)["en"];
+  style?: { minHeight: number };
+}) {
+  const n = String(index + 1).padStart(2, "0");
+  return (
+    <div className="mfr-detail" style={style}>
+      <span className="mfr-detail-label">{n} · {copy.of(index + 1)}</span>
+      <h3>{step.title}</h3>
+      <p className="mfr-desc">{step.text}</p>
+      <div className="mfr-out">
+        <span>{copy.out}</span>
+        <strong>{step.out}</strong>
+      </div>
+    </div>
+  );
+}
+
 export function MethodFrame({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
   const steps = STEPS[fr ? "fr" : "en"];
@@ -68,6 +99,16 @@ export function MethodFrame({ locale }: { locale: Locale }) {
   /* Coupé définitivement au premier clic, et jamais relancé. */
   const [auto, setAuto] = useState(true);
   const [still, setStill] = useState(false);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
+  /* Sous 900px seulement : le cadre y change de forme, et c'est le seul
+     endroit où la hauteur du panneau se mesure. Faux au premier rendu, donc
+     le serveur et le client rendent la même chose. */
+  const [phone, setPhone] = useState(false);
+  /* La hauteur du panneau de détail : celle de l'étape au contenu le plus
+     long, pour que le cadre ne bouge pas d'une étape à l'autre. */
+  const [detailH, setDetailH] = useState(0);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const measureRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -75,9 +116,54 @@ export function MethodFrame({ locale }: { locale: Locale }) {
       return;
     }
     if (!auto) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setActive(n => (n + 1) % steps.length), STEP_MS);
     return () => window.clearInterval(id);
-  }, [auto, steps.length]);
+  }, [auto, steps.length, onScreen]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const read = () => setPhone(mq.matches);
+    queueMicrotask(read);
+    mq.addEventListener("change", read);
+    return () => mq.removeEventListener("change", read);
+  }, []);
+
+  /* ---- LA HAUTEUR DU PANNEAU, MESURÉE.
+     Sur deux colonnes, la hauteur du cadre est écrite — 420px — et c'est la
+     description qui encaisse la différence entre les six étapes, rognée par
+     `overflow: hidden`. Empilé, plus rien ne doit être rogné : la hauteur
+     est donc celle de l'étape au contenu le plus long, et les six la
+     prennent.
+
+     Les six contenus sont rendus une seconde fois dans un bloc invisible,
+     posé en absolu sur le corps du cadre : il a donc exactement la largeur
+     du vrai panneau, et ses six copies se composent comme lui. `visibility`
+     et non `display` : une boîte en `display: none` n'a pas de hauteur à
+     lire. Ce bloc n'existe QUE sous 900px, et seulement après le montage :
+     le HTML servi, lui, ne porte qu'une fois le texte des étapes. ---- */
+  useEffect(() => {
+    if (!phone) { queueMicrotask(() => setDetailH(0)); return; }
+    const body = bodyRef.current;
+    let raf = 0;
+    const apply = () => {
+      const box = measureRef.current;
+      if (!box) return;
+      let tallest = 0;
+      for (const panel of Array.from(box.children)) tallest = Math.max(tallest, (panel as HTMLElement).offsetHeight);
+      if (tallest > 0) setDetailH(Math.ceil(tallest));
+    };
+    const schedule = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(apply); };
+    schedule();
+    /* Les polices arrivent après le premier rendu : sans ce second passage,
+       la hauteur reste celle de la police de secours. */
+    document.fonts?.ready.then(schedule).catch(() => {});
+    /* La largeur décide du nombre de lignes, donc de la hauteur. */
+    const ro = body ? new ResizeObserver(schedule) : null;
+    if (ro && body) ro.observe(body);
+    return () => { cancelAnimationFrame(raf); ro?.disconnect(); };
+  }, [phone, steps]);
 
   const pick = (i: number) => { setAuto(false); setActive(i); };
   const num = (i: number) => String(i + 1).padStart(2, "0");
@@ -85,7 +171,7 @@ export function MethodFrame({ locale }: { locale: Locale }) {
   const running = auto && !still;
 
   return (
-    <div className="mfr">
+    <div className="mfr" ref={root}>
       {/* ---- L'en-tête ---- */}
       <div className="mfr-head">
         <span className="mfr-head-label">{c.head}</span>
@@ -93,7 +179,7 @@ export function MethodFrame({ locale }: { locale: Locale }) {
       </div>
 
       {/* ---- Le corps : la liste, puis le détail ---- */}
-      <div className="mfr-body">
+      <div className="mfr-body" ref={bodyRef}>
         <div className="mfr-list" role="group" aria-label={c.group}>
           {steps.map((s, i) => (
             <button
@@ -114,15 +200,16 @@ export function MethodFrame({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <div className="mfr-detail">
-          <span className="mfr-detail-label">{num(active)} · {c.of(active + 1)}</span>
-          <h3>{step.title}</h3>
-          <p className="mfr-desc">{step.text}</p>
-          <div className="mfr-out">
-            <span>{c.out}</span>
-            <strong>{step.out}</strong>
+        <Detail step={step} index={active} copy={c} style={detailH ? { minHeight: detailH } : undefined} />
+
+        {/* Les six copies de mesure. Invisibles, hors du flux et retirées de
+            l'arbre d'accessibilité : elles ne servent qu'à donner leur
+            hauteur. Voir l'effet qui les lit. */}
+        {phone && (
+          <div className="mfr-measure" ref={measureRef} aria-hidden>
+            {steps.map((s, i) => <Detail key={s.title} step={s} index={i} copy={c} />)}
           </div>
-        </div>
+        )}
       </div>
 
       {/* ---- Le pied : l'avancement ---- */}

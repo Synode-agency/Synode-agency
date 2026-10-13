@@ -7,7 +7,7 @@ const c = getContent("en").legal;
 export const metadata: Metadata = {
   title: c.noticeTitle,
   description: c.noticeDescription,
-  alternates: { canonical: "/en/mentions-legales", languages: { fr: "/mentions-legales", en: "/en/mentions-legales" } },
+  alternates: { canonical: "/en/mentions-legales", languages: { fr: "/mentions-legales", en: "/en/mentions-legales", "x-default": "/mentions-legales" } },
 };
 
 export default function Page() {

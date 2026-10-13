@@ -1,0 +1,1043 @@
+/* =====================================================================
+   LE TABLEAU DE BORD NEXUS, DANS LE HERO DE SA PAGE
+
+   ⚠ Toute la géométrie est posée au pixel sur une base de 1600 × 900. Rien
+   ici n'est en pourcentage de la colonne, et rien ne doit l'être : c'est le
+   `transform: scale()` du composant qui adapte la scène. Les pourcentages
+   qu'on trouve plus bas sont relatifs à la carte qui les porte, jamais à la
+   page.
+
+   ⚠ Aucune transition sur `transform` ni sur `opacity` des éléments animés :
+   l'horloge écrit ces valeurs à chaque image, une transition se battrait
+   avec elle. Les transitions ne portent que sur les couleurs.
+   ===================================================================== */
+
+.wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1600 / 900;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1600px;
+  height: 900px;
+  transform-origin: 0 0;
+}
+
+/* ---- La fenêtre ---- */
+.win {
+  position: absolute;
+  left: 210px;
+  top: 20px;
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  grid-template-rows: 58px 1fr;
+  width: 1180px;
+  height: 850px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 9px solid #232b3d;
+  border-radius: 22px;
+  background: #0f1626;
+  box-shadow: 0 40px 90px rgb(10 20 40 / 35%);
+}
+
+/* ---- La barre latérale ---- */
+.side {
+  grid-row: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 14px;
+  box-sizing: border-box;
+  border-right: 1px solid #1f2839;
+  background: #131a29;
+}
+/* Le symbole et le mot, sur une ligne. ⚠ Aucun filtre, aucune ombre, aucune
+   teinte sur l'image : le dégradé bleu du « N » est la marque, il se rend
+   tel quel. */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: 4px;
+}
+.mark {
+  flex: none;
+  width: auto;
+  height: 36px;
+}
+.logo {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.by {
+  margin-top: 2px;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+.workspace {
+  margin-top: 22px;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.menus {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 14.5px;
+  white-space: nowrap;
+  color: #c9d1df;
+}
+.menu svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.7;
+}
+.menuOn {
+  border-color: #2f3e60;
+  background: #1a2540;
+  color: #ffffff;
+}
+.safe {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  font-size: 10.5px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.safe svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+}
+.sideRule {
+  display: block;
+  height: 1px;
+  margin: 14px 0;
+  background: #222c40;
+}
+.me {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.me > i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #3a4a6e;
+  border-radius: 999px;
+  background: #16203a;
+  font-size: 12px;
+  font-style: normal;
+  color: #c9d1df;
+}
+.me > span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.me strong {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #e6eaf2;
+}
+/* La seule ligne tronquée de la scène : une adresse e-mail est plus longue
+   que la barre, et l'ellipse vaut mieux qu'un retour à la ligne. */
+.me em {
+  overflow: hidden;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #6b7487;
+}
+
+/* ---- La barre du haut ---- */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px;
+  border-bottom: 1px solid #1f2839;
+  background: #111827;
+}
+.crumb {
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+.launch {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #2f6bff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+.launchRun {
+  background: #1e4fd8;
+}
+.launch svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+.spin {
+  animation: nxd-spin 1.1s linear infinite;
+}
+@keyframes nxd-spin {
+  to { transform: rotate(360deg); }
+}
+.topRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.test {
+  padding: 4px 10px;
+  border: 1px solid #6b5320;
+  border-radius: 999px;
+  background: #2a2312;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #f5c451;
+}
+.topShield {
+  width: 15px;
+  height: 15px;
+  color: #8c96aa;
+}
+
+/* ---- Le contenu ---- */
+.content {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 70% 0%, #18213a 0, #0f1626 55%);
+}
+.scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px;
+  box-sizing: border-box;
+}
+.kicker {
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.h1 {
+  margin-top: 4px;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.lede {
+  margin-top: 6px;
+  font-size: 13.5px;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+
+/* ---- Les quatre chiffres clés ---- */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.kpi {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 138px;
+  padding: 16px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-radius: 14px;
+  transition: box-shadow 0.3s ease;
+}
+.kpiHot {
+  box-shadow: 0 0 0 4px rgb(245 196 81 / 14%);
+}
+.kpiIcon {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #16203a;
+}
+.kpiIcon svg {
+  width: 16px;
+  height: 16px;
+}
+.kpi em {
+  font-size: 13px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #c9d1df;
+}
+.kpi strong {
+  margin-top: auto;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.kpi > span {
+  margin-top: 6px;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+
+/* ---- Les cards ---- */
+.card {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #2a3550;
+  border-radius: 16px;
+  background: #1a2336;
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cardHead > span {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.cardHead strong {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.cardHead em {
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.cardCount {
+  flex: none;
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.link {
+  flex: none;
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #5b9bff;
+}
+
+/* ---- La répartition ---- */
+.splits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 10px;
+  margin-top: 14px;
+}
+.split {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 9px;
+}
+.splitOn {
+  background: #1e2a48;
+}
+.splitMark {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #263149;
+}
+.split em {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #c9d1df;
+}
+.split > span {
+  flex: none;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.split b {
+  flex: none;
+  font-size: 11px;
+  font-weight: 400;
+  color: #6b7487;
+}
+
+/* ---- La progression Discovery ---- */
+.disco {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 14px;
+}
+.disco strong {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.disco span {
+  font-size: 12px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.bar {
+  display: block;
+  height: 5px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #2a3550;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2f6bff, #4f8bff);
+}
+.fails {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #6b7487;
+}
+
+/* ---- Le tableau des derniers leads ---- */
+.cols,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px 150px 130px 110px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  box-sizing: border-box;
+}
+.cols {
+  height: 44px;
+  margin-top: 14px;
+  border-radius: 10px;
+  background: #1a2540;
+}
+.cols em {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+/* La première colonne porte l'entreprise, et les quatre autres sont fixes :
+   c'est ce qui aligne l'en-tête et les lignes. L'en-tête a quatre libellés
+   pour cinq colonnes, le bouton n'en a pas. */
+.cols em:nth-child(1) { grid-column: 1; }
+.cols em:nth-child(2) { grid-column: 2; }
+.cols em:nth-child(3) { grid-column: 3; }
+.cols em:nth-child(4) { grid-column: 4; }
+
+.rows {
+  position: relative;
+  height: 350px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 70px;
+  border-radius: 10px;
+  background: #141c2c;
+  transition: background-color 0.4s ease;
+}
+.rowNew {
+  background: #1a2b4e;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #3a4a6e;
+  border-radius: 9px;
+  background: #16203a;
+  font-size: 12px;
+  font-style: normal;
+  color: #c9d1df;
+}
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.who strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.who em {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.who b {
+  font-size: 11px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #6b7487;
+}
+/* La ligne est une grille de cinq colonnes : l'avatar et le bloc « qui »
+   partagent la première, d'où leur mise en ligne ici. */
+.row .avatar {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+.row .who {
+  grid-column: 1;
+  grid-row: 1;
+  margin-left: 46px;
+}
+.icp {
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #c9d1df;
+}
+.pill {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  text-align: center;
+}
+.pillPhone {
+  background: #263149;
+  color: #a9b3c6;
+}
+.pillLow {
+  background: #16203a;
+  color: #8c96aa;
+}
+.pillNew {
+  background: #16203a;
+  color: #9db8f2;
+}
+.pillQual {
+  background: #123a2a;
+  color: #86efac;
+}
+.date {
+  font-size: 11.5px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.open {
+  padding: 7px 12px;
+  border: 1px solid #3a5a9a;
+  border-radius: 9px;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  text-align: center;
+  color: #9db8f2;
+}
+
+/* ---- Les deux cartes flottantes ---- */
+.float {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 18px;
+  border: 1px solid #33416a;
+  border-radius: 20px;
+  background: #1a2336;
+  box-shadow: 0 30px 70px rgb(10 20 40 / 45%);
+}
+.sheet {
+  left: 24px;
+  top: 360px;
+  width: 380px;
+  height: 450px;
+  transform-origin: 100% 100%;
+}
+.out {
+  left: 1196px;
+  top: 250px;
+  width: 380px;
+  height: 500px;
+  transform-origin: 0 100%;
+}
+.floatHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.floatHead strong {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.freshTag {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #86efac;
+}
+
+/* ---- La fiche lead ---- */
+.sheetWho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.sheetMark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border: 1px solid #3a4a6e;
+  border-radius: 14px;
+  background: #16203a;
+  font-size: 16px;
+  font-style: normal;
+  color: #c9d1df;
+}
+.sheetWho > span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.sheetWho strong {
+  font-size: 17px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.sheetWho em {
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.sheetWho b {
+  font-size: 11.5px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: #5b9bff;
+}
+.scoreBox {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #141c2c;
+}
+.ring {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ring svg {
+  width: 72px;
+  height: 72px;
+  transform: rotate(-90deg);
+}
+.ringBack,
+.ringFill {
+  fill: none;
+  stroke-width: 3.5;
+}
+.ringBack {
+  stroke: #2a3550;
+}
+.ringFill {
+  stroke: #4f8bff;
+  stroke-linecap: round;
+}
+.ring strong {
+  position: absolute;
+  top: 24px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+}
+.ring em {
+  margin-top: 2px;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.scoreLines {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+}
+.scoreLines > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.scoreLines em {
+  flex: none;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.scoreLines b {
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 400;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #c9d1df;
+}
+.checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #a9b3c6;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.checkOn {
+  opacity: 1;
+  color: #e6eaf2;
+}
+.check i {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #3a4a6e;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.checkOn i {
+  border-color: #1f8a5c;
+  background: #123a2a;
+}
+.check svg {
+  width: 11px;
+  height: 11px;
+  color: #86efac;
+  stroke-width: 3;
+}
+.sheetBtn {
+  align-self: flex-end;
+  margin-top: auto;
+  padding: 8px 14px;
+  border: 1px solid #3a5a9a;
+  border-radius: 10px;
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #9db8f2;
+}
+
+/* ---- L'aperçu Outreach ---- */
+.counters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 42px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background: #141c2c;
+}
+.counter em {
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.counter strong {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.pink {
+  color: #f472b6;
+}
+.mail {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #141c2c;
+}
+.mailHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.mailHead em {
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+.state {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  background: #2a2312;
+  color: #f5c451;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.stateGen {
+  background: #2a2312;
+  color: #f5c451;
+}
+.stateDraft {
+  background: #16203a;
+  color: #9db8f2;
+}
+.stateReady {
+  background: #123a2a;
+  color: #86efac;
+}
+.subject {
+  display: block;
+  margin-top: 10px;
+  overflow: hidden;
+  font-size: 11.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #e6eaf2;
+}
+/* ⚠ Hauteur réservée : le corps du message s'écrit lettre par lettre, et
+   sans cette hauteur la carte grandirait à mesure qu'il se remplit. */
+.bodyText {
+  height: 150px;
+  margin: 10px 0 0;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #dce3ee;
+}
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  margin-left: 1px;
+  vertical-align: -1px;
+  background: #4f8bff;
+  opacity: 0;
+}
+.outFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+.outFoot em {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.send {
+  flex: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #2f6bff;
+  font-size: 12px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+.sent {
+  background: #1f8a5c;
+}
+
+/* ⚠ Sous `prefers-reduced-motion`, l'horloge n'est pas armée : la scène rend
+   son état de 8,8s. Il ne reste que les transitions et l'indicateur qui
+   tourne à couper. */
+@media (prefers-reduced-motion: reduce) {
+  .launch,
+  .kpi,
+  .row,
+  .check,
+  .check i,
+  .state,
+  .send {
+    transition: none;
+  }
+  .spin {
+    animation: none;
+  }
+}
+
+/* =====================================================================
+   LE HERO DE LA PAGE NEXUS EN DEUX BLOCS
+
+   ⚠ La grille est posée sur le `.col` de la bande, par `bodyClassName`, et
+   non sur un conteneur intercalé : les règles globales qui donnent au titre
+   et au chapeau leur largeur de ligne visent `.band > .col > .lede` en
+   enfant DIRECT, et un conteneur de plus les ferait tomber. Le texte
+   garderait sa place, mais pas sa composition.
+
+   La bande a QUATRE enfants — la pastille, le titre, l'état et le visuel —
+   donc le placement est explicite. En dessous de 1000px, les quatre
+   s'empilent dans l'ordre du document, le visuel arrivant sous le texte.
+   ===================================================================== */
+.heroSplit {
+  display: grid;
+  gap: 40px 64px;
+}
+@media (min-width: 1000px) {
+  .heroSplit {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+  }
+  .heroSplit > :nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .heroSplit > :nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .heroSplit > :nth-child(3) {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+  }
+  .heroSplit > :nth-child(4) {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    min-width: 0;
+  }
+}
+
+/* La pastille de nature du projet se range sur la largeur de son texte :
+   premier enfant d'une grille, elle s'étirait sinon sur toute la colonne. */
+.heroSplit > :nth-child(1) {
+  justify-self: start;
+}
+
+/* Sous 1000px, le hero de cette page passe à une colonne : le tableau de
+   bord se range sous le texte, centré et plafonné comme les visuels de hero
+   des autres pages. */
+@media (max-width: 999px) {
+  .heroSplit > :nth-child(4) {
+    width: 100%;
+    max-width: 440px;
+    margin-inline: auto;
+  }
+}

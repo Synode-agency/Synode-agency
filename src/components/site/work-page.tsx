@@ -1,8 +1,14 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
-import { WorkHeroStack } from "@/components/work-hero-stack";
+import { HeroGallery } from "@/components/realisations";
+import { HeroDashboard } from "@/components/nexus";
+import { ContextSection } from "@/components/nexus/context-section";
+import { GoalsSection } from "@/components/nexus/goals-section";
+import { nexusSections } from "@/components/nexus/nexus-sections";
+import { windowsFor } from "@/components/nexus/windows-content";
+import nexus from "@/components/nexus/hero-dashboard.module.css";
 import { HomeWorkCards } from "./home-work-cards";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -11,7 +17,7 @@ import { siteUrl } from "@/lib/site-url";
 
 /** La pastille dit la NATURE du projet avant qu'on ait lu son titre. */
 const BADGE: Record<WorkKind, string> = {
-  internal: "badge badge--wip",
+  internal: "badge badge--live",
   demo: "badge badge--demo",
   client: "badge badge--live",
 };
@@ -19,10 +25,8 @@ const BADGE: Record<WorkKind, string> = {
 /**
  * La liste des réalisations.
  *
- * Elle est presque vide, et c'est ce qu'il y a de plus honnête à montrer
- * aujourd'hui : un outil interne en construction, aucune démo fonctionnelle,
- * aucun projet client livré. Une page de réalisations remplie d'exemples
- * inventés est ce qui se repère le plus vite chez un prestataire qui démarre.
+ * Elle présente les projets avec leur état réel, sans résultat inventé ni
+ * référence client non autorisée.
  */
 export function WorkPage({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
@@ -30,12 +34,12 @@ export function WorkPage({ locale }: { locale: Locale }) {
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const nexus = w.items[0];
-  const demo = projectTwoCardCopy(locale);
+  const projectTwo = projectTwoCardCopy(locale);
   const pagePath = path(locale, ROUTES.work);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: locale === "fr" ? "Réalisations IA, projets et démonstrateurs Synode" : "Synode AI projects and demonstrations",
+    name: locale === "fr" ? "Réalisations et projets IA de Synode" : "Synode AI projects and work",
     description: w.intro.text,
     url: `${siteUrl}${pagePath}`,
     mainEntity: {
@@ -51,8 +55,8 @@ export function WorkPage({ locale }: { locale: Locale }) {
         {
           "@type": "ListItem",
           position: 2,
-          name: demo.title,
-          description: demo.text,
+          name: projectTwo.title,
+          description: projectTwo.text,
         },
       ].filter(Boolean),
     },
@@ -62,19 +66,21 @@ export function WorkPage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <PageHero
+        kicker={locale === "fr" ? "Réalisations" : "Work"}
+        kickerMobileOnly
         /* La coupe ne vaut qu'à partir de 768px, comme tous les titres du
            site : sur téléphone la phrase coule d'elle-même. */
         title={locale === "fr"
-          ? <><span>Réalisations IA :</span><br className="max-md:hidden" /> nos projets et solutions</>
+          ? <><span>Réalisations IA :</span><br className="only-desktop" /> nos projets et solutions</>
           : <><span>AI projects</span> and custom solutions by Synode</>}
-        aside={<WorkHeroStack locale={locale} />}
+        aside={<HeroGallery locale={locale} />}
       >
         <p>{w.intro.text}</p>
         <div className="btn-row">
           <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowRight aria-hidden /></Link>
           <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
         </div>
-        <span className="hero-reassurance">{locale === "fr" ? "* Chaque projet garde son statut visible : outil interne, démonstration ou projet client." : "* Every project keeps its status visible: internal tool, demo or client project."}</span>
+        <span className="hero-reassurance">{locale === "fr" ? <>* Chaque projet garde son statut visible : outil interne, projet en préparation ou projet client.</> : "* Every project keeps its status visible: internal tool, project in preparation or client project."}</span>
       </PageHero>
 
       <Band id="liste" tone="white">
@@ -89,7 +95,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
             au même graphisme et avec les mêmes libellés, mais en rangée :
             visuel à gauche, contenu à droite. Voir `home-work-cards`. */}
         <HomeWorkCards locale={locale} layout="row" heading="h3" />
-        <div className="work-editorial-note"><h3 className="eyebrow">{locale === "fr" ? "Des réalisations IA présentées avec transparence" : "AI work presented transparently"}</h3><p>{locale === "fr" ? "Les prochaines démonstrations et réalisations IA rejoindront cette sélection lorsqu’elles seront réellement prêtes à être présentées. Chaque projet conserve un statut explicite : outil interne, démonstration ou projet client autorisé." : "Future AI demonstrations and projects will join this selection when they are genuinely ready to be shown. Every project keeps an explicit status: internal tool, demonstration or authorised client project."}</p></div>
+        <div className="work-editorial-note"><h3 className="eyebrow">{locale === "fr" ? "Des réalisations IA présentées avec transparence" : "AI work presented transparently"}</h3><p>{locale === "fr" ? "Les prochains projets et réalisations IA rejoindront cette sélection lorsqu’ils seront réellement prêts à être présentés. Chaque projet conserve un statut explicite : outil interne, projet en préparation ou projet client autorisé." : "Future AI projects and work will join this selection when they are genuinely ready to be shown. Every project keeps an explicit status: internal tool, project in preparation or authorised client project."}</p></div>
 
       </Band>
 
@@ -101,7 +107,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
       <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tint cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
-            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution IA."] : ["AI solution."]} text={w.cta.text} />
+            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution IA"] : ["AI solution"]} text={w.cta.text} />
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{site.cta}<ArrowRight aria-hidden /></Link>
@@ -125,76 +131,94 @@ export function WorkPage({ locale }: { locale: Locale }) {
 export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkItem }) {
   const w = work(locale);
   const d = w.detail;
+  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
+  const itemPath = `${path(locale, ROUTES.work)}/${item.slug}`;
+  const sections = nexusSections(locale, item, d);
+  const structuredTitle = item.title.replaceAll("\n", " ");
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        name: structuredTitle,
+        description: item.problem,
+        url: `${siteUrl}${itemPath}`,
+        inLanguage: locale === "fr" ? "fr-BE" : "en-BE",
+        about: {
+          "@type": "Thing",
+          name: "Nexus",
+          description: item.problem,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: locale === "fr" ? "Réalisations" : "Work",
+            item: `${siteUrl}${path(locale, ROUTES.work)}`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: structuredTitle,
+            item: `${siteUrl}${itemPath}`,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      {/* Le texte reste à gauche, à l'identique ; le tableau de bord est
+          ajouté à droite. La grille vit sur le `.col` de la bande : voir le
+          commentaire au bas de `hero-dashboard.module.css`. */}
+      <Band id="top" tone="base" className="work-detail-hero" bodyClassName={nexus.heroSplit}>
         <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
-        <Lede as="h1" title={item.title} text={item.problem} />
+        <Lede
+          as="h1"
+          title={item.title}
+          accents={item.slug === "nexus" ? [locale === "fr" ? "B2B assisté par IA" : "B2B prospecting"] : undefined}
+          text={item.problem}
+        />
         <p className="work-status section-gap-sm">{item.status}</p>
+        <HeroDashboard locale={locale} />
       </Band>
 
-      {item.todo && (
-        <Band tone="white">
-          <div className="todo">
-            <span className="todo-label">{w.todoLabel}</span>
-            <p>{w.todoText}</p>
+      {/* ⚠ Les deux bandes portent leur ton par une CLASSE, pas par `tone` :
+          le thème peint les bandes selon leur rang, et `tone` seul ne pèse
+          rien contre lui. Voir `.white-band` et `.tint-band` dans
+          studio.css. */}
+      {/* ===== LE CONTEXTE ET LES OBJECTIFS — deux sections en deux blocs :
+          tous les textes à gauche, les écrans de Nexus à droite. Les textes
+          du projet viennent de `work.ts` et ne sont que découpés, jamais
+          recopiés : voir `components/nexus/nexus-sections`. ===== */}
+      <div id="contexte">
+        <ContextSection c={sections.context} w={windowsFor(locale)} />
+      </div>
+      <div id="objectifs">
+        <GoalsSection c={sections.goals} w={windowsFor(locale)} />
+      </div>
+
+      {/* ===== LE CTA — une carte bleu nuit posée sur une section blanche,
+          comme sur les autres pages : le texte à gauche, les deux actions à
+          droite l'une au-dessus de l'autre. ===== */}
+      <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tall">
+        <div className="col card-body cta-panel cta-booking-grid">
+          <div className="cta-booking-copy">
+            <Lede title={d.cta} text={d.ctaText} />
           </div>
-        </Band>
-      )}
-
-      <Band id="contexte" tone={item.todo ? "base" : "white"}>
-        <Lede title={d.contextTitle} />
-        <p className="prose-body section-gap-sm">{item.context}</p>
-
-        <h3 className="ds-demo-title section-gap">{locale === "fr" ? "Parcours fonctionnel envisagé" : "Planned functional journey"}</h3>
-        <div className="project-journey project-journey--detail section-gap-sm">{item.journey.map((step, index) => <span key={step}>{index > 0 && <ArrowRight aria-hidden />}<span>{step}</span></span>)}</div>
-
-        {item.does.length > 0 && (
-          <>
-            <h3 className="ds-demo-title section-gap">{d.doesTitle}</h3>
-            <ul className="checks section-gap-sm">
-              {item.does.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          </>
-        )}
-
-        <h3 className="ds-demo-title section-gap">{d.aiTitle}</h3>
-        <p className="prose-body section-gap-sm">{item.aiRole}</p>
-      </Band>
-
-      <Band id="objectifs" tone="base">
-        <Lede title={d.goalsTitle} text={d.goalsNote} />
-        <ul className="checks section-gap">
-          {item.goals.map((g) => (
-            <li key={g}>{g}</li>
-          ))}
-        </ul>
-
-        <h3 className="ds-demo-title section-gap">{d.limitsTitle}</h3>
-        <ul className="checks section-gap-sm">
-          {item.limits.map((l) => (
-            <li key={l}>{l}</li>
-          ))}
-        </ul>
-      </Band>
-
-      <Band id="conclusion" tone="blue">
-        <Lede title={d.cta} align="center" />
-        <div className="btn-row cta-actions">
-          <Link href={formHref} className="btn btn--primary">
-            {getContent(locale).site.cta}
-            <ArrowRight aria-hidden />
-          </Link>
-          <Link href={path(locale, ROUTES.work)} className="btn btn--ghost">
-            <ArrowLeft aria-hidden />
-            {d.backLabel}
-          </Link>
+          <div className="svc-cta-actions">
+            <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
+            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Nous contacter" : "Contact us"}</Link>
+            <p className="cta-note">{locale === "fr" ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
+          </div>
         </div>
-      </Band>
+      </CardPanel>
     </Shell>
   );
 }

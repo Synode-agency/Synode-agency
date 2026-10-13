@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * La tarification, présentée comme un devis.
@@ -58,17 +59,20 @@ export function PricingDoc({ locale }: { locale: Locale }) {
 
   const [auto, setAuto] = useState(0);
   const [held, setHeld] = useState<number | null>(null);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
   const active = held ?? auto;
 
   useEffect(() => {
     if (held !== null) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setAuto((n) => (n + 1) % posts.length), CYCLE_MS);
     return () => window.clearInterval(id);
-  }, [held, posts.length]);
+  }, [held, posts.length, onScreen]);
 
   return (
-    <div className="pdoc" onMouseLeave={() => setHeld(null)}>
+    <div className="pdoc" ref={root} onMouseLeave={() => setHeld(null)}>
       <div className="pdoc-head">
         <span>{fr ? "Structure de notre devis" : "How our quote is built"}</span>
         <em>{fr ? "3 postes distincts" : "3 separate lines"}</em>

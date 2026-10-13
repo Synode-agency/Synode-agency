@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * « APRÈS LA MISE EN SERVICE » : LE PANNEAU DE SUIVI.
@@ -72,6 +73,7 @@ export function AfterPanel({
   /* Coupée définitivement au premier survol, et jamais relancée. */
   const [auto, setAuto] = useState(true);
   const [still, setStill] = useState(false);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -79,6 +81,8 @@ export function AfterPanel({
       return;
     }
     if (!auto) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => {
       setActive(n => {
         const next = (n + 1) % items.length;
@@ -88,7 +92,7 @@ export function AfterPanel({
       });
     }, STEP_MS);
     return () => window.clearInterval(id);
-  }, [auto, items.length]);
+  }, [auto, items.length, onScreen]);
 
   const running = auto && !still;
 
@@ -98,7 +102,7 @@ export function AfterPanel({
   const groups = [items.slice(0, 2), items.slice(2)];
 
   return (
-    <div className="afp">
+    <div className="afp" ref={root}>
       {/* ---- 1 · le bandeau d'état ---- */}
       <div className="afp-head">
         <span className="afp-live">

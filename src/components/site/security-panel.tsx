@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useOnScreen } from "@/lib/use-on-screen";
 import { Activity, Check, Lock, ShieldCheck, UserCheck } from "lucide-react";
 
 /**
@@ -45,19 +46,22 @@ export function SecurityPanel({
 }) {
   const [auto, setAuto] = useState(0);
   const [held, setHeld] = useState<number | null>(null);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
   const active = held ?? auto;
 
   useEffect(() => {
     if (held !== null) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setAuto((n) => (n + 1) % items.length), CYCLE_MS);
     return () => window.clearInterval(id);
-  }, [held, items.length]);
+  }, [held, items.length, onScreen]);
 
   const lit = LINKED[active];
 
   return (
-    <div className="sec-layout">
+    <div className="sec-layout" ref={root}>
       <div className="sec-grid">
         {items.map((item, i) => {
           const Icon = ICONS[i];

@@ -15,13 +15,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = findWork("fr", slug);
   if (!item) return {};
+  const isNexus = slug === "nexus";
+  const title = isNexus ? "Nexus : logiciel de prospection B2B avec IA" : item.title;
+  const description = isNexus
+    ? "Découvrez comment Synode utilise Nexus pour rechercher et qualifier des entreprises à Bruxelles et en Belgique, puis préparer une prospection B2B ciblée."
+    : item.problem;
   return {
-    title: item.title,
-    description: item.problem,
+    title,
+    description,
     alternates: {
       canonical: `/realisations/${slug}`,
-      languages: { fr: `/realisations/${slug}`, en: `/en/realisations/${slug}` },
+      languages: { fr: `/realisations/${slug}`, en: `/en/realisations/${slug}`, "x-default": `/realisations/${slug}` },
     },
+    openGraph: { title, description, url: `/realisations/${slug}`, type: "website", locale: "fr_BE" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

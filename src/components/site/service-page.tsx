@@ -100,7 +100,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
     {/* ===== 1 · HERO — bleu nuit ===== */}
     <PageHero
       className="svc-hero"
-      kicker={p.kicker}
+      kicker={renderLines(p.kicker)}
       title={renderLines(p.h1, p.h1Accents, "title-accent")}
       aside={
         family.slug === "agents-ia" ? (

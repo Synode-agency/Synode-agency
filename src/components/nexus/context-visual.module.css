@@ -1,0 +1,32 @@
+/* =====================================================================
+   LES TROIS ÉCRANS EMPILÉS, À DROITE DE LA SECTION « CONTEXTE »
+
+   ⚠ Les fenêtres sont plus LARGES que leur bloc (118 %) et dépassent
+   volontairement à droite, à gauche et en bas. C'est le bloc qui les coupe,
+   par son `overflow: hidden`. Ne leur donner ni `max-width`, ni marge pour
+   « les faire rentrer » : elles ne doivent pas rentrer.
+   ===================================================================== */
+
+.stack {
+  position: relative;
+  min-height: 1180px;
+  height: 100%;
+}
+.one {
+  left: 9%;
+  top: 3%;
+  width: 118%;
+  height: 30%;
+}
+.two {
+  right: 9%;
+  top: 36%;
+  width: 118%;
+  height: 30%;
+}
+.three {
+  left: 9%;
+  top: 69%;
+  bottom: -3%;
+  width: 118%;
+}

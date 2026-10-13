@@ -253,7 +253,7 @@ const fr = {
 
   /* ---------------------------------------------------------------- Solutions */
   solutions: {
-    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
+    metaTitle: "Six familles de solutions IA sur mesure",
     metaDescription:
       "Découvrez les solutions IA sur mesure de Synode à Bruxelles : agents IA, automatisations, logiciels métier, intégrations, data et formation pour entreprises.",
     kicker: "Notre offre",
@@ -370,7 +370,7 @@ const fr = {
       { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
       { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
       { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
-      { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+      { q: "Une solution IA sur mesure peut-elle|évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
     notInList: {
@@ -477,7 +477,7 @@ const fr = {
   contact: {
     metaTitle: "Parlons de votre projet",
     metaDescription:
-      "Réservez un échange gratuit de 30 minutes, ou décrivez votre besoin par écrit. Sans engagement.",
+      "Réservez un échange gratuit de 30 minutes avec Synode, agence IA à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement et sans devis automatique.",
     kicker: "Contact",
     title: "Parlons de\n^votre projet.",
     text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
@@ -547,9 +547,9 @@ const fr = {
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Informations légales du site Synode.",
+    noticeDescription: "Mentions légales du site Synode, agence IA à Bruxelles : éditeur du site, hébergement, propriété intellectuelle et conditions d’utilisation.",
     privacyTitle: "Politique de confidentialité",
-    privacyDescription: "Quelles données nous traitons, pourquoi, et avec quels prestataires.",
+    privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     draftLabel: "Brouillon",
     draftText:
       "Cette page est incomplète. Les informations manquantes doivent être confirmées avant toute mise en ligne : elles sont listées dans la documentation du projet.",
@@ -725,9 +725,9 @@ const en = {
   },
 
   solutions: {
-    metaTitle: "Custom AI solutions for freelancers and small companies",
+    metaTitle: "Six families of custom AI solutions",
     metaDescription:
-      "Six families of custom AI solutions: agents, automations, software, integrations, data and training. For freelancers and small businesses.",
+      "Six families of custom AI solutions from Synode in Brussels: AI agents, automations, business software, integrations, data and team training.",
     kicker: "What we sell",
     title: "A solution built\n^from your need.",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
@@ -914,7 +914,7 @@ const en = {
 
   contact: {
     metaTitle: "Let’s talk about your project",
-    metaDescription: "Book a free 30-minute call, or describe your need in writing. No strings attached.",
+    metaDescription: "Book a free 30-minute call with Synode, an AI agency in Brussels, or describe your need in writing. No strings attached and no automated quote.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project.",
     text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
@@ -981,9 +981,9 @@ const en = {
 
   legal: {
     noticeTitle: "Legal notice",
-    noticeDescription: "Legal information for the Synode site.",
+    noticeDescription: "Legal information for the Synode website, an AI agency based in Brussels: publisher, hosting, intellectual property and terms of use.",
     privacyTitle: "Privacy policy",
-    privacyDescription: "What data we process, why, and with which providers.",
+    privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
     draftLabel: "Draft",
     draftText:
       "This page is incomplete. The missing information has to be confirmed before the site goes live: it is listed in the project documentation.",

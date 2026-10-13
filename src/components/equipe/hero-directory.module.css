@@ -1,0 +1,228 @@
+/* =====================================================================
+   LA CARD « ANNUAIRE D'ÉQUIPE » DU HERO DE LA PAGE ÉQUIPE
+
+   Même famille que les cards des heros de l'Accueil, de Solutions et de Cas
+   d'usage : fond bleu nuit, filets fins, aucun dégradé décoratif.
+
+   ⚠ Seules les COULEURS changent pendant le cycle, et le pied garde une
+   ligne unique quel que soit le sujet affiché : la hauteur de la card est
+   fixée par son contenu et ne bouge pas.
+   ===================================================================== */
+
+.card {
+  width: 100%;
+  max-width: 540px;
+  /* Collée au bord droit de sa colonne sur desktop ; `start` reprend plus
+     bas, quand le hero passe en une colonne. */
+  justify-self: end;
+  overflow: hidden;
+  border: 1px solid #24406a;
+  border-radius: 16px;
+  background: #13213a;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 30%);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ---- L'en-tête ---- */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #1e3352;
+  font-size: 12.5px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+.logo {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+.brand em {
+  font-style: normal;
+  white-space: nowrap;
+  color: #c9d3e2;
+}
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  white-space: nowrap;
+  color: #8fa0b8;
+}
+.live i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #34d399;
+}
+
+/* ---- Les deux fiches ---- */
+.people {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+.person {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid #1e3352;
+  border-radius: 12px;
+  background: #13223a;
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.personOn {
+  border-color: #4e8ff0;
+  background: #16294a;
+  box-shadow: 0 0 0 4px rgb(78 143 240 / 14%);
+}
+
+.avatar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #2f5fa8;
+  border-radius: 12px;
+  background: #16335a;
+}
+.avatar svg {
+  width: 80%;
+  fill: #4e8ff0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.line strong {
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #34d399;
+  transition: color 0.3s ease;
+}
+.state i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+.stateOn {
+  color: #8ec1ff;
+}
+/* Le rôle est la seule ligne qui peut être tronquée : il est plus long que
+   la colonne sur une card étroite, et l'ellipse vaut mieux qu'un retour à
+   la ligne. */
+.role {
+  overflow: hidden;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #8fa0b8;
+}
+/* Les trois tags tiennent sur une ligne. S'il manque la place, le
+   dépassement est masqué à droite : un tag coupé se lit comme une rangée qui
+   continue, pas comme une erreur. */
+.tags {
+  display: flex;
+  gap: 5px;
+  min-width: 0;
+  overflow: hidden;
+}
+.tags i {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid #2f5fa8;
+  border-radius: 6px;
+  background: #16335a;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #8ec1ff;
+}
+
+/* ---- Le pied ---- */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px;
+  border-top: 1px solid #1e3352;
+  background: #111d33;
+  font-size: 12px;
+}
+.subject {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.subject em {
+  font-style: normal;
+  color: #8fa0b8;
+}
+.subject strong {
+  font-weight: 400;
+  color: #ffffff;
+}
+.pick {
+  flex: none;
+  white-space: nowrap;
+  color: #8ec1ff;
+}
+
+/* ⚠ Le hero passe en UNE colonne à 760px, et non à 1000 : c'est le point de
+   rupture de `.page-hero--inner` dans `studio.css`. Aligner la card à gauche
+   dès 1000px la décalerait alors qu'elle est encore dans la colonne de
+   droite. */
+@media (max-width: 760px) {
+  .card {
+    justify-self: start;
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .person,
+  .state {
+    transition: none;
+  }
+}

@@ -1,0 +1,457 @@
+/* =====================================================================
+   LES DEUX SECTIONS EN DEUX BLOCS
+
+   Tous les textes à gauche, les écrans du logiciel à droite. `auto-fit`
+   décide seul du passage à une colonne, à partir de la largeur réelle de la
+   section et non d'un point de rupture : sous environ 1000px, les écrans
+   passent donc sous le texte.
+   ===================================================================== */
+
+.section {
+  background: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.sectionTint {
+  background: #f1f6fd;
+}
+.inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: 56px 72px;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 88px clamp(20px, 5vw, 48px);
+}
+.copy {
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+  min-width: 0;
+}
+/* ⚠ Le bloc de droite ne porte NI fond, NI bordure, NI fondu : les fenêtres
+   sont simplement coupées net par lui. */
+.visual {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ---- SUR TÉLÉPHONE, LES ÉCRANS SORTENT PAR LE BORD DE L'ÉCRAN.
+
+   Les fenêtres dépassent déjà de leur bloc, de 27 % de sa largeur, et c'est
+   lui qui les coupe net. En une colonne, ce bloc s'arrête au rembourrage de
+   la section : la coupe tombait donc à vingt pixels du bord de l'écran, et
+   on voyait une bande de fond entre la fenêtre et le vide. Elles avaient
+   l'air mal cadrées plutôt que débordantes.
+
+   Le bloc reprend donc le rembourrage en marge négative : il va d'un bord
+   de l'écran à l'autre, et la coupe tombe sur le bord. Les positions des
+   fenêtres ne changent pas, et c'est elles qui donnent l'alternance — le
+   premier écran sort à droite, le deuxième à gauche, le troisième à droite,
+   celui de la section « objectifs » à droite.
+
+   Aucun risque de défilement horizontal : le bloc atteint la largeur de
+   l'écran sans la dépasser, et tout ce qui dépasse DE LUI est coupé par son
+   `overflow`. ---- */
+@media (max-width: 760px) {
+  .visual {
+    margin-inline: calc(-1 * clamp(20px, 5vw, 48px));
+  }
+
+  /* ---- Le troisième écran touche la bande bleu clair.
+
+     Il est déjà coupé net en bas par son bloc. Ce qui l'en éloignait, c'est
+     le rembourrage bas de la section : 88px de blanc entre la coupe et la
+     section suivante, qui donnaient l'impression d'un écran posé au milieu
+     de rien. Le rembourrage tombe, la coupe tombe sur la limite des deux
+     sections, et l'écran entre dans le bleu.
+
+     En une colonne, ce rembourrage n'est que sous le visuel : le texte est
+     au-dessus, et son propre écart ne bouge pas. La section visée est la
+     BLANCHE — « le contexte » —, pas la teintée qui la suit. ---- */
+  .section:not(.sectionTint) .inner {
+    padding-bottom: 0;
+  }
+
+  /* ---- Le dernier écran garde un coin.
+
+     Celui de la section « objectifs » sort par la droite et se fait couper
+     en bas : il ne lui reste que deux angles francs à gauche. Le bloc qui
+     le coupe prend donc l'arrondi des fenêtres elles-mêmes, 16px, en bas à
+     gauche. C'est bien le BLOC qui le porte et non la fenêtre : un arrondi
+     posé sur une fenêtre coupée ne se verrait pas. ---- */
+  .sectionTint .visual {
+    border-bottom-left-radius: 16px;
+  }
+}
+
+/* ---- Les titres et les textes ---- */
+.badge {
+  width: fit-content;
+  padding: 5px 12px;
+  border: 1px solid #d6e2fa;
+  border-radius: 999px;
+  background: #f4f8fe;
+  font-size: 12.5px;
+  white-space: nowrap;
+  color: #0b6be6;
+}
+.badgeWhite {
+  background: #ffffff;
+}
+.h2 {
+  margin: 18px 0 0;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  color: #2e2e2e;
+  text-wrap: pretty;
+}
+.accent {
+  color: #0b6be6;
+}
+.h3 {
+  margin: 56px 0 0;
+  font-size: 21px;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+.copy p {
+  margin: 16px 0 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #5a5a5a;
+  text-wrap: pretty;
+}
+.copy p strong {
+  font-weight: 400;
+  color: #1f3a5f;
+}
+
+/* ---- Le lecteur d'étapes ---- */
+.reader {
+  margin-top: 20px;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+}
+.readerTop {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  background: #fafbfc;
+}
+.readerTab {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 10px;
+  border-left: 1px solid #eceef1;
+}
+.readerTab:first-child {
+  border-left: 0;
+}
+.readerTab em {
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #6e7177;
+  transition: color 0.3s ease;
+}
+.numOn {
+  color: #0b6be6;
+}
+.readerBar {
+  display: block;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eceef1;
+}
+.readerBar b {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: #0b6be6;
+}
+/* La barre de l'étape en cours se remplit sur sa durée. Elle est relancée à
+   chaque étape par la clé React du bloc, donc l'animation repart de zéro. */
+.barRun {
+  animation: nx-step 2.6s linear forwards;
+}
+@keyframes nx-step {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.readerBody {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 76px;
+  padding: 16px;
+  border-top: 1px solid #eceef1;
+  animation: nx-step-in 0.25s ease-out both;
+}
+@keyframes nx-step-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.readerIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d6e2fa;
+  border-radius: 10px;
+  background: #f4f8fe;
+}
+.readerIcon svg {
+  width: 17px;
+  height: 17px;
+  color: #0b6be6;
+}
+.readerBody > span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.readerBody strong {
+  font-size: 15.5px;
+  font-weight: 500;
+  color: #1f3a5f;
+}
+.readerBody em {
+  font-size: 13.5px;
+  font-style: normal;
+  line-height: 1.5;
+  color: #6b6f76;
+}
+
+/* ---- La liste cochée ---- */
+.checks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+.check {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eceef1;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.check i {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #dde3eb;
+  border-radius: 7px;
+  background: #ffffff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.check svg {
+  width: 13px;
+  height: 13px;
+  color: #dde3eb;
+  stroke-width: 2.6;
+  transition: color 0.3s ease;
+}
+.checkDone i {
+  border-color: #c9d8f5;
+  background: #f4f8fe;
+}
+.checkDone svg {
+  color: #0b6be6;
+}
+.checkOn {
+  color: #1f3a5f;
+}
+.checkOn i {
+  border-color: #0b6be6;
+  background: #0b6be6;
+}
+.checkOn svg {
+  color: #ffffff;
+}
+
+/* ---- L'encadré au bouclier ---- */
+.shield {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px !important;
+  padding: 14px 16px;
+  border: 1px solid #d6e2fa;
+  border-radius: 12px;
+  background: #f4f8fe;
+  font-size: 14.5px !important;
+  line-height: 1.6 !important;
+  color: #1f3a5f !important;
+}
+.shield svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  color: #0b6be6;
+}
+
+/* ---- Les trois objectifs ---- */
+.goals {
+  margin-top: 24px;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+.goal {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eceef1;
+  transition: background-color 0.3s ease;
+}
+.goalOn {
+  background: #fafcff;
+}
+/* La barre bleue de l'objectif actif, posée sur son bord gauche. */
+.goalOn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #0b6be6;
+}
+.goalIcon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dde3eb;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.goalIcon svg {
+  width: 17px;
+  height: 17px;
+  color: #71757c;
+  transition: color 0.3s ease;
+}
+.goalOn .goalIcon {
+  border-color: #0b6be6;
+  background: #0b6be6;
+}
+.goalOn .goalIcon svg {
+  color: #ffffff;
+}
+.goalText {
+  min-width: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #5a5a5a;
+  transition: color 0.3s ease;
+}
+.goalOn .goalText {
+  color: #1f3a5f;
+}
+.goalTag {
+  flex: none;
+  font-size: 11.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #71757c;
+}
+.goalsFoot {
+  display: block;
+  padding: 12px 18px;
+  background: #fafbfc;
+  font-size: 12.5px;
+  color: #6b6f76;
+}
+
+/* ---- Les deux limites ---- */
+.limits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.limit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid #dde3eb;
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #5a5a5a;
+}
+.limitIcon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d6e2fa;
+  border-radius: 10px;
+  background: #f4f8fe;
+}
+.limitIcon svg {
+  width: 16px;
+  height: 16px;
+  color: #0b6be6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .readerTab em,
+  .check,
+  .check i,
+  .check svg,
+  .goal,
+  .goalIcon,
+  .goalIcon svg,
+  .goalText {
+    transition: none;
+  }
+  .barRun,
+  .readerBody {
+    animation: none;
+  }
+  .barRun {
+    width: 100%;
+  }
+}
+
+/* ---- Sur téléphone, le bloc éditorial se centre, comme sur le reste du
+   site. Les écrans d'en face ne bougent pas : ils sont dans l'autre
+   colonne, et rien ici ne les atteint. ---- */
+@media (max-width: 760px) {
+  .copy {
+    align-items: center;
+    text-align: center;
+  }
+  .reader,
+  .checks,
+  .goals,
+  .limits {
+    width: 100%;
+    text-align: left;
+  }
+}

@@ -141,9 +141,68 @@ main > .band#top .lede-title {
   font-size: clamp(2.85rem, 4.6vw, 4.4rem);
   line-height: 1.02;
 }
+/* La fiche Nexus reprend exactement l'échelle du H1 des heroes internes,
+   notamment celui de la page Équipe. Son mot-clé peint utilise également
+   le même bleu clair, lisible sur le fond bleu nuit. */
+main > .band#top.work-detail-hero .lede-title {
+  max-width: 100%;
+  font-size: clamp(2.1rem, 3.2vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+main > .band#top.work-detail-hero .title-accent {
+  color: #8fc0ff;
+}
+/* ⚠ La règle qui forçait les retours du hero de Nexus sur téléphone a été
+   retirée : le titre s'y repliait sur trois lignes alors qu'il en demande
+   moins. Il suit désormais la règle commune du site — coupes de bureau
+   masquées sur téléphone, repli naturel. */
+@media (max-width: 760px) {
+  main > .band#top.work-detail-hero .lede-title {
+    font-size: clamp(2rem, 7.5vw, 2.6rem);
+  }
+}
 .studio-hero h1 > span {
   display: inline;
   color: var(--brand);
+}
+/* ---- Les deux variantes du H1 de l'accueil ne sont PAS des mots peints.
+   La règle du dessus peint tout `span` enfant direct du titre : les
+   enveloppes qui portent la phrase entière doivent donc reprendre la couleur
+   du titre, et ce sont les `.title-accent` à l'intérieur qui portent le
+   bleu. Elles sont atteintes par un sélecteur de descendance, qui traverse
+   l'enveloppe. ---- */
+.studio-hero h1 > :is(.only-mobile, .only-desktop) {
+  color: inherit;
+}
+/* ⚠ ET LEUR AFFICHAGE, ici aussi, pour une raison de spécificité.
+   `.studio-hero h1 > span` vaut (0,1,2) et l'emporte sur `.only-mobile`, qui
+   ne vaut que (0,1,0) : les deux enveloppes restaient donc visibles en même
+   temps, et le titre sortait en double sur toutes les tailles d'écran. Ces
+   quatre règles valent (0,2,1), elles passent devant.
+
+   C'est le même piège que la grille des heros et que les CTA, et c'est
+   toujours le même remède : quand une règle de composant vise déjà un
+   élément, une classe utilitaire seule ne la déloge pas. */
+.studio-hero h1 > .only-desktop {
+  display: none;
+}
+.studio-hero h1 > .only-mobile {
+  display: inline;
+}
+@media (min-width: 768px) {
+  .studio-hero h1 > .only-desktop {
+    display: inline;
+  }
+  .studio-hero h1 > .only-mobile {
+    display: none;
+  }
+}
+.studio-hero h1 .title-accent {
+  color: var(--brand);
+}
+.home-hero-dark h1 .title-accent {
+  color: var(--dark-accent);
 }
 .studio-hero-copy > p {
   max-width: 43ch;
@@ -1023,6 +1082,16 @@ main > .band#top .lede-title {
   .capability-strip {
     grid-template-columns: 1fr;
     gap: 0.9rem 1.5rem;
+  }
+  /* Le libellé « De votre besoin à votre outil » tombe sur téléphone : en une
+     colonne, il se posait au-dessus du défilé comme un second surtitre, juste
+     sous le titre et les boutons du hero. Il ne reste que le défilé des
+     expertises, qui se lit seul. Le seuil est celui du passage en une colonne
+     juste au-dessus, et non `md` : à 7px près, le libellé aurait disparu alors
+     que la grille était encore en deux colonnes, et le défilé serait tombé
+     dans la colonne `max-content`. */
+  .capability-strip-label {
+    display: none;
   }
   .section-heading {
     flex-direction: column;
@@ -2507,28 +2576,6 @@ footer.band--white .wordmark-type {
   margin-top: 0.4rem;
   line-height: 1.5;
 }
-.solutions-menu--mobile .solutions-trigger {
-  width: 100%;
-  justify-content: space-between;
-}
-.solutions-menu--mobile .solutions-dropdown {
-  position: static;
-  width: 100%;
-  box-shadow: none;
-  margin-block: 0.5rem;
-  max-height: none;
-}
-.solutions-menu--mobile .solutions-dropdown ul {
-  grid-template-columns: 1fr;
-}
-.site-menu {
-  justify-content: flex-start;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-.site-menu-link {
-  flex-shrink: 0;
-}
 @media (min-width: 960px) and (max-width: 1079px) {
   .site-nav {
     display: none;
@@ -2541,9 +2588,6 @@ footer.band--white .wordmark-type {
   .site-nav {
     display: flex;
     gap: clamp(0.9rem, 1.5vw, 1.6rem);
-  }
-  .site-menu {
-    display: none;
   }
 }
 
@@ -2946,13 +2990,6 @@ footer.band--white .wordmark-type {
 .site-header .solutions-dropdown small {
   color: #a8c3e8;
 }
-.site-header .site-menu {
-  background: var(--surface-dark);
-}
-.site-header .site-menu-link {
-  border-bottom-color: #28486f;
-  color: #ffffff;
-}
 
 /* Alternating edition: every page starts dark, then changes tone per band. */
 .site-theme-alternating main > .studio-hero,
@@ -3175,7 +3212,6 @@ footer.band--white .wordmark-type {
 .site-theme-dark
   :is(
     .home-work-card,
-    .project-showcase,
     .founder-card,
     .calendar-demo,
     .booking--card,
@@ -3189,7 +3225,6 @@ footer.band--white .wordmark-type {
 .site-theme-dark
   :is(
     .home-work-card,
-    .project-showcase,
     .founder-card,
     .calendar-demo
   )
@@ -3243,18 +3278,6 @@ footer.band--white .wordmark-type {
   display: grid;
   gap: 2rem;
 }
-.project-showcase {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  border: 1px solid #dce2eb;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #fafbfd;
-  transition: border-color 180ms;
-}
-.project-showcase:hover {
-  border-color: #93b9ed;
-}
 .project-cover {
   position: relative;
   min-height: 420px;
@@ -3306,23 +3329,6 @@ footer.band--white .wordmark-type {
   font-size: 1.3rem;
   letter-spacing: 0.15em;
 }
-.project-showcase-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: clamp(1.5rem, 3vw, 3rem);
-}
-.project-showcase-copy h2 {
-  margin-block: 1.4rem 1rem;
-  font-size: clamp(1.9rem, 2.5vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-}
-.project-showcase-copy > p {
-  font-size: 0.95rem;
-  color: #626a76;
-  line-height: 1.8;
-}
 .project-journey {
   display: flex;
   flex-wrap: wrap;
@@ -3367,21 +3373,6 @@ footer.band--white .wordmark-type {
   height: 6px;
   background: #0067ea;
   border-radius: 50%;
-}
-.project-showcase-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding-top: 1.2rem;
-  margin-top: auto;
-  border-top: 1px solid #dce2eb;
-  font-size: 0.85rem;
-  color: #0067ea;
-}
-.project-showcase-link svg {
-  width: 20px;
-  height: 20px;
 }
 .work-editorial-note {
   display: grid;
@@ -3507,7 +3498,6 @@ footer.band--white .wordmark-type {
   }
   }
 @media (max-width: 760px) {
-  .project-showcase,
   .founder-grid,
   .home-team-grid,
   .work-editorial-note {
@@ -5443,6 +5433,14 @@ main > .band.home-impact-light .isp {
 .tools-foot .btn {
   flex: none;
 }
+/* Sur téléphone, le bouton est passé seul sur sa ligne : il s'y centre.
+   `margin-inline: auto` et non `justify-content` sur la rangée — la rangée
+   porte aussi le paragraphe d'appel, qui ne doit pas bouger. */
+@media (max-width: 760px) {
+  .tools-foot .btn {
+    margin-inline: auto;
+  }
+}
 .tools-cta-text {
   max-width: 62ch;
   color: var(--muted-foreground);
@@ -5750,6 +5748,12 @@ main > .band.home-impact-light .isp {
   align-items: flex-start;
   gap: 0.7rem;
   padding: clamp(1.5rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.2vw, 2rem);
+}
+.need-tile-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
 }
 .need-tile:not(:nth-child(4n + 1)) {
   border-left: 1px solid var(--hairline);
@@ -6434,7 +6438,7 @@ main > .band.home-impact-light .isp {
   font-size: 1em;
   line-height: 1.2;
   white-space: nowrap;
-  color: #a0a8b6;
+  color: #70757f;
   box-shadow: 0 2px 6px rgb(20 40 80 / 4%);
   transition: border-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
 }
@@ -6569,7 +6573,7 @@ main > .band.home-impact-light .isp {
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
-  color: #a0a8b6;
+  color: #70757f;
 }
 /* Le titre à la verticale. `flex: 1 1 auto` avec `min-height: 0` le laisse
    se rogner plutôt que déborder de la bande sur les petites hauteurs. */
@@ -6635,7 +6639,7 @@ main > .band.home-impact-light .isp {
   font-style: normal;
   font-size: 11px;
   white-space: nowrap;
-  color: #a0a8b6;
+  color: #70757f;
 }
 .slc-copy h3 {
   font-size: 26px;
@@ -6734,7 +6738,7 @@ main > .band.home-impact-light .isp {
   border: 1px solid #e3e6ea;
   border-radius: 10px;
   background: #ffffff;
-  color: #a0a8b6;
+  color: #70757f;
   transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease;
 }
 .slc-art--flow b svg {
@@ -6807,7 +6811,7 @@ main > .band.home-impact-light .isp {
   background: #ffffff;
   font-size: 12.5px;
   text-align: center;
-  color: #8a8f98;
+  color: #71757c;
   transition: border-color 400ms ease, color 400ms ease;
 }
 .slc-art--grid span.is-on {
@@ -6875,12 +6879,12 @@ main > .band.home-impact-light .isp {
 .slc-learn-box p {
   font-size: 13px;
   line-height: 1.5;
-  color: #8a8f98;
+  color: #71757c;
 }
 .slc-learn-box p span { transition: color 400ms ease, font-weight 400ms ease; }
 .slc-learn-box p span.is-on { color: #1f3a5f; }
 .slc-learn-box p span.is-now { color: #1f3a5f; font-weight: 600; }
-.slc-learn-box p em { font-style: normal; color: #a0a8b6; }
+.slc-learn-box p em { font-style: normal; color: #70757f; }
 .slc-learn-go {
   font-size: 12.5px;
   color: #0b6be6;
@@ -6926,8 +6930,15 @@ main > .band.home-impact-light .isp {
   min-width: 0 !important;
 }
 
+/* ---- La bande des téléphones en paysage et des petites tablettes garde une
+   hauteur ÉCRITE : c'est la seule où la colonne visuelle passe sur une
+   seconde ligne, et sa position dépend de l'étirement que la mesure doit
+   neutraliser. Le composant ne mesure donc que sous 520px, et ce chiffre-ci
+   reste un calcul : 715px suffisent au contenu le plus long des six, dans
+   les deux langues, au plus étroit de la bande ; 770 lui laissent la réserve
+   d'un écart de composition. L'ancienne valeur, 820, en laissait cent. ---- */
 @media (max-width: 700px) {
-  .slc--stacked .slc-card.is-on { flex: 0 0 820px; }
+  .slc--stacked .slc-card.is-on { flex: 0 0 770px; }
 }
 @media (max-width: 520px) {
   .slc--stacked .slc-card.is-on { flex: 0 0 600px; }
@@ -7043,7 +7054,7 @@ main > .band.home-impact-light .isp {
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
-  color: #a0a8b6;
+  color: #70757f;
   transition: color 250ms ease;
 }
 .uca-item.is-on .uca-head em {
@@ -7058,7 +7069,7 @@ main > .band.home-impact-light .isp {
 .uca-titles small {
   font-size: 11.5px;
   line-height: 1.3;
-  color: #8a8f98;
+  color: #71757c;
 }
 /* Le titre est écrit en entier, sur plusieurs lignes si besoin : une liste
    qu'on parcourt ne peut pas se permettre de couper ses intitulés. */
@@ -7082,7 +7093,7 @@ main > .band.home-impact-light .isp {
   width: 17px;
   height: 17px;
   stroke-width: 1.8;
-  color: #a0a8b6;
+  color: #70757f;
   transition: transform 250ms ease, color 250ms ease;
 }
 .uca-item.is-on .uca-chevron {
@@ -7306,7 +7317,7 @@ main > .band.home-impact-light .isp {
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 11px;
-  color: #a0a8b6;
+  color: #70757f;
 }
 
 .tst-card h3 {
@@ -7336,7 +7347,7 @@ main > .band.home-impact-light .isp {
   font-family: var(--font-sans);
   font-size: 10.5px;
   white-space: nowrap;
-  color: #a0a8b6;
+  color: #70757f;
   transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
 }
 .tst-pill svg {
@@ -7658,7 +7669,7 @@ main > .band.home-impact-light .isp {
   margin-top: 8px;
   font-family: var(--font-sans);
   font-size: 10px;
-  color: #8a8f98;
+  color: #71757c;
 }
 .isp-split-foot em {
   font-style: normal;
@@ -7759,7 +7770,7 @@ main > .band.home-impact-light .isp {
   font-style: normal;
   font-size: 11px;
   white-space: nowrap;
-  color: #8a8f98;
+  color: #71757c;
 }
 
 /* ---- Les trois postes ----
@@ -7794,7 +7805,7 @@ main > .band.home-impact-light .isp {
   font-family: var(--font-sans);
   font-style: normal;
   font-size: 12px;
-  color: #a0a5ad;
+  color: #6e7177;
   transition: color 300ms ease;
 }
 .pdoc-col.is-on .pdoc-col-top > em {
@@ -7967,7 +7978,7 @@ main > .band.home-impact-light .isp {
   font-style: normal;
   font-size: 10px;
   letter-spacing: 0.08em;
-  color: #a0a8b6;
+  color: #70757f;
 }
 .sec-cell h3 {
   font-size: 14px;
@@ -8282,7 +8293,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   flex-direction: column;
   gap: 8px;
 }
-.sol-app-rail-buttons button {
+.sol-app-rail-buttons span {
   width: 38px;
   height: 38px;
   display: grid;
@@ -8296,7 +8307,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   cursor: pointer;
   transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
 }
-.sol-app-rail-buttons button.is-active {
+.sol-app-rail-buttons span.is-active {
   border-color: #4e8ff0;
   background: #10264a;
   color: #8ec1ff;
@@ -8567,7 +8578,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sol-app-rail-buttons button,
+  .sol-app-rail-buttons span,
   .sol-card,
   .sol-card-tag,
   .sol-card-art--ring i::after {
@@ -8583,7 +8594,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
     height: auto;
     grid-template-columns: 46px minmax(0, 1fr);
   }
-  .sol-app-rail-buttons button {
+  .sol-app-rail-buttons span {
     width: 32px;
     height: 32px;
   }
@@ -8617,7 +8628,11 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
    Spécificité égale au filet impair/pair du thème : ce bloc doit rester
    APRÈS lui dans la feuille.
    ===================================================================== */
-.site-theme-alternating main > .band.svc-white {
+/* ⚠ `.white-band` est l'alias de ce fond blanc pour les pages hors
+   services, comme `.tint-band` l'est du bleu clair juste en dessous. Ne pas
+   en faire une COPIE : un blanc qui diffère d'une page à l'autre, c'est la
+   fin du rythme de couleurs du site. */
+.site-theme-alternating main > .band:is(.svc-white, .white-band) {
   background: #ffffff;
   color: #464444;
   --foreground: #464444;
@@ -8692,6 +8707,75 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #9ec8ff;
+}
+/* ---- Les surtitres réservés au téléphone.
+
+   Cinq pages — accueil, Solutions, Cas d'usage, Réalisations, Contact — en
+   portent un sur petit écran seulement, pour situer la page au-dessus du
+   titre là où la barre de navigation ne le fait plus. Le `text-align` est
+   pour l'accueil : sa disposition met le surtitre et le titre hors de la
+   colonne de texte, donc le centrage de cette colonne ne les atteint pas.
+   Sur les quatre autres pages, le surtitre est DANS la colonne, déjà
+   centrée, et la déclaration n'y change rien. ---- */
+/* =====================================================================
+   LES COUPES DE LIGNE : DEUX CLASSES DU PROJET, PAS DES UTILITAIRES
+
+   ⚠ POURQUOI ELLES EXISTENT, et pourquoi il ne faut PAS revenir aux
+   variantes `max-md:` et `md:` de Tailwind.
+
+   Ces deux variantes ne compilent pas pareil selon le mode. En production,
+   Tailwind écrit `@media not all and (min-width: 48rem)`, comprise partout.
+   En développement, il écrit `@media not (min-width: 48rem)`, la forme
+   booléenne moderne. Sur un iPhone, cette seconde forme était ignorée : le
+   bloc entier tombait, la coupe réservée au bureau cessait d'être masquée,
+   et TOUTES les coupes s'affichaient en même temps. Un titre prévu sur deux
+   lignes en prenait trois, et uniquement sur un vrai téléphone — jamais
+   dans le simulateur d'un navigateur de bureau, qui lui comprend la forme
+   moderne. Deux heures de recherche pour ça.
+
+   Les deux règles ci-dessous n'emploient que `min-width`, la requête la plus
+   ancienne et la plus universelle du CSS. Il n'y a rien à comprendre pour
+   un navigateur, donc rien à rater.
+
+   768px est le seuil historique de ces coupes, celui que `md` valait.
+   ===================================================================== */
+.only-desktop {
+  display: none;
+}
+.only-mobile {
+  display: inline;
+}
+@media (min-width: 768px) {
+  .only-desktop {
+    display: inline;
+  }
+  .only-mobile {
+    display: none;
+  }
+}
+
+/* ---- La coupe réservée aux grands téléphones, posée par le marqueur `|`
+   de `lib/lines`. Deux bornes : au-dessus de 767px c'est la coupe desktop
+   qui vaut, en dessous de 440px la phrase coule d'elle-même. 440px est la
+   largeur CSS d'un iPhone Pro Max, et « pas plus bas » est le cadrage
+   demandé. ---- */
+.br-phone-xl {
+  display: none;
+}
+@media (min-width: 440px) and (max-width: 767.98px) {
+  .br-phone-xl {
+    display: inline;
+  }
+}
+
+.studio-hero-kicker--mobile {
+  display: none;
+}
+@media (max-width: 760px) {
+  .studio-hero-kicker--mobile {
+    display: block;
+    text-align: left;
+  }
 }
 .svc-hero .studio-hero-copy {
   gap: 1.1rem;
@@ -8956,7 +9040,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 .afp-live em {
   font-style: normal;
   font-size: 11px;
-  color: #8a8f98;
+  color: #71757c;
 }
 .afp-pill {
   display: inline-flex;
@@ -9425,7 +9509,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .auc-row em {
   font-style: normal;
-  color: #8a8f98;
+  color: #71757c;
 }
 .auc-row b {
   display: inline-flex;
@@ -9944,6 +10028,68 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   }
 }
 
+/* ---- SUR TÉLÉPHONE, LA SCÈNE ENTIÈRE AU LIEU D'UN BOUT DE SCÈNE.
+
+   La scène est posée en POURCENTAGE de son repère, donc elle suit n'importe
+   quelle largeur ; ce qui ne suivait pas, c'est son plancher,
+   `min-width: 460px`, et le contenu des huit labels, dessiné en pixels
+   fixes. En dessous de ~502px de viewport la place tombe sous 460px, le
+   plancher l'emporte et `.ant-scroll` se met à défiler : le visiteur voyait
+   les trois quarts gauche du réseau, l'`@` et la base de données coupés au
+   bord.
+
+   Le plancher tombe donc, et les pixels fixes des labels sont ramenés à la
+   même échelle que la scène, à un détail près : le NOM de l'outil reste à
+   11px au lieu des 8,7px que donnerait le rapport exact. C'est la seule
+   information du label qui doive se lire ; le code et l'état suivent
+   l'échelle.
+
+   Les chiffres ne sont pas réglés à l'œil. À 375px de viewport la scène
+   fait 335px, soit 0,644 du repère. Le label le plus large, « Base de
+   données », mesure alors 132px pour une demi-largeur de 66, et sa position
+   de base le met à 262 : il tient tout juste, et c'est la borne de
+   flottement du composant, calculée sur la largeur mesurée, qui garantit
+   qu'il n'en sortira pas. Les trois labels du haut tombent sur 19-87,
+   128-196 et 236-314 : aucun chevauchement.
+
+   Le robot descend à 0,5 : sa tête fait 96px, l'anneau 94px de diamètre à
+   cette échelle, donc à 0,88 il le débordait. Son flottement et son ombre
+   au sol sont écrits par l'horloge en pixels, dans ce sous-arbre mis à
+   l'échelle : ils suivent sans rien à changer. ---- */
+@media (max-width: 520px) {
+  .ant-scene {
+    min-width: 0;
+  }
+  .ant-tool {
+    gap: 6px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 10px;
+  }
+  .ant-code {
+    width: 19px;
+    height: 19px;
+    border-radius: 6px;
+    font-size: 7.5px;
+  }
+  .ant-meta {
+    gap: 2px;
+  }
+  .ant-meta strong {
+    font-size: 11px;
+  }
+  .ant-meta em {
+    gap: 4px;
+    font-size: 9px;
+  }
+  .ant-meta em i {
+    width: 4px;
+    height: 4px;
+  }
+  .ant-bot {
+    transform: translate(-50%, calc(-50% - 2px)) scale(0.5);
+  }
+}
+
 
 /* =====================================================================
    « QU'EST-CE QU'UN AGENT IA ? » — LE VISUEL DE LA COLONNE DE DROITE
@@ -10451,6 +10597,13 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   color: #ffffff;
 }
 
+/* Le bloc des six copies de mesure n'est rendu que sous 900px. Cette règle
+   est un filet : si le média et le composant se désaccordaient, il ne
+   laisserait pas six panneaux de plus dans la page. */
+.mfr-measure {
+  display: none;
+}
+
 /* ---- Le pied : l'avancement ---- */
 .mfr-foot {
   flex: none;
@@ -10473,35 +10626,131 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   background: #0a6cf0;
 }
 
-/* ---- Sous 640px, la liste de six lignes laisse trop peu de place au
-   détail : le détail passe au-dessus et la liste devient une grille de
-   trois colonnes sous lui. Le cadre suit alors son contenu, et la
-   description n'est plus rognée. ---- */
-@media (max-width: 640px) {
+/* =====================================================================
+   SOUS 900px : LE MÊME CADRE, RECOMPOSÉ
+
+   Sur deux colonnes, la liste des six étapes tient dans 190px et les noms
+   y passent sur une ligne. Empilé, cette même liste n'a plus la largeur de
+   ses noms : « Cadrage du besoin » devenait « Cadrage du besoi », rogné par
+   le `text-overflow` de la version de bureau.
+
+   Le cadre est donc recomposé de haut en bas : l'en-tête, le détail de
+   l'étape, la grille des six étapes en deux colonnes de trois rangées, puis
+   l'avancement. Les noms y ont deux lignes, et plus rien n'est rogné, ni le
+   nom, ni la description.
+
+   ⚠ Au-dessus de 900px, ce bloc ne s'applique pas et rien n'y est touché.
+   La version de bureau garde sa hauteur écrite de 420px et sa description
+   rognée, qui sont ce qui l'empêche de sauter toutes les quatre secondes.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* La hauteur suit le contenu : c'est la mesure du panneau qui tient le
+     cadre immobile, plus un chiffre écrit. */
   .mfr {
     min-height: auto;
   }
+  .mfr-head {
+    padding: 12px 16px;
+  }
+  /* Le repère des six copies de mesure, qui se posent en absolu dessus. */
   .mfr-body {
+    position: relative;
     grid-template-columns: minmax(0, 1fr);
   }
+  .mfr-measure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ---- Le détail, au-dessus de la grille ---- */
   .mfr-detail {
     order: 1;
+    padding: 20px 18px 18px;
   }
+  .mfr-detail h3 {
+    text-wrap: pretty;
+  }
+  /* La description n'absorbe plus rien et n'est plus rognée : c'est la
+     hauteur mesurée du panneau qui absorbe la différence entre les six
+     étapes, et elle la renvoie SOUS l'encart de résultat. */
+  .mfr-desc {
+    flex: none;
+    overflow: visible;
+    font-size: 14px;
+  }
+  .mfr-out {
+    margin-top: auto;
+    height: auto;
+  }
+  .mfr-out strong {
+    line-height: 1.4;
+  }
+
+  /* ---- Les six étapes, en deux colonnes ---- */
   .mfr-list {
     order: 2;
     grid-template-rows: auto;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     border-top: 1px solid #1e3352;
     border-right: 0;
   }
   .mfr-step {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
-    padding: 10px 12px;
+    justify-content: flex-start;
+    gap: 6px;
+    height: 84px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #1a2d4a;
   }
-  .mfr-desc {
-    overflow: visible;
+  /* Le filet vertical ne va que sur la colonne de gauche. Les six cases
+     sont dans l'ordre du document, donc ce sont les impaires. */
+  .mfr-step:nth-child(odd) {
+    border-right: 1px solid #1a2d4a;
+  }
+  /* ⚠ ÉCART ASSUMÉ avec la demande, qui donne un filet bas à chaque case :
+     la dernière RANGÉE en a deux, et juste en dessous vient le filet haut
+     du pied, en #24406A. Deux filets collés dans deux bleus voisins se
+     lisent comme une ligne épaissie et ratée. Les deux cases du bas en sont
+     donc privées, exactement comme la version de bureau en prive sa
+     dernière ligne. */
+  .mfr-step:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+  /* Le nom tient en ENTIER sur deux lignes. Pas de `text-overflow` : il
+     coupait le mot au milieu. Le `line-clamp` est une borne de sécurité,
+     pas le mode normal — à 320px, le plus long des six noms tient sur ses
+     deux lignes. */
+  .mfr-step > span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-overflow: clip;
+  }
+  .mfr-foot {
+    padding: 12px 16px;
+  }
+}
+
+/* ---- Les plus petits écrans. Le nom descend d'un demi-point et les cases
+   se resserrent, à hauteur inchangée : c'est ce qui garde la grille
+   régulière d'un téléphone à l'autre. ---- */
+@media (max-width: 360px) {
+  .mfr-step {
+    padding: 12px;
+  }
+  .mfr-step > span {
+    font-size: 12.5px;
   }
 }
 
@@ -10546,6 +10795,17 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .site-theme-alternating main > .band.solutions-ink-band .lede-kicker {
   color: #9ec8ff;
+}
+/* ---- ⚠ ET LES MOTS PEINTS DU TITRE, qui manquaient.
+   La bande déclare bien `--dark-accent`, mais rien ne l'appliquait : les
+   mots peints retombaient donc sur la règle générale, `var(--brand)`,
+   c'est-à-dire le bleu électrique des fonds clairs. Sur ce bleu nuit il
+   tombe à 3,3:1, là où le bleu clair tient 7,9:1.
+
+   Les trois autres familles de bandes sombres du site ont chacune la leur —
+   `.home-dark-band`, `.svc-ink`, `.dark-cta` — celle-ci avait été oubliée. */
+.solutions-ink-band :is(h1, h2, h3) .title-accent {
+  color: var(--dark-accent);
 }
 
 /* =====================================================================
@@ -10620,7 +10880,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   stroke: #0b6be6;
 }
 .aug-port {
-  fill: #a0a5ad;
+  fill: #6e7177;
   stroke: none;
 }
 .aug-label {
@@ -10698,7 +10958,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 .aug-name em {
   font-style: normal;
   font-size: 1.484cqw;
-  color: #8a8f98;
+  color: #71757c;
 }
 
 /* ---- Les états ---- */
@@ -10886,7 +11146,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 .auc-group em {
   font-style: normal;
   font-size: 9.5px;
-  color: #8a8f98;
+  color: #71757c;
 }
 
 /* ---- Un petit cadre d'application ---- */
@@ -11054,7 +11314,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .auc-note {
   font-size: 9.5px;
-  color: #8a8f98;
+  color: #71757c;
 }
 
 /* =====================================================================
@@ -12505,3 +12765,1032 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   --surface: #ffffff;
   --surface-2: #f8f9fb;
 }
+
+/* =====================================================================
+   ACCUEIL MOBILE : CENTRAGE DU CONTENU ÉDITORIAL
+
+   Le centrage reste strictement limité à l'accueil et aux écrans mobiles.
+   Les sélecteurs s'arrêtent aux introductions de section et aux CTA : le
+   contenu des cartes, des accordéons, des animations et des maquettes garde
+   son alignement à gauche et sa composition propre.
+   ===================================================================== */
+@media (max-width: 760px) {
+  /* Hero : le visuel animé reste intact dans la seconde colonne. */
+  .home-page-hero h1,
+  .home-page-hero .studio-hero-copy,
+  .home-page-hero .studio-hero-copy > p,
+  .home-page-hero .hero-reassurance {
+    text-align: left;
+  }
+  .home-page-hero .studio-hero-copy {
+    align-items: flex-start;
+  }
+  .home-page-hero .studio-hero-copy > p,
+  .home-page-hero .hero-reassurance {
+    margin-inline: 0;
+  }
+  .home-page-hero .studio-hero-copy > .btn-row {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  /* Introductions des sections de l'accueil. Les composants placés après
+     ces en-têtes, qui portent les cartes et les animations, sont exclus. */
+  main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-trust-light,
+    .home-work-light,
+    .home-tools-light
+  ) > .col > .section-heading {
+    align-items: flex-start;
+    text-align: left;
+  }
+  main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-trust-light,
+    .home-work-light,
+    .home-tools-light
+  ) > .col > .section-heading > .lede {
+    align-items: flex-start;
+  }
+  /* Ce titre avait une réduction mobile historique. Il reprend désormais
+     exactement le corps des autres H2 de l'accueil, notamment Solutions. */
+  main > .band#cas-usage.home-usecases-light > .col > .section-heading .lede-title {
+    font-size: var(--fs-h2);
+  }
+  main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-trust-light,
+    .home-work-light,
+    .home-tools-light
+  ) > .col > .section-heading :is(.lede-title, .lede-text) {
+    margin-inline: 0;
+    text-align: left;
+  }
+  main > .band:is(
+    .home-usecases-light,
+    .home-solutions-light,
+    .home-trust-light,
+    .home-work-light,
+    .home-tools-light
+  ) > .col > .section-heading > .go {
+    align-self: center;
+  }
+  .home-usecases-light .daily-section-aside {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .home-usecases-light .daily-section-aside .section-side-text {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* Résultats recherchés et méthode : uniquement leur bloc éditorial. */
+  .home-impact-light .operational-impact-heading,
+  .home-method-dark .mfr-copy > .lede {
+    text-align: left;
+  }
+  .home-method-dark .mfr-copy > .lede {
+    align-items: flex-start;
+  }
+  .home-method-dark .mfr-copy .lede-title {
+    width: 100%;
+  }
+  .home-impact-light .operational-impact-heading :is(h2, p),
+  .home-method-dark .mfr-copy :is(.lede-title, .lede-text) {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* FAQ : l'accordéon situé dessous conserve son alignement initial. */
+  .home-faq-light > .col > .lede {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .home-faq-light > .col > .lede :is(.lede-title, .lede-text) {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* CTA du bloc Cas d'usage. */
+  .home-usecases-light .daily-open-callout {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .home-usecases-light .daily-open-callout > div {
+    margin-inline: 0;
+  }
+  .home-usecases-light .daily-open-callout .eyebrow {
+    justify-content: flex-start;
+  }
+  .home-usecases-light .daily-open-callout .btn {
+    align-self: center;
+  }
+
+  /* CTA principal : seule la colonne de texte est centrée. Le calendrier
+     garde intégralement son dessin et ses alignements internes. */
+  .home-booking-cta .cta-booking-copy,
+  .home-booking-cta .cta-booking-copy > .lede,
+  .home-booking-cta .cta-booking-copy .cta-note {
+    text-align: left;
+  }
+  .home-booking-cta .cta-booking-copy {
+    align-items: flex-start;
+  }
+  .home-booking-cta .cta-booking-copy > .lede {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .home-booking-cta .cta-booking-copy :is(.lede-title, .lede-text),
+  .home-booking-cta .cta-booking-copy .cta-note {
+    margin-inline: 0;
+  }
+
+  /* Dernier rappel : c'est un CTA, donc son contenu éditorial est centré
+     même s'il est présenté dans une carte. */
+  .home-cta-reminder-card {
+    text-align: left;
+  }
+  .home-cta-reminder-card p,
+  .home-cta-reminder-card .btn {
+    margin-inline: 0;
+  }
+
+  .home-solutions-light .families-note {
+    margin-inline: 0;
+    text-align: left;
+  }
+}
+
+/* =====================================================================
+   PAGE SOLUTIONS MOBILE : CENTRAGE DU CONTENU ÉDITORIAL
+
+   Comme sur l'accueil, seules les introductions de section et les CTA sont
+   centrés. Les cartes, panneaux, accordéons, animations et maquettes gardent
+   leur composition interne. Les tuiles de besoins font exception à la
+   demande : leur texte est centré et l'icône rejoint le titre.
+   ===================================================================== */
+@media (max-width: 767px) {
+  /* Hero : le tableau de bord animé reste inchangé. */
+  .solutions-page-hero .studio-hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+  }
+  .solutions-page-hero h1,
+  .solutions-page-hero .studio-hero-copy,
+  .solutions-page-hero .studio-hero-copy > p,
+  .solutions-page-hero .hero-reassurance {
+    text-align: left;
+  }
+  .solutions-page-hero .studio-hero-copy {
+    align-items: flex-start;
+  }
+  .solutions-page-hero .studio-hero-copy > p,
+  .solutions-page-hero .hero-reassurance {
+    margin-inline: 0;
+  }
+  .solutions-page-hero .studio-hero-copy > .btn-row {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  /* La copie garde tout son contenu en premier : titre, paragraphe,
+     boutons puis phrase de réassurance. La maquette vient seulement après. */
+  .solutions-page-hero .studio-hero-copy {
+    order: 1;
+  }
+  .solutions-page-hero .sol-app {
+    order: 2;
+    align-self: center;
+    width: min(100%, 25rem);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 500 / 470;
+    margin-inline: 0;
+    grid-template-columns: 40px minmax(0, 1fr);
+    border-radius: 11px;
+  }
+
+  /* Réduction proportionnée du tableau de bord. La grille reste en deux
+     colonnes et trois rangées au lieu de devenir une longue liste mobile. */
+  .solutions-page-hero .sol-app-rail {
+    padding-block: 8px;
+  }
+  .solutions-page-hero .sol-app-rail > img {
+    height: 17px;
+    margin-bottom: 5px;
+  }
+  .solutions-page-hero .sol-app-rail-buttons {
+    gap: 4px;
+  }
+  .solutions-page-hero .sol-app-rail-buttons span {
+    width: 27px;
+    height: 27px;
+    border-radius: 6px;
+    font-size: 8px;
+  }
+  .solutions-page-hero .sol-app-main {
+    gap: 6px;
+    padding: 8px;
+  }
+  .solutions-page-hero .sol-app-top {
+    gap: 0.5rem;
+    font-size: 8px;
+  }
+  .solutions-page-hero .sol-app-status {
+    gap: 4px;
+  }
+  .solutions-page-hero .sol-app-status i {
+    width: 4px;
+    height: 4px;
+  }
+  .solutions-page-hero .sol-app-hello {
+    gap: 0.5rem;
+    padding: 8px 9px;
+    border-radius: 7px;
+  }
+  .solutions-page-hero .sol-app-hello strong {
+    font-size: 11px;
+  }
+  .solutions-page-hero .sol-app-hello p,
+  .solutions-page-hero .sol-app-hello-module strong {
+    font-size: 8px;
+  }
+  .solutions-page-hero .sol-app-hello-module span {
+    font-size: 7px;
+  }
+  .solutions-page-hero .sol-app-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .solutions-page-hero .sol-card {
+    min-height: 0;
+    gap: 4px;
+    padding: 7px;
+    border-radius: 6px;
+  }
+  .solutions-page-hero .sol-card-copy {
+    gap: 2px;
+  }
+  .solutions-page-hero .sol-card-value {
+    gap: 3px;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+  }
+  .solutions-page-hero .sol-card-value em,
+  .solutions-page-hero .sol-card-tag {
+    font-size: 7px;
+  }
+  .solutions-page-hero .sol-card-label {
+    font-size: 8px;
+  }
+  .solutions-page-hero .sol-card-art {
+    right: 7px;
+    bottom: 7px;
+    width: 38px;
+    height: 24px;
+  }
+  .solutions-page-hero :is(.sol-card-art--window, .sol-card-art--ring) {
+    top: 7px;
+    bottom: auto;
+  }
+  .solutions-page-hero .sol-card-art--window {
+    width: 38px;
+    height: 24px;
+    gap: 2px;
+  }
+  .solutions-page-hero .sol-card-art--window i:nth-child(1) {
+    height: 6px;
+  }
+  .solutions-page-hero .sol-card-art--window i:nth-child(2),
+  .solutions-page-hero .sol-card-art--window i:nth-child(3) {
+    height: 11px;
+  }
+  .solutions-page-hero .sol-card-art--dots {
+    grid-template-columns: repeat(4, 5px);
+    grid-auto-rows: 5px;
+    gap: 4px;
+  }
+  .solutions-page-hero .sol-card-art--bars {
+    gap: 3px;
+  }
+  .solutions-page-hero .sol-card-art--bars i {
+    width: 5px;
+  }
+  .solutions-page-hero .sol-card-art--bars i:nth-child(1) { height: 10px; }
+  .solutions-page-hero .sol-card-art--bars i:nth-child(2) { height: 16px; }
+  .solutions-page-hero .sol-card-art--bars i:nth-child(3) { height: 22px; }
+  .solutions-page-hero .sol-card-art--bars i:nth-child(4) { height: 18px; }
+  .solutions-page-hero .sol-card-art--ring i {
+    width: 24px;
+    height: 24px;
+  }
+  .solutions-page-hero .sol-card-art--ring i::after {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* Titres, surtitres et paragraphes des sections. */
+  main > .band.solutions-families-band > .col > .lede,
+  main > .band#cas-concrets > .col > .section-heading > .lede,
+  main > .band#methode .mfr-copy > .lede,
+  main > .band#securite > .col > .section-heading > .lede,
+  main > .band#tarification > .col > .lede,
+  main > .band.solutions-faq-light > .col > .lede {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+  main > .band:is(
+    .solutions-families-band,
+    #cas-concrets,
+    #methode,
+    #securite,
+    #tarification,
+    .solutions-faq-light
+  ) :is(.lede-title, .lede-text) {
+    margin-inline: 0;
+    text-align: left;
+  }
+  main > .band:is(#cas-concrets, #securite) > .col > .section-heading {
+    align-items: flex-start;
+    text-align: left;
+  }
+  main > .band#cas-concrets > .col > .section-heading > .go {
+    align-self: center;
+  }
+  .solutions-families-band .families-note {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* Solutions concrètes : l'ensemble de chaque tuile est centré, avec son
+     icône directement à côté du titre. */
+  #cas-concrets .need-tile {
+    align-items: flex-start;
+    text-align: left;
+  }
+  #cas-concrets .need-tile-heading {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.55rem;
+  }
+  #cas-concrets .need-tile-heading strong {
+    text-align: left;
+  }
+  #cas-concrets .need-tile p {
+    max-width: 34rem;
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  /* CTA : seule la colonne éditoriale est centrée. Le calendrier conserve
+     tous ses alignements et son comportement. */
+  .solutions-page-cta .cta-booking-copy,
+  .solutions-page-cta .cta-booking-copy > .lede,
+  .solutions-page-cta .cta-booking-copy .cta-note {
+    text-align: left;
+  }
+  .solutions-page-cta .cta-booking-copy,
+  .solutions-page-cta .cta-booking-copy > .lede {
+    align-items: flex-start;
+  }
+  .solutions-page-cta .cta-booking-copy > .lede {
+    width: 100%;
+  }
+  .solutions-page-cta .cta-booking-copy :is(.lede-title, .lede-text),
+  .solutions-page-cta .cta-booking-copy .cta-note {
+    margin-inline: 0;
+  }
+  .solutions-page-cta .cta-booking-copy > .btn-row {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* =====================================================================
+   MOBILE · LES TEXTES ÉDITORIAUX AU CENTRE
+
+   Sur téléphone, les surtitres, les titres, les paragraphes et les boutons
+   se centrent sur toutes les pages, comme l'accueil et Solutions le font
+   déjà par leurs propres règles.
+
+   ⚠ CE QUI N'EST PAS CENTRÉ, et ne doit pas l'être : le contenu des cartes.
+   Les sélecteurs ci-dessous ne visent que les blocs éditoriaux posés
+   DIRECTEMENT dans une bande — `> .col > .lede`, `> .col > .section-heading`
+   — ou la colonne de texte d'une section en deux blocs. Rien n'y atteint
+   l'intérieur d'une carte de projet, d'usage, d'associé ou de solution :
+   leurs listes et leurs grilles gardent leur alignement.
+
+   La seule carte concernée est celle des CTA, et c'est voulu : son titre,
+   son paragraphe et ses deux actions se centrent ensemble.
+   ===================================================================== */
+@media (max-width: 760px) {
+  /* ---- Les en-têtes de section ---- */
+  main > .band > .col > .lede,
+  main > .band > .col > .section-heading,
+  main > .band > .col > .section-heading > .lede {
+    align-items: flex-start;
+    text-align: left;
+  }
+  main > .band > .col > .btn-row,
+  main > .band > .col > .section-heading > .btn-row {
+    justify-content: flex-start;
+  }
+
+  /* ---- Le hero des pages internes ----
+     L'accueil a déjà le sien, scopé à `.home-page-hero`. */
+  .page-hero--inner .studio-hero-copy,
+  .page-hero--inner .studio-hero-copy > p,
+  .page-hero--inner .hero-reassurance {
+    text-align: left;
+  }
+  .page-hero--inner .studio-hero-copy {
+    align-items: flex-start;
+  }
+  .page-hero--inner .studio-hero-copy > .btn-row {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* ---- Les sections en deux blocs des pages services ----
+     Seule la colonne de TEXTE est visée. Le visuel d'en face garde sa
+     composition. */
+  .svc-split > .svc-split-copy,
+  .svc-split > .svc-what {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .svc-core-note {
+    justify-content: flex-start;
+  }
+
+}
+
+/* ---- MOBILE · LE CTA EN UN SEUL BLOC ----
+   Le titre, le paragraphe, puis les actions en dessous, le tout centré.
+
+   ⚠ LE PIÈGE : `.svc-cta .cta-booking-grid` pose ses deux colonnes avec
+   DEUX classes. La règle à une colonne de 900px n'en a qu'une et ne
+   l'emportait donc jamais : les CTA des pages services, de Réalisations,
+   d'Équipe et de Nexus restaient côte à côte jusqu'à 375px. La règle
+   ci-dessous est écrite avec la même spécificité.
+
+   900px, et non 760 : c'est la largeur à laquelle la grille des CTA se
+   replie déjà. Le calendrier de l'accueil et de Contact garde son dessin,
+   seule la colonne de texte est centrée. */
+@media (max-width: 900px) {
+  /* La méthode passe réellement sur une colonne. Le `auto-fit` de la règle
+     desktop pouvait conserver deux pistes très étroites sur l'accueil et
+     réduisait le titre à environ 200px, d'où sa troisième ligne. */
+  .mfr-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .svc-cta .cta-booking-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cta-booking-copy {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .cta-booking-copy .cta-note,
+  .svc-cta-actions .cta-note {
+    text-align: left;
+  }
+  .cta-booking-copy > .btn-row {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .svc-cta .svc-cta-actions,
+  .svc-cta-actions {
+    justify-self: flex-start;
+  }
+}
+
+/* ---- MOBILE ET TABLETTE · LE HERO EN UN SEUL BLOC ----
+   L'ordre du DOM place déjà le visuel après le surtitre, le titre, le
+   paragraphe et les boutons : il suffit que la grille passe à une colonne
+   pour qu'il se range dessous.
+
+   ⚠ LE PIÈGE, et la raison pour laquelle les pages internes restaient sur
+   deux colonnes même à 375px : `.page-hero--inner .studio-hero-grid` pose
+   ses deux colonnes avec DEUX classes, et une requête média n'ajoute aucune
+   spécificité. La règle à une colonne doit donc être écrite avec la même
+   spécificité, sinon elle ne s'applique jamais. Seul l'accueil se repliait,
+   parce que son hero ne porte pas `page-hero--inner`.
+
+   Le visuel est ensuite centré et plafonné : à cette largeur, un visuel
+   dessiné pour une demi-colonne de bureau n'a aucune raison de prendre
+   toute la page. */
+@media (max-width: 1023px) {
+  .page-hero--inner .studio-hero-grid,
+  .studio-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .studio-hero-grid > :not(.studio-hero-copy) {
+    width: 100%;
+    max-width: 440px;
+    margin-inline: 0;
+    justify-self: flex-start;
+  }
+
+  /* ---- Le bloc de texte du hero, centré ----
+     ⚠ À 1023px et non 760 : c'est la largeur à laquelle le hero passe à une
+     colonne, et un texte aligné à gauche sous un visuel centré se lirait
+     comme un oubli. Les deux sélecteurs à deux classes battent les règles
+     d'alignement des pages internes, qui en ont deux elles aussi. */
+  .page-hero--inner .studio-hero-copy,
+  .studio-hero .studio-hero-copy {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .page-hero--inner .studio-hero-copy > p,
+  .studio-hero .studio-hero-copy > p,
+  .studio-hero .hero-reassurance {
+    margin-inline: 0;
+    text-align: left;
+  }
+  .page-hero--inner h1,
+  .studio-hero h1 {
+    text-align: left;
+  }
+  /* ⚠ `align-items` autant que `justify-content` : sous 400px, une règle
+     passe cette rangée en COLONNE, et sur un axe vertical c'est
+     `align-items` qui décide du centrage horizontal. Sans lui, les boutons
+     restaient collés à gauche sur un vrai téléphone. */
+  .studio-hero .studio-hero-copy > .btn-row,
+  .page-hero--inner .studio-hero-copy > .btn-row {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+/* ---- MOBILE · DEUX BLOCS ÉDITORIAUX QUI RESTAIENT À GAUCHE ----
+   « Résultats recherchés » sur Cas d'usage, et la note de transparence en bas
+   de Réalisations. L'accueil centre déjà le premier par une règle scopée à
+   `.home-impact-light` ; ces deux-là n'étaient couverts nulle part. */
+@media (max-width: 760px) {
+  .operational-impact-heading,
+  .operational-impact-heading :is(h2, p),
+  .work-editorial-note,
+  .work-editorial-note :is(h3, p) {
+    text-align: left;
+  }
+  .work-editorial-note {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: flex-start;
+  }
+  .work-editorial-note p {
+    margin-inline: 0;
+  }
+}
+
+/* ---- MOBILE · DEUX ACTIONS, DEUX BOUTONS DE MÊME TAILLE ----
+   Partout où une rangée porte DEUX actions — les heros, les CTA de la
+   méthode et de /merci, celui de Solutions — chaque bouton gardait la
+   largeur de son texte : « Voir les projets » et « Réserver un échange » ne
+   faisaient pas la même. Sous 560px, la rangée passe en colonne et les deux
+   prennent toute la largeur, plafonnée à 20rem comme la colonne d'actions
+   des pages services, qui était déjà en grille et déjà régulière.
+
+   `:has(> .btn ~ .btn)` dit « une rangée qui porte au moins deux boutons »,
+   et c'est la condition exacte : le hero de Contact n'a qu'une action, et un
+   bouton seul étiré sur 20rem aurait l'air d'un champ de formulaire.
+
+   Le texte est déjà centré dans chaque bouton par `.btn`, qui est en
+   `inline-flex` et `justify-content: center`. Les deux déclarations
+   ci-dessous le disent quand même : sans largeur fixe on ne voyait pas la
+   différence, avec elle un seul oubli la rendrait visible.
+
+   ⚠ Spécificité : plusieurs règles de hero visent `.btn-row` avec deux ou
+   trois classes. Aucune ne pose `flex-direction` ni la largeur des boutons,
+   et ce bloc est le dernier du fichier, donc à égalité il l'emporte. Le
+   garder EN FIN DE FICHIER fait partie du réglage. ---- */
+@media (max-width: 560px) {
+  .btn-row:has(> .btn ~ .btn) {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .btn-row:has(> .btn ~ .btn) > .btn {
+    width: 100%;
+    max-width: 20rem;
+    /* Le LIBELLÉ reste centré dans le bouton : « tout à gauche » vise le
+       texte de la page, pas l'intérieur d'une commande pleine largeur. */
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ---- MOBILE · TOUS LES EN-TÊTES DE SECTION AU CENTRE ----
+   La passe mobile précédente centrait les en-têtes section par section, en
+   énumérant les bandes : `main > .band > .col > .lede`, les cinq bandes de
+   l'accueil, les deux colonnes de texte des pages services. Tout en-tête
+   posé ailleurs restait aligné à gauche — le surtitre « Conception &
+   Développement IA » de l'accueil, « Comprendre les agents IA » et
+   « Qu'est-ce qu'une automatisation ? » des pages services, et les en-têtes
+   des sections à deux blocs dont le `.lede` est imbriqué plus profond que
+   les sélecteurs ne descendaient.
+
+   La règle porte donc sur le bloc lui-même, à n'importe quelle profondeur.
+   C'est sans danger pour le contenu des cartes : `Lede` est l'en-tête d'une
+   SECTION et rien d'autre, c'est écrit dans son propre fichier et les 47
+   emplois du site s'y tiennent. Aucune carte, aucune grille, aucun
+   accordéon n'en contient.
+
+   `align-items` autant que `text-align` : le surtitre est un `inline-flex`,
+   donc étiré sur toute la largeur par défaut, et seul l'alignement de la
+   colonne le ramène à la taille de son texte. Le centrer sans ça ne se
+   verrait pas. ---- */
+@media (max-width: 760px) {
+  main .lede {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* ---- LA MESURE DES TITRES TOMBE SUR TÉLÉPHONE.
+
+     `max-width: 20ch` est une mesure de confort de lecture, pensée pour une
+     colonne de bureau où le titre pourrait sinon courir sur toute la page.
+     Sur téléphone, cette page n'existe pas : la colonne fait déjà 280 à
+     400px, c'est elle la mesure. Les 20ch, eux, valent 338px à 30,4px de
+     corps — donc sur un grand téléphone ils RÉTRÉCISSENT la colonne de
+     soixante pixels et ajoutent une troisième ligne à des titres qui
+     tiendraient sur deux.
+
+     Trente-cinq titres du site repassent de trois lignes à deux sur un
+     iPhone Pro Max par cette seule règle. Elle ne peut rien casser dans
+     l'autre sens : à largeur égale ou supérieure, un texte ne prend jamais
+     PLUS de lignes.
+
+     24ch et non `none` : 406px à ce corps, soit plus que la colonne de tous
+     les téléphones — elle ne contraint donc rien là où le problème se pose —
+     mais elle garde une mesure de titre sur les écrans de 600 à 760px, où
+     une ligne pourrait sinon courir sur sept cents pixels. ---- */
+  main .lede-title {
+    max-width: 24ch;
+  }
+}
+
+
+/* =====================================================================
+   LE SOCLE MOBILE : TAILLES, ESPACEMENTS, BOUTONS
+
+   Première brique de la refonte mobile. Elle ne change AUCUNE structure :
+   elle pose l'échelle typographique, les marges et la forme des boutons
+   demandées, et tout le reste du site s'y adapte sans être touché.
+
+   ⚠ 900px, le seuil du brief. Le site en avait déjà trois autres, hérités :
+   760px pour les centrages éditoriaux, 1023px pour le repli des heros en une
+   colonne, 1080px pour la navigation. Ils cohabitent sans se contredire —
+   celui-ci ne décide que des tailles — mais ils devront être unifiés dans
+   une passe ultérieure, c'est le genre de dette qui finit par coûter cher.
+
+   ⚠ La graisse des titres passe de 800 à 500. Ce n'est pas qu'un choix de
+   dessin : Helvetica Neue n'a PAS de graisse 800, le navigateur la fabrique
+   en épaississant le tracé, et cet épaississement élargit le texte de huit à
+   dix pour cent. C'est une des raisons pour lesquelles les titres débordaient
+   sur un vrai iPhone. En 500, la graisse existe vraiment dans la police.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ---- Les titres éditoriaux. Les titres INTERNES aux composants — cadres
+     animés, maquettes, cards de projet — gardent les leurs : ils sont
+     dimensionnés avec leur dessin, pas avec la page. ---- */
+  .studio-hero h1,
+  main > .band h1 {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+  main .lede-title,
+  .operational-impact-heading h2 {
+    font-size: 29px;
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+
+  /* ---- Les textes courants ---- */
+  main .lede-text,
+  .studio-hero-copy > p,
+  .operational-impact-heading p {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+
+  /* ---- Le rythme vertical : 56px de section, 36 en haut du hero ---- */
+  main > .band {
+    padding-block: 56px;
+  }
+  .studio-hero {
+    padding-top: 36px;
+    padding-bottom: 56px;
+  }
+
+  /* ---- Les boutons. Pleine largeur, 52px, coins à 12px.
+     Le plafond de 20rem de la règle des deux actions tombe ici : sur
+     téléphone, un bouton occupe toute la colonne. ---- */
+  .btn {
+    min-height: 52px;
+    border-radius: 12px;
+    font-size: 16px;
+  }
+  .btn-row:has(> .btn ~ .btn) {
+    gap: 10px;
+  }
+  .btn-row:has(> .btn ~ .btn) > .btn {
+    max-width: none;
+  }
+}
+
+
+/* =====================================================================
+   LES BOUTONS MOBILES : DEUX JEUX, SELON LE FOND
+
+   §2.6 du brief. Le site n'avait qu'un seul jeu de boutons, réglé pour le
+   fond clair et repris tel quel sur les bandes sombres. Sur téléphone, où
+   un bouton occupe toute la colonne et devient l'élément le plus visible de
+   l'écran, l'écart se voit.
+
+   ⚠ La liste des enveloppes sombres est écrite à la main, et c'est
+   volontaire : le thème du site peint certaines bandes selon leur RANG dans
+   la page, pas selon une classe. Un sélecteur « sombre » générique se
+   tromperait donc une fois sur deux. Les quatre enveloppes ci-dessous sont
+   celles qui existent, et une bande qu'on ajouterait devra être ajoutée ici.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ---- Sur fond clair ---- */
+  .btn--primary {
+    background: #0a6cf0;
+    color: #ffffff;
+  }
+  .btn--ghost {
+    border-color: #d6e2fa;
+    background: #ffffff;
+    color: #0b6be6;
+  }
+
+  /* ---- Sur fond sombre : hero, bandes sombres, CTA sombres, menu ---- */
+  :is(.home-dark-band, .home-hero-dark, .dark-cta, .site-theme-alternating main > .band:nth-of-type(odd)) .btn--primary {
+    background: #8ec1ff;
+    color: #0f1d33;
+  }
+  :is(.home-dark-band, .home-hero-dark, .dark-cta, .site-theme-alternating main > .band:nth-of-type(odd)) .btn--ghost {
+    border-color: #2a4a78;
+    background: #121a28;
+    color: #ffffff;
+  }
+}
+
+
+/* =====================================================================
+   §4.1 — LES ACCORDÉONS SUR TÉLÉPHONE
+   Cas d'usage et questions fréquentes. Les deux composants existaient
+   déjà avec de vrais boutons et `aria-expanded` : seule la composition
+   change. Le contenu ouvert reste le texte complet, intégralement.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ---- Les cas d'usage ---- */
+  .uca-head button {
+    min-height: 64px;
+    gap: 12px;
+    padding: 14px 0;
+  }
+  .uca-head em {
+    width: 22px;
+    font-size: 12px;
+  }
+  .uca-titles small {
+    font-size: 12px;
+  }
+  .uca-titles strong {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .uca-chevron {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
+  }
+  .uca-item.is-on .uca-chevron {
+    transform: rotate(180deg);
+  }
+  .uca-text,
+  .uca-example {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .uca-panel-in {
+    padding: 0 0 18px;
+  }
+  /* Le filet de l'élément ouvert ne décale plus rien : la ligne n'a plus de
+     rembourrage latéral, le repère passe donc en soulignement du bloc. */
+  .uca-item.is-on .uca-head button::before {
+    display: none;
+  }
+
+  /* ---- Les questions fréquentes ---- */
+  .faq-trigger {
+    min-height: 64px;
+    gap: 12px;
+    padding-block: 14px;
+    padding-right: 0;
+  }
+  .faq-question {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  .faq-trigger svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    transition: transform 0.3s ease;
+  }
+  .faq-item[data-open="true"] .faq-trigger svg {
+    transform: rotate(180deg);
+  }
+  .faq-answer {
+    padding-right: 0;
+    padding-bottom: 18px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uca-chevron,
+  .faq-trigger svg {
+    transition: none;
+  }
+}
+
+
+/* =====================================================================
+   §3.1 ET §3.3 — EN-TÊTE ET PIED DE PAGE SUR TÉLÉPHONE
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ---- L'en-tête : 64px, et ses marges ---- */
+  .site-header-bar {
+    min-height: 64px;
+    padding-inline: 20px 16px;
+  }
+
+  /* ---- Le pied : la marque, puis DEUX colonnes ----
+     Navigation et Contact côte à côte, et non l'une sous l'autre : à deux
+     entrées par colonne, l'empilement donnait un pied de trois écrans de
+     haut pour quatre liens. */
+  .site-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+  .site-footer-brand {
+    grid-column: 1 / -1;
+  }
+  .site-footer-tagline {
+    font-size: 15px;
+  }
+  .site-footer-title {
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .site-footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    font-size: 15px;
+  }
+  /* La barre du bas passe à la ligne plutôt que de comprimer ses liens. */
+  .site-footer-bottom {
+    flex-wrap: wrap;
+    gap: 10px 18px;
+  }
+}
+
+
+/* =====================================================================
+   §4.15 ET §4.16 — LE FORMULAIRE ET LES PAGES LÉGALES
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ---- Le formulaire : une colonne, et 16px dans les champs.
+     ⚠ Les 16px ne sont pas un choix de dessin : en dessous, iOS zoome
+     automatiquement sur le champ au moment de la saisie, et le visiteur se
+     retrouve avec une page agrandie qu'il doit remettre en place à la
+     main. ---- */
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .form-label {
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  .form-hint {
+    font-size: 12.5px;
+  }
+  .form-input {
+    min-height: 52px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  .form-textarea {
+    min-height: 140px;
+  }
+  .form-foot .btn {
+    width: 100%;
+  }
+
+  /* ---- Les pages légales ---- */
+  .legal-body h3,
+  .row-title {
+    font-size: 21px;
+    font-weight: 500;
+  }
+  .legal-body p,
+  .row p {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+  .legal-gap,
+  .rows .row + .row {
+    margin-top: 34px;
+  }
+  .legal-updated {
+    font-size: 13px;
+  }
+}
+
+
+/* =====================================================================
+   §4.14 — LE CALENDRIER SUR TÉLÉPHONE
+   Sept colonnes de cases CARRÉES. C'est la seule grille du site qui garde
+   ses sept colonnes sous 900px : une semaine ne se replie pas.
+   ===================================================================== */
+@media (max-width: 900px) {
+  .calendar-demo-week {
+    font-size: 11px;
+  }
+  .calendar-demo-days button {
+    aspect-ratio: 1;
+    min-height: 0;
+    font-size: 13px;
+  }
+  .calendar-demo-month-nav button {
+    width: 30px;
+    height: 30px;
+  }
+  .calendar-demo-notice {
+    font-size: 11.5px;
+  }
+}
+
+
+/* =====================================================================
+   §4.3 — LES GRILLES DE CARDS PASSENT EN UNE COLONNE
+
+   Toutes les grilles éditoriales du site, d'un coup. Celles qui gardent
+   leurs colonnes sont nommées plus haut dans ce fichier et dans leurs
+   modules : le calendrier, la grille des six étapes, les tuiles des
+   visuels et le pied de page. Les mini-illustrations des cards tombent,
+   comme le demande le brief : sur une colonne elles mangent la moitié de
+   la hauteur sans rien dire que le texte ne dise déjà.
+   ===================================================================== */
+@media (max-width: 900px) {
+  /* ⚠ Ces grilles se repliaient déjà, mais chacune à son propre seuil :
+     400, 420, 540, 560, 640, 680 et 1100px. Entre ces seuils et 900px, elles
+     gardaient donc deux ou trois colonnes sur un téléphone en paysage ou
+     une petite tablette. Un seul seuil désormais, celui du brief.
+
+     Les grilles NON visées, et c'est volontaire : la semaine du calendrier,
+     la grille des six étapes de la méthode, les tuiles des visuels et le
+     pied de page. Elles sont nommées dans leurs propres blocs. */
+  .svc-uses,
+  .svc-forms,
+  .need-tiles,
+  .sec-grid,
+  .tst-group,
+  .agd-steps,
+  .solution-features,
+  .technical-bento,
+  .home-team-grid,
+  .founder-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+

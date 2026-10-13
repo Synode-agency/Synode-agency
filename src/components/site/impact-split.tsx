@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Database, GitMerge, ShieldCheck, UserCheck } from "lucide-react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * « Résultats recherchés » : la liste à gauche, l'aperçu à droite.
@@ -130,6 +131,7 @@ export function ImpactSplit({ locale }: { locale: Locale }) {
   const [auto, setAuto] = useState(0);
   const [held, setHeld] = useState<number | null>(null);
   const [tick, setTick] = useState(TICKS - 1);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
   const rows = useRef<(HTMLButtonElement | null)[]>([]);
   const active = held ?? auto;
 
@@ -137,17 +139,21 @@ export function ImpactSplit({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (held !== null) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setAuto((n) => (n + 1) % items.length), STEP_MS);
     return () => window.clearInterval(id);
-  }, [held, items.length]);
+  }, [held, items.length, onScreen]);
 
   /* Le cycle interne des mini-visuels, indépendant du précédent : un visuel
      continue de tourner pendant qu'on survole son résultat. */
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setTick((t) => (t + 1) % TICKS), TICK_MS);
     return () => window.clearInterval(id);
-  }, []);
+  }, [onScreen]);
 
   const onKey = (e: React.KeyboardEvent, i: number) => {
     const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
@@ -161,7 +167,7 @@ export function ImpactSplit({ locale }: { locale: Locale }) {
   const item = items[active];
 
   return (
-    <div className="isp">
+    <div className="isp" ref={root}>
       <div className="isp-list">
         {items.map((it, i) => {
           const Icon = ICONS[i];

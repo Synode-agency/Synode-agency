@@ -7,7 +7,7 @@ const c = getContent("en").legal;
 export const metadata: Metadata = {
   title: c.privacyTitle,
   description: c.privacyDescription,
-  alternates: { canonical: "/en/confidentialite", languages: { fr: "/confidentialite", en: "/en/confidentialite" } },
+  alternates: { canonical: "/en/confidentialite", languages: { fr: "/confidentialite", en: "/en/confidentialite", "x-default": "/confidentialite" } },
 };
 
 export default function Page() {

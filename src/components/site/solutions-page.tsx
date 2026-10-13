@@ -88,6 +88,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
   return (
     <Shell locale={locale}>
       <PageHero
+        className="solutions-page-hero"
+        kicker={fr ? "Solutions IA" : "AI solutions"}
+        kickerMobileOnly
         title={renderLines(solutions.title)}
         aside={<SolutionsDashboard locale={locale} />}
       >
@@ -96,16 +99,26 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions IA" : "Explore our AI solutions"}<ArrowDown aria-hidden /></Link>
           <Link href={formHref} className="btn btn--ghost">{fr ? "Parlons de votre besoin" : "Tell us what you need"}</Link>
         </div>
-        <span className="hero-reassurance">{fr ? "* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé." : "* A free first conversation. A clear scope. A tailored quote."}</span>
+        <span className="hero-reassurance">{fr ? <>* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "* A free first conversation. A clear scope. A tailored quote."}</span>
       </PageHero>
 
       <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
-        <Lede kicker={fr ? "Solutions IA pour votre entreprise" : "AI solutions for your business"} title={fr ? "Nos solutions IA sur mesure" : "Our custom AI solutions"} accents={fr ? ["solutions IA sur mesure"] : ["custom AI solutions"]} text={fr ? "Notre agence IA à Bruxelles combine agents IA, automatisation des processus, logiciels métier, intégrations, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
+        <Lede kicker={fr ? "Solutions IA pour votre entreprise" : "AI solutions for your business"} title={fr ? "Nos solutions IA sur mesure" : "Our custom AI solutions"} accents={fr ? ["solutions IA"] : ["AI solutions"]} text={fr ? "Notre agence IA à Bruxelles combine agents IA, automatisation des processus, logiciels métier, intégrations, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
         <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
         <p className="families-note">
-          {fr
-            ? "Les solutions peuvent être accompagnées dans le temps par du monitoring, de la maintenance et des évolutions selon les besoins du projet. *"
-            : "Solutions can be supported over time with monitoring, maintenance and changes, according to the needs of the project. *"}
+          {fr ? (
+            <>
+              Les solutions peuvent être accompagnées dans le temps{" "}
+              par du monitoring, de la maintenance{" "}
+              et des évolutions selon les besoins du projet.{" *"}
+            </>
+          ) : (
+            <>
+              Solutions can be supported over time{" "}
+              with monitoring, maintenance and changes,{" "}
+              according to the needs of the project.{" *"}
+            </>
+          )}
         </p>
       </Band>
 
@@ -127,8 +140,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             const [title, text] = fr ? textFr : textEn;
             return (
               <li key={title} className="need-tile">
-                <span className="need-tile-icon"><Icon aria-hidden /></span>
-                <strong>{title}</strong>
+                <span className="need-tile-heading">
+                  <span className="need-tile-icon"><Icon aria-hidden /></span>
+                  <strong>{title}</strong>
+                </span>
                 <p>{text}</p>
               </li>
             );
@@ -143,15 +158,14 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           la hauteur d'écran, et son rembourrage est le même en haut et en
           bas, celui de `solutions-rhythm`.
 
-          Le `\n` du titre est retiré : dans une demi-colonne, la coupe
-          forcée tombait au mauvais endroit et le titre se replie très bien
-          tout seul. ---- */}
+          Les coupes mobile et desktop tombent au même endroit, après
+          « méthode », pour garantir deux lignes aux deux formats. ---- */}
       <Band id="methode" tone="base" className="solutions-rhythm technical-band solutions-ink-band mfr-band">
         <div className="mfr-layout">
           <div className="mfr-copy">
             <Lede
               kicker={fr ? "Conception & Développement IA" : "AI design & development"}
-              title={fr ? "Notre méthode pour\nvotre projet IA." : "Our method for\nyour AI project."}
+              title={fr ? "Notre méthode\npour votre projet IA." : "Our method\nfor your AI project."}
               accents={fr ? ["méthode"] : ["method"]}
               text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
             />
@@ -194,7 +208,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </Band>
 
       {/* ---- L'invitation, AVANT la FAQ. Voir l'en-tête du fichier. ---- */}
-      <CardPanel id="autre" className="dark-cta solutions-cta">
+      <CardPanel id="autre" className="dark-cta solutions-cta solutions-page-cta">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
             <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>

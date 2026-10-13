@@ -12,6 +12,31 @@ est un emplacement qu'on oublie de remplir.
 
 ---
 
+## Ce qui reste à brancher (13 octobre 2026)
+
+Trois branchements, et eux seuls, demandent une information que le code ne
+peut pas inventer. Tout le reste de la revue du 13/10 a été corrigé.
+
+- [ ] **Le calendrier Cal.com.** Créer le type de rendez-vous chez Cal.com,
+      puis poser son identifiant dans `NEXT_PUBLIC_CAL_LINK` (forme
+      `synode/30min`). Sans lui, la page Contact affiche l'aperçu de
+      démonstration et le dit.
+- [ ] **La destination du formulaire.** Deux variables à choisir :
+      `SYNODE_STORE` pour le dépôt (`file` ne marche pas sur Vercel, disque
+      en lecture seule : il faudra une base ou un service), puis
+      `RESEND_API_KEY`, `CONTACT_FROM` et `CONTACT_TO` pour la notification.
+      Sans dépôt, la route répond 503 et l'interface le dit honnêtement :
+      aucun faux succès.
+- [ ] **Les deux pages légales.** Elles attendent le numéro d'entreprise,
+      l'adresse du siège, l'hébergeur retenu et la liste définitive des
+      sous-traitants (Cal.com, Resend, l'hébergeur, et l'outil d'analyse s'il
+      y en a un).
+
+Et un quatrième, facultatif : `NEXT_PUBLIC_SITE_URL`, si le nom de domaine
+change. Sans elle, `synode-agency.com` sert de valeur par défaut.
+
+---
+
 ## Offre et architecture : état de la recette
 
 - [x] Six familles exactes en FR/EN sur l’accueil et Solutions, avec exemples et visuels correspondants.

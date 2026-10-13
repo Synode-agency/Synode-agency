@@ -40,6 +40,8 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <PageHero
+        kicker={fr ? "Cas d’usage" : "Use cases"}
+        kickerMobileOnly
         title={fr ? <>Des <span>systèmes IA</span> intégrés à vos processus métier</> : <><span>AI systems</span> integrated into your business processes</>}
         aside={<UseCaseTerminal locale={locale} />}
       >

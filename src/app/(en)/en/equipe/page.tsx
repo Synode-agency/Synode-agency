@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: c.metaDescription,
   alternates: {
     canonical: `${prefix}/equipe`,
-    languages: { fr: "/equipe", en: "/en/equipe" },
+    languages: { fr: "/equipe", en: "/en/equipe", "x-default": "/equipe" },
   },
   openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/equipe`, type: "website" },
   twitter: { card: "summary_large_image", title: c.metaTitle, description: c.metaDescription },

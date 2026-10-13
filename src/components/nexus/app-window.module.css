@@ -1,0 +1,163 @@
+/* =====================================================================
+   LE CHÂSSIS D'UNE FENÊTRE DE L'APPLICATION
+
+   Les quatre écrans partagent ce cadre : barre latérale de 132px, barre du
+   haut de 38px, et un en-tête de page. Les contenus, eux, vivent dans
+   `windows.module.css`.
+
+   ⚠ Les fenêtres sont plus larges que leur bloc et se font couper net par
+   lui. Aucune ne doit porter de `max-width`.
+   ===================================================================== */
+
+.win {
+  position: absolute;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #2a3550;
+  border-radius: 16px;
+  background: #0f1626;
+  /* ⚠ Pas d'ombre portée. Trois fenêtres qui se chevauchent empilaient leurs
+     ombres sur le fond blanc de la section, et l'ensemble se lisait comme un
+     grand aplat gris derrière les écrans. Ne pas la remettre. */
+  color: #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* ---- La barre latérale ---- */
+.side {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: 132px;
+  padding: 14px 10px;
+  box-sizing: border-box;
+  border-right: 1px solid #1f2839;
+  background: #131a29;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mark {
+  flex: none;
+  width: auto;
+  height: 22px;
+}
+.letter {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #0b6be6;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+}
+.brand strong {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.by {
+  margin-top: 4px;
+  font-size: 8.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+.menus {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 14px;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #c9d1df;
+}
+.menuOn {
+  border-color: #2f3e60;
+  background: #1a2540;
+  color: #ffffff;
+}
+
+/* ---- Le corps ---- */
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex: none;
+  height: 38px;
+  padding: 0 14px;
+  border-bottom: 1px solid #1f2839;
+  background: #111827;
+}
+.top em {
+  font-size: 9.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #a9b3c6;
+}
+.badge {
+  flex: none;
+  padding: 3px 8px;
+  border: 1px solid #6b5320;
+  border-radius: 999px;
+  background: #2a2312;
+  font-size: 8.5px;
+  font-style: normal;
+  white-space: nowrap;
+  color: #f5c451;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 14px;
+}
+.kicker {
+  font-size: 8.5px;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+  color: #8c96aa;
+}
+.title {
+  margin-top: 3px;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.lede {
+  margin-top: 3px;
+  overflow: hidden;
+  font-size: 10.5px;
+  font-style: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #a9b3c6;
+}

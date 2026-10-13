@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { useOnScreen } from "@/lib/use-on-screen";
 
 /**
  * La maquette de logiciel du hero de Solutions : un tableau de bord qui
@@ -81,20 +82,24 @@ export function SolutionsDashboard({ locale }: { locale: Locale }) {
 
   const [auto, setAuto] = useState(0);
   const [held, setHeld] = useState<number | null>(null);
+  const [root, onScreen] = useOnScreen<HTMLDivElement>();
   const active = held ?? auto;
 
   useEffect(() => {
     if (held !== null) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Gelé hors écran : voir `useOnScreen`. */
+    if (!onScreen) return;
     const id = window.setInterval(() => setAuto((n) => (n + 1) % CARDS.length), CYCLE_MS);
     return () => window.clearInterval(id);
-  }, [held]);
+  }, [held, onScreen]);
 
   const name = (i: number) => (fr ? CARDS[i].fr : CARDS[i].en)[0];
   const label = (i: number) => (fr ? CARDS[i].fr : CARDS[i].en)[1];
 
   return (
     <div
+      ref={root}
       className="sol-app"
       role="img"
       aria-label={fr
@@ -105,16 +110,20 @@ export function SolutionsDashboard({ locale }: { locale: Locale }) {
       <nav className="sol-app-rail" aria-hidden>
         <Image src="/synode-mark.png" alt="" width={22} height={22} priority />
         <div className="sol-app-rail-buttons">
+          {/* ⚠ Des `span`, et non des `button`. Ils n'ont pas d'`onClick` :
+              au doigt, il ne se passe rien. En bouton, ils offraient une
+              cible tactile de 27px qui ne répond à aucun geste, ce qui est
+              pire qu'une petite cible — c'est une cible morte. Le survol,
+              lui, reste : c'est une maquette qui s'anime, pas une
+              interface. */}
           {CARDS.map((card, i) => (
-            <button
+            <span
               key={card.num}
-              type="button"
-              tabIndex={-1}
               className={i === active ? "is-active" : undefined}
               onMouseEnter={() => setHeld(i)}
             >
               {card.num}
-            </button>
+            </span>
           ))}
         </div>
       </nav>
