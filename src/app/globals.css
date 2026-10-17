@@ -283,7 +283,6 @@
   color-scheme: light;
 }
 
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -578,12 +577,6 @@
     display: block;
     font-size: 1em;
   }
-  /* Sur le panneau d'encre et le panneau bleu, la seconde voix passe en
-     retrait : c'est le seul endroit où elle porte une nuance. */
-  .panel--ink .title-aside,
-  .panel--brand .title-aside {
-    color: var(--muted-foreground);
-  }
 
   /* =====================================================================
      LES BOUTONS
@@ -630,8 +623,6 @@
     background: var(--surface-2);
   }
   /* Sur les panneaux colorés, le contour se prend dans le blanc ambiant. */
-  .panel--ink .btn--ghost:hover,
-  .panel--brand .btn--ghost:hover { background: rgb(255 255 255 / 0.10); }
 
   .btn-row {
     display: flex;
@@ -825,10 +816,6 @@
     outline-offset: 3px;
     border-radius: var(--r-xs);
   }
-  .panel--ink :where(a, button, input, textarea, select):focus-visible,
-  .panel--brand :where(a, button, input, textarea, select):focus-visible {
-    outline-color: #FFFFFF;
-  }
 
   /* Le lien d'évitement. Premier élément focalisable de la page. */
   .skip {
@@ -856,7 +843,6 @@
     a.tile:hover { transform: none; }
   }
 
-
   /* =====================================================================
      LE HERO
 
@@ -878,28 +864,6 @@
     .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   }
 
-  /* La colonne est un conteneur de requête : la taille du titre se calcule
-     sur SA largeur et non sur celle de l'écran. La colonne vaut la moitié de
-     la page, mais cette moitié dépend de la gouttière, du plafond de
-     `--container-max` et de l'écart entre les deux blocs, trois valeurs qui
-     ne varient pas au même rythme que `vw`. */
-  .hero-copy {
-    container-type: inline-size;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(1.25rem, 0.9rem + 1.4vw, 2rem);
-  }
-  /* La seconde voix du titre, portée par le marqueur `^`. Même corps que la
-     première : les deux moitiés d'une phrase ne sont pas de deux tailles. */
-  .hero-title .title-aside { color: var(--brand); }
-
-  .hero-visual { min-width: 0; }
-  /* Sur téléphone la pile d'interfaces passe sous le texte, et elle garde
-     son rapport plutôt que de s'écraser. */
-  @media (max-width: 1023px) {
-    .hero-visual { max-width: 34rem; width: 100%; }
-  }
 
   /* =====================================================================
      RYTHME INTERNE D'UN PANNEAU
@@ -954,30 +918,9 @@
     color: var(--muted-foreground);
   }
 
-
   @media (prefers-reduced-motion: reduce) {
     .faq-item button svg,
     .faq-answer { transition: none; }
-  }
-
-  /* =====================================================================
-     LE SCHÉMA D'ARCHITECTURE
-
-     Trois étages : ce que l'entreprise a déjà, ce que nous construisons
-     entre les deux, ce qui en sort. C'est l'argument de la section, montré.
-
-     Il vit sur la bande bleue, donc tout y est blanc ou translucide : les
-     jetons sont déjà reteints par la bande, aucune couleur n'est écrite en
-     dur ici. Posé sur un fond clair, il se retournerait tout seul.
-     ===================================================================== */
-  .arch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: clamp(1.5rem, 1rem + 2.4vw, 3rem) clamp(1rem, 0.5rem + 2vw, 2.5rem);
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-sm);
   }
 
   /* =====================================================================
@@ -993,35 +936,6 @@
   }
   @media (min-width: 780px) {
     .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
-  }
-  /* La flèche entre deux temps, en CSS : un caractère se lirait à voix
-     haute et partirait à la copie. */
-  /* =====================================================================
-     LA SÉQUENCE NUMÉROTÉE
-
-     Elle porte l'offre. Ce ne sont pas quatre options à comparer dans une
-     grille : c'est ce dont une solution peut être faite, et la numérotation
-     dit qu'on les assemble.
-
-     Le numéro est GRAND et en retrait, posé au-dessus du titre plutôt qu'à
-     côté : c'est lui qui donne son rythme à la bande, et il se lit avant le
-     mot qu'il annonce.
-     ===================================================================== */
-  .seq {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--hairline);
-  }
-  a.row:hover .row-go,
-  a.row:focus-visible .row-go {
-    opacity: 1;
-    transform: translateX(3px);
-  }
-  @media (min-width: 860px) {
-    .row--split:has(.row-go) {
-      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr) 1rem;
-    }
   }
 
   /* =====================================================================
@@ -1082,7 +996,6 @@
     /* Une ancre atterrit sous la barre flottante, pas dessous. */
     scroll-margin-top: calc(var(--header-h) + var(--card-gap) * 2);
   }
-  .panel--quiet .case { background: var(--card); }
   /* =====================================================================
      LES ÉTAPES DE LA MÉTHODE
 
@@ -1265,7 +1178,6 @@
   .legal-updated { font-size: var(--fs-micro); color: var(--text-mono); }
 
   @media (prefers-reduced-motion: reduce) {
-    .anchor-pill,
     .form-input { transition: none; }
   }
 
@@ -1572,206 +1484,7 @@
     container-type: inline-size;
   }
 
-  @keyframes hero-card-front {
-    0% {
-      transform: translateY(-4%) scale(0.95);
-    }
-    /* Le soulèvement : elle décolle de la pile avant de descendre. */
-    38% {
-      transform: translateY(-5.5%) scale(1.02);
-    }
-    /* Elle dépasse sa place d'un cheveu, puis revient. */
-    72% {
-      transform: translateY(0.8%) scale(1.012);
-    }
-    100% {
-      transform: none;
-    }
-  }
-
-  /* L'entrée sélectionnée ne l'est pas d'entrée de jeu : elle s'allume au
-     clic du curseur, et le reste ensuite. */
-  .hero-app-nav-row.is-active {
-    animation: hero-nav-select 0.35s ease-out var(--app-lead) 1 both;
-  }
-
-  /* --- Le cycle du tableau : 4 temps de 1,3 s. --- */
-  @keyframes hero-board-move {
-    0% { opacity: 0; left: 0; background: #14284A; border-color: #2A4870; }
-    4%, 25% { opacity: 1; left: 0; background: #14284A; border-color: #2A4870; }
-    38.5%, 50% { left: calc(33.3333% + var(--bg) / 3); background: #173A66; border-color: #4E8FF0; }
-    63.5%, 96% { opacity: 1; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
-    100% { opacity: 0; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
-  }
-  @keyframes hero-board-src {
-    0%, 62% { color: #8EC1FF; }
-    63.5%, 100% { color: #4ADE80; }
-  }
-  @keyframes hero-board-c1 { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
-  @keyframes hero-board-c2 { 0%, 37% { opacity: 0; } 38.5%, 61% { opacity: 1; } 63%, 100% { opacity: 0; } }
-  @keyframes hero-board-c3 { 0%, 62% { opacity: 0; } 63.5%, 100% { opacity: 1; } }
-
-  @keyframes hero-flow-d1 {
-    0%, 26% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
-    33.333%, 100% { background: #173558; border-color: transparent; box-shadow: 0 0 0 transparent; color: #8EC1FF; }
-  }
-  @keyframes hero-flow-d2 {
-    0%, 26% { background: #13294A; border-color: transparent; box-shadow: 0 0 0 transparent; color: #4F6383; }
-    33.333%, 59.6% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
-    66.667%, 100% { background: #173558; border-color: transparent; box-shadow: 0 0 0 transparent; color: #8EC1FF; }
-  }
-  @keyframes hero-flow-d3 {
-    0%, 59.6% { background: #13294A; border-color: transparent; box-shadow: 0 0 0 transparent; color: #4F6383; }
-    66.667%, 100% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
-  }
-  @keyframes hero-flow-k1 {
-    0%, 30% { opacity: 0; transform: scale(0.3); }
-    38%, 100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes hero-flow-k2 {
-    0%, 63% { opacity: 0; transform: scale(0.3); }
-    71%, 100% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes hero-flow-k3 { 0%, 100% { opacity: 0; transform: scale(0.3); } }
-  @keyframes hero-flow-l1 { 0%, 100% { color: #ffffff; } }
-  @keyframes hero-flow-l2 {
-    0%, 26% { color: #6F84A3; }
-    33.333%, 100% { color: #ffffff; }
-  }
-  @keyframes hero-flow-l3 {
-    0%, 59.6% { color: #6F84A3; }
-    66.667%, 100% { color: #ffffff; }
-  }
-  @keyframes hero-flow-bar2 {
-    0%, 26% { width: 0; }
-    33.333%, 100% { width: 100%; }
-  }
-  @keyframes hero-flow-bar4 {
-    0%, 59.6% { width: 0; }
-    66.667%, 100% { width: 100%; }
-  }
-  @keyframes hero-log-1 { 0%, 100% { opacity: 1; } }
-  @keyframes hero-log-2 { 0%, 26% { opacity: 0.25; } 33.333%, 100% { opacity: 1; } }
-  @keyframes hero-log-3 { 0%, 59.6% { opacity: 0.25; } 66.667%, 100% { opacity: 1; } }
-  @keyframes hero-dot-1 { 0%, 32% { background: #4E8FF0; } 33.333%, 100% { background: #22C55E; } }
-  @keyframes hero-dot-2 { 0%, 32% { background: #24406A; } 33.333%, 65% { background: #4E8FF0; } 66.667%, 100% { background: #22C55E; } }
-  @keyframes hero-dot-3 { 0%, 65% { background: #24406A; } 66.667%, 100% { background: #4E8FF0; } }
-  @keyframes hero-pill-1 { 0%, 32% { opacity: 1; } 33.333%, 100% { opacity: 0; } }
-  @keyframes hero-pill-2 { 0%, 32% { opacity: 0; } 33.333%, 65% { opacity: 1; } 66.667%, 100% { opacity: 0; } }
-  @keyframes hero-pill-3 { 0%, 65% { opacity: 0; } 66.667%, 100% { opacity: 1; } }
-  .hero-cal-grid i.is-busy { border-color: transparent; background: #1A2D4A; }
-  .hero-cal-grid i.is-slot {
-    display: grid;
-    place-items: center;
-    border-color: #4E8FF0;
-    background: #2F5FA8;
-    color: #ffffff;
-    animation: hero-cal-slot 5.7s steps(1, end) infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-cal-grid i.is-slot svg {
-    width: 1em;
-    height: 1em;
-    opacity: 0;
-    animation: hero-cal-check 5.7s steps(1, end) infinite;
-    animation-delay: var(--app-lead);
-  }
-  @keyframes hero-cal-slot {
-    0%, 32% { background: #2F5FA8; border-color: #4E8FF0; }
-    33.333%, 100% { background: #22C55E; border-color: #22C55E; }
-  }
-  @keyframes hero-cal-check { 0%, 32% { opacity: 0; } 33.333%, 100% { opacity: 1; } }
-
-  /* ---- La séquence ----
-     Chaque image de fin est l'état définitif : `both` l'y laisse, et rien ne
-     rejoue. Le mock met environ sept secondes à se remplir, puis il ne bouge
-     plus. */
-
-  @keyframes hero-cursor {
-    0% { opacity: 0; transform: translate(13em, 13.5em); }
-    12% { opacity: 1; }
-    /* Il arrive sur « Demandes clients ». */
-    55% { opacity: 1; transform: translate(4.2em, 6.6em) scale(1); }
-    /* Le clic : appui, relâche. */
-    63% { transform: translate(4.2em, 6.6em) scale(0.78); }
-    72% { opacity: 1; transform: translate(4.2em, 6.6em) scale(1); }
-    88% { opacity: 1; transform: translate(4.2em, 6.6em); }
-    100% { opacity: 0; transform: translate(3.4em, 5.4em); }
-  }
-
-  @keyframes hero-nav-select {
-    from { background: transparent; color: #605D5D; }
-    to { background: var(--sys-tint); color: var(--sys-ink); font-weight: 600; }
-  }
-
-  @keyframes hero-app-appear {
-    from { opacity: 0; transform: translateY(0.55em); }
-    to { opacity: 1; transform: none; }
-  }
-
-  /* Le disque ne change pas de couleur : il s'entoure d'un anneau qui se
-     déploie puis retombe. L'étape est franchie, elle ne chauffe pas. */
-  @keyframes hero-app-pop {
-    0% { opacity: 0; transform: scale(0.3); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes hero-app-draw {
-    from { stroke-dashoffset: 260; }
-    to { stroke-dashoffset: 0; }
-  }
-
-  @keyframes hero-app-fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  /* Under the stage breakpoint the panel is only as wide as a phone. The
-     sidebar and the chart cost the most width for the least meaning, so
-     they are dropped and what remains gets a readable size. */
-  /* ⚠ Il y avait ici un `white-space: nowrap` sur les deux lignes du titre,
-     posé du temps où chacune devait tenir sur une seule ligne. Avec un titre
-     devenu plus grand que sa colonne sur un grand écran, il empêchait tout
-     retour à la ligne : le texte sortait de sa colonne et passait sous le
-     mock. Le titre se replie maintenant de lui-même, ce pour quoi
-     `--fs-display` a été dimensionné. Ne pas le remettre. */
-
-  /* ---------------- Stage layout, from lg up ---------------- */
-
-    /* ---------------- Le titre du hero ----------------
-     À partir de `lg`, sa taille se calcule sur la largeur de SA COLONNE et
-     non sur celle de l'écran. C'est ce qui règle le problème pour de bon :
-     la colonne vaut la moitié de la page, mais cette moitié dépend de la
-     gouttière, du plafond de `--container-max` et de l'écart entre les deux
-     blocs — trois valeurs qui ne varient pas au même rythme que `vw`. Une
-     taille en `vw` était donc juste au milieu de la gamme et fausse aux deux
-     bouts : trop grande sur 1024px, trop grande sur 1920px, et la première
-     ligne se repliait.
-
-     `6.2cqi` = 100 divisé par la longueur de la première ligne, moins une
-     marge. Le rapport est donc le même à toutes les largeurs, par
-     construction.
-
-     ⚠ RECALCULÉE. Elle valait 7,7cqi pour une première ligne de ~12,3 em.
-     Le titre est devenu « Nous construisons les systèmes IA », mesurée à
-     14,93 em dans le navigateur, soit 21 % de plus : à 7,7 le titre sortait
-     sur QUATRE lignes. 100 / 14,93 avec 8 % de marge donne 6,2.
-
-     La marge est remontée de 5 à 8 % volontairement. À 5 % il restait 27px
-     de jeu sur un écran de 1280, c'est-à-dire qu'un mot ajouté au titre
-     cassait la composition sans prévenir.
-
-     Si la copie du titre change, c'est cette valeur qu'il faut recalculer,
-     et elle seule. Mesurer la première ligne en em plutôt que l'estimer :
-     `getBoundingClientRect` sur une copie du span en `white-space: nowrap`,
-     divisé par le corps. */
-  .hero-copy {
-    container-type: inline-size;
-  }
-
   @media (min-width: 1024px) {
-    .hero-visual { max-width: none; }
-
     .hero-stage {
       /* Le rapport du mock seul. Il valait 1140/760 quand les quatre cartes
          débordaient du plateau en haut et en bas ; sans elles, le plateau se
@@ -1796,157 +1509,7 @@
       inset: 0;
       z-index: 1;
     }
-    /* Pas de survol : le diagramme n'est pas cliquable. Les quatre cartes
-       autour de lui le sont, elles gardent le leur. */
-
-    .hero-stage-panel .hero-app {
-      width: 100%;
-      height: 100%;
-      transform: rotate(var(--app-spin));
-      transform-origin: 50% 50%;
-      transition:
-        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 420ms ease;
-      border-width: 1.15cqw;
-      border-radius: 2.4cqw;
-      box-shadow: 0 3cqw 6cqw -2.2cqw rgb(70 68 68 / 0.3);
-    }
-
-    /* Cards sit above the panel and the connectors. */
-    .hero-stage .pillar-deck {
-      display: block;
-      position: absolute;
-      inset: 0;
-      margin: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
-    .hero-stage .pillar-card {
-      position: absolute;
-      pointer-events: auto;
-      padding: 1.6cqw 1.8cqw;
-      font-size: 1cqw;
-      gap: 1.2cqw;
-      border-radius: 1.3cqw;
-      /* The cards sit flat, above a tilted panel. The shadow is what sells
-         that: small and light, but present. */
-      box-shadow: 0 1.4cqw 2.8cqw -1.1cqw rgb(70 68 68 / 0.2);
-    }
-    .hero-stage .pillar-icon-tile { width: 4.8cqw; height: 4.8cqw; border-radius: 1.1cqw; }
-    .hero-stage .pillar-icon-tile svg { width: 2.4cqw; height: 2.4cqw; }
-    .hero-stage .pillar-title { font-size: 2cqw; }
-    .hero-stage .pillar-text { font-size: 1.5cqw; margin-top: 0.4cqw; }
-    .hero-stage .pillar-arrow { width: 1.8cqw; height: 1.8cqw; right: 1.8cqw; bottom: 1.5cqw; }
-    .hero-stage .pillar-body { padding-right: 2.6cqw; }
-
-    /* Each pair stays centred on the stage, and both pairs now sit over the
-       panel's edges: the top pair drops onto it, the bottom pair rises into
-       it. The panel spans 19.5% to 75.5% of the stage's height. */
-    .hero-stage .pillar-card:nth-child(1) { left: 13%; top: calc(-5.15% - 40px); width: 35%; }
-    .hero-stage .pillar-card:nth-child(2) { left: 52%; top: calc(-4.55% - 40px); width: 35%; }
-    .hero-stage .pillar-card:nth-child(3) { left: 8%; top: calc(90% + 10px); width: 38%; }
-    .hero-stage .pillar-card:nth-child(4) { left: 54%; top: calc(89.2% + 10px); width: 38%; }
-
-    /* The ring the round lights up. It sits over the card's edge, is drawn
-       in that card's own colour, and is invisible until its turn. */
-    .hero-stage .pillar-card::after {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: inherit;
-      border: 1px solid var(--icon-ink);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .hero-stage .pillar-card:hover {
-      transform: translateY(-0.6cqw);
-      border-color: color-mix(in oklab, var(--icon-ink) 45%, transparent);
-    }
-    .hero-stage .pillar-card:hover .pillar-icon-tile {
-      border-color: var(--icon-ink);
-    }
   }
-
-  /* Nothing here is load-bearing, so under reduced motion it all just stops
-     on its finished frame. */
-  @media (prefers-reduced-motion: reduce) {
-    /* La séquence ne se joue pas : le mock s'affiche directement fini.
-       `animation: none` suffit pour la plupart des éléments, dont l'état de
-       base est déjà l'état final ; seuls ceux dont l'animation portait l'état
-       final ont besoin d'être rétablis à la main. */
-    .hero-stage-panel .hero-app,
-    .hero-app *,
-    .hero-app-nav-row.is-active {
-      animation: none !important;
-      transition: none;
-    }
-    .hero-app-nav-row.is-active {
-      background: var(--sys-tint);
-      color: var(--sys-ink);
-      font-weight: 600;
-    }
-  }
-}
-
-.reveal {
-  opacity: 0;
-}
-
-/* Two durations for the whole site, and no third one.
-   An element is a single thing arriving: a line, a card, a question, a step.
-   A block is a whole column, or a section's header with its content.
-   Everything that used to sit between the two read as slowness rather than
-   as intent, so the in-between values are gone. */
-/* Les durées d'animation vivent avec les autres jetons, en haut de ce
-   fichier. Ce `:root` en redéclarait une seconde paire, plus lente, et
-   comme il vient plus loin dans la feuille c'était lui qui gagnait. */
-
-/* No `opacity: 1` here on purpose. An entrance with a delay shows the
-   element's normal state while it waits, so a visible shown-state would
-   flash the element in, hide it again on the animation's first frame and
-   bring it back. The base `.reveal` opacity of 0 is what covers the wait. */
-.reveal[data-shown="true"] {
-  animation: reveal-in var(--anim-element) cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-/* Directional variants: they slide in from the side they sit on rather than
-   rising. These carry whole blocks, so they take the longer of the two. */
-@keyframes reveal-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-72px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes reveal-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(72px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes reveal-in-up {
-  from { opacity: 0; transform: translateY(52px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Single things riding a directional keyframe: they take the element
-   duration, not the block one. */
-.flow-step.reveal-right[data-shown="true"],
-.works-tab-in.reveal-left[data-shown="true"],
-.page-hero-step.reveal-left[data-shown="true"],
-.team-card.reveal-left[data-shown="true"],
-.team-card.reveal-right[data-shown="true"] {
-  animation-duration: var(--anim-element);
 }
 
 /* The hero is above the fold, so its right-hand side needs no observer: the
@@ -1968,89 +1531,6 @@
   .hero-stage-panel {
     animation: hero-piece-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
     animation-delay: 0.6s;
-  }
-
-  /* Once the four cards have landed, a light goes round the deck: each
-     border lights up in its own colour, one after the other, then the round
-     rests and starts again. It is the only thing that keeps the hero alive
-     after the entrance is over — until now everything went still except the
-     mock at the centre.
-
-     Two animations on the same element, so each card carries its own
-     entrance and its own place in the round. The two `animation-delay`
-     values below are in that order: when the card arrives, and when its
-     turn in the round comes. */
-  .hero-stage .pillar-card {
-    animation: hero-piece-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-    /* How long a card stays at full strength. It sets the pace of the whole
-       round on its own: the four turns are one hold apart, and the loop is
-       four holds long, so the first card comes back round exactly when a
-       fifth would have followed the fourth. No seam, and no pause. */
-    --pillar-hold: 2s;
-    --pillar-loop: calc(var(--pillar-hold) * 4);
-    /* The round only starts once the last card has finished arriving. */
-    --pillar-start: 2.75s;
-  }
-
-  .hero-stage .pillar-card:nth-child(1) { animation-delay: 1.25s; }
-  .hero-stage .pillar-card:nth-child(2) { animation-delay: 1.45s; }
-  .hero-stage .pillar-card:nth-child(3) { animation-delay: 1.65s; }
-  .hero-stage .pillar-card:nth-child(4) { animation-delay: 1.85s; }
-
-  /* The round runs on the ring, never on the card. The card is painted once
-     and stays: only the ring laid over its edge fades in and out. Putting
-     this on the card itself would fade the card, since what the round
-     animates is an opacity. */
-  .hero-stage .pillar-card::after {
-    animation: pillar-glow var(--pillar-loop) ease-in-out infinite;
-  }
-
-  .hero-stage .pillar-card:nth-child(1)::after { animation-delay: var(--pillar-start); }
-  .hero-stage .pillar-card:nth-child(2)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 1); }
-  .hero-stage .pillar-card:nth-child(3)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 2); }
-  .hero-stage .pillar-card:nth-child(4)::after { animation-delay: calc(var(--pillar-start) + var(--pillar-hold) * 3); }
-
-  /* The light is a ring laid over the card rather than the card's own
-     border, for two reasons: animating the border would beat the hover
-     state, which also sets a border colour, and the opacity the round rides
-     on belongs to the ring alone — on the card it would make the card
-     itself come and go. */
-  /* One card's pulse, in percentages of the 8s loop: 0.35s to come up, then
-     the 2s of `--pillar-hold` at full strength, then 0.5s to fade out, so
-     2.85s in all. Dark for the rest of the loop, which is when the other
-     three take their turn.
-     If the hold changes, these three stops move with it: they are
-     0.35 / 4h, (0.35 + h) / 4h and (0.85 + h) / 4h. */
-  @keyframes pillar-glow {
-    0%,
-    100% {
-      opacity: 0;
-      box-shadow: 0 0 0 0 color-mix(in oklab, var(--icon-ink) 0%, transparent);
-    }
-    4.4% {
-      opacity: 1;
-      box-shadow: 0 0 0 0.45cqw color-mix(in oklab, var(--icon-ink) 20%, transparent);
-    }
-    29.4% {
-      opacity: 1;
-      box-shadow: 0 0 0 0.45cqw color-mix(in oklab, var(--icon-ink) 20%, transparent);
-    }
-    35.6% {
-      opacity: 0;
-      box-shadow: 0 0 0 0.9cqw color-mix(in oklab, var(--icon-ink) 0%, transparent);
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal[data-shown="true"],
-  .reveal-left[data-shown="true"],
-  .reveal-up[data-shown="true"],
-  .reveal-right[data-shown="true"] {
-    opacity: 1;
-    animation: none;
-    transform: none;
   }
 }
 

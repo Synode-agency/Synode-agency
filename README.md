@@ -51,8 +51,33 @@ l'alignement desktop a été validé écran par écran, du portable au 4K.
 
 # Avant la mise en production
 
-Dans cet ordre : chaque point débloque les suivants. Les trois premiers sont
-bloquants au sens strict, le site ne peut pas être publié sans eux.
+## Le point au 17/10/2026
+
+### 1 · Ce qui bloque la mise en ligne, à fournir par Antonino
+
+| À fournir | Pourquoi |
+| --- | --- |
+| Le nom de domaine | Tout en dépend : l'adresse du site, l'image de partage sur les réseaux, le plan du site pour Google, les e-mails |
+| L'identifiant Cal.com | Aujourd'hui, la réservation affiche un calendrier factice. Une fois l'identifiant branché, le vrai agenda le remplace |
+| La destination du formulaire de contact | ⚠ Aujourd'hui, les demandes sont enregistrées dans un fichier. Sur Vercel, ça ne marche pas : elles seraient perdues. Il faut choisir un envoi par e-mail ou un service comme Brevo, déjà utilisé pour BEHYBRID |
+| Les informations des pages légales | Éditeur du site, hébergeur, numéro d'entreprise. C'est obligatoire en Belgique |
+
+### 2 · La mise en ligne elle-même
+
+Dès que le nom de domaine et la destination du formulaire sont connus :
+
+- brancher Cal.com et le formulaire ;
+- compléter les pages légales avec ces informations ;
+- préparer le déploiement sur Vercel et relier le nom de domaine ;
+- vérifier une dernière fois le site en ligne, sur iPhone et au bureau.
+
+## Le détail, point par point
+
+Les sections numérotées ci-dessous, de 0 à 10, sont à suivre dans cet ordre :
+chaque point débloque les suivants. Les trois premières (0, 1 et 2) sont
+bloquantes au sens strict, le site ne peut pas être publié sans elles. Elles
+ne recoupent pas le tableau ci-dessus, où les quatre éléments à fournir sont
+tous nécessaires.
 
 ## 0. Les emplacements réservés — bloquant
 
@@ -212,7 +237,10 @@ est déclenché par un `git push` sur `main`, il n'y a rien à téléverser.
 
 ## Dette technique
 
-- [ ] `content.ts` garde `rulesTitle` et `rules` (« Nos règles », 4 phrases) que plus aucune section n'affiche. Soit on les replace quelque part, soit on les supprime.
+- [x] Clés de contenu orphelines de `content.ts` supprimées (17/10/2026)
+- [x] CSS mort retiré (17/10/2026) : 83 classes, 38 `@keyframes`, l'ancien système `.reveal` et les entrées mortes des listes `:is()`, vérifié au navigateur sur toutes les pages
+- [x] Deux commentaires non fermés dans `studio.css` (laissés par un nettoyage du 07/10) avalaient ~150 lignes de règles, toutes pour des classes disparues : retirés, rendu inchangé
+- [x] Next.js passé en 16.3.8 (17/10/2026) : la 16.3.4 avait une faille critique dans `next/og`, utilisé par les images de partage. `npm audit --omit=dev` : 0 vulnérabilité. `shadcn` est en `devDependencies` (outil de construction, jamais livré)
 - [x] `build`, `tsc --noEmit` et `eslint` passent tous les trois sans rien dire — les garder ainsi
 
 ## À tenir dans la durée
