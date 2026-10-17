@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
 import { useOnScreen } from "@/lib/use-on-screen";
 
@@ -33,6 +33,9 @@ import { useOnScreen } from "@/lib/use-on-screen";
  *  même durée : les deux valeurs doivent rester accordées, l'une est en JS
  *  et l'autre dans l'animation CSS `mfr-fill`. */
 const STEP_MS = 4000;
+/** Le tracé du filet : son attente et sa durée. Voir `.mfr-rail`. */
+const TRACE_DEPART = 600;
+const TRACE_DUREE = 1800;
 
 type Step = { short: string; title: string; text: string; out: string };
 
@@ -109,6 +112,60 @@ export function MethodFrame({ locale }: { locale: Locale }) {
   const [detailH, setDetailH] = useState(0);
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const measureRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  /* ---- LE TRACÉ DE 01 À 06, une seule fois.
+     Un filet descend le long des six étapes quand le cadre arrive à
+     l'écran, et chaque numéro s'allume au passage. Rien ne boucle.
+
+     L'état est un ATTRIBUT écrit dans le DOM, pas un état React : il ne
+     décide d'aucun rendu. Sans JavaScript, ou en mouvement réduit,
+     l'attribut n'est jamais posé et le filet est simplement là, entier.
+     On ne masque que ce qui est encore sous l'écran : un cadre déjà visible
+     au chargement n'est pas retiré pour être redessiné.
+
+     ⚠ UN CADRE DÉPASSÉ EST UN CADRE VU. Ce test tourne AVANT le saut vers
+     une ancre (`/#faq`) ou la position rendue par « retour » : la page est
+     encore en haut, le cadre paraît sous l'écran et se replie. Le saut le
+     fait passer d'un coup au-dessus, sans jamais le croiser, et le filet
+     restait invisible. Au premier défilement qui le laisse au-dessus, il
+     est donc rendu entier, sans animation. ---- */
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (list.getBoundingClientRect().top < window.innerHeight) return;
+    list.dataset.trace = "wait";
+    const depasse = () => {
+      if (list.dataset.trace !== "wait") { window.removeEventListener("scroll", depasse); return; }
+      if (list.getBoundingClientRect().bottom > 0) return;
+      delete list.dataset.trace;
+      window.removeEventListener("scroll", depasse);
+    };
+    window.addEventListener("scroll", depasse, { passive: true });
+    return () => { window.removeEventListener("scroll", depasse); delete list.dataset.trace; };
+  }, []);
+
+  /* Le départ, sur la même observation que le cycle des étapes.
+     Chaque numéro reçoit son délai d'après SA position réelle dans la
+     liste : le filet est linéaire, il atteint une hauteur `y` à
+     600 + 1800 × y / H ms. Sur téléphone les lignes n'ont pas toutes la
+     même hauteur (certaines étapes tiennent sur deux lignes), un délai
+     écrit d'avance pour six rangées égales s'y décalait. Ces deux nombres
+     doivent rester ceux de `.mfr-rail` dans `studio.css`. Le −245ms : le
+     pic de l'allumage tombe à 35 % de ses 700ms, `mfr-node`. */
+  useEffect(() => {
+    const list = listRef.current;
+    if (!onScreen || !list || list.dataset.trace !== "wait") return;
+    const haut = list.getBoundingClientRect();
+    list.querySelectorAll<HTMLElement>(".mfr-step").forEach(step => {
+      const r = step.getBoundingClientRect();
+      const milieu = (r.top + r.height / 2 - haut.top) / haut.height;
+      const num = step.querySelector<HTMLElement>("em");
+      if (num) num.style.animationDelay = `${Math.round(TRACE_DEPART + TRACE_DUREE * milieu - 245)}ms`;
+    });
+    list.dataset.trace = "go";
+  }, [onScreen]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -180,7 +237,8 @@ export function MethodFrame({ locale }: { locale: Locale }) {
 
       {/* ---- Le corps : la liste, puis le détail ---- */}
       <div className="mfr-body" ref={bodyRef}>
-        <div className="mfr-list" role="group" aria-label={c.group}>
+        <div className="mfr-list" ref={listRef} role="group" aria-label={c.group}>
+          <i className="mfr-rail" aria-hidden />
           {steps.map((s, i) => (
             <button
               key={s.title}

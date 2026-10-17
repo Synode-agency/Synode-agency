@@ -236,32 +236,7 @@ main > .band#top.work-detail-hero .title-accent {
   position: absolute;
   inset: 0 0 10%;
 }
-.studio-demo .hero-stage-panel .hero-app {
-  width: 100%;
-  height: 100%;
-  border-width: 0.55cqw;
-  border-radius: 1.8cqw;
-  box-shadow: 0 20px 50px -26px rgb(70 68 68 / 30%);
-}
 /* The illustration stays compact while its interface copy remains readable. */
-.studio-demo .hero-app-brand span {
-  font-size: 1.62em;
-}
-.studio-demo .hero-app-side {
-  width: 18em;
-}
-.studio-demo .hero-app-nav-row {
-  font-size: 1.22em;
-}
-.studio-demo .hero-app-nav-row i {
-  white-space: nowrap;
-}
-.studio-demo .hero-app-title {
-  font-size: 2.3em;
-}
-.studio-demo .hero-app-status {
-  font-size: 1.1em;
-}
 .capability-strip {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
@@ -695,9 +670,6 @@ main > .band#top.work-detail-hero .title-accent {
     grid-template-columns: 1fr;
   }
 }
-.approach-steps > .go {
-  margin-top: 1.25rem;
-}
 .card-shell {
   max-width: var(--container-max);
   margin-inline: auto;
@@ -724,21 +696,6 @@ main > .band#top.work-detail-hero .title-accent {
 }
 .cta-note {
   font-size: 0.75rem;
-}
-.solution-features .tile {
-  padding: 1.5rem 0 0;
-  border: 0;
-  border-top: 1px solid var(--hairline);
-  border-radius: 0;
-  background: transparent;
-}
-.solution-features .tile-title {
-  font-size: 1.0625rem;
-  font-weight: 500;
-}
-.solution-features .tile-text {
-  font-size: 0.875rem;
-  line-height: 1.75;
 }
 #dimensionnement .tile {
   background: white;
@@ -863,12 +820,6 @@ footer.band--white {
 footer.band--white .wordmark-type {
   filter: invert(1);
 }
-.studio-demo .hero-system:nth-child(2) .hero-app {
-  --sys-ink: #0051b7;
-}
-.studio-demo .hero-system:nth-child(3) .hero-app {
-  --sys-ink: #004398;
-}
 @media (max-width: 1023px) {
   /* The simplified mobile illustration needs height for its stacked cards. */
   .studio-demo .hero-stage {
@@ -905,22 +856,6 @@ footer.band--white .wordmark-type {
 #cas-usage > .col > .section-heading .lede {
   flex: 1;
   max-width: none;
-}
-.solution-band .section-heading .lede {
-  max-width: none;
-}
-.solution-band .section-heading .lede-kicker {
-  color: white;
-}
-.solution-band .section-heading .title-aside {
-  color: #cbe3ff;
-}
-.solution-band .section-side-text {
-  color: #ffffff;
-}
-.solution-band .solution-offer .btn--primary:hover {
-  background: var(--brand-hover);
-  color: white;
 }
 .mini-brief,
 .mini-inbox,
@@ -1140,9 +1075,6 @@ footer.band--white .wordmark-type {
   #cas-usage > .col > .section-heading .lede-title {
     font-size: clamp(1.35rem, 5.1vw, 1.9rem);
   }
-  .solution-band .section-heading .lede-title {
-    font-size: clamp(1.4rem, 5.3vw, 1.9rem);
-  }
   .booking--card {
     padding: 1rem;
   }
@@ -1206,110 +1138,6 @@ footer.band--white .wordmark-type {
   line-height: 1.65;
 }
 
-/* La palette claire des six familles. Partagée par l'accueil et par la
-   page Solutions : c'est le MÊME jeu de couleurs des deux côtés, seul le
-   fond de la carte diffère {
-  border-color: #cbd8e8;
-  background: #ffffff;
-  box-shadow: 0 20px 48px -42px rgb(19 39 79 / 45%);
-  color: #19304f;
-  --foreground: #19304f;
-  --muted-foreground: #5f6f84;
-  --text-mono: #71839a;
-  --hairline: #d9e3ef;
-}
-.solutions-light .family-example {
-  border-top-color: #d9e3ef;
-}
-.solutions-light .family-example > span {
-  color: #52739b;
-}
-.solutions-light .brick-art {
-  color: #2472ce;
-}
-.solutions-light .agent-orbit {
-  border-color: #bfd1e7;
-}
-.solutions-light .agent-center {
-  border-color: #a9c5e6;
-  background: #e7f0fb;
-  box-shadow: 0 0 50px -24px rgb(0 103 234 / 55%);
-}
-.solutions-light .agent-token {
-  border-color: #c7d7e9;
-  background: #f5f8fc;
-  color: #315579;
-}
-.solutions-light .automation-art span {
-  border-color: #c5d6e9;
-  background: #edf4fc;
-}
-.solutions-light .automation-art span:last-child,
-.solutions-light .integration-art > div {
-  border-color: #3388ee;
-  background: #0067ea;
-  color: #ffffff;
-}
-.solutions-light .automation-art i {
-  border-top-color: #8eacd0;
-}
-.solutions-light .integration-art > span {
-  border-color: #c5d6e9;
-  background: #f7fafe;
-  color: #315579;
-}
-.solutions-light .dashboard-art {
-  border-color: #b9cee6;
-  background: #edf4fc;
-}
-.solutions-light .dashboard-art-nav i,
-.solutions-light .dashboard-art-body > i {
-  background: #a8bfd9;
-}
-.solutions-light .dashboard-art-nav i:first-child {
-  background: #3689e9;
-}
-.solutions-light .dashboard-art-body span {
-  border-color: #c0d2e6;
-  background: #dce9f7;
-}
-.solutions-light .data-art-bars {
-  border-bottom-color: #9bb6d3;
-}
-.solutions-light .data-art span {
-  color: #52739b;
-}
-.solutions-light .training-art-session {
-  border-color: #c5d6e9;
-  background: #edf4fc;
-  color: #315579;
-}
-
-/* ---- Page Solutions : la même palette, figure et fond inversés ----
-   Sur l'accueil la bande est bleutée et les cartes blanches. Ici la bande
-   reste blanche, donc ce sont les cartes qui prennent le bleu très pâle :
-   #f2f6fc, exactement le ton de la bande d'en face. Le reste de la palette
-   ne bouge pas, c'est bien le même jeu de couleurs.
-
-   L'ombre portée tombe : elle ne servait qu'à détacher une carte blanche
-   d'un fond teinté. Ici c'est le fond de la carte qui fait ce travail, et
-   l'ombre ne ferait que salir le blanc de la section.
-
-   Les surfaces internes des illustrations repassent au blanc. Posées sur
-   #f2f6fc elles auraient gardé leur #edf4fc {
-  background: #f2f6fc;
-  box-shadow: none;
-}
-.solutions-families-band :is(
-    .automation-art span,
-    .integration-art > span,
-    .agent-token,
-    .dashboard-art,
-    .training-art-session
-  ) {
-  background: #ffffff;
-}
-
 /* Compact calendar used inside the homepage closing CTA. */
 .dark-cta .calendar-demo {
   color: #19304f;
@@ -1369,54 +1197,6 @@ footer.band--white .wordmark-type {
     max-width: 560px;
     margin-inline: auto;
   }
-}
-
-/* Six solution families: a composed rectangle, in a stable reading order. */
-/* La carte entière est cliquable. Le lien « Découvrez … » reste le SEUL
-   lien du balisage : c'est son `::after` qui s'étire sur toute la carte.
-   Envelopper l'article dans un second lien aurait imbriqué deux `<a>`, ce
-   qui est invalide et donne deux arrêts clavier pour une seule
-   destination. */
-/* Le focus clavier arrive sur le lien, mais c'est la carte qu'il faut
-   voir : sans ça,
-.training-art {
-  max-width: 330px;
-  margin: 1rem auto;
-}
-.training-art-session {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem;
-  border: 1px solid #416b9d;
-  border-radius: 10px;
-  background: #173f70;
-  font-size: 0.8rem;
-}
-.training-art-session > svg {
-  width: 36px;
-  height: 36px;
-  flex: none;
-}
-.training-art-team {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
-.training-art-team > svg {
-  width: 40px;
-  height: 40px;
-  stroke-width: 1;
-}
-.training-art-team span {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.7rem;
-}
-.training-art-team span svg {
-  width: 16px;
 }
 /* Sur desktop le hero suit la hauteur disponible, dans la limite de
    `--hero-min-h`. Une fenêtre plus haute que ce plafond laisse apparaître
@@ -1580,34 +1360,6 @@ footer.band--white .wordmark-type {
   }
 }
 
-.home-work-card {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  border: 1px solid #dce2eb;
-  border-radius: 12px;
-  overflow: hidden;
-  background: white;
-}
-.home-work-card > div:first-child {
-  padding: 2rem;
-}
-.home-work-card h3 {
-  margin-block: 1.4rem 0.8rem;
-  font-size: 1.6rem;
-  font-weight: 500;
-}
-.home-work-card p {
-  color: #626a76;
-  line-height: 1.7;
-  max-width: 55ch;
-  font-size: 0.95rem;
-}
-.home-work-card .go {
-  margin-top: 1.6rem;
-}
-.home-team-card .eyebrow {
-  color: #0067ea;
-}
 /* Les deux FAQ, celle de l'accueil et celle de Solutions, composent leur
    titre de la même façon : surtitre à gauche, titre centré sur sa propre
    mesure de 22ch. Le sélecteur couvre les deux bandes pour qu'elles ne
@@ -1713,73 +1465,11 @@ footer.band--white .wordmark-type {
   border-color: #6485a8;
   background: #142b45;
 }
-.home-hero-dark .hero-stage-panel .hero-app {
-  box-shadow: 0 25px 70px -28px rgb(0 0 0 / 72%);
-}
-/* Les valeurs exactes de la maquette : la zone principale en #0A1A30, la
-   barre latérale et les cartes en #0F2340, les filets en #24406A. */
-.home-hero-dark .hero-app {
-  --foreground: #f4f8ff;
-  --muted-foreground: #b6c2d4;
-  --sys-tint: color-mix(in oklab, var(--sys-ink) 20%, #0a1a30);
-  border-color: #24406a;
-  background: #0a1a30;
-  color: #f4f8ff;
-}
-.home-hero-dark .hero-app-side {
-  border-right-color: #24406a;
-  background: #0f2340;
-}
-.home-hero-dark .hero-app-nav-row {
-  color: #b6c2d4;
-}
-/* L'entrée sélectionnée. Elle s'allume au clic du curseur et le reste :
-   la règle de base anime `background`/`color`, celle-ci fixe l'arrivée. */
-.home-hero-dark .hero-app-nav-row.is-active {
-  border-radius: 0.7em;
-}
-.home-hero-dark .hero-app {
-  --sys-tint: #1a3358;
-  --sys-ink: #8ec1ff;
-}
-.home-hero-dark .hero-app-main {
-  background: #0a1a30;
-}
-.home-hero-dark .hero-app-cursor {
-  color: #dbe9fb;
-}
-.home-hero-dark .hero-app-status {
-  background: #123a2a;
-  color: #4ade80;
-}
-.home-hero-dark .hero-app-card {
-  border-color: #24406a;
-  background: #0f2340;
-}
 .home-hero-dark .capability-strip {
   border-color: rgb(188 215 255 / 18%);
 }
 .home-hero-dark .capability-strip svg {
   color: #8fc0ff;
-}
-.home-usecases-dark .daily-section-heading .section-side-text {
-  border-left-color: #78b2ff;
-  background: linear-gradient(90deg, rgb(40 83 137 / 55%), transparent);
-  color: #d4e1f2;
-}
-.home-usecases-dark .daily-section-heading .section-side-text::before {
-  border-color: #09264d;
-  background: #8fc0ff;
-}
-.home-usecases-dark .daily-open-callout {
-  border-color: #35516f;
-  background: #10233a;
-}
-.home-usecases-dark .daily-open-callout p {
-  color: #c2d3e9;
-}
-.home-usecases-dark .daily-open-callout .eyebrow {
-  color: #a8c3e8;
 }
 .home-solutions-light {
   background: #f7f9fc;
@@ -1791,20 +1481,6 @@ footer.band--white .wordmark-type {
      cette bande est concernée et les quatre autres gardent 48rem. */
   --home-section-h: min(100svh, 45rem);
   background: var(--surface-dark);
-}
-.home-work-dark .home-work-card {
-  box-shadow: 0 22px 55px -40px #000;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #626a76;
-  --text-mono: #6b6868;
-  --hairline: #dce2eb;
-}
-.home-faq-dark .faq-list {
-  border-top-color: #365d8c;
-}
-.home-faq-dark .faq-item {
-  border-bottom-color: #365d8c;
 }
 
 /* Shared navigation: both visual editions open on a dark hero. */
@@ -2011,7 +1687,7 @@ footer.band--white .wordmark-type {
 .site-theme-alternating
   main
   > .band:nth-of-type(odd)
-  :is(.work-status, .prose-body) {
+  .work-status {
   color: #c2d3e9;
 }
 .site-theme-alternating main > .band:nth-of-type(odd) .btn--ghost {
@@ -2083,8 +1759,6 @@ footer.band--white .wordmark-type {
 }
 .site-theme-dark
   :is(
-    .home-work-card,
-    .founder-card,
     .calendar-demo,
     .booking--card,
     .form-input,
@@ -2094,45 +1768,13 @@ footer.band--white .wordmark-type {
   background: #10233a;
   color: #ffffff;
 }
-.site-theme-dark
-  :is(
-    .home-work-card,
-    .founder-card,
-    .calendar-demo
-  )
-  :is(p, small) {
+.site-theme-dark .calendar-demo :is(p, small) {
   color: #c2d3e9;
 }
-.site-theme-dark :is(.operations-card) h3,
-.site-theme-dark .founder-copy .founder-role {
-  color: #ffffff !important;
-}
-.site-theme-dark
-  :is(
-    .daily-examples li,
-    .project-journey > span > span,
-    .calendar-demo-days button
-  ) {
+.site-theme-dark .calendar-demo-days button {
   border-color: #35516f;
   background: #142b45;
   color: #dceaff;
-}
-.site-theme-dark .home-work-mark {
-  background: #142b45;
-}
-.site-theme-dark .site-theme-dark 
-/* Les exemples d'une page de famille. Ces règles avaient été emportées
-   par le nettoyage des anciennes cartes de solutions : elles partageaient
-   le préfixe `.family-` sans rien d'autre en commun. */
-.family-example-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-@media (max-width: 760px) {
-  .home-work-card {
-    grid-template-columns: 1fr;
-  }
 }
 .work-editorial-note {
   display: grid;
@@ -2255,8 +1897,6 @@ footer.band--white .wordmark-type {
   }
   }
 @media (max-width: 760px) {
-  .founder-grid,
-  .home-team-grid,
   .work-editorial-note {
     grid-template-columns: 1fr;
   }
@@ -2289,24 +1929,17 @@ footer.band--white .wordmark-type {
 .studio-hero-grid--single .studio-hero-copy {
   max-width: 62ch;
 }
-.hero-work-preview-body .badge {
-  margin-bottom: 0.6rem;
-}
 
 /* ---- Tablette et téléphone : l'illustration ne doit jamais dépasser le
    bloc de texte. Elle se recentre et se limite. ---- */
 @media (max-width: 1050px) {
-  .solutions-wall,
   .sol-app,
-  .hero-panel,
   .use-case-terminal {
     width: 100%;
   }
 }
 @media (max-width: 760px) {
-  .solutions-wall,
   .sol-app,
-  .hero-panel,
   .use-case-terminal {
     width: min(100%, 30rem);
     margin-inline: auto;
@@ -2382,55 +2015,6 @@ footer.band--white .wordmark-type {
     font-size: clamp(2rem, 7.5vw, 2.6rem);
   }
 }
-/* La voisine de la brique ouverte, réduite à une tranche. */
-.solutions-brick.is-slice {
-  flex: 0 0 56px;
-}
-.solutions-brick.is-open {
-  background: #10264a;
-  border-color: #4e8ff0;
-  box-shadow:
-    0 0 0 1px rgb(78 143 240 / 25%),
-    0 24px 40px rgb(10 108 240 / 18%);
-}
-.solutions-brick.is-slice .solutions-brick-face {
-  opacity: 0;
-}
-.solutions-brick.is-slice .solutions-brick-slice {
-  opacity: 1;
-}
-.solutions-brick.is-open .solutions-brick-num {
-  color: #8ec1ff;
-}
-.solutions-brick.is-open .solutions-brick-foot strong {
-  color: #ffffff;
-}
-.solutions-brick.is-open .solutions-brick-meta {
-  opacity: 1;
-}
-.solutions-brick.is-open .solutions-brick-visual {
-  transform: scale(1.28);
-}
-
-/* `prefers-reduced-motion` SUPPRIME l'animation, il ne la raccourcit pas.
-   Le cycle automatique est coupé côté composant ; ici c'est l'élargissement
-   et les fondus qui deviennent instantanés. Le survol continue d'ouvrir
-   les briques, simplement sans transition. */
-@media (max-width: 760px) {
-  /* Une tranche de 56px avec son nom à la verticale n'est plus lisible sur
-     une seule colonne. Les deux briques d'une rangée y gardent la même
-     largeur ; seule la couleur distingue encore la brique active. */
-  .solutions-brick.is-slice {
-    flex: 1 1 0;
-  }
-  .solutions-brick.is-slice .solutions-brick-face {
-    opacity: 1;
-  }
-  .solutions-brick.is-slice .solutions-brick-slice {
-    opacity: 0;
-  }
-}
-
 /* =====================================================================
    PAGES DE SOLUTIONS : L'ILLUSTRATION SANS SON CADRE
    La composition de chaque famille est conservée telle quelle, elle perd
@@ -2446,29 +2030,6 @@ footer.band--white .wordmark-type {
   gap: 1rem;
   width: min(100%, 25rem);
   justify-self: center;
-}
-/* Resserré : l'ancienne version respirait dans une card de 2 rem de
-   rembourrage, celle-ci n'a plus de cadre à remplir. */
-.family-hero-art .brick-art {
-  width: 100%;
-  min-height: 0;
-  height: 15.5rem;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.family-hero-art .brick-art--0 {
-  height: 17rem;
-}
-/* Les orbites de la famille Agents sont dessinées pour une grande surface :
-   elles se resserrent avec le reste. */
-.family-hero-art .agent-orbit--one { width: 150px; height: 150px; }
-.family-hero-art .agent-orbit--two { width: 200px; height: 200px; }
-.family-hero-art .agent-orbit--three { width: 250px; height: 250px; }
-.family-hero-art .agent-token {
-  font-size: 0.625rem;
 }
 @media (max-width: 760px) {
   .family-hero-art {
@@ -2593,32 +2154,6 @@ footer.band--white .wordmark-type {
   --brand: #0067ea;
   --brand-foreground: #ffffff;
 }
-.tool-card .btn {
-  margin-top: auto;
-}
-.diag-option.is-selected {
-  border-color: #8fc0ff;
-  background: #14293f;
-  color: #ffffff;
-}
-.diag-option.is-selected .diag-option-mark {
-  border-color: #8fc0ff;
-  background: #8fc0ff;
-  box-shadow: inset 0 0 0 3px #0b192c;
-}
-.diag-panel .btn--ghost {
-  border-color: #35516f;
-  background: #10233a;
-  color: #ffffff;
-}
-.diag-panel .btn--ghost:hover {
-  border-color: #6485a8;
-  background: #142b45;
-}
-.diag-panel .btn--primary:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
 /* Cinq barres plates : ces valeurs comparent des familles, elles ne
    mesurent pas une performance. */
 .diag-profile dl {
@@ -2724,14 +2259,6 @@ footer.band--white .wordmark-type {
 .diag-approaches .go svg {
   width: 13px;
   height: 13px;
-}
-.diag-result-cta .eyebrow {
-  color: #8fa6c2;
-}
-.diag-result-cta .btn--ghost {
-  border-color: #35516f;
-  background: #10233a;
-  color: #ffffff;
 }
 @media (max-width: 760px) {
   .diag-profile dl > div {
@@ -6633,7 +6160,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   align-items: center;
   gap: clamp(2rem, 4vw, 3.75rem);
 }
-.svc-split--flow,
 .svc-split--core {
   align-items: stretch;
 }
@@ -8288,6 +7814,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
 }
 .mfr-list {
+  /* Le repère du filet de tracé, `.mfr-rail`. */
+  position: relative;
   display: grid;
   grid-template-rows: repeat(6, minmax(0, 1fr));
   min-width: 0;
@@ -8316,6 +7844,9 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   border-bottom: 0;
 }
 .mfr-step:focus-visible {
+  /* Au-dessus du filet de tracé : sans ça, il masquait le bord gauche du
+     contour au clavier. */
+  z-index: 2;
   outline: 2px solid #0a6cf0;
   outline-offset: -2px;
 }
@@ -8361,6 +7892,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   position: absolute;
   top: 0;
   left: 0;
+  /* Au-dessus du filet de tracé (z-index 1). */
+  z-index: 2;
   width: 2px;
   background: #0a6cf0;
   animation: mfr-fill 4s linear forwards;
@@ -8368,6 +7901,47 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 @keyframes mfr-fill {
   from { height: 0; }
   to { height: 100%; }
+}
+
+/* ---- LE TRACÉ DE 01 À 06 ----
+   Le filet du bord gauche de la liste. Posé par `MethodFrame` :
+   `data-trace="wait"` le replie tant que le cadre est sous l'écran,
+   `"go"` le dessine une fois, de haut en bas. Sans l'attribut, il est
+   entier : c'est l'état sans JavaScript et en mouvement réduit.
+
+   Le départ attend 600ms, le temps que le cadre ait fini d'apparaître.
+   Le tracé est LINÉAIRE pour que chaque numéro s'allume au moment exact où
+   le filet passe au milieu de sa ligne. Les délais des numéros sont posés
+   par le composant, d'après leur position réelle : 600 et 1800 y sont
+   recopiés (`TRACE_DEPART`, `TRACE_DUREE`).
+   ⚠ Le filet est le PREMIER enfant de la liste, pour ne pas voler le
+   `:last-child` de l'étape 06. */
+.mfr-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 2px;
+  background: #2f5fa8;
+  opacity: 0.7;
+  transform-origin: top;
+  pointer-events: none;
+}
+.mfr-list[data-trace="wait"] .mfr-rail {
+  transform: scaleY(0);
+}
+.mfr-list[data-trace="go"] .mfr-rail {
+  transition: transform 1800ms linear 600ms;
+}
+.mfr-list[data-trace="go"] .mfr-step em {
+  animation: mfr-node 700ms ease-out;
+}
+@keyframes mfr-node {
+  35% {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(142, 193, 255, 0.75);
+  }
 }
 
 /* ---- Le détail de l'étape ---- */
@@ -8575,6 +8149,13 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   .mfr-bar {
     animation: none;
     height: 100%;
+  }
+  .mfr-list[data-trace] .mfr-rail {
+    transform: none;
+    transition: none;
+  }
+  .mfr-list[data-trace] .mfr-step em {
+    animation: none;
   }
 }
 
@@ -11715,11 +11296,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   .need-tiles,
   .sec-grid,
   .tst-group,
-  .agd-steps,
-  .solution-features,
-  .technical-bento,
-  .home-team-grid,
-  .founder-grid {
+  .agd-steps {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -12111,7 +11688,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     font-size: 29px;
   }
 }
-
 
 
 /* =====================================================================

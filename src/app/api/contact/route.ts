@@ -6,7 +6,7 @@ import { notifyByEmail, saveRequest, storeBackend, type ContactRequest } from "@
  *
  * L'ORDRE EST LA PARTIE IMPORTANTE :
  *   1. valider ;
- *   2. limiter les abus ;
+ *   2. limiter les abus, sur les seules demandes valides ;
  *   3. ENREGISTRER — si ça échoue, on renvoie une erreur et le visiteur
  *      garde son texte ;
  *   4. notifier par email — si ça échoue, la demande est déjà en sécurité,
@@ -66,10 +66,6 @@ export async function POST(request: Request) {
     request.headers.get("x-real-ip") ||
     "inconnu";
 
-  if (rateLimited(ip)) {
-    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
-  }
-
   let body: Record<string, unknown>;
   try {
     body = (await request.json()) as Record<string, unknown>;
@@ -105,6 +101,15 @@ export async function POST(request: Request) {
 
   if (errors.length) {
     return NextResponse.json({ error: "invalid", fields: errors }, { status: 400 });
+  }
+
+  /* La limite ne compte que les demandes VALIDES. Comptées dès l'arrivée,
+     les envois refusés pour une faute de saisie mangeaient le quota : un
+     prospect qui se trompait trois fois d'adresse recevait « trop de
+     tentatives » au quatrième envoi, le bon. Un envoi invalide ne coûte
+     rien, il n'est ni enregistré ni notifié. */
+  if (rateLimited(ip)) {
+    return NextResponse.json({ error: "rate_limited" }, { status: 429 });
   }
 
   const req: ContactRequest = {
