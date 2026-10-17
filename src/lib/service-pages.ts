@@ -85,10 +85,6 @@ export type ServicePageContent = {
   coreTitle: string;
   /** Les mots du titre peints en bleu. */
   coreTitleAccents?: string[];
-  /** Tient le titre sur une seule ligne, au-dessus de 1024px. À ne mettre
-   *  que sur un titre court : au-delà d'une trentaine de caractères il ne
-   *  tient pas dans une demi-colonne, et il déborderait sur le visuel. */
-  coreTitleOneLine?: true;
   coreText: string;
   /** Le visuel animé de la bande bleu nuit. Il est choisi ICI, par le
    *  contenu, et jamais par le slug dans le gabarit : c'est ce qui garantit
@@ -151,7 +147,6 @@ const fr: Record<string, ServicePageContent> = {
     coreKicker: "Intégration dans votre environnement",
     coreTitle: "Vos outils restent au centre",
     coreTitleAccents: ["outils", "centre"],
-    coreTitleOneLine: true,
     coreVisual: "agent",
     coreText: "Un agent IA ne remplace pas votre environnement de travail : il s’y branche. Il lit et écrit dans les logiciels que vos équipes utilisent déjà, avec les droits d’accès que vous lui accordez.",
     coreCentre: "Agent IA",
@@ -545,14 +540,14 @@ const en: Record<string, ServicePageContent> = {
     coreKicker: "Integration with your business tools",
     coreTitle: "Automate without replacing your software",
     coreTitleAccents: ["Automate"],
-    coreText: "Business process automation does not require you to change tools. It connects the software you already use and handles the repetitive steps between them, while your teams keep control of exceptions.",
+    coreText: "Business process automation works with the software your company already uses. It moves information between your tools and takes over the repetitive steps in between, without imposing a new way of working on your teams.",
     coreVisual: "automation",
     coreCentre: "Automated flow",
     coreChips: ["Mailbox", "Documents", "CRM", "Accounting tool", "ERP", "Spreadsheet", "E-signature", "Team chat"],
     coreNote: "Original files are kept, and every run leaves a record you can consult.",
     afterTitle: "Your automations evolve with your processes",
     afterTitleAccents: ["evolve"],
-    afterText: "An automated workflow must evolve when your business rules or connected software change. We monitor runs, handle exceptions and adapt integrations after go-live.",
+    afterText: "An automated workflow is never set in stone: your business rules change, volumes grow and software gets updated. After go-live, we monitor how the workflow runs and adapt it whenever your business needs it to.",
     after: [
       { title: "Run monitoring", text: "Failures, blockages and unusual queues are detected.", status: "monitoring in progress" },
       { title: "Exception handling", text: "Cases that left the flow are reviewed, then folded into the rules if useful.", status: "handling in progress" },
@@ -608,7 +603,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Hosting, backups and access conditions are agreed with you before development starts.",
     afterTitle: "Your custom software grows with your business",
     afterTitleAccents: ["grows"],
-    afterText: "A business application must evolve with your teams, processes and customer needs. We handle maintenance, support and new features after go-live.",
+    afterText: "A business application used every day has to evolve with your teams, processes and volumes. After go-live, we handle technical maintenance, monitor how it is used and gradually build the new features you prioritise.",
     after: [
       { title: "Technical maintenance", text: "Updates, fixes and availability monitoring.", status: "maintenance in progress" },
       { title: "New features", text: "Requests are prioritised, estimated, then built in stages.", status: "review in progress" },
@@ -664,7 +659,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Each exchange is limited to the data required, and logged so it can be checked.",
     afterTitle: "Your software integrations remain reliable",
     afterTitleAccents: ["remain reliable"],
-    afterText: "An integration depends on APIs and software that evolve over time. We monitor exchanges, follow vendor changes and control data consistency after go-live.",
+    afterText: "A software connection relies on APIs, formats and third-party services that change over time. After go-live, we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
     after: [
       { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly.", status: "monitoring in progress" },
       { title: "Following API changes", text: "A change on the vendor's side can require adapting the connection.", status: "check in progress" },

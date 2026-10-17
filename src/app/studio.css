@@ -7578,22 +7578,12 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    du même repère : sans ce rapport, le SVG se centrerait dans sa boîte avec
    des bandes vides et les rayons pointeraient à côté des labels.
    ===================================================================== */
-/* ---- Le titre sur une seule ligne. Ce qui le coupait n'était pas la
-   colonne mais la mesure des titres, `max-width: 20ch`, et celui-ci fait 28
-   caractères. La mesure est donc levée, et le corps plafonné à 2rem : à
-   42px, ce titre réclame 590px alors que la demi-colonne en offre 500, et il
-   déborderait sur le visuel. Réservé aux titres courts, par
-   `coreTitleOneLine` dans le contenu : les cinq autres pages ont des titres
-   de quarante caractères et plus, qui gardent le corps commun. ---- */
-.svc-core--line .lede-title {
-  max-width: none;
-}
-@media (min-width: 1024px) {
-  .svc-core--line .lede-title {
-    font-size: min(var(--fs-h2), 2rem);
-    white-space: nowrap;
-  }
-}
+/* ⚠ Le titre de cette section était forcé sur UNE ligne, en 32px au lieu
+   des 40px des autres titres de section, par un drapeau `coreTitleOneLine`.
+   Antonino a demandé le 17/10 qu'il ait la taille de tous les autres et se
+   replie naturellement : drapeau et règles `.svc-core--line` supprimés. Ne
+   pas les recréer pour « faire tenir » un titre : c'est sa taille qui
+   compte, pas son nombre de lignes. */
 
 .ant {
   justify-self: center;
@@ -12682,3 +12672,65 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    de 536). Coupe retirée du texte, mesure levée : il se replie seul selon la
    largeur, sans jamais séparer « AI projects ». Le français garde sa coupe
    voulue, « Complémentaires / pour vos projets IA », inchangée. */
+
+
+/* =====================================================================
+   LES APPARITIONS AU DÉFILEMENT — voir `components/site/scroll-reveal.tsx`
+
+   Illustrations, éléments graphiques et paragraphes apparaissent ; titres,
+   surtitres et boutons restent fixes. L'état est porté par un attribut
+   `data-rv` que pose le script : il n'existe pas dans le HTML servi, donc
+   sans JavaScript tout est visible.
+
+   ⚠ Un ATTRIBUT et non une classe : plusieurs composants réécrivent leur
+   `className` après le chargement, et effaçaient la classe de la première
+   version — le bloc apparaissait alors d'un coup.
+
+   ⚠ `!important` sur l'état masqué SEULEMENT : un bloc qui porte déjà son
+   opacité ou sa transformation dans sa propre règle doit quand même partir
+   caché. À l'arrivée, ce sont ses valeurs normales qui reprennent.
+   ===================================================================== */
+[data-rv="pending"] {
+  opacity: 0 !important;
+  transform: translateY(28px) !important;
+}
+/* Les glissements latéraux restent courts, 28px : assez pour donner un sens,
+   pas assez pour qu'on voie le bloc traverser l'écran. Le `<body>` porte
+   `overflow-x: clip`, donc un bloc en attente ne crée jamais de défilement
+   latéral. Le composant ne les pose qu'au-dessus de 900px. */
+[data-rv="pending"][data-rv-from="left"] {
+  transform: translateX(-44px) !important;
+}
+[data-rv="pending"][data-rv-from="right"] {
+  transform: translateX(44px) !important;
+}
+/* Une seconde, et une courbe qui freine longuement : demandé le 17/10 pour
+   qu'on VOIE les blocs arriver. Plus court, l'œil ne retient qu'un clic. */
+[data-rv="in"] {
+  transition:
+    opacity 1000ms cubic-bezier(0.16, 0.8, 0.24, 1),
+    transform 1000ms cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+/* La garde du héros, posée par le script de `<head>` avant le premier
+   affichage et levée par `ScrollReveal` dès qu'il a repris la main. Elle ne
+   vise que les blocs que la séquence anime : paragraphe, boutons, visuel.
+   Le surtitre et le titre ne sont jamais masqués. */
+html[data-rv-hero] main > section#top:not(.home-page-hero) :is(
+  .studio-hero-copy > p,
+  .lede > .lede-text,
+  .work-status,
+  .studio-hero-copy > .btn-row,
+  .studio-hero-copy > .hero-reassurance,
+  .hero-visual-desktop,
+  [class*="hero-compact-module"][class*="__card"]
+) {
+  opacity: 0 !important;
+}
+/* Deuxième verrou : sous `prefers-reduced-motion`, rien n'est masqué. */
+@media (prefers-reduced-motion: reduce) {
+  [data-rv] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

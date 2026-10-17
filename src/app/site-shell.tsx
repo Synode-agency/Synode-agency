@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import "./globals.css";
 import "./studio.css";
 import { Toaster } from "@/components/ui/sonner";
+import { ScrollReveal } from "@/components/site/scroll-reveal";
 
 // A neutral system sans keeps the interface crisp without a font download.
 const sans = '"Helvetica Neue", Helvetica, Arial, sans-serif';
@@ -46,9 +47,25 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
               "if('scrollRestoration' in history){history.scrollRestoration='manual'}",
           }}
         />
+        {/* LE HÉROS DES PAGES INTÉRIEURES S'ANIME À L'ARRIVÉE (voir
+            `ScrollReveal`). Pour qu'on ne le voie pas s'afficher, disparaître
+            puis revenir, ce script le garde masqué AVANT le premier
+            affichage, en posant `data-rv-hero` sur `<html>`. Il ne le fait
+            pas si le visiteur a demandé moins de mouvement, et il rend la
+            main au bout de 2,5s quoi qu'il arrive : si le script de la page
+            n'a pas démarré d'ici là, le héros s'affiche normalement. Sans
+            JavaScript, il ne tourne pas et rien n'est masqué. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var h=document.documentElement;h.setAttribute('data-rv-hero','');setTimeout(function(){h.removeAttribute('data-rv-hero')},2500)}}catch(e){}",
+          }}
+        />
         <noscript>
-          {/* Scroll-reveal content stays visible without JS */}
-          <style>{`.reveal{opacity:1 !important;transform:none !important;animation:none !important}`}</style>
+          {/* Plus de règle `.reveal` ici : les apparitions au défilement
+              (`ScrollReveal`) ne masquent rien dans le CSS de départ, c'est le
+              script qui pose l'état masqué. Sans JavaScript, il n'y a donc
+              rien à démasquer. */}
           {/* Sans JavaScript, la pile du hero reste sur sa première carte :
               elle est déjà dessinée en entier, seules les animations et la
               rotation manquent. Rien à corriger ici. */}
@@ -56,6 +73,7 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
+        <ScrollReveal />
         <Toaster position="top-center" />
       </body>
     </html>

@@ -322,7 +322,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
           gauche, le visuel à droite. Lequel vient du contenu et non du slug.
           Aucun de ces visuels n'a de carte de fond : ils sont posés à même
           la bande. Ne pas leur en redonner une. */}
-      <div className={p.coreTitleOneLine ? "svc-split svc-split--core svc-core--line" : "svc-split svc-split--core"}>
+      <div className="svc-split svc-split--core">
         <div className="svc-split-copy">
           <Lede kicker={p.coreKicker} title={p.coreTitle} accents={p.coreTitleAccents} text={renderLines(p.coreText)} />
           <p className="svc-core-note"><ShieldCheck aria-hidden />{p.coreNote}</p>

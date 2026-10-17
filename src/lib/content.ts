@@ -79,7 +79,6 @@ const nav = {
    ========================================================================== */
 const fr = {
   locale: "fr" as Locale,
-  htmlLang: "fr",
 
   site: {
     name: "Synode",
@@ -97,7 +96,6 @@ const fr = {
     skip: "Aller au contenu",
     langLabel: "Langue",
     footerNav: "Navigation",
-    footerContact: "Contact",
     footerLegal: "Informations légales",
     copyright: "Synode",
   },
@@ -109,7 +107,6 @@ const fr = {
       title:
         "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations",
       text: "Nous concevons des agents IA, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
-      secondaryCta: "Voir les cas d’usage",
       /* Ce que le visiteur doit comprendre en une ligne, sous les boutons.
          Ce ne sont pas des liens : à l'arrivée il a deux choix, pas six. */
       stack: [
@@ -175,22 +172,12 @@ const fr = {
          et ce qui en sort. C'est l'argument de la section, montré. */
       architecture: {
         caption: "Ce que nous construisons, et où cela se place",
-        toolsLabel: "Vos outils, tels qu’ils sont",
         tools: ["CRM", "Email", "Documents", "Agenda", "Logiciel métier"],
-        coreLabel: "La solution Synode",
         core: ["Agents IA", "Automatisations", "Intégrations", "Interface métier"],
-        outLabel: "Vos processus",
         out: ["Demandes traitées", "Documents produits", "Suivi à jour"],
-        humanLabel: "Vous gardez la validation sur ce qui compte",
       },
 
 
-    proof: {
-      kicker: "Ce que nous construisons",
-      title: "Des preuves, pas des promesses",
-      text: "Nous démarrons. Plutôt que d’afficher des logos que nous n’avons pas, nous montrons ce qui existe réellement aujourd’hui.",
-      cta: "Voir les réalisations",
-    },
 
     method: {
       kicker: "Méthode",
@@ -247,7 +234,6 @@ const fr = {
     cta: {
       title: "Quel processus aimeriez-vous\n^simplifier en premier ?",
       text: "Un échange de 30 minutes, gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet, et rien ne vous engage à la suite.",
-      secondary: "Décrire mon besoin par écrit",
     },
   },
 
@@ -261,7 +247,6 @@ const fr = {
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
 
     bricksTitle: "Nos solutions IA sur mesure",
-    bricksText: "Six familles complémentaires pour les indépendants, TPE et PME. Un projet peut en combiner plusieurs, selon votre besoin. Aucun forfait imposé.",
     bricks: [
       {
             "slug": "agents-ia",
@@ -328,22 +313,8 @@ const fr = {
       ],
     },
 
-    domainsTitle: "Quatre territoires d’intervention",
-    domainsText: "Ils servent à comprendre notre activité. Ce ne sont ni quatre offres distinctes, ni les limites de ce que nous savons faire.",
-    domainsCta: "Voir les cas d’usage",
 
-    deliverablesTitle: "Ce que vous recevez",
-    deliverables: [
-      "Un périmètre écrit et validé avant le démarrage.",
-      "Une solution testée selon les critères convenus ensemble.",
-      "La documentation de son fonctionnement.",
-      "Une prise en main avec les personnes qui vont l’utiliser.",
-      "Les modalités de suivi, écrites elles aussi.",
-    ],
-    deliverablesNote: "Le devis fixe les livrables exacts de votre projet. Cette liste décrit le socle, pas une promesse automatique.",
 
-    sizingTitle: "Comment un projet est dimensionné",
-    sizingText: "Six facteurs, et ils comptent plus que la taille de votre entreprise.",
     sizing: [
       { title: "L’objectif", text: "Ce que la solution doit changer, et comment on saura que c’est le cas." },
       { title: "La complexité", text: "Le nombre de cas particuliers et d’exceptions à traiter." },
@@ -352,15 +323,12 @@ const fr = {
       { title: "Les utilisateurs", text: "Combien de personnes s’en servent, et avec quel niveau de contrôle." },
       { title: "Les contraintes", text: "Confidentialité, validation humaine obligatoire, volumes à absorber." },
     ],
-    sizingNote: "Un petit besoin peut démarrer par un périmètre réduit, et s’étendre ensuite si l’utilité est démontrée.",
 
-    pricingTitle: "Comment nous facturons",
     pricing: [
       { title: "Création", text: "Cadrage, développement, intégrations, tests et déploiement. Prix et échéancier propres au projet." },
       { title: "Exploitation, maintenance & monitoring", text: "Un paiement récurrent propre à chaque solution mise en service. Il couvre uniquement les services, la surveillance et les interventions précisés au contrat." },
       { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
     ],
-    pricingNote: "La proposition distingue clairement le coût de création, le paiement récurrent et les services tiers éventuels. Pas de prix public ni de « tout illimité » : le budget dépend du périmètre réel.",
 
     faqTitle: "Questions fréquentes sur les solutions IA sur mesure",
     faq: [
@@ -373,11 +341,6 @@ const fr = {
       { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
-    notInList: {
-      title: "Votre besoin ne figure pas ici ?",
-      text: "Chaque projet est conçu à partir de votre contexte. Les exemples de ce site montrent notre manière de travailler, pas un catalogue fermé.",
-      cta: "Parlons de votre besoin",
-    },
   },
 
   /* ------------------------------------------------------------------ Méthode */
@@ -388,7 +351,6 @@ const fr = {
     kicker: "Méthode",
     title: "Ce qui se passe,\n^étape par étape",
     text: "Chaque étape a une sortie visible. Vous savez à tout moment où en est le projet et ce qui vous est demandé.",
-    columns: { work: "Ce que nous faisons", client: "Ce que vous apportez", output: "Ce qui en sort" },
     steps: [
       {
         title: "Premier échange",
@@ -427,14 +389,12 @@ const fr = {
         output: "Une maintenance suivie, et les évolutions chiffrées.", brief: "Vos retours d’usage orientent la maintenance\net les évolutions", accents: ["retours d’usage", "maintenance", "évolutions"],
       },
     ],
-    notesTitle: "Quatre choses que nous préférons dire d’avance",
     notes: [
       { title: "Un changement de périmètre se chiffre", text: "Ajouter un cas non prévu en cours de route est possible, mais cela se discute et se chiffre. Nous ne l’absorbons pas en silence, et nous ne le découvrons pas non plus à la facture." },
       { title: "Le projet dépend de vos accès", text: "Une donnée indisponible ou un accès qui tarde décale la suite. C’est la cause de retard la plus fréquente, et la plus facile à éviter en la nommant tôt." },
       { title: "Vos données restent les vôtres", text: "Nous travaillons sur le strict nécessaire, et les conditions de traitement sont écrites avant le démarrage." },
       { title: "Maintenance et nouveauté ne sont pas la même chose", text: "Corriger ce qui ne fonctionne plus comme convenu relève de la maintenance. Ajouter une fonction qui n’existait pas relève d’un nouveau devis." },
     ],
-    noDelay: "Nous n’annonçons pas de délai universel de livraison. Il dépend du périmètre, de vos accès et de votre disponibilité pour valider.",
     cta: "Commençons par votre situation actuelle",
   },
 
@@ -486,9 +446,6 @@ const fr = {
       title: "Réserver un échange de 30 minutes",
       text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
       openLabel: "Ouvrir le calendrier",
-      unavailableTitle: "Réservation pas encore disponible",
-      unavailableText:
-        "Le calendrier n’est pas encore branché sur cette version du site. En attendant, décrivez votre besoin par le formulaire ci-dessous : nous vous répondons et nous proposons un créneau.",
     },
 
     form: {
@@ -565,7 +522,6 @@ const fr = {
    ========================================================================== */
 const en = {
   locale: "en" as Locale,
-  htmlLang: "en",
 
   site: {
     name: "Synode",
@@ -582,7 +538,6 @@ const en = {
     skip: "Skip to content",
     langLabel: "Language",
     footerNav: "Navigation",
-    footerContact: "Contact",
     footerLegal: "Legal",
     copyright: "Synode",
   },
@@ -594,7 +549,6 @@ const en = {
       title:
         "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations",
       text: "We build AI agents, automations and internal tools that take work off your plate and put your own data to use.",
-      secondaryCta: "See the use cases",
       stack: ["AI agents", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
     },
 
@@ -648,22 +602,12 @@ const en = {
     },
       architecture: {
         caption: "What we build, and where it sits",
-        toolsLabel: "Your tools, as they are",
         tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
-        coreLabel: "The Synode solution",
         core: ["AI agents", "Automations", "Integrations", "Business interface"],
-        outLabel: "Your processes",
         out: ["Requests handled", "Documents produced", "Tracking up to date"],
-        humanLabel: "You keep approval on what matters",
       },
 
 
-    proof: {
-      kicker: "What we are building",
-      title: "Evidence, not promises",
-      text: "We are starting out. Rather than show logos we do not have, we show what actually exists today.",
-      cta: "See our work",
-    },
 
     method: {
       kicker: "Method",
@@ -720,7 +664,6 @@ const en = {
     cta: {
       title: "Which process would you\n^simplify first?",
       text: "A 30-minute call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit, and nothing commits you to what comes next.",
-      secondary: "Write to us instead",
     },
   },
 
@@ -733,7 +676,6 @@ const en = {
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
     bricksTitle: "Our custom AI solutions",
-    bricksText: "Six complementary families for freelancers and small businesses. A project can combine several, depending on your needs. No fixed packages.",
     bricks: [
       {
             "slug": "agents-ia",
@@ -800,22 +742,8 @@ const en = {
       ],
     },
 
-    domainsTitle: "Four areas we work in",
-    domainsText: "They are there to explain what we do. They are neither four separate packages nor the limits of what we can build.",
-    domainsCta: "See the use cases",
 
-    deliverablesTitle: "What you get",
-    deliverables: [
-      "A written scope, agreed before anything starts.",
-      "A solution tested against the criteria we set together.",
-      "Documentation of how it works.",
-      "A handover with the people who will actually use it.",
-      "Support terms, in writing as well.",
-    ],
-    deliverablesNote: "Your quote sets the exact deliverables. This list describes the baseline, not an automatic promise.",
 
-    sizingTitle: "How a project is sized",
-    sizingText: "Six factors, and they matter more than the size of your company.",
     sizing: [
       { title: "The goal", text: "What the solution has to change, and how we will know it did." },
       { title: "Complexity", text: "How many edge cases and exceptions there are to handle." },
@@ -824,15 +752,12 @@ const en = {
       { title: "Users", text: "How many people use it, and with how much control." },
       { title: "Constraints", text: "Confidentiality, mandatory human approval, volume to absorb." },
     ],
-    sizingNote: "A small need can start with a narrow scope and grow later, once the value is proven.",
 
-    pricingTitle: "How we charge",
     pricing: [
       { title: "Build", text: "Scoping, development, integrations, testing and deployment. Price and schedule specific to the project." },
       { title: "Running, maintenance & monitoring", text: "A recurring payment specific to each live solution. It covers only the services, monitoring and support stated in the contract." },
       { title: "Significant changes", text: "New scope, new quote, written agreement before any work." },
     ],
-    pricingNote: "The proposal clearly separates the build cost, recurring payment and any third-party services. There is no public price list or “unlimited everything”: the budget reflects the actual scope.",
 
     faqTitle: "Common questions about custom AI solutions",
     faq: [
@@ -845,11 +770,6 @@ const en = {
       { q: "Can the solution evolve later on?", a: "Yes. Significant changes or new features go through a fresh scoping exercise, a new quote and a written agreement before any work begins." },
     ],
 
-    notInList: {
-      title: "Don’t see your need here?",
-      text: "Every project is built from your own context. The examples here show how we work, not a closed catalogue.",
-      cta: "Tell us about it",
-    },
   },
 
   method: {
@@ -859,7 +779,6 @@ const en = {
     kicker: "Method",
     title: "What happens,\n^stage by stage",
     text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
-    columns: { work: "What we do", client: "What you bring", output: "What comes out" },
     steps: [
       { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We frame your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
       { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
@@ -868,14 +787,12 @@ const en = {
       { title: "Acceptance and go-live", work: "Test, fix, document and put the AI solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
       { title: "Support", work: "Watch how the solution runs, maintain it and scope the changes it needs.", client: "Report incidents, new needs and changes in your business processes.", output: "Maintenance tracked, and changes quoted.", brief: "Your usage feedback drives maintenance and changes", accents: ["usage feedback", "maintenance", "changes"], },
     ],
-    notesTitle: "Four things we would rather say upfront",
     notes: [
       { title: "A change of scope gets quoted", text: "Adding an unplanned case mid-project is possible, but it gets discussed and priced. We do not absorb it silently, and you do not discover it on the invoice." },
       { title: "The project depends on your access", text: "Data that is not available, or an access that takes weeks, pushes everything back. It is the most common cause of delay and the easiest to avoid by naming it early." },
       { title: "Your data stays yours", text: "We work on strictly what is needed, and the processing terms are written down before anything starts." },
       { title: "Maintenance and new features are different things", text: "Fixing something that stopped working as agreed is maintenance. Adding a capability that did not exist is a new quote." },
     ],
-    noDelay: "We do not advertise a universal delivery time. It depends on the scope, on your access, and on how quickly you can sign things off.",
     cta: "Let’s start with where you are",
   },
 
@@ -923,9 +840,6 @@ const en = {
       title: "Book a 30-minute call",
       text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
       openLabel: "Open the calendar",
-      unavailableTitle: "Booking is not live yet",
-      unavailableText:
-        "The calendar is not connected on this version of the site yet. In the meantime, describe your need in the form below: we will reply and suggest a time.",
     },
 
     form: {
