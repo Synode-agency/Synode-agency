@@ -243,7 +243,7 @@ const fr: Record<string, ServicePageContent> = {
     whatText:
       "Un logiciel métier sur mesure est une application conçue autour du fonctionnement réel de votre entreprise : vos processus, vos rôles, vos données et les écrans dont vos équipes ont besoin. Il peut remplacer des fichiers devenus difficiles à gérer, compléter un logiciel existant ou intégrer une fonctionnalité IA destinée à vos collaborateurs ou à vos clients. Nous définissons d’abord le parcours utile, puis les usages où l’intelligence artificielle apporte une valeur concrète.",
     whatVisual: "software",
-    usesTitle: "Quels usages pour un logiciel métier,\net quelles applications|développer ?",
+    usesTitle: "Quels usages pour un logiciel métier,\net quelles applications développer ?",
     usesTitleTwoLines: true,
     usesTitleAccents: ["usages", "développer"],
     usesKicker: "Cas d’usage des logiciels sur mesure",
@@ -336,7 +336,7 @@ const fr: Record<string, ServicePageContent> = {
     ctaTitle: "Identifions les logiciels et données à connecter",
     ctaTitleAccents: ["connecter"],
     ctaText: "Indiquez-nous quelles informations vos équipes recopient d’un logiciel à l’autre. Le premier échange permet d’identifier les API et accès disponibles, la source de référence et la faisabilité réelle de l’intégration.",
-    faqTitle: "Questions fréquentes sur~les \nintégrations et systèmes~connectés",
+    faqTitle: "Questions fréquentes sur les\nintégrations et systèmes connectés",
     faqTitleAccents: ["intégrations", "systèmes"],
     faqExtra: [
       { q: "Faut-il un abonnement supplémentaire pour connecter nos outils ?", a: "Parfois. Certains éditeurs réservent l’accès par API à certaines formules, ou facturent au volume. Nous identifions ces conditions pendant le cadrage, pour qu’elles ne soient pas découvertes en cours de projet." },
@@ -446,7 +446,7 @@ const fr: Record<string, ServicePageContent> = {
       { title: "Mise à jour des contenus", text: "Les outils évoluent vite : les supports et les exemples sont revus.", status: "mise à jour en cours" },
       { title: "Nouveaux usages", text: "De nouvelles tâches sont examinées à mesure que l’équipe progresse.", status: "examen en cours" },
     ],
-    ctaTitle: "Construisons une formation IA adaptée à vos équipes",
+    ctaTitle: "Construisons une formation IA adaptée à vos équipes",
     ctaTitleAccents: ["formation IA"],
     ctaText: "Expliquez-nous comment vos collaborateurs utilisent aujourd’hui l’intelligence artificielle. Le premier échange permet de définir des objectifs concrets, un format réaliste et des exercices directement liés à vos métiers et à vos règles de confidentialité.",
     faqTitle: "Questions fréquentes sur\nla formation IA",
@@ -471,7 +471,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "An AI assistant helps your teams search, draft, summarise or make use of information faster. An AI agent goes further: connected to your data and your business software, it can analyse a request, carry out a sequence of steps and perform actions under defined rules, while keeping a level of control that suits your business.",
     whatVisual: "agent",
-    usesTitle: "What an AI agent can be used for,\nand the forms it can take",
+    usesTitle: "What an AI agent can be used for\nand the forms it can take",
     usesTitleAccents: ["used for", "forms"],
     usesKicker: "Concrete uses and agent types",
     usesCards: true,
@@ -527,7 +527,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "Intelligent automation connects your business software, rules and data to run repetitive process steps automatically. Artificial intelligence is used only when the workflow must understand text, classify a request or extract information, while straightforward rules remain deterministic and under control.",
     whatVisual: "automation",
-    usesTitle: "Which business processes can you automate, and with which solutions?",
+    usesTitle: "Which business processes can you automate and with which solutions?",
     usesTitleAccents: ["business processes", "solutions?"],
     usesKicker: "Intelligent automation use cases",
     usesCards: true,
@@ -582,7 +582,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "Custom business software is designed around the way your company actually works: your roles, data, rules and the screens your teams need. It can replace hard-to-maintain files, extend an existing application or provide a new service to your customers. AI is added only where it creates a concrete operational benefit.",
     whatVisual: "software",
-    usesTitle: "Which needs can custom software address,\nand which applications should you build?",
+    usesTitle: "Which needs can custom software address\nand which applications should you build?",
     usesTitleTwoLines: true,
     usesTitleAccents: ["custom software", "applications"],
     usesKicker: "Custom software and AI application use cases",
@@ -631,14 +631,14 @@ const en: Record<string, ServicePageContent> = {
   "integrations-systemes-connectes": {
     kicker: "Software & API integration",
     h1: "Connect your software, APIs and business data",
-    h1Accents: ["Connect your software"],
+    h1Accents: ["Connect your software,"],
     whatKicker: "Understanding software integration",
     whatTitle: "What is an integration between your systems?",
     whatTitleAccents: ["integration"],
     whatText:
       "Software integration allows two business applications to exchange data such as a contact, status, order or document. It eliminates duplicate entry and keeps information consistent. Automation organises the steps of a process, while an integration moves data between tools. The two often work together but serve different purposes.",
     whatVisual: "integration",
-    usesTitle: "Which software should you connect,\nand which data should you synchronise?",
+    usesTitle: "Which software should you connect\nand which data should you synchronise?",
     usesTitleTwoLines: true,
     usesTitleAccents: ["software", "data"],
     usesKicker: "Software integration and data synchronisation use cases",
@@ -695,7 +695,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "Business data analysis turns scattered information into reliable decision-making tools. Sources are connected, inconsistencies corrected and performance indicators defined with your teams before being displayed in clear dashboards. When the available history supports it, forecasting, scoring or recommendations can be added without confusing estimates with recorded facts.",
     whatVisual: "data",
-    usesTitle: "How can you use your business data,\nand which tools should you implement?",
+    usesTitle: "How can you use your business data\nand which tools should you implement?",
     usesTitleTwoLines: true,
     usesTitleAccents: ["business data", "tools"],
     usesKicker: "Data analysis and dashboard use cases",
@@ -752,7 +752,7 @@ const en: Record<string, ServicePageContent> = {
     whatText:
       "Discovering an AI tool and using it effectively at work are two different things. Successful AI adoption means choosing relevant business use cases, practising with real situations and setting shared rules for verification, human control and confidential information. This applies to existing tools as well as custom AI solutions.",
     whatVisual: "adoption",
-    usesTitle: "What should business AI training achieve,\nand which support format should you choose?",
+    usesTitle: "What should business AI training achieve\nand which support format should you choose?",
     usesTitleTwoLines: true,
     usesTitleAccents: ["AI training", "support format"],
     usesKicker: "AI training and adoption objectives",

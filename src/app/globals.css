@@ -329,12 +329,6 @@
     text-wrap: pretty;
   }
 
-  /* Tabular figures for anything data-like */
-  .tnum {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: "tnum";
-  }
-
   ::selection {
     background: var(--brand);
     color: var(--brand-foreground);
@@ -347,13 +341,6 @@
 
   /* Sections no longer reserve the header height in their own top padding,
      so an anchor has to stop short of it or the heading lands underneath. */
-  @media (min-width: 1024px) {
-    .section-screen[id],
-    .screen-shell[id] {
-      scroll-margin-top: calc(var(--header-h) + var(--page-gutter-top));
-    }
-  }
-
   /* Every interactive control gets a pointer cursor */
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -599,18 +586,6 @@
   }
 
   /* =====================================================================
-     LE TEXTE COURANT
-     ===================================================================== */
-  .prose-body {
-    max-width: var(--measure);
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
-  .prose-body > * + * { margin-top: 1em; }
-  .prose-body strong { color: var(--foreground); font-weight: 700; }
-
-  /* =====================================================================
      LES BOUTONS
 
      Deux, et pas un troisième. Le plein porte l'action principale, le
@@ -730,11 +705,7 @@
     gap: var(--card-gap);
     grid-template-columns: 1fr;
   }
-  @media (min-width: 680px)  { .tile-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 680px)  { .tile-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 900px)  { .tile-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  @media (min-width: 1180px) { .tile-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-
   /* =====================================================================
      LA LISTE SUR FILET
 
@@ -919,64 +890,9 @@
     align-items: flex-start;
     gap: clamp(1.25rem, 0.9rem + 1.4vw, 2rem);
   }
-
-  .hero-title {
-    font-size: var(--fs-display);
-    font-weight: 800;
-    line-height: var(--lh-display);
-    letter-spacing: var(--ls-display);
-    text-wrap: pretty;
-  }
-  @media (min-width: 1024px) {
-    /* 5,6cqi : la largeur de la colonne divisée par la longueur de la ligne
-       la plus longue du titre, moins une marge de 8 %. Le rapport est donc
-       le même à toutes les largeurs, par construction.
-
-       ⚠ SI LA COPIE DU TITRE CHANGE, C'EST CETTE VALEUR QU'IL FAUT
-       RECALCULER, et elle seule. Mesurer la ligne la plus longue en em dans
-       le navigateur plutôt que l'estimer : poser une copie du span en
-       `white-space: nowrap`, lire `getBoundingClientRect().width`, diviser
-       par le corps courant. */
-    .hero-title { font-size: min(5.6cqi, 4.25rem); }
-  }
   /* La seconde voix du titre, portée par le marqueur `^`. Même corps que la
      première : les deux moitiés d'une phrase ne sont pas de deux tailles. */
   .hero-title .title-aside { color: var(--brand); }
-
-  .hero-text {
-    max-width: 48ch;
-    font-size: var(--fs-lead);
-    line-height: 1.45;
-    color: var(--muted-foreground);
-  }
-
-  .hero-actions { margin-top: 0.25rem; }
-
-  /* Ce que la maison fabrique, sous les boutons. Séparé par un filet et non
-     par un point médian : un séparateur qui n'est pas un caractère ne se lit
-     pas à voix haute et ne part pas à la copie. */
-  .hero-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 1.15rem;
-    margin: clamp(0.75rem, 1.6vw, 1.75rem) 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .hero-stack li {
-    position: relative;
-    font-size: var(--fs-micro);
-    color: var(--text-mono);
-  }
-  .hero-stack li + li::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -0.6rem;
-    height: 0.85em;
-    border-left: 1px solid var(--hairline);
-    transform: translateY(-50%);
-  }
 
   .hero-visual { min-width: 0; }
   /* Sur téléphone la pile d'interfaces passe sous le texte, et elle garde
@@ -994,15 +910,6 @@
      ===================================================================== */
   .section-gap { margin-top: clamp(2.5rem, 1.6rem + 3vw, 4.5rem); }
   .section-gap-sm { margin-top: clamp(1.5rem, 1.1rem + 1.4vw, 2.5rem); }
-
-  /* La carte d'un constat : le lien vers le cas d'usage est poussé en bas,
-     donc les quatre cartes l'alignent quelle que soit la longueur du texte. */
-  .problem-tile { height: 100%; }
-  .problem-go { margin-top: auto; padding-top: 0.75rem; }
-
-  /* La rangée d'une étape de méthode : le rang et le titre voyagent
-     ensemble, sinon le numéro se retrouve seul en haut d'une colonne. */
-  .method-head { display: flex; align-items: baseline; gap: 0.75rem; }
 
   /* =====================================================================
      LA FAQ
@@ -1073,101 +980,6 @@
     border-radius: var(--r-sm);
   }
 
-  .arch-caption {
-    margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
-    font-size: var(--fs-micro);
-    letter-spacing: 0.04em;
-    color: var(--text-mono);
-  }
-
-  .arch-tier {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    text-align: center;
-  }
-  .arch-label {
-    font-size: var(--fs-small);
-    font-weight: 700;
-  }
-  .arch-chips {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.45rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .arch-chips li {
-    padding: 0.35rem 0.8rem;
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-pill);
-    font-size: var(--fs-micro);
-    color: var(--muted-foreground);
-  }
-
-  /* L'étage du milieu est le SEUL plein : c'est le seul que nous
-     construisons, et il doit se voir sans qu'on ait à lire son libellé. */
-  .arch-core {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.9rem;
-    width: 100%;
-    padding: clamp(1.1rem, 0.8rem + 1.4vw, 1.75rem);
-    border-radius: var(--r-xs);
-    background: var(--surface-2);
-    text-align: center;
-  }
-  .arch-core-label {
-    font-size: var(--fs-h4);
-    font-weight: 800;
-    letter-spacing: -0.01em;
-  }
-  .arch-core-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.4rem 1.4rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--fs-small);
-  }
-  /* Un filet vertical entre deux mots plutôt qu'un point médian : il sépare
-     sans ajouter de caractère au texte. */
-  .arch-core-list li + li { position: relative; }
-  .arch-core-list li + li::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -0.72rem;
-    height: 0.8em;
-    border-left: 1px solid var(--hairline);
-    transform: translateY(-50%);
-  }
-
-  .arch-human {
-    margin-top: 0.35rem;
-    font-size: var(--fs-micro);
-    color: var(--text-mono);
-  }
-
-  /* Le trait de liaison. Décoratif : la structure est déjà portée par les
-     trois groupes de texte. */
-  .arch-flow {
-    width: 1px;
-    height: clamp(1.5rem, 2.6vw, 2.5rem);
-    background: linear-gradient(
-      to bottom,
-      color-mix(in oklab, currentColor 20%, transparent),
-      color-mix(in oklab, currentColor 55%, transparent)
-    );
-  }
-
   /* =====================================================================
      LE FLUX D'UN CAS D'USAGE — les trois temps, dessinés
      ===================================================================== */
@@ -1182,41 +994,8 @@
   @media (min-width: 780px) {
     .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
   }
-  .flow-step {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.9rem 1rem;
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-xs);
-    background: var(--surface-2);
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-  }
   /* La flèche entre deux temps, en CSS : un caractère se lirait à voix
      haute et partirait à la copie. */
-  @media (min-width: 780px) {
-    .flow-step + .flow-step::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: -0.6rem;
-      width: 0.36rem;
-      height: 0.36rem;
-      border-top: 1px solid var(--brand);
-      border-right: 1px solid var(--brand);
-      transform: translateY(-50%) rotate(45deg);
-    }
-  }
-  .flow-rank {
-    font-size: var(--fs-micro);
-    font-weight: 800;
-    color: var(--brand);
-    font-variant-numeric: tabular-nums;
-  }
-  .flow-text { color: var(--muted-foreground); }
-
   /* =====================================================================
      LA SÉQUENCE NUMÉROTÉE
 
@@ -1233,70 +1012,6 @@
     padding: 0;
     list-style: none;
     border-top: 1px solid var(--hairline);
-  }
-  .seq-item {
-    display: grid;
-    align-items: baseline;
-    gap: 0.4rem clamp(1.5rem, 4vw, 4rem);
-    padding: clamp(1.5rem, 1rem + 2vw, 2.5rem) 0;
-    border-bottom: 1px solid var(--hairline);
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 860px) {
-    .seq-item {
-      grid-template-columns: 7rem minmax(0, 20rem) minmax(0, 1fr);
-    }
-  }
-  /* LE NUMÉRO EST UN REPÈRE VISUEL, PAS UNE PUCE.
-
-     C'est le trait que partagent les deux références citées : le chiffre
-     est posé grand, il structure la bande avant qu'on ait lu un mot. À la
-     taille d'un titre de bloc il se lisait comme une numérotation de liste,
-     ce qui ne sert à rien.
-
-     Il reste aligné sur la ligne de base du titre : un grand chiffre centré
-     dans sa case flotterait sans rien tenir. */
-  .seq-num {
-    font-size: clamp(2.25rem, 1.2rem + 3.4vw, 4.5rem);
-    font-weight: 800;
-    line-height: 0.85;
-    letter-spacing: -0.04em;
-    /* Sur la bande bleue, `--brand` vaut blanc : le numéro y prend donc le
-       blanc plein, et l'encre ailleurs. Une seule règle pour les deux. */
-    color: var(--brand);
-    font-variant-numeric: tabular-nums;
-  }
-  .seq-title {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: var(--ls-title);
-  }
-  .seq-text {
-    max-width: 52ch;
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
-
-  .offer-note {
-    max-width: var(--measure);
-    font-size: var(--fs-lead);
-    line-height: 1.5;
-    color: var(--muted-foreground);
-  }
-
-  /* La flèche d'une rangée cliquable : invisible au repos, elle n'apparaît
-     qu'au survol. Quatre flèches alignées au repos font une colonne de
-     chevrons qui attire l'œil avant le texte. */
-  .row-go {
-    align-self: center;
-    justify-self: end;
-    width: 0.9rem;
-    height: 0.9rem;
-    color: var(--brand);
-    opacity: 0;
-    transition: opacity 0.2s var(--anim-ease), transform 0.2s var(--anim-ease);
   }
   a.row:hover .row-go,
   a.row:focus-visible .row-go {
@@ -1320,10 +1035,6 @@
     font-size: var(--fs-small);
     line-height: var(--lh-body);
     color: var(--text-mono);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .row-go { transition: none; }
   }
 
   /* =====================================================================
@@ -1354,17 +1065,6 @@
      LES ANCRES DE TERRITOIRE
      ===================================================================== */
   .anchors { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .anchor-pill {
-    padding: 0.55rem 1rem;
-    border: 1px solid var(--hairline);
-    border-radius: var(--r-pill);
-    background: var(--surface-2);
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--muted-foreground);
-    transition: border-color 0.18s var(--anim-ease), color 0.18s var(--anim-ease);
-  }
-  .anchor-pill:hover { border-color: var(--border-active); color: var(--foreground); }
 
   /* =====================================================================
      UN CAS D'USAGE
@@ -1383,70 +1083,6 @@
     scroll-margin-top: calc(var(--header-h) + var(--card-gap) * 2);
   }
   .panel--quiet .case { background: var(--card); }
-
-  .case-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.75rem 1.5rem;
-  }
-  .case-title {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: var(--ls-title);
-  }
-  .case-situation {
-    max-width: var(--measure);
-    margin-top: 1rem;
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
-
-  .case-steps {
-    display: grid;
-    gap: 0.5rem;
-    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
-    padding: 0;
-    list-style: none;
-  }
-  .case-steps li {
-    display: grid;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: var(--r-xs);
-    background: var(--surface-2);
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    grid-template-columns: 1.75rem minmax(0, 1fr);
-  }
-
-  .case-facts {
-    display: grid;
-    gap: 1.25rem clamp(1.5rem, 3vw, 3rem);
-    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 820px) { .case-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .case-facts dt {
-    font-size: var(--fs-micro);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--text-mono);
-  }
-  .case-facts dd {
-    margin: 0.3rem 0 0;
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
-  .case-needs { margin: 0; padding-left: 1.1rem; }
-  .case-needs li { margin-top: 0.2rem; }
-  .case-cta { margin-top: clamp(1.25rem, 2vw, 1.75rem); }
-
   /* =====================================================================
      LES ÉTAPES DE LA MÉTHODE
 
@@ -1461,42 +1097,6 @@
     border-radius: var(--r-sm);
     background: var(--card);
   }
-  .step-head { display: flex; align-items: baseline; gap: 0.9rem; }
-  /* Même principe que la séquence de l'offre : le rang est un repère, pas
-     une puce. */
-  .step-rank {
-    font-size: clamp(2rem, 1.2rem + 2.6vw, 3.5rem);
-    font-weight: 800;
-    line-height: 0.85;
-    letter-spacing: -0.04em;
-    color: var(--brand);
-    font-variant-numeric: tabular-nums;
-  }
-  .step-title {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    letter-spacing: var(--ls-title);
-  }
-  .step-grid {
-    display: grid;
-    gap: 1.25rem clamp(1.5rem, 3vw, 3rem);
-    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 900px) { .step-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .step-grid dt {
-    font-size: var(--fs-micro);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--text-mono);
-  }
-  .step-grid dd {
-    margin: 0.35rem 0 0;
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
-
   /* =====================================================================
      L'ÉQUIPE
 
@@ -1505,19 +1105,6 @@
      site se lit pour ce qu'elle est, un emplacement.
      ===================================================================== */
   .person { align-items: flex-start; }
-  .person-mark {
-    display: grid;
-    place-items: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    margin-bottom: 0.5rem;
-    border-radius: var(--r-pill);
-    background: var(--accent);
-    color: var(--accent-foreground);
-    font-size: var(--fs-h3);
-    font-weight: 800;
-  }
-  .person-role { font-size: var(--fs-small); font-weight: 700; color: var(--brand); }
 
   /* =====================================================================
      LES RÉALISATIONS
@@ -1985,43 +1572,6 @@
     container-type: inline-size;
   }
 
-  /* ---------------- La pile des trois systèmes ----------------
-     Les trois sont empilés, le premier devant. Les suivants sont décalés
-     vers le haut et légèrement réduits : leur bord dépasse, donc on voit
-     qu'il y en a d'autres avant même que le premier ait fini.
-
-     Quand une carte devient active, sa profondeur passe à 0 : elle descend
-     et reprend sa taille pleine, par-dessus la précédente. Le glissement est
-     une transition sur `transform`, pas une animation — c'est un changement
-     d'état, il doit pouvoir être interrompu. */
-  .hero-systems {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero-system {
-    position: absolute;
-    inset: 0;
-    transform: translateY(calc(var(--depth) * -4%))
-      scale(calc(1 - var(--depth) * 0.05));
-    /* Depuis le haut : une carte du dessous reste alignée par son bord
-       supérieur, donc c'est bien son bord qui dépasse et pas un cadre
-       centré plus petit. */
-    transform-origin: 50% 0%;
-    transition-property: transform, opacity;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  /* La carte qui passe devant ne se contente pas de grandir : elle se
-     soulève, dépasse un peu sa place, puis se pose. C'est ce léger
-     dépassement qui donne le poids — sans lui, deux transformations
-     interpolées en ligne droite se lisent comme un fondu enchaîné, pas
-     comme un objet qui passe par-dessus un autre. */
-  .hero-system[data-enter="true"] {
-    animation: hero-card-front 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
   @keyframes hero-card-front {
     0% {
       transform: translateY(-4%) scale(0.95);
@@ -2039,371 +1589,11 @@
     }
   }
 
-  /* Le contenu remonté ne doit pas créer de boîte : la carte reste le seul
-     bloc, et le mock continue de la remplir à 100 %. */
-  .hero-system-slot { display: contents; }
-
-  /* Les cartes qui ne jouent pas reculent avec un léger retard — le temps
-     d'être recouvertes par celle qui passe devant. Sans ce délai, celle qui
-     vient de jouer partirait vers le fond en même temps que la nouvelle
-     descend, et on verrait les deux se croiser.
-
-     Le retard ne concerne pas la carte entrante : elle est animée par
-     `hero-card-front`, et une animation ignore `transition-delay`. */
-  .hero-system { transition-delay: 240ms; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-system { transition: none; }
-    .hero-system[data-enter="true"] { animation: none; }
-  }
-
-  /* ---------------- Le mock ----------------
-     Un tableau de bord qui raconte une automatisation en trois temps : une
-     demande arrive, un devis part, une relance se fait seule.
-
-     La séquence se joue UNE FOIS, puis le mock reste une image fixe. Elle
-     démarre quand le panneau entre à l'écran : sur desktop il y est dès le
-     chargement, sur téléphone au scroll. Le mécanisme est un simple
-     `animation-play-state` — tout est en pause au repos, `data-shown` lance
-     tout d'un coup, et `both` fige chaque élément sur sa dernière image.
-
-     Tout est en `em` contre une taille de police en unités de conteneur, donc
-     le panneau s'échelonne d'un bloc. */
-
-  .hero-app {
-    /* L'encre du système. Bleu, violet, vert : trois teintes neutres, aucune
-       qui se lise comme une alerte. Le rouge est réservé au Constat sur ce
-       site, et un système « impayés » en rouge se lirait comme un problème
-       plutôt que comme sa solution. */
-    --sys-ink: var(--brand);
-    --sys-tint: color-mix(in oklab, var(--sys-ink) 12%, #ffffff);
-
-    /* Rotation à plat, dans le plan de la page. */
-    --app-spin: 1deg;
-    /* Le temps que met le curseur à arriver et à cliquer. Tout le reste de
-       la séquence en découle, donc le raccourcir sur téléphone — où il n'y a
-       pas de curseur — ne demande qu'une valeur. */
-    --app-lead: 1.8s;
-
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    border-radius: 1.9em;
-    border: 0.85em solid #DCE8F8;
-    background: #ffffff;
-    color: var(--foreground);
-    /* Tout le contenu est en `em` contre cette valeur, et le cadre a une
-       hauteur fixée par son rapport : si la police cessait de rétrécir avant
-       le cadre, le contenu déborderait et serait rogné. Le plancher est donc
-       bas à dessein. */
-    font-size: clamp(5.5px, 1.6cqw, 22px);
-    box-shadow: 0 2.2em 4.5em -1.8em rgb(70 68 68 / 0.28);
-  }
-
-  .hero-system:nth-child(2) .hero-app { --sys-ink: #7e22ce; }
-  .hero-system:nth-child(3) .hero-app { --sys-ink: #15803d; }
-
-  /* Rien ne bouge tant que la carte n'est pas celle qui joue, et rien ne
-     rejoue ensuite : chaque animation ne compte qu'un seul tour. Les deux
-     cartes en attente restent donc figées sur leur première image, ce qui
-     est exactement ce qu'on veut voir dépasser derrière la première. */
-  .hero-app,
-  .hero-app * {
-    animation-play-state: paused;
-  }
-  .hero-system[data-play="true"] .hero-app,
-  .hero-system[data-play="true"] .hero-app * {
-    animation-play-state: running;
-  }
-
-  /* ---- Le curseur ---- */
-  .hero-app-cursor {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 5;
-    width: 1.9em;
-    height: 1.9em;
-    color: #464444;
-    opacity: 0;
-    filter: drop-shadow(0 0.25em 0.4em rgb(70 68 68 / 0.35));
-    animation: hero-cursor 2.6s cubic-bezier(0.45, 0, 0.2, 1) 0.2s 1 both;
-    pointer-events: none;
-  }
-  .hero-app-cursor svg { width: 100%; height: 100%; }
-
-  /* ---- Barre latérale ---- */
-  .hero-app-side {
-    flex: none;
-    width: 15.5em;
-    padding: 1.5em 1.1em;
-    border-right: 1px solid #EFEDED;
-    background: #fbfcfe;
-  }
-
-  .hero-app-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.6em;
-    padding-inline: 0.4em;
-    margin-bottom: 1.6em;
-  }
-  .hero-app-brand img { width: 1.9em; height: 1.9em; }
-  .hero-app-brand span {
-    font-size: 1.35em;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .hero-app-nav { display: grid; gap: 0.3em; }
-
-  .hero-app-nav-row {
-    display: flex;
-    align-items: center;
-    gap: 0.7em;
-    padding: 0.65em 0.7em;
-    border-radius: 0.65em;
-    color: #605D5D;
-    font-size: 0.98em;
-  }
-  .hero-app-nav-row svg { width: 1.25em; height: 1.25em; stroke-width: 1.7; }
-  .hero-app-nav-row i { font-style: normal; }
-
   /* L'entrée sélectionnée ne l'est pas d'entrée de jeu : elle s'allume au
      clic du curseur, et le reste ensuite. */
   .hero-app-nav-row.is-active {
     animation: hero-nav-select 0.35s ease-out var(--app-lead) 1 both;
   }
-
-  /* ---- Panneau ---- */
-  .hero-app-main {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 1.7em 1.8em;
-  }
-
-  .hero-app-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.2em;
-  }
-
-  .hero-app-title {
-    font-size: 2.05em;
-    font-weight: 700;
-    line-height: 1.16;
-    letter-spacing: -0.03em;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 0.3s);
-  }
-
-  .hero-app-status {
-    flex: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    padding: 0.5em 0.9em;
-    border-radius: var(--r-pill);
-    background: #e7f7ee;
-    color: #15803d;
-    font-size: 0.95em;
-    font-weight: 500;
-    white-space: nowrap;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 0.55s);
-  }
-  .hero-app-status i {
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: var(--r-pill);
-    background: #22c55e;
-  }
-
-  /* ---- Le flux en trois temps ---- */
-  /* 0,75 s entre deux étapes : assez pour qu'on suive la progression, pas
-     assez pour qu'on attende. */
-  /* ---- Les deux cartes du bas ---- */
-  /* `flex: 1` et non `margin-top: auto` : avec la marge automatique, toute
-     la hauteur gagnée par le cadre tombait dans l'écart au-dessus des deux
-     cartes, qui gardaient leur taille. La pastille d'état restait donc
-     aussi près du bord qu'avant. Ici ce sont les cartes qui grandissent. */
-  .hero-app-bottom {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: 1em;
-    flex: 1;
-    min-height: 0;
-    margin-top: 1.5em;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 3s);
-  }
-
-  .hero-app-card {
-    position: relative;
-    overflow: hidden;
-    padding: 1.1em 1.2em;
-    border: 1px solid #EFEDED;
-    border-radius: 1em;
-    background: #ffffff;
-  }
-
-  .hero-app-chart {
-    display: block;
-    margin-top: auto;
-    color: var(--sys-ink);
-  }
-  .hero-app-chart svg { width: 100%; height: 3.6em; overflow: visible; }
-
-  .hero-app-chart-line {
-    stroke-dasharray: 260;
-    animation: hero-app-draw 1.3s cubic-bezier(0.33, 0, 0.2, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 3.6s);
-  }
-  .hero-app-chart-area {
-    animation: hero-app-fade 0.8s ease-out 1 both;
-    animation-delay: calc(var(--app-lead) + 4.1s);
-  }
-
-  /* =====================================================================
-     ÉCRAN 1 — LE TABLEAU
-
-     Trois colonnes, trois dossiers qui avancent de l'une à l'autre. Les
-     dossiers sont posés en ABSOLU au-dessus des colonnes : ils traversent
-     le tableau sans appartenir à aucune, donc une colonne ne se réordonne
-     jamais sous eux pendant le déplacement.
-
-     Seul `left` s'anime. Le `top` d'un dossier est constant — il garde sa
-     rangée d'un bout à l'autre — et c'est ce qui produit l'empilement
-     promis dans la colonne d'arrivée sans une seule valeur calculée.
-     ===================================================================== */
-  .hero-board {
-    --bg: 0.8em;                        /* l'écart entre deux colonnes */
-    --bw: calc(33.3333% - var(--bg) * 2 / 3);
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--bg);
-    margin-block: 1.6em 1.1em;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 0.7s);
-  }
-  .hero-board-col {
-    min-width: 0;
-    padding: 1em 1em 0;
-    border: 1px solid #1E3A60;
-    border-radius: 0.8em;
-    background: #0F2340;
-  }
-  .hero-board-colhead {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.6em;
-  }
-  .hero-board-colhead > span {
-    min-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #C9D3E2;
-  }
-  /* Deux chiffres superposés : le « 3 » couvre le « 0 » pendant la fenêtre
-     où la colonne est pleine. Un compteur CSS ne s'anime pas. */
-  .hero-board-count {
-    position: relative;
-    flex: none;
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 1em;
-    color: #8EC1FF;
-  }
-  .hero-board-count b { font-weight: 400; }
-  .hero-board-count b:last-child {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    animation: hero-board-c1 5.2s steps(1, end) infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-board-col:nth-child(2) .hero-board-count b:last-child { animation-name: hero-board-c2; }
-  .hero-board-col:nth-child(3) .hero-board-count b:last-child { animation-name: hero-board-c3; }
-
-  .hero-board-card {
-    position: absolute;
-    left: 0;
-    top: calc(3.9em + var(--i) * 5.4em);
-    width: var(--bw);
-    height: 4.8em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.35em;
-    padding-inline: 0.9em;
-    border: 1px solid #2A4870;
-    border-radius: 0.7em;
-    background: #14284A;
-    animation: hero-board-move 5.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-    animation-delay: calc(var(--app-lead) + var(--i) * 0.25s);
-  }
-  .hero-board-card b {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.15em;
-    font-weight: 500;
-    color: #ffffff;
-  }
-  .hero-board-card i {
-    display: flex;
-    align-items: center;
-    gap: 0.45em;
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 0.95em;
-    color: #8EC1FF;
-    white-space: nowrap;
-  }
-  .hero-board-card s {
-    flex: none;
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: var(--r-pill);
-    background: currentColor;
-  }
-
-  /* La carte indicateur, sous le tableau. */
-  .hero-board-metric {
-    flex: none;
-    display: flex;
-    align-items: center;
-    gap: 1.4em;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 1.2s);
-  }
-  .hero-board-metric > span:first-child { flex: none; }
-  .hero-board-metric b {
-    display: block;
-    font-size: 1.15em;
-    font-weight: 600;
-    color: #C9D3E2;
-  }
-  .hero-board-metric strong {
-    display: block;
-    margin-top: 0.1em;
-    font-size: 2em;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: #8EC1FF;
-  }
-  .hero-board-metric .hero-app-chart { flex: 1; min-width: 0; margin-top: 0; color: #4E8FF0; }
-  .hero-board-metric .hero-app-chart svg { height: 3.8em; }
 
   /* --- Le cycle du tableau : 4 temps de 1,3 s. --- */
   @keyframes hero-board-move {
@@ -2413,11 +1603,6 @@
     63.5%, 96% { opacity: 1; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
     100% { opacity: 0; left: calc(66.6667% + var(--bg) * 2 / 3); background: #123A2A; border-color: #22C55E; }
   }
-  /* La source prend la couleur de la colonne d'arrivée, au même instant. */
-  .hero-board-card i {
-    animation: hero-board-src 5.2s steps(1, end) infinite;
-    animation-delay: calc(var(--app-lead) + var(--i) * 0.25s);
-  }
   @keyframes hero-board-src {
     0%, 62% { color: #8EC1FF; }
     63.5%, 100% { color: #4ADE80; }
@@ -2425,110 +1610,6 @@
   @keyframes hero-board-c1 { 0%, 24% { opacity: 1; } 25%, 100% { opacity: 0; } }
   @keyframes hero-board-c2 { 0%, 37% { opacity: 0; } 38.5%, 61% { opacity: 1; } 63%, 100% { opacity: 0; } }
   @keyframes hero-board-c3 { 0%, 62% { opacity: 0; } 63.5%, 100% { opacity: 1; } }
-
-  /* =====================================================================
-     ÉCRANS 2 ET 3 — LE FLUX
-
-     Trois étapes reliées par une barre qui se remplit, un journal et une
-     fiche. Tout est cadencé sur une boucle de 5,7 s, soit trois temps de
-     1,9 s : 33,333 % et 66,667 % sont les deux bascules, et on les
-     retrouve dans chacune des animations ci-dessous. Changer la cadence se
-     fait donc en un seul endroit, à condition de garder ces deux repères.
-     ===================================================================== */
-  .hero-flow {
-    flex: none;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.6em;
-    margin-block: 1.9em 1.6em;
-    animation: hero-app-appear 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
-    animation-delay: calc(var(--app-lead) + 0.7s);
-  }
-  .hero-flow-step {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.85em;
-    text-align: center;
-  }
-  .hero-flow-disc {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 4.2em;
-    height: 4.2em;
-    border: 1px solid transparent;
-    border-radius: var(--r-pill);
-    background: #13294A;
-    color: #4F6383;
-    animation: hero-flow-d3 5.7s linear infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-flow-disc > svg { width: 1.85em; height: 1.85em; stroke-width: 1.7; }
-  .hero-flow-check {
-    position: absolute;
-    right: -0.2em;
-    bottom: -0.2em;
-    display: grid;
-    place-items: center;
-    width: 1.6em;
-    height: 1.6em;
-    border: 0.2em solid #0A1A30;
-    border-radius: var(--r-pill);
-    background: #22C55E;
-    color: #ffffff;
-    opacity: 0;
-    transform: scale(0.3);
-    animation: hero-flow-k3 5.7s linear infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-flow-check svg { width: 0.95em; height: 0.95em; }
-  .hero-flow-label {
-    max-width: 8.5em;
-    font-size: 1.15em;
-    font-weight: 600;
-    line-height: 1.25;
-    color: #6F84A3;
-    animation: hero-flow-l3 5.7s linear infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-flow-label b { font-weight: 600; }
-
-  .hero-flow-bar {
-    flex: none;
-    position: relative;
-    align-self: flex-start;
-    margin-top: 2.1em;
-    width: 2.6em;
-    height: 0.2em;
-    border-radius: var(--r-pill);
-    background: #1E3352;
-    overflow: hidden;
-  }
-  .hero-flow-bar::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    width: 0;
-    border-radius: inherit;
-    background: #4E8FF0;
-    animation: hero-flow-bar2 5.7s linear infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-flow-bar:nth-child(4)::after { animation-name: hero-flow-bar4; }
-
-  /* L'étape 1 est en cours au premier temps puis franchie ; l'étape 2
-     attend, passe en cours, puis est franchie ; l'étape 3 attend deux
-     temps avant de s'allumer. Trois jeux d'images, un par position. */
-  .hero-flow-step:nth-child(1) .hero-flow-disc { animation-name: hero-flow-d1; }
-  .hero-flow-step:nth-child(3) .hero-flow-disc { animation-name: hero-flow-d2; }
-  .hero-flow-step:nth-child(1) .hero-flow-check { animation-name: hero-flow-k1; }
-  .hero-flow-step:nth-child(3) .hero-flow-check { animation-name: hero-flow-k2; }
-  .hero-flow-step:nth-child(1) .hero-flow-label { animation-name: hero-flow-l1; }
-  .hero-flow-step:nth-child(3) .hero-flow-label { animation-name: hero-flow-l2; }
 
   @keyframes hero-flow-d1 {
     0%, 26% { background: #1D3E6A; border-color: #4E8FF0; box-shadow: 0 0 2.2em rgb(78 143 240 / 35%); color: #8EC1FF; }
@@ -2569,133 +1650,15 @@
     0%, 59.6% { width: 0; }
     66.667%, 100% { width: 100%; }
   }
-
-  /* ---- Le journal ---- */
-  .hero-log { display: flex; flex-direction: column; justify-content: center; gap: 1.1em; }
-  .hero-log-row {
-    display: grid;
-    grid-template-columns: 0.7em auto minmax(0, 1fr);
-    align-items: center;
-    gap: 0.7em;
-    opacity: 0.25;
-    animation: hero-log-3 5.7s linear infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-log-row:nth-child(1) { animation-name: hero-log-1; }
-  .hero-log-row:nth-child(2) { animation-name: hero-log-2; }
-  .hero-log-row i {
-    width: 0.7em;
-    height: 0.7em;
-    border-radius: var(--r-pill);
-    background: #24406A;
-    animation: hero-dot-3 5.7s steps(1, end) infinite;
-    animation-delay: var(--app-lead);
-  }
-  .hero-log-row:nth-child(1) i { animation-name: hero-dot-1; }
-  .hero-log-row:nth-child(2) i { animation-name: hero-dot-2; }
-  .hero-log-row em {
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 0.95em;
-    color: #6F84A3;
-    white-space: nowrap;
-  }
-  .hero-log-row b {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.15em;
-    font-weight: 400;
-    color: #D7E0EC;
-  }
   @keyframes hero-log-1 { 0%, 100% { opacity: 1; } }
   @keyframes hero-log-2 { 0%, 26% { opacity: 0.25; } 33.333%, 100% { opacity: 1; } }
   @keyframes hero-log-3 { 0%, 59.6% { opacity: 0.25; } 66.667%, 100% { opacity: 1; } }
   @keyframes hero-dot-1 { 0%, 32% { background: #4E8FF0; } 33.333%, 100% { background: #22C55E; } }
   @keyframes hero-dot-2 { 0%, 32% { background: #24406A; } 33.333%, 65% { background: #4E8FF0; } 66.667%, 100% { background: #22C55E; } }
   @keyframes hero-dot-3 { 0%, 65% { background: #24406A; } 66.667%, 100% { background: #4E8FF0; } }
-
-  /* ---- La fiche de droite ---- */
-  .hero-sheet { display: flex; flex-direction: column; }
-  .hero-sheet > * { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-  .hero-sheet-ref {
-    font-family: var(--font-sans);
-    font-style: normal;
-    font-size: 0.95em;
-    color: #6F84A3;
-  }
-  .hero-sheet-who { margin-top: 0.5em; font-size: 1.15em; color: #B6C2D4; }
-  .hero-sheet-amount {
-    margin-top: 0.3em;
-    font-size: 2.4em;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    color: #ffffff;
-  }
-  .hero-sheet-due { margin-top: 0.2em; font-size: 1.1em; color: #8FA0B8; }
-
-  /* Les trois états, superposés : un seul est visible à la fois. */
-  .hero-sheet-pills {
-    position: relative;
-    align-self: flex-start;
-    margin-top: auto;
-    padding-top: 1em;
-    height: 3.1em;
-    overflow: visible;
-  }
-  /* Décollée du bas de la carte : posée à zéro, elle se lisait comme un
-     défaut d'alignement plutôt que comme un état. */
-  .hero-sheet-pills b {
-    position: absolute;
-    bottom: 0.35em;
-    left: 0;
-    padding: 0.4em 0.9em;
-    border-radius: var(--r-pill);
-    font-size: 1.05em;
-    font-weight: 500;
-    white-space: nowrap;
-    opacity: 0;
-    animation: hero-pill-3 5.7s steps(1, end) infinite;
-    animation-delay: var(--app-lead);
-  }
-  /* Dans la fiche facture, la pastille descend légèrement pour mieux se
-     détacher du montant. Les états du rendez-vous gardent leur position. */
-  .hero-system:nth-child(2) .hero-sheet-pills b { bottom: calc(0.35em - 3px); }
-  .hero-sheet-pills b:nth-child(1) { animation-name: hero-pill-1; background: #3A2E17; color: #F5B454; }
-  .hero-sheet-pills b:nth-child(2) { animation-name: hero-pill-2; background: #16335A; color: #8EC1FF; }
-  .hero-sheet-pills b:nth-child(3) { background: #123A2A; color: #4ADE80; }
-  /* L'écran 3 n'a pas d'état « échu » : ses deux premières pastilles sont
-     bleue puis verte, et la troisième reste verte. */
-  .hero-system:nth-child(3) .hero-sheet-pills b:nth-child(1) { background: #16335A; color: #8EC1FF; }
-  .hero-system:nth-child(3) .hero-sheet-pills b:nth-child(2) { background: #123A2A; color: #4ADE80; }
   @keyframes hero-pill-1 { 0%, 32% { opacity: 1; } 33.333%, 100% { opacity: 0; } }
   @keyframes hero-pill-2 { 0%, 32% { opacity: 0; } 33.333%, 65% { opacity: 1; } 66.667%, 100% { opacity: 0; } }
   @keyframes hero-pill-3 { 0%, 65% { opacity: 0; } 66.667%, 100% { opacity: 1; } }
-
-  /* ---- Le mini-calendrier de l'écran 3 ---- */
-  .hero-cal-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.8em;
-    font-family: var(--font-sans);
-    font-size: 0.95em;
-    color: #6F84A3;
-  }
-  .hero-cal-head em { font-style: normal; white-space: nowrap; }
-  .hero-cal-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.4em;
-    margin-top: 0.9em;
-  }
-  .hero-cal-grid i {
-    position: relative;
-    height: 1.6em;
-    border: 1px solid #24406A;
-    border-radius: 0.3em;
-    background: transparent;
-  }
   .hero-cal-grid i.is-busy { border-color: transparent; background: #1A2D4A; }
   .hero-cal-grid i.is-slot {
     display: grid;
@@ -2718,15 +1681,6 @@
     33.333%, 100% { background: #22C55E; border-color: #22C55E; }
   }
   @keyframes hero-cal-check { 0%, 32% { opacity: 0; } 33.333%, 100% { opacity: 1; } }
-  .hero-cal-slot {
-    margin-top: 0.9em;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.15em;
-    font-weight: 600;
-    color: #ffffff;
-  }
 
   /* ---- La séquence ----
      Chaque image de fin est l'état définitif : `both` l'y laisse, et rien ne
@@ -2775,13 +1729,6 @@
   /* Under the stage breakpoint the panel is only as wide as a phone. The
      sidebar and the chart cost the most width for the least meaning, so
      they are dropped and what remains gets a readable size. */
-  @media (max-width: 1023px) {
-    .hero-app { font-size: clamp(7.5px, 2.5cqw, 12px); }
-    .hero-app-side { display: none; }
-    .hero-app-chart { display: none; }
-    .hero-app-bottom { grid-template-columns: minmax(0, 1fr); }
-  }
-
   /* ⚠ Il y avait ici un `white-space: nowrap` sur les deux lignes du titre,
      posé du temps où chacune devait tenir sur une seule ligne. Avec un titre
      devenu plus grand que sa colonne sur un grand écran, il empêchait tout
@@ -2823,15 +1770,6 @@
   }
 
   @media (min-width: 1024px) {
-    /* Deux colonnes égales. Le mock occupait auparavant les deux tiers de la
-       rangée, ce qui faisait du titre l'élément secondaire de sa propre page.
-       À parts égales, la promesse et la démonstration ont le même poids, et
-       le mock rétrécit d'autant — tout ce qu'il contient est dimensionné en
-       unités de conteneur, donc il s'échelonne sans se recomposer. */
-    .hero-composition {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 2rem;
-    }
     .hero-visual { max-width: none; }
 
     .hero-stage {
@@ -2930,11 +1868,6 @@
     }
   }
 
-  @media (min-width: 1280px) {
-    /* Les colonnes restent égales, seule la gouttière s'élargit. */
-    .hero-composition { gap: 2.5rem; }
-  }
-
   /* Nothing here is load-bearing, so under reduced motion it all just stops
      on its finished frame. */
   @media (prefers-reduced-motion: reduce) {
@@ -2948,7 +1881,6 @@
       animation: none !important;
       transition: none;
     }
-    .hero-app-cursor { display: none; }
     .hero-app-nav-row.is-active {
       background: var(--sys-tint);
       color: var(--sys-ink);
@@ -3002,21 +1934,9 @@
   }
 }
 
-.reveal-left[data-shown="true"] {
-  animation: reveal-in-left var(--anim-block) var(--anim-ease) forwards;
-}
-
-.reveal-right[data-shown="true"] {
-  animation: reveal-in-right var(--anim-block) var(--anim-ease) forwards;
-}
-
 @keyframes reveal-in-up {
   from { opacity: 0; transform: translateY(52px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.reveal-up[data-shown="true"] {
-  animation: reveal-in-up var(--anim-element) var(--anim-ease) both;
 }
 
 /* Single things riding a directional keyframe: they take the element

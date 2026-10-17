@@ -439,13 +439,20 @@
   }
 }
 
-/* ---- Sur téléphone, le bloc éditorial se centre, comme sur le reste du
-   site. Les écrans d'en face ne bougent pas : ils sont dans l'autre
-   colonne, et rien ici ne les atteint. ---- */
+/* ---- Sur téléphone, le bloc éditorial reste À GAUCHE, comme le reste du
+   site.
+
+   ⚠ Il se CENTRAIT, et le commentaire d'origine disait « comme sur le reste
+   du site ». C'était vrai à l'époque ; la convention du site a changé depuis
+   et tous les textes sont alignés à gauche sur téléphone. Cette page était
+   restée seule avec l'ancienne règle.
+
+   Les écrans d'en face ne bougent pas : ils sont dans l'autre colonne, et
+   rien ici ne les atteint. ---- */
 @media (max-width: 760px) {
   .copy {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
   .reader,
   .checks,

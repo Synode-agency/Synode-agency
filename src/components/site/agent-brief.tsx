@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { CompactPanel } from "@/components/compact-panel";
 
 /**
  * LE VISUEL DE LA COLONNE DE DROITE DE « QU'EST-CE QU'UN AGENT IA ? ».
@@ -36,6 +37,16 @@ import type { Locale } from "@/lib/content";
  * 3. Le premier temps est actif au premier rendu, yeux ouverts, côté
  *    serveur comme côté client.
  * ────────────────────────────────────────────────────────────────────────
+ *
+ * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
+ * Les cinq temps tournent autour d'un petit robot dessiné. Le robot et son
+ * orbite ne disent rien que les cinq mots ne disent, et à cette largeur ils
+ * deviennent un rond gris. Le panneau garde les cinq temps, et le dernier
+ * garde sa mention « humain » : c'est lui qui dit que l'agent ne décide pas
+ * seul.
+ *
+ * ⚠ Pas de bandeau : `COPY` ne contient aucun titre, et en inventer un
+ * reviendrait à ajouter du texte au site.
  */
 
 /* ---- Le repère de la scène. Les positions sont dans ce système. ---- */
@@ -168,6 +179,7 @@ export function AgentBrief({ locale }: { locale: Locale }) {
   const working = step >= 1 && step <= 3;
 
   return (
+    <>
     <div className="abr" ref={root}>
       <div className="abr-card" ref={card} role="img" aria-label={c.alt}>
         <div className="abr-orbit">
@@ -233,5 +245,16 @@ export function AgentBrief({ locale }: { locale: Locale }) {
         </div>
       </div>
     </div>
+
+    {/* ---- Le panneau du téléphone. Voir l'en-tête du fichier. ---- */}
+    <CompactPanel
+      rows={c.steps.map((label, k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label,
+        /* Le dernier temps passe par une personne, et la scène l'écrit. */
+        ...(k === c.steps.length - 1 ? { state: c.human } : {}),
+      }))}
+    />
+    </>
   );
 }

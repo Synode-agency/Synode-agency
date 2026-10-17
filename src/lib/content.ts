@@ -370,7 +370,7 @@ const fr = {
       { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
       { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
       { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
-      { q: "Une solution IA sur mesure peut-elle|évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+      { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
     notInList: {
@@ -461,7 +461,7 @@ const fr = {
     complementTitle: "Complémentaires\npour vos projets IA",
     complementText:
       "Notre équipe réunit l’analyse des processus, la conception d’agents IA, l’automatisation, le développement d’applications et l’intégration de logiciels. Ces compétences se combinent pour construire une solution IA cohérente avec votre organisation.",
-    workingTitle: "Comment nous accompagnons\nvotre projet IA",
+    workingTitle: "Comment nous accompagnons votre projet IA",
     working: [
       "Un interlocuteur identifié pour votre projet IA, du cadrage initial à la mise en service.",
       "Une analyse de vos processus, de vos données et des logiciels à connecter avant le développement.",

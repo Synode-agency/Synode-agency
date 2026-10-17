@@ -54,8 +54,9 @@ export function CompactPanel({
   rows,
   foot,
 }: {
-  /** Le titre du bandeau, à gauche. */
-  head: string;
+  /** Le titre du bandeau, à gauche. Facultatif : un visuel sans titre dans
+   *  son contenu n'a pas de bandeau, plutôt qu'un libellé inventé. */
+  head?: string;
   /** Le mot à droite du bandeau. Facultatif. */
   chip?: string;
   rows: readonly PanelRow[];
@@ -81,10 +82,12 @@ export function CompactPanel({
 
   return (
     <div className={styles.panel} ref={root} aria-hidden>
-      <div className={styles.head}>
-        <span className={styles.headText}>{head}</span>
-        {chip && <em className={styles.chip}>{chip}</em>}
-      </div>
+      {(head || chip) && (
+        <div className={styles.head}>
+          {head && <span className={styles.headText}>{head}</span>}
+          {chip && <em className={styles.chip}>{chip}</em>}
+        </div>
+      )}
 
       <div className={styles.rows}>
         {rows.map((row, i) => (

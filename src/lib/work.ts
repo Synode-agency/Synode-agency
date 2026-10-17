@@ -118,7 +118,7 @@ const en = {
   },
   intro: {
     kicker: "Work",
-    title: "What we are building,\n^and where we stand",
+    title: "What we are building\n^and where we stand",
     text: "Explore Synode’s AI projects: internal tools and business software designed around concrete business processes. Every project shows its actual status, with no invented results or unauthorised client references.",
   },
   empty: {
