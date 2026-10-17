@@ -98,3 +98,23 @@
     transition: none;
   }
 }
+
+/* ---- Sur téléphone, la photo est ancrée EN HAUT, pour ne jamais couper le
+   crâne.
+
+   Le cadre fait environ 400 × 300px une fois la carte empilée, et les
+   photos sont presque carrées : `object-fit: cover` les agrandit pour
+   remplir la largeur et doit donc rogner en hauteur. Centrée par défaut,
+   la découpe se répartissait moitié en haut, moitié en bas, et les deux
+   têtes, posées tout en haut de leur image (7 % de marge pour Antonino,
+   4 % pour Killian), perdaient le haut du crâne.
+
+   ⚠ C'est `object-position` et non un `translateY` : on choisit QUELLE
+   partie de l'image reste dans le cadre. Une translation déplacerait la
+   photo et laisserait une bande de fond vide en haut. Ici, toute la découpe
+   passe par le bas, sur le torse, qui n'apporte rien. ---- */
+@media (max-width: 900px) {
+  .photo img {
+    object-position: 50% 0%;
+  }
+}

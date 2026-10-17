@@ -846,7 +846,7 @@ const en = {
     ],
 
     notInList: {
-      title: "Your need is not on this page?",
+      title: "Don’t see your need here?",
       text: "Every project is built from your own context. The examples here show how we work, not a closed catalogue.",
       cta: "Tell us about it",
     },
@@ -898,7 +898,7 @@ const en = {
         text: "Killian develops AI applications, business software and integrations between your tools. He turns the scoped need into a usable, tested solution suited to your business.",
       },
     ],
-    complementTitle: "A complementary team\nfor your AI projects",
+    complementTitle: "A complementary team for your AI projects",
     complementText: "Our team combines process analysis, AI agent design, automation, application development and software integration. These capabilities come together in an AI solution aligned with your organisation.",
     workingTitle: "How we support\nyour AI project",
     working: [

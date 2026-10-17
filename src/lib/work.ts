@@ -71,7 +71,7 @@ const fr = {
       "Nous concevons des solutions IA sur mesure à partir de vos processus, de vos outils et de vos données. Décrivez-nous le besoin que vous voulez traiter.",
   },
   cta: {
-    title: "Construisons une solution IA\nadaptée à votre activité",
+    title: "Construisons une solution IA adaptée à votre activité",
     text: "Votre solution IA sur mesure partira de vos processus, de vos outils et de vos données. Présentez-nous le besoin métier que vous souhaitez améliorer.",
   },
   todoLabel: "À compléter avant mise en ligne",
@@ -81,7 +81,7 @@ const fr = {
     {
       slug: "nexus",
       kind: "internal" as WorkKind,
-      title: "Nexus -\nLogiciel de prospection\nB2B assisté par IA",
+      title: "Nexus - Logiciel de prospection B2B assisté par IA",
       status: "Outil interne · opérationnel",
       problem:
         "Identifier rapidement les entreprises à Bruxelles et en Belgique susceptibles d’avoir besoin de solutions IA sur mesure, trouver les contacts professionnels pertinents et préparer une prise de contact ciblée sans y passer la semaine.",

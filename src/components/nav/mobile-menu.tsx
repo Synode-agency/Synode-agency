@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, X } from "lucide-react";
-import { Wordmark } from "@/components/site/wordmark";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/site/nav-link";
 import { brickIcons } from "@/components/site/solution-visuals";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import s from "./mobile-menu.module.css";
 
@@ -63,16 +62,12 @@ export function MobileMenu({
   pathname,
   open,
   onClose,
-  otherLangHref,
 }: {
   locale: Locale;
   pathname: string;
   open: boolean;
   /** Ferme le panneau ET rend le focus au bouton ☰. */
   onClose: () => void;
-  /** Calculé par l'en-tête, pour que les deux sélecteurs de langue du site
-   *  n'aient qu'une seule règle de réécriture d'URL. */
-  otherLangHref: (target: Locale) => string;
 }) {
   const { site, solutions } = getContent(locale);
   const c = COPY[locale === "fr" ? "fr" : "en"];
@@ -86,7 +81,6 @@ export function MobileMenu({
   const [reduced, setReduced] = useState(false);
 
   const panel = useRef<HTMLDivElement>(null);
-  const closeButton = useRef<HTMLButtonElement>(null);
   const wrap = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
 
@@ -98,21 +92,59 @@ export function MobileMenu({
     return () => media.removeEventListener("change", read);
   }, []);
 
-  /* Le focus part sur la croix à l'ouverture : c'est l'action la plus
-     probable pour quelqu'un qui navigue au clavier, et le piège ci-dessous
-     a besoin d'un point de départ DANS le panneau. */
+  /* Le focus part sur le PANNEAU lui-même à l'ouverture. Il partait sur la
+     croix du panneau, qui n'existe plus : la barre de navigation reste
+     visible et c'est son bouton hamburger, devenu une croix, qui ferme. Le
+     piège à tabulation ci-dessous a besoin d'un point de départ dans le
+     panneau, et le panneau en `tabIndex={-1}` en est un. */
   useEffect(() => {
     if (!open) return;
-    const id = requestAnimationFrame(() => closeButton.current?.focus());
+    const id = requestAnimationFrame(() => panel.current?.focus());
     return () => cancelAnimationFrame(id);
   }, [open]);
 
-  /* La hauteur du sous-menu. Voir le point 3 de l'en-tête. */
+  /* ---- LE PANNEAU COMMENCE SOUS LA BARRE, ET SA HAUTEUR EST MESURÉE.
+
+     Il était en `inset: 0` et recouvrait donc la barre de navigation, avec
+     son propre logo en variante « mark », son propre sélecteur de langue et
+     sa propre croix. Rien ne bougeait en réalité : on voyait une SECONDE
+     barre, plus courte, avec un logo plus petit. D'où l'impression que tout
+     se déplaçait et rétrécissait à l'ouverture.
+
+     La hauteur est mesurée et non écrite : la barre fait 64px sur téléphone
+     mais le jeton `--header-h` en annonce 72, et une valeur en dur dériverait
+     au premier changement. ---- */
+  useEffect(() => {
+    if (!open) return;
+    const barre = document.querySelector<HTMLElement>(".site-header");
+    const boite = panel.current;
+    if (!barre || !boite) return;
+    /* Écrit DANS le DOM et non dans un état : la valeur ne sert qu'à
+       positionner le panneau, elle ne décide d'aucun rendu, et un `setState`
+       synchrone dans un effet déclencherait un rendu en cascade. */
+    boite.style.top = `${Math.round(barre.getBoundingClientRect().height)}px`;
+  }, [open]);
+
+  /* La hauteur du sous-menu. Voir le point 3 de l'en-tête.
+
+     ⚠ ON N'ANIME QUE SI `sub` VIENT DE CHANGER, menu ouvert. Dans tous les
+     autres cas on pose directement `auto` ou `0px`.
+
+     Le piège corrigé le 17/10 : sur une page solution, le sous-menu démarre
+     OUVERT. L'effet tournait au montage, panneau `hidden` donc en
+     `display: none`, et y mesurait une hauteur de 0px. Il attendait ensuite
+     un `transitionend` pour passer en `auto`, qui ne venait jamais puisque
+     rien ne s'animait. Rouvrir le menu ne relançait rien, l'effet ne
+     dépendant que de `sub`. Résultat sur iPhone : le cadre bleu du sous-menu,
+     vide, jusqu'à ce qu'on le replie et le redéplie. */
+  const prevSub = useRef(sub);
   useEffect(() => {
     const box = wrap.current;
     const content = inner.current;
     if (!box || !content) return;
-    if (reduced) { box.style.height = sub ? "auto" : "0px"; return; }
+    const changed = prevSub.current !== sub;
+    prevSub.current = sub;
+    if (reduced || !open || !changed) { box.style.height = sub ? "auto" : "0px"; return; }
 
     /* ⚠ `offsetHeight` et NON `scrollHeight` : le sous-menu porte un filet
        d'un pixel et des marges, que `scrollHeight` laisse dehors — il rend
@@ -136,7 +168,7 @@ export function MobileMenu({
     box.style.height = `${full()}px`;
     const id = requestAnimationFrame(() => { box.style.height = "0px"; });
     return () => cancelAnimationFrame(id);
-  }, [sub, reduced]);
+  }, [sub, reduced, open]);
 
   const isCurrent = (href: string) => {
     const full = path(locale, href);
@@ -149,6 +181,7 @@ export function MobileMenu({
       id="menu-mobile"
       hidden={!open}
       ref={panel}
+      tabIndex={-1}
       className={s.panel}
       role="dialog"
       aria-modal="true"
@@ -166,37 +199,6 @@ export function MobileMenu({
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
       }}
     >
-      {/* ---- L'en-tête, collé en haut du panneau ---- */}
-      <div className={s.head}>
-        <NavLink
-          href={homePath(locale)}
-          locale={locale}
-          aria-label={site.homeLabel}
-          onNavigate={onClose}
-          className={s.brand}
-        >
-          <Wordmark variant="mark" />
-        </NavLink>
-
-        <div className={s.lang} role="group" aria-label={site.langLabel}>
-          {(["fr", "en"] as const).map(target => (
-            <Link
-              key={target}
-              href={otherLangHref(target)}
-              hrefLang={target}
-              aria-current={target === locale ? "true" : undefined}
-              className={cn(s.langItem, target === locale && s.langCurrent)}
-            >
-              {target.toUpperCase()}
-            </Link>
-          ))}
-        </div>
-
-        <button type="button" ref={closeButton} className={s.close} aria-label={site.menuClose} onClick={onClose}>
-          <X aria-hidden />
-        </button>
-      </div>
-
       {/* ---- Les six entrées ---- */}
       <nav className={s.main} aria-label={site.footerNav}>
         {site.nav.map(item => {

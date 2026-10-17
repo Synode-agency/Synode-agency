@@ -64,7 +64,7 @@ export function AutomationWorkflow({ locale }: { locale: Locale }) {
         <filter id="automation-glow" x="-200%" y="-200%" width="400%" height="400%"><feGaussianBlur stdDeviation="4" /></filter>
       </defs>
       <text className={styles.micro} x="8" y="13">{fr ? "workflow · factures fournisseurs" : "workflow · supplier invoices"}</text>
-      <text data-role="execution" className={`${styles.micro} ${styles.greenText}`} x="432" y="13" textAnchor="end">● actif · 18 exécutions</text>
+      <text data-role="execution" className={`${styles.micro} ${styles.greenText}`} x="432" y="13" textAnchor="end">{fr ? "● actif · 18 exécutions" : "● active · 18 runs"}</text>
 
       <path id="a-link-1" pathLength="100" d="M100 84V128" fill="none" stroke="#1E3352" strokeWidth="2" strokeDasharray="0 100" />
       <path id="a-link-2" pathLength="100" d="M100 174V218" fill="none" stroke="#1E3352" strokeWidth="2" strokeDasharray="0 100" />

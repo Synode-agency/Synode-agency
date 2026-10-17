@@ -108,7 +108,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
       <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tint cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
-            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution IA"] : ["AI solution"]} text={w.cta.text} />
+            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution\u00a0IA"] : ["AI solution"]} text={w.cta.text} />
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{site.cta}<ArrowRight aria-hidden /></Link>

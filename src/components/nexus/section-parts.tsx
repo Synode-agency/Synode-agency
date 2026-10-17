@@ -21,12 +21,17 @@ export function Title({ before, accent, after }: { before: string; accent: strin
   /* Un `\n` dans la première partie coupe le titre, comme ailleurs sur le
      site. La coupe ne vaut qu'à partir de 768px : sur téléphone, une coupe
      calée sur une colonne large produit une ligne orpheline. */
+  /* ⚠ L'ESPACE AVANT LA COUPE EST INDISPENSABLE. Le `\n` du texte remplace
+     l'espace entre deux mots ; sur téléphone la coupe est masquée, et sans
+     cette espace les mots se collaient : « The context ofour », « Le contexte
+     denotre », « achievewith », « cherchonsà ». Au bureau, une espace juste
+     avant un retour à la ligne ne s'affiche pas : rien n'y change. */
   const lines = before.split("\n");
   return (
     <h2 className={styles.h2}>
       {lines.map((line, i) => (
         <Fragment key={line}>
-          {i > 0 && <br className="only-desktop" />}
+          {i > 0 && <>{" "}<br className="only-desktop" /></>}
           {line}
         </Fragment>
       ))}

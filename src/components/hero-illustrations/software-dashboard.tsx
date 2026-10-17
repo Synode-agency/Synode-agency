@@ -60,7 +60,7 @@ export function SoftwareDashboard({ locale }: { locale: Locale }) {
         {BLOCKS.map((block, index) => <g key={block.title} data-role={`block-${index}`} opacity="0">
           <rect data-role={`block-frame-${index}`} className={styles.softTransition} width={block.w} height={block.h} rx="8" fill="#13223A" stroke="#1E3352" />
           <text className={styles.micro} x="10" y="17">{fr ? block.title : ["Revenue", "Active projects", "Requests", "Activity", "Team", "To approve", "Latest activity"][index]}</text>
-          <text fill="#FFFFFF" fontSize={block.w < 100 ? "18" : "16"} fontWeight="600" x="10" y="41">{block.value}</text>
+          <text fill="#FFFFFF" fontSize={block.w < 100 ? "18" : "16"} fontWeight="600" x="10" y="41">{fr ? block.value : ["€84,260", "12 projects", "28", "+18%", "8", "4", "Updated"][index]}</text>
           {block.kind === "bars" && <g transform="translate(102 22)">{[21, 32, 25, 40, 35, 47].map((h, i) => <rect key={i} x={i * 10} y={47 - h} width="5" height={h} rx="2" fill={i === 5 ? "#4E8FF0" : "#24466F"} />)}</g>}
           {block.kind === "progress" && <g><rect x="10" y="57" width="157" height="5" rx="2.5" fill="#1A2D4A" /><rect x="10" y="57" width="112" height="5" rx="2.5" fill="#34D399" /></g>}
           {block.kind === "donut" && <g><circle cx="43.5" cy="91" r="25" fill="none" stroke="#1A2D4A" strokeWidth="7" /><circle cx="43.5" cy="91" r="25" fill="none" stroke="#4E8FF0" strokeWidth="7" strokeDasharray="110 157" transform="rotate(-90 43.5 91)" /><text className={styles.micro} x="43.5" y="130" textAnchor="middle">{fr ? "ce mois" : "this month"}</text></g>}

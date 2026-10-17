@@ -41,8 +41,8 @@ export function DataDashboard({ locale }: { locale: Locale }) {
     const tip = scene.querySelector<SVGGElement>("[data-role='tooltip']");
     if (tip) tip.setAttribute("transform", `translate(${tipX} ${Math.max(76, y - 35)})`);
     const value = Math.round(23600 + (250 - y) * 142 + Math.sin(time * .72) * 370);
-    setText(scene, "tooltip-value", `${value.toLocaleString(fr ? "fr-BE" : "en-GB")} €`);
-    setText(scene, "revenue", `${Math.round(248600 + Math.sin(time * .62) * 900).toLocaleString(fr ? "fr-BE" : "en-GB")} €`);
+    setText(scene, "tooltip-value", fr ? `${value.toLocaleString("fr-BE")} €` : `€${value.toLocaleString("en-GB")}`);
+    setText(scene, "revenue", fr ? `${Math.round(248600 + Math.sin(time * .62) * 900).toLocaleString("fr-BE")} €` : `€${Math.round(248600 + Math.sin(time * .62) * 900).toLocaleString("en-GB")}`);
 
     const anomaly = scene.querySelector<SVGCircleElement>("[data-role='anomaly-ring']");
     if (anomaly) {
@@ -71,9 +71,9 @@ export function DataDashboard({ locale }: { locale: Locale }) {
         <linearGradient id="data-area" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#4E8FF0" stopOpacity=".35" /><stop offset="1" stopColor="#4E8FF0" stopOpacity="0" /></linearGradient>
       </defs>
       <text className={styles.micro} x="12" y="14">{fr ? "chiffre d’affaires · 30 jours" : "revenue · 30 days"}</text>
-      <text data-role="revenue" x="12" y="48" fill="#FFFFFF" fontSize="26" fontWeight="600">248 600 €</text>
+      <text data-role="revenue" x="12" y="48" fill="#FFFFFF" fontSize="26" fontWeight="600">{fr ? "248 600 €" : "€248,600"}</text>
       <rect x="166" y="29" width="55" height="22" rx="11" fill="#123A2A" stroke="#1F5C3F" />
-      <text className={`${styles.micro} ${styles.greenText}`} x="193.5" y="43.5" textAnchor="middle">+12,4 %</text>
+      <text className={`${styles.micro} ${styles.greenText}`} x="193.5" y="43.5" textAnchor="middle">{fr ? "+12,4 %" : "+12.4%"}</text>
       <g transform="translate(304 18)">
         <rect width="124" height="30" rx="8" fill="#0B1A2E" stroke="#1E3352" />
         <rect x="41" y="3" width="41" height="24" rx="6" fill="#16335A" stroke="#2F5FA8" />
@@ -98,7 +98,7 @@ export function DataDashboard({ locale }: { locale: Locale }) {
       </g>
       <g data-role="tooltip" className={styles.moving} transform="translate(48 90)">
         <rect x="-38" y="-15" width="76" height="22" rx="6" fill="#10264A" stroke="#4E8FF0" />
-        <text data-role="tooltip-value" className={styles.label} x="0" y="0" textAnchor="middle">25 480 €</text>
+        <text data-role="tooltip-value" className={styles.label} x="0" y="0" textAnchor="middle">{fr ? "25 480 €" : "€25,480"}</text>
       </g>
 
       {tiles.map(([label, value], tile) => <g key={label} transform={`translate(${12 + tile * 140} 267)`}>
