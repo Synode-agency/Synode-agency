@@ -29,7 +29,7 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
     const local = final ? 2 : time - lesson * 2;
     const completed = final ? 4 : lesson + (local >= 1.5 ? 1 : 0);
     const progress = final ? 100 : Math.round(((lesson + Math.min(local / 1.5, 1)) / 4) * 100);
-    setText(scene, "autonomy", `${progress} %`);
+    setText(scene, "autonomy", `${progress}${fr ? " %" : "%"}`);
     const bar = scene.querySelector<SVGRectElement>("[data-role='progress']");
     if (bar) {
       bar.setAttribute("width", String(134 * progress / 100));
@@ -74,7 +74,7 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
     const slider = scene.querySelector<SVGCircleElement>("[data-role='slider-knob']");
     const sliderValue = final || lesson > 2 ? 85 : lesson === 2 ? 70 + 15 * ease(phase(local, .7, .8)) : 70;
     if (slider) slider.setAttribute("cx", String(287 + sliderValue * 1.23));
-    setText(scene, "slider-value", `${Math.round(sliderValue)} %`);
+    setText(scene, "slider-value", `${Math.round(sliderValue)}${fr ? " %" : "%"}`);
 
     const lines = advice[final ? 4 : lesson];
     setText(scene, "advice-1", lines[0]);
@@ -110,9 +110,9 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
         <text x="15" y="270" fill="#8FA0B8" fontSize="8.4">{fr ? "Autonomie de l’équipe" : "Team autonomy"}</text>
         <rect x="15" y="280" width="134" height="6" rx="3" fill="#1A2D4A" />
         <rect data-role="progress" className={styles.softTransition} x="15" y="280" width="0" height="6" rx="3" fill="#0A6CF0" />
-        <text data-role="autonomy" className={`${styles.micro} ${styles.greenText}`} x="15" y="303">0 %</text>
+        <text data-role="autonomy" className={`${styles.micro} ${styles.greenText}`} x="15" y="303">{fr ? "0 %" : "0%"}</text>
 
-        <text className={styles.micro} x="197" y="23">console · solution IA</text>
+        <text className={styles.micro} x="197" y="23">console · {fr ? "solution IA" : "AI solution"}</text>
         <text className={`${styles.micro} ${styles.greenText}`} x="425" y="23" textAnchor="end">● {fr ? "en production" : "live"}</text>
 
         <g className={styles.softTransition}>
@@ -132,13 +132,13 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
           <text className={styles.label} x="207" y="166">{fr ? "Seuil de confiance" : "Confidence threshold"}</text>
           <line x1="287" x2="410" y1="180" y2="180" stroke="#24406A" strokeWidth="4" strokeLinecap="round" />
           <circle data-role="slider-knob" cx="373" cy="180" r="6" fill="#4E8FF0" stroke="#FFFFFF" />
-          <text data-role="slider-value" className={`${styles.micro} ${styles.accentText}`} x="410" y="166" textAnchor="end">70 %</text>
+          <text data-role="slider-value" className={`${styles.micro} ${styles.accentText}`} x="410" y="166" textAnchor="end">{fr ? "70 %" : "70%"}</text>
         </g>
         <g className={styles.softTransition}>
           <rect data-role="setting-3" className={styles.softTransition} x="196" y="202" width="229" height="39" rx="7" fill="#13223A" stroke="#1E3352" />
           <text className={styles.label} x="207" y="220">{fr ? "Résultats de la semaine" : "Weekly results"}</text>
           <polyline points="329,230 345,225 360,228 376,216 392,220 407,211" fill="none" stroke="#34D399" strokeWidth="1.6" />
-          <text className={`${styles.micro} ${styles.greenText}`} x="410" y="230" textAnchor="end">+18 %</text>
+          <text className={`${styles.micro} ${styles.greenText}`} x="410" y="230" textAnchor="end">{fr ? "+18 %" : "+18%"}</text>
         </g>
 
         <g>
@@ -146,8 +146,8 @@ export function TrainingConsole({ locale }: { locale: Locale }) {
           <circle cx="214" cy="270" r="10" fill="#0A6CF0" />
           <text x="214" y="274" fill="#fff" fontSize="10" fontWeight="600" textAnchor="middle">S</text>
           <text className={styles.label} x="231" y="269">Synode · {fr ? "votre formateur" : "your trainer"}</text>
-          <text data-role="advice-1" x="207" y="291" fill="#C9D3E2" fontSize="9.7">Voici votre agent : ce qu’il traite seul,</text>
-          <text data-role="advice-2" x="207" y="306" fill="#C9D3E2" fontSize="9.7">et ce qu’il vous transmet.</text>
+          <text data-role="advice-1" x="207" y="291" fill="#C9D3E2" fontSize="9.7">{advice[0][0]}</text>
+          <text data-role="advice-2" x="207" y="306" fill="#C9D3E2" fontSize="9.7">{advice[0][1]}</text>
         </g>
 
         <g data-role="mouse" className={styles.moving} transform="translate(210 300)">

@@ -117,7 +117,7 @@ export function IntegrationSync({ locale }: { locale: Locale }) {
           <rect data-role="token-bg" x="-36" y="-10" width="72" height="20" rx="6" fill="#0A6CF0" />
           <text data-role="token-label" x="0" y="3.5" fill="#FFFFFF" fontSize="9.5" textAnchor="middle">Nora Martin</text>
         </g>
-        <text data-role="lead-count" className={styles.micro} x="5" y="331">24 leads synchronisés · 0 double saisie</text>
+        <text data-role="lead-count" className={styles.micro} x="5" y="331">{fr ? "24 leads synchronisés · 0 double saisie" : "24 leads synced · 0 duplicate entry"}</text>
       </g>
     </svg>
   </SceneFrame>;

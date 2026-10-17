@@ -490,7 +490,6 @@ const en: Record<string, ServicePageContent> = {
     coreKicker: "Inside your environment",
     coreTitle: "Your tools stay at the centre",
     coreTitleAccents: ["tools", "centre"],
-    coreTitleOneLine: true,
     coreVisual: "agent",
     coreText: "An AI agent does not replace your working environment, it plugs into it. It reads and writes in the software your teams already use, with the access rights you grant.",
     coreCentre: "AI agent",

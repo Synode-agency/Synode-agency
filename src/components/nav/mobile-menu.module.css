@@ -26,8 +26,10 @@
   /* Le pouce ne doit pas entraîner la page derrière le panneau. */
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  /* L'encoche en haut, la barre de gestes en bas. */
-  padding-top: env(safe-area-inset-top);
+  /* ⚠ `inset: 0` recouvrait la barre de navigation. Le composant pose
+     maintenant un `top` mesuré en style inline, et la barre reste visible et
+     cliquable : c'est son hamburger, devenu une croix, qui ferme le menu.
+     L'encoche du haut est donc l'affaire de la barre, plus du panneau. */
   padding-bottom: env(safe-area-inset-bottom);
   background: #171e2b;
   font-family: var(--font-sans);
@@ -45,89 +47,18 @@
   to { opacity: 1; transform: none; }
 }
 
-/* ---- L'en-tête ----
-   Collé en haut DU PANNEAU, pas de la page : c'est le panneau qui défile,
-   donc `sticky` s'y accroche. */
-.head {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 68px;
-  padding: 0 20px;
-  border-bottom: 1px solid #1e2a3e;
-  background: #171e2b;
-}
-/* ---- LA MARQUE.
-   Le même composant que la barre du site, les mêmes deux images : le
-   pictogramme détouré et le lettrage blanc. Seule la taille change, 34px
-   au lieu de 40.
+/* ---- L'EN-TÊTE DU PANNEAU A ÉTÉ SUPPRIMÉ.
 
-   ⚠ POURQUOI CES DEUX RÈGLES SUFFISENT : les deux images portent leur
-   taille en utilitaires Tailwind, qui vivent dans `@layer utilities`. Une
-   règle non calquée — un module CSS n'est dans aucune couche — l'emporte
-   sur une règle calquée quelle que soit sa spécificité. Rien n'est donc
-   touché dans `Wordmark`, et la barre de bureau garde ses 40px.
+   Le panneau dessinait sa propre barre : logo en variante « mark »,
+   sélecteur de langue et croix. Comme il était en `inset: 0`, cette barre
+   recouvrait la vraie et on croyait voir le logo rétrécir et la langue
+   changer de place à l'ouverture du menu.
 
-   Les 34px ne sont pas un choix libre : à 320px de large, l'en-tête doit
-   loger la marque, la pastille de langue et la croix de 44px dans 280px.
-   34px y mettent 136px de marque, et le bloc des petits écrans plus bas
-   descend encore d'un cran pour tenir dans les 280. ---- */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-  overflow: hidden;
-}
-.brand :global(.wordmark-part:not(.wordmark-type)) {
-  width: 34px;
-  height: 34px;
-}
-.brand :global(.wordmark-type) {
-  height: 26px;
-}
-
-.lang {
-  display: flex;
-  flex: none;
-  gap: 2px;
-  margin-left: auto;
-  padding: 3px;
-  border: 1px solid #2a4a78;
-  border-radius: 999px;
-  background: #121a28;
-}
-.langItem {
-  padding: 7px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1;
-  color: #8fa0b8;
-}
-.langCurrent {
-  background: #16335a;
-  color: #ffffff;
-}
-
-.close {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  flex: none;
-  border: 1px solid #2a4a78;
-  border-radius: 12px;
-  background: transparent;
-  color: #ffffff;
-  cursor: pointer;
-}
-.close svg {
-  width: 20px;
-  height: 20px;
-}
+   La vraie barre reste maintenant visible, et le panneau commence sous elle.
+   Les règles `.head`, `.brand`, `.lang`, `.langItem`, `.langCurrent` et
+   `.close` ont donc été retirées avec leur balisage, le 17/10/2026. Ne pas
+   les réécrire : la barre du site porte déjà le logo, la langue et le
+   bouton qui ferme. ---- */
 
 /* ---- Les six entrées ---- */
 .main {

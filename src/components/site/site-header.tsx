@@ -46,13 +46,31 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
-    /* ⚠ `.site-header-bar` et non `header` : le panneau du menu est un
-       ENFANT du header, donc rendre le header inerte rendrait le menu inerte
-       avec lui. Sans cette ligne, le logo, le sélecteur de langue, le bouton
-       de réservation et le ☰ restaient dans l'arbre d'accessibilité DERRIÈRE
-       la modale. Le piège de focus tenait le clavier, mais le curseur virtuel
-       d'un lecteur d'écran, lui, y arrivait encore. */
-    const background = Array.from(document.querySelectorAll<HTMLElement>(".site-page > main, .site-page > footer, .site-header-bar"));
+    /* ⚠ On rend inertes les éléments de la barre UN PAR UN, et jamais la
+       barre elle-même.
+
+       Pourquoi : `inert` neutralise tout son sous-arbre, clics et touchers
+       compris, et on ne peut pas en faire sortir un descendant. En rendant
+       `.site-header-bar` inerte, on neutralisait le ☰ avec le reste. Tant que
+       le panneau recouvrait l'écran et portait sa propre croix, ça ne se
+       voyait pas. Depuis que la barre reste visible et que c'est le ☰, devenu
+       une croix, qui ferme le menu, cela le rendait INTOUCHABLE : le menu ne
+       pouvait plus se fermer au doigt.
+
+       ⚠ Ne jamais remettre `.site-header-bar` ni `header` dans cette liste.
+       Le panneau du menu est un enfant du header, donc l'un l'autre se
+       neutraliseraient.
+
+       Le reste de l'intention d'origine est conservé : le logo, la navigation
+       de bureau, le sélecteur de langue et le bouton de réservation sortent
+       de l'arbre d'accessibilité pendant que la modale est ouverte, car le
+       piège de focus tient le clavier mais pas le curseur virtuel d'un
+       lecteur d'écran. */
+    const background = Array.from(document.querySelectorAll<HTMLElement>(
+      ".site-page > main, .site-page > footer, "
+      + ".site-header-brand, .site-header-bar .site-nav, "
+      + ".site-header-bar .lang, .site-header-cta",
+    ));
     const previousInert = background.map(element => element.inert);
     document.body.style.overflow = "hidden";
     background.forEach(element => { element.inert = true; });
@@ -70,7 +88,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   }, []);
 
   const closeMenu = () => { setOpen(false); burgerRef.current?.focus(); };
-  const otherLangHref = (target: Locale) => localePath(target, locale, pathname);
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const isCurrent = (href: string) => {
     const full = path(locale, href);
@@ -139,7 +156,6 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         pathname={pathname}
         open={open}
         onClose={closeMenu}
-        otherLangHref={otherLangHref}
       />
     </header>
   );

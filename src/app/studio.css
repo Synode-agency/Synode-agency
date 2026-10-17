@@ -12671,7 +12671,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    `#facon` vaudrait (1,4,1) et perdrait. On reprend donc sa chaîne entière
    et on y ajoute l'identifiant, ce qui donne (3,4,0). ---- */
 @media (min-width: 901px) {
-  .band:not(#top):not(#faq)#facon > .col > .lede > .lede-title {
+  .band:not(#top):not(#faq)#facon > .col > .lede > .lede-title,
+  .band:not(#top):not(#faq)#complementarite > .col > .lede > .lede-title {
     max-width: none;
   }
 }
+/* ⚠ `#complementarite` ajouté le 17/10 pour la même raison : « A complementary
+   team for your AI projects » montait à QUATRE lignes à 1440px, entre la
+   coupe forcée qu'il portait et cette mesure de 60 % (322px pour une colonne
+   de 536). Coupe retirée du texte, mesure levée : il se replie seul selon la
+   largeur, sans jamais séparer « AI projects ». Le français garde sa coupe
+   voulue, « Complémentaires / pour vos projets IA », inchangée. */
