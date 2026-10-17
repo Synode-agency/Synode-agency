@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/lib/content";
+import { HeroCompact } from "@/components/hero-compact";
 
 /**
  * LE VISUEL DE « VOS OUTILS RESTENT AU CENTRE ».
@@ -34,6 +35,20 @@ import type { Locale } from "@/lib/content";
  * 4. `prefers-reduced-motion` n'arme aucune horloge : labels à leur position
  *    de base, le premier outil actif, ni point ni onde, robot immobile.
  * ────────────────────────────────────────────────────────────────────────
+ *
+ * ── SUR TÉLÉPHONE, UNE CARTE COMPACTE ───────────────────────────────────
+ * Le cercle d'outils ne se replie pas : à 400px de colonne, la scène gardait
+ * `min-width: 460px` dans un `overflow-x: auto`, donc elle créait une ZONE
+ * DE DÉFILEMENT LATÉRAL. C'était le seul endroit du site qui défilait sur le
+ * côté, le `<body>` portant déjà `overflow-x: clip`.
+ *
+ * La card liste les huit outils avec, pour chacun, ce que l'agent y fait :
+ * il lit, il écrit, ou l'action attend une validation. Ce dernier cas est
+ * l'argument de la section, il est préservé.
+ *
+ * ⚠ Pas de titre dans l'en-tête : `COPY` n'en contient aucun, et en inventer
+ * un reviendrait à ajouter du texte au site. L'en-tête ne porte que l'état
+ * de repos, « connecté », celui que la scène affiche sous chaque outil.
  */
 
 /* ---- Le repère de la scène. Les positions sont dans ce système. ---- */
@@ -247,6 +262,7 @@ export function AgentNetwork({ locale }: { locale: Locale }) {
   }, []);
 
   return (
+    <>
     <div className="ant" ref={root}>
       <div className="ant-scroll">
         <div className="ant-scene" ref={scene} role="img" aria-label={c.alt}>
@@ -312,5 +328,16 @@ export function AgentNetwork({ locale }: { locale: Locale }) {
         </div>
       </div>
     </div>
+
+    {/* ---- La card du téléphone. Voir l'en-tête du fichier. ---- */}
+    <HeroCompact
+      status={c.idle}
+      rows={TOOLS.map((tool, k) => ({
+        num: String(k + 1).padStart(2, "0"),
+        label: c.names[k],
+        state: c.states[tool.mode],
+      }))}
+    />
+    </>
   );
 }

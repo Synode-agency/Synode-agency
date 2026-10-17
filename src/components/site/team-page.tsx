@@ -42,7 +42,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       <PageHero
         className="team-hero"
         kicker={locale === "fr" ? "Agence IA à Bruxelles" : "AI agency in Brussels"}
-        title={locale === "fr" ? <>Les <span>experts IA</span> de Synode</> : <>The <span>AI experts</span> behind Synode</>}
+        title={locale === "fr" ? <>Les <span>experts&nbsp;IA</span> de Synode</> : <>The <span>AI experts</span> behind Synode</>}
         aside={<>
           <div className="hero-visual-desktop"><HeroDirectory locale={locale} /></div>
           <HeroCompact

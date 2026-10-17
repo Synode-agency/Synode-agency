@@ -59,7 +59,10 @@ export function HeroCompact({
   rows,
   tiles,
 }: {
-  title: string;
+  /** Facultatif : deux visuels n'ont aucun titre dans leur contenu, et
+   *  inventer un libellé serait ajouter du texte au site. L'en-tête ne
+   *  porte alors que l'état. */
+  title?: string;
   /** Le mot à droite de l'en-tête, précédé du point vert. */
   status: string;
   /** La variante « lignes ». Exclusive de `tiles`. */
@@ -88,7 +91,7 @@ export function HeroCompact({
   return (
     <div className={styles.card} ref={root} aria-hidden>
       <div className={styles.head}>
-        <span className={styles.title}>{title}</span>
+        {title && <span className={styles.title}>{title}</span>}
         <span className={styles.status}><i />{status}</span>
       </div>
 
