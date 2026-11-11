@@ -44,12 +44,13 @@ qui l'est déjà** : ce préfixe expose la valeur au navigateur.
 
 | Variable | Rôle | Sans elle |
 | --- | --- | --- |
-| `SYNODE_STORE` | Le dépôt des demandes. `file` pour le disque local. | Le formulaire refuse d'enregistrer et le dit. |
+| `SYNODE_STORE` | Le dépôt des demandes : `brevo` en production, `file` pour le disque local. | Le formulaire refuse d'enregistrer et le dit. |
 | `SYNODE_STORE_DIR` | Où écrire, si `SYNODE_STORE=file`. | `.data/` à la racine du projet. |
-| `RESEND_API_KEY` | La clé d'envoi Resend. | Les demandes sont enregistrées, aucune notification ne part. |
-| `CONTACT_FROM` | L'expéditeur, sur un domaine vérifié chez Resend. | Idem. |
+| `BREVO_API_KEY` | La clé d'API Brevo. **Secrète.** | Avec `brevo`, le formulaire refuse d'enregistrer ; aucun email ne part. |
+| `BREVO_LIST_ID` | La liste Brevo « Demandes Synode ». | Avec `brevo`, le formulaire refuse d'enregistrer. |
+| `CONTACT_FROM` | L'expéditeur des emails, sur le domaine authentifié chez Brevo. | Les demandes sont enregistrées, aucun email ne part. |
 | `CONTACT_TO` | Votre boîte de réception. | Idem. |
-| `NEXT_PUBLIC_CAL_LINK` | L'identifiant Cal.com, par exemple `synode/30min`. | Contact affiche un aperçu de calendrier explicitement fictif, sans réservation. |
+| `NEXT_PUBLIC_CAL_LINK` | L'identifiant Cal.com : `synode-agency-k4c8xl/30min`. | Contact affiche un aperçu de calendrier explicitement fictif, sans réservation. |
 | `NEXT_PUBLIC_SITE_URL` | Le domaine canonique. | Une valeur provisoire sert au sitemap. |
 
 ## Le circuit d'une demande

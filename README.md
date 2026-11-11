@@ -50,31 +50,42 @@ la précédente, l'historique contient déjà tout.
 Le site est en ligne mais **trois fonctions affichent encore un état provisoire
 au public**. Elles attendent des informations d'Antonino, pas du code.
 
-### 1. Le formulaire de contact — ⚠ inactif en ligne
+### 1. Le formulaire de contact : branché sur Brevo, à activer
 
-`/api/contact` répond « non configuré » : le visiteur voit « L'envoi de messages
-n'est pas encore activé » et aucune demande n'arrive.
+Le code est prêt (11/11/2026) : chaque demande est enregistrée comme contact
+dans une liste Brevo, puis Brevo envoie la notification à
+`contact@synode-agency.com` et un accusé de réception au prospect. Voir
+`src/lib/contact-store.ts`. En ligne, tant que les réglages ne sont pas
+saisis, le formulaire dit honnêtement qu'il n'est pas activé.
 
-- [ ] Choisir où vont les demandes : notification par e-mail (Resend, déjà codé)
-      ou un autre service (Brevo, utilisé pour BEHYBRID, demande un branchement)
-- [ ] Choisir qui reçoit : une adresse partagée plutôt que l'un de nous deux
-- [ ] Renseigner les variables dans Vercel (voir `.env.example`), **jamais dans le dépôt**
+- [ ] Brevo (compte `contact@synode-agency.com`, séparé de celui de BEHYBRID) :
+      créer la liste « Demandes Synode » et noter son numéro
+- [ ] Créer les attributs de contact, type Texte : `NOM`, `DEMANDE`,
+      `DATE_DEMANDE`, `LANGUE`, `ENTREPRISE`, `TELEPHONE_DEMANDE`, `SITE_WEB`,
+      `ECHEANCE`, `BUDGET`, `CAS_USAGE` (sans eux, le contact est quand même
+      enregistré, mais sans le texte de sa demande)
+- [ ] Authentifier le domaine `synode-agency.com` dans Brevo (lignes DNS chez
+      Hostinger), sinon l'expéditeur devient une adresse `@brevosend.com`
+- [ ] Saisir chez l'hébergeur : `SYNODE_STORE=brevo`, `BREVO_API_KEY`,
+      `BREVO_LIST_ID`, `CONTACT_FROM`, `CONTACT_TO` (voir `.env.example`).
+      La clé ne va **jamais** dans le dépôt ni dans le chat
 - [ ] Tester un vrai envoi depuis un téléphone
+- [ ] Tous les 12 mois : supprimer dans Brevo les demandes de plus de 12 mois
+      après le dernier échange (c'est ce que promet la page Confidentialité)
 
-> ⚠ Le dépôt `file` (fichier sur disque) ne fonctionne **pas** sur Vercel : le
-> disque y est en lecture seule, les demandes seraient perdues.
+### 2. La réservation Cal.com : branchée, à activer
 
-### 2. La réservation — ⚠ calendrier factice en ligne
+Le code est prêt et testé au navigateur (11/11/2026) avec
+`synode-agency-k4c8xl/30min` : l'agenda ne se charge **qu'au clic**, sur les
+quatre emplacements, et la carte dit avant le clic que l'agenda est fourni par
+Cal.com. Le site reste ainsi sans cookie et sans bandeau.
 
-L'aperçu affiche « dates et horaires fictifs. Aucune réservation n'est
-effectuée » sur l'accueil, Solutions, Cas d'usage et Contact.
+- [ ] Saisir chez l'hébergeur `NEXT_PUBLIC_CAL_LINK=synode-agency-k4c8xl/30min`,
+      puis redéployer (la valeur est lue à la construction du site)
 
-- [ ] Créer l'événement sur Cal.com (échange de 30 minutes)
-- [ ] Renseigner `NEXT_PUBLIC_CAL_LINK` dans Vercel (ex. `synode/30min`) et redéployer :
-      le vrai agenda remplace alors l'aperçu tout seul
-
-> Le calendrier Cal.com n'est chargé qu'au clic, jamais avant : pas de cookie
-> tiers à l'arrivée sur le site, donc pas de bannière de consentement.
+> ⚠ La variante `/embed` de Cal.com reste blanche dans un cadre sans leur
+> script `embed.js` : le site charge la page de réservation normale. Ne pas
+> y revenir.
 
 ### 3. Les pages légales — ⚠ « Brouillon » affiché en ligne
 
@@ -82,9 +93,9 @@ Mentions légales et Confidentialité, FR et EN, affichent « Cette page est
 incomplète » et des blocs « À compléter ». En Belgique ces mentions sont obligatoires.
 
 - [ ] Identité juridique exacte, adresse, numéro d'entreprise et de TVA (via SmartBE)
-- [ ] Hébergeur : Vercel Inc., avec l'adresse publiée sur `vercel.com/legal` (à recopier telle quelle)
-- [ ] Liste exacte des prestataires réellement branchés (Vercel, service d'e-mails, Cal.com)
-- [ ] Durée de conservation des demandes, réellement appliquée
+- [ ] Hébergeur : celui qui sera retenu (voir plus bas), avec son adresse officielle
+- [x] Prestataires : Brevo et Cal.com écrits dans la page Confidentialité (11/11/2026) ; reste l'hébergeur
+- [x] Durée de conservation : 12 mois après le dernier échange (décidé le 11/11/2026)
 - [ ] Retirer l'avertissement « Brouillon » une fois tout rempli
 
 ### 4. Mesurer l'audience et le référencement
@@ -97,11 +108,18 @@ si Google indexe le site.
 - [ ] Statistiques de visite sans cookie : Vercel Web Analytics (ou Plausible).
       Google Analytics imposerait une bannière de consentement.
 
-### À vérifier au moment de payer Vercel
+### 5. L'hébergement : quitter l'offre gratuite de Vercel
 
-> ⚠ **L'offre gratuite de Vercel (Hobby) est réservée à un usage non
-> commercial.** Un site d'agence qui démarche des clients n'en relève pas :
-> passer à l'offre Pro.
+> ⚠ **L'offre gratuite de Vercel (Hobby) interdit l'usage commercial**, et un
+> site d'agence en est un. Décision du 11/11/2026 : chercher un hébergeur
+> gratuit plutôt que payer Vercel Pro (20 $ par mois).
+
+- [ ] Choisir l'hébergeur (piste principale : Netlify, offre gratuite qui
+      autorise l'usage commercial et prend en charge Next.js 16)
+- [ ] Y saisir les réglages de `.env.example`, déplacer le domaine (DNS chez
+      Hostinger), puis retester tout le site en ligne
+- [ ] Vérifier que la page 404 (`global-not-found`, encore expérimentale dans
+      Next) fonctionne chez le nouvel hébergeur
 
 ---
 

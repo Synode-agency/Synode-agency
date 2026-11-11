@@ -446,6 +446,11 @@ const fr = {
       title: "Réserver un échange de 30 minutes",
       text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
       openLabel: "Ouvrir le calendrier",
+      closedTitle: "Choisissez votre créneau",
+      closedText: "30 minutes en visio, gratuit et sans engagement.",
+      /* La phrase qui fait du clic un choix éclairé : voir `Booking`. */
+      closedNote: "L’agenda est fourni par Cal.com. Il n’est chargé qu’à l’ouverture et peut alors utiliser ses propres cookies.",
+      closedNoteLink: "En savoir plus",
     },
 
     form: {
@@ -840,6 +845,10 @@ const en = {
       title: "Book a 30-minute call",
       text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
       openLabel: "Open the calendar",
+      closedTitle: "Choose your slot",
+      closedText: "30 minutes by video call, free and with no strings attached.",
+      closedNote: "The calendar is provided by Cal.com. It only loads when you open it, and may then use its own cookies.",
+      closedNoteLink: "Learn more",
     },
 
     form: {

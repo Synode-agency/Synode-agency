@@ -1054,6 +1054,64 @@ footer.band--white .wordmark-type {
   margin: 0.75rem;
   font-size: 0.75rem;
 }
+/* ---- LA CARTE FERMÉE, avant le clic qui charge Cal.com ----
+   Voir `Booking`. Au bureau, elle a la hauteur EXACTE de la carte ouverte,
+   mesurée au navigateur : l'agenda, plus le lien « Ouvrir sur Cal.com »,
+   moins l'écart de rembourrage (1,5rem fermée contre 0,5rem ouverte).
+   L'agenda prend donc sa place sans pousser la page. Sur téléphone elle garde sa hauteur
+   naturelle, une grande carte presque vide y coûterait un écran entier. */
+.booking-closed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+@media (min-width: 901px) {
+  .booking-closed {
+    min-height: 646px;
+  }
+  #calendrier-accueil .booking-closed {
+    min-height: 566px;
+  }
+}
+.booking-closed-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  background: #eef4fd;
+  color: #0a6cf0;
+}
+.booking-closed-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+.booking-closed-title {
+  margin: 0.25rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #19304f;
+}
+.booking-closed-text {
+  margin: 0 0 0.5rem;
+  color: var(--muted-foreground);
+}
+.booking-closed-note {
+  max-width: 36ch;
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-mono);
+}
+.booking-closed-note a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 @media (min-width: 960px) and (max-width: 1100px) {
   .site-nav {
     gap: 0.25rem;

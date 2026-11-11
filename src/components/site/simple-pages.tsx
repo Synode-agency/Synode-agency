@@ -146,22 +146,24 @@ function PrivacyBody({ locale, email }: { locale: Locale; email: string }) {
       <h2>{fr ? "Qui les traite" : "Who processes it"}</h2>
       <p>
         {fr
-          ? "Les demandes sont enregistrées par le site, puis une notification nous est envoyée par email. Le service d’envoi utilisé est Resend. Si vous réservez un créneau, la réservation est traitée par Cal.com, qui vous demandera ses propres informations."
-          : "Requests are recorded by the site, then an email notification is sent to us. The sending service is Resend. If you book a slot, the booking is handled by Cal.com, which will ask for its own details."}
+          ? "Votre demande est enregistrée dans notre compte Brevo, un prestataire européen, dans une liste réservée aux demandes de contact. Brevo nous envoie la notification de votre demande et vous envoie l’accusé de réception. Vous n’êtes inscrit à aucune newsletter. Si vous réservez un créneau, la réservation est traitée par Cal.com, qui vous demandera ses propres informations."
+          : "Your request is recorded in our Brevo account, a European provider, in a list kept for contact requests only. Brevo sends us the notification of your request and sends you the acknowledgement. You are not subscribed to any newsletter. If you book a slot, the booking is handled by Cal.com, which will ask for its own details."}
       </p>
       <p className="legal-gap">
         <strong>{fr ? "À compléter :" : "To complete:"}</strong>{" "}
         {fr
-          ? "cette liste doit correspondre exactement aux prestataires réellement branchés au moment de la mise en ligne. Si le dépôt des demandes change, cette page change avec."
-          : "this list must match exactly the providers actually connected at launch. If the request store changes, this page changes with it."}
+          ? "l’hébergeur du site, une fois choisi. Cette liste doit toujours correspondre aux prestataires réellement branchés."
+          : "the website host, once chosen. This list must always match the providers actually connected."}
       </p>
 
       <h2>{fr ? "Combien de temps" : "How long"}</h2>
-      <p className="legal-gap">
-        <strong>{fr ? "À compléter :" : "To complete:"}</strong>{" "}
+      {/* ⚠ Une durée publiée doit être APPLIQUÉE : les contacts de la liste
+          « Demandes Synode » sont à supprimer dans Brevo 12 mois après le
+          dernier échange. Décidé avec Antonino le 11/11/2026. */}
+      <p>
         {fr
-          ? "durée de conservation à décider, puis à annoncer ici. Ne pas publier de durée qui ne serait pas réellement appliquée."
-          : "a retention period to decide, then state here. Do not publish a period that is not actually applied."}
+          ? "Votre demande est conservée 12 mois après notre dernier échange, puis supprimée."
+          : "Your request is kept for 12 months after our last exchange, then deleted."}
       </p>
 
       <h2>{fr ? "Vos droits" : "Your rights"}</h2>
@@ -175,8 +177,8 @@ function PrivacyBody({ locale, email }: { locale: Locale; email: string }) {
       <h2>{fr ? "Cookies" : "Cookies"}</h2>
       <p>
         {fr
-          ? "Ce site ne dépose aucun cookie de mesure ni de publicité. Le calendrier de réservation est un service tiers : il n’est chargé qu’au moment où vous cliquez pour l’ouvrir, et jamais avant."
-          : "This site sets no analytics or advertising cookies. The booking calendar is a third-party service: it is only loaded when you click to open it, never before."}
+          ? "Ce site ne dépose aucun cookie. Le calendrier de réservation est fourni par Cal.com : il n’est chargé qu’au moment où vous cliquez pour l’ouvrir, et jamais avant. Une fois ouvert, Cal.com peut utiliser ses propres cookies, régis par sa politique de confidentialité."
+          : "This site sets no cookies. The booking calendar is provided by Cal.com: it is only loaded when you click to open it, never before. Once open, Cal.com may use its own cookies, governed by its privacy policy."}
       </p>
     </div>
   );

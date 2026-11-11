@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { notifyByEmail, saveRequest, storeBackend, type ContactRequest } from "@/lib/contact-store";
+import { notifyByEmail, saveRequest, sendAcknowledgement, storeReady, type ContactRequest } from "@/lib/contact-store";
 
 /**
  * La réception d'une demande.
@@ -9,8 +9,9 @@ import { notifyByEmail, saveRequest, storeBackend, type ContactRequest } from "@
  *   2. limiter les abus, sur les seules demandes valides ;
  *   3. ENREGISTRER — si ça échoue, on renvoie une erreur et le visiteur
  *      garde son texte ;
- *   4. notifier par email — si ça échoue, la demande est déjà en sécurité,
- *      donc on confirme quand même et le serveur journalise.
+ *   4. notifier l'équipe et envoyer l'accusé de réception au prospect — si
+ *      ça échoue, la demande est déjà en sécurité, donc on confirme quand
+ *      même et le serveur journalise.
  *
  * Aucun faux succès : sans dépôt configuré, la route répond 503 avec un code
  * que l'interface traduit en message honnête. Le site reste consultable.
@@ -137,8 +138,12 @@ export async function POST(request: Request) {
     );
   }
 
-  /* La demande est en sécurité. Ce qui suit ne peut plus la faire échouer. */
-  const notified = await notifyByEmail(req);
+  /* La demande est en sécurité. Ce qui suit ne peut plus la faire échouer.
+     La notification et l'accusé de réception partent ensemble. */
+  const [notified, acknowledged] = await Promise.all([notifyByEmail(req), sendAcknowledgement(req)]);
+  if (!acknowledged) {
+    console.error(`[contact] Accusé de réception NON envoyé : ${req.receivedAt}`);
+  }
   if (!notified) {
     console.error(
       `[contact] Demande ENREGISTRÉE (${stored.backend}) mais NON notifiée. À relire dans le dépôt : ${req.receivedAt} ${req.email}`,
@@ -150,5 +155,5 @@ export async function POST(request: Request) {
 
 /** Permet à la page de savoir, au chargement, si l'envoi est possible. */
 export async function GET() {
-  return NextResponse.json({ configured: storeBackend() !== null });
+  return NextResponse.json({ configured: storeReady() });
 }
