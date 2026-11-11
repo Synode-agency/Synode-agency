@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
   // Compile and runtime errors are still surfaced.
   devIndicators: false,
 
+  /* La 404 des adresses qui ne correspondent à aucune route. Avec deux
+     layouts racine, `(fr)` et `(en)`, Next n'a pas de layout où la
+     composer et sert sa page brute : voir `src/app/global-not-found.tsx`. */
+  experimental: {
+    globalNotFound: true,
+  },
+
   /* Le site a changé d'architecture. Ces redirections permanentes évitent
      qu'un lien ancien, externe ou indexé, tombe sur une 404. Elles couvrent
      les deux langues et n'ont aucun coût tant qu'elles ne servent pas.

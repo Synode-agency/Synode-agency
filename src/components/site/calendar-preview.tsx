@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { CalendarCheck2, ChevronLeft, ChevronRight, Clock3, Info } from "lucide-react";
 import { ANCHORS, path, ROUTES, type Locale } from "@/lib/content";
 
@@ -34,6 +34,14 @@ type Step = "calendar" | "time" | "confirmed";
 
 const SLOTS = ["09:00", "09:30", "10:00", "11:00", "14:00", "15:30"];
 
+/* Le mois courant n'a pas d'évènement à écouter : il est relu à chaque
+   rendu, et la clé ne change qu'au changement de mois. */
+const noSubscribe = () => () => {};
+const currentMonthKey = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()}`;
+};
+
 export function CalendarPreview({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "cta" }) {
   const fr = locale === "fr";
   const isCta = variant === "cta";
@@ -47,14 +55,22 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
   /* ⚠ Le mois courant, CALCULÉ, et non une date écrite.
      L'aperçu partait sur septembre 2026, écrit en dur : trois semaines plus
      tard il proposait des créneaux déjà passés, ce qui est exactement ce
-     qu'une démonstration de réservation ne doit pas faire. `useState` le fige
-     au montage pour que le rendu du serveur et celui du client soient
-     identiques, et que la grille ne saute pas si l'on passe minuit. */
-  const [base] = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
-  const month = new Date(base.getFullYear(), base.getMonth() + offset, 1);
-  const count = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
-  const blanks = (month.getDay() + 6) % 7;
-  const monthLabel = month.toLocaleDateString(lang, { month: "long", year: "numeric" });
+     qu'une démonstration de réservation ne doit pas faire.
+
+     ⚠ ET LU DANS LE NAVIGATEUR SEULEMENT. Les pages sont générées une fois,
+     au déploiement : un `new Date()` au rendu y gravait le mois du build.
+     Déployé en octobre et visité en novembre, le HTML disait « octobre »,
+     le navigateur « novembre », et React levait l'erreur #418 à chaque
+     visite avant de tout redessiner. Le serveur rend donc une grille vide
+     (la scène a une hauteur fixe, rien ne bouge) et le mois arrive à
+     l'hydratation. La clé « AAAA-M » est une chaîne : React la compare par
+     valeur, elle ne change qu'au changement de mois. */
+  const monthKey = useSyncExternalStore(noSubscribe, currentMonthKey, () => null);
+  const [year, monthIndex] = monthKey ? monthKey.split("-").map(Number) : [0, 0];
+  const month = new Date(year, monthIndex + offset, 1);
+  const count = monthKey ? new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate() : 0;
+  const blanks = monthKey ? (month.getDay() + 6) % 7 : 0;
+  const monthLabel = monthKey ? month.toLocaleDateString(lang, { month: "long", year: "numeric" }) : "\u00a0";
 
   const changeMonth = (delta: number) => {
     setOffset(offset + delta);

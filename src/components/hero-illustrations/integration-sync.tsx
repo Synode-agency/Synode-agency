@@ -7,8 +7,8 @@ import { ease, phase, setText, useSceneClock } from "./use-scene-clock";
 
 const EXAMPLES = [
   { name: "Nora Martin", email: "nora@lumio.be", company: "Lumio SRL", need: "Audit IA" },
-  { name: "Alex Dubois", email: "alex@nova.be", company: "Nova Studio", need: "Automatisation" },
-  { name: "Lina Claes", email: "lina@orbe.be", company: "Orbe Conseil", need: "Tableau de bord" },
+  { name: "Alex Dubois", email: "alex@novea-studio.be", company: "Nova Studio", need: "Automatisation" },
+  { name: "Lina Claes", email: "lina@orbys-conseil.be", company: "Orbe Conseil", need: "Tableau de bord" },
 ] as const;
 const STARTS = [.5, 1.35, 2.2, 3.05, 3.9];
 const PATH_IDS = ["i-name", "i-email", "i-company", "i-need", "i-team"];
