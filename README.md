@@ -113,21 +113,26 @@ si Google indexe le site.
       de Netlify est payante).
       Google Analytics imposerait une bannière de consentement.
 
-### 5. L'hébergement : Netlify, offre gratuite
+### 5. L'hébergement : Netlify, offre gratuite (en ligne depuis le 11/11/2026)
 
 > Décision du 11/11/2026 : l'offre gratuite de Vercel (Hobby) interdit l'usage
 > commercial, et un site d'agence en est un. Le site passe sur l'offre gratuite
 > de Netlify, qui l'autorise et prend en charge Next.js 16.
 
-- [ ] Créer le projet Netlify depuis `Synode-agency/Synode-agency`, y saisir
-      les réglages de `.env.example`, vérifier l'adresse `*.netlify.app`
-- [ ] Chez Hostinger, ne changer QUE deux lignes DNS : `A @` vers Netlify et
-      `CNAME www` vers `<projet>.netlify.app`. Ne pas toucher aux MX, SPF,
-      DKIM, DMARC ni aux `google-site-verification` : c'est l'e-mail
-- [ ] Une fois `synode-agency.com` servi par Netlify en HTTPS : retirer le
-      domaine du projet Vercel, puis supprimer ce projet
-- [ ] Vérifier que la page 404 (`global-not-found`, encore expérimentale dans
-      Next) fonctionne chez Netlify
+- [x] Projet Netlify `synode-agency` créé depuis `Synode-agency/Synode-agency`
+      (11/11/2026), adresse de secours https://synode-agency.netlify.app.
+      Aucune variable d'environnement : Vercel n'en avait aucune non plus.
+      Elles s'ajouteront avec l'activation de Brevo et de Cal.com (voir 1 et 2)
+- [x] DNS chez Hostinger (11/11/2026) : seules deux lignes ont changé,
+      `A @` → `75.2.60.5` et `CNAME www` → `synode-agency.netlify.app`.
+      MX, SPF, DMARC et `google-site-verification` intacts
+- [x] HTTPS Let's Encrypt émis par Netlify (11/11/2026), renouvelé
+      automatiquement. `www` et `http` redirigent vers `https://synode-agency.com`
+- [x] Page 404 (`global-not-found`) vérifiée chez Netlify, FR et EN
+- [ ] **À partir du 13/11/2026**, si rien n'a cassé : retirer le domaine du
+      projet Vercel (Settings › Domains), puis supprimer ce projet. D'ici là,
+      revenir en arrière = remettre chez Hostinger `A @` → `216.198.79.1` et
+      `CNAME www` → `cf6cfc97a75077e8.vercel-dns-017.com`
 
 > ⚠ **Le budget de l'offre gratuite : 300 crédits par mois.** Une mise en
 > production coûte 15 crédits, 1 Go de trafic 20, 10 000 requêtes 2. Si le
