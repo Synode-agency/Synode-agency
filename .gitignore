@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Les demandes de contact enregistrées localement : données personnelles.
 .data/
+
+# netlify
+.netlify

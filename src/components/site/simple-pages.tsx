@@ -108,11 +108,10 @@ function NoticeBody({ locale, email }: { locale: Locale; email: string }) {
       </p>
 
       <h2>{fr ? "Hébergement" : "Hosting"}</h2>
-      <p className="legal-gap">
-        <strong>{fr ? "À compléter :" : "To complete:"}</strong>{" "}
-        {fr
-          ? "nom et adresse de l’hébergeur retenu, une fois le déploiement décidé."
-          : "name and address of the chosen host, once deployment is decided."}
+      <p>
+        {fr ? "Le site est hébergé par " : "This website is hosted by "}
+        Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, {fr ? "États-Unis" : "United States"}.{" "}
+        <a href="https://www.netlify.com" rel="noopener noreferrer">netlify.com</a>
       </p>
 
       <h2>{fr ? "Propriété intellectuelle" : "Intellectual property"}</h2>
@@ -149,11 +148,13 @@ function PrivacyBody({ locale, email }: { locale: Locale; email: string }) {
           ? "Votre demande est enregistrée dans notre compte Brevo, un prestataire européen, dans une liste réservée aux demandes de contact. Brevo nous envoie la notification de votre demande et vous envoie l’accusé de réception. Vous n’êtes inscrit à aucune newsletter. Si vous réservez un créneau, la réservation est traitée par Cal.com, qui vous demandera ses propres informations."
           : "Your request is recorded in our Brevo account, a European provider, in a list kept for contact requests only. Brevo sends us the notification of your request and sends you the acknowledgement. You are not subscribed to any newsletter. If you book a slot, the booking is handled by Cal.com, which will ask for its own details."}
       </p>
-      <p className="legal-gap">
-        <strong>{fr ? "À compléter :" : "To complete:"}</strong>{" "}
+      {/* ⚠ Cette liste doit toujours correspondre aux prestataires
+          réellement branchés : un changement d'hébergeur change ce
+          paragraphe. */}
+      <p>
         {fr
-          ? "l’hébergeur du site, une fois choisi. Cette liste doit toujours correspondre aux prestataires réellement branchés."
-          : "the website host, once chosen. This list must always match the providers actually connected."}
+          ? "Le site est hébergé par Netlify, Inc., aux États-Unis. Pour servir les pages et transmettre votre demande, Netlify traite les données techniques de connexion, dont votre adresse IP. Netlify adhère au Data Privacy Framework UE–États-Unis, qui encadre ce transfert."
+          : "This website is hosted by Netlify, Inc., in the United States. To serve the pages and pass on your request, Netlify processes technical connection data, including your IP address. Netlify takes part in the EU–U.S. Data Privacy Framework, which governs this transfer."}
       </p>
 
       <h2>{fr ? "Combien de temps" : "How long"}</h2>

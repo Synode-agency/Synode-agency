@@ -62,7 +62,12 @@ function clean(value: unknown, max: number): string {
 }
 
 export async function POST(request: Request) {
+  /* Chez Netlify, `x-nf-client-connection-ip` est posé par Netlify à partir
+     de la connexion elle-même. Le premier élément de `x-forwarded-for`, lui,
+     peut venir du client : un robot qui l'invente à chaque envoi passerait
+     sous la limite. Les deux suivants restent en repli hors Netlify. */
   const ip =
+    request.headers.get("x-nf-client-connection-ip") ||
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
     "inconnu";

@@ -1,0 +1,30 @@
+# Le déploiement sur Netlify (offre gratuite, usage commercial autorisé).
+#
+# Netlify reconnaît Next.js tout seul et installe son adaptateur, maintenu
+# avec OpenNext : les pages statiques partent sur le CDN, la route
+# `/api/contact` et les images Open Graph dynamiques deviennent des fonctions
+# serveur. Ce fichier ne fait que figer ce qu'il devinerait, pour qu'un
+# réglage du tableau de bord ne change pas la construction en silence.
+#
+# ⚠ Ne PAS épingler l'adaptateur `@netlify/plugin-nextjs` : Netlify le met à
+# jour à chaque version de Next, et une version figée finit par casser.
+#
+# ⚠ Les variables d'environnement (voir `.env.example`) se saisissent dans
+# Netlify › Project configuration › Environment variables, JAMAIS ici : ce
+# fichier est public, dans le dépôt.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+  # L'offre gratuite donne 300 crédits par mois, et CHAQUE mise en production
+  # en coûte 15. Un commit qui ne touche que la documentation ne doit donc
+  # pas redéployer le site : cette commande dit à Netlify de passer son tour
+  # quand rien n'a changé hors de `docs/` et des fichiers `.md`. (Code de
+  # sortie 0 = rien à construire. Au premier déploiement, sans commit de
+  # référence, la commande échoue et Netlify construit : c'est voulu.)
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ':(exclude)docs' ':(exclude)*.md'"
+
+[build.environment]
+  # Next 16 exige Node 20.9 ou plus récent.
+  NODE_VERSION = "22"

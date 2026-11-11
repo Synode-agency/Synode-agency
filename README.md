@@ -1,7 +1,9 @@
 # Synode — site vitrine
 
 **En ligne sur [synode-agency.com](https://synode-agency.com)** depuis le
-19/10/2026, hébergé sur Vercel. Chaque `git push` sur `main` redéploie le site.
+19/10/2026, hébergé sur Netlify (offre gratuite) depuis le 11/11/2026. Chaque
+`git push` sur `main` redéploie le site, sauf un commit qui ne touche que la
+documentation (voir `netlify.toml`).
 
 Next.js 16, React 19, Tailwind 4, TypeScript. Bilingue : FR à la racine, EN sous `/en`.
 
@@ -25,8 +27,10 @@ Depuis un téléphone : `http://<ip-du-mac>:3000`.
 
 ## Le dépôt
 
-Le projet vit dans `Synode-agency/Synode-agency`, dépôt **privé** de l'organisation
-GitHub (`origin`). L'ancien dépôt personnel `Killian-Sn/Synode-agency` reste
+Le projet vit dans `Synode-agency/Synode-agency`, dépôt **public** de l'organisation
+GitHub (`origin`). ⚠ Il doit le rester tant que le site est sur l'offre
+gratuite de Netlify : elle ne peut pas se brancher sur un dépôt **privé
+d'organisation**. Le rendre privé coupe les déploiements automatiques. L'ancien dépôt personnel `Killian-Sn/Synode-agency` reste
 joignable en local sous le remote `killian`, il n'est plus la référence.
 
 Une seule branche, `main`. Les versions précédentes sont retrouvables par tag :
@@ -93,8 +97,8 @@ Mentions légales et Confidentialité, FR et EN, affichent « Cette page est
 incomplète » et des blocs « À compléter ». En Belgique ces mentions sont obligatoires.
 
 - [ ] Identité juridique exacte, adresse, numéro d'entreprise et de TVA (via SmartBE)
-- [ ] Hébergeur : celui qui sera retenu (voir plus bas), avec son adresse officielle
-- [x] Prestataires : Brevo et Cal.com écrits dans la page Confidentialité (11/11/2026) ; reste l'hébergeur
+- [x] Hébergeur : Netlify, Inc., adresse reprise de `netlify.com/privacy` (11/11/2026)
+- [x] Prestataires : Brevo, Cal.com et Netlify écrits dans la page Confidentialité (11/11/2026)
 - [x] Durée de conservation : 12 mois après le dernier échange (décidé le 11/11/2026)
 - [ ] Retirer l'avertissement « Brouillon » une fois tout rempli
 
@@ -105,21 +109,33 @@ si Google indexe le site.
 
 - [ ] Google Search Console : vérifier le domaine, soumettre `sitemap.xml`
 - [ ] Bing Webmaster Tools : importer depuis la Search Console
-- [ ] Statistiques de visite sans cookie : Vercel Web Analytics (ou Plausible).
+- [ ] Statistiques de visite sans cookie : Plausible ou équivalent (l'analytique
+      de Netlify est payante).
       Google Analytics imposerait une bannière de consentement.
 
-### 5. L'hébergement : quitter l'offre gratuite de Vercel
+### 5. L'hébergement : Netlify, offre gratuite
 
-> ⚠ **L'offre gratuite de Vercel (Hobby) interdit l'usage commercial**, et un
-> site d'agence en est un. Décision du 11/11/2026 : chercher un hébergeur
-> gratuit plutôt que payer Vercel Pro (20 $ par mois).
+> Décision du 11/11/2026 : l'offre gratuite de Vercel (Hobby) interdit l'usage
+> commercial, et un site d'agence en est un. Le site passe sur l'offre gratuite
+> de Netlify, qui l'autorise et prend en charge Next.js 16.
 
-- [ ] Choisir l'hébergeur (piste principale : Netlify, offre gratuite qui
-      autorise l'usage commercial et prend en charge Next.js 16)
-- [ ] Y saisir les réglages de `.env.example`, déplacer le domaine (DNS chez
-      Hostinger), puis retester tout le site en ligne
+- [ ] Créer le projet Netlify depuis `Synode-agency/Synode-agency`, y saisir
+      les réglages de `.env.example`, vérifier l'adresse `*.netlify.app`
+- [ ] Chez Hostinger, ne changer QUE deux lignes DNS : `A @` vers Netlify et
+      `CNAME www` vers `<projet>.netlify.app`. Ne pas toucher aux MX, SPF,
+      DKIM, DMARC ni aux `google-site-verification` : c'est l'e-mail
+- [ ] Une fois `synode-agency.com` servi par Netlify en HTTPS : retirer le
+      domaine du projet Vercel, puis supprimer ce projet
 - [ ] Vérifier que la page 404 (`global-not-found`, encore expérimentale dans
-      Next) fonctionne chez le nouvel hébergeur
+      Next) fonctionne chez Netlify
+
+> ⚠ **Le budget de l'offre gratuite : 300 crédits par mois.** Une mise en
+> production coûte 15 crédits, 1 Go de trafic 20, 10 000 requêtes 2. Si le
+> compteur tombe à zéro, **le site est mis en pause** jusqu'au mois suivant
+> (page « Site not available »). Donc : grouper les modifications avant de
+> pousser sur `main`, ne pas pousser dix petits commits d'affilée, et
+> regarder Netlify › Usage de temps en temps. Netlify prévient à 50, 75 et
+> 100 %.
 
 ---
 

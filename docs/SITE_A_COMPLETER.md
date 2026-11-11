@@ -22,7 +22,7 @@ peut pas inventer. Tout le reste de la revue du 13/10 a été corrigé.
       `synode/30min`). Sans lui, la page Contact affiche l'aperçu de
       démonstration et le dit.
 - [ ] **La destination du formulaire.** Deux variables à choisir :
-      `SYNODE_STORE` pour le dépôt (`file` ne marche pas sur Vercel, disque
+      `SYNODE_STORE` pour le dépôt (`file` ne marche pas sur Netlify, disque
       en lecture seule : il faudra une base ou un service), puis
       `RESEND_API_KEY`, `CONTACT_FROM` et `CONTACT_TO` pour la notification.
       Sans dépôt, la route répond 503 et l'interface le dit honnêtement :
@@ -89,7 +89,7 @@ Il faut choisir un dépôt et le brancher dans `src/lib/contact-store.ts` :
 
 | Option | Ce qu'elle vaut |
 | --- | --- |
-| `SYNODE_STORE=file` | Écrit un fichier JSON Lines. **Ne fonctionne pas sur Vercel**, dont le disque est en lecture seule. Convient au développement et à un serveur avec disque persistant. |
+| `SYNODE_STORE=file` | Écrit un fichier JSON Lines. **Ne fonctionne pas sur Netlify**, dont le disque est en lecture seule. Convient au développement et à un serveur avec disque persistant. |
 | Base de données | La solution durable. Ajouter un cas dans `saveRequest`. |
 | Table externe ou CRM | Acceptable si l'accès est fiable et que la panne est visible. |
 

@@ -86,8 +86,9 @@ fichiers contiennent des données personnelles.
 de `file`, en respectant la même règle : renvoyer `{ ok: true }` seulement
 si l'écriture a réellement abouti.
 
-**Sur Vercel, `file` ne fonctionne pas.** Le système de fichiers y est en
-lecture seule et ce qui est écrit dans `/tmp` disparaît avec l'instance.
+**Sur Netlify (comme sur Vercel), `file` ne fonctionne pas.** Le système de
+fichiers des fonctions y est en lecture seule et ce qui est écrit dans `/tmp`
+disparaît avec l'instance.
 
 ## Configurer Cal.com
 
@@ -101,9 +102,17 @@ de Cal.com, par email.
 
 ## Déployer
 
-Le projet est prêt pour Vercel : rien à changer dans le code. Avant de
-publier, dérouler `SITE_A_COMPLETER.md` — notamment le dépôt des demandes,
-qui doit être autre chose que `file`.
+Le site est hébergé sur Netlify, offre gratuite (usage commercial autorisé).
+La configuration est dans `netlify.toml` : Netlify reconnaît Next.js et
+installe lui-même son adaptateur. Chaque `git push` sur `main` redéploie le
+site, sauf un commit qui ne touche que `docs/` ou des fichiers `.md`.
+
+Avant de publier, dérouler `SITE_A_COMPLETER.md`, notamment le dépôt des
+demandes, qui doit être autre chose que `file`.
+
+⚠ L'offre gratuite donne 300 crédits par mois ; une mise en production en
+coûte 15. À zéro, le site est mis en pause jusqu'au mois suivant : grouper
+les modifications avant de pousser.
 
 Poser les variables d'environnement dans le tableau de bord de
 l'hébergeur, **jamais dans le dépôt**.

@@ -176,14 +176,14 @@ Conditions consultées le 28 septembre 2026 ; revérifier avant souscription. L�
 
 | Outil | Fonction | Décision de lancement |
 | --- | --- | --- |
-| Vercel | Héberger le site et ses fonctions serveur | Choisir une offre autorisant l’usage commercial ; Hobby est réservé à l’usage personnel non commercial |
+| Netlify | Héberger le site et ses fonctions serveur | Offre gratuite retenue le 11/11/2026 : usage commercial autorisé, 300 crédits/mois, site en pause si le compteur tombe à zéro. Vercel Hobby, lui, est réservé à l’usage non commercial |
 | Resend | Envoyer les notifications et confirmations du site | Offre gratuite possible à faible volume : 3 000 emails/mois, 100/jour au moment de la vérification |
 | Cal.com | Réserver les rendez-vous | Offre individuelle gratuite pour l’associé référent ; fonctions collectives à vérifier si les deux doivent être présents |
 | Messagerie professionnelle | Lire et répondre depuis le domaine Synode | Choisir une vraie boîte mail ; Resend ne remplace pas à lui seul votre messagerie quotidienne |
 | HubSpot gratuit | Contacts, opportunités et relances | Choix recommandé pour deux utilisateurs ; voir phase 5 |
 | Base de données dédiée | Stockage complémentaire éventuel | Seulement si le CRM ne suffit pas ; pas nécessaire pour de simples pages de contenu |
 
-Sources : [Vercel Hobby](https://vercel.com/docs/plans/hobby), [Resend](https://resend.com/pricing), [Cal.com](https://cal.com/pricing).
+Sources : [Vercel Hobby](https://vercel.com/docs/plans/hobby), [Netlify Free](https://www.netlify.com/pricing/pro-vs-free/), [Resend](https://resend.com/pricing), [Cal.com](https://cal.com/pricing).
 
 ### Domaine et messagerie : P0, B
 
@@ -194,7 +194,7 @@ Sources : [Vercel Hobby](https://vercel.com/docs/plans/hobby), [Resend](https://
 - [ ] Définir qui traite chaque demande et empêcher les doubles réponses.
 - [ ] Activer l’authentification multifacteur et ranger les accès dans un gestionnaire de mots de passe.
 
-### Vercel et formulaire : P0, B
+### Hébergement (Netlify) et formulaire : P0, B
 
 - [ ] Configurer l’offre commerciale appropriée, le domaine et HTTPS.
 - [ ] Séparer variables de préproduction/production ; clés Resend et CRM uniquement côté serveur.
