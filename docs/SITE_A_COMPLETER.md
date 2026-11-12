@@ -99,24 +99,20 @@ visiteur croit avoir été entendu.
 
 ### 2. Les mentions légales
 
-La page existe, elle est marquée **brouillon** et elle ne contient aucune
-information inventée. À confirmer **avec SmartBE** :
-
-- l'identité juridique exacte à faire figurer ;
-- l'adresse du siège ;
-- le numéro d'entreprise et le numéro de TVA ;
-- le nom et l'adresse de l'hébergeur, une fois le déploiement décidé.
+Rédigée en entier le 12/11/2026, en FR et en EN, toujours marquée
+**brouillon**. Tout ce qui manque est **entre crochets** dans le texte
+(`src/lib/legal-content.ts`) et affiché en évidence sur la page. La liste
+des questions pour Smart et des vérifications avant publication est dans
+**[LEGAL_TODO.md](../LEGAL_TODO.md)**.
 
 Ne pas présenter Synode comme une société juridiquement constituée sans
-cette confirmation.
+la confirmation de Smart.
 
 ### 3. La politique de confidentialité
 
-Même statut. Elle doit correspondre **exactement** aux prestataires
-réellement branchés au moment de la mise en ligne. À décider :
-
-- la durée de conservation des demandes, puis l'annoncer ;
-- la liste définitive des prestataires (le dépôt choisi, Resend, Cal.com).
+Même statut, même fichier, même document de suivi. Elle doit correspondre
+**exactement** aux prestataires réellement branchés : Brevo, Netlify,
+Cal.com, Hostinger (boîte e-mail) et l'agenda Google relié à Cal.com.
 
 ### 4. L'adresse email
 

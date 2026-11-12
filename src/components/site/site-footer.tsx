@@ -16,7 +16,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
   const legal = [
     { href: ROUTES.legalNotice, label: locale === "fr" ? "Mentions légales" : "Legal notice" },
-    { href: ROUTES.privacy, label: locale === "fr" ? "Confidentialité" : "Privacy" },
+    { href: ROUTES.privacy, label: locale === "fr" ? "Politique de confidentialité" : "Privacy policy" },
   ];
 
   return (

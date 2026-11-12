@@ -11292,6 +11292,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     font-weight: 500;
   }
   .legal-body p,
+  .legal-body li,
   .row p {
     font-size: 16px;
     line-height: 1.62;

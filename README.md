@@ -50,18 +50,19 @@ la précédente, l'historique contient déjà tout.
 
 ---
 
-## Ce qu'il reste à faire (au 11/11/2026)
+## Ce qu'il reste à faire (au 12/11/2026)
 
-Le site est en ligne mais **trois fonctions affichent encore un état provisoire
-au public**. Elles attendent des informations d'Antonino, pas du code.
+Le formulaire et la réservation sont en service depuis le 12/11/2026. Il
+reste les **pages légales**, qui affichent encore « Brouillon » au public :
+elles attendent les informations de SmartBE, pas du code.
 
-### 1. Le formulaire de contact : branché sur Brevo, à activer
+### 1. Le formulaire de contact : EN SERVICE depuis le 12/11/2026
 
-Le code est prêt (11/11/2026) : chaque demande est enregistrée comme contact
-dans une liste Brevo, puis Brevo envoie la notification à
-`contact@synode-agency.com` et un accusé de réception au prospect. Voir
-`src/lib/contact-store.ts`. En ligne, tant que les réglages ne sont pas
-saisis, le formulaire dit honnêtement qu'il n'est pas activé.
+Chaque demande est enregistrée comme contact dans une liste Brevo, puis
+Brevo envoie la notification à `contact@synode-agency.com` et un accusé de
+réception au prospect. Voir `src/lib/contact-store.ts`. Si un réglage manque
+un jour chez l'hébergeur, le formulaire dit honnêtement qu'il n'est pas
+activé au lieu d'afficher un faux succès.
 
 - [x] Brevo (compte `contact@synode-agency.com`, séparé de celui de BEHYBRID) :
       liste « Demandes Synode » créée, **n° 2** (`BREVO_LIST_ID=2`)
@@ -73,9 +74,10 @@ saisis, le formulaire dit honnêtement qu'il n'est pas activé.
       Brevo, DKIM `brevo1`/`brevo2`, redirections `r.mail` et `img.mail`,
       enregistrement de marque, et le DMARC existant complété par
       `rua=mailto:rua@dmarc.brevo.com` (un seul DMARC, ne jamais en ajouter un 2e)
-- [ ] Saisir chez l'hébergeur : `SYNODE_STORE=brevo`, `BREVO_API_KEY`,
-      `BREVO_LIST_ID`, `CONTACT_FROM`, `CONTACT_TO` (voir `.env.example`).
-      La clé ne va **jamais** dans le dépôt ni dans le chat
+- [x] Réglages saisis chez Netlify le 12/11/2026 : `SYNODE_STORE=brevo`,
+      `BREVO_API_KEY`, `BREVO_LIST_ID`, `CONTACT_FROM`, `CONTACT_TO` (voir
+      `.env.example`). La clé ne va **jamais** dans le dépôt ni dans le chat.
+      Un réglage changé chez Netlify ne s'applique qu'au déploiement suivant
 - [x] Clé API `site-synode` créée le 12/11/2026 : accès **restreint** (Emails
       transactionnels + contact, rien d'autre), sans expiration. En cas de doute,
       la supprimer dans Brevo et en générer une nouvelle
@@ -92,30 +94,39 @@ saisis, le formulaire dit honnêtement qu'il n'est pas activé.
 - [ ] Tous les 12 mois : supprimer dans Brevo les demandes de plus de 12 mois
       après le dernier échange (c'est ce que promet la page Confidentialité)
 
-### 2. La réservation Cal.com : branchée, à activer
+### 2. La réservation Cal.com : EN SERVICE depuis le 12/11/2026
 
-Le code est prêt et testé au navigateur (11/11/2026) avec
+Testée au navigateur (11/11/2026) avec
 `synode-agency-k4c8xl/30min` : l'agenda ne se charge **qu'au clic**, sur les
 quatre emplacements, et la carte dit avant le clic que l'agenda est fourni par
 Cal.com. Le site reste ainsi sans cookie et sans bandeau.
 
-- [ ] Saisir chez l'hébergeur `NEXT_PUBLIC_CAL_LINK=synode-agency-k4c8xl/30min`,
-      puis redéployer (la valeur est lue à la construction du site)
+- [x] `NEXT_PUBLIC_CAL_LINK=synode-agency-k4c8xl/30min` saisi chez Netlify le
+      12/11/2026. La valeur est lue à la construction du site : la changer
+      demande un redéploiement
+- [ ] Tester une vraie réservation depuis un téléphone sur le site en ligne
 
 > ⚠ La variante `/embed` de Cal.com reste blanche dans un cadre sans leur
 > script `embed.js` : le site charge la page de réservation normale. Ne pas
 > y revenir.
 
-### 3. Les pages légales — ⚠ « Brouillon » affiché en ligne
+### 3. Les pages légales : rédigées, en attente de Smart
 
-Mentions légales et Confidentialité, FR et EN, affichent « Cette page est
-incomplète » et des blocs « À compléter ». En Belgique ces mentions sont obligatoires.
+Mentions légales et Politique de confidentialité, FR et EN, **entièrement
+rédigées le 12/11/2026** (art. XII.6 CDE, art. 13 RGPD). Le texte vit dans
+`src/lib/legal-content.ts`. Tout ce qui reste à confirmer est **entre
+crochets** et affiché en évidence, sous l'encadré « Brouillon ». La liste
+complète, avec les sources et les questions pour Smart : **`LEGAL_TODO.md`**.
 
-- [ ] Identité juridique exacte, adresse, numéro d'entreprise et de TVA (via SmartBE)
-- [x] Hébergeur : Netlify, Inc., adresse reprise de `netlify.com/privacy` (11/11/2026)
-- [x] Prestataires : Brevo, Cal.com et Netlify écrits dans la page Confidentialité (11/11/2026)
-- [x] Durée de conservation : 12 mois après le dernier échange (décidé le 11/11/2026)
-- [ ] Retirer l'avertissement « Brouillon » une fois tout rempli
+- [x] Responsables du site et responsables conjoints du traitement : Killian
+      Schoebben et Antonino Lo Bianco, rue des Alcyons 86, 1082 Bruxelles
+- [x] Hébergeur, prestataires (Brevo, Netlify, Cal.com, Hostinger, Google),
+      transferts, 12 mois de conservation, droits, plainte à l'APD, cookies
+- [x] Pied de page : « Mentions légales » et « Politique de confidentialité »
+- [ ] **Smart** : entité contractante, dénomination, siège, BCE, TVA,
+      formulation, rôle dans le traitement des données (voir `LEGAL_TODO.md`)
+- [ ] Brevo : activer l'anonymisation du suivi des e-mails transactionnels
+- [ ] Retirer l'encadré « Brouillon » une fois tous les crochets remplis
 
 ### 4. Mesurer l'audience et le référencement
 

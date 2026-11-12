@@ -509,12 +509,12 @@ const fr = {
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Mentions légales du site Synode, agence IA à Bruxelles : éditeur du site, hébergement, propriété intellectuelle et conditions d’utilisation.",
+    noticeDescription: "Mentions légales du site Synode, agence IA à Bruxelles : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     draftLabel: "Brouillon",
     draftText:
-      "Cette page est incomplète. Les informations manquantes doivent être confirmées avant toute mise en ligne : elles sont listées dans la documentation du projet.",
+      "Cette page n’est pas encore validée. Les éléments entre crochets restent à confirmer, notamment auprès de Smart : ils ne sont pas des informations vérifiées.",
     updated: "Dernière mise à jour",
   },
 } as const;
@@ -904,12 +904,12 @@ const en = {
 
   legal: {
     noticeTitle: "Legal notice",
-    noticeDescription: "Legal information for the Synode website, an AI agency based in Brussels: publisher, hosting, intellectual property and terms of use.",
+    noticeDescription: "Legal notice for the Synode website, an AI agency based in Brussels: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
     privacyTitle: "Privacy policy",
     privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
     draftLabel: "Draft",
     draftText:
-      "This page is incomplete. The missing information has to be confirmed before the site goes live: it is listed in the project documentation.",
+      "This page has not been validated yet. Items in square brackets still have to be confirmed, notably with Smart: they are not verified information.",
     updated: "Last updated",
   },
 } as const;
