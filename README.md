@@ -81,10 +81,12 @@ saisis, le formulaire dit honnêtement qu'il n'est pas activé.
       la supprimer dans Brevo et en générer une nouvelle
 - [x] Test local réussi le 12/11/2026 : notification reçue sur `contact@`,
       accusé de réception reçu par le « prospect », aucune erreur Brevo
-- [x] Accusé de réception mis en forme avec la signature Synode (12/11/2026),
-      FR et EN, dans `src/lib/ack-email.ts`. Toute retouche de la signature
-      passe par le code et un déploiement (15 crédits). Il ne doit JAMAIS
-      reprendre ce que le visiteur a tapé (voir l'en-tête du fichier)
+- [x] Accusé de réception mis en forme (12/11/2026), FR et EN, dans
+      `src/lib/ack-email.ts`. La signature est **une seule image**, comme dans
+      le Gmail de Synode : `public/email/signature-fr.png` et
+      `signature-en.png` (1178 × 316, affichées en 440 px). Pour la changer :
+      remplacer ces deux fichiers, puis déployer (15 crédits). L'e-mail ne doit
+      JAMAIS reprendre ce que le visiteur a tapé (voir l'en-tête du fichier)
 - [ ] Tester un vrai envoi depuis un téléphone, sur le site en ligne, et
       vérifier l'accusé dans Gmail, Outlook/Hotmail et en mode sombre
 - [ ] Tous les 12 mois : supprimer dans Brevo les demandes de plus de 12 mois
