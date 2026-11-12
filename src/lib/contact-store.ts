@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { ACK } from "./ack-email";
 
 /**
  * L'ENREGISTREMENT DES DEMANDES, ET LES DEUX EMAILS QUI SUIVENT.
@@ -237,43 +238,10 @@ export async function notifyByEmail(req: ContactRequest): Promise<boolean> {
   }, "la notification");
 }
 
-const ACK = {
-  fr: {
-    subject: "Nous avons bien reçu votre demande",
-    text: [
-      "Bonjour,",
-      "",
-      "Merci pour votre message. Il nous est bien parvenu et nous revenons vers vous.",
-      "",
-      "Si votre demande est urgente, vous pouvez réserver directement un échange de 30 minutes :",
-      "https://synode-agency.com/contact#reservation",
-      "",
-      "Pour compléter votre demande, répondez simplement à cet email.",
-      "",
-      "L’équipe Synode",
-      "Agence IA · Bruxelles",
-    ],
-  },
-  en: {
-    subject: "We have received your request",
-    text: [
-      "Hello,",
-      "",
-      "Thank you for your message. It has reached us and we will get back to you.",
-      "",
-      "If your request is urgent, you can book a 30-minute call directly:",
-      "https://synode-agency.com/en/contact#reservation",
-      "",
-      "To add anything to your request, simply reply to this email.",
-      "",
-      "The Synode team",
-      "AI agency · Brussels",
-    ],
-  },
-} as const;
-
 /**
- * L'accusé de réception au prospect.
+ * L'accusé de réception au prospect. Son texte et sa signature sont dans
+ * `ack-email.ts`, en version texte ET HTML : la version texte sert de secours
+ * aux messageries qui n'affichent pas le HTML.
  *
  * ⚠ IL NE REPREND RIEN DE CE QUE LE VISITEUR A TAPÉ, pas même son nom. Le
  * formulaire est public : n'importe qui peut y saisir l'adresse d'un tiers.
@@ -294,6 +262,7 @@ export async function sendAcknowledgement(req: ContactRequest): Promise<boolean>
     to: [{ email: req.email }],
     replyTo: { email: config.to, name: "Synode" },
     subject: ack.subject,
-    textContent: ack.text.join("\n"),
+    htmlContent: ack.html,
+    textContent: ack.text,
   }, "l'accusé de réception");
 }

@@ -20,6 +20,7 @@ Depuis un téléphone : `http://<ip-du-mac>:3000`.
 | `src/lib/content.ts` | Tout le texte du site, FR + EN, pages légales comprises (bloc `legal`) |
 | `src/app/api/contact/route.ts` | Réception du formulaire de contact |
 | `src/lib/contact-store.ts` | Où vont les demandes (dépôt + notification par e-mail) |
+| `src/lib/ack-email.ts` | L'accusé de réception envoyé au prospect (texte + HTML, avec la signature). Images dans `public/email/` |
 | `src/components/site/booking.tsx` | La réservation : Cal.com si configuré, sinon l'aperçu factice |
 | `src/app/globals.css`, `src/app/studio.css` | La mise en page et les animations |
 | `.env.example` | Les variables d'environnement, avec ce que chacune déclenche |
@@ -62,18 +63,30 @@ dans une liste Brevo, puis Brevo envoie la notification à
 `src/lib/contact-store.ts`. En ligne, tant que les réglages ne sont pas
 saisis, le formulaire dit honnêtement qu'il n'est pas activé.
 
-- [ ] Brevo (compte `contact@synode-agency.com`, séparé de celui de BEHYBRID) :
-      créer la liste « Demandes Synode » et noter son numéro
-- [ ] Créer les attributs de contact, type Texte : `NOM`, `DEMANDE`,
+- [x] Brevo (compte `contact@synode-agency.com`, séparé de celui de BEHYBRID) :
+      liste « Demandes Synode » créée, **n° 2** (`BREVO_LIST_ID=2`)
+- [x] Attributs de contact créés le 12/11/2026, type Texte : `NOM`, `DEMANDE`,
       `DATE_DEMANDE`, `LANGUE`, `ENTREPRISE`, `TELEPHONE_DEMANDE`, `SITE_WEB`,
       `ECHEANCE`, `BUDGET`, `CAS_USAGE` (sans eux, le contact est quand même
       enregistré, mais sans le texte de sa demande)
-- [ ] Authentifier le domaine `synode-agency.com` dans Brevo (lignes DNS chez
-      Hostinger), sinon l'expéditeur devient une adresse `@brevosend.com`
+- [x] Domaine `synode-agency.com` authentifié dans Brevo (11/11/2026) : code
+      Brevo, DKIM `brevo1`/`brevo2`, redirections `r.mail` et `img.mail`,
+      enregistrement de marque, et le DMARC existant complété par
+      `rua=mailto:rua@dmarc.brevo.com` (un seul DMARC, ne jamais en ajouter un 2e)
 - [ ] Saisir chez l'hébergeur : `SYNODE_STORE=brevo`, `BREVO_API_KEY`,
       `BREVO_LIST_ID`, `CONTACT_FROM`, `CONTACT_TO` (voir `.env.example`).
       La clé ne va **jamais** dans le dépôt ni dans le chat
-- [ ] Tester un vrai envoi depuis un téléphone
+- [x] Clé API `site-synode` créée le 12/11/2026 : accès **restreint** (Emails
+      transactionnels + contact, rien d'autre), sans expiration. En cas de doute,
+      la supprimer dans Brevo et en générer une nouvelle
+- [x] Test local réussi le 12/11/2026 : notification reçue sur `contact@`,
+      accusé de réception reçu par le « prospect », aucune erreur Brevo
+- [x] Accusé de réception mis en forme avec la signature Synode (12/11/2026),
+      FR et EN, dans `src/lib/ack-email.ts`. Toute retouche de la signature
+      passe par le code et un déploiement (15 crédits). Il ne doit JAMAIS
+      reprendre ce que le visiteur a tapé (voir l'en-tête du fichier)
+- [ ] Tester un vrai envoi depuis un téléphone, sur le site en ligne, et
+      vérifier l'accusé dans Gmail, Outlook/Hotmail et en mode sombre
 - [ ] Tous les 12 mois : supprimer dans Brevo les demandes de plus de 12 mois
       après le dernier échange (c'est ce que promet la page Confidentialité)
 
