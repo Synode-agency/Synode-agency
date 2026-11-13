@@ -28,3 +28,37 @@
 [build.environment]
   # Next 16 exige Node 20.9 ou plus récent.
   NODE_VERSION = "22"
+
+# LE DOMAINE .BE REDIRIGE VERS LE .COM (13/11/2026).
+#
+# `synode-agency.be` et `www.synode-agency.be` sont des ALIAS du projet
+# Netlify (Domain management › Add domain alias), avec chez Hostinger
+# `A @` → 75.2.60.5 et `CNAME www` → synode-agency.netlify.app. Netlify leur
+# délivre un certificat HTTPS ; ces règles renvoient alors tout visiteur, page
+# comprise (`/contact` → `/contact`), vers le .com en 301 permanent. Sans
+# elles, le .be afficherait une copie du site sous une autre adresse.
+# Ces règles ne s'appliquent qu'aux deux noms en .be : le .com n'est pas
+# concerné.
+[[redirects]]
+  from = "https://synode-agency.be/*"
+  to = "https://synode-agency.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://synode-agency.be/*"
+  to = "https://synode-agency.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.synode-agency.be/*"
+  to = "https://synode-agency.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.synode-agency.be/*"
+  to = "https://synode-agency.com/:splat"
+  status = 301
+  force = true

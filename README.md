@@ -125,7 +125,7 @@ complète, avec les sources et les questions pour Smart : **`LEGAL_TODO.md`**.
 - [x] Pied de page : « Mentions légales » et « Politique de confidentialité »
 - [ ] **Smart** : entité contractante, dénomination, siège, BCE, TVA,
       formulation, rôle dans le traitement des données (voir `LEGAL_TODO.md`)
-- [ ] Brevo : activer l'anonymisation du suivi des e-mails transactionnels
+- [x] Brevo : anonymisation du suivi des e-mails transactionnels activée (12/11/2026)
 - [ ] Retirer l'encadré « Brouillon » une fois tous les crochets remplis
 
 ### 4. Mesurer l'audience et le référencement
@@ -155,6 +155,11 @@ si Google indexe le site.
 - [x] HTTPS Let's Encrypt émis par Netlify (11/11/2026), renouvelé
       automatiquement. `www` et `http` redirigent vers `https://synode-agency.com`
 - [x] Page 404 (`global-not-found`) vérifiée chez Netlify, FR et EN
+- [ ] **Le domaine `synode-agency.be`** (constaté le 13/11/2026) pointait encore
+      vers Vercel, qui répondait « DEPLOYMENT_NOT_FOUND ». Redirection 301 vers
+      le .com écrite dans `netlify.toml`. Reste : l'ajouter en alias dans
+      Netlify (`synode-agency.be` et `www`), puis chez Hostinger, dans le DNS
+      du **.be** : `A @` → `75.2.60.5`, `CNAME www` → `synode-agency.netlify.app`
 - [ ] **À partir du 13/11/2026**, si rien n'a cassé : retirer le domaine du
       projet Vercel (Settings › Domains), puis supprimer ce projet. D'ici là,
       revenir en arrière = remettre chez Hostinger `A @` → `216.198.79.1` et
