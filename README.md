@@ -78,9 +78,12 @@ activé au lieu d'afficher un faux succès.
       `BREVO_API_KEY`, `BREVO_LIST_ID`, `CONTACT_FROM`, `CONTACT_TO` (voir
       `.env.example`). La clé ne va **jamais** dans le dépôt ni dans le chat.
       Un réglage changé chez Netlify ne s'applique qu'au déploiement suivant
-- [x] Clé API `site-synode` créée le 12/11/2026 : accès **restreint** (Emails
-      transactionnels + contact, rien d'autre), sans expiration. En cas de doute,
-      la supprimer dans Brevo et en générer une nouvelle
+- [x] Clé API **`site-synode2`** (13/11/2026) : accès **restreint** (Emails
+      transactionnels + contact, rien d'autre), sans expiration. Elle remplace
+      `site-synode`, exposée dans une capture d'écran le 12/11. Pour changer de
+      clé sans casser le formulaire : nouvelle clé → `.env.local` et Netlify →
+      déploiement → vérifier dans l'historique d'un contact Brevo quelle clé l'a
+      ajouté → seulement alors supprimer l'ancienne
 - [x] Test local réussi le 12/11/2026 : notification reçue sur `contact@`,
       accusé de réception reçu par le « prospect », aucune erreur Brevo
 - [x] Accusé de réception mis en forme (12/11/2026), FR et EN, dans
@@ -155,11 +158,16 @@ si Google indexe le site.
 - [x] HTTPS Let's Encrypt émis par Netlify (11/11/2026), renouvelé
       automatiquement. `www` et `http` redirigent vers `https://synode-agency.com`
 - [x] Page 404 (`global-not-found`) vérifiée chez Netlify, FR et EN
-- [ ] **Le domaine `synode-agency.be`** (constaté le 13/11/2026) pointait encore
-      vers Vercel, qui répondait « DEPLOYMENT_NOT_FOUND ». Redirection 301 vers
-      le .com écrite dans `netlify.toml`. Reste : l'ajouter en alias dans
-      Netlify (`synode-agency.be` et `www`), puis chez Hostinger, dans le DNS
-      du **.be** : `A @` → `75.2.60.5`, `CNAME www` → `synode-agency.netlify.app`
+- [x] Badge « Powered by Netlify » désactivé (13/11/2026, Project configuration ›
+      General). Netlify l'injectait d'office (script `/.netlify/scripts/hud`, qui
+      écrit dans le `localStorage` du visiteur). Vérifié : plus aucune trace dans
+      les pages. S'il revenait, le désactiver au même endroit
+- [x] **Le domaine `synode-agency.be`** redirige vers le .com depuis le
+      13/11/2026 (il pointait encore vers Vercel, qui répondait
+      « DEPLOYMENT_NOT_FOUND »). `synode-agency.be` et `www` sont des alias
+      Netlify ; DNS du **.be** chez Hostinger : `A @` → `75.2.60.5`,
+      `CNAME www` → `synode-agency.netlify.app`. Certificat Let's Encrypt
+      commun aux 4 noms. Redirection 301 page comprise dans `netlify.toml`
 - [ ] **À partir du 13/11/2026**, si rien n'a cassé : retirer le domaine du
       projet Vercel (Settings › Domains), puis supprimer ce projet. D'ici là,
       revenir en arrière = remettre chez Hostinger `A @` → `216.198.79.1` et
