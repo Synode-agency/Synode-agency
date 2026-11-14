@@ -29,7 +29,14 @@ export function useSceneClock(duration: number, finalTime: number, draw: Draw): 
     let visible = false;
 
     const frame = (now: number) => {
-      elapsed += Math.min(now - previous, 50);
+      /* ⚠ Jamais de pas négatif. `previous` vient de `performance.now()` au
+         retour à l'écran, `now` est l'heure de DÉBUT de l'image, qui peut
+         lui être antérieure de quelques millisecondes. Sans le plancher à 0,
+         le temps démarrait sous zéro, le cycle valait -1, et les scènes qui
+         lisent un tableau avec (`EXAMPLES[cycle % n]`, `advice[lesson]`)
+         plantaient au chargement (relevé par l'outil de contrôle du design,
+         14/11/2026). */
+      elapsed += Math.min(Math.max(now - previous, 0), 50);
       previous = now;
       const cycle = Math.floor(elapsed / duration);
       drawRef.current(scene, (elapsed % duration) / 1000, cycle);

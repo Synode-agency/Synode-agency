@@ -45,14 +45,14 @@ const COPY = {
     all: "Toutes nos solutions",
     solutionsToggle: "Solutions",
     ctaNote: "Premier échange gratuit · sans engagement",
-    agency: "Agence IA · Bruxelles",
+    agency: "Entreprise technologique · Bruxelles",
     dialog: "Menu",
   },
   en: {
     all: "All our solutions",
     solutionsToggle: "Solutions",
     ctaNote: "A free first conversation · no commitment",
-    agency: "AI agency · Brussels",
+    agency: "Technology company · Brussels",
     dialog: "Menu",
   },
 } as const;

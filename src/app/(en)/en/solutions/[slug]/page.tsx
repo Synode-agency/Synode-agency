@@ -20,7 +20,7 @@ const SERVICE_SEO: Record<string, { title: string; description: string }> = {
     description: "Build custom business software and AI applications designed around your processes, teams, data and operational needs.",
   },
   "integrations-systemes-connectes": {
-    title: "Software, API and Systems Integration",
+    title: "Software, API and Connected Systems Integration",
     description: "Connect your CRM, ERP, website, APIs and databases to synchronise data, eliminate duplicate entry and streamline operations.",
   },
   "data-intelligence": {

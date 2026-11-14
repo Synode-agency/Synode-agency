@@ -43,38 +43,38 @@ export function HomePage({ locale }: { locale: Locale }) {
         logo: `${siteUrl}/synode-logo.png`,
         email: site.email,
         description: fr
-          ? "Solutions IA sur mesure, agents IA, automatisations, intégrations et logiciels métier conçus autour des outils et des données des entreprises, à Bruxelles et en Belgique."
-          : "Custom AI solutions, AI agents, automations, integrations and business software built around each company's tools and data, in Brussels and Belgium.",
+          ? "Entreprise technologique à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en ingénierie logicielle : agents IA, automatisations, systèmes connectés et logiciels métier sur mesure, en Belgique."
+          : "Brussels-based technology company specialising in artificial intelligence, systems integration and software engineering: AI agents, automations, connected systems and custom business software, across Belgium.",
         areaServed: [
           { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
           { "@type": "Country", name: fr ? "Belgique" : "Belgium" },
         ],
         knowsAbout: fr
-          ? ["Agents IA", "Automatisation IA", "Logiciels IA sur mesure", "Intégrations", "Data et intelligence artificielle"]
-          : ["AI agents", "AI automation", "Custom AI software", "Integrations", "Data and artificial intelligence"],
+          ? ["Intelligence artificielle", "Agents IA", "Automatisation IA", "Intégration de systèmes", "Intégration de logiciels et API", "Ingénierie logicielle", "Logiciels métier sur mesure", "Data et tableaux de bord"]
+          : ["Artificial intelligence", "AI agents", "AI automation", "Systems integration", "Software and API integration", "Software engineering", "Custom business software", "Data and dashboards"],
       },
     ],
   };
 
 
   const capabilityItems = fr ? [
-    "Conseil & consultance IA",
-    "Cadrage des besoins",
     "Agents IA",
     "Automatisations",
-    "Intégrations",
-    "Logiciels métier",
+    "Intégrations & systèmes connectés",
+    "Logiciels & applications sur mesure",
     "Data & intelligence",
+    "Conseil & consultance IA",
+    "Cadrage des besoins",
     "Formation & adoption",
     "Maintenance & monitoring",
   ] : [
-    "AI consulting",
-    "Needs assessment",
     "AI agents",
     "Automations",
-    "Integrations",
-    "Business software",
+    "Integrations & connected systems",
+    "Custom software & applications",
     "Data & intelligence",
+    "AI consulting",
+    "Needs assessment",
     "Training & adoption",
     "Maintenance & monitoring",
   ];
@@ -88,25 +88,20 @@ export function HomePage({ locale }: { locale: Locale }) {
     <PageHero
       layout="feature"
       className="home-page-hero"
-      kicker={fr ? "Synode - Agence IA" : "Synode - AI agency"}
+      kicker={fr ? "Synode · IA & systèmes connectés" : "Synode · AI & connected systems"}
       kickerMobileOnly
-      /* ⚠ DEUX phrases différentes, une par taille d'écran, et non une seule
-         phrase coupée autrement. Les deux sont dans le HTML, la feuille de
-         style en montre une — c'est le seul moyen d'avoir un `h1` unique.
-         Les mots peints portent `title-accent` : les enveloppes, elles, sont
-         neutralisées dans `studio.css`, sinon la règle des heros peindrait
-         la phrase entière. */
+      /* Une seule phrase, à toutes les tailles d'écran. Les mots peints
+         portent `title-accent` et sont des enfants directs du `h1` ; le texte
+         autour reste un nœud de texte, il garde donc la couleur du titre. */
       title={<>
-        <span className="only-mobile">
-          {fr ? "Automatisez vos processus avec " : "Automate your processes with "}
-          <span className="title-accent">{fr ? "l’IA" : "AI"}</span>
-        </span>
-        <span className="only-desktop">
-          {fr ? "Automatisez vos processus avec des " : "Automate your processes with "}
-          <span className="title-accent">{fr ? "agents IA" : "AI agents"}</span>
-          {fr ? " et des " : " and "}
-          <span className="title-accent">{fr ? "outils sur mesure" : "custom-built tools"}</span>
-        </span>
+        {/* Le message de Synode depuis le 14/11/2026 : une entreprise
+            technologique, et non une « agence IA ». Les trois domaines en
+            une phrase : le sur-mesure (les logiciels), les systèmes
+            connectés (l'intégration) et l'intelligence artificielle. */}
+        {fr ? "Des systèmes sur mesure, " : "Custom systems, "}
+        <span className="title-accent">{fr ? "connectés" : "connected"}</span>
+        {fr ? " et " : " and "}
+        <span className="title-accent">{fr ? "intelligents" : "intelligent"}</span>
       </>}
       aside={<div className="studio-demo">
         {/* Deux visuels, un seul affiché : la maquette de bureau au-dessus de
@@ -114,16 +109,16 @@ export function HomePage({ locale }: { locale: Locale }) {
             viennent de la première, rien n'est ajouté. */}
         <div className="hero-visual-desktop"><HeroStage locale={locale} /></div>
         <HeroCompact
-          title={fr ? "Relances · Facture F-2026-118" : "Payment chasing · Invoice F-2026-118"}
-          status={fr ? "Payée" : "Paid"}
+          title={fr ? "Relances · Devis D-2026-042" : "Follow-ups · Quote Q-2026-042"}
+          status={fr ? "Signé" : "Signed"}
           rows={fr ? [
-            { num: "01", label: "Échéance dépassée", state: "J+1" },
+            { num: "01", label: "Pas encore de réponse", state: "J+2" },
             { num: "02", label: "Relance personnalisée envoyée", state: "J+3" },
-            { num: "03", label: "Paiement reçu et rapproché", state: "J+6" },
+            { num: "03", label: "Devis signé en ligne", state: "J+5" },
           ] : [
-            { num: "01", label: "Due date passed", state: "D+1" },
+            { num: "01", label: "No reply yet", state: "D+2" },
             { num: "02", label: "Personalised reminder sent", state: "D+3" },
-            { num: "03", label: "Payment received and matched", state: "D+6" },
+            { num: "03", label: "Quote signed online", state: "D+5" },
           ]}
         />
       </div>}
@@ -137,19 +132,19 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </div>}
     >
-      <p>{fr ? "Synode est une agence IA à Bruxelles spécialisée dans la conception et le développement de solutions IA sur mesure pour les entreprises — agents IA, automatisations, intégrations et logiciels métier — adaptées à vos outils, à vos données et à vos processus métier." : "Synode is an AI agency in Brussels specialising in the design and development of custom AI solutions for businesses — AI agents, automations, integrations and business software — adapted to your tools, your data and your business processes."}</p>
+      <p>{fr ? "Synode est une entreprise technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en logiciels sur mesure. Nous connectons les outils de votre organisation, concevons les logiciels dont vos équipes ont besoin, et y intégrons l’IA pour automatiser, analyser et assister au quotidien." : "Synode is a Brussels-based technology company specialising in artificial intelligence, systems integration and custom software. We connect your organisation’s tools, build the software your teams need, and bring in AI to automate, analyse and assist day to day."}</p>
       <div className="btn-row"><Link href={bookHref} className="btn btn--primary btn--white-blue">{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
       <span className="hero-reassurance">{fr ? "* Un premier échange gratuit, sans engagement." : "* A free first conversation. No commitment."}</span>
     </PageHero>
 
     <Band id="cas-usage" tone="white" className="studio-section home-usecases-light">
-      <div className="section-heading daily-section-heading"><Lede kicker={fr ? "Usages de l’IA en entreprise" : "AI use cases for business"} title={fr ? "Quand l’IA s’intègre\nà vos processus métier" : "When AI becomes part of\nyour business processes"} accents={fr ? ["processus"] : ["processes"]} text={fr ? "L’IA devient une véritable couche opérationnelle dans l’entreprise : elle peut relier vos outils, exploiter vos données et vos connaissances internes, orchestrer des processus complexes et assister vos équipes là où le temps, l’information et les décisions se dispersent." : "AI becomes an operational layer within the business: it can connect your tools, use your data and internal knowledge, orchestrate complex processes and support your teams wherever time, information and decisions become scattered."} /><div className="daily-section-aside"><p className="section-side-text">{fr ? "Ces exemples montrent comment l’intelligence artificielle peut répondre à des difficultés fréquentes en entreprise. Votre besoin peut être différent : nous l’étudions à partir de votre organisation, de vos outils, de vos données et de vos priorités." : "These examples show how artificial intelligence can address common business challenges. Your need may be different: we study it in the context of your organisation, tools, data and priorities."}</p><Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Découvrir tous les cas d’usage" : "Explore all use cases"}<ArrowRight aria-hidden /></Link></div></div>
+      <div className="section-heading daily-section-heading"><Lede kicker={fr ? "Usages de l’IA en entreprise" : "AI use cases for business"} title={fr ? "Quand l’IA s’intègre\nà vos processus métier" : "When AI becomes part of\nyour business processes"} accents={fr ? ["processus"] : ["processes"]} text={fr ? "L’IA devient une véritable couche opérationnelle dans l’entreprise : elle peut répondre plus vite à vos clients, relier vos outils, garder la mémoire de l’entreprise et assister vos équipes là où le temps, l’information et les décisions se dispersent." : "AI becomes an operational layer within the business: it can answer your clients faster, connect your tools, keep the company’s memory and support your teams wherever time, information and decisions become scattered."} /><div className="daily-section-aside"><p className="section-side-text">{fr ? "Ces exemples montrent comment l’intelligence artificielle peut répondre à des difficultés fréquentes en entreprise. Votre besoin peut être différent : nous l’étudions à partir de votre organisation, de vos outils, de vos données et de vos priorités." : "These examples show how artificial intelligence can address common business challenges. Your need may be different: we study it in the context of your organisation, tools, data and priorities."}</p><Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Découvrir tous les cas d’usage" : "Explore all use cases"}<ArrowRight aria-hidden /></Link></div></div>
       <UseCaseAccordion items={featuredBusinessUseCases(locale)} locale={locale} />
-      <div className="daily-open-callout"><div><span className="eyebrow"><span className="status-dot" />{fr ? "Votre situation est unique" : "Your situation is unique"}</span><h3>{renderLines(fr ? "Votre besoin ne correspond pas exactement à\nces cas d’usage IA ?|C’est normal." : "Your need doesn’t quite match\nthese AI use cases? That is normal.")}</h3><p>{renderLines(fr ? "Une solution IA sur mesure commence par votre organisation, vos contraintes et\nvos priorités, pas par une liste de fonctionnalités prédéfinies." : "A custom AI solution starts with your organisation, constraints and\npriorities, not a predefined list of features.")}</p></div><Link className="btn btn--primary" href={contactHref}>{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link></div>
+      <div className="daily-open-callout"><div><span className="eyebrow"><span className="status-dot" />{fr ? "Votre situation est unique" : "Your situation is unique"}</span><h3>{renderLines(fr ? "Votre besoin ne correspond pas exactement à\nces cas d’usage IA ?|C’est normal." : "Your need doesn’t quite match\nthese AI use cases? That is normal.")}</h3><p>{renderLines(fr ? "Une solution sur mesure commence par votre organisation, vos contraintes et\nvos priorités, pas par une liste de fonctionnalités prédéfinies." : "A custom solution starts with your organisation, constraints and\npriorities, not a predefined list of features.")}</p></div><Link className="btn btn--primary" href={contactHref}>{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link></div>
     </Band>
 
     <Band id="offre" tone="base" className="studio-section home-solutions-light solutions-light">
-      <div className="section-heading"><Lede kicker={fr ? "Solutions IA sur mesure" : "Custom AI solutions"} title={fr ? "Nos solutions pour intégrer l’IA à vos processus métier" : "Our solutions for integrating AI into your business processes"} accents={["solutions"]} text={fr ? "Chaque solution IA sur mesure est conçue en combinant les expertises adaptées à votre environnement, afin de connecter vos outils, mieux exploiter vos données et faire évoluer vos processus métier." : "Every custom AI solution combines the capabilities suited to your environment to connect your tools, make better use of your data and improve your business processes."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions IA" : "Explore all our AI solutions"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Chaque solution combine trois savoir-faire : l’IA, la connexion de vos logiciels et le développement sur mesure. Nous ne mobilisons que ceux dont votre projet a besoin." : "Every solution draws on three skills: AI, connecting your software and custom development. We only bring in the ones your project needs."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions" : "Explore all our solutions"}<ArrowRight aria-hidden /></Link></div>
       <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
       <p className="families-note">
         {fr ? (
@@ -173,7 +168,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     </Band>
 
     <Band id="confiance" tone="white" className="studio-section trust-section home-trust-light">
-      <div className="section-heading"><Lede kicker={fr ? "Sécurité, confidentialité et contrôle des systèmes IA" : "Security, confidentiality and control of AI systems"} title={fr ? "Des solutions IA conçues pour protéger vos données et garder le contrôle" : "AI solutions designed to protect your data and keep you in control"} accents={fr ? ["protéger vos données", "garder le contrôle"] : ["protect your data", "keep you in control"]} text={fr ? "La confidentialité, la protection des données, la gestion des accès et les validations humaines sont intégrées dès la conception de chaque projet IA. Les informations de votre entreprise restent accessibles uniquement aux systèmes et aux personnes autorisées, selon les besoins définis avec vous." : "Confidentiality, data protection, access management and human approvals are built in from the design stage of every AI project. Your company information stays available only to authorised systems and people, according to the needs agreed with you."} /></div>
+      <div className="section-heading"><Lede kicker={fr ? "Sécurité, confidentialité et contrôle de vos systèmes" : "Security, confidentiality and control of your systems"} title={fr ? "Des solutions conçues pour protéger vos données et garder le contrôle" : "Solutions designed to protect your data and keep you in control"} accents={fr ? ["protéger vos données", "garder le contrôle"] : ["protect your data", "keep you in control"]} text={fr ? "La confidentialité, la protection des données, la gestion des accès et les validations humaines sont intégrées dès la conception de chaque projet. Les informations de votre entreprise restent accessibles uniquement aux systèmes et aux personnes autorisées, selon les besoins définis avec vous." : "Confidentiality, data protection, access management and human approvals are built in from the design stage of every project. Your company information stays available only to authorised systems and people, according to the needs agreed with you."} /></div>
       <TrustSteps locale={locale} />
     </Band>
 
@@ -183,14 +178,14 @@ export function HomePage({ locale }: { locale: Locale }) {
           partagent le composant, elles doivent partager la mise en page. */}
       <div className="mfr-layout">
         <div className="mfr-copy">
-          <Lede kicker={fr ? "Conception & Développement IA" : "AI design & development"} title={fr ? "Notre méthode\npour votre projet IA" : "Our method\nfor your AI project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} />
+          <Lede kicker={fr ? "Conception & développement" : "Design & development"} title={fr ? "Notre méthode\npour votre projet" : "Our method\nfor your project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} />
         </div>
         <MethodFrame locale={locale} />
       </div>
     </Band>
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
-      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations en\nsolutions IA sur mesure" : "Our work in custom AI solutions"} accents={fr ? ["solutions IA"] : ["AI solutions"]} text={fr ? "Découvrez nos projets IA et solutions développées autour des agents IA, de l’automatisation, des intégrations et des outils métier. Chaque réalisation est présentée avec un statut clair, qu’il s’agisse d’un outil interne, d’un projet en préparation ou d’un projet client autorisé." : "Explore our AI projects and solutions built around AI agents, automation, integrations and business tools. Every piece of work is presented with a clear status, whether it is an internal tool, a project in preparation or an authorised client project."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations IA" : "See all our AI work"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations :\nIA et logiciels métier" : "Our work:\nAI and business software"} accents={fr ? ["logiciels métier"] : ["business software"]} text={fr ? "Nexus et Coory sont des logiciels métier que nous avons conçus et développés nous-mêmes, avec l’IA là où elle sert. Chaque réalisation est présentée avec son état réel, sans résultat inventé." : "Nexus and Coory are business applications we designed and built ourselves, with AI where it helps. Each one is presented with its actual status, with no invented results."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations" : "See all our work"}<ArrowRight aria-hidden /></Link></div>
       <HomeWorkCards locale={locale} />
     </Band>
 
@@ -201,13 +196,13 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <CardPanel id="conclusion" className="booking-cta dark-cta home-booking-cta">
       <div className="col card-body cta-panel cta-booking-grid">
-        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet de solution IA" : "Let’s discuss your AI solution project"} accents={fr ? ["votre projet"] : ["project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
+        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s discuss your project"} accents={fr ? ["votre projet"] : ["project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
         <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
       </div>
     </CardPanel>
 
     <Band id="faq" tone="base" className="studio-section home-faq home-faq-light">
-      <Lede kicker={home.faq.kicker} title={home.faq.title} accents={fr ? ["solutions IA"] : ["custom AI solutions"]} />
+      <Lede kicker={home.faq.kicker} title={home.faq.title} accents={fr ? ["solutions sur mesure"] : ["custom solutions"]} />
       <div className="section-gap"><FaqAccordion items={home.faq.items} /></div>
     </Band>
 
@@ -216,9 +211,9 @@ export function HomePage({ locale }: { locale: Locale }) {
         <div>
           {/* Le seul surtitre peint en bleu du site : il tient lieu de titre de
               cette carte de rappel, le h2 en dessous étant une question. */}
-          <span className="eyebrow eyebrow--accent">{fr ? "Votre projet IA" : "Your AI project"}</span>
+          <span className="eyebrow eyebrow--accent">{fr ? "Votre projet" : "Your project"}</span>
           <h2>{fr ? <>Votre besoin mérite<br className="only-mobile" /> d’être étudié ?</> : "Is your need worth exploring?"}</h2>
-          <p>{fr ? "Présentez-nous votre processus et vérifions ensemble si une solution IA sur mesure est pertinente pour votre activité." : "Tell us about your process and let’s assess whether a custom AI solution makes sense for your business."}</p>
+          <p>{fr ? "Présentez-nous votre processus et vérifions ensemble si une solution sur mesure est pertinente pour votre activité." : "Tell us about your process and let’s assess whether a custom solution makes sense for your business."}</p>
         </div>
         <Link href="#calendrier-accueil" className="btn btn--primary">
           {fr ? "Réserver un échange gratuit" : "Book a free call"}

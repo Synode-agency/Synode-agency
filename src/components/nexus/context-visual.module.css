@@ -30,3 +30,21 @@
   bottom: -3%;
   width: 118%;
 }
+
+/* ---- Sur une colonne, chaque fenêtre suit son bloc de texte (voir
+   `sections.module.css`). Sa place est un bloc à hauteur fixe qui la coupe
+   à gauche et à droite : la fenêtre en prend toute la hauteur, à sa
+   position horizontale d'ordinateur (débord de 18 %, côté alterné). 354px,
+   la hauteur qu'avaient déjà ces fenêtres sur téléphone. ---- */
+@container (width < 1088px) {
+  .slot {
+    height: 354px;
+  }
+  .one,
+  .two,
+  .three {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+  }
+}

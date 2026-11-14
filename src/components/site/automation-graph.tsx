@@ -90,16 +90,16 @@ const PORTS: [number, number][] = [
 
 const COPY = {
   fr: {
-    names: ["Nouveau document", "Analyse IA", "Archiver", "Transmettre", "Mettre à jour", "Notifier", "Contrôle humain", "Modèle IA"],
-    metas: ["déclencheur", "", "", "", "", "équipe finance", "", ""],
+    names: ["Nouvelle demande", "Analyse IA", "Archiver", "Transmettre", "Mettre à jour", "Notifier", "Contrôle humain", "Modèle IA"],
+    metas: ["déclencheur", "", "", "", "", "équipe commerciale", "", ""],
     item: "1 élément",
-    alt: "Un flux automatisé : un document arrive, une analyse IA le lit, puis le flux transmet, archive, met à jour et notifie. Un cas ambigu part en contrôle humain.",
+    alt: "Un flux automatisé : une demande arrive, une analyse IA la lit, puis le flux transmet, archive, met à jour et notifie. Un cas ambigu part en contrôle humain.",
   },
   en: {
-    names: ["New document", "AI analysis", "Archive", "Send", "Update", "Notify", "Human approval", "AI model"],
-    metas: ["trigger", "", "", "", "", "finance team", "", ""],
+    names: ["New request", "AI analysis", "Archive", "Send", "Update", "Notify", "Human approval", "AI model"],
+    metas: ["trigger", "", "", "", "", "sales team", "", ""],
     item: "1 item",
-    alt: "An automated flow: a document arrives, an AI analysis reads it, then the flow sends, archives, updates and notifies. An ambiguous case goes to human approval.",
+    alt: "An automated flow: a request arrives, an AI analysis reads it, then the flow sends, archives, updates and notifies. An ambiguous case goes to human approval.",
   },
 } as const;
 

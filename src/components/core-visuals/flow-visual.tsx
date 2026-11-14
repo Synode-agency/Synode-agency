@@ -46,8 +46,8 @@ const YS = [56, 124, 192, 260];
 
 const COPY = {
   fr: {
-    from: ["Boîte email", "Documents", "CRM", "Outil comptable"],
-    to: ["ERP", "Tableur", "Signature", "Messagerie d’équipe"],
+    from: ["Site web", "Documents", "CRM", "Outil comptable"],
+    to: ["CRM", "Tableur", "Signature", "Messagerie d’équipe"],
     centre: "Flux automatisé",
     gauges: ["lire", "traiter", "envoyer"],
     run: (n: number, a: string, b: string) => `exécution #${n} · ${a} → ${b} · en cours…`,
@@ -55,8 +55,8 @@ const COPY = {
     label: "Un flux automatisé lit une donnée dans un outil, la traite, puis l’écrit dans un autre outil.",
   },
   en: {
-    from: ["Email inbox", "Documents", "CRM", "Accounting tool"],
-    to: ["ERP", "Spreadsheet", "E-signature", "Team messaging"],
+    from: ["Website", "Documents", "CRM", "Accounting tool"],
+    to: ["CRM", "Spreadsheet", "E-signature", "Team messaging"],
     centre: "Automated flow",
     gauges: ["read", "process", "send"],
     run: (n: number, a: string, b: string) => `run #${n} · ${a} → ${b} · running…`,

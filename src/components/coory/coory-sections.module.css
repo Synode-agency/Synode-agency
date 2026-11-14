@@ -53,33 +53,79 @@
   pointer-events: none;
 }
 
-/* ---- L'encadré des accès de la démo (14/11/2026), sous « Essayer la démo ».
-   Fond « surface » et filet de la bande où il se trouve (redéfinis par les
-   bandes sombres) : lisible en clair comme en sombre. Les identifiants se
-   sélectionnent d'un geste pour être copiés. */
+/* ---- La colonne de droite du hero de Coory (14/11/2026) : l'application,
+   puis les accès de la démo juste dessous.
+
+   Sur ordinateur, elle se cale en HAUT de sa colonne, à la hauteur de la
+   pastille, au lieu d'être centrée sur le texte : la grille du hero
+   (`.heroSplit`, nexus/hero-dashboard.module.css) centre ses blocs, et
+   l'illustration descendait avec la hauteur du texte.
+
+   Sous 900px, le site masque tous les visuels de hero de bureau
+   (`.hero-visual-desktop`, studio.css) au profit d'une card compacte. Pas
+   ici : l'illustration reste, réduite d'un bloc à la largeur du téléphone.
+   La règle d'origine pèse une classe ; celle-ci en pèse deux. ---- */
+.heroAside {
+  display: grid;
+  gap: 28px;
+  align-content: start;
+  align-self: start;
+}
+@media (max-width: 900px) {
+  :global(.hero-visual-desktop).heroAside {
+    display: grid;
+  }
+}
+
+/* ---- Les accès de la démo, sous l'illustration (14/11/2026, revus le
+   même jour à la demande d'Antonino : moins hauts).
+
+   Le bloc prend la largeur de l'illustration, bord à bord avec elle.
+   Le titre, puis un petit tableau sans fond : les deux identifiants côte
+   à côte sur une seule ligne, et en pied, plus petite et en italique, la
+   règle du compte partagé. La phrase du code d'accès est HORS du tableau.
+   Quand la colonne est trop étroite pour les deux identifiants (téléphone,
+   tablette), ils passent l'un sous l'autre : la question se pose sur la
+   largeur du bloc lui-même, d'où la requête de conteneur.
+
+   Couleurs de la bande où il se trouve, lisibles en clair comme en sombre.
+   Les identifiants se sélectionnent d'un geste pour être copiés. ---- */
 .demoAccess {
+  container-type: inline-size;
   display: grid;
   gap: 0.5rem;
-  max-width: 30rem;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface, transparent);
   font-size: var(--fs-small);
-  line-height: 1.5;
+  line-height: 1.4;
   color: var(--foreground);
 }
 .demoTitle {
   font-weight: 600;
 }
+.demoTable {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
 .demoList {
   display: grid;
-  gap: 0.25rem;
 }
 .demoList > div {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   gap: 0 0.5rem;
+  padding: 0.4375rem 0.75rem;
+}
+.demoList > div + div {
+  border-top: 1px solid var(--border);
+}
+@container (min-width: 28rem) {
+  .demoList {
+    grid-template-columns: auto 1fr;
+  }
+  .demoList > div + div {
+    border-top: 0;
+    border-left: 1px solid var(--border);
+  }
 }
 .demoList dt {
   color: var(--muted-foreground);
@@ -88,6 +134,14 @@
   font-weight: 600;
   overflow-wrap: anywhere;
   user-select: all;
+}
+.demoFine {
+  padding: 0.375rem 0.75rem;
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-micro);
+  font-style: italic;
+  color: var(--muted-foreground);
+  text-wrap: pretty;
 }
 .demoNote {
   color: var(--muted-foreground);

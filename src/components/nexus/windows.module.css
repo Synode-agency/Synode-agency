@@ -427,6 +427,33 @@
 .green { color: #86efac; }
 .pink { color: #f472b6; }
 
+/* ---- Sur téléphone, les quatre compteurs passent en deux lignes de deux.
+   La fenêtre n'y fait que 460px de large : sur une seule ligne, chaque
+   compteur avait moins de place que son libellé, et « En attente », « En
+   cours », « Terminé » et « Échec » se chevauchaient (relevé le 14/11/2026).
+   Un peu plus d'air entre les lignes, rien ne change au bureau. ---- */
+@media (max-width: 760px) {
+  .counters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+  }
+  /* Le lancement manuel cède de la place au suivi : colonne plus étroite,
+     sans sa description ni sa ligne de rythme. Le bouton reste, c'est lui
+     qui s'anime. */
+  .discoGrid {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+  .discoGrid > .panel:first-child > em,
+  .discoGrid > .panel:first-child > .rhythm {
+    display: none;
+  }
+  /* Le pourcentage sortait du panneau : la barre juste dessous dit déjà
+     l'avancement. */
+  .queue i {
+    display: none;
+  }
+}
+
 .sectors {
   display: flex;
   flex-direction: column;

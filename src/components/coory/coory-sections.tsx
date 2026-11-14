@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { renderLines } from "@/lib/lines";
 import {
   CheckList,
@@ -38,8 +38,9 @@ import styles from "./coory-sections.module.css";
  *  - « Objectifs » : ILL-07 séances à encaisser, ILL-06 comptabilité sur
  *    téléphone (en face des limites : aucune illustration ne les montre,
  *    elle prolonge les objectifs).
- * Elles sont décoratives (le bloc de droite est `aria-hidden`) : tout ce
- * qu'elles montrent est écrit à gauche.
+ * Elles sont décoratives (`aria-hidden`) : tout ce qu'elles montrent est
+ * écrit à gauche. Sur une colonne, chacune suit son bloc de texte (voir
+ * `Section` dans nexus/section-parts).
  *
  * Une horloge par section, gelée hors écran ; sous `prefers-reduced-motion`,
  * l'état final, comme sur la page Nexus.
@@ -103,31 +104,33 @@ export function CooryContextSection({ c }: { c: ContextContent }) {
     <Section
       tone="white"
       rootRef={root}
-      left={
-        <>
+      blocks={[
+        <Fragment key="context">
           <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <p>{c.tailBefore}<strong>{c.tailStrong}</strong>{c.tailAfter}</p>
-
+        </Fragment>,
+        <Fragment key="steps">
           <Sub>{renderLines(c.stepsTitle)}</Sub>
           <StepReader steps={c.steps} active={sStep} onHover={setHover} />
-
+        </Fragment>,
+        <Fragment key="does">
           <Sub>{renderLines(c.doesTitle)}</Sub>
           <CheckList items={c.does} active={sCheck} />
-
+        </Fragment>,
+        <Fragment key="ai">
           <Sub>{renderLines(c.aiTitle)}</Sub>
           <p>{c.aiText}</p>
           <ShieldNote>{c.aiNote}</ShieldNote>
-        </>
-      }
-      right={
-        <div className={styles.stack}>
-          <div className={styles.cutRight}><CooryFiche /></div>
-          <div className={styles.cutLeft}><CooryProgramme /></div>
-          <div className={styles.phone}><CooryAgendaMobile /></div>
-          <div className={styles.cutRight}><CooryAssistant /></div>
-        </div>
-      }
+        </Fragment>,
+      ]}
+      stackClassName={styles.stack}
+      visuals={[
+        <div key="fiche" className={styles.cutRight}><CooryFiche /></div>,
+        <div key="programme" className={styles.cutLeft}><CooryProgramme /></div>,
+        <div key="agenda" className={styles.phone}><CooryAgendaMobile /></div>,
+        <div key="assistant" className={styles.cutRight}><CooryAssistant /></div>,
+      ]}
     />
   );
 }
@@ -143,21 +146,22 @@ export function CooryGoalsSection({ c }: { c: GoalsContent }) {
     <Section
       tone="tint"
       rootRef={root}
-      left={
-        <>
+      blocks={[
+        <Fragment key="goals">
           <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <Goals items={c.goals} active={still ? 0 : goal} label={c.goalLabel} foot={c.goalsFoot} />
+        </Fragment>,
+        <Fragment key="limits">
           <Sub>{renderLines(c.limitsTitle)}</Sub>
           <Limits items={c.limits} />
-        </>
-      }
-      right={
-        <div className={styles.stack}>
-          <div className={styles.cutRight}><CooryEncaissements /></div>
-          <div className={styles.phone}><CooryComptaMobile /></div>
-        </div>
-      }
+        </Fragment>,
+      ]}
+      stackClassName={styles.stack}
+      visuals={[
+        <div key="encaissements" className={styles.cutRight}><CooryEncaissements /></div>,
+        <div key="compta" className={styles.phone}><CooryComptaMobile /></div>,
+      ]}
     />
   );
 }

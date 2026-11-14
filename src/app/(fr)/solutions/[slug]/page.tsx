@@ -24,11 +24,11 @@ const SERVICE_SEO: Record<string, { title: string; description: string }> = {
     description: "Automatisez les tâches répétitives, les documents et les validations en reliant vos logiciels, vos données et vos règles métier.",
   },
   "logiciels-applications-ia": {
-    title: "Logiciel métier sur mesure et application IA",
+    title: "Développement de logiciels métier et applications IA",
     description: "Développez un logiciel métier ou une application IA sur mesure, conçu autour de vos processus, de vos équipes et de vos données.",
   },
   "integrations-systemes-connectes": {
-    title: "Intégration de logiciels, API et systèmes",
+    title: "Intégration de logiciels, API et systèmes connectés",
     description: "Connectez votre CRM, ERP, site web, API et bases de données pour synchroniser les informations et réduire la double saisie.",
   },
   "data-intelligence": {

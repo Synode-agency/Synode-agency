@@ -32,7 +32,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
       <PageHero
         kicker="Contact"
         kickerMobileOnly
-        title={locale === "fr" ? <>Parlons de votre <span>projet IA</span></> : <>Let’s discuss your <span>AI project</span></>}
+        title={locale === "fr" ? <>Parlons de votre <span>projet</span></> : <>Let’s discuss your <span>project</span></>}
         aside={
           /* Le calendrier porte l'ancre : les liens du site arrivent donc
              directement sur lui. `cta-booking-calendar` lui donne sa marge

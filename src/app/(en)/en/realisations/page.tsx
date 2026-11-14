@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { WorkPage } from "@/components/site/work-page";
 
-const title = "AI projects and work in development";
-const description = "Explore Synode’s AI projects: Nexus, a B2B prospecting tool, and solutions in development around concrete business needs.";
+const title = "Work: business software and AI projects";
+const description = "Explore Synode’s projects: Nexus, AI-assisted B2B prospecting software, and Coory, a sports coaching platform, two business applications we designed and built ourselves.";
 
 export const metadata: Metadata = {
   title,

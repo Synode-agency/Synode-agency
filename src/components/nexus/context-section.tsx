@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { renderLines } from "@/lib/lines";
 import { Badge, CheckList, Section, ShieldNote, StepReader, Sub, Title } from "./section-parts";
 import { DiscoveryWindow, LeadsWindow, OverviewWindow } from "./windows";
@@ -182,61 +182,67 @@ export function ContextSection({ c, w }: { c: ContextContent; w: WindowsContent 
     <Section
       tone="white"
       rootRef={root}
-      left={
-        <>
+      blocks={[
+        <Fragment key="context">
           {c.badge && <Badge>{c.badge}</Badge>}
           <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <p>{c.tailBefore}<strong>{c.tailStrong}</strong>{c.tailAfter}</p>
-
+        </Fragment>,
+        <Fragment key="steps">
           <Sub>{renderLines(c.stepsTitle)}</Sub>
           <StepReader steps={c.steps} active={sStep} onHover={setHover} />
-
+        </Fragment>,
+        <Fragment key="does">
           <Sub>{renderLines(c.doesTitle)}</Sub>
           <CheckList items={c.does} active={still ? c.does.length : sCheck} />
-
+        </Fragment>,
+        <Fragment key="ai">
           <Sub>{renderLines(c.aiTitle)}</Sub>
           <p>{c.aiText}</p>
           <ShieldNote>{c.aiNote}</ShieldNote>
-        </>
-      }
-      right={
-        <div className={styles.stack}>
-          <LeadsWindow
-            className={styles.one}
-            chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
-            active={2}
-            w={w.leads}
-            lead={still ? 0 : lead}
-            tags={still ? 3 : tags}
-            query={query}
-            synth={synth}
-            caret={caret}
-            card={card}
-          />
-          <DiscoveryWindow
-            className={styles.two}
-            chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
-            active={1}
-            w={w.discovery}
-            running={still ? true : running}
-            lit={still ? 0 : sector}
-            jobs={jobs}
-            pct={pct}
-            bar={bar}
-            counters={counters}
-            button={button}
-          />
-          <OverviewWindow
-            className={styles.three}
-            chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
-            active={0}
-            w={w.overview}
-            jobs={still || running ? 3 : 0}
-            lit={still ? 0 : split}
-          />
-        </div>
-      }
+        </Fragment>,
+      ]}
+      stackClassName={styles.stack}
+      slotClassName={styles.slot}
+      visuals={[
+        <LeadsWindow
+          key="leads"
+          className={styles.one}
+          chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
+          active={2}
+          w={w.leads}
+          lead={still ? 0 : lead}
+          tags={still ? 3 : tags}
+          query={query}
+          synth={synth}
+          caret={caret}
+          card={card}
+        />,
+        <DiscoveryWindow
+          key="discovery"
+          className={styles.two}
+          chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
+          active={1}
+          w={w.discovery}
+          running={still ? true : running}
+          lit={still ? 0 : sector}
+          jobs={jobs}
+          pct={pct}
+          bar={bar}
+          counters={counters}
+          button={button}
+        />,
+        <OverviewWindow
+          key="overview"
+          className={styles.three}
+          chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
+          active={0}
+          w={w.overview}
+          jobs={still || running ? 3 : 0}
+          lit={still ? 0 : split}
+        />,
+      ]}
     />
   );
 }

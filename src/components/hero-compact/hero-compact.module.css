@@ -2,9 +2,8 @@
    LA CARD COMPACTE DES HEROS
 
    Les valeurs viennent du §5.2 du brief mobile. Elles sont écrites ici et
-   non reprises du thème : cette card vit sur fond bleu nuit, quelle que
-   soit la page. Sa seule variante, `light`, est en bas de ce fichier : la
-   card blanche de la page Coory.
+   non reprises du thème : cette card ne vit que sur fond bleu nuit, quelle
+   que soit la page, donc elle n'a pas de variante à suivre.
 
    ⚠ Elle n'existe QUE sous 900px. Au-dessus, c'est le visuel de bureau qui
    s'affiche, et c'est la page qui décide lequel des deux montrer.
@@ -88,11 +87,13 @@
   background: #16294a;
   box-shadow: inset 3px 0 0 #4e8ff0;
 }
+/* #8596b3 : le gris éclairci pour passer 4,5:1 sur le fond de la card
+   (14/11/2026). Même valeur que les petits textes des cartes de l'accueil. */
 .num {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11px;
   font-style: normal;
-  color: #6f84a3;
+  color: #8596b3;
   transition: color 0.3s ease;
 }
 .rowOn .num {
@@ -112,7 +113,7 @@
 .state {
   font-size: 11.5px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
   transition: color 0.3s ease;
 }
 .rowOn .state {
@@ -179,42 +180,3 @@
   }
 }
 
-
-/* ---- La variante claire, pour Coory.
-   Mêmes dimensions et même rythme que la card bleu nuit : seules les
-   couleurs changent, et ce sont celles des illustrations de Coory (fond
-   blanc, filets gris clair, violet #7C5CFA pour la tuile active). ---- */
-.light {
-  border-color: #e6e6ee;
-  background: #ffffff;
-  box-shadow: 0 24px 50px rgb(40 30 90 / 14%);
-}
-.light .head {
-  border-bottom-color: #ececf2;
-}
-.light .title {
-  color: #1c1c28;
-}
-.light .status {
-  color: #6b6e7b;
-}
-.light .status i {
-  background: #22a45d;
-}
-.light .tile {
-  border-color: #ececf2;
-  background: #f4f4f8;
-}
-.light .tileOn {
-  border-color: #7c5cfa;
-  background: #f1eeff;
-}
-.light .tileLabel {
-  color: #6b6e7b;
-}
-.light .tileOn .tileLabel {
-  color: #7c5cfa;
-}
-.light .tileValue {
-  color: #1c1c28;
-}

@@ -86,7 +86,7 @@ const fr = {
     email: "contact@synode-agency.com",
     location: "Bruxelles, Belgique",
     tagline:
-      "Des solutions IA sur mesure, conçues autour de votre activité et qui font avancer vos opérations.",
+      "Solutions sur mesure avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
     nav: nav.fr,
     cta: "Réserver un échange gratuit",
     ctaShort: "Réserver un échange",
@@ -101,8 +101,8 @@ const fr = {
   },
 
   home: {
-    metaTitle: "Solutions IA sur mesure à Bruxelles et en Belgique",
-    metaDescription: "Synode conçoit des agents IA, des automatisations et des logiciels métier sur mesure à Bruxelles et en Belgique, intégrés à vos outils et à vos données.",
+    metaTitle: "IA, intégration et logiciels sur mesure à Bruxelles",
+    metaDescription: "Synode, entreprise technologique à Bruxelles : agents IA, automatisations, intégration de vos logiciels (CRM, ERP, API) et logiciels métier sur mesure.",
     hero: {
       title:
         "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations",
@@ -201,16 +201,20 @@ const fr = {
     },
 
     faq: {
-      kicker: "Questions fréquentes sur nos solutions IA",
-      title: "Questions fréquentes sur les solutions IA sur mesure",
+      kicker: "FAQ",
+      title: "Questions fréquentes sur nos solutions sur mesure",
       items: [
         {
           q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
           a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution IA à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
         },
         {
-          q: "Combien coûte une solution IA sur mesure ?",
-          a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel IA sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
+          q: "Développez-vous aussi des logiciels sans IA ?",
+          a: "Oui. Une intégration ou un logiciel métier peut très bien fonctionner sans IA. Nous ne l’ajoutons que si elle apporte un gain concret, et nous vous le disons dans la proposition.",
+        },
+        {
+          q: "Combien coûte une solution sur mesure ?",
+          a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
         },
         {
           q: "Y a-t-il des coûts récurrents après la mise en service ?",
@@ -218,7 +222,7 @@ const fr = {
         },
         {
           q: "Comment se déroule un projet avec Synode ?",
-          a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution IA et accompagnons sa mise en service.",
+          a: "Nous commençons par comprendre votre activité, vos outils et le problème à résoudre. Nous analysons ensuite la faisabilité, préparons une proposition, développons la solution et accompagnons sa mise en service.",
         },
         {
           q: "Mes données restent-elles confidentielles ?",
@@ -226,7 +230,7 @@ const fr = {
         },
         {
           q: "Assurez-vous la maintenance après le déploiement ?",
-          a: "Oui. Synode assure l’exploitation, le monitoring et la maintenance de votre solution IA selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
+          a: "Oui. Synode assure l’exploitation, le monitoring et la maintenance de votre solution selon les modalités prévues au contrat. Les coûts techniques et les évolutions importantes sont définis séparément.",
         },
       ],
     },
@@ -239,14 +243,14 @@ const fr = {
 
   /* ---------------------------------------------------------------- Solutions */
   solutions: {
-    metaTitle: "Six familles de solutions IA sur mesure",
+    metaTitle: "Solutions sur mesure avec l’IA intégrée",
     metaDescription:
-      "Découvrez les solutions IA sur mesure de Synode à Bruxelles : agents IA, automatisations, logiciels métier, intégrations, data et formation pour entreprises.",
+      "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, automatisations, intégrations, logiciels métier, data et formation.",
     kicker: "Notre offre",
     title: "Une solution construite\n^à partir de votre besoin",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
 
-    bricksTitle: "Nos solutions IA sur mesure",
+    bricksTitle: "Nos solutions sur mesure, avec l’IA intégrée",
     bricks: [
       {
             "slug": "agents-ia",
@@ -257,41 +261,41 @@ const fr = {
             "visual": 0
       },
       {
+            "slug": "integrations-systemes-connectes",
+            "title": "Intégrations & systèmes connectés",
+            "text": "Nous connectons les outils que vous utilisez déjà, CRM, ERP, site web ou bases de données, pour que vos données circulent sans ressaisie et que l’IA travaille sur des informations fiables.",
+            "benefit": "Faire circuler les données entre vos outils sans double saisie.",
+            "example": "Une demande validée sur votre site crée ou met à jour la fiche correspondante dans le CRM et l’outil de gestion.",
+            "visual": 2
+      },
+      {
             "slug": "automatisations-intelligentes",
             "title": "Automatisations intelligentes",
             "text": "Des automatisations intelligentes pour relier les étapes répétitives de vos processus métier et traiter les informations qui circulent entre vos outils.",
             "benefit": "Réduire les saisies manuelles, les oublis et les tâches répétitives.",
-            "example": "Une facture reçue par email est extraite, contrôlée et transmise au bon outil, tandis que les cas ambigus vous sont signalés.",
+            "example": "Une demande de devis reçue sur votre site est analysée, le devis est préparé pour relecture, puis relancé automatiquement jusqu’à sa signature.",
             "visual": 1
       },
       {
             "slug": "logiciels-applications-ia",
-            "title": "Logiciels & Applications IA sur mesure",
-            "text": "Des logiciels métier et applications IA sur mesure conçus autour de vos processus, de vos utilisateurs et de vos règles de fonctionnement.",
+            "title": "Logiciels & Applications sur mesure",
+            "text": "Des logiciels métier et des applications sur mesure, conçus autour de vos processus, de vos utilisateurs et de vos règles, avec l’IA intégrée là où elle apporte un gain.",
             "benefit": "Disposer d’un outil métier adapté au travail réel de vos équipes.",
             "example": "Vos interventions sont centralisées dans une interface métier avec suivi, historique et comptes rendus assistés par IA.",
             "visual": 3
-      },
-      {
-            "slug": "integrations-systemes-connectes",
-            "title": "Intégrations & systèmes connectés",
-            "text": "Des intégrations entre vos logiciels, CRM, ERP, sites web et bases de données pour synchroniser les informations utiles.",
-            "benefit": "Faire circuler les données entre vos outils sans double saisie.",
-            "example": "Une demande validée sur votre site crée ou met à jour la fiche correspondante dans le CRM et l’outil de gestion.",
-            "visual": 2
       },
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
             "text": "Centralisation et analyse de données, tableaux de bord, détection d’anomalies, prévisions et recommandations lorsque les données le permettent.",
             "benefit": "Transformer vos données métier en indicateurs utiles à la décision.",
-            "example": "Les données de ventes et de stocks sont réunies pour détecter les anomalies et anticiper les besoins à partir de l’historique disponible.",
+            "example": "Vos chiffres de ventes, de marge et de trésorerie sont réunis dans un tableau de bord Power BI ou Excel, à jour sans export manuel, avec les écarts à vérifier signalés.",
             "visual": 4
       },
       {
             "slug": "formation-adoption-ia",
             "title": "Formation & Adoption IA",
-            "text": "Des formations IA et ateliers pratiques pour comprendre les usages, adopter les bons réflexes et prendre en main vos solutions d’intelligence artificielle.",
+            "text": "La prise en main de chaque solution livrée est incluse dans le projet. Cette offre forme aussi vos équipes à l’IA sans projet : ateliers pratiques, bons réflexes et règles d’usage.",
             "benefit": "Rendre vos équipes autonomes et responsables dans leurs usages de l’IA.",
             "example": "À partir de situations réelles, votre équipe apprend à utiliser l’IA pour préparer, vérifier et améliorer ses réponses clients.",
             "visual": 5
@@ -304,6 +308,13 @@ const fr = {
       text: "Pour chaque solution mise en service, notre proposition distingue le coût de création et le paiement récurrent lié à son exploitation. Son montant dépend de la complexité, des volumes et des services nécessaires, avec des conditions définies avant le démarrage.",
       recurringLabel: "Paiement récurrent · défini au contrat",
       familyNote: "Ce suivi accompagne les six familles de solutions. Il ne constitue pas une septième offre.",
+      /* Décision du 14/11/2026 : la formation fait partie de chaque projet.
+         Affiché sur les six pages solutions (`IncludedStrip`). */
+      included: {
+        title: "Inclus dans chaque projet",
+        items: ["Installation et mise en service", "Formation de vos utilisateurs", "Documentation remise", "Accompagnement des premières semaines"],
+        more: "Former toute votre équipe à l’IA, même sans projet",
+      },
       cycle: ["Conception", "Déploiement", "Surveillance", "Amélioration"],
       items: [
         { title: "Surveillance & maintenance", text: "Nous suivons le fonctionnement de la solution et intervenons dans le périmètre convenu en cas de problème." },
@@ -330,15 +341,15 @@ const fr = {
       { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
     ],
 
-    faqTitle: "Questions fréquentes sur les solutions IA sur mesure",
+    faqTitle: "Questions fréquentes sur nos solutions sur mesure",
     faq: [
       { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
-      { q: "Combien coûte une solution IA sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
-      { q: "Comment se déroule un projet IA avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution IA, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
+      { q: "Combien coûte une solution sur mesure ?", a: "Le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé qui distingue le développement, les coûts techniques récurrents, la maintenance éventuelle et les services tiers." },
+      { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit cinq étapes : cadrage du besoin métier, conception de la solution, développement et intégration, déploiement et formation, puis maintenance et évolution. Chaque étape est validée avec vous." },
       { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Les permissions dépendent des utilisateurs et des outils connectés. Les actions sensibles peuvent rester soumises à une validation humaine." },
-      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution IA. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
-      { q: "Combien de temps faut-il pour développer une solution IA ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
-      { q: "Une solution IA sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui. Selon le contrat, Synode peut assurer le monitoring, la maintenance et les interventions prévues pour votre solution. Les abonnements techniques et les évolutions importantes sont identifiés et chiffrés séparément." },
+      { q: "Combien de temps faut-il pour développer une solution sur mesure ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
+      { q: "Une solution sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
 
   },
@@ -366,7 +377,7 @@ const fr = {
       },
       {
         title: "Conception",
-        work: "Définir le fonctionnement de la solution IA, les accès nécessaires et les étapes qui nécessitent une validation humaine.",
+        work: "Définir le fonctionnement de la solution, les accès nécessaires et les étapes qui nécessitent une validation humaine.",
         client: "Valider le périmètre, les règles métier et les exemples qui serviront de référence.",
         output: "Un plan de réalisation partagé.", brief: "Vos règles métier deviennent le plan\nde réalisation", accents: ["règles métier", "plan", "de réalisation"],
       },
@@ -378,7 +389,7 @@ const fr = {
       },
       {
         title: "Recette et déploiement",
-        work: "Tester, corriger, documenter et mettre la solution IA en service dans votre environnement.",
+        work: "Tester, corriger, documenter et mettre la solution en service dans votre environnement.",
         client: "Valider les critères de réussite définis au début du projet avant la mise en production.",
         output: "La solution en service, et sa documentation transmise.", brief: "Votre validation ouvre la mise en service et la documentation", accents: ["validation", "mise en service", "documentation"],
       },
@@ -400,44 +411,44 @@ const fr = {
 
   /* ------------------------------------------------------------------- Équipe */
   team: {
-    metaTitle: "Équipe IA à Bruxelles : Antonino et Killian",
+    metaTitle: "L’équipe de Synode à Bruxelles : Antonino et Killian",
     metaDescription:
-      "Découvrez l’équipe de Synode, agence IA à Bruxelles : deux développeurs spécialisés en agents IA, automatisations, intégrations et logiciels métier sur mesure.",
+      "Découvrez l’équipe de Synode, entreprise technologique à Bruxelles : deux développeurs spécialisés en intelligence artificielle, intégration de systèmes et logiciels métier sur mesure.",
     kicker: "L’équipe",
     title: "Pourquoi nous\n^construisons Synode",
     vision:
-      "Synode est une agence IA à Bruxelles fondée par Antonino et Killian. Nous concevons des agents IA, des automatisations, des intégrations et des logiciels métier sur mesure à partir des processus, des outils et des données de chaque entreprise.",
-    peopleTitle: "Deux développeurs :\ndes expertises IA complémentaires",
+      "Synode est une entreprise technologique bruxelloise fondée par Antonino et Killian. Nous intégrons l’IA dans les organisations, connectons leurs logiciels et développons des logiciels métier sur mesure, à partir de leurs processus, de leurs outils et de leurs données.",
+    peopleTitle: "Deux développeurs,\ndes expertises complémentaires",
     people: [
       {
-        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · Développeur & Expert IA",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · IA, agents & automatisations",
         text: "Antonino analyse vos processus métier, conçoit les workflows et développe les agents IA. Il identifie les tâches qui méritent d’être automatisées et prépare leur intégration dans votre environnement.",
       },
       {
-        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Développeur & Expert IA",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Logiciels & intégrations",
         text: "Killian développe les applications IA, les logiciels métier et les intégrations entre vos outils. Il transforme le besoin cadré en une solution utilisable, testée et adaptée à votre activité.",
       },
     ],
-    complementTitle: "Complémentaires\npour vos projets IA",
+    complementTitle: "Complémentaires,\nde l’IA au logiciel",
     complementText:
-      "Notre équipe réunit l’analyse des processus, la conception d’agents IA, l’automatisation, le développement d’applications et l’intégration de logiciels. Ces compétences se combinent pour construire une solution IA cohérente avec votre organisation.",
-    workingTitle: "Comment nous accompagnons votre projet IA",
+      "Notre équipe réunit l’analyse des processus, la conception d’agents IA, l’automatisation, le développement d’applications et l’intégration de logiciels. Ces compétences se combinent pour construire une solution cohérente avec votre organisation.",
+    workingTitle: "Comment nous accompagnons votre projet",
     working: [
-      "Un interlocuteur identifié pour votre projet IA, du cadrage initial à la mise en service.",
+      "Un interlocuteur identifié pour votre projet, du cadrage initial à la mise en service.",
       "Une analyse de vos processus, de vos données et des logiciels à connecter avant le développement.",
       "Des étapes visibles, des tests sur vos cas réels et des validations humaines définies avec vous.",
       "Une documentation claire et des modalités de maintenance précisées avant le déploiement.",
     ],
     cta: "Parlons de votre projet",
     ctaText:
-      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions IA sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
+      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
   },
 
   /* ------------------------------------------------------------------ Contact */
   contact: {
     metaTitle: "Parlons de votre projet",
     metaDescription:
-      "Réservez un échange gratuit de 30 minutes avec Synode, agence IA à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement et sans devis automatique.",
+      "Réservez un échange gratuit de 30 minutes avec Synode, entreprise technologique à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement et sans devis automatique.",
     kicker: "Contact",
     title: "Parlons de\n^votre projet",
     text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
@@ -460,7 +471,7 @@ const fr = {
         name: { label: "Nom", placeholder: "Votre nom" },
         email: { label: "Email de contact", placeholder: "vous@exemple.com", hint: "Une adresse personnelle convient : nous travaillons aussi avec des indépendants." },
         company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
-        need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche ou la situation qui vous coûte le plus de temps.", hint: "Un exemple concret vaut mieux qu’une description générale." },
+        need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche qui vous coûte le plus de temps, ou les logiciels que vous aimeriez relier.", hint: "Un exemple concret vaut mieux qu’une description générale." },
         phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
         website: { label: "Site internet", placeholder: "Facultatif", optional: "Facultatif" },
         timeline: { label: "Échéance envisagée", optional: "Facultatif" },
@@ -509,7 +520,7 @@ const fr = {
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Mentions légales du site Synode, agence IA à Bruxelles : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
+    noticeDescription: "Mentions légales du site Synode, entreprise technologique à Bruxelles : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     draftLabel: "Brouillon",
@@ -533,7 +544,7 @@ const en = {
     email: "contact@synode-agency.com",
     location: "Brussels, Belgium",
     tagline:
-      "Custom AI solutions, built around how your business actually works, to move your operations forward.",
+      "Custom solutions with built-in AI: connected systems and business software, built around how you work.",
     nav: nav.en,
     cta: "Book a free call",
     ctaShort: "Book a call",
@@ -548,8 +559,8 @@ const en = {
   },
 
   home: {
-    metaTitle: "Custom AI solutions in Brussels and Belgium",
-    metaDescription: "Synode designs AI agents, automations and custom business software in Brussels and Belgium, integrated with your tools and data.",
+    metaTitle: "AI, integration and custom software in Brussels",
+    metaDescription: "Synode, a technology company in Brussels: AI agents, automations, integration of your software (CRM, ERP, API) and custom business software.",
     hero: {
       title:
         "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations",
@@ -636,15 +647,19 @@ const en = {
     },
 
     faq: {
-      kicker: "Frequently asked questions about our AI solutions",
-      title: "Common questions about custom AI solutions",
+      kicker: "FAQ",
+      title: "Common questions about our custom solutions",
       items: [
         {
           q: "Do I need to change my software to use an AI solution?",
           a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or suggest a more suitable solution.",
         },
         {
-          q: "How much does a custom AI solution cost?",
+          q: "Do you also build software without AI?",
+          a: "Yes. An integration or a business application can work perfectly well without AI. We only add it where it brings a concrete gain, and we say so in our proposal.",
+        },
+        {
+          q: "How much does a custom solution cost?",
           a: "The price depends on the project, its features and its complexity. We start with a free conversation to understand your need before preparing a tailored proposal. Any recurring costs are stated as well.",
         },
         {
@@ -661,7 +676,7 @@ const en = {
         },
         {
           q: "Do you provide maintenance after deployment?",
-          a: "Yes. Synode runs, monitors and maintains your AI solution under the terms set out in the contract. Technical costs and significant changes are defined separately.",
+          a: "Yes. Synode runs, monitors and maintains your solution under the terms set out in the contract. Technical costs and significant changes are defined separately.",
         },
       ],
     },
@@ -673,14 +688,14 @@ const en = {
   },
 
   solutions: {
-    metaTitle: "Six families of custom AI solutions",
+    metaTitle: "Custom solutions with built-in AI",
     metaDescription:
-      "Six families of custom AI solutions from Synode in Brussels: AI agents, automations, business software, integrations, data and team training.",
+      "Custom solutions with built-in AI from Synode in Brussels: AI agents, automations, integrations, business software, data and team training.",
     kicker: "What we sell",
     title: "A solution built\n^from your need",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
-    bricksTitle: "Our custom AI solutions",
+    bricksTitle: "Our custom solutions, with built-in AI",
     bricks: [
       {
             "slug": "agents-ia",
@@ -691,41 +706,41 @@ const en = {
             "visual": 0
       },
       {
+            "slug": "integrations-systemes-connectes",
+            "title": "Integrations & Connected Systems",
+            "text": "We connect the tools you already use, CRM, ERP, website or databases, so your data flows without retyping and AI works on reliable information.",
+            "benefit": "Tools that work together.",
+            "example": "An approved website request updates the CRM and reaches your management software.",
+            "visual": 2
+      },
+      {
             "slug": "automatisations-intelligentes",
             "title": "Intelligent Automations",
             "text": "Intelligent automations that connect the repetitive steps of your business processes, using AI when information needs to be understood, classified or processed.",
             "benefit": "Fewer manual steps along the way.",
-            "example": "An emailed invoice is extracted and checked; ambiguous cases are sent to you for review.",
+            "example": "A quote request from your website is analysed, the quote is drafted for review, then followed up automatically until it is signed.",
             "visual": 1
       },
       {
             "slug": "logiciels-applications-ia",
-            "title": "Custom AI Software & Applications",
-            "text": "Custom AI software and applications built for your team, or artificial intelligence features integrated into products used by your customers.",
+            "title": "Custom Software & Applications",
+            "text": "Custom business software and applications built for your team or your customers, with AI built in wherever it adds value.",
             "benefit": "Software that fits how people work.",
             "example": "Service jobs in one interface, with a report drafted for a team member to review.",
             "visual": 3
-      },
-      {
-            "slug": "integrations-systemes-connectes",
-            "title": "Integrations & Connected Systems",
-            "text": "Connections between your software, CRM, ERP and databases to share the information that matters.",
-            "benefit": "Tools that work together.",
-            "example": "An approved website request updates the CRM and reaches your management software.",
-            "visual": 2
       },
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
             "text": "Centralisation and analysis of data, dashboards, forecasting, scoring or recommendations when the quality and volume of the data support them.",
             "benefit": "Better-informed decisions.",
-            "example": "Sales and stock in one view to spot anomalies and estimate needs when enough history is available.",
+            "example": "Your sales, margin and cash figures in one Power BI or Excel dashboard, updated without manual exports, with gaps to check flagged.",
             "visual": 4
       },
       {
             "slug": "formation-adoption-ia",
             "title": "AI Training & Adoption",
-            "text": "AI training and practical workshops to learn how to use artificial intelligence and adopt your solutions, with or without a Synode project.",
+            "text": "Getting to grips with every solution we deliver is included in the project. This offer also trains your teams in AI without a project: practical workshops, good habits and usage rules.",
             "benefit": "A team confident with their new way of working.",
             "example": "Using real situations, your team learns to draft and review customer replies.",
             "visual": 5
@@ -738,6 +753,11 @@ const en = {
       text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
       recurringLabel: "Recurring payment · defined in the contract",
       familyNote: "This support applies across all six solution families. It is not a seventh offer.",
+      included: {
+        title: "Included in every project",
+        items: ["Installation and go-live", "Training for your users", "Documentation handed over", "Support in the first weeks"],
+        more: "Train your whole team in AI, even without a project",
+      },
       cycle: ["Design", "Deployment", "Monitoring", "Improvement"],
       items: [
         { title: "Monitoring & maintenance", text: "We watch how the solution runs and step in, within the agreed scope, when something goes wrong." },
@@ -764,10 +784,10 @@ const en = {
       { title: "Significant changes", text: "New scope, new quote, written agreement before any work." },
     ],
 
-    faqTitle: "Common questions about custom AI solutions",
+    faqTitle: "Common questions about our custom solutions",
     faq: [
       { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the AI solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
-      { q: "How much does a custom AI solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
+      { q: "How much does a custom solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
       { q: "How does a project with Synode run?", a: "In five steps: scoping the need, designing the solution, development and integration, rollout and training, then follow-up and evolution." },
       { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions can stay subject to human approval." },
       { q: "Do you handle maintenance after deployment?", a: "Yes, if you take our support service: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
@@ -787,9 +807,9 @@ const en = {
     steps: [
       { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We frame your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
       { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
-      { title: "Design", work: "Define how the AI solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan.", brief: "Your business rules become the build plan", accents: ["business rules", "build plan"], },
+      { title: "Design", work: "Define how the solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan.", brief: "Your business rules become the build plan", accents: ["business rules", "build plan"], },
       { title: "Build", work: "Develop the solution and test it progressively against your processes and your real cases.", client: "Test the flows, review the first results and send us your feedback.", output: "A version ready for acceptance.", brief: "We build on your real cases, guided by your feedback", accents: ["real cases", "feedback"], },
-      { title: "Acceptance and go-live", work: "Test, fix, document and put the AI solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
+      { title: "Acceptance and go-live", work: "Test, fix, document and put the solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
       { title: "Support", work: "Watch how the solution runs, maintain it and scope the changes it needs.", client: "Report incidents, new needs and changes in your business processes.", output: "Maintenance tracked, and changes quoted.", brief: "Your usage feedback drives maintenance and changes", accents: ["usage feedback", "maintenance", "changes"], },
     ],
     notes: [
@@ -802,41 +822,41 @@ const en = {
   },
 
   team: {
-    metaTitle: "AI team in Brussels: Antonino and Killian",
+    metaTitle: "The Synode team in Brussels: Antonino and Killian",
     metaDescription:
-      "Meet the Synode team, an AI agency in Brussels: two developers specialising in AI agents, automation, integrations and custom business software.",
+      "Meet the Synode team, a technology company in Brussels: two developers specialising in artificial intelligence, systems integration and custom business software.",
     kicker: "The team",
     title: "Why we are\n^building Synode",
     vision:
-      "Synode is an AI agency in Brussels founded by Antonino and Killian. We design AI agents, automations, integrations and custom business software around each company’s processes, tools and data.",
-    peopleTitle: "Two developers with complementary AI expertise",
+      "Synode is a Brussels-based technology company founded by Antonino and Killian. We bring AI into organisations, connect their software and build custom business software, based on their processes, tools and data.",
+    peopleTitle: "Two developers with complementary expertise",
     people: [
       {
-        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · Developer & AI Expert",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · AI, agents & automation",
         text: "Antonino analyses business processes, designs workflows and develops AI agents. He identifies the tasks worth automating and prepares their integration into your environment.",
       },
       {
-        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Developer & AI Expert",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Software & integrations",
         text: "Killian develops AI applications, business software and integrations between your tools. He turns the scoped need into a usable, tested solution suited to your business.",
       },
     ],
-    complementTitle: "A complementary team for your AI projects",
-    complementText: "Our team combines process analysis, AI agent design, automation, application development and software integration. These capabilities come together in an AI solution aligned with your organisation.",
-    workingTitle: "How we support\nyour AI project",
+    complementTitle: "A complementary team,\nfrom AI to software",
+    complementText: "Our team combines process analysis, AI agent design, automation, application development and software integration. These capabilities come together in a solution aligned with your organisation.",
+    workingTitle: "How we support\nyour project",
     working: [
-      "One named contact for your AI project, from initial scoping to go-live.",
+      "One named contact for your project, from initial scoping to go-live.",
       "An analysis of your processes, data and software connections before development starts.",
       "Visible stages, tests on real cases and human approvals defined with you.",
       "Clear documentation and maintenance terms agreed before deployment.",
     ],
     cta: "Let’s talk about your project",
     ctaText:
-      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom AI solutions the same way: one named contact per subject, from scoping to go-live.",
+      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom solutions the same way: one named contact per subject, from scoping to go-live.",
   },
 
   contact: {
     metaTitle: "Let’s talk about your project",
-    metaDescription: "Book a free 30-minute call with Synode, an AI agency in Brussels, or describe your need in writing. No strings attached and no automated quote.",
+    metaDescription: "Book a free 30-minute call with Synode, a technology company in Brussels, or describe your need in writing. No strings attached and no automated quote.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project",
     text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
@@ -858,7 +878,7 @@ const en = {
         name: { label: "Name", placeholder: "Your name" },
         email: { label: "Contact email", placeholder: "you@example.com", hint: "A personal address is fine: we work with freelancers too." },
         company: { label: "Company or activity", placeholder: "Optional", optional: "Optional" },
-        need: { label: "What would you like to improve?", placeholder: "Describe the task or situation that costs you the most time.", hint: "One concrete example beats a general description." },
+        need: { label: "What would you like to improve?", placeholder: "Describe the task that costs you the most time, or the software you would like to connect.", hint: "One concrete example beats a general description." },
         phone: { label: "Phone", placeholder: "Optional", optional: "Optional" },
         website: { label: "Website", placeholder: "Optional", optional: "Optional" },
         timeline: { label: "Timeline in mind", optional: "Optional" },
@@ -904,7 +924,7 @@ const en = {
 
   legal: {
     noticeTitle: "Legal notice",
-    noticeDescription: "Legal notice for the Synode website, an AI agency based in Brussels: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
+    noticeDescription: "Legal notice for the Synode website, a technology company based in Brussels: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
     privacyTitle: "Privacy policy",
     privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
     draftLabel: "Draft",

@@ -18,7 +18,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: locale === "fr" ? "Équipe Synode, experts IA à Bruxelles" : "The Synode AI team in Brussels",
+    name: locale === "fr" ? "L’équipe de Synode à Bruxelles" : "The Synode team in Brussels",
     description: team.metaDescription,
     url: `${siteUrl}${pagePath}`,
     mainEntity: {
@@ -41,8 +41,8 @@ export function TeamPage({ locale }: { locale: Locale }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <PageHero
         className="team-hero"
-        kicker={locale === "fr" ? "Agence IA à Bruxelles" : "AI agency in Brussels"}
-        title={locale === "fr" ? <>Les <span>experts&nbsp;IA</span> de Synode</> : <>The <span>AI experts</span> behind Synode</>}
+        kicker={locale === "fr" ? "Entreprise technologique · Bruxelles" : "Technology company · Brussels"}
+        title={locale === "fr" ? <>Les <span>experts</span> de Synode</> : <>The <span>experts</span> behind Synode</>}
         aside={<>
           <div className="hero-visual-desktop"><HeroDirectory locale={locale} /></div>
           <HeroCompact
@@ -66,7 +66,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       </PageHero>
 
       <Band id="associes" tone="white">
-        <Lede title={team.peopleTitle} accents={locale === "fr" ? ["expertises IA"] : ["AI expertise"]} />
+        <Lede title={team.peopleTitle} accents={locale === "fr" ? ["expertises complémentaires"] : ["complementary expertise"]} />
         {/* Les quatre textes de chaque carte viennent du contenu et sont
             affichés mot pour mot. Voir `components/equipe/team-card`. */}
         <div className="section-gap">
@@ -88,7 +88,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
           un conteneur de plus les ferait tomber. Le texte garderait sa place
           mais pas sa largeur de ligne. */}
       <Band id="complementarite" tone="base" className="tint-band" bodyClassName={layout.split}>
-        <Lede title={team.complementTitle} accents={locale === "fr" ? ["projets IA"] : ["AI projects"]} text={team.complementText} />
+        <Lede title={team.complementTitle} accents={locale === "fr" ? ["de l’IA au logiciel"] : ["from AI to software"]} text={team.complementText} />
         <div className={layout.visual}><SkillsPanel locale={locale} /></div>
       </Band>
 
@@ -97,7 +97,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
           est explicite : les deux premiers l'un sous l'autre à gauche, la
           carte sur les deux rangées à droite. */}
       <Band id="facon" tone="white" bodyClassName={layout.splitList}>
-        <Lede title={team.workingTitle} accents={locale === "fr" ? ["projet IA"] : ["AI project"]} />
+        <Lede title={team.workingTitle} accents={locale === "fr" ? ["votre projet"] : ["your project"]} />
         <ul className="checks section-gap">
           {team.working.map((w) => (
             <li key={w}>{w}</li>

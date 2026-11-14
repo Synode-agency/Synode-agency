@@ -32,18 +32,18 @@ export const ogContentType = "image/png";
 
 const COPY = {
   fr: {
-    kicker: "AGENCE IA · BRUXELLES",
-    title: "Solutions IA sur mesure",
-    text: "Agents IA, automatisations, logiciels métier et intégrations, conçus autour de vos outils et de vos données.",
+    kicker: "ENTREPRISE TECHNOLOGIQUE · BRUXELLES",
+    title: "Solutions sur mesure, avec l’IA intégrée",
+    text: "Systèmes connectés, logiciels métier et intelligence artificielle, conçus autour de vos outils et de vos données.",
     foot: "synode-agency.com",
-    alt: "Synode, agence IA à Bruxelles : solutions IA sur mesure",
+    alt: "Synode, entreprise technologique à Bruxelles : solutions sur mesure avec l’IA intégrée",
   },
   en: {
-    kicker: "AI AGENCY · BRUSSELS",
-    title: "Custom AI solutions",
-    text: "AI agents, automations, business software and integrations, built around your tools and your data.",
+    kicker: "TECHNOLOGY COMPANY · BRUSSELS",
+    title: "Custom solutions, with built-in AI",
+    text: "Connected systems, business software and artificial intelligence, built around your tools and your data.",
     foot: "synode-agency.com",
-    alt: "Synode, AI agency in Brussels: custom AI solutions",
+    alt: "Synode, technology company in Brussels: custom solutions with built-in AI",
   },
 } as const;
 

@@ -58,7 +58,7 @@ const NEEDS = [
 const SECURITY = {
   fr: {
     items: [
-      { title: "Protection des données", text: "La solution IA accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
+      { title: "Protection des données", text: "La solution accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
       { title: "Gestion des droits d’accès", text: "Les permissions sont limitées selon les utilisateurs, les rôles et les logiciels connectés." },
       { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes peuvent rester soumises à votre validation." },
       { title: "Monitoring technique", text: "Le fonctionnement, les erreurs et les intégrations peuvent être surveillés après le déploiement." },
@@ -90,7 +90,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <PageHero
         className="solutions-page-hero"
-        kicker={fr ? "Solutions IA" : "AI solutions"}
+        kicker={fr ? "Solutions sur mesure" : "Custom solutions"}
         kickerMobileOnly
         title={renderLines(solutions.title)}
         aside={<>
@@ -116,16 +116,16 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           />
         </>}
       >
-        <p>{fr ? "Synode conçoit et développe des solutions d’intelligence artificielle adaptées aux processus des entreprises. Agents IA, automatisation, logiciels métier, intégrations et analyse de données sont combinés selon vos objectifs, vos outils et vos contraintes." : "Every AI project starts from a specific business need. We then design a custom solution, combining artificial intelligence, process automation, integrations, business software and data wherever your environment and your constraints call for it."}</p>
+        <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
         <div className="btn-row">
-          <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions IA" : "Explore our AI solutions"}<ArrowDown aria-hidden /></Link>
+          <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions" : "Explore our solutions"}<ArrowDown aria-hidden /></Link>
           <Link href={formHref} className="btn btn--ghost">{fr ? "Parlons de votre besoin" : "Tell us what you need"}</Link>
         </div>
         <span className="hero-reassurance">{fr ? <>* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "* A free first conversation. A clear scope. A tailored quote."}</span>
       </PageHero>
 
       <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
-        <Lede kicker={fr ? "Solutions IA pour votre entreprise" : "AI solutions for your business"} title={fr ? "Nos solutions IA sur mesure" : "Our custom AI solutions"} accents={fr ? ["solutions IA"] : ["AI solutions"]} text={fr ? "Notre agence IA à Bruxelles combine agents IA, automatisation des processus, logiciels métier, intégrations, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
+        <Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Synode combine agents IA, automatisation des processus, intégration de systèmes, logiciels métier, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, process automation, business software, integrations, data and support can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
         <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
         <p className="families-note">
           {fr ? (
@@ -153,7 +153,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
             title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "Use cases for your business challenges"}
             accents={fr ? ["cas d’usage IA"] : ["Use cases"]}
-            text={fr ? "Nos solutions IA pour entreprises répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "See how our AI solutions can answer concrete business problems, from handling customer requests to document analysis, by way of lead qualification and day-to-day steering."}
+            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "See how our solutions can answer concrete business problems, from handling customer requests to document analysis, by way of lead qualification and day-to-day steering."}
           />
           <Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Voir plus de cas d’usage" : "See more use cases"}<ArrowRight aria-hidden /></Link>
         </div>
@@ -186,10 +186,10 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <div className="mfr-layout">
           <div className="mfr-copy">
             <Lede
-              kicker={fr ? "Conception & Développement IA" : "AI design & development"}
-              title={fr ? "Notre méthode\npour votre projet IA" : "Our method\nfor your AI project"}
+              kicker={fr ? "Conception & développement" : "Design & development"}
+              title={fr ? "Notre méthode\npour votre projet" : "Our method\nfor your project"}
               accents={fr ? ["méthode"] : ["method"]}
-              text={fr ? "Du cadrage du besoin métier à la maintenance, un projet IA Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode AI project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
+              text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
             />
           </div>
           <MethodFrame locale={locale} />
@@ -206,7 +206,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <div className="section-heading">
           <Lede
             kicker={fr ? "Sécurité & contrôle" : "Security & control"}
-            title={fr ? "Sécurité et contrôle\nde vos solutions IA" : "Reliable AI solutions you stay in control of"}
+            title={fr ? "Sécurité et contrôle\nde vos solutions" : "Reliable solutions you stay in control of"}
             accents={fr ? ["Sécurité", "contrôle"] : ["stay in control"]}
             text={fr ? "La protection des données, la gestion des accès, la validation humaine et le monitoring sont intégrés dès la conception. Les mesures retenues dépendent des usages, des logiciels connectés et des risques du projet." : "Security, data confidentiality, access management, human control and technical monitoring are defined against the needs and the risks of each project."}
           />
@@ -222,9 +222,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       <Band id="tarification" tone="base" className="solutions-rhythm solutions-full solutions-white-band">
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
-          title={fr ? "Prix d’une solution IA sur mesure :\nnotre tarification" : "How we charge"}
+          title={fr ? "Prix d’une solution sur mesure :\nnotre tarification" : "How we charge"}
           accents={fr ? ["tarification"] : ["charge"]}
-          text={fr ? "Le budget d’un projet IA dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
+          text={fr ? "Le budget d’un projet dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
         />
         <PricingDoc locale={locale} />
       </Band>
@@ -235,7 +235,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <div className="cta-booking-copy">
             <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
             <Lede
-              title={fr ? "Parlons de votre projet de solution IA" : "Let’s discuss your AI solution project"}
+              title={fr ? "Parlons de votre projet" : "Let’s discuss your project"}
               accents={fr ? ["votre projet"] : ["project"]}
 
               text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
@@ -253,7 +253,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </CardPanel>
 
       <Band id="faq" tone="base" className="solutions-rhythm solutions-faq-light">
-        <Lede kicker={fr ? "Questions fréquentes sur nos solutions IA" : "Frequently asked questions about our AI solutions"} title={solutions.faqTitle} accents={fr ? ["solutions IA"] : ["custom AI solutions"]} />
+        <Lede kicker="FAQ" title={solutions.faqTitle} accents={fr ? ["solutions sur mesure"] : ["custom solutions"]} />
         <div className="section-gap"><FaqAccordion items={solutions.faq} /></div>
       </Band>
     </Shell>

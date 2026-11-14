@@ -45,7 +45,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: locale === "fr" ? "Réalisations et projets IA de Synode" : "Synode AI projects and work",
+    name: locale === "fr" ? "Réalisations de Synode : logiciels métier et IA" : "Synode work: business software and AI",
     description: w.intro.text,
     url: `${siteUrl}${pagePath}`,
     mainEntity: {
@@ -78,8 +78,8 @@ export function WorkPage({ locale }: { locale: Locale }) {
         /* La coupe ne vaut qu'à partir de 768px, comme tous les titres du
            site : sur téléphone la phrase coule d'elle-même. */
         title={locale === "fr"
-          ? <><span>Réalisations IA :</span><br className="only-desktop" /> nos projets et solutions</>
-          : <><span>AI projects</span> and custom solutions by Synode</>}
+          ? <><span>Nos réalisations :</span><br className="only-desktop" /> logiciels métier et IA</>
+          : <><span>Our work:</span> business software and AI</>}
         aside={<HeroGallery locale={locale} />}
       >
         <p>{w.intro.text}</p>
@@ -92,11 +92,11 @@ export function WorkPage({ locale }: { locale: Locale }) {
 
       <Band id="liste" tone="white">
         <Lede
-          title={locale === "fr" ? "Projets IA et solutions en cours" : "Current AI projects and solutions"}
-          accents={locale === "fr" ? ["Projets IA"] : ["AI projects"]}
+          title={locale === "fr" ? "Projets en cours : logiciels métier et IA" : "Current projects: business software and AI"}
+          accents={locale === "fr" ? ["Projets en cours"] : ["Current projects"]}
           text={locale === "fr"
-            ? "Découvrez des solutions IA développées autour de besoins métier concrets, avec leur statut réel, leurs usages et les technologies mobilisées."
-            : "Explore AI solutions developed around concrete business needs, with their actual status, uses and the technologies involved."}
+            ? "Découvrez des logiciels et des solutions développés autour de besoins métier concrets, avec leur statut réel, leurs usages et les technologies mobilisées."
+            : "Explore software and solutions built around concrete business needs, with their actual status, uses and the technologies involved."}
         />
         {/* Les deux mêmes cartes que la section Réalisations de l'accueil,
             au même graphisme et avec les mêmes libellés, mais en rangée :
@@ -113,7 +113,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
       <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tint cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
-            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution\u00a0IA"] : ["AI solution"]} text={w.cta.text} />
+            <Lede title={w.cta.title} accents={locale === "fr" ? ["solution adaptée"] : ["solution"]} text={w.cta.text} />
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{site.cta}<ArrowRight aria-hidden /></Link>
@@ -219,28 +219,46 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                 </span>
               )}
             </div>
+          </div>
+        ) : (
+          <p className="work-status section-gap-sm">{item.status}</p>
+        )}
+        {isCoory ? (
+          /* La colonne de droite de Coory (demande d'Antonino du 14/11) :
+             l'application, calée en haut, puis les accès de la démo juste
+             dessous, sans encadré. Sur téléphone aussi, à la place de la card
+             compacte : l'illustration est simplement réduite. La classe
+             `hero-visual-desktop` est gardée pour la séquence d'entrée du
+             héros (`scroll-reveal.tsx`) ; `heroAside` annule son masquage
+             sous 900px. */
+          <div className={`hero-visual-desktop ${cooryStyles.heroAside}`}>
+            <CooryDashboardLight frame="app" />
             {/* Les accès de la démo (14/11/2026) : compte partagé, et le code
                 pour créer son propre espace. Valeurs des variables Netlify. */}
             {COORY_DEMO_URL && COORY_DEMO.email && COORY_DEMO.password ? (
-              <div className={`${cooryStyles.demoAccess} section-gap-sm`}>
+              <div className={cooryStyles.demoAccess}>
                 <p className={cooryStyles.demoTitle}>
                   {locale === "fr" ? "Accès de démonstration" : "Demo access"}
                 </p>
-                <dl className={cooryStyles.demoList}>
-                  <div>
-                    <dt>{locale === "fr" ? "Adresse" : "Email"}</dt>
-                    <dd>{COORY_DEMO.email}</dd>
-                  </div>
-                  <div>
-                    <dt>{locale === "fr" ? "Mot de passe" : "Password"}</dt>
-                    <dd>{COORY_DEMO.password}</dd>
-                  </div>
-                </dl>
-                <p className={cooryStyles.demoNote}>
-                  {locale === "fr"
-                    ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
-                    : "AI assistant included. Shared account: please do not enter real data, everything is reset every night."}
-                </p>
+                {/* Le petit tableau : les deux identifiants sur une ligne,
+                    la règle du compte partagé en pied, plus discrète. */}
+                <div className={cooryStyles.demoTable}>
+                  <dl className={cooryStyles.demoList}>
+                    <div>
+                      <dt>{locale === "fr" ? "Adresse" : "Email"}</dt>
+                      <dd>{COORY_DEMO.email}</dd>
+                    </div>
+                    <div>
+                      <dt>{locale === "fr" ? "Mot de passe" : "Password"}</dt>
+                      <dd>{COORY_DEMO.password}</dd>
+                    </div>
+                  </dl>
+                  <p className={cooryStyles.demoFine}>
+                    {locale === "fr"
+                      ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
+                      : "AI assistant included. Shared account: please do not enter real data, everything is reset every night."}
+                  </p>
+                </div>
                 {COORY_DEMO.accessCode ? (
                   <p className={cooryStyles.demoNote}>
                     {locale === "fr"
@@ -254,44 +272,26 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
             ) : null}
           </div>
         ) : (
-          <p className="work-status section-gap-sm">{item.status}</p>
-        )}
-        <div className="hero-visual-desktop">
-          {isCoory ? <CooryDashboardLight frame="app" /> : <HeroDashboard locale={locale} />}
-        </div>
-        {isCoory ? (
+          <>
+          <div className="hero-visual-desktop">
+            <HeroDashboard locale={locale} />
+          </div>
           <HeroCompact
-            tone="light"
-            title={locale === "fr" ? "Coory · Tableau de bord" : "Coory · Dashboard"}
-            status={locale === "fr" ? "espace coach" : "coach workspace"}
+            title={locale === "fr" ? "Nexus · Vue d’ensemble" : "Nexus · Overview"}
+            status={locale === "fr" ? "outil interne" : "internal tool"}
             tiles={locale === "fr" ? [
-              { label: "Séances cette semaine", value: "41" },
-              { label: "Revenu mensuel", value: "3\u202f856\u00a0€" },
-              { label: "Programmes en cours", value: "46" },
-              { label: "Total sportifs", value: "39" },
+              { label: "Total leads", value: "570" },
+              { label: "Leads qualifiés", value: "128" },
+              { label: "Leads contactés", value: "64" },
+              { label: "Jobs en cours", value: "3" },
             ] : [
-              { label: "Sessions this week", value: "41" },
-              { label: "Monthly revenue", value: "€3,856" },
-              { label: "Active programmes", value: "46" },
-              { label: "Total athletes", value: "39" },
+              { label: "Total leads", value: "570" },
+              { label: "Qualified leads", value: "128" },
+              { label: "Leads contacted", value: "64" },
+              { label: "Jobs running", value: "3" },
             ]}
           />
-        ) : (
-        <HeroCompact
-          title={locale === "fr" ? "Nexus · Vue d’ensemble" : "Nexus · Overview"}
-          status={locale === "fr" ? "outil interne" : "internal tool"}
-          tiles={locale === "fr" ? [
-            { label: "Total leads", value: "570" },
-            { label: "Leads qualifiés", value: "128" },
-            { label: "Leads contactés", value: "64" },
-            { label: "Jobs en cours", value: "3" },
-          ] : [
-            { label: "Total leads", value: "570" },
-            { label: "Qualified leads", value: "128" },
-            { label: "Leads contacted", value: "64" },
-            { label: "Jobs running", value: "3" },
-          ]}
-        />
+          </>
         )}
       </Band>
 

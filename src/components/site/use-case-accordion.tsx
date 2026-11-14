@@ -8,7 +8,7 @@ import type { Locale } from "@/lib/content";
 /**
  * Les cas d'usage, en accordéons.
  *
- * Le même composant pour les quatre de l'accueil et les douze de la page
+ * Le même composant pour les quatre de l'accueil et tous ceux de la page
  * Cas d'usage. `rich` ne change que la respiration : la page dédiée ouvre
  * plus large, l'accueil reste compact.
  *
@@ -77,7 +77,7 @@ export function UseCaseAccordion({
                 <p className="uca-text">{item.description}</p>
                 {item.example && (
                   <div className="uca-example">
-                    <span>{fr ? "Exemple de solution IA" : "Example of an AI solution"}</span>
+                    <span>{fr ? "Exemple de solution" : "Example of a solution"}</span>
                     <p>{item.example}</p>
                   </div>
                 )}

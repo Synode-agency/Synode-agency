@@ -18,6 +18,7 @@ import { AutomationGraph } from "./automation-graph";
 import { AdoptionVisual, DataVisual, IntegrationVisual, SoftwareVisual } from "@/components/understand-visuals";
 import { UseCards } from "./use-cards";
 import { AfterPanel } from "./after-panel";
+import { IncludedStrip } from "./included-strip";
 import { AgentNetwork } from "./agent-network";
 import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
 import { ServiceHeroIllustration } from "@/components/hero-illustrations";
@@ -106,39 +107,39 @@ const HERO_COMPACT: Record<string, (fr: boolean) => {
         ],
   }),
   "automatisations-intelligentes": fr => ({
-    title: fr ? "workflow \u00b7 factures fournisseurs" : "workflow \u00b7 supplier invoices",
+    title: fr ? "workflow \u00b7 demandes de devis" : "workflow \u00b7 quote requests",
     status: fr ? "actif" : "active",
     rows: fr
       ? [
-          { num: "01", label: "E-mail re\u00e7u", state: "F-118.pdf" },
-          { num: "02", label: "Extraction IA", state: "montant \u00b7 TVA" },
-          { num: "03", label: "Contr\u00f4le r\u00e8gles", state: "budget \u00b7 doublon" },
-          { num: "04", label: "Facture dans l\u2019ERP", state: "compta \u00e0 jour" },
-          { num: "05", label: "\u00c0 v\u00e9rifier", state: "hors budget" },
+          { num: "01", label: "Demande de devis", state: "formulaire" },
+          { num: "02", label: "Analyse IA", state: "besoin \u00b7 d\u00e9lai" },
+          { num: "03", label: "Devis pr\u00e9par\u00e9", state: "relu, envoy\u00e9" },
+          { num: "04", label: "Relance J+3", state: "pas de r\u00e9ponse" },
+          { num: "05", label: "Devis sign\u00e9", state: "CRM \u00e0 jour" },
         ]
       : [
-          { num: "01", label: "Email received", state: "F-118.pdf" },
-          { num: "02", label: "AI extraction", state: "amount \u00b7 VAT" },
-          { num: "03", label: "Rule check", state: "budget \u00b7 duplicate" },
-          { num: "04", label: "Invoice in ERP", state: "accounts updated" },
-          { num: "05", label: "Review needed", state: "over budget" },
+          { num: "01", label: "Quote request", state: "web form" },
+          { num: "02", label: "AI analysis", state: "need \u00b7 deadline" },
+          { num: "03", label: "Quote drafted", state: "reviewed, sent" },
+          { num: "04", label: "Follow-up D+3", state: "no reply" },
+          { num: "05", label: "Quote signed", state: "CRM updated" },
         ],
   }),
   "logiciels-applications-ia": fr => ({
-    title: fr ? "Tableau de bord \u00b7 Atelier Brun" : "Dashboard \u00b7 Atelier Brun",
-    status: fr ? "ce mois" : "this month",
+    title: fr ? "Interventions \u00b7 Atelier Brun" : "Jobs \u00b7 Atelier Brun",
+    status: fr ? "aujourd\u2019hui" : "today",
     tiles: fr
       ? [
-          { label: "Chiffre d\u2019affaires", value: "84 260 \u20ac" },
-          { label: "Projets en cours", value: "12" },
-          { label: "Demandes", value: "28" },
-          { label: "\u00c0 valider", value: "4" },
+          { label: "Pr\u00e9vues", value: "7" },
+          { label: "Termin\u00e9es", value: "4" },
+          { label: "En cours", value: "1" },
+          { label: "Comptes rendus", value: "4" },
         ]
       : [
-          { label: "Revenue", value: "84 260 \u20ac" },
-          { label: "Active projects", value: "12" },
-          { label: "Requests", value: "28" },
-          { label: "To approve", value: "4" },
+          { label: "Planned", value: "7" },
+          { label: "Done", value: "4" },
+          { label: "In progress", value: "1" },
+          { label: "Reports", value: "4" },
         ],
   }),
   "integrations-systemes-connectes": fr => ({
@@ -163,16 +164,16 @@ const HERO_COMPACT: Record<string, (fr: boolean) => {
     status: fr ? "\u00e0 jour" : "up to date",
     tiles: fr
       ? [
-          { label: "Commandes", value: "382" },
-          { label: "Panier moyen", value: "126 \u20ac" },
-          { label: "Conversion", value: "4,8 %" },
-          { label: "Alerte", value: "stock bas" },
+          { label: "Marge brute", value: "38,2 %" },
+          { label: "Tr\u00e9sorerie", value: "61 400 \u20ac" },
+          { label: "D\u00e9lai de paiement", value: "41 jours" },
+          { label: "Alerte", value: "\u00e0 v\u00e9rifier" },
         ]
       : [
-          { label: "Orders", value: "382" },
-          { label: "Avg. basket", value: "\u20ac126" },
-          { label: "Conversion", value: "4.8%" },
-          { label: "Alert", value: "low stock" },
+          { label: "Gross margin", value: "38.2%" },
+          { label: "Cash", value: "\u20ac61,400" },
+          { label: "Days to get paid", value: "41 days" },
+          { label: "Alert", value: "to check" },
         ],
   }),
   "formation-adoption-ia": fr => ({
@@ -346,6 +347,12 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         <Lede kicker={fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} accents={p.afterTitleAccents} text={p.afterText} />
       </div>
       <AfterPanel items={p.after} pill={operations.recurringLabel} note={operations.familyNote} locale={locale} />
+      <IncludedStrip
+        title={operations.included.title}
+        items={operations.included.items}
+        more={operations.included.more}
+        moreHref={family.slug === "formation-adoption-ia" ? undefined : `${path(locale, ROUTES.solutions)}/formation-adoption-ia`}
+      />
     </Band>
 
     {/* ===== 7 · CTA — bleu nuit, une carte posée ===== */}

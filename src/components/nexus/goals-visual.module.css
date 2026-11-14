@@ -17,3 +17,17 @@
   bottom: -6%;
   width: 118%;
 }
+
+/* ---- Sur une colonne, la fenêtre suit le bloc des objectifs (voir
+   `sections.module.css`) : sa place, à hauteur fixe, la coupe à droite ;
+   la fenêtre en prend toute la hauteur. ---- */
+@container (width < 1088px) {
+  .slot {
+    height: 560px;
+  }
+  .one {
+    top: 0;
+    bottom: auto;
+    height: 100%;
+  }
+}

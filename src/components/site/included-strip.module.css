@@ -1,0 +1,66 @@
+/* =====================================================================
+   « INCLUS DANS CHAQUE PROJET », SOUS LE PANNEAU DE SUIVI
+
+   Même carte que le panneau juste au-dessus (`.afp`, studio.css) : fond
+   blanc, filet #dde3eb, rayon 14px. Une seule ligne au bureau (le titre,
+   les quatre éléments, le lien), qui se replie sur téléphone.
+   ===================================================================== */
+
+.strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+  padding: 18px 22px;
+  border: 1px solid #dde3eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+@media (min-width: 1000px) {
+  .strip {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+  }
+  /* Le lien ne se coupe qu'au bureau, où il a sa colonne. Sur téléphone, il
+     passe à la ligne : sinon il élargit la carte au-delà de l'écran. */
+  .more {
+    white-space: nowrap;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-mono);
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.items li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #2e2e2e;
+}
+
+.items svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: #0b6be6;
+}
+

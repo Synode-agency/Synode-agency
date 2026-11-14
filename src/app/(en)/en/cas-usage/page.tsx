@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { UseCasesPage } from "@/components/site/use-cases-page";
 
 const title = "AI use cases and business automation";
-const description = "Explore 12 AI use cases for business process automation, including AI agents, documents, customer service, sales, finance and data.";
+const description = "22 AI use cases for business: quotes, internal documentation, tenders, multilingual customer service, IT system integration, security and AI Act compliance.";
 
 export const metadata: Metadata = {
   title,

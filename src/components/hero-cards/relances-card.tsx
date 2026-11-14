@@ -5,13 +5,19 @@ import type { Locale } from "@/lib/content";
 import { Card, Pill, easeOut, span, useCardClock, type Tone } from "./frame";
 
 /**
- * CARTE 1 · RELANCES : une facture impayée se règle toute seule.
+ * CARTE 1 · RELANCES : un devis sans réponse finit signé.
  *
- * Une facture à gauche, le suivi automatique à droite. L'échéance passe,
- * une relance part, le paiement arrive, et le tampon tombe.
+ * Un devis à gauche, le suivi automatique à droite. Le client ne répond
+ * pas, une relance part, le devis est signé en ligne, et le tampon tombe.
+ *
+ * Jusqu'au 14/11/2026, cette carte suivait une facture impayée. Le devis
+ * la remplace : c'est un processus qu'un ERP ou un outil comptable ne
+ * couvre pas, et le site laissait croire que l'automatisation se limitait
+ * à la comptabilité (relecture du site par un dirigeant de PME).
  *
  * ── Ce que ce bloc n'est pas ────────────────────────────────────────────
- * « Dumont SRL », la facture F-2026-118 et les 1 240 € sont illustratifs.
+ * « Lumen SA », le devis D-2026-042 et les 4 850 € sont illustratifs. Le
+ * nom du client est court exprès : le tampon « SIGNÉ » se pose sur sa fin.
  * Ce ne sont pas des chiffres de clients, et ils ne doivent jamais être
  * repris ailleurs comme des résultats.
  * ────────────────────────────────────────────────────────────────────────
@@ -26,39 +32,39 @@ const TYPE_TO = 3900;
 const COPY = {
   fr: {
     label: "Relances",
-    states: ["En retard", "Relancé", "Payée"],
-    ref: "Facture F-2026-118",
-    client: "Dumont SRL",
-    total: "Total TTC",
-    amount: "1 240 €",
-    due: "échue le 30/09 · 6 jours de retard",
-    settled: "réglée le 06/10",
-    stamp: "PAYÉE",
+    states: ["Sans réponse", "Relancé", "Signé"],
+    ref: "Devis D-2026-042",
+    client: "Lumen SA",
+    total: "Total HTVA",
+    amount: "4 850 €",
+    due: "envoyé le 02/10 · pas de réponse",
+    settled: "signé le 07/10",
+    stamp: "SIGNÉ",
     follow: "Suivi automatique",
     steps: [
-      ["J+1", "Échéance dépassée"],
+      ["J+2", "Pas encore de réponse"],
       ["J+3", "Relance personnalisée envoyée"],
-      ["J+6", "Paiement reçu et rapproché"],
+      ["J+5", "Devis signé en ligne"],
     ],
-    mail: "Bonjour, sauf erreur de notre part, la facture F-2026-118 reste impayée. Voici le lien de paiement.",
+    mail: "Bonjour, avez-vous pu consulter notre devis D-2026-042 ? Voici le lien pour le signer en ligne.",
   },
   en: {
-    label: "Payment chasing",
-    states: ["Overdue", "Chased", "Paid"],
-    ref: "Invoice F-2026-118",
-    client: "Dumont SRL",
-    total: "Total incl. VAT",
-    amount: "€1,240",
-    due: "due 30/09 · 6 days late",
-    settled: "settled 06/10",
-    stamp: "PAID",
+    label: "Follow-ups",
+    states: ["No reply", "Chased", "Signed"],
+    ref: "Quote Q-2026-042",
+    client: "Lumen SA",
+    total: "Total excl. VAT",
+    amount: "€4,850",
+    due: "sent 02/10 · no reply yet",
+    settled: "signed 07/10",
+    stamp: "SIGNED",
     follow: "Automatic follow-up",
     steps: [
-      ["D+1", "Due date passed"],
+      ["D+2", "No reply yet"],
       ["D+3", "Personalised reminder sent"],
-      ["D+6", "Payment received and matched"],
+      ["D+5", "Quote signed online"],
     ],
-    mail: "Hello, unless we are mistaken, invoice F-2026-118 is still unpaid. Here is the payment link.",
+    mail: "Hello, have you had a chance to look at quote Q-2026-042? Here is the link to sign it online.",
   },
 } as const;
 
@@ -111,7 +117,7 @@ export function RelancesCard({ locale, active }: { locale: Locale; active: boole
 
   return (
     <Card label={c.label} pill={<Pill tone={tone}>{state}</Pill>}>
-      {/* ---- La facture ---- */}
+      {/* ---- Le devis ---- */}
       <div className="hc-invoice">
         <span className="hc-inv-ref">{c.ref}</span>
         <strong className="hc-inv-client">{c.client}</strong>

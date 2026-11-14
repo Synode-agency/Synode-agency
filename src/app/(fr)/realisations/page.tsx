@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { WorkPage } from "@/components/site/work-page";
 
-const title = "Réalisations et projets IA en développement";
-const description = "Découvrez les projets IA de Synode : Nexus, logiciel de prospection B2B, et nos solutions en cours de conception autour de besoins métier concrets.";
+const title = "Réalisations : logiciels métier et projets IA";
+const description = "Découvrez les projets de Synode : Nexus, logiciel de prospection B2B avec IA, et Coory, plateforme de coaching sportif, deux logiciels métier conçus et développés par nos soins.";
 
 export const metadata: Metadata = {
   title,

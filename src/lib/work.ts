@@ -53,7 +53,7 @@ const fr = {
   intro: {
     kicker: "Réalisations",
     title: "Ce que nous construisons,\n^et où nous en sommes",
-    text: "Découvrez les projets IA de Synode : outils internes et logiciels métier conçus autour de processus d’entreprise concrets. Chaque projet présente son état réel, sans résultat inventé ni référence client non autorisée.",
+    text: "Les projets de Synode : des logiciels métier que nous concevons et développons nous-mêmes, avec l’IA intégrée là où elle apporte un vrai gain. Chaque projet présente son état réel, sans résultat inventé ni référence client non autorisée.",
   },
   empty: {
     title: "D’autres projets sont en préparation",
@@ -73,11 +73,11 @@ const fr = {
     backLabel: "Toutes les réalisations",
     cta: "Un besoin similaire ?",
     ctaText:
-      "Nous concevons des solutions IA sur mesure à partir de vos processus, de vos outils et de vos données. Décrivez-nous le besoin que vous voulez traiter.",
+      "Nous concevons des solutions sur mesure, avec l’IA intégrée, à partir de vos processus, de vos outils et de vos données. Décrivez-nous le besoin que vous voulez traiter.",
   },
   cta: {
-    title: "Construisons une solution IA adaptée à votre activité",
-    text: "Votre solution IA sur mesure partira de vos processus, de vos outils et de vos données. Présentez-nous le besoin métier que vous souhaitez améliorer.",
+    title: "Construisons une solution adaptée à votre activité",
+    text: "Votre solution sur mesure, avec l’IA intégrée, partira de vos processus, de vos outils et de vos données. Présentez-nous le besoin métier que vous souhaitez améliorer.",
   },
   todoLabel: "À compléter avant mise en ligne",
   todoText:
@@ -90,10 +90,10 @@ const fr = {
       accent: "B2B assisté par IA",
       status: "Outil interne · opérationnel",
       problem:
-        "Identifier rapidement les entreprises à Bruxelles et en Belgique susceptibles d’avoir besoin de solutions IA sur mesure, trouver les contacts professionnels pertinents et préparer une prise de contact ciblée sans y passer la semaine.",
+        "Identifier rapidement les entreprises à Bruxelles et en Belgique susceptibles d’avoir besoin de nos solutions sur mesure, trouver les contacts professionnels pertinents et préparer une prise de contact ciblée sans y passer la semaine.",
       journey: ["Recherche d’entreprises", "Analyse IA", "Qualification", "Préparation de la prise de contact", "Suivi commercial"],
       context:
-        "Nexus a été conçu pour notre prospection B2B à Bruxelles et en Belgique. L’objectif est de rechercher plus rapidement les entreprises susceptibles d’avoir besoin de solutions IA sur mesure, de rassembler les informations professionnelles utiles, d’identifier les contacts pertinents et de préparer une prise de contact adaptée. Nexus reste un outil interne et n’est pas vendu comme un produit. En revanche, une solution similaire peut être conçue sur mesure pour une entreprise qui souhaite structurer, accélérer et mieux cibler sa propre prospection.",
+        "Nexus a été conçu pour notre prospection B2B à Bruxelles et en Belgique. L’objectif est de rechercher plus rapidement les entreprises susceptibles d’avoir besoin de nos solutions sur mesure, de rassembler les informations professionnelles utiles, d’identifier les contacts pertinents et de préparer une prise de contact adaptée. Nexus reste un outil interne et n’est pas vendu comme un produit. En revanche, une solution similaire peut être conçue sur mesure pour une entreprise qui souhaite structurer, accélérer et mieux cibler sa propre prospection.",
       does: [
         "Rechercher des entreprises à Bruxelles et en Belgique à partir de sources professionnelles publiques.",
         "Rassembler les informations utiles sur leur activité, leurs outils et leurs besoins potentiels.",
@@ -156,7 +156,7 @@ const en = {
   intro: {
     kicker: "Work",
     title: "What we are building\n^and where we stand",
-    text: "Explore Synode’s AI projects: internal tools and business software designed around concrete business processes. Every project shows its actual status, with no invented results or unauthorised client references.",
+    text: "Synode’s projects: business software we design and build ourselves, with AI built in where it brings a real gain. Every project shows its actual status, with no invented results or unauthorised client references.",
   },
   empty: {
     title: "More projects are in preparation",
@@ -176,11 +176,11 @@ const en = {
     backLabel: "All work",
     cta: "Something similar in mind?",
     ctaText:
-      "We build custom AI solutions from your processes, your tools and your data. Tell us about the need you want to tackle.",
+      "We build custom solutions with built-in AI from your processes, your tools and your data. Tell us about the need you want to tackle.",
   },
   cta: {
-    title: "Let’s build an AI solution\nthat fits your business",
-    text: "Your custom AI solution will start from your processes, tools and data. Tell us about the business need you want to improve.",
+    title: "Let’s build a solution\nthat fits your business",
+    text: "Your custom solution, with built-in AI, will start from your processes, tools and data. Tell us about the business need you want to improve.",
   },
   todoLabel: "To complete before launch",
   todoText:
@@ -193,10 +193,10 @@ const en = {
       accent: "B2B prospecting",
       status: "Internal tool · operational",
       problem:
-        "Quickly identifying companies in Brussels and Belgium that may need custom AI solutions, finding the relevant professional contacts and preparing a targeted approach without spending the week on it.",
+        "Quickly identifying companies in Brussels and Belgium that may need our custom solutions, finding the relevant professional contacts and preparing a targeted approach without spending the week on it.",
       journey: ["Company research", "AI analysis", "Qualification", "Approach preparation", "Sales follow-up"],
       context:
-        "Nexus was designed for our B2B prospecting in Brussels and Belgium. Its purpose is to find companies that may need custom AI solutions more quickly, gather useful professional information, identify relevant contacts and prepare a suitable approach. Nexus remains an internal tool and is not sold as a product. However, a similar solution can be designed for a company that wants to structure, accelerate and better target its own prospecting.",
+        "Nexus was designed for our B2B prospecting in Brussels and Belgium. Its purpose is to find companies that may need our custom solutions more quickly, gather useful professional information, identify relevant contacts and prepare a suitable approach. Nexus remains an internal tool and is not sold as a product. However, a similar solution can be designed for a company that wants to structure, accelerate and better target its own prospecting.",
       does: [
         "Research companies in Brussels and Belgium using public professional sources.",
         "Gather useful information about their activity, tools and potential needs.",

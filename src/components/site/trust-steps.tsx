@@ -35,15 +35,15 @@ const ICONS = [LockKeyhole, UserCheck, Plug, Activity];
 
 const ITEMS = {
   fr: [
-    { title: "Confidentialité des données", text: "Vos données sont utilisées uniquement dans le cadre défini pour votre solution IA, avec des accès limités aux personnes et systèmes autorisés afin de préserver leur confidentialité.", pill: "accès vérifié" },
+    { title: "Confidentialité des données", text: "Vos données sont utilisées uniquement dans le cadre défini pour votre solution, avec des accès limités aux personnes et systèmes autorisés afin de préserver leur confidentialité.", pill: "accès vérifié" },
     { title: "Contrôle humain", text: "Les décisions sensibles et les actions importantes peuvent rester soumises à une validation humaine afin de conserver un niveau de contrôle adapté à votre activité et à vos processus métier.", pill: "action validée" },
-    { title: "Accès et intégrations sécurisés", text: "Les connexions à vos logiciels, bases de données et outils métier sont configurées avec des droits d’accès adaptés et limitées aux informations nécessaires au fonctionnement de votre solution IA.", pill: "connexion limitée" },
+    { title: "Accès et intégrations sécurisés", text: "Les connexions à vos logiciels, bases de données et outils métier sont configurées avec des droits d’accès adaptés et limitées aux informations nécessaires au fonctionnement de votre solution.", pill: "connexion limitée" },
     { title: "Suivi technique", text: "Le fonctionnement de votre système IA peut être surveillé afin de détecter les erreurs, comportements anormaux ou problèmes d’intégration et de maintenir la solution dans de bonnes conditions d’exploitation.", pill: "exécution surveillée" },
   ],
   en: [
-    { title: "Data confidentiality", text: "Your data is used only within the scope defined for your AI solution, with access restricted to the people and systems that are authorised to see it.", pill: "access checked" },
+    { title: "Data confidentiality", text: "Your data is used only within the scope defined for your solution, with access restricted to the people and systems that are authorised to see it.", pill: "access checked" },
     { title: "Human control", text: "Sensitive decisions and important actions can remain subject to human approval, to keep a level of control that suits your business and your processes.", pill: "action approved" },
-    { title: "Secure access and integrations", text: "Connections to your software, databases and business tools are configured with appropriate access rights and limited to the information your AI solution needs to run.", pill: "access limited" },
+    { title: "Secure access and integrations", text: "Connections to your software, databases and business tools are configured with appropriate access rights and limited to the information your solution needs to run.", pill: "access limited" },
     { title: "Technical monitoring", text: "Your AI system can be watched, so that errors, unusual behaviour or integration problems are detected and the solution is kept in good running order.", pill: "run monitored" },
   ],
 } as const;

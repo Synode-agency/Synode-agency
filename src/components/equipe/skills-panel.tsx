@@ -31,7 +31,7 @@ const COPY = {
       "Développement d’applications",
       "Intégration de logiciels",
     ],
-    result: "Une solution IA cohérente",
+    result: "Une solution cohérente",
     with: "avec votre organisation",
   },
   en: {
@@ -43,7 +43,7 @@ const COPY = {
       "Application development",
       "Software integration",
     ],
-    result: "One coherent AI solution",
+    result: "One coherent solution",
     with: "matching your organisation",
   },
 } as const;

@@ -171,23 +171,60 @@ export function Limits({ items }: { items: readonly string[] }) {
 
 /* ------------------------------------------------- L'enveloppe d'une section */
 
+/**
+ * Deux colonnes sur ordinateur : tous les blocs de texte à gauche, tous les
+ * écrans dans la pile de droite. Sur une colonne (tablette, téléphone),
+ * chaque écran suit son bloc : le i-ème écran vient après le i-ème bloc.
+ * La bascule est en CSS (`sections.module.css`) ; ici, chaque bloc et chaque
+ * place d'écran reçoit son rang (`order`), qui ne sert que sur une colonne.
+ * Un bloc peut ne pas avoir d'écran : il suffit d'en donner moins.
+ */
 export function Section({
   tone,
   rootRef,
-  left,
-  right,
+  blocks,
+  visuals,
+  stackClassName,
+  slotClassName,
 }: {
   tone: "white" | "tint";
   rootRef: RefObject<HTMLElement | null>;
-  left: ReactNode;
-  right: ReactNode;
+  /** Les blocs de texte, dans l'ordre de lecture. */
+  blocks: readonly ReactNode[];
+  /** Les écrans, dans l'ordre : le i-ème suit le i-ème bloc sur une colonne. */
+  visuals: readonly ReactNode[];
+  /** La pile de droite, sur ordinateur (la position des écrans). */
+  stackClassName?: string;
+  /** La place d'un écran, sur une colonne (sa hauteur, si l'écran n'en a pas). */
+  slotClassName?: string;
 }) {
   return (
     <section className={tone === "tint" ? `${styles.section} ${styles.sectionTint}` : styles.section} ref={rootRef}>
       <div className={styles.inner}>
-        <div className={styles.copy}>{left}</div>
-        {/* Décoratif : tout ce que montrent ces écrans est écrit à gauche. */}
-        <div className={styles.visual} aria-hidden>{right}</div>
+        <div className={styles.copy}>
+          {blocks.map((block, i) => (
+            <div key={i} className={styles.chunk} style={{ order: 2 * i + 1 }}>
+              {block}
+            </div>
+          ))}
+        </div>
+        {/* Décoratif : tout ce que montrent ces écrans est écrit à gauche.
+            `aria-hidden` est aussi posé sur chaque place : sur une colonne,
+            ce bloc s'efface (`display: contents`). */}
+        <div className={styles.visual} aria-hidden>
+          <div className={stackClassName ? `${styles.stackBox} ${stackClassName}` : styles.stackBox}>
+            {visuals.map((visual, i) => (
+              <div
+                key={i}
+                className={slotClassName ? `${styles.slot} ${slotClassName}` : styles.slot}
+                style={{ order: 2 * i + 2 }}
+                aria-hidden
+              >
+                {visual}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

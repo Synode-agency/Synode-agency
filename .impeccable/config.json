@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "files": [
+          "src/components/illustrations/illustrations.module.css"
+        ],
+        "createdAt": "2026-11-14T11:49:56.061Z",
+        "reason": "Claude: police de marque de Coory imposée par les dossiers de passation Claude Design (reproduction à l'identique des illustrations)"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "src/components/illustrations/illustrations.module.css"
+        ],
+        "createdAt": "2026-11-14T11:49:56.256Z",
+        "reason": "Claude: police d'origine de l'illustration CooryDesktopMobile, reproduite à l'identique depuis le dossier de passation"
+      },
+      {
+        "rule": "overused-font",
+        "value": "helvetica",
+        "files": [
+          "src/components/hero-illustrations/hero-illustrations.module.css"
+        ],
+        "createdAt": "2026-11-14T13:47:03.499Z",
+        "reason": "Claude: Helvetica Neue est la famille unique documentée du site (globals.css l.233, docs/DESIGN_STUDIO_CLAIR.md) ; les scènes de hero la reprennent"
+      }
+    ]
+  }
+}

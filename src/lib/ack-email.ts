@@ -12,32 +12,35 @@
  * navigateurs : mise en page en tableaux, styles en ligne, polices système,
  * images en adresse complète.
  *
- * LA SIGNATURE EST UNE SEULE IMAGE, comme dans le Gmail de Synode (décision
- * d'Antonino du 12/11/2026) : `public/email/signature-fr.png` est son image
- * telle quelle, `signature-en.png` la même avec le slogan et « AI agency ·
- * Belgium » en anglais. Pour la changer : remplacer ces deux fichiers (même
- * format, 1178 × 316), puis déployer. Revers assumé : une messagerie qui
- * bloque les images affiche à la place le texte de `alt`, et seul le site est
- * cliquable. La version texte de l'email garde la signature complète.
+ * LA SIGNATURE EST EN TEXTE (décision d'Antonino du 14/11/2026), et non plus
+ * une seule image comme avant : elle reste lisible quand une messagerie
+ * bloque les images, chaque coordonnée est cliquable, et un changement de
+ * texte ne demande plus de refaire une image. Seul le petit symbole de Synode
+ * est une image, purement décorative. La MÊME signature sert dans Gmail : elle
+ * est exportée (`SIGNATURE`) pour produire la page à copier-coller.
  *
- * ⚠ Les images sont servies par le site en ligne : elles ne s'affichent
- * qu'une fois déployées. Toute retouche ici coûte un déploiement, soit 15
- * crédits Netlify.
+ * ⚠ Le symbole est servi par le site en ligne (`/synode-mark.png`, déjà
+ * déployé). Toute retouche de ce fichier coûte un déploiement, soit 15
+ * crédits Netlify. Les anciennes images `public/email/signature-*.png` ne sont
+ * plus utilisées ici : elles sont gardées tant que la signature Gmail n'a pas
+ * été remplacée, au cas où elle pointerait encore vers elles.
  */
 
 const SITE = "https://synode-agency.com";
 
 const BLUE = "#2F69DE";
 const INK = "#2E2E2E";
+/* Le gris de la mention, repris de l'ancienne image de signature. */
+const MUTED = "#8A8F98";
 const FONT = "'Helvetica Neue', Helvetica, Arial, sans-serif";
 
-/* Taille d'affichage de l'image de signature, proche de « Grande » dans
-   Gmail. L'image fait 1178 × 316 : on peut l'afficher plus petite sans flou,
-   pas beaucoup plus grande. */
-const SIG_WIDTH = 440;
-const SIG_HEIGHT = Math.round((SIG_WIDTH * 316) / 1178);
+/* Le symbole fait 320 × 320 avec un fond transparent : affiché à 44px, il
+   reste net sur les écrans haute densité. */
+const MARK = `${SITE}/synode-mark.png`;
+const MARK_SIZE = 44;
 
 const PHONE = "+32 (0) 487 30 18 90";
+const PHONE_LINK = "tel:+32487301890";
 const EMAIL = "contact@synode-agency.com";
 
 type Copy = {
@@ -51,8 +54,10 @@ type Copy = {
   reply: string;
   closing: string;
   team: string;
-  /* Le texte de l'image de signature, pour la version texte et pour `alt`. */
+  /* Le slogan de la signature : en clair pour la version texte, avec ses
+     mots en gras pour la version HTML. */
   tagline: string;
+  taglineHtml: string;
   agency: string;
   siteUrl: string;
 };
@@ -63,14 +68,15 @@ const COPY: Record<"fr" | "en", Copy> = {
     subject: "Nous avons bien reçu votre demande",
     hello: "Bonjour,",
     received: "Merci pour votre message. Il nous est bien parvenu et nous revenons vers vous.",
-    urgent: "Si votre demande est urgente, vous pouvez réserver directement un échange de 30 minutes :",
+    urgent: "Si votre demande est urgente, vous pouvez réserver directement un échange de 30 minutes :",
     button: "Réserver un créneau",
     bookingUrl: `${SITE}/contact#reservation`,
     reply: "Pour compléter votre demande, répondez simplement à cet email.",
     closing: "Cordialement,",
     team: "L’équipe Synode",
-    tagline: "Des solutions IA sur mesure, pensées pour votre activité.",
-    agency: "Agence IA · Belgique",
+    tagline: "Des solutions sur mesure, avec l’IA intégrée.",
+    taglineHtml: `Des solutions <b style="font-weight:700;color:${BLUE};">sur mesure</b>,<br>avec <b style="font-weight:700;">l’IA intégrée</b>.`,
+    agency: "Entreprise technologique · Belgique",
     siteUrl: SITE,
   },
   en: {
@@ -84,8 +90,9 @@ const COPY: Record<"fr" | "en", Copy> = {
     reply: "To add anything to your request, simply reply to this email.",
     closing: "Best regards,",
     team: "The Synode team",
-    tagline: "Custom AI solutions, built around your business.",
-    agency: "AI agency · Belgium",
+    tagline: "Custom solutions, with built-in AI.",
+    taglineHtml: `<b style="font-weight:700;color:${BLUE};">Custom</b> solutions,<br>with <b style="font-weight:700;">built-in AI</b>.`,
+    agency: "Technology company · Belgium",
     siteUrl: `${SITE}/en`,
   },
 };
@@ -115,10 +122,35 @@ function paragraph(content: string, bottom = 16): string {
   return `<p style="margin:0 0 ${bottom}px 0;font-family:${FONT};font-size:15px;line-height:24px;color:${INK};">${content}</p>`;
 }
 
+/* Même composition que l'ancienne image : le symbole, un filet bleu, puis le
+   slogan, « Synode » et sa mention, et les coordonnées. En tableau et en
+   styles en ligne, la seule forme que Gmail et Outlook rendent fidèlement. */
 function signature(c: Copy): string {
-  const alt = `Synode · ${c.agency} · ${PHONE} · ${EMAIL}`;
-  return `<a href="${c.siteUrl}" style="text-decoration:none;"><img src="${SITE}/email/signature-${c.lang}.png" width="${SIG_WIDTH}" height="${SIG_HEIGHT}" alt="${alt}" style="display:block;border:0;outline:none;width:${SIG_WIDTH}px;max-width:100%;height:auto;font-family:${FONT};font-size:13px;color:${INK};"></a>`;
+  /* Sur un téléphone, la ligne ne se coupe qu'ENTRE deux éléments, jamais
+     au milieu d'un : sans ce verrou, l'adresse e-mail se coupait à son
+     tiret (« contact@synode- » puis « agency.com »). La seule espace
+     sécable est celle qui suit le point de séparation. */
+  const nowrap = (s: string) => `<span style="white-space:nowrap;">${s}</span>`;
+  const dot = `<span style="color:${MUTED};">&nbsp;&nbsp;·&nbsp;</span> `;
+  const link = (href: string, label: string, color = INK, weight = 400) =>
+    nowrap(`<a href="${href}" style="color:${color};font-weight:${weight};text-decoration:none;">${label}</a>`);
+  const agency = c.agency.toUpperCase().split(" · ").map(nowrap).join(" · ");
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+  <tr>
+    <td valign="middle" style="padding:0 16px 0 0;">
+      <a href="${c.siteUrl}" style="text-decoration:none;"><img src="${MARK}" width="${MARK_SIZE}" height="${MARK_SIZE}" alt="" style="display:block;border:0;outline:none;width:${MARK_SIZE}px;height:${MARK_SIZE}px;"></a>
+    </td>
+    <td valign="middle" style="padding:2px 0 2px 16px;border-left:3px solid ${BLUE};">
+      <p style="margin:0 0 10px 0;font-family:${FONT};font-size:17px;line-height:23px;color:${INK};">${c.taglineHtml}</p>
+      <p style="margin:0 0 6px 0;font-family:${FONT};font-size:15px;line-height:20px;color:${INK};"><b style="font-weight:700;">Synode</b>&nbsp;&nbsp; <span style="font-size:11px;letter-spacing:2px;color:${MUTED};">${agency}</span></p>
+      <p style="margin:0;font-family:${FONT};font-size:13px;line-height:20px;color:${INK};">${link(PHONE_LINK, PHONE)}${dot}${link(`mailto:${EMAIL}`, EMAIL)}${dot}${link(c.siteUrl, "synode-agency.com", BLUE, 700)}</p>
+    </td>
+  </tr>
+</table>`;
 }
+
+/* La signature seule, pour produire la page à copier-coller dans Gmail. */
+export const SIGNATURE = { fr: signature(COPY.fr), en: signature(COPY.en) } as const;
 
 function html(c: Copy): string {
   const button = `

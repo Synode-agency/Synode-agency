@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { UseCasesPage } from "@/components/site/use-cases-page";
 
 const title = "Cas d’usage IA et automatisation en entreprise";
-const description = "Découvrez 12 cas d’usage de l’IA pour automatiser les processus métier : agents IA, documents, service client, ventes, finance et données.";
+const description = "22 cas d’usage de l’IA en entreprise : devis, documentation interne, appels d’offres, service client multilingue, intégration au SI, sécurité et conformité AI Act.";
 
 export const metadata: Metadata = {
   title,

@@ -207,6 +207,8 @@ const SETS = {
     sides: ["Client", "Interne"],
     ai: "IA",
     activity: "activité",
+    memoryQuery: "code erreur E4",
+    memory: ["problème", "solution"],
     boxes: ["Site", "CRM", "ERP", "Portail", "API"],
     confirmed: "confirmée",
     log: ["ok", "ok", "repris"],
@@ -234,6 +236,8 @@ const SETS = {
     sides: ["Client", "Internal"],
     ai: "AI",
     activity: "activity",
+    memoryQuery: "error code E4",
+    memory: ["issue", "solution"],
     boxes: ["Site", "CRM", "ERP", "Portal", "API"],
     confirmed: "confirmed",
     log: ["ok", "ok", "retried"],
@@ -404,7 +408,15 @@ function SetPreview({ set, kind, c }: { set: string; kind: number; c: SetCopy })
           <span className="auc-synth"><em>{c.generated}</em><i /><i /></span>
         </div>
       );
-      default: return <div className="auc-art"><Frame nav={c.nav} badge={c.ai} /></div>;
+      /* « Garder la mémoire de l'entreprise » (14/11/2026) : une recherche,
+         puis le problème déjà rencontré et sa solution. */
+      default: return (
+        <div className="auc-art auc-search">
+          <span className="auc-field"><Search aria-hidden />{c.memoryQuery}</span>
+          <span className="auc-row"><i className="auc-line" style={{ width: "58%" }} /><em className="auc-tag auc-tag--warm">{c.memory[0]}</em></span>
+          <span className="auc-row"><i className="auc-line" style={{ width: "66%" }} /><em className="auc-tag auc-tag--blue">{c.memory[1]}</em></span>
+        </div>
+      );
     }
   }
 

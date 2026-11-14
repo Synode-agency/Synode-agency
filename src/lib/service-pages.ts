@@ -191,7 +191,7 @@ const fr: Record<string, ServicePageContent> = {
     usesText: "L’automatisation des processus métier devient pertinente lorsqu’une tâche se répète selon des règles connues. Ces exemples présentent les usages les plus fréquents pour réduire la saisie manuelle, accélérer les traitements et limiter les oublis en entreprise.",
     uses: [
       { title: "Trier les demandes entrantes", text: "Classer un email ou un formulaire et l’attribuer au bon interlocuteur.", form: "Administratif" },
-      { title: "Extraire les données d’un document", text: "Lire une facture, un bon de commande ou un formulaire reçu en PDF.", form: "Documentaire" },
+      { title: "Extraire les données d’un document", text: "Lire un bon de commande, un formulaire ou une pièce jointe reçue par email.", form: "Documentaire" },
       { title: "Contrôler avant d’enregistrer", text: "Vérifier les montants, les doublons et les champs obligatoires.", form: "Finance" },
       { title: "Faire circuler une validation", text: "Demander un accord au bon responsable avant de poursuivre le flux.", form: "Workflow métier" },
       { title: "Préparer un document", text: "Générer un devis, un contrat ou un récapitulatif à partir de données existantes.", form: "Commercial" },
@@ -202,7 +202,7 @@ const fr: Record<string, ServicePageContent> = {
     coreKicker: "Intégration à vos outils métier",
     coreTitle: "Automatiser sans remplacer vos logiciels",
     coreTitleAccents: ["Automatiser"],
-    coreText: "Une automatisation métier s’intègre aux logiciels que votre entreprise utilise déjà. Elle fait circuler les informations entre vos outils et prend en charge les étapes intermédiaires répétitives, sans imposer une nouvelle organisation à vos équipes.",
+    coreText: "Une automatisation métier part des logiciels que votre entreprise utilise déjà, par exemple Odoo, Exact Online, Teamleader, Microsoft 365 ou Google Workspace. Elle fait circuler les informations entre ces outils et prend en charge les étapes intermédiaires répétitives, sans imposer une nouvelle organisation à vos équipes.",
     coreVisual: "automation",
     coreCentre: "Flux automatisé",
     coreChips: ["Boîte email", "Documents", "CRM", "Outil comptable", "ERP", "Tableur", "Signature", "Messagerie d’équipe"],
@@ -236,7 +236,7 @@ const fr: Record<string, ServicePageContent> = {
     whatTitle: "Qu’est-ce qu’un logiciel métier sur mesure ?",
     whatTitleAccents: ["logiciel métier"],
     whatText:
-      "Un logiciel métier sur mesure est une application conçue autour du fonctionnement réel de votre entreprise : vos processus, vos rôles, vos données et les écrans dont vos équipes ont besoin. Il peut remplacer des fichiers devenus difficiles à gérer, compléter un logiciel existant ou intégrer une fonctionnalité IA destinée à vos collaborateurs ou à vos clients. Nous définissons d’abord le parcours utile, puis les usages où l’intelligence artificielle apporte une valeur concrète.",
+      "Un logiciel métier sur mesure est une application conçue autour du fonctionnement réel de votre entreprise : vos processus, vos rôles, vos données et les écrans dont vos équipes ont besoin. Il peut remplacer des fichiers devenus difficiles à gérer, compléter un logiciel existant ou intégrer une fonctionnalité IA destinée à vos collaborateurs ou à vos clients. Nous définissons d’abord le parcours utile, puis les usages où l’intelligence artificielle apporte une valeur concrète. Nous en assurons aussi l’architecture, les tests et la documentation, pour que l’outil reste fiable et puisse évoluer.",
     whatVisual: "software",
     usesTitle: "Quels usages pour un logiciel métier,\net quelles applications développer ?",
     usesTitleTwoLines: true,
@@ -253,7 +253,7 @@ const fr: Record<string, ServicePageContent> = {
       { title: "Saisir une information sur le terrain", text: "Une interface simple, utilisable sur mobile, pensée pour la saisie.", form: "Outil de saisie" },
       { title: "Visualiser l’activité", text: "Des écrans de pilotage alimentés par les données de l’outil.", form: "Tableau de bord" },
       { title: "Assister la rédaction", text: "Préparer un compte rendu ou un document à partir des données saisies.", form: "Copilote intégré" },
-      { title: "Enrichir votre produit", text: "Ajouter une fonctionnalité IA destinée aux utilisateurs de votre logiciel.", form: "Back-office" },
+      { title: "Garder la mémoire de l’entreprise", text: "Noter chaque problème rencontré et sa solution, pour que toute l’équipe les retrouve, même après un départ.", form: "Base de connaissances" },
     ],
     coreKicker: "Conception centrée sur vos processus",
     coreTitle: "Un logiciel sur mesure adapté à votre entreprise",
@@ -293,7 +293,7 @@ const fr: Record<string, ServicePageContent> = {
     whatTitleTwoLines: true,
     whatTitleAccents: ["intégration"],
     whatText:
-      "Une intégration de logiciels permet à plusieurs systèmes d’échanger automatiquement des données : contacts, statuts, commandes, documents ou informations métier. Elle réduit la double saisie et maintient une source de référence claire. L’automatisation organise les étapes d’un processus, tandis que l’intégration transporte les données entre un CRM, un ERP, un site web, une API ou une base de données.",
+      "Une intégration de logiciels permet à plusieurs systèmes d’échanger automatiquement des données : contacts, statuts, commandes, documents ou informations métier. Elle réduit la double saisie et maintient une source de référence claire. L’automatisation organise les étapes d’un processus, tandis que l’intégration transporte les données entre un CRM, un ERP, un site web, une API ou une base de données. Une fois vos logiciels reliés, l’IA peut travailler à travers eux : un agent retrouve l’état d’une commande dans le CRM, l’ERP et la comptabilité, en une seule question.",
     whatVisual: "integration",
     usesTitle: "Quels logiciels connecter,\net quelles données synchroniser ?",
     usesTitleAccents: ["connecter", "synchroniser"],
@@ -349,7 +349,7 @@ const fr: Record<string, ServicePageContent> = {
     whatTitleTwoLines: true,
     whatTitleAccents: ["Data &", "Intelligence"],
     whatText:
-      "La Data & Intelligence transforme des données dispersées en informations exploitables pour piloter l’entreprise. Le travail consiste à centraliser les sources, corriger les incohérences, définir des indicateurs métier et les présenter dans des tableaux de bord lisibles. Lorsque l’historique le permet, ces données peuvent aussi alimenter une prévision, un score ou une recommandation, toujours distingués des chiffres réellement observés.",
+      "La Data & Intelligence transforme des données dispersées en informations exploitables pour piloter l’entreprise. Le travail consiste à centraliser les sources, corriger les incohérences, définir des indicateurs métier et les présenter dans des tableaux de bord lisibles, de préférence dans un outil que vos équipes connaissent déjà : Power BI, Excel, Google Sheets, Looker Studio ou le module de reporting de votre ERP. Lorsque l’historique le permet, ces données peuvent aussi alimenter une prévision, un score ou une recommandation, toujours distingués des chiffres réellement observés.",
     whatVisual: "data",
     usesTitle: "Comment exploiter vos données,\net quels outils mettre en place ?",
     usesTitleAccents: ["exploiter", "outils"],
@@ -359,7 +359,7 @@ const fr: Record<string, ServicePageContent> = {
     usesText: "Un projet data ne consiste pas seulement à produire des graphiques : il doit répondre à des questions métier précises avec des données fiables. Voici les usages les plus fréquents, de la centralisation des données au tableau de bord, jusqu’à la détection d’anomalies et à la prévision.",
     uses: [
       { title: "Réunir des données dispersées", text: "Rassembler ce qui vit aujourd’hui dans plusieurs outils et fichiers.", form: "Centralisation des données" },
-      { title: "Suivre l’activité", text: "Des indicateurs à jour, sans export manuel ni retraitement.", form: "Tableau de bord métier" },
+      { title: "Suivre l’activité", text: "Chiffre d’affaires, marge, trésorerie, délais de paiement : à jour, sans export manuel.", form: "Tableau de bord métier" },
       { title: "Comparer des périodes", text: "Lire une évolution sur un historique cohérent et contrôlé.", form: "Analyse d’activité" },
       { title: "Repérer une anomalie", text: "Signaler un écart inhabituel qui mérite une vérification.", form: "Détection d’anomalies" },
       { title: "Prioriser des dossiers", text: "Un score explicable propose un ordre d’examen, que vous pouvez corriger.", form: "Scoring" },
@@ -390,6 +390,7 @@ const fr: Record<string, ServicePageContent> = {
     faqTitle: "Questions fréquentes sur\nl’exploitation des données",
     faqTitleAccents: ["l’exploitation des données"],
     faqExtra: [
+      { q: "Dans quel outil les tableaux de bord sont-ils construits ?", a: "De préférence dans un outil standard que vous utilisez déjà ou que vos équipes connaissent : Power BI, Excel, Google Sheets, Looker Studio, ou le module de reporting de votre ERP. Vous gardez la main sur vos tableaux sans dépendre de nous. Un écran sur mesure ne se justifie que si aucun de ces outils ne convient." },
       { q: "Faut-il beaucoup de données pour commencer ?", a: "Pas pour un tableau de bord : il suffit que vos données existantes soient accessibles et cohérentes. Pour une prévision ou un score, le volume, la qualité et la profondeur d’historique comptent, et nous les examinons avant de nous engager." },
       { q: "Nos données sont-elles utilisées pour entraîner des modèles ?", a: "Pas en dehors du cadre défini avec vous. Les conditions d’usage, les accès et les services techniques concernés sont écrits dans la proposition avant le démarrage." },
       { q: "Une prévision est-elle fiable ?", a: "Une prévision est une estimation, évaluée sur des données passées et accompagnée de ses limites. Elle peut aider à préparer une décision, mais elle ne la remplace pas, et nous ne la présentons jamais comme une certitude." },
@@ -405,7 +406,7 @@ const fr: Record<string, ServicePageContent> = {
     whatTitleTwoLines: true,
     whatTitleAccents: ["adoption"],
     whatText:
-      "Découvrir un outil d’intelligence artificielle et l’intégrer au travail quotidien sont deux étapes différentes. L’adoption de l’IA consiste à choisir des usages utiles pour votre métier, à les pratiquer sur des situations réelles et à définir des règles communes : quelles tâches confier à l’IA, comment vérifier ses réponses et quelles données protéger. Cette démarche s’applique aux outils existants comme aux solutions IA développées pour votre entreprise.",
+      "Découvrir un outil d’intelligence artificielle et l’intégrer au travail quotidien sont deux étapes différentes. L’adoption de l’IA consiste à choisir des usages utiles pour votre métier, à les pratiquer sur des situations réelles et à définir des règles communes : quelles tâches confier à l’IA, comment vérifier ses réponses et quelles données protéger. Cette démarche s’applique aux outils existants comme aux solutions IA développées pour votre entreprise. La prise en main de chaque solution que nous livrons est incluse dans le projet ; cette offre s’adresse aussi aux équipes qui veulent se former à l’IA sans projet.",
     whatVisual: "adoption",
     usesTitle: "Quels objectifs pour une formation IA,\net quel accompagnement choisir ?",
     usesTitleTwoLines: true,
@@ -529,7 +530,7 @@ const en: Record<string, ServicePageContent> = {
     usesText: "Business process automation is useful wherever teams repeat the same task under the same rules. These are the most common starting points for an intelligent automation project.",
     uses: [
       { title: "Sort incoming requests", text: "Classify an email or a form and assign it to the right person.", form: "Administrative" },
-      { title: "Extract data from a document", text: "Read an invoice, a purchase order or a form received as a PDF.", form: "Documents" },
+      { title: "Extract data from a document", text: "Read a purchase order, a form or an attachment received by email.", form: "Documents" },
       { title: "Check before recording", text: "Verify amounts, duplicates and required fields.", form: "Finance" },
       { title: "Route an approval", text: "Ask the right manager for a decision before the flow continues.", form: "Business workflow" },
       { title: "Prepare a document", text: "Generate a quote, a contract or a summary from existing data.", form: "Sales" },
@@ -540,7 +541,7 @@ const en: Record<string, ServicePageContent> = {
     coreKicker: "Integration with your business tools",
     coreTitle: "Automate without replacing your software",
     coreTitleAccents: ["Automate"],
-    coreText: "Business process automation works with the software your company already uses. It moves information between your tools and takes over the repetitive steps in between, without imposing a new way of working on your teams.",
+    coreText: "Business process automation starts from the software your company already uses, for example Odoo, Exact Online, Teamleader, Microsoft 365 or Google Workspace. It moves information between those tools and takes over the repetitive steps in between, without imposing a new way of working on your teams.",
     coreVisual: "automation",
     coreCentre: "Automated flow",
     coreChips: ["Mailbox", "Documents", "CRM", "Accounting tool", "ERP", "Spreadsheet", "E-signature", "Team chat"],
@@ -574,7 +575,7 @@ const en: Record<string, ServicePageContent> = {
     whatTitle: "What is custom business software?",
     whatTitleAccents: ["custom business software?"],
     whatText:
-      "Custom business software is designed around the way your company actually works: your roles, data, rules and the screens your teams need. It can replace hard-to-maintain files, extend an existing application or provide a new service to your customers. AI is added only where it creates a concrete operational benefit.",
+      "Custom business software is designed around the way your company actually works: your roles, data, rules and the screens your teams need. It can replace hard-to-maintain files, extend an existing application or provide a new service to your customers. AI is added only where it creates a concrete operational benefit. We also take care of its architecture, testing and documentation, so the tool stays reliable and can evolve.",
     whatVisual: "software",
     usesTitle: "Which needs can custom software address\nand which applications should you build?",
     usesTitleTwoLines: true,
@@ -591,7 +592,7 @@ const en: Record<string, ServicePageContent> = {
       { title: "Capture data in the field", text: "A simple mobile-friendly interface, designed for entry.", form: "Data entry tool" },
       { title: "See the activity", text: "Management screens fed by the tool's own data.", form: "Dashboard" },
       { title: "Assist with writing", text: "Prepare a report or a document from the data entered.", form: "Embedded copilot" },
-      { title: "Extend your product", text: "Add an AI feature for the users of your own software.", form: "Back-office" },
+      { title: "Keep the company’s memory", text: "Record each problem met and its solution, so the whole team can find them, even after someone leaves.", form: "Knowledge base" },
     ],
     coreKicker: "Software designed for your processes",
     coreTitle: "A business application built around your work",
@@ -630,7 +631,7 @@ const en: Record<string, ServicePageContent> = {
     whatTitle: "What is an integration between your systems?",
     whatTitleAccents: ["integration"],
     whatText:
-      "Software integration allows two business applications to exchange data such as a contact, status, order or document. It eliminates duplicate entry and keeps information consistent. Automation organises the steps of a process, while an integration moves data between tools. The two often work together but serve different purposes.",
+      "Software integration allows two business applications to exchange data such as a contact, status, order or document. It eliminates duplicate entry and keeps information consistent. Automation organises the steps of a process, while an integration moves data between tools. The two often work together but serve different purposes. Once your software is connected, AI can work across it: an agent finds the status of an order in the CRM, the ERP and the accounting system from a single question.",
     whatVisual: "integration",
     usesTitle: "Which software should you connect\nand which data should you synchronise?",
     usesTitleTwoLines: true,
@@ -687,7 +688,7 @@ const en: Record<string, ServicePageContent> = {
     whatTitleTwoLines: true,
     whatTitleAccents: ["data intelligence"],
     whatText:
-      "Business data analysis turns scattered information into reliable decision-making tools. Sources are connected, inconsistencies corrected and performance indicators defined with your teams before being displayed in clear dashboards. When the available history supports it, forecasting, scoring or recommendations can be added without confusing estimates with recorded facts.",
+      "Business data analysis turns scattered information into reliable decision-making tools. Sources are connected, inconsistencies corrected and performance indicators defined with your teams before being displayed in clear dashboards, preferably in a tool your teams already know: Power BI, Excel, Google Sheets, Looker Studio or your ERP’s reporting module. When the available history supports it, forecasting, scoring or recommendations can be added without confusing estimates with recorded facts.",
     whatVisual: "data",
     usesTitle: "How can you use your business data\nand which tools should you implement?",
     usesTitleTwoLines: true,
@@ -698,7 +699,7 @@ const en: Record<string, ServicePageContent> = {
     usesText: "The goal of data intelligence is not to produce more charts, but to answer concrete business questions with reliable indicators. These are the most common data analysis use cases.",
     uses: [
       { title: "Bring scattered data together", text: "Gather what lives across several tools and files today.", form: "Data centralisation" },
-      { title: "Follow the activity", text: "Current indicators, with no manual export or rework.", form: "Business dashboard" },
+      { title: "Follow the activity", text: "Revenue, margin, cash and payment delays: up to date, with no manual export.", form: "Business dashboard" },
       { title: "Compare periods", text: "Read a trend over a consistent, checked history.", form: "Activity analysis" },
       { title: "Spot an anomaly", text: "Flag an unusual gap that deserves a look.", form: "Anomaly detection" },
       { title: "Prioritise case work", text: "An explainable score proposes an order you can override.", form: "Scoring" },
@@ -729,6 +730,7 @@ const en: Record<string, ServicePageContent> = {
     faqTitle: "Frequently asked questions about\nworking with data",
     faqTitleAccents: ["working with data"],
     faqExtra: [
+      { q: "Which tool are the dashboards built in?", a: "Preferably a standard tool you already use or that your teams know: Power BI, Excel, Google Sheets, Looker Studio, or your ERP’s reporting module. You stay in control of your dashboards without depending on us. A custom screen is only justified when none of these tools fits." },
       { q: "Do we need a lot of data to start?", a: "Not for a dashboard: your existing data simply has to be accessible and consistent. For a forecast or a score, volume, quality and depth of history matter, and we examine them before committing." },
       { q: "Is our data used to train models?", a: "Not outside the scope agreed with you. Usage conditions, access and the technical services involved are written into the proposal before work starts." },
       { q: "Can a forecast be trusted?", a: "A forecast is an estimate, evaluated on past data and presented with its limits. It can support a decision but does not replace it, and we never present it as a certainty." },
@@ -744,7 +746,7 @@ const en: Record<string, ServicePageContent> = {
     whatTitleTwoLines: true,
     whatTitleAccents: ["adopt AI", "company?"],
     whatText:
-      "Discovering an AI tool and using it effectively at work are two different things. Successful AI adoption means choosing relevant business use cases, practising with real situations and setting shared rules for verification, human control and confidential information. This applies to existing tools as well as custom AI solutions.",
+      "Discovering an AI tool and using it effectively at work are two different things. Successful AI adoption means choosing relevant business use cases, practising with real situations and setting shared rules for verification, human control and confidential information. This applies to existing tools as well as custom AI solutions. Getting to grips with every solution we deliver is included in the project; this offer is also for teams that want to learn AI without a project.",
     whatVisual: "adoption",
     usesTitle: "What should business AI training achieve\nand which support format should you choose?",
     usesTitleTwoLines: true,

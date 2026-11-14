@@ -16,18 +16,48 @@
 }
 .inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 56px 72px;
   align-items: stretch;
   max-width: 1200px;
   margin: 0 auto;
   padding: 88px clamp(20px, 5vw, 48px);
 }
+/* ---- DEUX COLONNES, OU UNE SEULE.
+
+   La section est un conteneur : c'est SA largeur qui décide, et non celle
+   de l'écran (la barre de défilement n'y entre pas). Deux colonnes dès que
+   le contenu atteint 2 × 460px + 72px, soit une section de 1088px avec ses
+   rembourrages : exactement le seuil de l'ancien `repeat(auto-fit,
+   minmax(460px, 1fr))`, écrit en clair parce que la même bascule range
+   aussi les écrans entre les blocs de texte (plus bas). ---- */
+.section {
+  container-type: inline-size;
+}
+@container (width >= 1088px) {
+  .inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .copy {
   display: flex;
   flex-direction: column;
   max-width: 560px;
   min-width: 0;
+}
+/* Un bloc de texte : un titre et ce qui le suit. Il reprend la mise en
+   page de `.copy` (colonne flexible, marges qui ne fusionnent pas), donc à
+   deux colonnes rien ne change à l'œil. */
+.chunk {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+/* La place d'un écran. À deux colonnes elle n'a pas de boîte : les écrans
+   se placent dans la pile de droite comme avant. */
+.slot {
+  display: contents;
 }
 /* ⚠ Le bloc de droite ne porte NI fond, NI bordure, NI fondu : les fenêtres
    sont simplement coupées net par lui. */
@@ -37,52 +67,51 @@
   overflow: hidden;
 }
 
+/* ---- SUR UNE COLONNE, CHAQUE ÉCRAN SUIT SON BLOC DE TEXTE
+   (demande d'Antonino du 14/11, pages Nexus et Coory).
+
+   Au lieu d'avoir tous les textes puis tous les écrans, on alterne : bloc 1,
+   écran 1, bloc 2, écran 2… La colonne de texte, le bloc de droite et sa
+   pile s'effacent (`display: contents`) : les blocs et les places d'écran
+   deviennent les rangs de la grille, et leur `order` (posé par `Section`)
+   les entrelace. Rien n'est rendu deux fois : ce sont les mêmes éléments,
+   que la même horloge anime.
+
+   Chaque place d'écran devient alors un bloc qui coupe net son écran, comme
+   le faisait le bloc de droite. 32px la séparent du texte au-dessus ; le
+   titre du bloc suivant garde sa propre marge. ---- */
+@container (width < 1088px) {
+  .inner {
+    row-gap: 0;
+  }
+  .copy,
+  .visual,
+  .visual > .stackBox {
+    display: contents;
+  }
+  .chunk {
+    max-width: 560px;
+  }
+  .slot {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+}
+
 /* ---- SUR TÉLÉPHONE, LES ÉCRANS SORTENT PAR LE BORD DE L'ÉCRAN.
 
-   Les fenêtres dépassent déjà de leur bloc, de 27 % de sa largeur, et c'est
-   lui qui les coupe net. En une colonne, ce bloc s'arrête au rembourrage de
-   la section : la coupe tombait donc à vingt pixels du bord de l'écran, et
-   on voyait une bande de fond entre la fenêtre et le vide. Elles avaient
-   l'air mal cadrées plutôt que débordantes.
-
-   Le bloc reprend donc le rembourrage en marge négative : il va d'un bord
-   de l'écran à l'autre, et la coupe tombe sur le bord. Les positions des
-   fenêtres ne changent pas, et c'est elles qui donnent l'alternance — le
-   premier écran sort à droite, le deuxième à gauche, le troisième à droite,
-   celui de la section « objectifs » à droite.
-
-   Aucun risque de défilement horizontal : le bloc atteint la largeur de
-   l'écran sans la dépasser, et tout ce qui dépasse DE LUI est coupé par son
-   `overflow`. ---- */
+   Les fenêtres dépassent de leur place, et c'est elle qui les coupe net.
+   Sans rien faire, la place s'arrêterait au rembourrage de la section : la
+   coupe tomberait à vingt pixels du bord de l'écran, avec une bande de fond
+   entre la fenêtre et le vide. La place reprend donc le rembourrage en marge
+   négative : elle va d'un bord de l'écran à l'autre, et la coupe tombe sur
+   le bord. Aucun défilement horizontal : tout ce qui dépasse de la place est
+   coupé par son `overflow`. ---- */
 @media (max-width: 760px) {
-  .visual {
+  .slot {
     margin-inline: calc(-1 * clamp(20px, 5vw, 48px));
-  }
-
-  /* ---- Le troisième écran touche la bande bleu clair.
-
-     Il est déjà coupé net en bas par son bloc. Ce qui l'en éloignait, c'est
-     le rembourrage bas de la section : 88px de blanc entre la coupe et la
-     section suivante, qui donnaient l'impression d'un écran posé au milieu
-     de rien. Le rembourrage tombe, la coupe tombe sur la limite des deux
-     sections, et l'écran entre dans le bleu.
-
-     En une colonne, ce rembourrage n'est que sous le visuel : le texte est
-     au-dessus, et son propre écart ne bouge pas. La section visée est la
-     BLANCHE — « le contexte » —, pas la teintée qui la suit. ---- */
-  .section:not(.sectionTint) .inner {
-    padding-bottom: 0;
-  }
-
-  /* ---- Le dernier écran garde un coin.
-
-     Celui de la section « objectifs » sort par la droite et se fait couper
-     en bas : il ne lui reste que deux angles francs à gauche. Le bloc qui
-     le coupe prend donc l'arrondi des fenêtres elles-mêmes, 16px, en bas à
-     gauche. C'est bien le BLOC qui le porte et non la fenêtre : un arrondi
-     posé sur une fenêtre coupée ne se verrait pas. ---- */
-  .sectionTint .visual {
-    border-bottom-left-radius: 16px;
   }
 }
 
@@ -450,7 +479,8 @@
    Les écrans d'en face ne bougent pas : ils sont dans l'autre colonne, et
    rien ici ne les atteint. ---- */
 @media (max-width: 760px) {
-  .copy {
+  .copy,
+  .chunk {
     align-items: flex-start;
     text-align: left;
   }

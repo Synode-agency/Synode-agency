@@ -2158,9 +2158,14 @@ footer.band--white .wordmark-type {
    largeur. La mesure est calculée sur le corps du titre, pas en `rem` ni en
    `ch` : `--fs-h2` est un `clamp`, donc le bloc suit la taille réelle du
    titre à toutes les largeurs de fenêtre, et le chapeau suit avec lui. */
-.operational-impact-heading h2,
-.operational-impact-heading p {
+.operational-impact-heading h2 {
   max-width: calc(var(--fs-h2) * 22);
+}
+/* Le paragraphe a sa propre mesure, environ 65 caractères par ligne : celle
+   du titre lui laissait plus de 85 caractères (outil de contrôle du design,
+   14/11/2026). */
+.operational-impact-heading p {
+  max-width: 62ch;
 }
 
 /* =====================================================================
@@ -4483,6 +4488,7 @@ main > .band.home-impact-light .isp {
   line-height: 1.3;
   color: #71757c;
 }
+
 /* Le titre est écrit en entier, sur plusieurs lignes si besoin : une liste
    qu'on parcourt ne peut pas se permettre de couper ses intitulés. */
 .uca-titles strong {
@@ -4532,13 +4538,19 @@ main > .band.home-impact-light .isp {
   opacity: 1;
   transform: none;
 }
+/* Une ligne d'environ 65 caractères (relevé par l'outil de contrôle
+   du design, 14/11/2026 : ouvert, le texte courait sur toute la largeur de
+   l'accordéon, environ 150 caractères par ligne). Le rembourrage est compté
+   dans la largeur maximale, d'où le calcul. */
 .uca-text {
+  max-width: calc(74px + 62ch);
   padding: 0 20px 18px 54px;
   font-size: 14px;
   line-height: 1.7;
   color: #5a5a5a;
 }
 .uca--rich .uca-text {
+  max-width: calc(82px + 62ch);
   padding: 0 24px 20px 58px;
   font-size: 15px;
 }
@@ -4562,6 +4574,7 @@ main > .band.home-impact-light .isp {
   color: #0a4fb0;
 }
 .uca-example p {
+  max-width: 62ch;
   font-size: 13.5px;
   line-height: 1.65;
   color: #5a5a5a;
@@ -9140,11 +9153,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   border-radius: 10px;
   background: #13223a;
 }
+/* Les petits textes gris des cartes du hero : #8596b3 et non plus #6f84a3
+   (4,2:1 sur leur fond, sous le seuil de 4,5:1 ; relevé par l'outil de
+   contrôle du design, éclairci le 14/11/2026). */
 .hc-inv-ref {
   display: block;
   font-size: 10px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-inv-client {
   display: block;
@@ -9167,7 +9183,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   left: 14px;
   bottom: 70px;
   font-size: 10px;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-inv-amount {
   position: absolute;
@@ -9219,7 +9235,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   display: block;
   font-size: 10.5px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-rail {
   position: absolute;
@@ -9267,7 +9283,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   display: block;
   font-size: 10px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-ev strong {
   display: block;
@@ -9370,7 +9386,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   font-size: 10.5px;
   line-height: 42px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-slot {
   position: absolute;
@@ -9549,7 +9565,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   margin-bottom: 10px;
   font-size: 10.5px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 /* Chaque message arrive en glissant depuis le haut. */
 /* ⚠ Deux lignes par case, pas trois : la colonne n'a la place que de trois
@@ -9594,7 +9610,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   font-style: normal;
   font-size: 10px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-mailrow-bot {
   display: flex;
@@ -9647,7 +9663,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   gap: 12px;
   font-size: 10.5px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-answer-top em {
   font-style: normal;
@@ -9718,7 +9734,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   font-style: normal;
   font-size: 10px;
   white-space: nowrap;
-  color: #6f84a3;
+  color: #8596b3;
 }
 .hc-send {
   padding: 6px 14px;

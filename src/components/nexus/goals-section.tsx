@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { renderLines } from "@/lib/lines";
 import { Badge, Goals, Limits, Section, Sub, Title } from "./section-parts";
 import { OutreachWindow } from "./windows";
@@ -88,30 +88,33 @@ export function GoalsSection({ c, w }: { c: GoalsContent; w: WindowsContent }) {
     <Section
       tone="tint"
       rootRef={root}
-      left={
-        <>
+      blocks={[
+        <Fragment key="goals">
           {c.badge && <Badge onWhite>{c.badge}</Badge>}
           <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <Goals items={c.goals} active={still ? 0 : goal} label={c.goalLabel} foot={c.goalsFoot} />
+        </Fragment>,
+        <Fragment key="limits">
           <Sub>{renderLines(c.limitsTitle)}</Sub>
           <Limits items={c.limits} />
-        </>
-      }
-      right={
-        <div className={styles.stage}>
-          <OutreachWindow
-            className={styles.one}
-            chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
-            active={3}
-            w={w.outreach}
-            row={still ? 2 : row}
-            validated={still ? true : validated}
-            card={card}
-            button={button}
-          />
-        </div>
-      }
+        </Fragment>,
+      ]}
+      stackClassName={styles.stage}
+      slotClassName={styles.slot}
+      visuals={[
+        <OutreachWindow
+          key="outreach"
+          className={styles.one}
+          chrome={{ brand: { kind: "nexus", word: w.brandWord }, by: w.by, menus: w.menus, badge: w.badge, crumbTemplate: w.crumbTemplate }}
+          active={3}
+          w={w.outreach}
+          row={still ? 2 : row}
+          validated={still ? true : validated}
+          card={card}
+          button={button}
+        />,
+      ]}
     />
   );
 }
