@@ -12,6 +12,16 @@ est un emplacement qu'on oublie de remplir.
 
 ---
 
+## Coory : accès de démonstration à afficher (à faire, demande du 14 novembre 2026)
+
+- [ ] **Sur la page Coory**, donner aux bêta-testeurs et prospects une adresse e-mail et un mot de passe
+      inventés (proposé : `demo@synode-agency.com`) pour entrer directement dans Coory, avec l'Assistant
+      IA (100 demandes par mois au plus). Préciser que chacun peut aussi créer son propre compte, mais
+      sans l'Assistant IA.
+- [ ] À publier seulement quand Coory a ses protections (compte démo verrouillé, bandeau « aucune donnée
+      réelle », remise à zéro des données) : plan et décisions dans
+      `livrables/Saas-application-mobile/Coaching_Platform/docs/DEMO_SYNODE.md`.
+
 ## Ce qui reste à brancher (13 octobre 2026)
 
 Trois branchements, et eux seuls, demandent une information que le code ne
