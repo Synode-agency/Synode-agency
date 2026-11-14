@@ -14,10 +14,19 @@ est un emplacement qu'on oublie de remplir.
 
 ## Coory : accès de démonstration à afficher (à faire, demande du 14 novembre 2026)
 
-- [ ] **Sur la page Coory**, donner aux bêta-testeurs et prospects une adresse e-mail et un mot de passe
+- [x] **Fait le 14/11** : encadré « Accès de démonstration » sous « Essayer la démo » (FR et EN),
+      dans `work-page.tsx` et `coory-sections.module.css`, valeurs lues dans `COORY_DEMO` (`src/lib/work.ts`).
+      Il n'apparaît (et le bouton ne s'allume) que lorsque ces variables Netlify sont remplies :
+      `NEXT_PUBLIC_COORY_DEMO_URL` (`https://coory-beta.vercel.app/login`),
+      `NEXT_PUBLIC_COORY_DEMO_EMAIL` (`demo@synode-agency.com`), `NEXT_PUBLIC_COORY_DEMO_PASSWORD`,
+      `NEXT_PUBLIC_COORY_ACCESS_CODE`. Variables publiques : une nouvelle valeur demande un redéploiement.
+- [x] **Sur la page Coory**, donner aux bêta-testeurs et prospects une adresse e-mail et un mot de passe
       inventés (proposé : `demo@synode-agency.com`) pour entrer directement dans Coory, avec l'Assistant
       IA (100 demandes par mois au plus). Préciser que chacun peut aussi créer son propre compte, mais
       sans l'Assistant IA.
+- [ ] Décisions du 14/11 : adresse `demo@synode-agency.com` ; **code d'accès de la bêta publié** sur la
+      page Coory (inscription libre, sans l'Assistant IA) ; adresse, mot de passe et code lus dans des
+      variables Netlify, jamais écrits dans le code ; données de démo remises à zéro chaque nuit à 3 h.
 - [ ] À publier seulement quand Coory a ses protections (compte démo verrouillé, bandeau « aucune donnée
       réelle », remise à zéro des données) : plan et décisions dans
       `livrables/Saas-application-mobile/Coaching_Platform/docs/DEMO_SYNODE.md`.

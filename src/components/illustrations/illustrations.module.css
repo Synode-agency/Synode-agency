@@ -1,0 +1,78 @@
+/* =====================================================================
+   LE CADRE NEUTRE DES ILLUSTRATIONS COORY
+
+   Les originaux sont dessinés dans une page vierge : styles du navigateur
+   par défaut, plus la petite feuille de leur <helmet>. Le site, lui, pose
+   des règles globales (Tailwind) qui changeraient leur rendu : boîtes en
+   `border-box`, images et SVG en `display: block`, interligne de 1,5,
+   réglages typographiques hérités du <body>.
+
+   Ce fichier rend aux illustrations, et à elles seules, l'environnement
+   d'origine. Il n'ajoute AUCUNE valeur de design : tout ce qui se voit
+   reste dans les styles inline, recopiés tels quels. Les styles inline
+   l'emportent toujours sur ces règles.
+   ===================================================================== */
+
+/* Ce que le navigateur donne par défaut, et que le site a changé. */
+.root {
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-align: start;
+  text-indent: 0;
+  text-transform: none;
+  text-rendering: auto;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
+  font-synthesis: weight style small-caps;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-wrap: wrap;
+  color: #000000;
+}
+
+.root,
+.root *,
+.root *::before,
+.root *::after {
+  box-sizing: content-box;
+  border: medium none currentcolor;
+}
+
+.root img,
+.root svg {
+  display: inline;
+  vertical-align: baseline;
+  max-width: none;
+}
+
+/* La feuille du <helmet> de chaque original, ramenée de `body` à la racine. */
+.desktopMobile {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboardLight {
+  background: #ffffff;
+  font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Le cadrage « application seule » : la police du <helmet>, sans son fond
+   blanc. Voir `frame` dans `coory-dashboard-light.tsx`. */
+.dashboardLightApp {
+  font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Les illustrations ILL-03 à ILL-08 (page Coory) : la police de la planche,
+   sans son fond blanc. Les cadres sont transparents, la section donne le
+   fond. Voir `coory-planche/planche-frame.tsx`. */
+.planche {
+  font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

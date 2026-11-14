@@ -50,3 +50,9 @@ next-env.d.ts
 
 # netlify
 .netlify
+
+# Le dossier de passation des illustrations Coory (design → code) : la
+# source de travail des composants de `src/components/illustrations`, pas
+# du contenu du site.
+/CLAUDE_DESIGN_TO_CODE_HANDOFF/
+/COORY_DESIGN_TO_CODE_HANDOFF/

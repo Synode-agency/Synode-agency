@@ -1,0 +1,99 @@
+/* =====================================================================
+   LES ILLUSTRATIONS, À DROITE DES SECTIONS DE LA PAGE COORY
+
+   Une illustration par sous-titre, dans l'ordre du texte. Chacune est un
+   cadre déjà coupé par son dessin d'origine, réduit à la largeur de la
+   colonne : on les empile sans rien leur ajouter, ni fond ni bordure.
+
+   Quand le texte est plus haut que la pile, l'espace en trop se répartit
+   entre elles (`space-between`) : chacune reste à peu près en face de son
+   sous-titre. Quand c'est la pile qui est plus haute (grands écrans), elle
+   donne sa hauteur à la section.
+   ===================================================================== */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* ---- Jamais plus grandes que leur dessin d'origine (560 px).
+   Sur ordinateur, la colonne est plus étroite et elles la remplissent.
+   Quand la page passe sur une colonne (tablette), elles s'arrêteraient
+   sinon à 900 px de large, et la pile ferait près de 3 000 px de haut.
+   Plafonnées, elles se calent du côté où leur dessin est coupé, pour que
+   la coupe tombe sur le bord de la colonne et non au milieu du vide :
+   à droite pour une fenêtre coupée à droite, à gauche pour une fenêtre
+   coupée à gauche, au centre pour un téléphone coupé en haut ou en bas.
+   Sur téléphone, le bloc va d'un bord de l'écran à l'autre (voir
+   `nexus/sections.module.css`) et elles en prennent toute la largeur. ---- */
+.cutRight,
+.cutLeft,
+.phone {
+  width: 100%;
+  max-width: 560px;
+}
+.cutRight {
+  margin-left: auto;
+}
+.cutLeft {
+  margin-right: auto;
+}
+.phone {
+  margin-inline: auto;
+}
+
+/* ---- Le bouton « Essayer la démo », tant que la démo n'est pas en ligne.
+   Même bouton que les autres, éteint : il n'a pas de lien et ne réagit pas
+   au survol. Il disparaît de lui-même dès que `COORY_DEMO_URL` est rempli. */
+.demoSoon {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ---- L'encadré des accès de la démo (14/11/2026), sous « Essayer la démo ».
+   Fond « surface » et filet de la bande où il se trouve (redéfinis par les
+   bandes sombres) : lisible en clair comme en sombre. Les identifiants se
+   sélectionnent d'un geste pour être copiés. */
+.demoAccess {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 30rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface, transparent);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.demoTitle {
+  font-weight: 600;
+}
+.demoList {
+  display: grid;
+  gap: 0.25rem;
+}
+.demoList > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}
+.demoList dt {
+  color: var(--muted-foreground);
+}
+.demoList dd {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.demoNote {
+  color: var(--muted-foreground);
+  text-wrap: pretty;
+}
+.demoCode {
+  color: var(--foreground);
+  user-select: all;
+}

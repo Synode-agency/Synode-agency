@@ -14,8 +14,8 @@ import styles from "./hero-gallery.module.css";
  *
  * ── Ce que ce bloc dit, et ce qu'il ne dit pas ──────────────────────────
  * Les quatre vignettes reprennent l'état RÉEL des projets : un outil interne
- * opérationnel, des projets en préparation, et une place vide pour le premier
- * projet client, qui ne sera publié qu'avec son accord.
+ * opérationnel, Coory en bêta, un projet en préparation, et une place vide
+ * pour le premier projet client, qui ne sera publié qu'avec son accord.
  * Aucun logo, aucune capture, aucun chiffre. Ne pas y ajouter un projet qui
  * n'existe pas : c'est précisément ce que cette page refuse de faire.
  * ────────────────────────────────────────────────────────────────────────
@@ -52,24 +52,24 @@ const COPY = {
   fr: {
     head: "synode / réalisations",
     live: "statuts à jour",
-    filters: ["Tous", "Internes", "En préparation", "Clients"],
-    names: ["Nexus — prospection", "Projet 2", "Projet en préparation", "Prochain projet client"],
-    states: ["Outil interne · opérationnel", "En préparation", "En préparation", "Publié avec accord"],
+    filters: ["Tous", "Internes", "En cours", "Clients"],
+    names: ["Nexus — prospection", "Coory — coaching sportif", "Projet en préparation", "Prochain projet client"],
+    states: ["Outil interne · opérationnel", "Outil en bêta", "En préparation", "Publié avec accord"],
     /* La variante compacte dit la même chose en moins de place. Les deux
        sont dans le DOM et c'est la feuille de style qui montre l'une ou
        l'autre : la card est décorative et `aria-hidden`, donc rien n'est lu
        deux fois, et il n'y a pas de bascule au montage. */
     liveShort: "à jour",
-    statesShort: ["Opérationnel", "En préparation", "En préparation", "Publié avec accord"],
+    statesShort: ["Opérationnel", "En bêta", "En préparation", "Publié avec accord"],
   },
   en: {
     head: "synode / work",
     live: "statuses up to date",
-    filters: ["All", "Internal", "In preparation", "Clients"],
-    names: ["Nexus — prospecting", "Project 2", "Project in preparation", "Next client project"],
-    states: ["Internal tool · operational", "In preparation", "In preparation", "Published with consent"],
+    filters: ["All", "Internal", "In progress", "Clients"],
+    names: ["Nexus — prospecting", "Coory — sports coaching", "Project in preparation", "Next client project"],
+    states: ["Internal tool · operational", "Beta tool", "In preparation", "Published with consent"],
     liveShort: "up to date",
-    statesShort: ["Operational", "In preparation", "In preparation", "Published with consent"],
+    statesShort: ["Operational", "Beta", "In preparation", "Published with consent"],
   },
 } as const;
 

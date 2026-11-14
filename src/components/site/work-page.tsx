@@ -10,10 +10,13 @@ import { GoalsSection } from "@/components/nexus/goals-section";
 import { nexusSections } from "@/components/nexus/nexus-sections";
 import { windowsFor } from "@/components/nexus/windows-content";
 import nexus from "@/components/nexus/hero-dashboard.module.css";
+import { CooryDashboardLight } from "@/components/illustrations";
+import { CooryContextSection, CooryGoalsSection, cooryContent } from "@/components/coory";
+import cooryStyles from "@/components/coory/coory-sections.module.css";
 import { HomeWorkCards } from "./home-work-cards";
 import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { projectTwoCardCopy, work, type WorkItem, type WorkKind } from "@/lib/work";
+import { COORY_DEMO, COORY_DEMO_URL, cooryCardCopy, findWork, work, type WorkItem, type WorkKind } from "@/lib/work";
 import { siteUrl } from "@/lib/site-url";
 
 /** La pastille dit la NATURE du projet avant qu'on ait lu son titre. */
@@ -21,6 +24,7 @@ const BADGE: Record<WorkKind, string> = {
   internal: "badge badge--live",
   demo: "badge badge--demo",
   client: "badge badge--live",
+  software: "badge badge--live",
 };
 
 /**
@@ -35,7 +39,8 @@ export function WorkPage({ locale }: { locale: Locale }) {
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const nexus = w.items[0];
-  const projectTwo = projectTwoCardCopy(locale);
+  const coory = findWork(locale, "coory");
+  const cooryCard = cooryCardCopy(locale);
   const pagePath = path(locale, ROUTES.work);
   const structuredData = {
     "@context": "https://schema.org",
@@ -53,11 +58,12 @@ export function WorkPage({ locale }: { locale: Locale }) {
           name: locale === "fr" ? "Nexus — Logiciel de prospection" : "Nexus — Prospecting software",
           description: nexus.problem,
         },
-        {
+        coory && {
           "@type": "ListItem",
           position: 2,
-          name: projectTwo.title,
-          description: projectTwo.text,
+          url: `${siteUrl}${pagePath}/${coory.slug}`,
+          name: cooryCard.title,
+          description: cooryCard.text,
         },
       ].filter(Boolean),
     },
@@ -81,7 +87,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowRight aria-hidden /></Link>
           <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
         </div>
-        <span className="hero-reassurance">{locale === "fr" ? <>* Chaque projet garde son statut visible : outil interne, projet en préparation ou projet client.</> : "* Every project keeps its status visible: internal tool, project in preparation or client project."}</span>
+        <span className="hero-reassurance">{locale === "fr" ? <>* Chaque projet garde son statut visible : outil interne, outil en bêta ou projet client.</> : "* Every project keeps its status visible: internal tool, beta tool or client project."}</span>
       </PageHero>
 
       <Band id="liste" tone="white">
@@ -96,7 +102,6 @@ export function WorkPage({ locale }: { locale: Locale }) {
             au même graphisme et avec les mêmes libellés, mais en rangée :
             visuel à gauche, contenu à droite. Voir `home-work-cards`. */}
         <HomeWorkCards locale={locale} layout="row" heading="h3" />
-        <div className="work-editorial-note"><h3 className="eyebrow">{locale === "fr" ? "Des réalisations IA présentées avec transparence" : "AI work presented transparently"}</h3><p>{locale === "fr" ? "Les prochains projets et réalisations IA rejoindront cette sélection lorsqu’ils seront réellement prêts à être présentés. Chaque projet conserve un statut explicite : outil interne, projet en préparation ou projet client autorisé." : "Future AI projects and work will join this selection when they are genuinely ready to be shown. Every project keeps an explicit status: internal tool, project in preparation or authorised client project."}</p></div>
 
       </Band>
 
@@ -135,8 +140,12 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const itemPath = `${path(locale, ROUTES.work)}/${item.slug}`;
+  const isCoory = item.slug === "coory";
   const sections = nexusSections(locale, item, d);
+  const coorySections = cooryContent(locale, item, d);
   const structuredTitle = item.title.replaceAll("\n", " ");
+  /* Le nom du produit : ce qui précède le tiret du titre (« Nexus », « Coory »). */
+  const productName = item.title.split(/ [-—] /)[0];
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -148,7 +157,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
         inLanguage: locale === "fr" ? "fr-BE" : "en-BE",
         about: {
           "@type": "Thing",
-          name: "Nexus",
+          name: productName,
           description: item.problem,
         },
       },
@@ -183,11 +192,91 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
         <Lede
           as="h1"
           title={item.title}
-          accents={item.slug === "nexus" ? [locale === "fr" ? "B2B assisté par IA" : "B2B prospecting"] : undefined}
+          accents={item.accent ? [item.accent] : undefined}
           text={item.problem}
         />
-        <p className="work-status section-gap-sm">{item.status}</p>
-        <div className="hero-visual-desktop"><HeroDashboard locale={locale} /></div>
+        {isCoory ? (
+          /* Le statut et le bouton de la démo partagent la troisième case de
+             la grille du hero : voir `.heroSplit` dans
+             `hero-dashboard.module.css`, qui place ses enfants par rang. */
+          <div>
+            <p className="work-status section-gap-sm">{item.status}</p>
+            <div className="btn-row section-gap-sm">
+              {COORY_DEMO_URL ? (
+                <a className="btn btn--ghost" href={COORY_DEMO_URL} target="_blank" rel="noopener noreferrer">
+                  {locale === "fr" ? "Essayer la démo" : "Try the demo"}<ArrowRight aria-hidden />
+                </a>
+              ) : (
+                /* La démo n'est pas encore en ligne : le bouton est là,
+                   désactivé, sans lien. Voir `COORY_DEMO_URL` dans work.ts. */
+                <span
+                  className={`btn btn--ghost ${cooryStyles.demoSoon}`}
+                  role="link"
+                  aria-disabled="true"
+                  title={locale === "fr" ? "Disponible prochainement" : "Available soon"}
+                >
+                  {locale === "fr" ? "Essayer la démo" : "Try the demo"}<ArrowRight aria-hidden />
+                </span>
+              )}
+            </div>
+            {/* Les accès de la démo (14/11/2026) : compte partagé, et le code
+                pour créer son propre espace. Valeurs des variables Netlify. */}
+            {COORY_DEMO_URL && COORY_DEMO.email && COORY_DEMO.password ? (
+              <div className={`${cooryStyles.demoAccess} section-gap-sm`}>
+                <p className={cooryStyles.demoTitle}>
+                  {locale === "fr" ? "Accès de démonstration" : "Demo access"}
+                </p>
+                <dl className={cooryStyles.demoList}>
+                  <div>
+                    <dt>{locale === "fr" ? "Adresse" : "Email"}</dt>
+                    <dd>{COORY_DEMO.email}</dd>
+                  </div>
+                  <div>
+                    <dt>{locale === "fr" ? "Mot de passe" : "Password"}</dt>
+                    <dd>{COORY_DEMO.password}</dd>
+                  </div>
+                </dl>
+                <p className={cooryStyles.demoNote}>
+                  {locale === "fr"
+                    ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
+                    : "AI assistant included. Shared account: please do not enter real data, everything is reset every night."}
+                </p>
+                {COORY_DEMO.accessCode ? (
+                  <p className={cooryStyles.demoNote}>
+                    {locale === "fr"
+                      ? "Vous préférez votre propre espace ? Créez un compte avec le code d’accès "
+                      : "Prefer your own workspace? Create an account with the access code "}
+                    <strong className={cooryStyles.demoCode}>{COORY_DEMO.accessCode}</strong>
+                    {locale === "fr" ? ", sans l’Assistant IA." : ", without the AI assistant."}
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <p className="work-status section-gap-sm">{item.status}</p>
+        )}
+        <div className="hero-visual-desktop">
+          {isCoory ? <CooryDashboardLight frame="app" /> : <HeroDashboard locale={locale} />}
+        </div>
+        {isCoory ? (
+          <HeroCompact
+            tone="light"
+            title={locale === "fr" ? "Coory · Tableau de bord" : "Coory · Dashboard"}
+            status={locale === "fr" ? "espace coach" : "coach workspace"}
+            tiles={locale === "fr" ? [
+              { label: "Séances cette semaine", value: "41" },
+              { label: "Revenu mensuel", value: "3\u202f856\u00a0€" },
+              { label: "Programmes en cours", value: "46" },
+              { label: "Total sportifs", value: "39" },
+            ] : [
+              { label: "Sessions this week", value: "41" },
+              { label: "Monthly revenue", value: "€3,856" },
+              { label: "Active programmes", value: "46" },
+              { label: "Total athletes", value: "39" },
+            ]}
+          />
+        ) : (
         <HeroCompact
           title={locale === "fr" ? "Nexus · Vue d’ensemble" : "Nexus · Overview"}
           status={locale === "fr" ? "outil interne" : "internal tool"}
@@ -203,6 +292,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
             { label: "Jobs running", value: "3" },
           ]}
         />
+        )}
       </Band>
 
       {/* ⚠ Les deux bandes portent leur ton par une CLASSE, pas par `tone` :
@@ -213,12 +303,25 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           tous les textes à gauche, les écrans de Nexus à droite. Les textes
           du projet viennent de `work.ts` et ne sont que découpés, jamais
           recopiés : voir `components/nexus/nexus-sections`. ===== */}
-      <div id="contexte">
-        <ContextSection c={sections.context} w={windowsFor(locale)} />
-      </div>
-      <div id="objectifs">
-        <GoalsSection c={sections.goals} w={windowsFor(locale)} />
-      </div>
+      {isCoory ? (
+        <>
+          <div id="contexte">
+            <CooryContextSection c={coorySections.context} />
+          </div>
+          <div id="objectifs">
+            <CooryGoalsSection c={coorySections.goals} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div id="contexte">
+            <ContextSection c={sections.context} w={windowsFor(locale)} />
+          </div>
+          <div id="objectifs">
+            <GoalsSection c={sections.goals} w={windowsFor(locale)} />
+          </div>
+        </>
+      )}
 
       {/* ===== LE CTA — une carte bleu nuit posée sur une section blanche,
           comme sur les autres pages : le texte à gauche, les deux actions à

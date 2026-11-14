@@ -15,11 +15,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = findWork("fr", slug);
   if (!item) return {};
-  const isNexus = slug === "nexus";
-  const title = isNexus ? "Nexus : logiciel de prospection B2B avec IA" : item.title;
-  const description = isNexus
-    ? "Découvrez comment Synode utilise Nexus pour rechercher et qualifier des entreprises à Bruxelles et en Belgique, puis préparer une prospection B2B ciblée."
-    : item.problem;
+  const SEO: Record<string, { title: string; description: string }> = {
+    nexus: {
+      title: "Nexus : logiciel de prospection B2B avec IA",
+      description:
+        "Découvrez comment Synode utilise Nexus pour rechercher et qualifier des entreprises à Bruxelles et en Belgique, puis préparer une prospection B2B ciblée.",
+    },
+    coory: {
+      title: "Coory : plateforme de coaching sportif",
+      description:
+        "Coory, conçue par Synode, réunit les sportifs, les programmes d’entraînement, l’agenda et les paiements d’un coach sportif, avec un assistant IA validé par le coach.",
+    },
+  };
+  const title = SEO[slug]?.title ?? item.title;
+  const description = SEO[slug]?.description ?? item.problem;
   return {
     title,
     description,

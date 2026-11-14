@@ -162,6 +162,21 @@ main > .band#top.work-detail-hero .title-accent {
     font-size: clamp(2rem, 7.5vw, 2.6rem);
   }
 }
+/* ---- La pastille du hero (« Logiciel métier ») disparaît tant que la
+   barre du haut est celle du téléphone : sous 1080px, la barre (logo,
+   langues, ☰) est fixe et la recouvrait en partie, sur Nexus comme sur
+   Coory. 1080px est le seuil du menu ☰ (voir `mobile-menu.module.css`).
+   Demandé par Antonino le 14/11.
+
+   ⚠ `visibility` et non `display: none` : le hero de ces pages ne laisse
+   que 56px en haut, sous une barre de 72px. La pastille garde donc sa
+   place, sinon le titre remonterait et passerait à son tour sous la
+   barre. ---- */
+@media (max-width: 1079px) {
+  main > .band#top.work-detail-hero .badge {
+    visibility: hidden;
+  }
+}
 .studio-hero h1 > span {
   display: inline;
   color: var(--brand);

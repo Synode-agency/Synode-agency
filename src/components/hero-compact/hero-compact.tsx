@@ -58,6 +58,7 @@ export function HeroCompact({
   status,
   rows,
   tiles,
+  tone = "dark",
 }: {
   /** Facultatif : deux visuels n'ont aucun titre dans leur contenu, et
    *  inventer un libellé serait ajouter du texte au site. L'en-tête ne
@@ -69,6 +70,8 @@ export function HeroCompact({
   rows?: readonly HeroRow[];
   /** La variante « tuiles », en deux colonnes. Exclusive de `rows`. */
   tiles?: readonly HeroTile[];
+  /** `light` : la card blanche de Coory, aux couleurs de ses illustrations. */
+  tone?: "dark" | "light";
 }) {
   const count = rows?.length ?? tiles?.length ?? 0;
   const [root, onScreen] = useOnScreen<HTMLDivElement>();
@@ -89,7 +92,7 @@ export function HeroCompact({
   const on = still ? 0 : active;
 
   return (
-    <div className={styles.card} ref={root} aria-hidden>
+    <div className={tone === "light" ? `${styles.card} ${styles.light}` : styles.card} ref={root} aria-hidden>
       <div className={styles.head}>
         {title && <span className={styles.title}>{title}</span>}
         <span className={styles.status}><i />{status}</span>

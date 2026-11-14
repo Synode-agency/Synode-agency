@@ -15,11 +15,20 @@ export async function generateMetadata({
   const { slug } = await params;
   const item = findWork("en", slug);
   if (!item) return {};
-  const isNexus = slug === "nexus";
-  const title = isNexus ? "Nexus: AI-assisted B2B prospecting software" : item.title;
-  const description = isNexus
-    ? "See how Synode uses Nexus to research and qualify companies in Brussels and Belgium, then prepare more targeted B2B prospecting."
-    : item.problem;
+  const SEO: Record<string, { title: string; description: string }> = {
+    nexus: {
+      title: "Nexus: AI-assisted B2B prospecting software",
+      description:
+        "See how Synode uses Nexus to research and qualify companies in Brussels and Belgium, then prepare more targeted B2B prospecting.",
+    },
+    coory: {
+      title: "Coory: sports coaching platform",
+      description:
+        "Coory, built by Synode, brings together a sports coach’s athletes, training programmes, schedule and payments, with an AI assistant the coach stays in control of.",
+    },
+  };
+  const title = SEO[slug]?.title ?? item.title;
+  const description = SEO[slug]?.description ?? item.problem;
   return {
     title,
     description,

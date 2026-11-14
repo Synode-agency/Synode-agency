@@ -27,116 +27,43 @@
   background: #eef2f8;
 }
 
-.scenarioVisual {
+/* ---- Le lien posé sur l'illustration ----
+   Toute la zone de l'illustration est cliquable et mène à la page du
+   projet. Le lien est vide et couvre la zone, au-dessus de tout ce qu'elle
+   contient (y compris le fond prolongé de Coory, `::before`). */
+.visualLink {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  padding-inline: clamp(24px, 8%, 64px);
+  z-index: 1;
 }
 
-.fictional {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  padding: 3px 10px;
-  border: 1px solid #d6e2fa;
-  border-radius: 999px;
-  background: #f4f8fe;
-  color: #0b6be6;
-  font-size: 12px;
-  line-height: 1.3;
-  white-space: nowrap;
-}
+/* ---- LA ZONE DE L'ILLUSTRATION DE COORY ----
+   L'illustration a son propre fond (gris bleuté pointillé) et garde ses
+   proportions de 16/10. Sur l'accueil, la zone a ces mêmes proportions :
+   l'illustration la remplit. Sur la page Réalisations, la zone est plus
+   haute : l'illustration y est centrée et ce bloc PROLONGE son fond, au
+   pixel près, au-dessus et en dessous.
 
-.scenario {
+   Le calage des points : l'illustration commence à
+   (hauteur de la zone − largeur × 10/16) ÷ 2 du haut, soit
+   `50cqh − 31,25cqw`. Les points du prolongement partent de là, donc les
+   deux grilles se superposent exactement et la jonction ne se voit pas.
+   Les valeurs (#F2F5F9, #DDE3EB, 22px) sont celles de l'illustration. */
+.visualStage {
+  container-type: size;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  justify-content: center;
+  background-color: #f2f5f9;
 }
 
-.step {
-  position: relative;
-  display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 14px;
-}
-
-.step:not(:last-child) {
-  padding-bottom: 14px;
-}
-
-.step:not(:last-child)::after {
+.visualStage::before {
   position: absolute;
-  top: 36px;
-  left: 18px;
-  width: 1px;
-  height: 14px;
-  background: #dde3eb;
+  inset: 0;
+  background-image: radial-gradient(#dde3eb 1px, transparent 1px);
+  background-position: 0 calc(50cqh - 31.25cqw);
+  background-size: 22px 22px;
   content: "";
-  transition: background-color 0.4s ease;
-}
-
-.step.done:not(:last-child)::after {
-  background: #9db8f2;
-}
-
-.stepNumber {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #dde3eb;
-  border-radius: 9px;
-  background: #ffffff;
-  color: #6e7177;
-  font-size: 12.5px;
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.step strong {
-  min-width: 0;
-  overflow: hidden;
-  color: #71757c;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  transition: color 0.4s ease;
-}
-
-.stepState {
-  color: #0b6be6;
-  font-size: 12.5px;
-  white-space: nowrap;
-  transition: color 0.4s ease;
-}
-
-.active .stepNumber {
-  border-color: #0b6be6;
-  background: #0b6be6;
-  color: #ffffff;
-  box-shadow: 0 0 0 5px rgb(11 107 230 / 12%);
-}
-
-.active strong,
-.done strong {
-  color: #1f3a5f;
-}
-
-.done .stepNumber {
-  border-color: #c9d8f5;
-  background: #f4f8fe;
-  color: #0b6be6;
-}
-
-.done .stepState {
-  color: #1e8a5c;
 }
 
 .content {
@@ -158,42 +85,6 @@
 .meta > span:first-child {
   color: #71757c;
   font-size: 14px;
-}
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border: 1px solid;
-  border-radius: 999px;
-  font-size: 13.5px;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.status i {
-  flex: none;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: currentColor;
-}
-
-.green {
-  border-color: #cbebd9;
-  background: #edf8f2;
-  color: #1e8a5c;
-}
-
-.green i {
-  background: #2db37a;
-}
-
-.blue {
-  border-color: #d6e2fa;
-  background: #f4f8fe;
-  color: #0b6be6;
 }
 
 .content :is(h2, h3) {
@@ -234,8 +125,7 @@
   white-space: nowrap;
 }
 
-.linkFooter,
-.staticFooter {
+.linkFooter {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -261,32 +151,18 @@
   height: 17px;
 }
 
-.staticFooter {
-  color: #71757c;
-  font-size: 16px;
-}
-
-.staticFooter span:last-child {
-  font-size: 13px;
-}
-
 @media (max-width: 430px) {
   .content {
     padding-inline: 24px;
   }
 
-  .linkFooter,
-  .staticFooter {
+  .linkFooter {
     padding-inline: 24px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card,
-  .step::after,
-  .stepNumber,
-  .step strong,
-  .stepState {
+  .card {
     transition: none;
   }
 }
@@ -327,8 +203,7 @@
   padding-block: 34px;
 }
 
-.row .linkFooter,
-.row .staticFooter {
+.row .linkFooter {
   grid-column: 2;
   grid-row: 2;
 }
