@@ -233,8 +233,10 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
              sous 900px. */
           <div className={`hero-visual-desktop ${cooryStyles.heroAside}`}>
             <CooryDashboardLight frame="app" />
-            {/* Les accès de la démo (14/11/2026) : compte partagé, et le code
-                pour créer son propre espace. Valeurs des variables Netlify. */}
+            {/* Les accès de la démo (14/11/2026) : le compte partagé, SEUL
+                moyen d'essayer Coory depuis Synode. Le code d'accès pour
+                créer son propre espace a été retiré le 15/11 à la demande
+                d'Antonino. Valeurs des variables Netlify. */}
             {COORY_DEMO_URL && COORY_DEMO.email && COORY_DEMO.password ? (
               <div className={cooryStyles.demoAccess}>
                 <p className={cooryStyles.demoTitle}>
@@ -259,15 +261,6 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                       : "AI assistant included. Shared account: please do not enter real data, everything is reset every night."}
                   </p>
                 </div>
-                {COORY_DEMO.accessCode ? (
-                  <p className={cooryStyles.demoNote}>
-                    {locale === "fr"
-                      ? "Vous préférez votre propre espace ? Créez un compte avec le code d’accès "
-                      : "Prefer your own workspace? Create an account with the access code "}
-                    <strong className={cooryStyles.demoCode}>{COORY_DEMO.accessCode}</strong>
-                    {locale === "fr" ? ", sans l’Assistant IA." : ", without the AI assistant."}
-                  </p>
-                ) : null}
               </div>
             ) : null}
           </div>

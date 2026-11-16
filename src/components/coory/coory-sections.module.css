@@ -143,11 +143,3 @@
   color: var(--muted-foreground);
   text-wrap: pretty;
 }
-.demoNote {
-  color: var(--muted-foreground);
-  text-wrap: pretty;
-}
-.demoCode {
-  color: var(--foreground);
-  user-select: all;
-}

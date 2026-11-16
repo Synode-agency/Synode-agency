@@ -18,8 +18,11 @@ est un emplacement qu'on oublie de remplir.
       dans `work-page.tsx` et `coory-sections.module.css`, valeurs lues dans `COORY_DEMO` (`src/lib/work.ts`).
       Il n'apparaît (et le bouton ne s'allume) que lorsque ces variables Netlify sont remplies :
       `NEXT_PUBLIC_COORY_DEMO_URL` (`https://coory-beta.vercel.app/login`),
-      `NEXT_PUBLIC_COORY_DEMO_EMAIL` (`demo@synode-agency.com`), `NEXT_PUBLIC_COORY_DEMO_PASSWORD`,
-      `NEXT_PUBLIC_COORY_ACCESS_CODE`. Variables publiques : une nouvelle valeur demande un redéploiement.
+      `NEXT_PUBLIC_COORY_DEMO_EMAIL` (`demo@synode-agency.com`), `NEXT_PUBLIC_COORY_DEMO_PASSWORD`.
+      Variables publiques : une nouvelle valeur demande un redéploiement.
+- [x] **15/11** : la phrase « Vous préférez votre propre espace ? Créez un compte avec le code
+      d'accès… » est RETIRÉE (demande d'Antonino) : les visiteurs n'essaient Coory que par le compte
+      de démo. `NEXT_PUBLIC_COORY_ACCESS_CODE` n'est plus lu par le site et peut être supprimé de Netlify.
 - [x] **Sur la page Coory**, donner aux bêta-testeurs et prospects une adresse e-mail et un mot de passe
       inventés (proposé : `demo@synode-agency.com`) pour entrer directement dans Coory, avec l'Assistant
       IA (100 demandes par mois au plus). Préciser que chacun peut aussi créer son propre compte, mais

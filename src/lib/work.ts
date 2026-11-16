@@ -283,7 +283,9 @@ export function cooryCardCopy(locale: Locale) {
  *   NEXT_PUBLIC_COORY_DEMO_URL       adresse de connexion (…/login)
  *   NEXT_PUBLIC_COORY_DEMO_EMAIL     adresse du compte de démo
  *   NEXT_PUBLIC_COORY_DEMO_PASSWORD  son mot de passe, public par nature
- *   NEXT_PUBLIC_COORY_ACCESS_CODE    code d'accès de la bêta (inscription libre)
+ *
+ * Le code d'accès de la bêta (inscription libre) n'est PLUS affiché depuis le
+ * 15/11/2026 : les visiteurs de Synode n'essaient Coory que par ce compte.
  *
  * ⚠ Sans adresse, le bouton « Essayer la démo » s'affiche désactivé, sans lien,
  * et l'encadré des accès n'apparaît pas.
@@ -292,7 +294,6 @@ export const COORY_DEMO = {
   url: process.env.NEXT_PUBLIC_COORY_DEMO_URL ?? "",
   email: process.env.NEXT_PUBLIC_COORY_DEMO_EMAIL ?? "",
   password: process.env.NEXT_PUBLIC_COORY_DEMO_PASSWORD ?? "",
-  accessCode: process.env.NEXT_PUBLIC_COORY_ACCESS_CODE ?? "",
 };
 export const COORY_DEMO_URL = COORY_DEMO.url;
 

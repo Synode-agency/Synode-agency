@@ -29,6 +29,15 @@
         ],
         "createdAt": "2026-11-14T13:47:03.499Z",
         "reason": "Claude: Helvetica Neue est la famille unique documentée du site (globals.css l.233, docs/DESIGN_STUDIO_CLAIR.md) ; les scènes de hero la reprennent"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/lib/ack-email.ts"
+        ],
+        "createdAt": "2026-11-14T17:57:45.416Z",
+        "reason": "Antonino: filet bleu vertical de sa signature d'origine (image du 12/11), reproduit dans la version texte qu'il a choisie et collée dans Gmail le 14/11 ; c'est une signature e-mail, pas une carte d'interface"
       }
     ]
   }
