@@ -11769,6 +11769,16 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     background: #ffffff;
     color: #0b6be6;
   }
+  /* ⚠ Le callout passe en colonne dès 900px, et non plus sous 760px
+     seulement. Sous 900px, le jeu de boutons met chaque bouton en pleine
+     largeur (`.btn:not(.site-header-cta)`) : entre 761 et 900px, le callout
+     restait en ligne et son bouton, large comme tout le callout, sortait de
+     l'écran à côté du texte (jusqu'à 844px de large sur 768). Corrigé le
+     17/11/2026. */
+  .daily-open-callout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
 /* Les titres de section de l'accueil suivent tous l'échelle mobile commune. */
