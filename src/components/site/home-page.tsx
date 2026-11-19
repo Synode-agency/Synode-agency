@@ -18,6 +18,7 @@ import { HomeWorkCards } from "@/components/site/home-work-cards";
 import { featuredBusinessUseCases } from "@/lib/business-use-cases";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
+import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 
 export function HomePage({ locale }: { locale: Locale }) {
   const { site, home } = getContent(locale);
@@ -31,17 +32,19 @@ export function HomePage({ locale }: { locale: Locale }) {
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         url: `${siteUrl}/`,
-        name: "Synode",
-        alternateName: "Synode Agency",
+        name: organizationName,
+        alternateName: organizationAlternateName,
         inLanguage: ["fr-BE", "en-BE"],
       },
       {
         "@type": "Organization",
         "@id": `${siteUrl}/#organization`,
-        name: "Synode",
+        name: organizationName,
+        alternateName: organizationAlternateName,
         url: `${siteUrl}/`,
         logo: `${siteUrl}/synode-logo.png`,
         email: site.email,
+        ...sameAsField,
         description: fr
           ? "Entreprise technologique à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en ingénierie logicielle : agents IA, automatisations, systèmes connectés et logiciels métier sur mesure, en Belgique."
           : "Brussels-based technology company specialising in artificial intelligence, systems integration and software engineering: AI agents, automations, connected systems and custom business software, across Belgium.",

@@ -8,6 +8,7 @@ import { ContactPanel, HeroDirectory, SkillsPanel, TeamCard, TeamCards } from "@
 import layout from "@/components/equipe/equipe.module.css";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
+import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 
 /** Cofounder copy from the published team page; portraits supplied in public/equipe. */
 export function TeamPage({ locale }: { locale: Locale }) {
@@ -24,8 +25,10 @@ export function TeamPage({ locale }: { locale: Locale }) {
     mainEntity: {
       "@type": "Organization",
       "@id": `${siteUrl}/#organization`,
-      name: "Synode",
+      name: organizationName,
+      alternateName: organizationAlternateName,
       url: siteUrl,
+      ...sameAsField,
       member: team.people.map((person) => ({
         "@type": "Person",
         name: person.first,

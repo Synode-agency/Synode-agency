@@ -97,7 +97,7 @@ const fr = {
     langLabel: "Langue",
     footerNav: "Navigation",
     footerLegal: "Informations légales",
-    copyright: "Synode",
+    copyright: "Synode Agency",
   },
 
   home: {
@@ -555,7 +555,7 @@ const en = {
     langLabel: "Language",
     footerNav: "Navigation",
     footerLegal: "Legal",
-    copyright: "Synode",
+    copyright: "Synode Agency",
   },
 
   home: {
