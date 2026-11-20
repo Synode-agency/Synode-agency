@@ -12644,11 +12644,23 @@ main > .band#top.work-detail-hero--centre .lede-text {
     margin-top: calc(40px - 1.4rem);
   }
 
-  /* ---- Contact : la carte du calendrier, fermée, à sa taille naturelle.
-     Elle avait la hauteur de l'agenda ouvert (646px) pour ne pas pousser
-     la page au clic ; Antonino la trouvait trop grande à l'arrivée. Elle
-     ne s'agrandit plus qu'à l'ouverture de l'agenda. ---- */
+  /* ---- Contact : la carte du calendrier, 500px, FERMÉE COMME OUVERTE.
+     Elle faisait près de 700px, la hauteur de l'agenda Cal.com entier ;
+     Antonino la trouvait trop grande, à l'arrivée comme à l'ouverture. Le
+     compromis qu'il a choisi le 20/11 : une hauteur fixe, et l'agenda
+     défile À L'INTÉRIEUR de la carte (c'est la page de Cal.com dans un
+     cadre : sa mise en page ne s'adapte pas à la hauteur). Fermée, le
+     contenu se centre dans la carte ; ouverte, le cadre prend toute la
+     place que laisse le lien « Ouvrir sur Cal.com ». ---- */
+  main > section.studio-hero #reservation .booking--card {
+    height: 500px;
+  }
   main > section.studio-hero #reservation .booking-closed {
+    flex: 1;
+    min-height: 0;
+  }
+  main > section.studio-hero #reservation .booking--card .booking-frame {
+    flex: 1;
     min-height: 0;
   }
 }
