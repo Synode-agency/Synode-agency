@@ -11,8 +11,7 @@ import { Bot, Workflow, Blocks, LayoutDashboard, ChartNoAxesColumnIncreasing, Gr
  * et `ProjectPreview`, qui n'étaient plus importés nulle part depuis une
  * refonte précédente. Ils ont été supprimés le 14/10/2026, avec le CSS qui
  * les servait. Ne pas les réécrire pour « compléter » ce fichier : les
- * visuels du site vivent dans `core-visuals/`, `understand-visuals/` et
- * `hero-cards/`.
+ * visuels du site vivent dans `core-visuals/` et `understand-visuals/`.
  *
  * ⚠ Ne pas confondre avec `components/core-visuals/`, qui porte les scènes
  * de la bande bleu nuit des pages service.

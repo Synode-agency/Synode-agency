@@ -56,19 +56,6 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.dashboardLight {
-  background: #ffffff;
-  font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Le cadrage « application seule » : la police du <helmet>, sans son fond
-   blanc. Voir `frame` dans `coory-dashboard-light.tsx`. */
-.dashboardLightApp {
-  font-family: "Plus Jakarta Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
 /* Les illustrations ILL-03 à ILL-08 (page Coory) : la police de la planche,
    sans son fond blanc. Les cadres sont transparents, la section donne le
    fond. Voir `coory-planche/planche-frame.tsx`. */

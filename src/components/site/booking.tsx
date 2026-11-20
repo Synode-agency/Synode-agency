@@ -35,10 +35,10 @@ function bookingUrl(value: string | undefined) {
  * bandeau. Corrigé le jour du branchement, comme convenu avec Antonino.
  *
  * Fermée, la carte a la hauteur de l'agenda : il prend sa place au clic sans
- * pousser la page. SAUF sur ordinateur dans la branche d'essai du 20/11
- * (fin de `studio.css`) : les quatre calendriers du site (Contact,
- * accueil, Solutions, Cas d'usage) ont une hauteur fixe de 500px, fermés
- * comme ouverts, et l'agenda défile à l'intérieur.
+ * pousser la page. Sur ordinateur, depuis le 20/11/2026 (fin de
+ * `studio.css`), les quatre calendriers du site (Contact, accueil,
+ * Solutions, Cas d'usage) ont une hauteur fixe de 500px, fermés comme
+ * ouverts, et l'agenda défile à l'intérieur.
  */
 export function Booking({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "card" }) {
   const { contact } = getContent(locale);

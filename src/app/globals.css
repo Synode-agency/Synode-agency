@@ -737,15 +737,6 @@
   }
   a.row:hover .row-title { color: var(--brand); }
 
-  /* Le rang d'une étape. Il ne s'affiche QUE sur une vraie séquence : une
-     numérotation sur un ensemble non ordonné ne dit rien. */
-  .rank {
-    font-size: var(--fs-small);
-    font-weight: 700;
-    color: var(--brand);
-    font-variant-numeric: tabular-nums;
-  }
-
   /* =====================================================================
      LA PASTILLE D'ÉTAT
 
@@ -1489,68 +1480,6 @@
     .site-header-bar,
     .site-nav-link,
     .site-footer-link { transition: none; }
-  }
-
-  /* =====================================================================
-     LE MOCK ANIMÉ DU HERO — le seul élément conservé de l'ancien site.
-
-     Trois systèmes empilés, le premier devant, qui se relaient en boucle.
-     Tout y est dimensionné en `em` contre une taille exprimée en unités
-     de conteneur : le panneau entier s'échelonne d'un bloc comme une
-     image, au lieu de se recomposer à chaque point de rupture.
-     ===================================================================== */
-  .hero-stage {
-    position: relative;
-    container-type: inline-size;
-  }
-
-  @media (min-width: 1024px) {
-    .hero-stage {
-      /* Le rapport du mock seul. Il valait 1140/760 quand les quatre cartes
-         débordaient du plateau en haut et en bas ; sans elles, le plateau se
-         referme sur ce qu'il contient réellement. */
-      aspect-ratio: 1140 / 598;
-      width: 100%;
-      /* 315px : ce que la carte du hero dépense avant que le plateau ait son
-         mot à dire — ses propres retraits, la rangée de la navbar, les
-         paddings verticaux et une marge de sécurité. Le facteur est le
-         rapport ci-dessus : la hauteur disponible décide de la largeur.
-         Les 92% gardent une lisière de colonne sur les très grands écrans,
-         où le budget de hauteur laisserait le plateau remplir toute la
-         colonne et venir buter dans le titre. */
-      max-width: min(92%, calc((100dvh - 315px) * 1.9));
-      margin-inline: auto;
-    }
-
-    /* Le mock occupe tout le plateau : il n'a plus à réserver les bandes du
-       haut et du bas où les cartes empiétaient. */
-    .hero-stage-panel {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-  }
-}
-
-/* The hero is above the fold, so its right-hand side needs no observer: the
-   pieces come in on load, one after the other, once the copy on the left has
-   set off. `backwards` and not `forwards`, so the cards keep their hover
-   lift once they have landed. */
-@keyframes hero-piece-in {
-  from {
-    opacity: 0;
-    transform: translate3d(54px, 12px, 0) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-stage-panel {
-    animation: hero-piece-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-    animation-delay: 0.6s;
   }
 }
 

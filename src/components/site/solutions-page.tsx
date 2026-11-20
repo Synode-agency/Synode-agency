@@ -4,13 +4,11 @@ import {
   LifeBuoy, Mail, MessagesSquare, Target, UserPlus,
 } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
-import { HeroCompact } from "@/components/hero-compact";
 import { Lede } from "@/components/site/lede";
 import { SolutionSlices } from "@/components/site/solution-slices";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { renderLines } from "@/lib/lines";
-import { SolutionsDashboard } from "./solutions-dashboard";
 import { PageHero } from "@/components/site/page-hero";
 import { Booking } from "@/components/site/booking";
 import { SecurityPanel } from "@/components/site/security-panel";
@@ -93,28 +91,6 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         kicker={fr ? "Solutions sur mesure" : "Custom solutions"}
         kickerMobileOnly
         title={renderLines(solutions.title)}
-        aside={<>
-          <div className="hero-visual-desktop"><SolutionsDashboard locale={locale} /></div>
-          <HeroCompact
-            title={fr ? "Votre activité, en résumé" : "Your activity, at a glance"}
-            status={fr ? "à jour" : "up to date"}
-            tiles={fr ? [
-              { label: "Agents IA actifs", value: "6" },
-              { label: "Tâches automatisées", value: "24" },
-              { label: "Applications métier", value: "3" },
-              { label: "Outils connectés", value: "12" },
-              { label: "Demandes traitées", value: "128" },
-              { label: "Équipe formée", value: "92%" },
-            ] : [
-              { label: "Active AI agents", value: "6" },
-              { label: "Automated tasks", value: "24" },
-              { label: "Business applications", value: "3" },
-              { label: "Connected tools", value: "12" },
-              { label: "Requests handled", value: "128" },
-              { label: "Team trained", value: "92%" },
-            ]}
-          />
-        </>}
       >
         <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
         <div className="btn-row">

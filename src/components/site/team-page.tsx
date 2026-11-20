@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
-import { HeroCompact } from "@/components/hero-compact";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
-import { ContactPanel, HeroDirectory, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
+import { ContactPanel, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
 import layout from "@/components/equipe/equipe.module.css";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
@@ -46,20 +45,6 @@ export function TeamPage({ locale }: { locale: Locale }) {
         className="team-hero"
         kicker={locale === "fr" ? "Entreprise technologique · Bruxelles" : "Technology company · Brussels"}
         title={locale === "fr" ? <>Les <span>experts</span> de Synode</> : <>The <span>experts</span> behind Synode</>}
-        aside={<>
-          <div className="hero-visual-desktop"><HeroDirectory locale={locale} /></div>
-          <HeroCompact
-            title={locale === "fr" ? "synode / équipe" : "synode / team"}
-            status={locale === "fr" ? "disponible" : "available"}
-            rows={locale === "fr" ? [
-              { num: "01", label: "Antonino", state: "Processus · Agents IA" },
-              { num: "02", label: "Killian", state: "Applications · Intégrations" },
-            ] : [
-              { num: "01", label: "Antonino", state: "Processes · AI agents" },
-              { num: "02", label: "Killian", state: "Applications · Integrations" },
-            ]}
-          />
-        </>}
       >
         <p>{team.vision}</p>
         <div className="btn-row">

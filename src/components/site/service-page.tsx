@@ -8,11 +8,9 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Band, CardPanel, Shell } from "./shell";
-import { HeroCompact, type HeroRow, type HeroTile } from "@/components/hero-compact";
 import { Lede } from "./lede";
 import { PageHero } from "./page-hero";
 import { FaqAccordion } from "./faq-accordion";
-import { AgentDemo } from "./agent-demo";
 import { AgentBrief } from "./agent-brief";
 import { AutomationGraph } from "./automation-graph";
 import { AdoptionVisual, DataVisual, IntegrationVisual, SoftwareVisual } from "@/components/understand-visuals";
@@ -21,7 +19,6 @@ import { AfterPanel } from "./after-panel";
 import { IncludedStrip } from "./included-strip";
 import { AgentNetwork } from "./agent-network";
 import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
-import { ServiceHeroIllustration } from "@/components/hero-illustrations";
 import { servicePage } from "@/lib/service-pages";
 import { renderLines } from "@/lib/lines";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
@@ -81,120 +78,6 @@ const USE_ICONS: Record<string, LucideIcon[]> = {
   "formation-adoption-ia": [Lightbulb, Target, MessageSquare, SearchCheck, Lock, FileText, Rocket, Users],
 };
 
-/**
- * LE CONTENU DE LA CARD COMPACTE DES SIX HEROS DE SERVICE.
- *
- * ⚠ Chaque chaîne vient du visuel de bureau de la MÊME page, au mot près.
- * Ce n'est pas un second contenu à écrire : c'est le même, dit plus court.
- * Si un visuel de bureau change, c'est ici qu'il faut reporter.
- */
-const HERO_COMPACT: Record<string, (fr: boolean) => {
-  title: string; status: string; rows?: readonly HeroRow[]; tiles?: readonly HeroTile[];
-}> = {
-  "agents-ia": fr => ({
-    title: fr ? "demande #2041 \u00b7 Marie L." : "request #2041 \u00b7 Marie L.",
-    status: fr ? "Validation requise" : "Approval needed",
-    rows: fr
-      ? [
-          { num: "01", label: "Rechercher", state: "Recherche\u2026" },
-          { num: "02", label: "Comprendre", state: "devis toiture" },
-          { num: "03", label: "Pr\u00e9parer", state: "R\u00e9daction\u2026" },
-        ]
-      : [
-          { num: "01", label: "Search", state: "Searching\u2026" },
-          { num: "02", label: "Understand", state: "roofing quote" },
-          { num: "03", label: "Draft", state: "Analysing\u2026" },
-        ],
-  }),
-  "automatisations-intelligentes": fr => ({
-    title: fr ? "workflow \u00b7 demandes de devis" : "workflow \u00b7 quote requests",
-    status: fr ? "actif" : "active",
-    rows: fr
-      ? [
-          { num: "01", label: "Demande de devis", state: "formulaire" },
-          { num: "02", label: "Analyse IA", state: "besoin \u00b7 d\u00e9lai" },
-          { num: "03", label: "Devis pr\u00e9par\u00e9", state: "relu, envoy\u00e9" },
-          { num: "04", label: "Relance J+3", state: "pas de r\u00e9ponse" },
-          { num: "05", label: "Devis sign\u00e9", state: "CRM \u00e0 jour" },
-        ]
-      : [
-          { num: "01", label: "Quote request", state: "web form" },
-          { num: "02", label: "AI analysis", state: "need \u00b7 deadline" },
-          { num: "03", label: "Quote drafted", state: "reviewed, sent" },
-          { num: "04", label: "Follow-up D+3", state: "no reply" },
-          { num: "05", label: "Quote signed", state: "CRM updated" },
-        ],
-  }),
-  "logiciels-applications-ia": fr => ({
-    title: fr ? "Interventions \u00b7 Atelier Brun" : "Jobs \u00b7 Atelier Brun",
-    status: fr ? "aujourd\u2019hui" : "today",
-    tiles: fr
-      ? [
-          { label: "Pr\u00e9vues", value: "7" },
-          { label: "Termin\u00e9es", value: "4" },
-          { label: "En cours", value: "1" },
-          { label: "Comptes rendus", value: "4" },
-        ]
-      : [
-          { label: "Planned", value: "7" },
-          { label: "Done", value: "4" },
-          { label: "In progress", value: "1" },
-          { label: "Reports", value: "4" },
-        ],
-  }),
-  "integrations-systemes-connectes": fr => ({
-    title: fr ? "Nouveau lead du site \u2192 CRM + ERP" : "New website lead \u2192 CRM + ERP",
-    status: fr ? "0 double saisie" : "0 duplicate entry",
-    rows: fr
-      ? [
-          { num: "01", label: "Formulaire site web", state: "Nouveau lead" },
-          { num: "02", label: "CRM", state: "fiche cr\u00e9\u00e9e" },
-          { num: "03", label: "ERP", state: "fiche cr\u00e9\u00e9e" },
-          { num: "04", label: "\u00c9quipe", state: "assign\u00e9e" },
-        ]
-      : [
-          { num: "01", label: "Website form", state: "New lead" },
-          { num: "02", label: "CRM", state: "record created" },
-          { num: "03", label: "ERP", state: "record created" },
-          { num: "04", label: "Team", state: "assigned" },
-        ],
-  }),
-  "data-intelligence": fr => ({
-    title: fr ? "chiffre d\u2019affaires \u00b7 30 jours" : "revenue \u00b7 30 days",
-    status: fr ? "\u00e0 jour" : "up to date",
-    tiles: fr
-      ? [
-          { label: "Marge brute", value: "38,2 %" },
-          { label: "Tr\u00e9sorerie", value: "61 400 \u20ac" },
-          { label: "D\u00e9lai de paiement", value: "41 jours" },
-          { label: "Alerte", value: "\u00e0 v\u00e9rifier" },
-        ]
-      : [
-          { label: "Gross margin", value: "38.2%" },
-          { label: "Cash", value: "\u20ac61,400" },
-          { label: "Days to get paid", value: "41 days" },
-          { label: "Alert", value: "to check" },
-        ],
-  }),
-  "formation-adoption-ia": fr => ({
-    title: fr ? "Piloter votre solution IA" : "Run your AI solution",
-    status: fr ? "en production" : "live",
-    rows: fr
-      ? [
-          { num: "01", label: "Comprendre votre agent" },
-          { num: "02", label: "Garder le contr\u00f4le" },
-          { num: "03", label: "Ajuster les r\u00e8gles" },
-          { num: "04", label: "Suivre les r\u00e9sultats" },
-        ]
-      : [
-          { num: "01", label: "Understand your agent" },
-          { num: "02", label: "Stay in control" },
-          { num: "03", label: "Adjust the rules" },
-          { num: "04", label: "Track the results" },
-        ],
-  }),
-};
-
 export function ServicePage({ locale, family }: { locale: Locale; family: Family }) {
   const fr = locale === "fr";
   const d = family.detail;
@@ -218,16 +101,6 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       className="svc-hero"
       kicker={renderLines(p.kicker)}
       title={renderLines(p.h1, p.h1Accents, "title-accent")}
-      aside={<>
-        <div className="hero-visual-desktop">
-          {family.slug === "agents-ia" ? (
-            /* La seule famille dont on peut montrer le déroulé complet, de
-               la recherche à la validation humaine. */
-            <div className="family-hero-art family-hero-art--demo"><AgentDemo locale={locale} /></div>
-          ) : <ServiceHeroIllustration slug={family.slug} locale={locale} />}
-        </div>
-        {HERO_COMPACT[family.slug] && <HeroCompact {...HERO_COMPACT[family.slug](fr)} />}
-      </>}
     >
       <p>{d.heroLead}</p>
       <div className="btn-row">

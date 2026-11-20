@@ -12,8 +12,9 @@ import { useEffect, useState, type RefObject } from "react";
  * Deux moteurs, parce que les deux originaux n'avancent pas de la même façon :
  *  - `raf` (CooryDesktopMobile) : requestAnimationFrame, pas borné à 0,1 s,
  *    nouvel état peint au plus toutes les `paintMs` (30 ms, ≈ 33 images/s) ;
- *  - `interval` (CooryDashboardLight) : setInterval toutes les 80 ms, pas
- *    borné à 0,2 s. Les déplacements fluides viennent des transitions CSS.
+ *  - `interval` (les planches Coory, `planche-frame`) : setInterval toutes
+ *    les `everyMs`, pas borné à `maxDt`. Les déplacements fluides viennent des
+ *    transitions CSS.
  *
  * Les trois comportements de l'original sont gardés :
  *  1. l'horloge s'arrête quand l'illustration sort de l'écran

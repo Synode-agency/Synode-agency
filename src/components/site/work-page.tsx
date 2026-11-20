@@ -2,12 +2,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
-import { HeroGallery } from "@/components/realisations";
 import { ContextSection } from "@/components/nexus/context-section";
 import { GoalsSection } from "@/components/nexus/goals-section";
 import { nexusSections } from "@/components/nexus/nexus-sections";
 import { windowsFor } from "@/components/nexus/windows-content";
-import nexus from "@/components/nexus/hero-dashboard.module.css";
+import workHero from "./work-hero.module.css";
 import { CooryContextSection, CooryGoalsSection, cooryContent } from "@/components/coory";
 import cooryStyles from "@/components/coory/coory-sections.module.css";
 import { HomeWorkCards } from "./home-work-cards";
@@ -78,7 +77,6 @@ export function WorkPage({ locale }: { locale: Locale }) {
         title={locale === "fr"
           ? <><span>Nos réalisations :</span><br className="only-desktop" /> logiciels métier et IA</>
           : <><span>Our work:</span> business software and AI</>}
-        aside={<HeroGallery locale={locale} />}
       >
         <p>{w.intro.text}</p>
         <div className="btn-row">
@@ -182,10 +180,11 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
   return (
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      {/* Le texte reste à gauche, à l'identique ; le tableau de bord est
-          ajouté à droite. La grille vit sur le `.col` de la bande : voir le
-          commentaire au bas de `hero-dashboard.module.css`. */}
-      <Band id="top" tone="base" className="work-detail-hero work-detail-hero--centre" bodyClassName={nexus.heroSplit}>
+      {/* Le hero, sans illustration depuis le 20/11/2026 : tout est centré
+          sur une colonne (fin de `studio.css`, `work-detail-hero--centre`).
+          La grille vit sur le `.col` de la bande : voir `.heroSplit` dans
+          `work-hero.module.css`. */}
+      <Band id="top" tone="base" className="work-detail-hero work-detail-hero--centre" bodyClassName={workHero.heroSplit}>
         <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
         <Lede
           as="h1"
@@ -194,9 +193,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           text={sansVeuve(item.problem)}
         />
         {isCoory ? (
-          /* Le statut et le bouton de la démo partagent la troisième case de
-             la grille du hero : voir `.heroSplit` dans
-             `hero-dashboard.module.css`, qui place ses enfants par rang. */
+          /* Le statut et le bouton de la démo, ensemble sous le texte. */
           <div>
             <p className="work-status section-gap-sm">{item.status}</p>
             <div className="btn-row section-gap-sm">
@@ -221,10 +218,8 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
         ) : (
           <p className="work-status section-gap-sm">{item.status}</p>
         )}
-        {/* ESSAI (branche `essai-heros-centres`, 20/11/2026) : plus aucune
-            illustration dans le hero. Nexus perd son tableau de bord et sa
-            card compacte ; Coory perd son application mais GARDE les accès
-            de la démo, seul moyen d'essayer Coory, centrés sous le texte. */}
+        {/* Les accès de la démo, seul moyen d'essayer Coory, centrés sous
+            le bouton. */}
         {isCoory ? (
           <>
             {COORY_DEMO_URL && COORY_DEMO.email && COORY_DEMO.password ? (

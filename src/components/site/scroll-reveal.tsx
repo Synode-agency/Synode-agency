@@ -13,7 +13,8 @@ import { usePathname } from "next/navigation";
  * ── DEUX MOMENTS ────────────────────────────────────────────────────────
  * 1. LE HÉROS, à l'arrivée sur la page — toutes les pages SAUF l'accueil.
  *    Le surtitre et le titre sont là d'emblée. Puis, dans cet ordre : le
- *    paragraphe, les boutons, le visuel de droite. (Décidé le 17/10.)
+ *    paragraphe, puis les boutons. (Décidé le 17/10 ; le visuel de droite,
+ *    troisième temps, a disparu avec les illustrations des héros le 20/11.)
  * 2. LES SECTIONS, au défilement. Illustrations, éléments graphiques et
  *    paragraphes apparaissent ; titres et surtitres restent fixes ; les
  *    boutons arrivent un temps après le texte, comme la colonne de droite.
@@ -59,9 +60,8 @@ const ENTETE = "h1, h2, .lede-kicker, .eyebrow, .studio-hero-kicker";
 const HEROS = "main > section#top:not(.home-page-hero)";
 const HEROS_TEXTE = ".studio-hero-copy > p, .lede > .lede-text, .work-status";
 const HEROS_BOUTONS = ".studio-hero-copy > .btn-row, .studio-hero-copy > .hero-reassurance";
-const HEROS_VISUEL = ".hero-visual-desktop, [class*='hero-compact-module'][class*='__card']";
-/** Les trois temps du héros. Lents exprès : on doit les voir arriver. */
-const TEMPS_HEROS = { texte: 250, boutons: 750, visuel: 1250 };
+/** Les deux temps du héros. Lents exprès : on doit les voir arriver. */
+const TEMPS_HEROS = { texte: 250, boutons: 750 };
 
 /** Le décalage entre deux blocs qui arrivent ensemble, et son plafond. */
 const PAS = 120;
@@ -145,11 +145,10 @@ export function ScrollReveal() {
     const sequence: Array<[HTMLElement, number]> = [];
     if (heros && herosPermis) {
       const groupes: Array<[string, number, string]> = [
-        /* ESSAI heros centrés : un texte centré monte par le bas ; Contact,
-           resté à gauche, garde son glissement depuis la gauche. */
+        /* Un texte centré monte par le bas ; Contact, le seul héros resté
+           en deux colonnes, garde son glissement depuis la gauche. */
         [HEROS_TEXTE, TEMPS_HEROS.texte, heros.matches(".page-hero--centre, .work-detail-hero--centre") ? "bottom" : "left"],
         [HEROS_BOUTONS, TEMPS_HEROS.boutons, "bottom"],
-        [HEROS_VISUEL, TEMPS_HEROS.visuel, "right"],
       ];
       for (const [sel, delai, sens] of groupes) {
         heros.querySelectorAll<HTMLElement>(sel).forEach(el => {
@@ -157,8 +156,8 @@ export function ScrollReveal() {
           el.dataset.rvFrom = etroit ? "bottom" : sens;
           el.dataset.rv = "pending";
           tous.push(el);
-          /* Une partie du héros sous l'écran — le visuel, sur téléphone —
-             attend d'être atteinte, comme une section. */
+          /* Une partie du héros sous l'écran attend d'être atteinte,
+             comme une section. */
           if (el.getBoundingClientRect().top < pli) sequence.push([el, delai]);
           else surveilles.push(el);
         });

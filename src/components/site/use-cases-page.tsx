@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
-import { HeroCompact } from "@/components/hero-compact";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { Booking } from "@/components/site/booking";
 import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
-import { UseCaseTerminal } from "@/components/site/use-case-terminal";
 import { businessUseCases } from "@/lib/business-use-cases";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { siteUrl } from "@/lib/site-url";
@@ -44,28 +42,6 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
         kicker={fr ? "Cas d’usage" : "Use cases"}
         kickerMobileOnly
         title={fr ? <>Des <span>systèmes IA</span> intégrés à vos processus métier</> : <><span>AI systems</span> integrated into your business processes</>}
-        aside={<>
-          <div className="hero-visual-desktop"><UseCaseTerminal locale={locale} /></div>
-          <HeroCompact
-            title="customer-request.workflow"
-            status={fr ? "Système actif" : "System active"}
-            rows={(fr ? [
-              ["input", "Demande reçue"],
-              ["context", "Contexte chargé"],
-              ["ai.agent", "Demande analysée"],
-              ["rules", "Règles métier vérifiées"],
-              ["human", "Validation humaine"],
-              ["systems", "Outils mis à jour"],
-            ] : [
-              ["input", "Request received"],
-              ["context", "Context loaded"],
-              ["ai.agent", "Request analysed"],
-              ["rules", "Business rules checked"],
-              ["human", "Human approval"],
-              ["systems", "Systems updated"],
-            ]).map(([state, label], i) => ({ num: String(i + 1).padStart(2, "0"), label, state }))}
-          />
-        </>}
       >
         <p>{fr ? "Découvrez comment l’intelligence artificielle peut répondre plus vite à vos clients, relier vos outils, exploiter vos chiffres et assister vos équipes au quotidien. Agents IA, automatisations, intégrations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can answer your clients faster, connect your tools, use your figures and support your teams every day. AI agents, automations, integrations and business software are combined around your tools, data and business rules."}</p>
         <div className="btn-row">

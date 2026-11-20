@@ -53,30 +53,6 @@
   pointer-events: none;
 }
 
-/* ---- La colonne de droite du hero de Coory (14/11/2026) : l'application,
-   puis les accès de la démo juste dessous.
-
-   Sur ordinateur, elle se cale en HAUT de sa colonne, à la hauteur de la
-   pastille, au lieu d'être centrée sur le texte : la grille du hero
-   (`.heroSplit`, nexus/hero-dashboard.module.css) centre ses blocs, et
-   l'illustration descendait avec la hauteur du texte.
-
-   Sous 900px, le site masque tous les visuels de hero de bureau
-   (`.hero-visual-desktop`, studio.css) au profit d'une card compacte. Pas
-   ici : l'illustration reste, réduite d'un bloc à la largeur du téléphone.
-   La règle d'origine pèse une classe ; celle-ci en pèse deux. ---- */
-.heroAside {
-  display: grid;
-  gap: 28px;
-  align-content: start;
-  align-self: start;
-}
-@media (max-width: 900px) {
-  :global(.hero-visual-desktop).heroAside {
-    display: grid;
-  }
-}
-
 /* ---- Les accès de la démo, sous l'illustration (14/11/2026, revus le
    même jour à la demande d'Antonino : moins hauts).
 

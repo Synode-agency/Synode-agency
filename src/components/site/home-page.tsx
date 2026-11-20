@@ -6,8 +6,6 @@ import { SolutionSlices } from "@/components/site/solution-slices";
 import { renderLines } from "@/lib/lines";
 import { Booking } from "@/components/site/booking";
 import { FaqAccordion } from "@/components/site/faq-accordion";
-import { HeroStage } from "@/components/site/hero-stage";
-import { HeroCompact } from "@/components/hero-compact";
 import { PageHero } from "@/components/site/page-hero";
 import { TrustSteps } from "@/components/site/trust-steps";
 import { MethodFrame } from "@/components/site/method-frame";
@@ -106,25 +104,6 @@ export function HomePage({ locale }: { locale: Locale }) {
         {fr ? " et " : " and "}
         <span className="title-accent">{fr ? "intelligents" : "intelligent"}</span>
       </>}
-      aside={<div className="studio-demo">
-        {/* Deux visuels, un seul affiché : la maquette de bureau au-dessus de
-            900px, la card compacte en dessous. Tous les textes de la seconde
-            viennent de la première, rien n'est ajouté. */}
-        <div className="hero-visual-desktop"><HeroStage locale={locale} /></div>
-        <HeroCompact
-          title={fr ? "Relances · Devis D-2026-042" : "Follow-ups · Quote Q-2026-042"}
-          status={fr ? "Signé" : "Signed"}
-          rows={fr ? [
-            { num: "01", label: "Pas encore de réponse", state: "J+2" },
-            { num: "02", label: "Relance personnalisée envoyée", state: "J+3" },
-            { num: "03", label: "Devis signé en ligne", state: "J+5" },
-          ] : [
-            { num: "01", label: "No reply yet", state: "D+2" },
-            { num: "02", label: "Personalised reminder sent", state: "D+3" },
-            { num: "03", label: "Quote signed online", state: "D+5" },
-          ]}
-        />
-      </div>}
       strip={<div className="capability-strip">
         <span className="capability-strip-label">{fr ? "De votre besoin à votre outil" : "From your need to your tool"}</span>
         <div className="capability-marquee" role="list" aria-label={fr ? "Expertises mobilisables" : "Available capabilities"}>
