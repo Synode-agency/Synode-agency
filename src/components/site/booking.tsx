@@ -35,7 +35,9 @@ function bookingUrl(value: string | undefined) {
  * bandeau. Corrigé le jour du branchement, comme convenu avec Antonino.
  *
  * Fermée, la carte a la hauteur de l'agenda : il prend sa place au clic sans
- * pousser la page.
+ * pousser la page. SAUF dans le hero de Contact sur ordinateur (essai du
+ * 20/11, fin de `studio.css`) : la carte y garde sa taille naturelle et ne
+ * s'agrandit qu'à l'ouverture de l'agenda.
  */
 export function Booking({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "card" }) {
   const { contact } = getContent(locale);

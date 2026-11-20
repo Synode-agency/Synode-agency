@@ -78,7 +78,10 @@ function estTexteDuHero(node: ReactNode) {
  * Toujours dans l'essai : les titres de tous les heros prennent l'échelle
  * de celui de l'accueil (`studio.css`, bloc ESSAI), et les deux derniers
  * mots de chaque paragraphe sont liés pour qu'aucun mot ne reste seul sur
- * la dernière ligne.
+ * la dernière ligne. Et sur ordinateur, tous les heros sont construits
+ * comme celui de Cas d'usage, l'accueil compris : sa disposition `feature`
+ * garde son HTML, c'est la feuille de style qui empile titre et texte au
+ * même écart (bloc « 3e TOUR » en fin de `studio.css`).
  */
 export function PageHero({
   id = "top",

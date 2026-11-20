@@ -12569,3 +12569,113 @@ main > section.studio-hero .hero-reassurance,
 main > .band#top.work-detail-hero--centre .lede-text {
   text-wrap: pretty;
 }
+
+/* =====================================================================
+   ESSAI, 3e TOUR (20/11) : SUR ORDINATEUR, TOUS LES HEROS SONT CONSTRUITS
+   COMME CELUI DE CAS D'USAGE
+
+   Demande d'Antonino : Cas d'usage fait foi. Sur ordinateur (dès 901px ;
+   le téléphone ne bouge pas), chaque hero a la même construction : pas de
+   surtitre, le titre, le paragraphe puis les boutons, 1,4rem entre chacun,
+   le tout centré dans la hauteur du hero, entre 4rem en haut et 4,5rem en
+   bas. Le titre peut donc monter ou descendre de quelques pixels d'une page
+   à l'autre selon la longueur du texte, exactement comme sur Cas d'usage.
+
+   Ce qui changeait jusqu'ici :
+   - l'accueil posait son titre AU-DESSUS de la grille, réparti par
+     `space-evenly` : titre haut, grand vide, puis paragraphe ;
+   - les six pages services et Équipe montraient un surtitre au-dessus du
+     titre (il reste sur téléphone), et les services serraient leurs écarts
+     à 1,1rem ;
+   - Nexus et Coory étaient une bande collée en haut, avec leur pastille
+     « Logiciel métier » au-dessus du titre (elle reste sur téléphone).
+
+   Contact n'est pas concerné (texte à gauche, calendrier à droite) : il
+   ne porte pas `page-hero--centre`.
+   ===================================================================== */
+@media (min-width: 901px) {
+  /* ---- Pas de surtitre au-dessus du titre, comme sur Cas d'usage. ---- */
+  main > section.page-hero--centre .studio-hero-kicker,
+  main > .band#top.work-detail-hero--centre > .col > .badge {
+    display: none;
+  }
+
+  /* ---- Le rythme de Cas d'usage : 1,4rem entre chaque élément. ---- */
+  main > section.page-hero--centre .studio-hero-copy {
+    gap: 1.4rem;
+  }
+  main > section.page-hero--centre .studio-hero-copy > :is(p, .btn-row) {
+    margin-block: 0;
+  }
+
+  /* ---- L'accueil : le titre et le texte forment UN bloc, centré. ----
+     Le titre reste hors de la colonne de texte dans le HTML (disposition
+     `feature`) ; c'est la colonne du hero qui les empile au même écart que
+     sur Cas d'usage, avec le même rembourrage. */
+  main > section.home-page-hero .studio-hero-inner {
+    justify-content: center;
+    gap: 1.4rem;
+    padding-block: clamp(2.5rem, 4.5vw, 4rem) clamp(3rem, 5vw, 4.5rem);
+  }
+  main > section.home-page-hero h1 {
+    margin-block: 0;
+  }
+
+  /* ---- Nexus et Coory : la même construction, dans leur bande. ---- */
+  main > .band#top.work-detail-hero--centre {
+    padding-block: var(--header-h) 0;
+  }
+  main > .band#top.work-detail-hero--centre > .col {
+    row-gap: 1.4rem;
+    align-content: center;
+    padding-block: clamp(2.5rem, 4.5vw, 4rem) clamp(3rem, 5vw, 4.5rem);
+  }
+  main > .band#top.work-detail-hero--centre > .col > .lede {
+    gap: 1.4rem;
+  }
+  main > .band#top.work-detail-hero--centre .section-gap-sm {
+    margin-top: 0;
+  }
+  main > .band#top.work-detail-hero--centre .work-status + .btn-row {
+    margin-top: 1.4rem;
+  }
+  /* Les accès de la démo Coory gardent leurs 40px sous le bouton. */
+  main > .band#top.work-detail-hero--centre > .col > [class*="demoAccess"] {
+    margin-top: calc(40px - 1.4rem);
+  }
+
+  /* ---- Contact : la carte du calendrier, fermée, à sa taille naturelle.
+     Elle avait la hauteur de l'agenda ouvert (646px) pour ne pas pousser
+     la page au clic ; Antonino la trouvait trop grande à l'arrivée. Elle
+     ne s'agrandit plus qu'à l'ouverture de l'agenda. ---- */
+  main > section.studio-hero #reservation .booking-closed {
+    min-height: 0;
+  }
+}
+
+/* La hauteur d'écran, comme les autres heros : dès 960px (voir
+   `.page-hero--inner`). */
+@media (min-width: 960px) {
+  main > .band#top.work-detail-hero--centre {
+    min-height: var(--hero-min-h);
+    display: flex;
+    flex-direction: column;
+  }
+  main > .band#top.work-detail-hero--centre > .col {
+    flex: 1;
+  }
+
+  /* ---- Le bandeau défilant de l'accueil sort du calcul du centrage.
+     Posé en bas du hero sans y prendre de place, il laisse au bloc de texte
+     la même zone que sur Cas d'usage, au même rembourrage. Mesuré au
+     navigateur : même sur un écran bas (960 x 560), 19px restent entre la
+     mention « * Un premier échange… » et le bandeau. */
+  main > section.home-page-hero {
+    position: relative;
+  }
+  main > section.home-page-hero > .col:last-child:not(.studio-hero-inner) {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+  }
+}
