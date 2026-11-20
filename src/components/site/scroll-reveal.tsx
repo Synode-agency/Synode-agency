@@ -145,7 +145,9 @@ export function ScrollReveal() {
     const sequence: Array<[HTMLElement, number]> = [];
     if (heros && herosPermis) {
       const groupes: Array<[string, number, string]> = [
-        [HEROS_TEXTE, TEMPS_HEROS.texte, "bottom"], // ESSAI heros centrés : montée par le bas (était "left")
+        /* ESSAI heros centrés : un texte centré monte par le bas ; Contact,
+           resté à gauche, garde son glissement depuis la gauche. */
+        [HEROS_TEXTE, TEMPS_HEROS.texte, heros.matches(".page-hero--centre, .work-detail-hero--centre") ? "bottom" : "left"],
         [HEROS_BOUTONS, TEMPS_HEROS.boutons, "bottom"],
         [HEROS_VISUEL, TEMPS_HEROS.visuel, "right"],
       ];

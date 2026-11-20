@@ -12418,8 +12418,15 @@ html[data-rv-hero] main > section#top:not(.home-page-hero) :is(
    Sur toutes les pages, le hero perd son illustration (bureau comme
    téléphone) et tout son texte se centre, comme le titre de l'accueil :
    surtitre, titre, paragraphe, puis les boutons centrés sous lui.
-   Deux exceptions gardent un bloc sous le texte, centré : le calendrier de
-   Contact (il porte l'ancre `#reservation`) et les accès de la démo Coory.
+   Les accès de la démo Coory restent, centrés sous le texte. Contact garde
+   sa disposition d'origine (texte à gauche, calendrier Cal.com à droite,
+   l'un sous l'autre sur téléphone) : `PageHero` ne lui pose pas la classe
+   `page-hero--centre` (demande d'Antonino du 20/11).
+
+   Partout, Contact compris : les titres prennent l'échelle de celui de
+   l'accueil, les paragraphes sa taille, et aucun paragraphe ne finit sur un
+   mot seul (espace insécable posée par `sansVeuve`, plus `text-wrap:
+   pretty` pour équilibrer les fins de lignes).
 
    ⚠ En fin de feuille et préfixé par `main > section` : il doit battre
    les règles d'alignement à gauche des pages (accueil et Solutions sur
@@ -12432,7 +12439,7 @@ main > section.page-hero--centre .studio-hero-grid {
 }
 main > section.page-hero--centre .studio-hero-copy {
   width: 100%;
-  max-width: 52rem;
+  max-width: none;
   margin-inline: auto;
   padding-inline: 0;
   align-items: center;
@@ -12443,6 +12450,7 @@ main > section.page-hero--centre .studio-hero-kicker {
   text-align: center;
 }
 main > section.page-hero--centre h1 {
+  max-width: 30ch;
   margin-inline: auto;
   text-align: center;
   text-wrap: balance;
@@ -12459,11 +12467,6 @@ main > section.page-hero--centre .studio-hero-copy > .btn-row {
   width: 100%;
   justify-content: center;
   align-items: center;
-}
-/* Contact : le calendrier, sous le texte. */
-main > section.page-hero--centre .cta-booking-calendar {
-  width: min(100%, 44rem);
-  margin-top: clamp(1rem, 2vw, 2rem);
 }
 
 /* ---- Les pages projet (Nexus, Coory) : une seule colonne ----
@@ -12482,7 +12485,7 @@ main > .band#top.work-detail-hero--centre > .col > * {
 }
 main > .band#top.work-detail-hero--centre > .col > .lede {
   width: 100%;
-  max-width: 52rem;
+  max-width: none;
   align-items: center;
   text-align: center;
 }
@@ -12491,6 +12494,9 @@ main > .band#top.work-detail-hero--centre .lede-text {
   margin-inline: auto;
   text-align: center;
   text-wrap: balance;
+}
+main > .band#top.work-detail-hero--centre .lede-title {
+  max-width: 30ch;
 }
 main > .band#top.work-detail-hero--centre .lede-text {
   max-width: 60ch;
@@ -12501,4 +12507,65 @@ main > .band#top.work-detail-hero--centre .btn-row {
 /* Coory : les accès de la démo, centrés sous le bouton. */
 main > .band#top.work-detail-hero--centre > .col > [class*="demoAccess"] {
   width: min(100%, 34rem);
+}
+
+/* ---- Les titres : l'échelle de l'accueil, sur toutes les pages ----
+   Les pages internes avaient un titre plus petit (`.page-hero--inner h1`),
+   Nexus et Coory un troisième (`.work-detail-hero .lede-title`). Ici, la
+   même chaîne que le titre de l'accueil, dans le même ordre :
+   au-delà de 1700px, puis 960-1700, 901-959, et 36px sous 900px
+   (voir `.studio-hero h1` et ses quatre reprises plus haut). */
+main > section.page-hero--inner h1,
+main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+  font-size: clamp(2.85rem, 4.6vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+@media (max-width: 1023px) {
+  main > section.page-hero--inner h1,
+  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+    font-size: clamp(2.8rem, 6vw, 4rem);
+  }
+}
+@media (min-width: 960px) and (max-width: 1700px) {
+  main > section.page-hero--inner h1,
+  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+    font-size: clamp(2.75rem, 4.3vw, 3.75rem);
+    line-height: 1.04;
+  }
+}
+@media (max-width: 900px) {
+  main > section.page-hero--inner h1,
+  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+    font-size: 36px;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+}
+
+/* ---- Les paragraphes : la taille de celui de l'accueil ----
+   Les pages en `PageHero` l'ont déjà (`.studio-hero-copy > p`) ; Nexus et
+   Coory passent par `.lede-text`, aligné ici sur la même chaîne. */
+main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+@media (min-width: 960px) and (max-width: 1700px) {
+  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
+    line-height: 1.6;
+  }
+}
+@media (max-width: 900px) {
+  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
+    font-size: 16px;
+    line-height: 1.62;
+  }
+}
+/* Des fins de lignes équilibrées ; l'espace insécable de `sansVeuve` garde
+   de toute façon au moins deux mots sur la dernière ligne. */
+main > section.studio-hero .studio-hero-copy > p,
+main > section.studio-hero .hero-reassurance,
+main > .band#top.work-detail-hero--centre .lede-text {
+  text-wrap: pretty;
 }

@@ -1,4 +1,35 @@
-import type { ReactNode } from "react";
+import { Children, Fragment, cloneElement, isValidElement, type ReactNode } from "react";
+import { sansVeuve } from "@/lib/sans-veuve";
+
+/**
+ * ESSAI : lie les deux derniers mots d'un paragraphe du hero (voir
+ * `sansVeuve`). Descend dans un `<p>`, un `<span>` ou un fragment jusqu'au
+ * DERNIER texte qu'il contient ; tout autre élément est laissé intact.
+ */
+function lierFin(node: ReactNode): ReactNode {
+  if (typeof node === "string") return sansVeuve(node);
+  if (Array.isArray(node)) {
+    const copie = [...node];
+    for (let i = copie.length - 1; i >= 0; i--) {
+      if (typeof copie[i] === "string" || isValidElement(copie[i])) {
+        copie[i] = lierFin(copie[i]);
+        break;
+      }
+    }
+    return copie;
+  }
+  if (isValidElement<{ children?: ReactNode }>(node) && (node.type === "p" || node.type === "span" || node.type === Fragment)) {
+    const fin = lierFin(node.props.children);
+    return cloneElement(node, undefined, ...(Array.isArray(fin) ? fin : [fin]));
+  }
+  return node;
+}
+
+/** Les paragraphes du hero et sa mention « * Un premier échange… ». */
+function estTexteDuHero(node: ReactNode) {
+  if (!isValidElement<{ className?: string }>(node)) return false;
+  return node.type === "p" || (node.type === "span" && node.props.className === "hero-reassurance");
+}
 
 /**
  * Le hero commun aux pages principales, en deux dispositions.
@@ -39,8 +70,15 @@ import type { ReactNode } from "react";
  * simplement plus rendu. SAUF avec `keepAside`, réservé à Contact : sa
  * colonne de droite n'est pas une illustration mais le calendrier Cal.com,
  * qui porte l'ancre `#reservation` visée par tous les boutons « Parler de
- * votre besoin ». Il passe alors SOUS le texte, centré. Pour revenir à la
- * version en ligne, il suffit de revenir sur `main`.
+ * votre besoin ». Contact garde alors la disposition d'origine, NON
+ * centrée : texte à gauche, calendrier à droite, l'un sous l'autre sur
+ * téléphone (demande d'Antonino du 20/11). Pour revenir à la version en
+ * ligne, il suffit de revenir sur `main`.
+ *
+ * Toujours dans l'essai : les titres de tous les heros prennent l'échelle
+ * de celui de l'accueil (`studio.css`, bloc ESSAI), et les deux derniers
+ * mots de chaque paragraphe sont liés pour qu'aucun mot ne reste seul sur
+ * la dernière ligne.
  */
 export function PageHero({
   id = "top",
@@ -67,14 +105,16 @@ export function PageHero({
   className?: string;
   children: ReactNode;
 }) {
-  const grid = "studio-hero-grid studio-hero-grid--single";
+  const avecAside = keepAside && Boolean(aside);
+  const grid = ["studio-hero-grid", avecAside ? null : "studio-hero-grid--single"].filter(Boolean).join(" ");
   const kickerClass = ["studio-hero-kicker", kickerMobileOnly ? "studio-hero-kicker--mobile" : null]
     .filter(Boolean)
     .join(" ");
   const kickerNode = kicker ? <span className={kickerClass}>{kicker}</span> : null;
-  const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, "page-hero--centre", className]
+  const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, avecAside ? null : "page-hero--centre", className]
     .filter(Boolean)
     .join(" ");
+  const texte = Children.map(children, (c) => (estTexteDuHero(c) ? lierFin(c) : c));
 
   return (
     <section id={id} className={shell}>
@@ -84,7 +124,7 @@ export function PageHero({
             {kickerNode}
             <h1>{title}</h1>
             <div className={grid}>
-              <div className="studio-hero-copy">{children}</div>
+              <div className="studio-hero-copy">{texte}</div>
             </div>
           </>
         ) : (
@@ -92,9 +132,9 @@ export function PageHero({
             <div className="studio-hero-copy">
               {kickerNode}
               <h1>{title}</h1>
-              {children}
+              {texte}
             </div>
-            {keepAside ? aside : null}
+            {avecAside ? aside : null}
           </div>
         )}
       </div>

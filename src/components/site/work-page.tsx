@@ -15,6 +15,7 @@ import { Lede } from "@/components/site/lede";
 import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { COORY_DEMO, COORY_DEMO_URL, cooryCardCopy, findWork, work, type WorkItem, type WorkKind } from "@/lib/work";
 import { siteUrl } from "@/lib/site-url";
+import { sansVeuve } from "@/lib/sans-veuve";
 
 /** La pastille dit la NATURE du projet avant qu'on ait lu son titre. */
 const BADGE: Record<WorkKind, string> = {
@@ -190,7 +191,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           as="h1"
           title={item.title}
           accents={item.accent ? [item.accent] : undefined}
-          text={item.problem}
+          text={sansVeuve(item.problem)}
         />
         {isCoory ? (
           /* Le statut et le bouton de la démo partagent la troisième case de
