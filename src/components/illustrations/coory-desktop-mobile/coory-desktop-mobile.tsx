@@ -11,7 +11,8 @@ import { computeFrame } from "./timeline";
 /**
  * L'ILLUSTRATION « COORY SUR ORDINATEUR ET TÉLÉPHONE » (800 × 500, boucle de 26 s).
  *
- * Reproduction à l'identique de `CLAUDE_DESIGN_TO_CODE_HANDOFF/source/CooryDesktopMobile/`.
+ * Reproduction à l'identique de la maquette `CooryDesktopMobile` du dossier
+ * de passation du design (local, hors dépôt).
  * À gauche l'application sur ordinateur (agenda puis tâches), devant à droite
  * l'iPhone (comptabilité puis assistant IA) : deux scénarios sur une horloge.
  *

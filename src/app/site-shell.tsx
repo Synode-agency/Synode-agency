@@ -1,7 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import "./globals.css";
 import "./studio.css";
-import { Toaster } from "@/components/ui/sonner";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 
 // A neutral system sans keeps the interface crisp without a font download.
@@ -74,7 +73,6 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
         <ScrollReveal />
-        <Toaster position="top-center" />
       </body>
     </html>
   );

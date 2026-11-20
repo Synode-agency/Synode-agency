@@ -9,7 +9,7 @@ import { PlancheFrame } from "./planche-frame";
  *
  * Fenêtre claire, coupée à gauche : les semaines 1, 2 puis 3 défilent avec leurs quatre séances, puis le programme est publié (« ✓ Publié »).
  *
- * Reproduction à l'identique de `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-05/template.original.html`.
+ * Reproduction à l'identique de `components/ILL-05/template.original.html` (dossier de passation du design, local).
  * ⚠ Le JSX ci-dessous est une conversion MÉCANIQUE du gabarit (`{{ x }}` →
  * `v.x`, `sc-for` → `.map`, chaque trou de texte dans son <span>) : styles
  * inline et valeurs d'origine. Ne pas y retoucher une valeur à la main :

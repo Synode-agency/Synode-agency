@@ -9,7 +9,7 @@ import { PlancheFrame } from "./planche-frame";
  *
  * Fenêtre claire, coupée à droite : trois séances passent l'une après l'autre en « ✓ Encaissé », les compteurs descendent ; à droite, les tâches du jour.
  *
- * Reproduction à l'identique de `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-07/template.original.html`.
+ * Reproduction à l'identique de `components/ILL-07/template.original.html` (dossier de passation du design, local).
  * ⚠ Le JSX ci-dessous est une conversion MÉCANIQUE du gabarit (`{{ x }}` →
  * `v.x`, `sc-for` → `.map`, chaque trou de texte dans son <span>) : styles
  * inline et valeurs d'origine. Ne pas y retoucher une valeur à la main :

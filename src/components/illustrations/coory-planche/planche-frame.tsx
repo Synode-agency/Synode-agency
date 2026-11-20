@@ -9,7 +9,7 @@ import { computeFrame, type PlancheFrame } from "./timeline";
 
 /**
  * LE CADRE COMMUN DES ILLUSTRATIONS ILL-04 À ILL-08 (dossier de passation
- * `COORY_DESIGN_TO_CODE_HANDOFF`, planche « Coory ILL-04-08 Planche »).
+ * du design, local et hors dépôt, planche « Coory ILL-04-08 Planche »).
  *
  * Dans la planche, chaque illustration est un cadre fixe de 560 px de large
  * (400 ou 480 de haut), `overflow: hidden`, où l'écran est posé en absolu et

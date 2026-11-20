@@ -53,8 +53,8 @@ export function ThanksPage({ locale }: { locale: Locale }) {
  * ⚠ Rien ici n'est inventé : ni numéro d'entreprise, ni adresse, ni forme
  * juridique. Le montage passe par Smart et les mentions exactes doivent être
  * confirmées avec eux. Le texte vit dans `src/lib/legal-content.ts` ; ce qui
- * manque est entre crochets, affiché en évidence, et listé dans
- * `LEGAL_TODO.md`.
+ * manque est entre crochets, affiché en évidence, et listé dans la note de
+ * travail locale `LEGAL_TODO.md` (hors dépôt).
  */
 export function LegalPage({
   locale,

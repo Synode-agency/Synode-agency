@@ -9,7 +9,7 @@ import { PlancheFrame } from "./planche-frame";
  *
  * Téléphone en thème sombre, coupé en haut : un paiement de 120 € arrive, le résultat du mois et la barre de novembre montent, un message confirme l'enregistrement.
  *
- * Reproduction à l'identique de `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-06/template.original.html`.
+ * Reproduction à l'identique de `components/ILL-06/template.original.html` (dossier de passation du design, local).
  * ⚠ Le JSX ci-dessous est une conversion MÉCANIQUE du gabarit (`{{ x }}` →
  * `v.x`, `sc-for` → `.map`, chaque trou de texte dans son <span>) : styles
  * inline et valeurs d'origine. Ne pas y retoucher une valeur à la main :

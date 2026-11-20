@@ -7,8 +7,8 @@ import type { Locale } from "./content";
  * confirmé, notamment par Smart, est écrit ENTRE CROCHETS : la page les
  * affiche en évidence, pour qu'aucun visiteur ne les lise comme des
  * informations vérifiées. Ne jamais remplacer un crochet par une valeur
- * supposée. La liste de ce qui manque, et où le trouver, est dans
- * `LEGAL_TODO.md`, à la racine du projet.
+ * supposée. La liste de ce qui manque, et où le trouver, est tenue dans une
+ * note de travail locale (`LEGAL_TODO.md`, hors dépôt).
  *
  * Responsables du site et du traitement : Killian Schoebben et Antonino Lo
  * Bianco, rue des Alcyons 86, 1082 Bruxelles (donnés par Antonino le
@@ -24,8 +24,8 @@ import type { Locale } from "./content";
  *
  * Sources vérifiées le 12/11/2026 : SPF Économie (informations obligatoires
  * sur un site web, art. XII.6 et III.74 CDE), RGPD, politiques de Netlify et
- * de Cal.com, page « Entités » de smartbe.be. Le détail est dans
- * `LEGAL_TODO.md`.
+ * de Cal.com, page « Entités » de smartbe.be. Le détail est dans la note de
+ * travail locale `LEGAL_TODO.md` (hors dépôt).
  *
  * ⚠ Les prestataires cités doivent TOUJOURS correspondre à ceux réellement
  * branchés : un changement d'hébergeur, de boîte e-mail ou d'agenda change
@@ -120,7 +120,7 @@ const fr: LegalTexts = {
     {
       title: "Les données que nous traitons",
       blocks: [
-        "**Par le formulaire de contact.** Obligatoires : votre nom, votre adresse e-mail et la description de votre besoin. Facultatifs : entreprise ou activité, téléphone, site internet, échéance et budget envisagés. S’y ajoutent automatiquement la date de la demande, la langue de la page et, si vous écrivez depuis un cas d’usage, le nom de ce cas.",
+        "**Par le formulaire de contact.** Obligatoires : votre nom, votre adresse e-mail et la description de votre besoin. Facultatifs : entreprise ou activité, téléphone, site internet, échéance et budget envisagés. S’y ajoutent automatiquement la date de la demande et la langue de la page.",
         "**Par la réservation d’un échange.** Les informations que Cal.com vous demande pour réserver (au minimum votre nom, votre adresse e-mail et le créneau choisi).",
         "**Par e-mail.** Les messages que vous nous envoyez et nos échanges qui suivent.",
         "**Données techniques.** Pour afficher le site, notre hébergeur Netlify traite des données de connexion, dont votre adresse IP, votre navigateur et les pages demandées. Notre serveur utilise aussi votre adresse IP, temporairement et en mémoire seulement, pour limiter les envois répétés du formulaire. Il ne l’enregistre pas.",
@@ -318,7 +318,7 @@ const en: LegalTexts = {
     {
       title: "The data we process",
       blocks: [
-        "**Through the contact form.** Required: your name, your email address and a description of your need. Optional: company or activity, phone, website, timeline and budget in mind. We also record the date of the request, the language of the page and, if you write from a use case, the name of that use case.",
+        "**Through the contact form.** Required: your name, your email address and a description of your need. Optional: company or activity, phone, website, timeline and budget in mind. We also record the date of the request and the language of the page.",
         "**When you book a call.** The details Cal.com asks for to make the booking (at least your name, your email address and the slot you choose).",
         "**By email.** The messages you send us and the exchanges that follow.",
         "**Technical data.** To display the website, our host Netlify processes connection data, including your IP address, your browser and the pages requested. Our server also uses your IP address, temporarily and in memory only, to limit repeated form submissions. It does not record it.",

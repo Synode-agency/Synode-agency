@@ -15,4 +15,7 @@
 
    Le préfixe `NEXT_PUBLIC_` est le bon : cette valeur n'a rien de secret et
    sert aussi côté navigateur. */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://synode-agency.com").replace(/\/$/, "");
+/* `||` et non `??` : une variable présente mais VIDE (c'est le cas en copiant
+   `.env.example`) doit aussi retomber sur le domaine, sinon `new URL("")`
+   fait échouer la construction. */
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://synode-agency.com").replace(/\/$/, "");

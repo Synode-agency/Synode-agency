@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -1070,14 +1068,6 @@
   .form-input[aria-invalid="true"] { border-color: var(--destructive); }
   .form-error { font-size: var(--fs-micro); font-weight: 700; color: var(--destructive); }
 
-  .form-context {
-    padding: 0.8rem 1rem;
-    border-radius: var(--r-xs);
-    background: var(--accent);
-    font-size: var(--fs-small);
-    color: var(--accent-foreground);
-  }
-
   .form-notice {
     display: flex;
     align-items: flex-start;
@@ -1113,11 +1103,6 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-  .form-skeleton {
-    height: 28rem;
-    border-radius: var(--r-sm);
-    background: var(--surface-2);
   }
 
   /* =====================================================================
@@ -1166,12 +1151,6 @@
   .legal-body li::marker { color: var(--brand); }
   .legal-body strong { font-weight: 600; color: var(--foreground); }
   .legal-body a { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; overflow-wrap: anywhere; }
-  /* Un manque est signalé dans le texte, pas caché dans un commentaire. */
-  .legal-gap {
-    padding: 0.85rem 1rem;
-    border-left: 2px solid var(--brand);
-    background: color-mix(in oklab, var(--brand) 4%, transparent);
-  }
   /* L'élément à confirmer, entre crochets, au fil du texte : même famille
      visuelle que l'encadré « Brouillon » (`.todo`), pour qu'on ne le
      prenne jamais pour une information vérifiée. */

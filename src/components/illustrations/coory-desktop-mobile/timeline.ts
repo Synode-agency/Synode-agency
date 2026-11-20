@@ -4,7 +4,8 @@
  * L'ÉTAT DE L'ILLUSTRATION CooryDesktopMobile À L'INSTANT t (boucle de 26 s).
  *
  * ⚠ Le corps de `computeFrame` est une COPIE EXACTE du corps de
- * `renderVals()` dans `CLAUDE_DESIGN_TO_CODE_HANDOFF/source/CooryDesktopMobile/logic.original.js`.
+ * `renderVals()` dans `CooryDesktopMobile/logic.original.js`, du dossier de
+ * passation du design (local, hors dépôt).
  * Aucun nombre, aucune couleur, aucune durée n'a été touché. Seules quatre
  * choses ont changé, et uniquement parce que `this` n'existe plus ici :
  *  - `this.state.t` est devenu le paramètre `time` ;

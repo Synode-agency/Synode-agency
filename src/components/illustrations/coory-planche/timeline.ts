@@ -4,7 +4,7 @@
  * L'ÉTAT DES ILLUSTRATIONS ILL-04 À ILL-08 À L'INSTANT T (secondes).
  *
  * ⚠ Le corps de `computeFrame` est une COPIE EXACTE du corps de
- * `renderVals()` dans `COORY_DESIGN_TO_CODE_HANDOFF/source/planche/logic.original.js` :
+ * `renderVals()` dans `source/planche/logic.original.js` (dossier de passation du design, local) :
  * mêmes modulos (8 / 10 / 7 / 8 / 9,5 s), mêmes aides (`cl`, `e`, `fm`,
  * `inr`), mêmes valeurs. Seules deux lignes ont changé, parce que `this`
  * n'existe plus ici :

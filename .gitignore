@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,8 +41,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Working screenshots used as design references — not site content, and
-# anything under public/ is served publicly once deployed.
+# Captures de travail servant de références de design : ce n'est pas du
+# contenu du site, et tout ce qui est sous public/ est servi publiquement.
 /public/screenshots/
 /public/card-retravailler/
 
@@ -50,9 +51,3 @@ next-env.d.ts
 
 # netlify
 .netlify
-
-# Le dossier de passation des illustrations Coory (design → code) : la
-# source de travail des composants de `src/components/illustrations`, pas
-# du contenu du site.
-/CLAUDE_DESIGN_TO_CODE_HANDOFF/
-/COORY_DESIGN_TO_CODE_HANDOFF/

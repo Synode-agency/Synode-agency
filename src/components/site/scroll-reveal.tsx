@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
  * LES APPARITIONS, DITES « REVEAL ».
  *
  * Un seul utilitaire pour tout le site, monté une fois dans le shell. Aucune
- * page ne déclare rien. C'est la condition posée dans
- * `docs/SITE_A_COMPLETER.md`, « Les animations ».
+ * page ne déclare rien. C'est la condition posée par le cahier des charges
+ * du site, au chapitre « Les animations ».
  *
  * ── DEUX MOMENTS ────────────────────────────────────────────────────────
  * 1. LE HÉROS, à l'arrivée sur la page — toutes les pages SAUF l'accueil.

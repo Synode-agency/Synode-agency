@@ -4,7 +4,7 @@
  * L'ÉTAT DE L'ILLUSTRATION ILL-03 « FICHE SPORTIF » À L'INSTANT t (boucle de 12 s).
  *
  * ⚠ Le corps de `computeFrame` est une COPIE EXACTE du corps de
- * `renderVals()` dans `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-03/logic.original.js`.
+ * `renderVals()` dans `components/ILL-03/logic.original.js` (dossier de passation du design, local).
  * Seules trois choses ont changé, parce que `this` n'existe plus ici :
  *  - `this.L` est devenu la constante `L` (12 s) ;
  *  - l'instant vient du paramètre `time`, ramené dans la boucle (`time % L`),
@@ -46,5 +46,3 @@ export function computeFrame(time: number, scale: number) {
       floatTf: `translateY(${(4 * Math.sin(t / 6 * 2 * Math.PI)).toFixed(2)}px)`,
     };
 }
-
-export type FicheFrame = ReturnType<typeof computeFrame>;

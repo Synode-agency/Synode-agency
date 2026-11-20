@@ -2,10 +2,9 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
 import { ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { findUseCase } from "@/lib/use-cases";
 
 type FieldName = "name" | "email" | "need" | "website";
 
@@ -22,15 +21,11 @@ type FieldName = "name" | "email" | "need" | "website";
  *     était indisponible.
  *  3. Envoyer deux fois. Le bouton se verrouille pendant l'envoi, et un
  *     double clic ne crée pas deux demandes.
- *
- * Le contexte du cas d'usage est prérempli depuis l'URL, et il reste
- * MODIFIABLE : c'est une proposition de départ, pas une case verrouillée.
  */
 export function ContactForm({ locale }: { locale: Locale }) {
   const { contact } = getContent(locale);
   const f = contact.form;
   const router = useRouter();
-  const params = useSearchParams();
   const uid = useId();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -41,13 +36,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
      la réponse reçue, sinon il clignote au chargement de chaque page. */
   const [configured, setConfigured] = useState<boolean | null>(null);
 
-  const caseSlug = params.get("cas") ?? "";
-  const matched = caseSlug ? findUseCase(locale, caseSlug) : undefined;
-  /* Le préremplissage est l'état INITIAL, calculé une fois au montage. Le
-     faire dans un effet reviendrait à écrire dans le champ après l'avoir
-     affiché vide, et surtout à risquer d'écraser ce que le visiteur a déjà
-     tapé si l'URL changeait. Ici, ce qu'il écrit gagne toujours. */
-  const [need, setNeed] = useState(() => (matched ? prefill(matched.title, locale) : ""));
+  const [need, setNeed] = useState("");
 
   /* Le brief préparé sur l'accueil, repris dans le champ de message.
 
@@ -134,7 +123,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
           timeline: get("timeline"),
           budget: get("budget"),
           company_url: get("company_url"),
-          useCase: caseSlug,
           locale,
         }),
       });
@@ -170,13 +158,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <p role="status" className="form-notice">
           <AlertCircle aria-hidden />
           {f.errors.notConfigured}
-        </p>
-      )}
-
-      {matched && (
-        <p className="form-context">
-          {locale === "fr" ? "Depuis le cas d’usage :" : "From the use case:"}{" "}
-          <strong>{matched.title}</strong>
         </p>
       )}
 
@@ -292,13 +273,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
       </div>
     </form>
   );
-}
-
-/** La phrase de départ, que le visiteur peut réécrire entièrement. */
-function prefill(title: string, locale: Locale) {
-  return locale === "fr"
-    ? `Bonjour, je vous écris au sujet de : ${title.toLowerCase()}.\n\nDans notre cas, `
-    : `Hello, I am writing about: ${title.toLowerCase()}.\n\nIn our case, `;
 }
 
 function Field({

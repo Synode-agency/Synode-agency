@@ -25,7 +25,7 @@ import { computeFrame } from "./timeline";
  * mesure `getBoundingClientRect`, ce qui revient au même dans la planche,
  * où rien ne réduit le cadre, mais compterait la réduction deux fois ici.)
  *
- * Reproduction à l'identique de `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-03/`.
+ * Reproduction à l'identique de `components/ILL-03/` (dossier de passation du design, local).
  * ⚠ Le JSX de la scène est une conversion MÉCANIQUE de `template.original.html` :
  * ne pas y retoucher une valeur à la main, corriger l'original et reconvertir.
  * L'horloge est celle de l'original : un pas toutes les 40 ms, borné à 0,2 s,

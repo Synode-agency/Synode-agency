@@ -1446,20 +1446,6 @@ footer.band--white .wordmark-type {
   background: #142b45;
   color: #dceaff;
 }
-.work-editorial-note {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 2rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #dce2eb;
-}
-.work-editorial-note p {
-  max-width: 70ch;
-  line-height: 1.8;
-  font-size: 0.9rem;
-  color: #626a76;
-}
 
 /* Booking preview: visually complete, explicitly not live availability. */
 .calendar-demo {
@@ -1566,11 +1552,6 @@ footer.band--white .wordmark-type {
     grid-template-columns: 1.5fr 1fr;
   }
   }
-@media (max-width: 760px) {
-  .work-editorial-note {
-    grid-template-columns: 1fr;
-  }
-}
 @media (max-width: 540px) {
   .calendar-demo-body {
     grid-template-columns: 1fr;
@@ -8578,23 +8559,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   }
 }
 
-/* ---- MOBILE · DEUX BLOCS ÉDITORIAUX QUI RESTAIENT À GAUCHE ----
-   « Résultats recherchés » sur Cas d'usage, et la note de transparence en bas
-   de Réalisations. L'accueil centre déjà le premier par une règle scopée à
-   `.home-impact-light` ; ces deux-là n'étaient couverts nulle part. */
+/* ---- MOBILE · LE BLOC « RÉSULTATS RECHERCHÉS » DE CAS D'USAGE ----
+   Aligné à gauche sur téléphone. L'accueil a sa propre règle, scopée à
+   `.home-impact-light`. (La note de transparence de Réalisations, qui
+   partageait cette règle, n'existe plus depuis le 20/11/2026.) */
 @media (max-width: 760px) {
   .operational-impact-heading,
-  .operational-impact-heading :is(h2, p),
-  .work-editorial-note,
-  .work-editorial-note :is(h3, p) {
+  .operational-impact-heading :is(h2, p) {
     text-align: left;
-  }
-  .work-editorial-note {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: flex-start;
-  }
-  .work-editorial-note p {
-    margin-inline: 0;
   }
 }
 
@@ -9068,7 +9040,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     font-size: 16px;
     line-height: 1.62;
   }
-  .legal-gap,
   .rows .row + .row {
     margin-top: 34px;
   }

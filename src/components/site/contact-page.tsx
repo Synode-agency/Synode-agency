@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowDown } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
@@ -62,11 +61,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
             est donc appliquée ici. */}
         <Lede title={contact.form.title} text={renderLines(contact.form.text)} />
         <div className="section-gap contact-form-card">
-          {/* `useSearchParams` impose une frontière de Suspense : sans elle,
-              toute la page basculerait en rendu dynamique. */}
-          <Suspense fallback={<div className="form-skeleton" aria-hidden />}>
-            <ContactForm locale={locale} />
-          </Suspense>
+          <ContactForm locale={locale} />
         </div>
       </Band>
     </Shell>

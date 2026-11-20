@@ -46,7 +46,6 @@ export type ContactRequest = {
   website?: string;
   timeline?: string;
   budget?: string;
-  useCase?: string;
   locale: string;
 };
 
@@ -110,7 +109,6 @@ function brevoAttributes(req: ContactRequest) {
   if (req.website) attributes.SITE_WEB = req.website;
   if (req.timeline) attributes.ECHEANCE = req.timeline;
   if (req.budget) attributes.BUDGET = req.budget;
-  if (req.useCase) attributes.CAS_USAGE = req.useCase;
   return attributes;
 }
 
@@ -221,7 +219,6 @@ export async function notifyByEmail(req: ContactRequest): Promise<boolean> {
     req.website && `Site      : ${req.website}`,
     req.timeline && `Échéance  : ${req.timeline}`,
     req.budget && `Budget    : ${req.budget}`,
-    req.useCase && `Cas       : ${req.useCase}`,
     `Langue    : ${req.locale}`,
     "",
     req.need,

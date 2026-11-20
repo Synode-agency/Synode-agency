@@ -279,28 +279,6 @@
   white-space: nowrap;
 }
 
-/* ---- LES PLUS PETITS ÉCRANS.
-   À 320px, l'en-tête n'a que 280px pour la marque, la pastille de langue et
-   la croix. La marque descend donc d'un cran et la pastille se resserre :
-   112 + 90 + 44 et deux écarts de 8, soit 262px. Les corps de texte, eux,
-   ne bougent pas — c'est tout l'objet de ce menu. ---- */
-@media (max-width: 360px) {
-  .head {
-    gap: 8px;
-    padding: 0 16px;
-  }
-  .brand :global(.wordmark-part:not(.wordmark-type)) {
-    width: 28px;
-    height: 28px;
-  }
-  .brand :global(.wordmark-type) {
-    height: 21px;
-  }
-  .langItem {
-    padding: 7px 10px;
-  }
-}
-
 /* ⚠ La dernière règle du fichier, et la frontière du périmètre : au-dessus
    de 1080px le panneau n'existe pas, et c'est la navigation de bureau qui
    s'affiche. 1080px est le seuil déjà posé pour `.site-nav` et le bouton ☰,

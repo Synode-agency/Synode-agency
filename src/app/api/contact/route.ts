@@ -29,7 +29,6 @@ const LIMITS = {
   website: 300,
   timeline: 60,
   budget: 60,
-  useCase: 60,
   need: 4000,
 } as const;
 
@@ -128,7 +127,6 @@ export async function POST(request: Request) {
     website: website || undefined,
     timeline: clean(body.timeline, LIMITS.timeline) || undefined,
     budget: clean(body.budget, LIMITS.budget) || undefined,
-    useCase: clean(body.useCase, LIMITS.useCase) || undefined,
     locale: clean(body.locale, 5) || "fr",
   };
 

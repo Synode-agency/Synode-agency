@@ -9,7 +9,7 @@
  * Règle de fond, tenue partout dans ce fichier : aucun client, témoignage,
  * chiffre de performance, certification, délai garanti, adresse ni numéro
  * légal n'est inventé. Ce qui manque est marqué par un emplacement réservé
- * visible et listé dans `docs/SITE_A_COMPLETER.md`.
+ * visible.
  *
  * Les cas d'usage et les réalisations vivent dans leurs propres fichiers :
  * ils sont volumineux et ils changeront à un autre rythme que le reste.
@@ -39,9 +39,7 @@ export const ROUTES = {
   home: "/",
   solutions: "/solutions",
   useCases: "/cas-usage",
-  method: "/methode",
   work: "/realisations",
-  tools: "/outils",
   team: "/equipe",
   contact: "/contact",
   thanks: "/merci",
@@ -82,7 +80,6 @@ const fr = {
 
   site: {
     name: "Synode",
-    /* ⚠ À confirmer avant mise en ligne : voir docs/SITE_A_COMPLETER.md. */
     email: "contact@synode-agency.com",
     location: "Bruxelles, Belgique",
     tagline:
@@ -118,33 +115,6 @@ const fr = {
       ],
     },
 
-    problems: {
-      kicker: "Ce qui vous ralentit",
-      title: "Quatre situations\n^qu’on retrouve partout",
-      text: "Vous en reconnaîtrez probablement une. C’est en général par là qu’un projet commence.",
-      items: [
-        {
-          title: "Des tâches refaites à la main chaque semaine",
-          text: "Les mêmes gestes, le même jour, sur les mêmes dossiers. Personne n’a le temps de s’arrêter pour les traiter autrement.",
-          useCase: "preparer-rendez-vous",
-        },
-        {
-          title: "Des outils qui ne se parlent pas",
-          text: "L’information est dans le mail, le devis dans un dossier, le suivi dans un tableur. On recopie d’un écran à l’autre.",
-          useCase: "vue-commune",
-        },
-        {
-          title: "Des demandes difficiles à traiter",
-          text: "Les messages arrivent de partout, il faut les lire pour savoir de quoi il s’agit, et les urgents se noient dans le reste.",
-          useCase: "trier-emails",
-        },
-        {
-          title: "De l’information qu’on ne retrouve pas",
-          text: "La bonne procédure existe. Elle est dans un document que personne ne retrouve, ou chez la personne absente.",
-          useCase: "recherche-documents",
-        },
-      ],
-    },
 
     useCases: {
       kicker: "Cas d’usage",
@@ -153,20 +123,6 @@ const fr = {
       cta: "Explorer les cas d’usage",
     },
 
-    offer: {
-      kicker: "Notre offre",
-      title: "Une seule offre,\n^construite pour vous",
-      text: "Un petit projet ciblé et un outil métier complet relèvent de la même offre. Ce qui change, c’est le périmètre, le budget et l’accompagnement, pas la nature du travail.",
-      /* Les briques ne sont pas un menu : ce sont les matériaux possibles. */
-      bricks: [
-        { title: "Agents IA", text: "Analyse, recherche, préparation de réponses, aide à la décision." },
-        { title: "Automatisations", text: "Traitement des demandes, des documents, des tâches et des circuits de validation." },
-        { title: "Intégrations", text: "Connexion à vos logiciels et à vos données existants." },
-        { title: "Outils métier", text: "Interfaces, espaces internes, bases de données et tableaux de bord." },
-      ],
-      note: "L’IA fait partie de chaque projet, avec une utilité identifiée. Si elle n’apporte rien à votre problème, nous vous le disons et nous réorientons la demande.",
-      cta: "Découvrir notre approche",
-    },
       /* Le schéma d'architecture de la bande Offre. Trois étages : ce que
          l'entreprise possède déjà, ce que nous construisons entre les deux,
          et ce qui en sort. C'est l'argument de la section, montré. */
@@ -250,7 +206,6 @@ const fr = {
     title: "Une solution construite\n^à partir de votre besoin",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
 
-    bricksTitle: "Nos solutions sur mesure, avec l’IA intégrée",
     bricks: [
       {
             "slug": "agents-ia",
@@ -326,20 +281,7 @@ const fr = {
 
 
 
-    sizing: [
-      { title: "L’objectif", text: "Ce que la solution doit changer, et comment on saura que c’est le cas." },
-      { title: "La complexité", text: "Le nombre de cas particuliers et d’exceptions à traiter." },
-      { title: "Les données", text: "Leur disponibilité, leur qualité et les droits d’accès." },
-      { title: "Les intégrations", text: "Le nombre d’outils à connecter et ce qu’ils permettent réellement." },
-      { title: "Les utilisateurs", text: "Combien de personnes s’en servent, et avec quel niveau de contrôle." },
-      { title: "Les contraintes", text: "Confidentialité, validation humaine obligatoire, volumes à absorber." },
-    ],
 
-    pricing: [
-      { title: "Création", text: "Cadrage, développement, intégrations, tests et déploiement. Prix et échéancier propres au projet." },
-      { title: "Exploitation, maintenance & monitoring", text: "Un paiement récurrent propre à chaque solution mise en service. Il couvre uniquement les services, la surveillance et les interventions précisés au contrat." },
-      { title: "Évolutions importantes", text: "Nouveau périmètre, nouveau chiffrage, accord écrit avant réalisation." },
-    ],
 
     faqTitle: "Questions fréquentes sur nos solutions sur mesure",
     faq: [
@@ -497,7 +439,6 @@ const fr = {
       },
     },
 
-    direct: { title: "Ou directement", emailLabel: "Par email" },
   },
 
   thanks: {
@@ -568,33 +509,6 @@ const en = {
       stack: ["AI agents", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
     },
 
-    problems: {
-      kicker: "What slows you down",
-      title: "Four situations\n^we find everywhere",
-      text: "You will probably recognise one of them. That is usually where a project starts.",
-      items: [
-        {
-          title: "The same work, redone by hand every week",
-          text: "Same steps, same day, same files, and nobody has the time to stop and change how it is done.",
-          useCase: "preparer-rendez-vous",
-        },
-        {
-          title: "Tools that do not talk to each other",
-          text: "The context is in an email, the quote in a folder, the follow-up in a spreadsheet. People retype from one screen to the next.",
-          useCase: "vue-commune",
-        },
-        {
-          title: "Incoming requests that are hard to handle",
-          text: "Messages arrive from everywhere, you have to read them to know what they are about, and the urgent ones sink into the rest.",
-          useCase: "trier-emails",
-        },
-        {
-          title: "Information nobody can find",
-          text: "The right procedure exists. It is in a document nobody can locate, or with the person who is away.",
-          useCase: "recherche-documents",
-        },
-      ],
-    },
 
     useCases: {
       kicker: "Use cases",
@@ -603,19 +517,6 @@ const en = {
       cta: "Explore the use cases",
     },
 
-    offer: {
-      kicker: "What we sell",
-      title: "One offer,\n^built for you",
-      text: "A small, targeted project and a full internal tool are the same offer. What changes is the scope, the budget and the support, not the nature of the work.",
-      bricks: [
-        { title: "AI agents", text: "Reading, searching, summarising, drafting, supporting a decision." },
-        { title: "Automations", text: "Handling requests, documents, tasks and approval routes." },
-        { title: "Integrations", text: "Connecting the software and the data you already have." },
-        { title: "Internal tools", text: "Interfaces, internal spaces, databases and dashboards." },
-      ],
-      note: "AI is part of every project, with a purpose we can point to. If it adds nothing to your problem, we say so and steer the request elsewhere.",
-      cta: "See how we work",
-    },
       architecture: {
         caption: "What we build, and where it sits",
         tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
@@ -695,7 +596,6 @@ const en = {
     title: "A solution built\n^from your need",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
-    bricksTitle: "Our custom solutions, with built-in AI",
     bricks: [
       {
             "slug": "agents-ia",
@@ -769,20 +669,7 @@ const en = {
 
 
 
-    sizing: [
-      { title: "The goal", text: "What the solution has to change, and how we will know it did." },
-      { title: "Complexity", text: "How many edge cases and exceptions there are to handle." },
-      { title: "The data", text: "Whether it exists, whether it is clean, and who is allowed to see it." },
-      { title: "Integrations", text: "How many tools to connect, and what they actually allow." },
-      { title: "Users", text: "How many people use it, and with how much control." },
-      { title: "Constraints", text: "Confidentiality, mandatory human approval, volume to absorb." },
-    ],
 
-    pricing: [
-      { title: "Build", text: "Scoping, development, integrations, testing and deployment. Price and schedule specific to the project." },
-      { title: "Running, maintenance & monitoring", text: "A recurring payment specific to each live solution. It covers only the services, monitoring and support stated in the contract." },
-      { title: "Significant changes", text: "New scope, new quote, written agreement before any work." },
-    ],
 
     faqTitle: "Common questions about our custom solutions",
     faq: [
@@ -904,7 +791,6 @@ const en = {
       },
     },
 
-    direct: { title: "Or directly", emailLabel: "By email" },
   },
 
   thanks: {

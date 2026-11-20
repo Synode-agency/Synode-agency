@@ -9,7 +9,7 @@ import { PlancheFrame } from "./planche-frame";
  *
  * Fenêtre claire, coupée à droite : le coach tape sa demande, l'assistant prépare une semaine d'affûtage, le coach la crée d'un clic (« ✓ Programme créé »).
  *
- * Reproduction à l'identique de `COORY_DESIGN_TO_CODE_HANDOFF/components/ILL-08/template.original.html`.
+ * Reproduction à l'identique de `components/ILL-08/template.original.html` (dossier de passation du design, local).
  * ⚠ Le JSX ci-dessous est une conversion MÉCANIQUE du gabarit (`{{ x }}` →
  * `v.x`, `sc-for` → `.map`, chaque trou de texte dans son <span>) : styles
  * inline et valeurs d'origine. Ne pas y retoucher une valeur à la main :
