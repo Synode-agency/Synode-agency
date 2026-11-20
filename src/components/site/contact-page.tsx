@@ -33,6 +33,8 @@ export function ContactPage({ locale }: { locale: Locale }) {
         kicker="Contact"
         kickerMobileOnly
         title={locale === "fr" ? <>Parlons de votre <span>projet</span></> : <>Let’s discuss your <span>project</span></>}
+        /* ESSAI heros centrés : le calendrier reste, sous le texte. */
+        keepAside
         aside={
           /* Le calendrier porte l'ancre : les liens du site arrivent donc
              directement sur lui. `cta-booking-calendar` lui donne sa marge

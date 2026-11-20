@@ -3,14 +3,11 @@ import { ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { HeroGallery } from "@/components/realisations";
-import { HeroDashboard } from "@/components/nexus";
-import { HeroCompact } from "@/components/hero-compact";
 import { ContextSection } from "@/components/nexus/context-section";
 import { GoalsSection } from "@/components/nexus/goals-section";
 import { nexusSections } from "@/components/nexus/nexus-sections";
 import { windowsFor } from "@/components/nexus/windows-content";
 import nexus from "@/components/nexus/hero-dashboard.module.css";
-import { CooryDashboardLight } from "@/components/illustrations";
 import { CooryContextSection, CooryGoalsSection, cooryContent } from "@/components/coory";
 import cooryStyles from "@/components/coory/coory-sections.module.css";
 import { HomeWorkCards } from "./home-work-cards";
@@ -187,7 +184,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
       {/* Le texte reste à gauche, à l'identique ; le tableau de bord est
           ajouté à droite. La grille vit sur le `.col` de la bande : voir le
           commentaire au bas de `hero-dashboard.module.css`. */}
-      <Band id="top" tone="base" className="work-detail-hero" bodyClassName={nexus.heroSplit}>
+      <Band id="top" tone="base" className="work-detail-hero work-detail-hero--centre" bodyClassName={nexus.heroSplit}>
         <span className={BADGE[item.kind]}>{w.kinds[item.kind]}</span>
         <Lede
           as="h1"
@@ -223,20 +220,12 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
         ) : (
           <p className="work-status section-gap-sm">{item.status}</p>
         )}
+        {/* ESSAI (branche `essai-heros-centres`, 20/11/2026) : plus aucune
+            illustration dans le hero. Nexus perd son tableau de bord et sa
+            card compacte ; Coory perd son application mais GARDE les accès
+            de la démo, seul moyen d'essayer Coory, centrés sous le texte. */}
         {isCoory ? (
-          /* La colonne de droite de Coory (demande d'Antonino du 14/11) :
-             l'application, calée en haut, puis les accès de la démo juste
-             dessous, sans encadré. Sur téléphone aussi, à la place de la card
-             compacte : l'illustration est simplement réduite. La classe
-             `hero-visual-desktop` est gardée pour la séquence d'entrée du
-             héros (`scroll-reveal.tsx`) ; `heroAside` annule son masquage
-             sous 900px. */
-          <div className={`hero-visual-desktop ${cooryStyles.heroAside}`}>
-            <CooryDashboardLight frame="app" />
-            {/* Les accès de la démo (14/11/2026) : le compte partagé, SEUL
-                moyen d'essayer Coory depuis Synode. Le code d'accès pour
-                créer son propre espace a été retiré le 15/11 à la demande
-                d'Antonino. Valeurs des variables Netlify. */}
+          <>
             {COORY_DEMO_URL && COORY_DEMO.email && COORY_DEMO.password ? (
               <div className={cooryStyles.demoAccess}>
                 <p className={cooryStyles.demoTitle}>
@@ -263,29 +252,8 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                 </div>
               </div>
             ) : null}
-          </div>
-        ) : (
-          <>
-          <div className="hero-visual-desktop">
-            <HeroDashboard locale={locale} />
-          </div>
-          <HeroCompact
-            title={locale === "fr" ? "Nexus · Vue d’ensemble" : "Nexus · Overview"}
-            status={locale === "fr" ? "outil interne" : "internal tool"}
-            tiles={locale === "fr" ? [
-              { label: "Total leads", value: "570" },
-              { label: "Leads qualifiés", value: "128" },
-              { label: "Leads contactés", value: "64" },
-              { label: "Jobs en cours", value: "3" },
-            ] : [
-              { label: "Total leads", value: "570" },
-              { label: "Qualified leads", value: "128" },
-              { label: "Leads contacted", value: "64" },
-              { label: "Jobs running", value: "3" },
-            ]}
-          />
           </>
-        )}
+        ) : null}
       </Band>
 
       {/* ⚠ Les deux bandes portent leur ton par une CLASSE, pas par `tone` :

@@ -12410,3 +12410,95 @@ html[data-rv-hero] main > section#top:not(.home-page-hero) :is(
     transition: none !important;
   }
 }
+
+/* =====================================================================
+   ESSAI : HEROS CENTRÉS, SANS ILLUSTRATION
+   (branche `essai-heros-centres`, 20/11/2026, à montrer à Killian)
+
+   Sur toutes les pages, le hero perd son illustration (bureau comme
+   téléphone) et tout son texte se centre, comme le titre de l'accueil :
+   surtitre, titre, paragraphe, puis les boutons centrés sous lui.
+   Deux exceptions gardent un bloc sous le texte, centré : le calendrier de
+   Contact (il porte l'ancre `#reservation`) et les accès de la démo Coory.
+
+   ⚠ En fin de feuille et préfixé par `main > section` : il doit battre
+   les règles d'alignement à gauche des pages (accueil et Solutions sur
+   téléphone, pages internes sous 1024px, six pages services), qui pèsent
+   jusqu'à trois classes.
+   ===================================================================== */
+main > section.page-hero--centre .studio-hero-grid {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+main > section.page-hero--centre .studio-hero-copy {
+  width: 100%;
+  max-width: 52rem;
+  margin-inline: auto;
+  padding-inline: 0;
+  align-items: center;
+  text-align: center;
+}
+main > section.page-hero--centre .studio-hero-kicker {
+  align-self: center;
+  text-align: center;
+}
+main > section.page-hero--centre h1 {
+  margin-inline: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+main > section.page-hero--centre .studio-hero-copy > p,
+main > section.page-hero--centre .hero-reassurance {
+  max-width: 60ch;
+  margin-inline: auto;
+  text-align: center;
+}
+/* `align-items` autant que `justify-content` : sous 400px la rangée passe
+   en colonne, et c'est alors `align-items` qui centre. */
+main > section.page-hero--centre .studio-hero-copy > .btn-row {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+/* Contact : le calendrier, sous le texte. */
+main > section.page-hero--centre .cta-booking-calendar {
+  width: min(100%, 44rem);
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+/* ---- Les pages projet (Nexus, Coory) : une seule colonne ----
+   La grille `.heroSplit` place ses enfants par rang en deux colonnes ; ici
+   tout revient dans la première, centré. */
+main > .band#top.work-detail-hero--centre > .col {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+main > .band#top.work-detail-hero--centre > .col > * {
+  grid-column: 1;
+  grid-row: auto;
+  align-self: auto;
+  justify-self: center;
+}
+main > .band#top.work-detail-hero--centre > .col > .lede {
+  width: 100%;
+  max-width: 52rem;
+  align-items: center;
+  text-align: center;
+}
+main > .band#top.work-detail-hero--centre .lede-title,
+main > .band#top.work-detail-hero--centre .lede-text {
+  margin-inline: auto;
+  text-align: center;
+  text-wrap: balance;
+}
+main > .band#top.work-detail-hero--centre .lede-text {
+  max-width: 60ch;
+}
+main > .band#top.work-detail-hero--centre .btn-row {
+  justify-content: center;
+}
+/* Coory : les accès de la démo, centrés sous le bouton. */
+main > .band#top.work-detail-hero--centre > .col > [class*="demoAccess"] {
+  width: min(100%, 34rem);
+}

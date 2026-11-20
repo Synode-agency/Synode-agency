@@ -145,7 +145,7 @@ export function ScrollReveal() {
     const sequence: Array<[HTMLElement, number]> = [];
     if (heros && herosPermis) {
       const groupes: Array<[string, number, string]> = [
-        [HEROS_TEXTE, TEMPS_HEROS.texte, "left"],
+        [HEROS_TEXTE, TEMPS_HEROS.texte, "bottom"], // ESSAI heros centrés : montée par le bas (était "left")
         [HEROS_BOUTONS, TEMPS_HEROS.boutons, "bottom"],
         [HEROS_VISUEL, TEMPS_HEROS.visuel, "right"],
       ];

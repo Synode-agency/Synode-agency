@@ -31,6 +31,16 @@ import type { ReactNode } from "react";
  * illustration garde ainsi ses propres règles de largeur et d'alignement.
  * Sans illustration, la grille passe à une colonne plutôt que de laisser un
  * vide à droite.
+ *
+ * ⚠ ESSAI (branche `essai-heros-centres`, 20/11/2026) : AUCUN hero n'affiche
+ * plus son illustration, et tout le texte du hero est centré, comme le titre
+ * de l'accueil (classe `page-hero--centre`, règles en fin de `studio.css`).
+ * `aside` reste dans la signature pour ne toucher à aucune page : il n'est
+ * simplement plus rendu. SAUF avec `keepAside`, réservé à Contact : sa
+ * colonne de droite n'est pas une illustration mais le calendrier Cal.com,
+ * qui porte l'ancre `#reservation` visée par tous les boutons « Parler de
+ * votre besoin ». Il passe alors SOUS le texte, centré. Pour revenir à la
+ * version en ligne, il suffit de revenir sur `main`.
  */
 export function PageHero({
   id = "top",
@@ -39,6 +49,7 @@ export function PageHero({
   kickerMobileOnly = false,
   title,
   aside,
+  keepAside = false,
   strip,
   className,
   children,
@@ -51,16 +62,17 @@ export function PageHero({
   kickerMobileOnly?: boolean;
   title: ReactNode;
   aside?: ReactNode;
+  keepAside?: boolean;
   strip?: ReactNode;
   className?: string;
   children: ReactNode;
 }) {
-  const grid = ["studio-hero-grid", aside ? null : "studio-hero-grid--single"].filter(Boolean).join(" ");
+  const grid = "studio-hero-grid studio-hero-grid--single";
   const kickerClass = ["studio-hero-kicker", kickerMobileOnly ? "studio-hero-kicker--mobile" : null]
     .filter(Boolean)
     .join(" ");
   const kickerNode = kicker ? <span className={kickerClass}>{kicker}</span> : null;
-  const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, className]
+  const shell = ["studio-hero", "home-dark-band", "home-hero-dark", layout === "inner" ? "page-hero--inner" : null, "page-hero--centre", className]
     .filter(Boolean)
     .join(" ");
 
@@ -73,7 +85,6 @@ export function PageHero({
             <h1>{title}</h1>
             <div className={grid}>
               <div className="studio-hero-copy">{children}</div>
-              {aside}
             </div>
           </>
         ) : (
@@ -83,7 +94,7 @@ export function PageHero({
               <h1>{title}</h1>
               {children}
             </div>
-            {aside}
+            {keepAside ? aside : null}
           </div>
         )}
       </div>
