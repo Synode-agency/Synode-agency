@@ -3012,12 +3012,15 @@ main > .band.home-impact-light .isp {
   border-color: #9db8f2;
   box-shadow: 0 24px 50px rgb(11 107 230 / 10%);
 }
-.slc-card:focus-visible {
+/* Le focus est sur la bande, qui devient transparente à l'ouverture : c'est
+   donc la carte qui porte l'anneau, pour qu'il reste visible. */
+.slc-card:has(> .slc-rail:focus-visible) {
   outline: 2px solid #0b6be6;
   outline-offset: 2px;
 }
 
-/* ---- La bande fermée ---- */
+/* ---- La bande fermée ----
+   Un vrai `<button>` : on lui retire les styles par défaut du navigateur. */
 .slc-rail {
   position: absolute;
   inset: 0;
@@ -3026,9 +3029,20 @@ main > .band.home-impact-light .isp {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  margin: 0;
   padding-block: 22px;
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
   opacity: 1;
   transition: opacity 300ms ease;
+}
+.slc-rail:focus-visible {
+  outline: none;
 }
 .slc-card.is-on .slc-rail {
   opacity: 0;

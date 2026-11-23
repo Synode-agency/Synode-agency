@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
@@ -22,8 +22,14 @@ type FieldName = "name" | "email" | "need" | "website";
  *  3. Envoyer deux fois. Le bouton se verrouille pendant l'envoi, et un
  *     double clic ne crée pas deux demandes.
  */
+/* Vrai une fois la page prise en main par React, faux dans le HTML servi :
+   le bouton d'envoi reste désactivé tant que l'envoi par script n'est pas
+   prêt (voir plus bas). */
+const noSubscribe = () => () => {};
+
 export function ContactForm({ locale }: { locale: Locale }) {
   const { contact } = getContent(locale);
+  const ready = useSyncExternalStore(noSubscribe, () => true, () => false);
   const f = contact.form;
   const router = useRouter();
   const uid = useId();
@@ -126,7 +132,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
           website: get("website"),
           timeline: get("timeline"),
           budget: get("budget"),
-          company_url: get("company_url"),
+          hp_ref: get("hp_ref"),
           locale,
         }),
       });
@@ -160,7 +166,19 @@ export function ContactForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="form">
+    /* `method="post"` et le bouton désactivé tant que React n'a pas pris la
+       main : sans ça, un clic avant la fin du chargement, ou sans
+       JavaScript, envoyait le formulaire en GET, avec le nom, l'e-mail et
+       le téléphone dans l'adresse (historique, journaux de l'hébergeur), et
+       rien n'était enregistré. */
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="form" method="post">
+      <noscript>
+        <p className="form-notice">
+          {locale === "fr"
+            ? "Ce formulaire a besoin de JavaScript. Écrivez-nous à contact@synode-agency.com."
+            : "This form needs JavaScript. Write to us at contact@synode-agency.com."}
+        </p>
+      </noscript>
       {configured === false && (
         <p role="status" className="form-notice">
           <AlertCircle aria-hidden />
@@ -259,8 +277,8 @@ export function ContactForm({ locale }: { locale: Locale }) {
       {/* Le pot de miel. Masqué à l'œil ET au lecteur d'écran, hors du flux
           de tabulation : seul un robot le remplit. */}
       <div aria-hidden className="form-trap">
-        <label htmlFor={`${uid}-company-url`}>Company URL</label>
-        <input id={`${uid}-company-url`} name="company_url" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor={`${uid}-hp-ref`}>{locale === "fr" ? "Laisser vide" : "Leave empty"}</label>
+        <input id={`${uid}-hp-ref`} name="hp_ref" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {/* `aria-live` : l'erreur est annoncée sans que le focus bouge. */}
@@ -274,7 +292,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
       </div>
 
       <div className="form-foot">
-        <button type="submit" className="btn btn--primary" disabled={sending}>
+        <button type="submit" className="btn btn--primary" disabled={sending || !ready}>
           {sending ? f.sending : f.submit}
           {!sending && <ArrowRight aria-hidden />}
         </button>

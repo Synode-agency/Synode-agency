@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { notifyByEmail, saveRequest, sendAcknowledgement, storeReady, type ContactRequest } from "@/lib/contact-store";
+import { siteUrl } from "@/lib/site-url";
 
 /**
  * La réception d'une demande.
@@ -74,6 +75,55 @@ function rateLimited(ip: string) {
   return lastMinute > MAX_PER_MINUTE || recent.length > MAX_PER_DAY;
 }
 
+/* Un accusé de réception par adresse et par 24 h, au plus. La demande, elle,
+   est toujours enregistrée et notifiée : seul l'accusé est retenu. Sans
+   cette limite, un robot pouvait faire partir des accusés en série vers
+   l'adresse d'un tiers, et épuiser le quota d'envoi de Brevo (300 par jour)
+   au point de couper les notifications des vraies demandes. Même réserve
+   que la limite par IP : en mémoire, par instance. */
+const ackSentAt = new Map<string, number>();
+
+function ackAllowed(email: string) {
+  const now = Date.now();
+  const key = email.toLowerCase();
+  const last = ackSentAt.get(key);
+  if (last !== undefined && now - last < DAY_MS) return false;
+  ackSentAt.set(key, now);
+  if (ackSentAt.size > 5000) {
+    for (const [k, t] of ackSentAt) if (now - t >= DAY_MS) ackSentAt.delete(k);
+  }
+  return true;
+}
+
+/* L'appel vient-il du site lui-même ? Le navigateur le dit, et une page
+   tierce ne peut pas le masquer : `Sec-Fetch-Site` vaut « same-origin »
+   pour le formulaire du site, et `Origin` porte l'adresse de la page qui
+   appelle. Sans en-tête du tout (un outil en ligne de commande), on laisse
+   passer : ce n'est pas le navigateur d'un visiteur détourné, et la limite
+   par IP s'applique. Les hôtes admis couvrent le domaine, l'adresse servie
+   par l'hébergeur et le développement local (localhost, IP du réseau). */
+function fromThisSite(request: Request) {
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && fetchSite !== "same-origin") return false;
+  const origin = request.headers.get("origin");
+  if (!origin) return true;
+  let originHost: string;
+  try {
+    originHost = new URL(origin).host;
+  } catch {
+    return false;
+  }
+  const allowed = new Set(
+    [
+      request.headers.get("host"),
+      request.headers.get("x-forwarded-host"),
+      new URL(request.url).host,
+      new URL(siteUrl).host,
+    ].filter((h): h is string => Boolean(h)),
+  );
+  return allowed.has(originHost);
+}
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function clean(value: unknown, max: number): string {
@@ -92,12 +142,18 @@ export async function POST(request: Request) {
     request.headers.get("x-real-ip") ||
     "inconnu";
 
+  if (!fromThisSite(request)) {
+    return NextResponse.json({ error: "forbidden" }, { status: 403 });
+  }
+
   /* Seul le formulaire du site envoie du JSON. Un formulaire HTML posé sur un
      autre site ne peut envoyer que du texte ou un formulaire classique, sans
-     passer par une vérification du navigateur : en exigeant du JSON, on
-     empêche qu'il fasse envoyer des demandes par les navigateurs de ses
-     visiteurs, chacun avec sa propre adresse IP. */
-  if (!(request.headers.get("content-type") ?? "").toLowerCase().includes("application/json")) {
+     passer par une vérification du navigateur. ⚠ Le type est comparé EN
+     ENTIER, avant le « ; » : un simple `includes` acceptait
+     « text/plain; x=application/json », qu'une page tierce peut envoyer
+     sans aucun contrôle du navigateur. */
+  const contentType = (request.headers.get("content-type") ?? "").split(";")[0].trim().toLowerCase();
+  if (contentType !== "application/json") {
     return NextResponse.json({ error: "bad_request" }, { status: 415 });
   }
 
@@ -113,8 +169,13 @@ export async function POST(request: Request) {
   }
 
   /* Un pot de miel : un champ invisible que seul un robot remplit. On répond
-     200 sans rien enregistrer, pour ne pas lui apprendre qu'il a été vu. */
-  if (clean(body.company_url, 200) !== "") {
+     200 sans rien enregistrer, pour ne pas lui apprendre qu'il a été vu.
+     Son nom est NEUTRE (`hp_ref`) : l'ancien, `company_url`, pouvait être
+     rempli par le remplissage automatique d'un navigateur, et la demande
+     d'un vrai prospect disparaissait sans trace. La ligne de journal, sans
+     aucune donnée personnelle, permet de repérer ces faux positifs. */
+  if (clean(body.hp_ref, 200) !== "") {
+    console.warn("[contact] Pot de miel déclenché : demande ignorée.");
     return NextResponse.json({ ok: true, notified: true });
   }
 
@@ -177,8 +238,14 @@ export async function POST(request: Request) {
 
   /* La demande est en sécurité. Ce qui suit ne peut plus la faire échouer.
      La notification et l'accusé de réception partent ensemble. */
-  const [notified, acknowledged] = await Promise.all([notifyByEmail(req), sendAcknowledgement(req)]);
-  if (!acknowledged) {
+  const sendAck = ackAllowed(email);
+  const [notified, acknowledged] = await Promise.all([
+    notifyByEmail(req),
+    sendAck ? sendAcknowledgement(req) : Promise.resolve(true),
+  ]);
+  if (!sendAck) {
+    console.warn(`[contact] Accusé déjà envoyé à cette adresse dans les 24 h, non renvoyé : ${req.receivedAt}`);
+  } else if (!acknowledged) {
     console.error(`[contact] Accusé de réception NON envoyé : ${req.receivedAt}`);
   }
   if (!notified) {

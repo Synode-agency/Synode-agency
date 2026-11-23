@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Bot, Check, GraduationCap, Link2, Mail } from "lucide-react";
 import { path, ROUTES, type Locale } from "@/lib/content";
 import { RobotScene } from "@/components/site/robot-scene";
@@ -158,6 +158,9 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
   const fr = locale === "fr";
   const box = useRef<HTMLDivElement | null>(null);
   const cards = useRef<(HTMLDivElement | null)[]>([]);
+  /* Les bandes fermées, seuls éléments focusables de la carte (avec le lien). */
+  const rails = useRef<(HTMLButtonElement | null)[]>([]);
+  const uid = useId();
 
   /* La première tranche est ouverte, et elle le reste tant que personne ne
      survole le bloc. Il n'y a PAS de défilement automatique : une carte qui
@@ -282,7 +285,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
     e.preventDefault();
     const next = (i + d + items.length) % items.length;
     setOpen(next);
-    cards.current[next]?.focus();
+    rails.current[next]?.focus();
   }, [items.length]);
 
   const stacked = width > 0 && width < SIDE_BY_SIDE;
@@ -308,22 +311,32 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
             ref={(el) => { cards.current[i] = el; }}
             className={on ? "slc-card is-on" : "slc-card"}
             style={on && openH ? { flexBasis: openH } : undefined}
-            role="button"
-            tabIndex={0}
-            aria-expanded={on}
-            aria-label={item.title}
             onMouseEnter={() => setOpen(i)}
-            onFocus={() => setOpen(i)}
-            onKeyDown={(e) => onKey(e, i)}
           >
-            {/* La bande fermée : icône, numéro, titre à la verticale. */}
-            <span className="slc-rail" aria-hidden={on}>
+            {/* La bande fermée : icône, numéro, titre à la verticale.
+                C'est ELLE le bouton, et non la carte entière : un rôle de
+                bouton sur la carte aplatissait tout son contenu (titre,
+                textes, lien) en un seul « Agents IA, bouton » pour un
+                lecteur d'écran. Ouverte, la bande devient transparente mais
+                reste focalisable : la tabulation passe ensuite au lien du
+                panneau, puis à la bande suivante. */}
+            <button
+              type="button"
+              ref={(el) => { rails.current[i] = el; }}
+              className="slc-rail"
+              aria-expanded={on}
+              aria-controls={`${uid}-${item.slug}`}
+              aria-label={item.title}
+              onClick={() => setOpen(i)}
+              onFocus={() => setOpen(i)}
+              onKeyDown={(e) => onKey(e, i)}
+            >
               <span className="slc-rail-icon"><Icon aria-hidden /></span>
-              <em>{num(i)}</em>
-              <b>{item.title}</b>
-            </span>
+              <em aria-hidden>{num(i)}</em>
+              <b aria-hidden>{item.title}</b>
+            </button>
 
-            <div className="slc-open" aria-hidden={!on} style={openWidth ? { minWidth: openWidth } : undefined}>
+            <div id={`${uid}-${item.slug}`} className="slc-open" aria-hidden={!on} style={openWidth ? { minWidth: openWidth } : undefined}>
               <div className="slc-copy">
                 <div className="slc-copy-top">
                   <span className="slc-copy-icon"><Icon aria-hidden /></span>
