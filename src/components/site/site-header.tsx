@@ -8,8 +8,9 @@ import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { SolutionsMenu } from "./solutions-menu";
 import { MobileMenu } from "@/components/nav/mobile-menu";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { ANCHORS, ROUTES, homePath, path, type Locale } from "@/lib/routes";
+import type { HeaderCopy } from "@/lib/content";
+import { cx } from "@/lib/cx";
 
 /**
  * La barre de navigation.
@@ -22,8 +23,8 @@ import { cn } from "@/lib/utils";
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  */
-export function SiteHeader({ locale }: { locale: Locale }) {
-  const { site } = getContent(locale);
+export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy }) {
+  const { site } = copy;
   const pathname = usePathname();
   /* Le menu retient la page sur laquelle il a été ouvert, et il est
      considéré ouvert tant qu'on y est encore. Une navigation le referme donc
@@ -95,7 +96,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   };
 
   return (
-    <header className={cn("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+    <header className={cx("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
       /* Le piège de focus vit DANS le panneau, qui s'en occupe lui-même.
          Il reste ici de quoi fermer au clavier si le focus n'était pas
          encore entré dans le panneau, le bouton ☰ par exemple. */
@@ -113,13 +114,13 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </NavLink>
 
         <nav aria-label="Navigation" className="site-nav">
-          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} /> : (
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} bricks={copy.bricks} /> : (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
               locale={locale}
               aria-current={isCurrent(item.href) ? "page" : undefined}
-              className={cn("site-nav-link", isCurrent(item.href) && "is-current")}
+              className={cx("site-nav-link", isCurrent(item.href) && "is-current")}
             >
               {item.label}
             </NavLink>
@@ -153,6 +154,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       <MobileMenu
         key={pathname}
         locale={locale}
+        copy={copy}
         pathname={pathname}
         open={open}
         onClose={closeMenu}
@@ -203,7 +205,7 @@ function LangSwitch({
             href={localePath(l, locale, pathname)}
             hrefLang={l}
             aria-current={current ? "true" : undefined}
-            className={cn("lang-item", current && "is-current")}
+            className={cx("lang-item", current && "is-current")}
             /* Les ancres sont les mêmes dans les deux langues : quelqu'un qui
                lit /en/cas-usage#rendez-vous et bascule doit arriver sur la
                même section, pas en haut de /cas-usage. Le fragment n'est lu

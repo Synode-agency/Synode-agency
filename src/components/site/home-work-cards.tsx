@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { NexusVisual } from "@/components/nexus-visual";
 import { CooryDesktopMobile } from "@/components/illustrations";
-import { ROUTES, path, type Locale } from "@/lib/content";
+import { ROUTES, path, type Locale } from "@/lib/routes";
 import { cooryCardCopy, findWork, workItems } from "@/lib/work";
 import styles from "./home-work-cards.module.css";
 

@@ -177,7 +177,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <CardPanel id="conclusion" className="booking-cta dark-cta home-booking-cta">
       <div className="col card-body cta-panel cta-booking-grid">
         <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s talk about your project"} accents={fr ? ["votre projet"] : ["your project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href={contactHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes, with no commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
-        <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
+        <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} copy={getContent(locale).contact.booking} variant="card" /></div>
       </div>
     </CardPanel>
 

@@ -238,7 +238,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             </div>
             <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
-          <div id="calendrier-solutions" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
+          <div id="calendrier-solutions" className="cta-booking-calendar"><Booking locale={locale} copy={getContent(locale).contact.booking} variant="card" /></div>
         </div>
       </CardPanel>
 

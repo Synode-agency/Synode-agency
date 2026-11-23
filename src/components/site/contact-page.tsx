@@ -39,7 +39,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
              directement sur lui. `cta-booking-calendar` lui donne sa marge
              de défilement sous l'en-tête fixe. */
           <div id={ANCHORS.booking} className="cta-booking-calendar">
-            <Booking locale={locale} variant="card" />
+            <Booking locale={locale} copy={getContent(locale).contact.booking} variant="card" />
           </div>
         }
       >
@@ -61,7 +61,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
             est donc appliquée ici. */}
         <Lede kicker={locale === "fr" ? "Formulaire de contact" : "Contact form"} title={contact.form.title} text={renderLines(contact.form.text)} />
         <div className="section-gap contact-form-card">
-          <ContactForm locale={locale} />
+          <ContactForm locale={locale} form={contact.form} />
         </div>
       </Band>
     </Shell>

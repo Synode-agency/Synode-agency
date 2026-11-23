@@ -41,11 +41,18 @@ const nextConfig: NextConfig = {
      renonce explicitement à la caméra, au micro et à la géolocalisation :
      rien ici n'en a besoin, et le dire ferme la porte à un script tiers.
 
-     PAS de Content-Security-Policy ici : elle demande d'inventorier chaque
-     source de script, de style et d'image, et une CSP écrite à l'aveugle
-     casse le site en silence. C'est un chantier à mener une fois le
-     calendrier et le formulaire branchés, quand on saura ce qui est
-     réellement chargé. ---- */
+     Une Content-Security-Policy MINIMALE depuis le 23/11/2026 (constat K15
+     de l'audit) : elle ne restreint AUCUNE source de script, de style,
+     d'image ni de cadre (le calendrier Cal.com continue de se charger),
+     elle interdit seulement qu'une autre page affiche le site dans un
+     cadre, qu'on change l'adresse de base des liens, qu'un formulaire
+     envoie ailleurs que sur le site, et les plugins. Une CSP complète,
+     source par source, reste à écrire : écrite à l'aveugle, elle casse le
+     site en silence.
+
+     ⚠ Ces en-têtes ne couvrent que les PAGES. Chez Netlify, les images de
+     `public/` et les fichiers de `/_next/static` partent du CDN sans
+     passer par Next : leurs en-têtes sont dans `netlify.toml`. ---- */
   async headers() {
     return [{
       source: "/:path*",
@@ -54,6 +61,7 @@ const nextConfig: NextConfig = {
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        { key: "Content-Security-Policy", value: "frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" },
       ],
     }];
   },

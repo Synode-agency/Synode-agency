@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { ANCHORS, ROUTES, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, path, type Locale } from "@/lib/routes";
 import { diagnosticContent } from "@/lib/ai-diagnostic-content";
 import { BriefBuilderPanel } from "./brief-builder-panel";
 import { EMPTY_ANSWERS, type Answers } from "@/lib/ai-diagnostic-score";

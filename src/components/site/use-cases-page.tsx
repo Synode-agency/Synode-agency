@@ -80,7 +80,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
             <Link href="#calendrier-cas-usage" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowDown aria-hidden /></Link>
             <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}<br />{fr ? "Un processus à améliorer suffit pour commencer." : "One process to improve is all it takes to begin."}</p>
           </div>
-          <div id="calendrier-cas-usage" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
+          <div id="calendrier-cas-usage" className="cta-booking-calendar"><Booking locale={locale} copy={getContent(locale).contact.booking} variant="card" /></div>
         </div>
       </CardPanel>
     </Shell>

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { BRIEF_HANDOFF_KEY, type BriefFields } from "@/lib/tools-brief";
 import Link from "next/link";
 import { ArrowRight, Check, Copy } from "lucide-react";
-import { ANCHORS, ROUTES, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, path, type Locale } from "@/lib/routes";
 
 type Brief = {
   problem: string;

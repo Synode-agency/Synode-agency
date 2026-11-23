@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, Bot, Check, GraduationCap, Link2, Mail } from "lucide-react";
-import { path, ROUTES, type Locale } from "@/lib/content";
+import { path, ROUTES, type Locale } from "@/lib/routes";
 import { RobotScene } from "@/components/site/robot-scene";
 import { offerIcons } from "@/components/site/solution-visuals";
 

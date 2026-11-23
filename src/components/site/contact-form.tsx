@@ -4,7 +4,8 @@ import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react"
 import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
-import { ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ROUTES, path, type Locale } from "@/lib/routes";
+import type { ContactFormCopy } from "@/lib/content";
 
 type FieldName = "name" | "email" | "need" | "website";
 
@@ -27,10 +28,9 @@ type FieldName = "name" | "email" | "need" | "website";
    prêt (voir plus bas). */
 const noSubscribe = () => () => {};
 
-export function ContactForm({ locale }: { locale: Locale }) {
-  const { contact } = getContent(locale);
+export function ContactForm({ locale, form }: { locale: Locale; form: ContactFormCopy }) {
   const ready = useSyncExternalStore(noSubscribe, () => true, () => false);
-  const f = contact.form;
+  const f = form;
   const router = useRouter();
   const uid = useId();
   const formRef = useRef<HTMLFormElement>(null);

@@ -15,8 +15,10 @@ import { NotFoundPage } from "@/components/site/simple-pages";
  * Il contourne les layouts : c'est `SiteShell` qui apporte `<html>`, les
  * feuilles de style et les scripts, exactement comme dans les deux layouts.
  *
- * Les adresses inconnues sous `/en` n'arrivent pas ici : elles sont prises
- * par `(en)/en/[...missing]`, qui les envoie vers la 404 anglaise.
+ * Depuis le 23/11/2026, elle sert AUSSI les adresses inconnues sous /en et
+ * les offres ou réalisations qui n'existent pas (`dynamicParams = false`
+ * sur les pages [slug]) : `notFound()` donnait une page vide avec deux
+ * layouts racine. Elle porte donc une ligne en anglais vers /en.
  */
 export const metadata: Metadata = {
   title: "Page introuvable - Synode agency",
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   return (
     <SiteShell lang="fr">
-      <NotFoundPage locale="fr" />
+      <NotFoundPage locale="fr" withEnglish />
     </SiteShell>
   );
 }

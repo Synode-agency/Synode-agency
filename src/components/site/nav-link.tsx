@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { homePath, type Locale } from "@/lib/content";
+import { homePath, type Locale } from "@/lib/routes";
 
 /**
  * A nav link that handles in-page targets properly.

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { NotFoundPage } from "@/components/site/simple-pages";
 
-/* La 404 anglaise. Sans elle, une page introuvable sous `/en` — une
-   solution ou une réalisation qui n'existe pas — tombait sur la page par
-   défaut de Next, dans le layout anglais mais sans le site autour. */
+/* Filet de sécurité : servie seulement si une page anglaise appelle
+   `notFound()`. Les adresses inconnues sous /en reçoivent la 404 globale,
+   qui porte une ligne en anglais (voir `global-not-found.tsx`). */
 export const metadata: Metadata = {
   title: "Page not found",
   robots: { index: false, follow: false },

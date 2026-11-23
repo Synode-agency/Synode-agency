@@ -4,6 +4,14 @@ import { notFound } from "next/navigation";
 import { WorkDetailPage } from "@/components/site/work-page";
 import { findWork, workItems } from "@/lib/work";
 
+/* Seules les adresses générées existent. Une adresse inconnue, par
+   exemple une faute de frappe, est refusée dès le routage et reçoit la 404
+   globale (`global-not-found.tsx`), une vraie page avec son statut 404.
+   Sans cette ligne, elle passait par `notFound()`, que Next ne sait pas
+   rattacher à nos 404 avec deux layouts racine : il servait une page vide
+   (constat C30 de l'audit du 23/11/2026). */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return workItems("fr").map((w) => ({ slug: w.slug }));
 }

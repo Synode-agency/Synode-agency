@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
-import { getContent, type Locale } from "@/lib/content";
+import { getContent, headerCopy, type Locale } from "@/lib/content";
 import { SITE_THEME } from "@/lib/site-theme";
 
 /**
@@ -26,7 +26,7 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
       <a href="#contenu" className="skip">
         {site.skip}
       </a>
-      <SiteHeader locale={locale} />
+      <SiteHeader locale={locale} copy={headerCopy(locale)} />
       <main id="contenu">{children}</main>
       <SiteFooter locale={locale} />
     </div>

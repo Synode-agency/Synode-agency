@@ -135,7 +135,16 @@ function LegalText({ text, locale, email }: { text: string; locale: Locale; emai
 }
 
 /** La page 404. Elle propose une sortie plutôt que de constater l'échec. */
-export function NotFoundPage({ locale }: { locale: Locale }) {
+/**
+ * La page 404.
+ *
+ * `withEnglish` : la 404 globale sert TOUTES les adresses inconnues, celles
+ * sous /en comprises (une faute de frappe dans une offre, une page qui
+ * n'existe pas), et elle ne sait pas quelle adresse a été demandée. Elle
+ * reste en français, la langue par défaut, et donne au visiteur
+ * anglophone une ligne dans sa langue, avec le chemin du site anglais.
+ */
+export function NotFoundPage({ locale, withEnglish = false }: { locale: Locale; withEnglish?: boolean }) {
   const { notFound, site } = getContent(locale);
 
   return (
@@ -155,6 +164,12 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
           {notFound.homeCta}
           <ArrowRight aria-hidden />
         </Link>
+        {withEnglish ? (
+          <Link href={homePath("en")} hrefLang="en" lang="en" className="go section-gap-sm">
+            This page does not exist. Go to the English site
+            <ArrowRight aria-hidden />
+          </Link>
+        ) : null}
       </Band>
     </Shell>
   );

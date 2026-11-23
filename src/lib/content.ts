@@ -15,43 +15,11 @@
  * ils sont volumineux et ils changeront à un autre rythme que le reste.
  */
 
-export const locales = ["fr", "en"] as const;
-export type Locale = (typeof locales)[number];
-
-/** Le français est la langue par défaut et vit à la racine. */
-export const localePrefix = (locale: Locale) => (locale === "fr" ? "" : "/en");
-
-/** path("en", "/contact") -> "/en/contact" */
-export const path = (locale: Locale, sub = "/") => {
-  const prefix = localePrefix(locale);
-  if (sub === "/") return prefix || "/";
-  return `${prefix}${sub}`;
-};
-
-export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");
-
-/**
- * Les adresses sont les mêmes dans les deux langues : le sélecteur ne fait
- * que remplacer le préfixe `/en`. Traduire les URL casserait ce mécanisme et
- * obligerait à maintenir deux tables de correspondance.
- */
-export const ROUTES = {
-  home: "/",
-  solutions: "/solutions",
-  useCases: "/cas-usage",
-  work: "/realisations",
-  team: "/equipe",
-  contact: "/contact",
-  thanks: "/merci",
-  legalNotice: "/mentions-legales",
-  privacy: "/confidentialite",
-} as const;
-
-/** Les ancres de la page Contact, citées depuis toute la navigation. */
-export const ANCHORS = {
-  booking: "reservation",
-  form: "formulaire",
-} as const;
+/* Les langues et les adresses vivent dans `routes.ts`, que les composants
+   interactifs importent sans tirer tous les textes du site (K9). */
+import { ROUTES, type Locale } from "./routes";
+export { ANCHORS, ROUTES, homePath, localePrefix, locales, path } from "./routes";
+export type { Locale } from "./routes";
 
 const nav = {
   fr: [
@@ -717,3 +685,19 @@ export type Content = typeof fr;
 export function getContent(locale: Locale): Content {
   return content[locale] as Content;
 }
+
+/**
+ * Les seuls textes dont la barre et les deux menus ont besoin. `Shell`, un
+ * composant serveur, les calcule et les passe en props : les composants
+ * interactifs n'importent jamais ce fichier (K9).
+ */
+export function headerCopy(locale: Locale) {
+  const c = getContent(locale);
+  return {
+    site: c.site,
+    bricks: c.solutions.bricks.map(({ slug, title, benefit, visual }) => ({ slug, title, benefit, visual })),
+  };
+}
+export type HeaderCopy = ReturnType<typeof headerCopy>;
+export type BookingCopy = Content["contact"]["booking"];
+export type ContactFormCopy = Content["contact"]["form"];

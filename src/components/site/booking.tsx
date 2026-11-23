@@ -4,7 +4,8 @@ import { CalendarPreview } from "./calendar-preview";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, CalendarClock } from "lucide-react";
-import { getContent, path, ROUTES, type Locale } from "@/lib/content";
+import { path, ROUTES, type Locale } from "@/lib/routes";
+import type { BookingCopy } from "@/lib/content";
 
 /** Accept a Cal.com event path or a full public booking URL. */
 function bookingUrl(value: string | undefined) {
@@ -40,9 +41,8 @@ function bookingUrl(value: string | undefined) {
  * Solutions, Cas d'usage) ont une hauteur fixe de 500px, fermés comme
  * ouverts, et l'agenda défile à l'intérieur.
  */
-export function Booking({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "card" }) {
-  const { contact } = getContent(locale);
-  const b = contact.booking;
+export function Booking({ locale, copy, variant = "default" }: { locale: Locale; copy: BookingCopy; variant?: "default" | "card" }) {
+  const b = copy;
   const fr = locale === "fr";
   const url = bookingUrl(process.env.NEXT_PUBLIC_CAL_LINK);
   const [open, setOpen] = useState(false);

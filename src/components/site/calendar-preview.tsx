@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { CalendarCheck2, ChevronLeft, ChevronRight, Clock3, Info } from "lucide-react";
-import { ANCHORS, path, ROUTES, type Locale } from "@/lib/content";
+import { ANCHORS, path, ROUTES, type Locale } from "@/lib/routes";
 
 /**
  * L'aperçu de réservation. Il ne lit aucune disponibilité et n'enregistre

@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, ArrowRight } from "lucide-react";
 import { NavLink } from "./nav-link";
 import { brickIcons } from "./solution-visuals";
-import { getContent, path, ROUTES, type Locale } from "@/lib/content";
+import { path, ROUTES, type Locale } from "@/lib/routes";
+import type { HeaderCopy } from "@/lib/content";
 
 /**
  * Le sous-menu Solutions de la navigation de BUREAU.
@@ -14,7 +15,7 @@ import { getContent, path, ROUTES, type Locale } from "@/lib/content";
  * téléphone a maintenant son propre panneau, `components/nav/mobile-menu`,
  * et ce composant n'a plus qu'un cas à tenir.
  */
-export function SolutionsMenu({ locale, pathname, onNavigate }: { locale: Locale; pathname: string; onNavigate?: () => void }) {
+export function SolutionsMenu({ locale, pathname, bricks, onNavigate }: { locale: Locale; pathname: string; bricks: HeaderCopy["bricks"]; onNavigate?: () => void }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
@@ -35,7 +36,7 @@ export function SolutionsMenu({ locale, pathname, onNavigate }: { locale: Locale
     <button type="button" ref={trigger} className={`site-nav-link solutions-trigger${current ? " is-current" : ""}`} aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>Solutions<ChevronDown aria-hidden /></button>
     <div id={id} hidden={!open} className="solutions-dropdown">
       <NavLink href={route} locale={locale} onNavigate={close} className="solutions-all" aria-current={pathname === route ? "page" : undefined}>{locale === "fr" ? "Toutes nos solutions" : "All our solutions"}<ArrowRight aria-hidden /></NavLink>
-      <ul>{getContent(locale).solutions.bricks.map(f => { const Icon = brickIcons[f.visual]; const href = `${route}/${f.slug}`; return <li key={f.slug}><NavLink href={href} locale={locale} onNavigate={close} aria-current={pathname === href ? "page" : undefined}><Icon aria-hidden /><span><strong>{f.title}</strong><small>{f.benefit}</small></span></NavLink></li>; })}</ul>
+      <ul>{bricks.map(f => { const Icon = brickIcons[f.visual]; const href = `${route}/${f.slug}`; return <li key={f.slug}><NavLink href={href} locale={locale} onNavigate={close} aria-current={pathname === href ? "page" : undefined}><Icon aria-hidden /><span><strong>{f.title}</strong><small>{f.benefit}</small></span></NavLink></li>; })}</ul>
     </div>
   </div>;
 }

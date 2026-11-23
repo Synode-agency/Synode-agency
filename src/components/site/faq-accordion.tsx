@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { renderLines } from "@/lib/lines";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cx } from "@/lib/cx";
 
 interface FaqItem {
   q: string;
@@ -52,7 +52,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                   </span>
                   <ChevronDown
                     aria-hidden
-                    className={cn(
+                    className={cx(
                       "size-5 shrink-0 transition-[transform,color] duration-300",
                       isOpen ? "rotate-180 text-brand" : "text-muted-foreground",
                     )}
@@ -65,7 +65,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 role="region"
                 aria-labelledby={`faq-trigger-${i}`}
                 inert={!isOpen}
-                className={cn(
+                className={cx(
                   "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
                   isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}

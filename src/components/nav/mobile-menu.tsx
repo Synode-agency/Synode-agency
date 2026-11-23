@@ -5,8 +5,9 @@ import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/site/nav-link";
 import { brickIcons } from "@/components/site/solution-visuals";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
-import { cn } from "@/lib/utils";
+import { ANCHORS, ROUTES, path, type Locale } from "@/lib/routes";
+import type { HeaderCopy } from "@/lib/content";
+import { cx } from "@/lib/cx";
 import s from "./mobile-menu.module.css";
 
 /**
@@ -59,17 +60,19 @@ const COPY = {
 
 export function MobileMenu({
   locale,
+  copy,
   pathname,
   open,
   onClose,
 }: {
   locale: Locale;
+  copy: HeaderCopy;
   pathname: string;
   open: boolean;
   /** Ferme le panneau ET rend le focus au bouton ☰. */
   onClose: () => void;
 }) {
-  const { site, solutions } = getContent(locale);
+  const { site, bricks } = copy;
   const c = COPY[locale === "fr" ? "fr" : "en"];
 
   const route = path(locale, ROUTES.solutions);
@@ -229,7 +232,7 @@ export function MobileMenu({
             <div key={item.href} className={s.block}>
               <button
                 type="button"
-                className={cn(s.row, s.rowToggle, sub && s.rowOpen)}
+                className={cx(s.row, s.rowToggle, sub && s.rowOpen)}
                 aria-expanded={sub}
                 aria-controls="menu-mobile-solutions"
                 onClick={() => setSub(value => !value)}
@@ -255,7 +258,7 @@ export function MobileMenu({
                   </NavLink>
 
                   <div className={s.subList}>
-                    {solutions.bricks.map(brick => {
+                    {bricks.map(brick => {
                       const Icon = brickIcons[brick.visual];
                       const href = `${route}/${brick.slug}`;
                       return (
@@ -265,7 +268,7 @@ export function MobileMenu({
                           locale={locale}
                           onNavigate={onClose}
                           aria-current={pathname === href ? "page" : undefined}
-                          className={cn(s.solution, pathname === href && s.solutionCurrent)}
+                          className={cx(s.solution, pathname === href && s.solutionCurrent)}
                         >
                           <span className={s.solutionIcon} aria-hidden><Icon /></span>
                           <span className={s.solutionText}>

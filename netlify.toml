@@ -72,3 +72,41 @@
   to = "https://synode-agency.com/:splat"
   status = 301
   force = true
+
+# LES EN-TÊTES DES FICHIERS STATIQUES (23/11/2026, constat K15 de l'audit).
+#
+# Les pages reçoivent leurs en-têtes de sécurité par `next.config.ts`. Mais
+# chez Netlify, les fichiers de `public/` (photos, illustrations, logos) et
+# ceux de `/_next/static` (scripts, styles) partent directement du CDN, sans
+# passer par Next : ils n'en avaient aucun. Ces règles visent ces chemins-là
+# SEULEMENT, pour ne pas doubler les en-têtes des pages. Un dossier ajouté à
+# `public/` doit être ajouté ici.
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/equipe/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/illustrations/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/demos/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/synode-*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

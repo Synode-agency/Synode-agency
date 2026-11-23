@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import { after } from "next/server";
 import { ACK } from "./ack-email";
 
 /**
@@ -125,6 +126,67 @@ function brevoAttributes(req: ContactRequest) {
   };
 }
 
+/* ---- L'historique des demandes (constat K7 de l'audit du 23/11/2026).
+
+   La fiche du contact ne garde que la DERNIÈRE demande : `updateEnabled`
+   réécrit ses attributs à chaque envoi. Si la notification de la première
+   s'était perdue, cette demande disparaissait, et un tiers qui connaît
+   l'adresse d'un prospect pouvait remplacer sa demande par la sienne.
+
+   Chaque demande devient donc AUSSI une note datée sur le contact (Brevo ›
+   Contacts › la fiche › Notes). Les notes s'ajoutent, elles ne s'écrasent
+   pas.
+
+   Elle part APRÈS la réponse au visiteur (`after`), pour ne pas le faire
+   attendre, et son échec ne touche jamais la demande, déjà enregistrée :
+   il est seulement journalisé. ---- */
+
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;" })[c] ?? c);
+
+function brevoNoteText(req: ContactRequest) {
+  const line = (label: string, value?: string) => `${label} : ${escapeHtml(value || NOT_GIVEN)}`;
+  return [
+    `<p><b>Demande du formulaire, ${escapeHtml(req.receivedAt.slice(0, 16).replace("T", " à "))} UTC (${escapeHtml(req.locale)})</b></p>`,
+    `<p>${escapeHtml(req.need).replace(/\r?\n/g, "<br />")}</p>`,
+    `<p>${[line("Nom", req.name), line("Entreprise", req.company), line("Téléphone", req.phone), line("Site", req.website), line("Échéance", req.timeline), line("Budget", req.budget)].join("<br />")}</p>`,
+  ].join("");
+}
+
+async function addBrevoNote(apiKey: string, email: string, req: ContactRequest, knownId?: number) {
+  try {
+    let contactId = knownId;
+    if (!contactId) {
+      /* La création renvoie l'identifiant ; une mise à jour, non : on le lit. */
+      const res = await fetch(`${BREVO_API}/contacts/${encodeURIComponent(email)}`, {
+        headers: { "api-key": apiKey, accept: "application/json" },
+        cache: "no-store",
+        signal: AbortSignal.timeout(4000),
+      });
+      if (!res.ok) {
+        console.error("[contact] Note Brevo : contact introuvable :", res.status);
+        return;
+      }
+      contactId = ((await res.json()) as { id?: number }).id;
+    }
+    if (!contactId) return;
+    const res = await brevoFetch(apiKey, "/crm/notes", { text: brevoNoteText(req), contactIds: [contactId] });
+    if (!res.ok) console.error("[contact] Note Brevo refusée :", res.status, await res.text());
+  } catch (error) {
+    console.error("[contact] Note Brevo impossible :", error);
+  }
+}
+
+/** L'identifiant renvoyé par Brevo quand il CRÉE le contact (201). */
+async function createdContactId(res: Response) {
+  if (res.status !== 201) return undefined;
+  try {
+    return ((await res.json()) as { id?: number }).id;
+  } catch {
+    return undefined;
+  }
+}
+
 async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
   const config = brevoConfig();
   if (!config) {
@@ -148,7 +210,11 @@ async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       res = await brevoFetch(config.apiKey, "/contacts", body);
     }
-    if (res.ok) return { ok: true, backend: "brevo" };
+    if (res.ok) {
+      const id = await createdContactId(res);
+      after(() => addBrevoNote(config.apiKey, contact.email, req, id));
+      return { ok: true, backend: "brevo" };
+    }
 
     const detail = await res.text();
     /* Un attribut absent du compte Brevo ne doit pas coûter la demande :
@@ -157,7 +223,12 @@ async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
     if (res.status === 400 && /attribut/i.test(detail)) {
       console.error("[contact] Attribut Brevo manquant, contact enregistré SANS sa demande :", detail);
       const retry = await brevoFetch(config.apiKey, "/contacts", contact);
-      if (retry.ok) return { ok: true, backend: "brevo" };
+      if (retry.ok) {
+        /* Sans ses attributs, la fiche n'a pas la demande : la note la garde. */
+        const id = await createdContactId(retry);
+        after(() => addBrevoNote(config.apiKey, contact.email, req, id));
+        return { ok: true, backend: "brevo" };
+      }
       console.error("[contact] Brevo refuse aussi le contact seul :", retry.status, await retry.text());
       return { ok: false, reason: "failed" };
     }

@@ -6,9 +6,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-/* La 404 des pages françaises introuvables (une solution ou une réalisation
-   qui n'existe pas). Les adresses qui ne correspondent à AUCUNE route
-   passent par `global-not-found.tsx`, celles sous /en par `(en)/en/not-found.tsx`. */
+/* Filet de sécurité : servie seulement si une page appelle `notFound()`.
+   Depuis le 23/11/2026, aucune adresse inconnue n'y arrive : les pages
+   [slug] ont `dynamicParams = false` et tout passe par
+   `global-not-found.tsx`. */
 export default function NotFound() {
   return <NotFoundPage locale="fr" />;
 }
