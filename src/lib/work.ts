@@ -190,7 +190,7 @@ const en = {
   items: [
     {
       slug: "nexus",
-      kind: "software" as WorkKind,
+      kind: "internal" as WorkKind,
       title: "Nexus - AI-assisted B2B prospecting software",
       accent: "B2B prospecting",
       status: "Internal tool · operational",
@@ -220,7 +220,7 @@ const en = {
     },
     {
       slug: "coory",
-      kind: "software" as WorkKind,
+      kind: "beta" as WorkKind,
       title: "Coory - Sports coaching platform",
       accent: "Sports coaching",
       status: "Coach workspace operational · athlete workspace in preparation",

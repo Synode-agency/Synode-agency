@@ -25,7 +25,7 @@ function lierFin(node: ReactNode): ReactNode {
   return node;
 }
 
-/** Les paragraphes du hero et sa mention « * Un premier échange… ». */
+/** Les paragraphes du hero et sa mention « Un premier échange… ». */
 function estTexteDuHero(node: ReactNode) {
   if (!isValidElement<{ className?: string }>(node)) return false;
   return node.type === "p" || (node.type === "span" && node.props.className === "hero-reassurance");

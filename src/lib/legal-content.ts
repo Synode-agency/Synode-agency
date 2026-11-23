@@ -41,7 +41,7 @@ export type LegalTexts = {
 };
 
 const fr: LegalTexts = {
-  updated: "12 novembre 2026",
+  updated: "23 novembre 2026",
 
   /* --------------------------------------------------- Mentions légales */
   notice: [
@@ -239,7 +239,7 @@ const fr: LegalTexts = {
 };
 
 const en: LegalTexts = {
-  updated: "12 November 2026",
+  updated: "23 November 2026",
 
   /* ------------------------------------------------------- Legal notice */
   notice: [

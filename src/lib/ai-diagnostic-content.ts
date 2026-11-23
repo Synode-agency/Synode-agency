@@ -40,7 +40,7 @@ const fr = {
   ctaText:
     "Nous pouvons analyser plus précisément votre processus, vos outils, vos données et vos contraintes afin de déterminer quelle combinaison de technologies serait réellement pertinente.",
   toBrief: "Préparer votre brief",
-  ctaPrimary: "Cadrer votre projet IA",
+  ctaPrimary: "Décrire votre besoin",
   ctaSecondary: "Découvrir nos solutions",
   levels: {
     limited: "Une autre piste semble préférable",
@@ -128,7 +128,7 @@ const en: typeof fr = {
   ctaText:
     "We can look more precisely at your process, your tools, your data and your constraints to determine which combination of technologies would genuinely be relevant.",
   toBrief: "Prepare your brief",
-  ctaPrimary: "Scope your AI project",
+  ctaPrimary: "Describe your need",
   ctaSecondary: "Explore our solutions",
   levels: {
     limited: "Another direction may be preferable",
@@ -191,12 +191,17 @@ export function diagnosticContent(locale: Locale) {
  * de même score mais de nature différente ne doivent pas lire la même
  * conclusion.
  */
+/** Un libellé de dimension au milieu d'une phrase : la majuscule initiale
+ *  d'un mot ordinaire tombe, un sigle reste (« Agents IA » donne
+ *  « agents IA », « AI agents » reste tel quel). */
+const inSentence = (label: string) => label.replace(/^[A-ZÀ-Ý](?=[a-zà-ÿ])/, (m) => m.toLowerCase());
+
 export function diagnosticSummary(locale: Locale, result: DiagnosticResult): string {
   const c = diagnosticContent(locale);
   const fr = locale === "fr";
   const strong = (["automation", "integration", "agents", "data"] as const)
     .filter((k) => result.scores[k] >= 50)
-    .map((k) => c.dimensions[k].toLowerCase());
+    .map((k) => inSentence(c.dimensions[k]));
 
   const list = strong.length === 0
     ? ""

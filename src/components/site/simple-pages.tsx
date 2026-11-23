@@ -102,7 +102,7 @@ export function LegalPage({
           ))}
         </div>
         <p className="legal-updated section-gap">
-          {legal.updated} : {texts.updated}
+          {legal.updated}{locale === "fr" ? "\u00a0: " : ": "}{texts.updated}
         </p>
       </Band>
     </Shell>

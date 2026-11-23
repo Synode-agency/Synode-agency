@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  Activity, ArrowRight, BadgeCheck, BarChart3, BellRing, CalendarRange, Check, ClipboardList, Contact,
+  Activity, ArrowDown, ArrowRight, BadgeCheck, BarChart3, BellRing, CalendarRange, Check, ClipboardList, Contact,
   Database, FileOutput, FileText, FolderKanban, Globe, Inbox, Layers, LayoutDashboard,
   Lightbulb, ListOrdered, Lock, MessageSquare, PackageCheck, PenLine, Plug,
   Puzzle, Repeat, Rocket, ScanText, ScrollText, Search, SearchCheck, Send, ShieldCheck, Shuffle, Smartphone,
@@ -105,7 +105,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       <p>{d.heroLead}</p>
       <div className="btn-row">
         <Link className="btn btn--primary" href={bookHref}>{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link>
-        <Link className="btn btn--ghost" href="#usages">{fr ? "Voir à quoi ça peut servir" : "See what it can do"}</Link>
+        <Link className="btn btn--ghost" href="#usages">{fr ? "Voir à quoi ça peut servir" : "See what it can do"}<ArrowDown aria-hidden /></Link>
       </div>
     </PageHero>
 
@@ -240,7 +240,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         </div>
         <div className="svc-cta-actions">
           <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
-          <Link className="btn btn--ghost" href={formHref}>{fr ? "Nous contacter" : "Contact us"}</Link>
+          <Link className="btn btn--ghost" href={formHref}>{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
           <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
         </div>
       </div>

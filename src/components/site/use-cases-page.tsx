@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
@@ -46,7 +46,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
         <p>{fr ? "Découvrez comment l’intelligence artificielle peut répondre plus vite à vos clients, relier vos outils, exploiter vos chiffres et assister vos équipes au quotidien. Agents IA, intégrations, automatisations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can answer your clients faster, connect your tools, use your figures and support your teams every day. AI agents, integrations, automations and business software are combined around your tools, data and business rules."}</p>
         <div className="btn-row">
           <Link className="btn btn--primary" href={bookingHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
-          <Link className="btn btn--ghost" href="#exemples">{fr ? "Explorer les cas d’usage" : "Explore the use cases"}</Link>
+          <Link className="btn btn--ghost" href="#exemples">{fr ? "Explorer les cas d’usage" : "Explore the use cases"}<ArrowDown aria-hidden /></Link>
         </div>
       </PageHero>
 
@@ -77,7 +77,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
                 ? "En 30 minutes, Synode analyse avec vous un processus, ses contraintes et les outils concernés afin d’identifier un cas d’usage de l’intelligence artificielle pertinent pour votre entreprise."
                 : "In 30 minutes, Synode reviews a process, its constraints and the tools involved with you to identify a relevant artificial intelligence use case for your business."}
             />
-            <Link href="#calendrier-cas-usage" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link>
+            <Link href="#calendrier-cas-usage" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowDown aria-hidden /></Link>
             <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}<br />{fr ? "Un processus à améliorer suffit pour commencer." : "One process to improve is all it takes to begin."}</p>
           </div>
           <div id="calendrier-cas-usage" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>

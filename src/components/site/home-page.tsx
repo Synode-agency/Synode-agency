@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { SolutionSlices } from "@/components/site/solution-slices";
@@ -114,7 +114,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     >
       <p>{fr ? "Synode est une agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure. Nous connectons les outils de votre organisation, concevons les logiciels dont vos équipes ont besoin et y intégrons l’IA pour automatiser vos processus, analyser vos données et faciliter votre quotidien." : "Synode is a Brussels-based technology agency specialising in artificial intelligence, systems integration and custom software development. We connect your organisation’s tools, build the software your teams need and bring in AI to automate your processes, analyse your data and make your day-to-day easier."}</p>
       <div className="btn-row"><Link href={bookHref} className="btn btn--primary">{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
-      <span className="hero-reassurance">{fr ? "* Un premier échange gratuit, sans engagement." : "* A free first conversation. No commitment."}</span>
+      <span className="hero-reassurance">{fr ? "Un premier échange gratuit, sans engagement." : "A free first conversation. No commitment."}</span>
     </PageHero>
 
     <Band id="cas-usage" tone="white" className="studio-section home-usecases-light">
@@ -131,13 +131,13 @@ export function HomePage({ locale }: { locale: Locale }) {
           <>
             Les solutions peuvent être accompagnées dans le temps{" "}
             par du monitoring, de la maintenance{" "}
-            et des évolutions selon les besoins du projet.{"\u2009*"}
+            et des évolutions selon les besoins du projet.
           </>
         ) : (
           <>
             Solutions can be supported over time{" "}
             with monitoring, maintenance and changes,{" "}
-            according to the needs of the project.{"\u2009*"}
+            according to the needs of the project.
           </>
         )}
       </p>
@@ -176,7 +176,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <CardPanel id="conclusion" className="booking-cta dark-cta home-booking-cta">
       <div className="col card-body cta-panel cta-booking-grid">
-        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s discuss your project"} accents={fr ? ["votre projet"] : ["project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowRight aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
+        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s discuss your project"} accents={fr ? ["votre projet"] : ["project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowDown aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
         <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
       </div>
     </CardPanel>
@@ -195,7 +195,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <h2>{fr ? <>Votre besoin mérite<br className="only-mobile" /> d’être étudié ?</> : "Is your need worth exploring?"}</h2>
           <p>{fr ? "Présentez-nous votre processus et vérifions ensemble si une solution sur mesure est pertinente pour votre activité." : "Tell us about your process and let’s assess whether a custom solution makes sense for your business."}</p>
         </div>
-        <Link href="#calendrier-accueil" className="btn btn--primary">
+        <Link href={bookHref} className="btn btn--primary">
           {fr ? "Réserver un échange gratuit" : "Book a free call"}
           <ArrowRight aria-hidden />
         </Link>

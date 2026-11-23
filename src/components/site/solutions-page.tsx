@@ -97,7 +97,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
           <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions" : "Explore our solutions"}<ArrowDown aria-hidden /></Link>
           <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
         </div>
-        <span className="hero-reassurance">{fr ? <>* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "* A free first conversation. A clear scope. A tailored quote."}</span>
+        <span className="hero-reassurance">{fr ? <>Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "A free first conversation. A clear scope. A tailored quote."}</span>
       </PageHero>
 
       <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
@@ -108,13 +108,13 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             <>
               Les solutions peuvent être accompagnées dans le temps{" "}
               par du monitoring, de la maintenance{" "}
-              et des évolutions selon les besoins du projet.{" *"}
+              et des évolutions selon les besoins du projet.
             </>
           ) : (
             <>
               Solutions can be supported over time{" "}
               with monitoring, maintenance and changes,{" "}
-              according to the needs of the project.{" *"}
+              according to the needs of the project.
             </>
           )}
         </p>
@@ -217,8 +217,8 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
               text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
             />
             <div className="btn-row">
-              <Link href="#calendrier-solutions" className="btn btn--primary">{site.cta}<ArrowRight aria-hidden /></Link>
-              <Link href={formHref} className="btn btn--ghost">{fr ? "Nous contacter" : "Contact us"}</Link>
+              <Link href="#calendrier-solutions" className="btn btn--primary">{site.cta}<ArrowDown aria-hidden /></Link>
+              <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
             </div>
             <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>

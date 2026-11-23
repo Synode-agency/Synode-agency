@@ -68,8 +68,9 @@ const AT = {
 } as const;
 
 const COUNT_TO = 128;
-const KPI_FROM = 124;
-const KPI_TO = 155;
+/* Du même ordre que les 24 leads qualifiés de la page Nexus. */
+const KPI_FROM = 12;
+const KPI_TO = 15;
 
 type Tone = "ok" | "wait" | "off";
 

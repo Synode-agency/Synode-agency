@@ -30,6 +30,8 @@ const NEW = {
     aiTitle: "Comment l’IA assiste le coach au quotidien",
     goalLabel: "objectif",
     goalsFoot: "● Mesure en conditions réelles · à venir",
+    /* Note propre à Coory : celle de `work.ts` parle des écrans de Nexus. */
+    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les noms, séances et montants des écrans de Coory sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     /* Le découpage des textes du projet. */
     tailFrom: "Coory est conçu et testé",
     tailStrong: "une plateforme similaire peut être conçue sur mesure",
@@ -48,6 +50,7 @@ const NEW = {
     aiTitle: "How AI supports the coach day to day",
     goalLabel: "goal",
     goalsFoot: "● Measurement in real conditions · to come",
+    goalsNote: "These are goals, not measured results. The names, sessions and amounts on the Coory screens are fictitious: no result will be published here before it has been measured in real conditions.",
     tailFrom: "Coory is designed and tested",
     tailStrong: "a similar platform can be designed",
     noteFrom: "Every action prepared by the assistant",
@@ -103,7 +106,7 @@ export function cooryContent(
     },
     goals: {
       title: t.goals,
-      lead: detail.goalsNote,
+      lead: n.goalsNote,
       goals: item.goals,
       goalLabel: n.goalLabel,
       goalsFoot: n.goalsFoot,

@@ -31,6 +31,8 @@ export function ContactForm({ locale }: { locale: Locale }) {
 
   const [sending, setSending] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FieldName[]>([]);
+  /* Vide ou mal écrite : deux messages différents pour le même champ. */
+  const [emailEmpty, setEmailEmpty] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   /* `null` tant qu'on ne sait pas : on n'affiche l'avertissement qu'une fois
      la réponse reçue, sinon il clignote au chargement de chaque page. */
@@ -94,6 +96,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
     const local: FieldName[] = [];
     if (!get("name")) local.push("name");
     const email = get("email");
+    setEmailEmpty(!email);
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) local.push("email");
     if (get("need").length < 10) local.push("need");
     if (local.length) {
@@ -187,7 +190,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
           hint={f.fields.email.hint}
           required
           invalid={err("email")}
-          error={f.errors.emailInvalid}
+          error={emailEmpty ? f.errors.email : f.errors.emailInvalid}
           maxLength={200}
         />
         <Field

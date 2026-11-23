@@ -84,7 +84,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowDown aria-hidden /></Link>
           <Link href={bookHref} className="btn btn--ghost">{site.cta}</Link>
         </div>
-        <span className="hero-reassurance">{locale === "fr" ? <>* Chaque projet garde son statut visible : outil interne, outil en bêta ou projet client.</> : "* Every project keeps its status visible: internal tool, beta tool or client project."}</span>
+        <span className="hero-reassurance">{locale === "fr" ? <>Chaque projet garde son statut visible : outil interne, outil en bêta ou projet client.</> : "Every project keeps its status visible: internal tool, beta tool or client project."}</span>
       </PageHero>
 
       <Band id="liste" tone="white">
@@ -116,7 +116,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{site.cta}<ArrowRight aria-hidden /></Link>
-            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Nous contacter" : "Contact us"}</Link>
+            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Describe your need"}</Link>
             <p className="cta-note">{locale === "fr" ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
         </div>
@@ -294,7 +294,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
-            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Nous contacter" : "Contact us"}</Link>
+            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Describe your need"}</Link>
             <p className="cta-note">{locale === "fr" ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
         </div>

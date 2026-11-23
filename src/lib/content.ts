@@ -375,7 +375,7 @@ const fr = {
         rateLimited: "Vous venez d’envoyer une demande. Patientez un instant avant de recommencer.",
         server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",
         notConfigured:
-          "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement en attendant.",
+          "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement à contact@synode-agency.com en attendant.",
       },
     },
 
@@ -388,7 +388,7 @@ const fr = {
     /* On ne promet pas de délai : la référence l'interdit tant qu'il n'est
        pas tenable. */
     notBooked: "Ce message n’est pas un rendez-vous. Pour en fixer un, passez par le calendrier.",
-    bookCta: "Réserver un échange",
+    bookCta: "Réserver un échange gratuit",
     homeCta: "Revenir à l’accueil",
   },
 
@@ -678,7 +678,7 @@ const en = {
         rateLimited: "You have just sent a request. Give it a moment before trying again.",
         server: "We could not save your request. Your text is still here: try again in a moment.",
         notConfigured:
-          "Sending messages is not switched on in this version of the site. Your text is kept below; write to us directly in the meantime.",
+          "Sending messages is not switched on in this version of the site. Your text is kept below; write to us directly at contact@synode-agency.com in the meantime.",
       },
     },
 
@@ -689,7 +689,7 @@ const en = {
     title: "Your message\n^has been received",
     text: "We have saved it and we will get back to you. If it is urgent, book a slot directly: that is the fastest route.",
     notBooked: "This message is not a meeting. To set one up, use the calendar.",
-    bookCta: "Book a call",
+    bookCta: "Book a free call",
     homeCta: "Back to home",
   },
 

@@ -1346,10 +1346,12 @@ footer.band--white .wordmark-type {
    prévu pour du texte sur bleu nuit, lui posait un chapeau bleu pâle sur
    fond clair. Elle redéfinit pourtant ses jetons en clair, donc son chapeau
    reprend le bleu électrique de la marque, comme tous les autres.
+   `.tint-band` (23/11/2026) : même cas, la bande « Nos expertises » de
+   l'Équipe tombait sur un rang impair et son chapeau était à 1,6:1.
    Spécificité égale au filet : cette règle doit rester APRÈS lui. */
 .site-theme-alternating
   main
-  > .band:is(.home-faq-light, .solutions-faq-light, .solutions-white-band)
+  > .band:is(.home-faq-light, .solutions-faq-light, .solutions-white-band, .tint-band)
   > .col
   > .lede
   .lede-kicker {
