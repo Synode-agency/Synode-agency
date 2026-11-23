@@ -308,8 +308,10 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
             ref={(el) => { cards.current[i] = el; }}
             className={on ? "slc-card is-on" : "slc-card"}
             style={on && openH ? { flexBasis: openH } : undefined}
+            role="button"
             tabIndex={0}
             aria-expanded={on}
+            aria-label={item.title}
             onMouseEnter={() => setOpen(i)}
             onFocus={() => setOpen(i)}
             onKeyDown={(e) => onKey(e, i)}

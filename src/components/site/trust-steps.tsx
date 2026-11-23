@@ -99,7 +99,6 @@ export function TrustSteps({ locale }: { locale: Locale }) {
               <article
                 key={item.title}
                 className={`tst-card is-${state(i)}`}
-                tabIndex={0}
                 onMouseEnter={() => hold(i)}
                 onFocus={() => hold(i)}
               >

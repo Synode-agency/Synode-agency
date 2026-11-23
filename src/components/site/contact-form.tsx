@@ -108,6 +108,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
     setFieldErrors([]);
     setFormError(null);
     setSending(true);
+    let succeeded = false;
 
     try {
       const res = await fetch("/api/contact", {
@@ -128,6 +129,9 @@ export function ContactForm({ locale }: { locale: Locale }) {
       });
 
       if (res.ok) {
+        /* Le bouton reste verrouillé pendant le chargement de /merci : un
+           second clic aurait créé une deuxième demande. */
+        succeeded = true;
         router.push(path(locale, ROUTES.thanks));
         return;
       }
@@ -148,7 +152,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
     } catch {
       setFormError(f.errors.server);
     } finally {
-      setSending(false);
+      if (!succeeded) setSending(false);
     }
   }
 
@@ -165,6 +169,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <Field
           uid={uid}
           name="name"
+          autoComplete="name"
           label={f.fields.name.label}
           placeholder={f.fields.name.placeholder}
           required
@@ -175,6 +180,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <Field
           uid={uid}
           name="email"
+          autoComplete="email"
           type="email"
           label={f.fields.email.label}
           placeholder={f.fields.email.placeholder}
@@ -187,6 +193,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <Field
           uid={uid}
           name="company"
+          autoComplete="organization"
           label={f.fields.company.label}
           placeholder={f.fields.company.placeholder}
           optional={f.fields.company.optional}
@@ -195,6 +202,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <Field
           uid={uid}
           name="phone"
+          autoComplete="tel"
           type="tel"
           label={f.fields.phone.label}
           placeholder={f.fields.phone.placeholder}
@@ -233,6 +241,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         <Field
           uid={uid}
           name="website"
+          autoComplete="url"
           label={f.fields.website.label}
           placeholder={f.fields.website.placeholder}
           optional={f.fields.website.optional}
@@ -286,6 +295,7 @@ function Field({
   invalid,
   error,
   type = "text",
+  autoComplete,
   maxLength,
 }: {
   uid: string;
@@ -298,6 +308,7 @@ function Field({
   invalid?: boolean;
   error?: string;
   type?: string;
+  autoComplete?: string;
   maxLength?: number;
 }) {
   const id = `${uid}-${name}`;
@@ -321,6 +332,7 @@ function Field({
         id={id}
         name={name}
         type={type}
+        autoComplete={autoComplete}
         maxLength={maxLength}
         required={required}
         placeholder={placeholder}

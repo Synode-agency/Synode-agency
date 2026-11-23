@@ -183,7 +183,7 @@ export async function POST(request: Request) {
   }
   if (!notified) {
     console.error(
-      `[contact] Demande ENREGISTRÉE (${stored.backend}) mais NON notifiée. À relire dans le dépôt : ${req.receivedAt} ${req.email}`,
+      `[contact] Demande ENREGISTRÉE (${stored.backend}) mais NON notifiée. À relire dans le dépôt : ${req.receivedAt}`,
     );
   }
 

@@ -272,7 +272,7 @@ main > .band#top.work-detail-hero .title-accent {
 .capability-marquee-item {
   flex: none;
 }
-.capability-marquee:hover .capability-marquee-track {
+.capability-marquee:is(:hover, :focus, :focus-within, :active) .capability-marquee-track {
   animation-play-state: paused;
 }
 .capability-strip svg {
@@ -652,7 +652,7 @@ footer.band--white .wordmark-type {
 }
 .cta-booking-calendar {
   min-width: 0;
-  scroll-margin-top: calc(var(--header-h) + 1rem);
+  scroll-margin-top: 1rem;
 }
 .booking--card {
   align-items: stretch;
@@ -2306,7 +2306,7 @@ main > .band.home-impact-light .isp {
   min-height: 4.5rem;
   resize: vertical;
   padding: 0.7rem 0.75rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--input);
   border-radius: 8px;
   background: var(--surface);
   color: var(--foreground);
@@ -3468,7 +3468,7 @@ main > .band.home-impact-light .isp {
   border-top: 1px solid #e8ecf4;
 }
 .uca-item {
-  scroll-margin-top: 110px;
+  scroll-margin-top: calc(110px - var(--header-h));
   border-radius: 10px;
   transition: background-color 250ms ease, box-shadow 250ms ease;
 }
@@ -3847,7 +3847,7 @@ main > .band.home-impact-light .isp {
 .tst-card.is-done .tst-pill {
   border-color: #bfe5d0;
   background: #e7f6ee;
-  color: #22a06b;
+  color: #116a33; /* 6,0:1 (le vert #22a06b ne faisait que 2,98:1) */
 }
 
 /* Le cycle est coupé côté composant, qui affiche les quatre étapes
@@ -5279,7 +5279,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   gap: 6px;
   font-size: 10.5px;
   white-space: nowrap;
-  color: #2db37a;
+  color: #15803d; /* 5,02:1 sur blanc (#2db37a : 2,68:1) */
   transition: color 0.3s ease;
 }
 .afp-state i {
@@ -6590,7 +6590,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .mfr-head-label {
   letter-spacing: 1.4px;
-  color: #6f84a3;
+  color: #7f93b1; /* 5,4:1 sur le bleu nuit (#6f84a3 : 4,43:1) */
 }
 .mfr-head-step {
   color: #8ec1ff;
@@ -6745,7 +6745,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 .mfr-detail-label {
   font-family: var(--font-sans);
   font-size: 11px;
-  color: #6f84a3;
+  color: #7f93b1;
 }
 .mfr-detail h3 {
   font-size: 21px;

@@ -2,7 +2,7 @@
 
 import { CalendarPreview } from "./calendar-preview";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, CalendarClock } from "lucide-react";
 import { getContent, path, ROUTES, type Locale } from "@/lib/content";
 
@@ -46,6 +46,12 @@ export function Booking({ locale, variant = "default" }: { locale: Locale; varia
   const fr = locale === "fr";
   const url = bookingUrl(process.env.NEXT_PUBLIC_CAL_LINK);
   const [open, setOpen] = useState(false);
+  /* À l'ouverture, le bouton cliqué disparaît : le focus passe au calendrier
+     au lieu de retomber au début de la page (23/11/2026). */
+  const frame = useRef<HTMLIFrameElement>(null);
+  useEffect(() => {
+    if (open) frame.current?.focus();
+  }, [open]);
 
   if (!url && variant === "default") {
     return <CalendarPreview locale={locale} />;
@@ -72,7 +78,7 @@ export function Booking({ locale, variant = "default" }: { locale: Locale; varia
   return (
     <div className={variant === "card" ? "booking booking--card" : "booking"}>
       {open && embedUrl ? (
-        <iframe src={embedUrl.toString()} title={b.title} className="booking-frame" />
+        <iframe ref={frame} src={embedUrl.toString()} title={b.title} className="booking-frame" />
       ) : (
         <div className="booking-closed">
           <span className="booking-closed-icon" aria-hidden><CalendarClock /></span>

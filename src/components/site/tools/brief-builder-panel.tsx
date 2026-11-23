@@ -121,7 +121,7 @@ export function BriefBuilderPanel({
         ))}
       </div>
 
-      <div className="tool-readout" aria-live="polite">
+      <div className="tool-readout">
         <span className="tool-readout-label">{c.output}</span>
         {!ready ? (
           <div className="tool-readout-empty"><p>{c.empty}</p></div>

@@ -288,3 +288,9 @@
     display: none;
   }
 }
+
+/* ---- L'anneau de focus de « Toutes nos solutions » se dessine à
+   l'intérieur du lien : le sous-menu masque ce qui dépasse (23/11/2026). */
+.subAll:focus-visible {
+  outline-offset: -2px;
+}

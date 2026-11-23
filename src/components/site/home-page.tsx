@@ -104,7 +104,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       </>}
       strip={<div className="capability-strip">
         <span className="capability-strip-label">{fr ? "De votre besoin à votre outil" : "From your need to your tool"}</span>
-        <div className="capability-marquee" role="list" aria-label={fr ? "Expertises mobilisables" : "Available capabilities"}>
+        <div className="capability-marquee" role="list" tabIndex={0} aria-label={fr ? "Expertises mobilisables (le défilement s’arrête au toucher ou au clavier)" : "Available capabilities (scrolling stops on touch or keyboard focus)"}>
           <div className="capability-marquee-track">
             <div className="capability-marquee-group">{capabilityItems.map((item) => <span role="listitem" className="capability-marquee-item" key={item}><Check aria-hidden />{item}</span>)}</div>
             <div className="capability-marquee-group" aria-hidden>{capabilityItems.map((item) => <span className="capability-marquee-item" key={item}><Check aria-hidden />{item}</span>)}</div>

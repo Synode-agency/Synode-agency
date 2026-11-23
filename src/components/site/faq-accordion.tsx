@@ -45,7 +45,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
                   id={`faq-trigger-${i}`}
-                  className="faq-trigger flex w-full items-center justify-between gap-6 py-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.4rem))] text-left"
+                  className="faq-trigger flex w-full items-center justify-between gap-6 py-[calc(var(--ss,1)*clamp(1rem,0.8rem+0.6vw,1.4rem))] text-left"
                 >
                   <span className="faq-question text-[length:var(--fs-h4)] font-semibold leading-snug tracking-tight">
                     {renderLines(item.q)}
@@ -64,13 +64,14 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
                 id={`faq-panel-${i}`}
                 role="region"
                 aria-labelledby={`faq-trigger-${i}`}
+                inert={!isOpen}
                 className={cn(
                   "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
                   isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                 )}
               >
                 <div className="overflow-hidden">
-                  <p className="faq-answer max-w-[62ch] pb-[calc(var(--ss)*clamp(1rem,0.8rem+0.6vw,1.5rem))] pr-10 text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
+                  <p className="faq-answer max-w-[62ch] pb-[calc(var(--ss,1)*clamp(1rem,0.8rem+0.6vw,1.5rem))] pr-10 text-[length:var(--fs-body)] leading-[var(--lh-body)] text-muted-foreground">
                     {item.a}
                   </p>
                 </div>

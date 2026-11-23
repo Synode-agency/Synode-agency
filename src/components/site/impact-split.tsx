@@ -193,7 +193,7 @@ export function ImpactSplit({ locale }: { locale: Locale }) {
         })}
       </div>
 
-      <div className="isp-view" aria-live="polite">
+      <div className="isp-view">
         <div className="isp-stage">
           <Visual kind={active} tick={tick} words={words} />
         </div>

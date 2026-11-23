@@ -51,6 +51,11 @@ export function ToolsSection({ locale }: { locale: Locale }) {
      indexable, ni lisible sans JavaScript. Les deux calculs sont locaux et
      tiennent en quelques multiplications. */
   const open = (id: ToolId) => setActive(id);
+  /* Le clavier suit le changement d'outil : sans ça, le focus restait sur un
+     onglet devenu inactif, ou tombait sur <body> quand « Continuer » masquait
+     son propre panneau (accessibilité, 23/11/2026). */
+  const focusSoon = (elementId: string) => requestAnimationFrame(() => document.getElementById(elementId)?.focus());
+  const goTo = (id: ToolId) => { setActive(id); focusSoon(`tool-panel-${id}`); };
 
   const tools = [
     {
@@ -80,11 +85,16 @@ export function ToolsSection({ locale }: { locale: Locale }) {
   ];
 
   const onKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-    event.preventDefault();
-    const direction = event.key === "ArrowRight" ? 1 : -1;
     const current = TOOL_ORDER.indexOf(active);
-    open(TOOL_ORDER[(current + direction + TOOL_ORDER.length) % TOOL_ORDER.length]);
+    let next: ToolId;
+    if (event.key === "ArrowRight") next = TOOL_ORDER[(current + 1) % TOOL_ORDER.length];
+    else if (event.key === "ArrowLeft") next = TOOL_ORDER[(current - 1 + TOOL_ORDER.length) % TOOL_ORDER.length];
+    else if (event.key === "Home") next = TOOL_ORDER[0];
+    else if (event.key === "End") next = TOOL_ORDER[TOOL_ORDER.length - 1];
+    else return;
+    event.preventDefault();
+    open(next);
+    focusSoon(`tool-tab-${next}`);
   };
 
   return (
@@ -121,13 +131,14 @@ export function ToolsSection({ locale }: { locale: Locale }) {
         role="tabpanel"
         id="tool-panel-finder"
         aria-labelledby="tool-tab-finder"
+        tabIndex={-1}
         hidden={active !== "finder"}
       >
         <OpportunityFinderPanel
           locale={locale}
           selected={selectedPains}
           onSelectedChange={setSelectedPains}
-          onContinue={() => open("diagnostic")}
+          onContinue={() => goTo("diagnostic")}
         />
       </div>
 
@@ -135,13 +146,14 @@ export function ToolsSection({ locale }: { locale: Locale }) {
         role="tabpanel"
         id="tool-panel-diagnostic"
         aria-labelledby="tool-tab-diagnostic"
+        tabIndex={-1}
         hidden={active !== "diagnostic"}
       >
         <DiagnosticPanel
           locale={locale}
           answers={answers}
           onAnswersChange={setAnswers}
-          onContinue={() => open("brief")}
+          onContinue={() => goTo("brief")}
         />
       </div>
 
@@ -149,6 +161,7 @@ export function ToolsSection({ locale }: { locale: Locale }) {
         role="tabpanel"
         id="tool-panel-brief"
         aria-labelledby="tool-tab-brief"
+        tabIndex={-1}
         hidden={active !== "brief"}
       >
         <BriefBuilderPanel locale={locale} prefill={prefill} />

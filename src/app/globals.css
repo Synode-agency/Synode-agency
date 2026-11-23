@@ -140,7 +140,9 @@
   --primary: #0067EA;
   --primary-foreground: #FFFFFF;
   --border: rgba(70, 68, 68, 0.12);
-  --input: rgba(70, 68, 68, 0.18);
+  /* Bordure des champs : 3,25:1 sur blanc (WCAG 1.4.11). L'ancienne valeur
+     transparente ne faisait que 1,36:1, le champ ne se voyait presque pas. */
+  --input: #8b8f96;
   --ring: #0067EA;
   --border-active: rgba(0, 103, 234, 0.45);
 
@@ -331,9 +333,15 @@
     color: var(--brand-foreground);
   }
 
-  /* Give fixed header room and offset anchor targets */
+  /* La barre fixe ne doit jamais recouvrir l'élément qui a le focus, ni
+     l'ancre visée (23/11/2026) : sa hauteur est un rembourrage de défilement
+     de toute la page. Les décalages d'ancres ci-dessous et dans `studio.css`
+     en ont été diminués d'autant : chaque ancre atterrit au même endroit. */
+  html {
+    scroll-padding-top: var(--header-h);
+  }
   section[id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: calc(5.5rem - var(--header-h));
   }
 
   /* Sections no longer reserve the header height in their own top padding,
@@ -983,7 +991,7 @@
     border-radius: var(--r-sm);
     background: var(--surface);
     /* Une ancre atterrit sous la barre flottante, pas dessous. */
-    scroll-margin-top: calc(var(--header-h) + var(--card-gap) * 2);
+    scroll-margin-top: calc(var(--card-gap) * 2);
   }
   /* =====================================================================
      LES ÉTAPES DE LA MÉTHODE
