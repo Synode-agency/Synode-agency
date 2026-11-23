@@ -62,7 +62,8 @@ export function AfterPanel({
   locale,
 }: {
   items: readonly { title: string; text: string; status: string }[];
-  pill: string;
+  /** Absente pour une formation : il n\'y a rien à exploiter après coup. */
+  pill?: string;
   note: string;
   locale: Locale;
 }) {
@@ -110,7 +111,7 @@ export function AfterPanel({
           <strong>{c.live}</strong>
           <em>{c.cycle(pass)}</em>
         </span>
-        <span className="afp-pill"><Pulse />{pill}</span>
+        {pill && <span className="afp-pill"><Pulse />{pill}</span>}
       </div>
 
       {/* ---- 2 · les quatre volets ---- */}

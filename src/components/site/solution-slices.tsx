@@ -133,7 +133,7 @@ function Visual({ kind, tick, fr, active }: { kind: number; tick: number; fr: bo
       </div>
     );
   }
-  const words = fr ? ["Comprendre", "Pratiquer", "Adopter"] : ["Understand", "Practise", "Adopt"];
+  const words = fr ? ["Comprendre", "Pratiquer", "Vérifier"] : ["Understand", "Practise", "Verify"];
   return (
     <div className="slc-art slc-art--learn">
       <div className="slc-learn-box">

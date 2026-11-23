@@ -253,7 +253,7 @@ const fr: readonly BusinessUseCase[] = [
 
 const en: readonly BusinessUseCase[] = [
   {
-    slug: "quote-requests",
+    slug: "demandes-de-devis",
     icon: "sales",
     domain: "Quotes & follow-ups",
     title: "Answer quote requests faster, and follow up the ones that go quiet",
@@ -262,7 +262,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The request is read and summarised, a draft quote is prepared from your prices for you to review, then a follow-up goes out automatically if the client does not reply.",
   },
   {
-    slug: "internal-knowledge-assistant",
+    slug: "assistant-connaissance-interne",
     icon: "knowledge",
     domain: "Internal documentation",
     title: "Search all internal documentation, while respecting everyone’s access rights",
@@ -271,7 +271,7 @@ const en: readonly BusinessUseCase[] = [
     example: "An internal assistant answers questions from authorised sources, cites the documents it used and only shows each person what they are allowed to see.",
   },
   {
-    slug: "frequent-questions",
+    slug: "questions-frequentes",
     icon: "support",
     domain: "Customer service",
     title: "Answer the questions that keep coming back",
@@ -280,7 +280,7 @@ const en: readonly BusinessUseCase[] = [
     example: "An assistant answers common questions from your own information, at any time, and passes on the requests that deserve a real reply.",
   },
   {
-    slug: "tender-responses",
+    slug: "appels-d-offres",
     icon: "contracts",
     domain: "Tenders",
     title: "Prepare tender responses faster",
@@ -289,7 +289,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The specifications are analysed, the requirements are listed, and a first draft is prepared from your past answers and documents, to be reviewed and completed by your teams.",
   },
   {
-    slug: "company-memory",
+    slug: "memoire-entreprise",
     icon: "knowledge",
     domain: "Know-how & documentation",
     title: "Keep the company’s memory",
@@ -298,7 +298,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Every problem met and its solution are recorded in a shared base. The team finds them by asking in their own words, and the answer cites the original entry.",
   },
   {
-    slug: "multilingual-customer-service",
+    slug: "service-client-multilingue",
     icon: "support",
     domain: "Multilingual customer service",
     title: "Answer clients in French, Dutch and English",
@@ -307,7 +307,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Each request is understood whatever its language, classified and routed, and a reply is drafted in the client’s language from your information, before being approved.",
   },
   {
-    slug: "connected-process-steps",
+    slug: "enchainement-des-etapes",
     icon: "workflow",
     domain: "Request flow",
     title: "Move a request from one step to the next, without retyping",
@@ -316,7 +316,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The request details are carried into your tools automatically, each step notifies the right person, and only the special cases are passed to you.",
   },
   {
-    slug: "internal-it-hr-support",
+    slug: "support-interne-it-rh",
     icon: "incidents",
     domain: "Internal IT & HR support",
     title: "Take the pressure off internal IT and HR support",
@@ -325,7 +325,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Common requests are answered from your procedures, tickets are classified and completed, and only the cases that need it reach the right team.",
   },
   {
-    slug: "appointments",
+    slug: "rendez-vous",
     icon: "planning",
     domain: "Calendar & appointments",
     title: "Confirm and remind appointments to cut no-shows",
@@ -334,7 +334,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The appointment is confirmed automatically, a reminder goes out the day before, and a cancellation frees the slot for another client.",
   },
   {
-    slug: "high-volume-documents",
+    slug: "documents-en-volume",
     icon: "workflow",
     domain: "High-volume documents",
     title: "Process large volumes of documents, with a record of every decision",
@@ -343,7 +343,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Each document is read, its information extracted and checked against your rules, doubtful cases are set aside for a person, and every step is logged.",
   },
   {
-    slug: "unpaid-invoices",
+    slug: "factures-impayees",
     icon: "finance",
     domain: "Getting paid",
     title: "Track unpaid invoices and chase them at the right time",
@@ -352,7 +352,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Due dates are tracked, a polite reminder goes out at the right time with the payment link, and you are alerted when a delay calls for a phone call.",
   },
   {
-    slug: "information-system-integration",
+    slug: "integration-systeme-information",
     icon: "workflow",
     domain: "Information system",
     title: "Connect AI to your information system, without replacing it",
@@ -361,7 +361,7 @@ const en: readonly BusinessUseCase[] = [
     example: "AI is plugged into your existing systems, such as SAP, Salesforce, Microsoft 365 or ServiceNow, through their APIs and with access limited to what is needed, to work on your real data.",
   },
   {
-    slug: "customer-onboarding",
+    slug: "onboarding-client",
     icon: "onboarding",
     domain: "New clients",
     title: "Welcome a new client without missing a step",
@@ -370,7 +370,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The client fills in a form, missing documents are requested, their file is created in your tools and the team is notified.",
   },
   {
-    slug: "ai-security-governance",
+    slug: "securite-gouvernance-ia",
     icon: "data",
     domain: "Security & governance",
     title: "Deploy AI within a framework your IT department can approve",
@@ -379,7 +379,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The solution relies on company single sign-on, respects existing access rights, logs every action and keeps data in the European Union when required.",
   },
   {
-    slug: "sales-opportunities",
+    slug: "opportunites-commerciales",
     icon: "sales",
     domain: "Sales & prospecting",
     title: "Know which prospects to contact first",
@@ -388,7 +388,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The useful information on each prospect is gathered, an explainable score suggests a contact order, and the first message is drafted for review.",
   },
   {
-    slug: "gdpr-ai-act-compliance",
+    slug: "conformite-rgpd-ai-act",
     icon: "contracts",
     domain: "GDPR & AI Act compliance",
     title: "Frame AI use under the GDPR and the AI Act",
@@ -397,7 +397,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Existing uses are mapped, clear usage rules are written, teams are trained and tools are set up to limit the data shared, together with your data protection officer.",
   },
   {
-    slug: "attention-priorities",
+    slug: "detection-priorites",
     icon: "data",
     domain: "Steering",
     title: "See straight away what needs your attention",
@@ -406,7 +406,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Your figures are brought together in a dashboard, in a tool you already know, and an unusual gap is flagged for you to check.",
   },
   {
-    slug: "executive-dashboard",
+    slug: "tableau-de-bord-direction",
     icon: "data",
     domain: "Executive steering",
     title: "Bring the figures of several departments or subsidiaries into one dashboard",
@@ -424,7 +424,7 @@ const en: readonly BusinessUseCase[] = [
     example: "The request is understood, the client’s history and known solutions are gathered, then it is passed to the right person with its priority.",
   },
   {
-    slug: "financial-controls",
+    slug: "controles-financiers",
     icon: "finance",
     domain: "Financial controls",
     title: "Spot gaps and anomalies in financial flows",
@@ -433,7 +433,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Flows are automatically compared with your rules and reference data, gaps and duplicates are flagged to the right team, which keeps the final decision.",
   },
   {
-    slug: "contracts-obligations",
+    slug: "contrats-obligations",
     icon: "contracts",
     domain: "Contracts & deadlines",
     title: "Never miss a contract deadline again",
@@ -442,7 +442,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Key dates and obligations are picked out of your contracts, kept in one place, and a reminder warns you before each deadline.",
   },
   {
-    slug: "business-copilot",
+    slug: "copilote-metier",
     icon: "copilot",
     domain: "Business software",
     title: "Have AI right inside the software you work in",

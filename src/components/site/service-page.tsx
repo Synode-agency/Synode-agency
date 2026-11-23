@@ -219,7 +219,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
       <div className="section-heading">
         <Lede kicker={fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} accents={p.afterTitleAccents} text={p.afterText} />
       </div>
-      <AfterPanel items={p.after} pill={operations.recurringLabel} note={operations.familyNote} locale={locale} />
+      <AfterPanel items={p.after} pill={family.slug === "formation-adoption-ia" ? undefined : operations.recurringLabel} note={operations.familyNote} locale={locale} />
       <IncludedStrip
         title={operations.included.title}
         items={operations.included.items}
