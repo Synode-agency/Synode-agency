@@ -66,8 +66,8 @@ const fr = {
   },
 
   home: {
-    metaTitle: "IA, intégration et logiciels à Bruxelles",
-    metaDescription: "Synode, agence technologique à Bruxelles : agents IA, intégration de vos logiciels (CRM, ERP, API), automatisations et logiciels métier sur mesure.",
+    metaTitle: "Intégration, logiciels et IA à Bruxelles",
+    metaDescription: "Synode, agence technologique à Bruxelles : des systèmes connectés (CRM, ERP, API), des logiciels métier intelligents et des processus automatisés, avec l’IA intégrée.",
     faq: {
       kicker: "Questions fréquentes",
       title: "Questions fréquentes sur nos solutions sur mesure",
@@ -82,23 +82,15 @@ const fr = {
         },
         {
           q: "Combien coûte une solution sur mesure ?",
-          a: "Le prix d’un agent IA, d’une automatisation ou d’un logiciel sur mesure dépend du périmètre, des intégrations et de la complexité. Un premier échange gratuit nous permet de comprendre votre besoin avant de préparer un devis personnalisé, avec les éventuels frais récurrents.",
+          a: "Il n’y a pas de grille tarifaire publique : chaque projet est chiffré sur son périmètre réel (fonctionnalités, données, logiciels à connecter, volumes). Le premier échange est gratuit. Le cadrage est payant : il aboutit au périmètre écrit et au devis ferme, et son montant est déduit du prix du projet au démarrage du développement. Le devis distingue le développement, les coûts techniques récurrents, la maintenance si vous la choisissez et les services tiers.",
         },
         {
           q: "Y a-t-il des coûts récurrents après la mise en service ?",
           a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous nous confiez le suivi et la maintenance, et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
         },
         {
-          q: "Comment se déroule un projet avec Synode ?",
-          a: "En six étapes : cadrage du besoin, conception et architecture, développement, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous avant la suivante.",
-        },
-        {
           q: "Mes données restent-elles confidentielles ?",
-          a: "Oui. Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation.",
-        },
-        {
-          q: "Assurez-vous la maintenance après le déploiement ?",
-          a: "Oui, si vous nous la confiez : Synode assure alors l’exploitation, le monitoring et la maintenance de votre solution selon les modalités prévues au contrat. Sinon, la solution vous est livrée et vous la reprenez en interne. Les coûts techniques et les évolutions importantes sont définis séparément.",
+          a: "Oui. Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. C’est vous qui choisissez ce qui est validé par une personne : toutes les actions, ou seulement les actions sensibles.",
         },
       ],
     },
@@ -193,13 +185,11 @@ const fr = {
 
     faqTitle: "Questions fréquentes sur nos solutions sur mesure",
     faq: [
-      { q: "Dois-je remplacer mes logiciels actuels ?", a: "Pas nécessairement. La solution s’intègre à vos logiciels lorsqu’ils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
-      { q: "Combien coûte une solution sur mesure ?", a: "Il n’y a pas de grille tarifaire publique : le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé avant tout démarrage, qui distingue le développement, les coûts techniques récurrents, la maintenance si vous la choisissez et les services tiers." },
       { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit six étapes : cadrage du besoin métier, conception et architecture, développement sur mesure, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous." },
-      { q: "Mes données restent-elles confidentielles ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation." },
       { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous nous confiez le suivi et la maintenance : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
       { q: "Combien de temps faut-il pour développer une solution sur mesure ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
       { q: "Une solution sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
+      { q: "Avec qui signons-nous ?", a: "Le contrat et les factures sont établis par Productions Associées ASBL (Smart), qui héberge l’activité de Synode : un contrat écrit, des factures avec TVA et un cocontractant établi en Belgique. Au quotidien, vous travaillez directement avec nous." },
     ],
 
   },
@@ -217,11 +207,11 @@ const fr = {
         title: "Premier échange",
         work: "Comprendre votre besoin, vos outils, vos contraintes et la priorité du projet.",
         client: "Partir d’un cas concret, récent de préférence.",
-        output: "Un résumé du besoin et la prochaine étape proposée.", brief: "On cadre votre besoin en 30 minutes, gratuit et sans engagement", accents: ["besoin", "30 minutes", "sans engagement"],
+        output: "Un résumé du besoin et la prochaine étape proposée.", brief: "On fait le point sur votre besoin en 30 minutes, gratuit et sans engagement", accents: ["besoin", "30 minutes", "sans engagement"],
       },
       {
         title: "Analyse et proposition",
-        work: "Évaluer la faisabilité, définir le périmètre du projet et préciser les critères de réussite.",
+        work: "Évaluer la faisabilité, définir le périmètre du projet et préciser les critères de réussite. C’est le cadrage : il est payant, et son montant est déduit du prix du projet au démarrage du développement.",
         client: "Confirmer les données disponibles, les contraintes et les personnes impliquées dans la décision.",
         output: "Une proposition, un devis et des critères de réussite.", brief: "Vos données et contraintes donnent la faisabilité, le périmètre et le devis", accents: ["données", "contraintes", "faisabilité", "périmètre", "devis"],
       },
@@ -271,11 +261,11 @@ const fr = {
     peopleTitle: "Deux développeurs,\ndes expertises complémentaires",
     people: [
       {
-        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Cofondateur · IA, agents & automatisations",
+        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Cofondateur · IA, agents & automatisations",
         text: "Antonino analyse vos processus métier, conçoit les workflows et développe les agents IA. Il identifie les tâches qui méritent d’être automatisées et prépare leur intégration dans votre environnement.",
       },
       {
-        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Cofondateur · Logiciels & intégrations",
+        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Cofondateur · Logiciels & intégrations",
         text: "Killian développe les applications IA, les logiciels métier et les intégrations entre vos outils. Il transforme le besoin cadré en une solution utilisable, testée et adaptée à votre activité.",
       },
     ],
@@ -319,7 +309,7 @@ const fr = {
       text: "Si vous préférez écrire, ou si aucun créneau ne vous convient.",
       fields: {
         name: { label: "Nom", placeholder: "Votre nom" },
-        email: { label: "Email de contact", placeholder: "vous@exemple.com", hint: "Une adresse personnelle convient : nous travaillons aussi avec des indépendants." },
+        email: { label: "Email de contact", placeholder: "vous@exemple.com" },
         company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
         need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche qui vous coûte le plus de temps, ou les logiciels que vous aimeriez relier.", hint: "Un exemple concret vaut mieux qu’une description générale." },
         phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
@@ -331,7 +321,7 @@ const fr = {
       budgetOptions: ["À définir", "Moins de 5 000 €", "5 000 à 15 000 €", "15 000 à 40 000 €", "Plus de 40 000 €"],
       submit: "Envoyer mon message",
       sending: "Envoi en cours…",
-      privacyNote: "Vos informations servent uniquement à traiter votre demande. Pas de newsletter, pas de revente.",
+      privacyNote: "Vos informations servent uniquement à traiter votre demande et sont conservées 12 mois après le dernier échange. Responsables : Antonino Lo Bianco et Killian Schoebben (Synode). Pas de newsletter, pas de revente.",
       privacyLink: "Comment nous traitons vos données",
       errors: {
         name: "Indiquez votre nom.",
@@ -405,8 +395,8 @@ const en = {
   },
 
   home: {
-    metaTitle: "AI, integration and software in Brussels",
-    metaDescription: "Synode, a technology agency in Brussels: AI agents, integration of your software (CRM, ERP, API), automations and custom business software.",
+    metaTitle: "Integration, software and AI in Brussels",
+    metaDescription: "Synode, a technology agency in Brussels: connected systems (CRM, ERP, API), intelligent business software and automated processes, with built-in AI.",
     faq: {
       kicker: "FAQ",
       title: "Common questions about our custom solutions",
@@ -421,23 +411,15 @@ const en = {
         },
         {
           q: "How much does a custom solution cost?",
-          a: "The price of an AI agent, an automation or custom software depends on the scope, the integrations and the complexity. A free first call lets us understand your needs before we prepare a tailored quote, including any recurring costs.",
+          a: "There is no public price list: every project is priced on its real scope (features, data, software to connect, volumes). The first call is free. Scoping is paid: it produces the written scope and the firm quote, and its fee is deducted from the project price when development starts. The quote separates development, recurring technical costs, maintenance if you choose it and third-party services.",
         },
         {
           q: "Are there recurring costs after go-live?",
           a: "Yes, as soon as your solution relies on paid services (AI models, hosting, automation platforms), billed by subscription for as long as it runs. Synode never absorbs these costs. Either you entrust support and maintenance to us and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you subscribe to and pay those services directly with the providers. Amounts are estimated before work starts.",
         },
         {
-          q: "How does a project with Synode work?",
-          a: "In six steps: scoping the need, design and architecture, development, integration and go-live, documentation and training, then maintenance and changes if you entrust them to us. Each step is agreed with you before the next one.",
-        },
-        {
           q: "Will my data remain confidential?",
-          a: "Yes. Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval.",
-        },
-        {
-          q: "Do you provide maintenance after deployment?",
-          a: "Yes, if you entrust it to us: Synode then runs, monitors and maintains your solution under the terms set out in the contract. Otherwise, the solution is handed over and you run it in-house. Technical costs and significant changes are defined separately.",
+          a: "Yes. Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. You choose what a person approves: every action, or only sensitive ones.",
         },
       ],
     },
@@ -529,13 +511,11 @@ const en = {
 
     faqTitle: "Common questions about our custom solutions",
     faq: [
-      { q: "Do I have to replace my current software?", a: "Not necessarily. The solution integrates with your software when it offers APIs, exports or other ways to connect. We first study your CRM, ERP, email, databases and business software to define a realistic integration before quoting." },
-      { q: "How much does a custom solution cost?", a: "There is no public price list: the price depends on the scope, the features, the volumes, the data and the software to connect. You receive a tailored quote before anything starts, separating development, recurring technical costs, maintenance if you choose it, and third-party services." },
       { q: "How does a project with Synode run?", a: "In six steps: scoping the business need, design and architecture, custom development, integration and go-live, documentation and training, then maintenance and changes if you entrust them to us. Each step is agreed with you." },
-      { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval." },
       { q: "Do you handle maintenance after deployment?", a: "Yes, if you entrust support and maintenance to us: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
       { q: "How long does it take to build a solution?", a: "It depends on the scope and the integrations. The schedule, its steps and its deadlines are set in the quote, before work starts." },
       { q: "Can the solution evolve later on?", a: "Yes. Significant changes or new features go through a fresh scoping exercise, a new quote and a written agreement before any work begins." },
+      { q: "Who do we sign with?", a: "The contract and the invoices are issued by Productions Associées ASBL (Smart), which hosts Synode’s activity: a written contract, VAT invoices and a contracting party established in Belgium. Day to day, you work directly with us." },
     ],
 
   },
@@ -548,8 +528,8 @@ const en = {
     title: "What happens,\n^stage by stage",
     text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
     steps: [
-      { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We frame your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
-      { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
+      { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We look at your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
+      { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria. This is the scoping stage: it is paid, and its fee is deducted from the project price when development starts.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
       { title: "Design", work: "Define how the solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan.", brief: "Your business rules become the build plan", accents: ["business rules", "build plan"], },
       { title: "Build", work: "Develop the solution and test it progressively against your processes and your real cases.", client: "Test the flows, review the first results and send us your feedback.", output: "A version ready for acceptance.", brief: "We build on your real cases, guided by your feedback", accents: ["real cases", "feedback"], },
       { title: "Acceptance and go-live", work: "Test, fix, document and put the solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
@@ -575,11 +555,11 @@ const en = {
     peopleTitle: "Two developers with complementary expertise",
     people: [
       {
-        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automate and grow", role: "Co-founder · AI, agents & automation",
+        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Co-founder · AI, agents & automation",
         text: "Antonino analyses business processes, designs workflows and develops AI agents. He identifies the tasks worth automating and prepares their integration into your environment.",
       },
       {
-        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Build ideas that last", role: "Co-founder · Software & integrations",
+        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Co-founder · Software & integrations",
         text: "Killian develops AI applications, business software and integrations between your tools. He turns the scoped need into a usable, tested solution suited to your business.",
       },
     ],
@@ -619,7 +599,7 @@ const en = {
       text: "If you would rather write, or if none of the slots suit you.",
       fields: {
         name: { label: "Name", placeholder: "Your name" },
-        email: { label: "Contact email", placeholder: "you@example.com", hint: "A personal address is fine: we work with freelancers too." },
+        email: { label: "Contact email", placeholder: "you@example.com" },
         company: { label: "Company or activity", placeholder: "Optional", optional: "Optional" },
         need: { label: "What would you like to improve?", placeholder: "Describe the task that costs you the most time, or the software you would like to connect.", hint: "One concrete example beats a general description." },
         phone: { label: "Phone", placeholder: "Optional", optional: "Optional" },
@@ -631,7 +611,7 @@ const en = {
       budgetOptions: ["To be defined", "Under €5,000", "€5,000 to €15,000", "€15,000 to €40,000", "Over €40,000"],
       submit: "Send my message",
       sending: "Sending…",
-      privacyNote: "Your details are used only to handle your request. No newsletter, no reselling.",
+      privacyNote: "Your details are used only to handle your request and are kept for 12 months after the last exchange. Controllers: Antonino Lo Bianco and Killian Schoebben (Synode). No newsletter, no reselling.",
       privacyLink: "How we handle your data",
       errors: {
         name: "Please enter your name.",

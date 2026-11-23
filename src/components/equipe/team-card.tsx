@@ -9,30 +9,38 @@ import styles from "./team-card.module.css";
  * point de rupture.
  *
  * ⚠ Les quatre textes viennent du contenu et ne sont pas retouchés ici :
- * l'accroche, le prénom, le rôle et la description sont affichés mot pour
+ * le nom, le rôle et la description sont affichés mot pour
  * mot. Ce composant ne décide que de leur mise en forme.
+ *
+ * Le nom sur deux lignes (décision D8 du 23/11/2026) : le nom de famille en
+ * petit au-dessus, le prénom en grand en dessous. Dans le HTML, le prénom
+ * vient d'abord, pour qu'un lecteur d'écran dise « Antonino Lo Bianco » et
+ * non « Lo Bianco Antonino » ; c'est la colonne inversée qui les retourne
+ * à l'écran.
  */
 export function TeamCard({
   first,
+  last,
   photo,
-  headline,
   role,
   text,
 }: {
   first: string;
+  last: string;
   photo: string;
-  headline: string;
   role: string;
   text: string;
 }) {
   return (
     <article className={styles.card}>
       <div className={styles.photo}>
-        <Image src={photo} alt={first} fill sizes="(max-width: 1000px) 90vw, 30vw" />
+        <Image src={photo} alt={`${first} ${last}`} fill sizes="(max-width: 1000px) 90vw, 30vw" />
       </div>
       <div className={styles.copy}>
-        <span className={styles.headline}>{headline}</span>
-        <h3>{first}</h3>
+        <h3 className={styles.name}>
+          <span className={styles.first}>{first}</span>{" "}
+          <span className={styles.last}>{last}</span>
+        </h3>
         <p className={styles.role}>{role}</p>
         <i className={styles.rule} aria-hidden />
         <p className={styles.text}>{text}</p>

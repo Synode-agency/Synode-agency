@@ -75,7 +75,7 @@ const SECURITY = {
     items: [
       { title: "Protection des données", text: "La solution accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
       { title: "Gestion des droits d’accès", text: "Les permissions sont limitées selon les utilisateurs, les rôles et les logiciels connectés." },
-      { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes restent soumises à votre validation." },
+      { title: "Validation humaine", text: "Vous choisissez : toutes les actions validées par une personne, ou seulement les actions sensibles." },
       { title: "Suivi & maintenance", text: "Si vous nous confiez le suivi, le fonctionnement, les erreurs et les intégrations sont surveillés après le déploiement." },
     ],
     panelTitle: "Vos données restent sous votre contrôle",
@@ -86,7 +86,7 @@ const SECURITY = {
     items: [
       { title: "Data protection", text: "The solution only accesses the data needed for the operation agreed with you." },
       { title: "Access rights management", text: "Permissions are limited by user, role and connected software." },
-      { title: "Human approval", text: "Sensitive decisions and important actions stay subject to your approval." },
+      { title: "Human approval", text: "You choose: every action approved by a person, or only sensitive ones." },
       { title: "Support & maintenance", text: "If you entrust support to us, operation, errors and integrations are monitored after deployment." },
     ],
     panelTitle: "Your data stays under your control",
@@ -214,9 +214,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       <Band id="tarification" tone="base" className="solutions-rhythm solutions-full solutions-white-band">
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
-          title={fr ? "Prix d’une solution sur mesure :\nnotre tarification" : "Custom solution pricing:\nhow we charge"}
-          accents={fr ? ["tarification"] : ["how we charge"]}
-          text={fr ? "Le budget d’un projet dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "A project’s budget depends on its scope, complexity, integrations, volumes and the level of support you expect. Our quote clearly separates development, recurring technical costs and future changes."}
+          title={fr ? "Comment nous chiffrons\nvotre projet" : "How we price\nyour project"}
+          accents={fr ? ["chiffrons"] : ["price"]}
+          text={fr ? "Pas de grille de prix : chaque projet est chiffré sur son périmètre réel. Le premier échange est gratuit. Le cadrage est payant : il aboutit au périmètre écrit et au devis ferme, et son montant est déduit du prix du projet au démarrage du développement. Le devis distingue ensuite le développement, les coûts techniques récurrents et les évolutions futures." : "No price list: every project is priced on its real scope. The first call is free. Scoping is paid: it produces the written scope and the firm quote, and its fee is deducted from the project price when development starts. The quote then separates development, recurring technical costs and future changes."}
         />
         <PricingDoc locale={locale} />
       </Band>

@@ -205,7 +205,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
           type="email"
           label={f.fields.email.label}
           placeholder={f.fields.email.placeholder}
-          hint={f.fields.email.hint}
           required
           invalid={err("email")}
           error={emailEmpty ? f.errors.email : f.errors.emailInvalid}

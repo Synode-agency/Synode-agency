@@ -33,17 +33,17 @@ export const ogContentType = "image/png";
 const COPY = {
   fr: {
     kicker: "AGENCE TECHNOLOGIQUE · BRUXELLES",
-    title: "Solutions sur mesure, avec l’IA intégrée",
-    text: "Intelligence artificielle, systèmes connectés et logiciels métier, conçus autour de vos outils et de vos données.",
+    title: "Des systèmes connectés, des logiciels intelligents, des processus automatisés",
+    text: "Intégration de systèmes, logiciels métier sur mesure et intelligence artificielle, autour de vos outils et de vos données.",
     foot: "synode-agency.com",
-    alt: "Synode, agence technologique à Bruxelles : solutions sur mesure, avec l’IA intégrée",
+    alt: "Synode, agence technologique à Bruxelles : des systèmes connectés, des logiciels intelligents, des processus automatisés",
   },
   en: {
     kicker: "TECHNOLOGY AGENCY · BRUSSELS",
-    title: "Custom solutions, with built-in AI",
-    text: "Artificial intelligence, connected systems and business software, built around your tools and your data.",
+    title: "Connected systems, intelligent software, automated processes",
+    text: "Systems integration, custom business software and artificial intelligence, built around your tools and your data.",
     foot: "synode-agency.com",
-    alt: "Synode, technology agency in Brussels: custom solutions, with built-in AI",
+    alt: "Synode, technology agency in Brussels: connected systems, intelligent software, automated processes",
   },
 } as const;
 
@@ -89,11 +89,15 @@ export function ogCard(locale: "fr" | "en", mark?: string): ReactElement {
         <div
           style={{
             display: "flex",
-            maxWidth: 900,
-            fontSize: 82,
+            /* 66 et non plus 82 depuis le titre en trois promesses (23/11/2026) :
+               trois lignes à 82 poussaient la description contre le filet. Le
+               titre français, plus long, descend à 58 sur toute la largeur
+               pour tenir en deux lignes. */
+            maxWidth: c.title.length > 70 ? 1056 : 1000,
+            fontSize: c.title.length > 70 ? 58 : 66,
             fontWeight: 600,
             lineHeight: 1.08,
-            letterSpacing: -2,
+            letterSpacing: -1.5,
             color: "#ffffff",
           }}
         >

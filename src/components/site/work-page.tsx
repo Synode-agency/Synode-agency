@@ -53,7 +53,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           "@type": "ListItem",
           position: 1,
           url: `${siteUrl}${pagePath}/${nexus.slug}`,
-          name: locale === "fr" ? "Nexus - Logiciel de prospection" : "Nexus - Prospecting software",
+          name: locale === "fr" ? "Nexus - Logiciel de prospection commerciale" : "Nexus - Sales prospecting software",
           description: nexus.problem,
         },
         coory && {

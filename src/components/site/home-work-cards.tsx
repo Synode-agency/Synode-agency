@@ -14,12 +14,12 @@ const COPY = {
   fr: {
     project: "Projet",
     discover: "Découvrir le projet",
-    nexusStatus: "Nexus est un outil interne de Synode, déjà opérationnel. L’illustration montre des données fictives.",
+    nexusStatus: "Déjà opérationnel. L’illustration montre des données d’exemple.",
   },
   en: {
     project: "Project",
     discover: "Explore the project",
-    nexusStatus: "Nexus is an internal Synode tool, already in use. The illustration shows sample data.",
+    nexusStatus: "Already in use. The illustration shows sample data.",
   },
 } as const;
 
@@ -86,7 +86,7 @@ export function HomeWorkCards({
           <div className={styles.meta}>
             <span>{c.project} 01</span>
           </div>
-          <Heading id="home-project-nexus">{fr ? "Nexus - Logiciel de prospection" : "Nexus - Prospecting software"}</Heading>
+          <Heading id="home-project-nexus">{fr ? "Nexus - Logiciel de prospection commerciale" : "Nexus - Sales prospecting software"}</Heading>
           <p>{nexus.problem} {c.nexusStatus}</p>
           <Tags items={nexusTags} />
         </div>

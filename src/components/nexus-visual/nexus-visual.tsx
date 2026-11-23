@@ -87,7 +87,7 @@ const gaugeColour = (score: number) => (score > 70 ? "#34D399" : score > 50 ? "#
 
 const COPY = {
   fr: {
-    label: "Nexus, logiciel de prospection B2B : une recherche sectorielle, cinq entreprises notées par l’IA, et la fiche d’une entreprise avec son premier message préparé. Données d’illustration.",
+    label: "Nexus, logiciel de prospection commerciale : une recherche sectorielle, cinq entreprises notées par l’IA, et la fiche d’une entreprise avec son premier message préparé. Données d’exemple.",
     product: "Prospection B2B",
     query: "Menuiserie, construction · Wallonie · 20–200 employés",
     companies: (n: number) => `${n} entreprises`,
@@ -107,7 +107,7 @@ const COPY = {
     kpi: "Leads qualifiés cette semaine",
   },
   en: {
-    label: "Nexus, B2B prospecting software: a sector search, five companies scored by AI, and one company sheet with its first message drafted. Illustrative data.",
+    label: "Nexus, sales prospecting software: a sector search, five companies scored by AI, and one company sheet with its first message drafted. Sample data.",
     product: "B2B prospecting",
     query: "Joinery, construction · Wallonia · 20–200 employees",
     companies: (n: number) => `${n} companies`,

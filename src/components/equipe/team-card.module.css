@@ -49,22 +49,29 @@
   min-width: 0;
   padding: 26px 26px 24px;
 }
-.headline {
-  width: fit-content;
-  padding: 4px 10px;
-  border: 1px solid #d6e2fa;
-  border-radius: 999px;
-  background: #f4f8fe;
-  font-size: 11.5px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
 .copy h3 {
   margin: 6px 0 0;
   font-size: 24px;
   font-weight: 500;
   letter-spacing: -0.4px;
   color: #2e2e2e;
+}
+/* Le nom de famille au-dessus, le prénom en dessous (voir le composant). */
+.name {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+}
+.first {
+  line-height: 1.15;
+}
+.last {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: #6b6f76;
 }
 .role {
   margin: 0;
@@ -83,14 +90,6 @@
   line-height: 1.65;
   text-wrap: pretty;
   color: #5a5a5a;
-}
-
-/* L'accroche est la seule ligne que la carte ne peut pas replier : sous
-   cette largeur, elle déborderait de sa pastille. */
-@media (max-width: 420px) {
-  .headline {
-    white-space: normal;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

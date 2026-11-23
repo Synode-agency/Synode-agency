@@ -41,7 +41,7 @@ type Step = { short: string; title: string; text: string; out: string };
 
 const STEPS: Record<"fr" | "en", Step[]> = {
   fr: [
-    { short: "Cadrage", title: "Cadrage du besoin métier", text: "Analyse du processus à améliorer, de vos outils, de vos données et de vos contraintes. Le périmètre est écrit et validé avant tout développement.", out: "Un périmètre écrit et validé." },
+    { short: "Cadrage", title: "Cadrage du besoin métier", text: "Analyse du processus à améliorer, de vos outils, de vos données et de vos contraintes. Le périmètre est écrit et validé avant tout développement. Ce cadrage est payant, et déduit du prix du projet.", out: "Un périmètre écrit et validé." },
     { short: "Conception", title: "Conception & architecture IA", text: "Définition de l’architecture, des intégrations et des briques réellement utiles à votre objectif. Vous savez ce qui sera construit avant le démarrage.", out: "Une architecture et un devis." },
     { short: "Développement", title: "Développement sur mesure", text: "Création des agents IA, des automatisations ou des logiciels métier prévus au périmètre, testés au fur et à mesure sur vos cas réels.", out: "Une version testée sur vos cas." },
     { short: "Intégration", title: "Intégration & déploiement", text: "Connexion à vos logiciels existants, recette sur des données réelles, puis mise en service de la solution dans votre environnement.", out: "La solution en service." },
@@ -49,7 +49,7 @@ const STEPS: Record<"fr" | "en", Step[]> = {
     { short: "Suivi", title: "Suivi & maintenance", text: "Monitoring, maintenance et évolutions selon les besoins du projet. Vous choisissez de nous confier ce suivi ou de le reprendre en interne.", out: "Un suivi défini et des évolutions chiffrées." },
   ],
   en: [
-    { short: "Scoping", title: "Scoping the business need", text: "Analysis of the process to improve, your tools, your data and your constraints. The scope is written and agreed before any development.", out: "A written, agreed scope." },
+    { short: "Scoping", title: "Scoping the business need", text: "Analysis of the process to improve, your tools, your data and your constraints. The scope is written and agreed before any development. Scoping is paid, and deducted from the project price.", out: "A written, agreed scope." },
     { short: "Design", title: "AI design & architecture", text: "We define the architecture, the integrations and the blocks genuinely useful to your objective. You know what will be built before work starts.", out: "An architecture and a quote." },
     { short: "Development", title: "Custom development", text: "We build the AI agents, automations or business software set out in the scope, tested as we go on your real cases.", out: "A version tested on your cases." },
     { short: "Integration", title: "Integration & go-live", text: "Connection to your existing software, acceptance testing on real data, then putting the solution into service in your environment.", out: "The solution in service." },

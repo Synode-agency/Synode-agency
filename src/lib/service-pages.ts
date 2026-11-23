@@ -150,7 +150,7 @@ const fr: Record<string, ServicePageContent> = {
     coreText: "Un agent IA ne remplace pas votre environnement de travail : il s’y branche. Il lit et écrit dans les logiciels que vos équipes utilisent déjà, avec les droits d’accès que vous lui accordez.",
     coreCentre: "Agent IA",
     coreChips: ["CRM", "ERP", "Email", "Documents", "Base de données", "API", "Outils métier", "Agenda"],
-    coreNote: "Les accès sont limités au nécessaire. Les actions sensibles restent soumises à validation humaine.",
+    coreNote: "Les accès sont limités au nécessaire. Vous choisissez ce qui est validé par une personne : toutes les actions, ou seulement les actions sensibles.",
     afterTitle: "Votre agent évolue avec votre activité",
     afterTitleAccents: ["évolue"],
     afterText: "Un agent vit dans un environnement qui change : vos documents, vos règles et vos outils évoluent. Si vous nous confiez le suivi, voici ce que nous assurons après la mise en service.",
@@ -279,7 +279,7 @@ const fr: Record<string, ServicePageContent> = {
     faqExtra: [
       { q: "Pourquoi développer plutôt qu’acheter un logiciel existant ?", a: "Dans beaucoup de cas, un logiciel du marché suffit, et nous le disons. Le sur-mesure se justifie quand votre fonctionnement est spécifique, quand plusieurs outils devraient être reliés, ou quand aucune solution ne couvre le parcours central de votre activité." },
       { q: "Peut-on commencer petit ?", a: "C’est la méthode que nous recommandons. Une première version couvre le parcours le plus utile, elle est testée par ses utilisateurs, puis étendue. Cela limite le risque et rend les arbitrages plus concrets." },
-      { q: "À qui appartient le code de l’application ?", a: "Les conditions de propriété, d’hébergement et de réversibilité sont écrites dans la proposition avant le démarrage, avec le périmètre et les responsabilités de chacun." },
+      { q: "À qui appartient le code de l’application ?", a: "À vous. Une fois le projet payé, tout ce que nous avons développé pour vous vous appartient, code compris, et il est livré dans un dépôt à votre nom." },
     ],
   },
 
@@ -391,7 +391,7 @@ const fr: Record<string, ServicePageContent> = {
     faqExtra: [
       { q: "Dans quel outil les tableaux de bord sont-ils construits ?", a: "De préférence dans un outil standard que vous utilisez déjà ou que vos équipes connaissent : Power BI, Excel, Google Sheets, Looker Studio, ou le module de reporting de votre ERP. Vous gardez la main sur vos tableaux sans dépendre de nous. Un écran sur mesure ne se justifie que si aucun de ces outils ne convient." },
       { q: "Faut-il beaucoup de données pour commencer ?", a: "Pas pour un tableau de bord : il suffit que vos données existantes soient accessibles et cohérentes. Pour une prévision ou un score, le volume, la qualité et la profondeur d’historique comptent, et nous les examinons avant de nous engager." },
-      { q: "Nos données sont-elles utilisées pour entraîner des modèles ?", a: "Pas en dehors du cadre défini avec vous. Les conditions d’usage, les accès et les services techniques concernés sont écrits dans la proposition avant le démarrage." },
+      { q: "Nos données sont-elles utilisées pour entraîner des modèles ?", a: "Non, nous utilisons des services configurés pour ne pas entraîner leurs modèles sur vos données." },
       { q: "Une prévision est-elle fiable ?", a: "Une prévision est une estimation, évaluée sur des données passées et accompagnée de ses limites. Elle peut aider à préparer une décision, mais elle ne la remplace pas, et nous ne la présentons jamais comme une certitude." },
     ],
   },
@@ -488,7 +488,7 @@ const en: Record<string, ServicePageContent> = {
     coreText: "An AI agent does not replace your working environment, it plugs into it. It reads and writes in the software your teams already use, with the access rights you grant.",
     coreCentre: "AI agent",
     coreChips: ["CRM", "ERP", "Email", "Documents", "Database", "API", "Business tools", "Calendar"],
-    coreNote: "Access is limited to what is necessary. Sensitive actions remain subject to human approval.",
+    coreNote: "Access is limited to what is necessary. You choose what a person approves: every action, or only sensitive ones.",
     afterTitle: "Your agent changes as your business does",
     afterTitleAccents: ["changes"],
     afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. If you entrust support and maintenance to us, here is what we handle after go-live.",
@@ -617,7 +617,7 @@ const en: Record<string, ServicePageContent> = {
     faqExtra: [
       { q: "Why build rather than buy?", a: "In many cases an off-the-shelf product is enough, and we say so. Custom work is justified when your way of working is specific, when several tools should be connected, or when no product covers the core path of your activity." },
       { q: "Can we start small?", a: "That is the approach we recommend. A first version covers the most useful path, is tested by its users, then extended. It limits risk and makes trade-offs concrete." },
-      { q: "Who owns the application’s code?", a: "Ownership, hosting and exit conditions are written into the proposal before work starts, along with the scope and each party’s responsibilities." },
+      { q: "Who owns the application’s code?", a: "You do. Once the project is paid for, everything we built for you is yours, code included, and it is delivered in a repository in your name." },
     ],
   },
 
@@ -730,7 +730,7 @@ const en: Record<string, ServicePageContent> = {
     faqExtra: [
       { q: "Which tool are the dashboards built in?", a: "Preferably a standard tool you already use or that your teams know: Power BI, Excel, Google Sheets, Looker Studio, or your ERP’s reporting module. You stay in control of your dashboards without depending on us. A custom screen is only justified when none of these tools fits." },
       { q: "Do we need a lot of data to start?", a: "Not for a dashboard: your existing data simply has to be accessible and consistent. For a forecast or a score, volume, quality and depth of history matter, and we examine them before committing." },
-      { q: "Is our data used to train models?", a: "Not outside the scope agreed with you. Usage conditions, access and the technical services involved are written into the proposal before work starts." },
+      { q: "Is our data used to train models?", a: "No, we use services configured so that they do not train their models on your data." },
       { q: "Can a forecast be trusted?", a: "A forecast is an estimate, evaluated on past data and presented with its limits. It can support a decision but does not replace it, and we never present it as a certainty." },
     ],
   },

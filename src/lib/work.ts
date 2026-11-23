@@ -65,11 +65,11 @@ const fr = {
     text: "Un projet n’apparaît ici qu’après sa livraison et avec l’accord écrit du client. Rien n’est publié avant ces deux conditions.",
   },
   detail: {
-    contextTitle: "Le contexte de\nnotre prospection B2B",
+    contextTitle: "Pourquoi nous avons\nconstruit Nexus",
     doesTitle: "Ce que Nexus fait aujourd’hui",
     aiTitle: "Comment l’IA assiste la recherche et la qualification",
     goalsTitle: "Ce que nous cherchons à obtenir avec Nexus",
-    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les entreprises, les noms, les adresses et les chiffres des écrans de Nexus sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
+    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les données affichées sur les écrans de Nexus sont des exemples : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     limitsTitle: "Limites et validation humaine",
     backLabel: "Toutes les réalisations",
     cta: "Un besoin similaire ?",
@@ -87,14 +87,14 @@ const fr = {
     {
       slug: "nexus",
       kind: "internal" as WorkKind,
-      title: "Nexus - Logiciel de prospection B2B assisté par IA",
-      accent: "B2B assisté par IA",
+      title: "Nexus - Logiciel de prospection commerciale",
+      accent: "prospection commerciale",
       status: "Outil interne · opérationnel",
       problem:
-        "Identifier rapidement les entreprises à Bruxelles et en Belgique susceptibles d’avoir besoin de nos solutions sur mesure, trouver les contacts professionnels pertinents et préparer une prise de contact ciblée sans y passer la semaine.",
-      journey: ["Recherche d’entreprises", "Analyse IA", "Qualification", "Préparation de la prise de contact", "Suivi commercial"],
+        "Une équipe commerciale passe des heures à chercher des entreprises, à comprendre leur activité et à décider qui contacter. Nexus fait ce travail de veille et de qualification pour nous, à Bruxelles et en Belgique, et prépare un premier contact pertinent.",
+      journey: ["Veille des entreprises", "Analyse IA", "Qualification", "Préparation du premier contact", "Suivi commercial"],
       context:
-        "Nexus a été conçu pour notre prospection B2B à Bruxelles et en Belgique. L’objectif est de rechercher plus rapidement les entreprises susceptibles d’avoir besoin de nos solutions sur mesure, de rassembler les informations professionnelles utiles, d’identifier les contacts pertinents et de préparer une prise de contact adaptée. Nexus reste un outil interne et n’est pas vendu comme un produit. En revanche, une solution similaire peut être conçue sur mesure pour une entreprise qui souhaite structurer, accélérer et mieux cibler sa propre prospection.",
+        "Nous avons conçu Nexus pour notre propre prospection à Bruxelles et en Belgique : c’est le logiciel que nous utilisons réellement. Il fait le travail de veille commerciale : rechercher les entreprises dont l’activité correspond à nos solutions, rassembler les informations professionnelles utiles, les qualifier et préparer un premier contact adapté. Nexus reste un outil interne et n’est pas vendu comme un produit. En revanche, une solution similaire peut être conçue sur mesure pour toute équipe commerciale, autour de ses critères, de ses sources et de son CRM.",
       does: [
         "Rechercher des entreprises à Bruxelles et en Belgique à partir de sources professionnelles publiques.",
         "Rassembler les informations utiles sur leur activité, leurs outils et leurs besoins potentiels.",
@@ -109,7 +109,7 @@ const fr = {
         "Éviter de contacter des entreprises pour qui notre travail n’a pas de sens.",
       ],
       limits: [
-        "Nexus est un outil interne, inaccessible depuis le site : les données qu’il traite ne sont jamais publiées. Les entreprises et les personnes visibles sur ces écrans sont fictives.",
+        "Nexus est notre vrai logiciel de prospection, réservé à notre usage et inaccessible depuis le site : les données qu’il traite ne sont jamais publiées. Les données affichées sur ces écrans sont des exemples.",
         "Chaque premier message est préparé par l’outil, puis relu et envoyé par un humain.",
       ],
       todo: false,
@@ -169,11 +169,11 @@ const en = {
     text: "A project appears here only after delivery and with the client’s written agreement. Nothing is published before both.",
   },
   detail: {
-    contextTitle: "The context of\nour B2B prospecting",
+    contextTitle: "Why we\nbuilt Nexus",
     doesTitle: "What Nexus does today",
     aiTitle: "How AI supports research and qualification",
     goalsTitle: "What we aim to achieve with Nexus",
-    goalsNote: "These are goals, not measured results. The companies, names, addresses and figures on the Nexus screens are fictitious: no result will be published here before it has been measured in real conditions.",
+    goalsNote: "These are goals, not measured results. The data shown on the Nexus screens is sample data: no result will be published here before it has been measured in real conditions.",
     limitsTitle: "Limits and human approval",
     backLabel: "All work",
     cta: "Something similar in mind?",
@@ -191,14 +191,14 @@ const en = {
     {
       slug: "nexus",
       kind: "internal" as WorkKind,
-      title: "Nexus - AI-assisted B2B prospecting software",
-      accent: "B2B prospecting",
+      title: "Nexus - Sales prospecting software",
+      accent: "sales prospecting",
       status: "Internal tool · operational",
       problem:
-        "Quickly identifying companies in Brussels and Belgium that may need our custom solutions, finding the relevant professional contacts and preparing a targeted approach without spending the week on it.",
-      journey: ["Company research", "AI analysis", "Qualification", "Approach preparation", "Sales follow-up"],
+        "A sales team spends hours searching for companies, understanding what they do and deciding who to contact. Nexus does this intelligence and qualification work for us, in Brussels and Belgium, and prepares a relevant first approach.",
+      journey: ["Company monitoring", "AI analysis", "Qualification", "First approach preparation", "Sales follow-up"],
       context:
-        "Nexus was designed for our B2B prospecting in Brussels and Belgium. Its purpose is to find companies that may need our custom solutions more quickly, gather useful professional information, identify relevant contacts and prepare a suitable approach. Nexus remains an internal tool and is not sold as a product. However, a similar solution can be designed for a company that wants to structure, accelerate and better target its own prospecting.",
+        "We designed Nexus for our own prospecting in Brussels and Belgium: it is the software we actually use. It handles sales intelligence: finding companies whose business matches our solutions, gathering useful professional information, qualifying them and preparing a suitable first approach. Nexus remains an internal tool and is not sold as a product. However, a similar solution can be designed for any sales team, around its own criteria, sources and CRM.",
       does: [
         "Research companies in Brussels and Belgium using public professional sources.",
         "Gather useful information about their activity, tools and potential needs.",
@@ -213,7 +213,7 @@ const en = {
         "Avoid contacting companies our work makes no sense for.",
       ],
       limits: [
-        "Nexus is an internal tool, not reachable from the website: the data it handles is never published. The companies and people shown on these screens are fictitious.",
+        "Nexus is our own prospecting software, for our use only and not reachable from the website: the data it handles is never published. The data shown on these screens is sample data.",
         "Each first message is prepared by the tool, then reviewed and sent by a person.",
       ],
       todo: false,

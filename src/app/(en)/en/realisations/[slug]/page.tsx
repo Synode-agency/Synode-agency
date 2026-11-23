@@ -26,9 +26,9 @@ export async function generateMetadata({
   if (!item) return {};
   const SEO: Record<string, { title: string; description: string }> = {
     nexus: {
-      title: "Nexus: AI-assisted B2B prospecting software",
+      title: "Nexus: sales prospecting software",
       description:
-        "See how Synode uses Nexus to research and qualify companies in Brussels and Belgium, then prepare more targeted B2B prospecting.",
+        "Nexus, Synode’s sales prospecting software: find companies in Brussels and Belgium, qualify them with AI and prepare a first approach.",
     },
     coory: {
       title: "Coory: sports coaching platform",

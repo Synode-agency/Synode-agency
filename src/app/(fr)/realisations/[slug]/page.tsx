@@ -26,9 +26,9 @@ export async function generateMetadata({
   if (!item) return {};
   const SEO: Record<string, { title: string; description: string }> = {
     nexus: {
-      title: "Nexus : logiciel de prospection B2B avec IA",
+      title: "Nexus : logiciel de prospection commerciale",
       description:
-        "Découvrez comment Synode utilise Nexus pour rechercher et qualifier des entreprises à Bruxelles et en Belgique, puis préparer une prospection B2B ciblée.",
+        "Nexus, le logiciel de prospection commerciale de Synode : rechercher des entreprises à Bruxelles et en Belgique, les qualifier avec l’IA et préparer un premier contact.",
     },
     coory: {
       title: "Coory : plateforme de coaching sportif",

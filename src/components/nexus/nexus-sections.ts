@@ -54,11 +54,11 @@ const NEW = {
 /** Les titres des deux sections, coupés à l'endroit où le bleu commence. */
 const TITLES = {
   fr: {
-    context: { kicker: "Contexte", before: "Le contexte de\nnotre ", accent: "prospection B2B" },
+    context: { kicker: "Contexte", before: "Pourquoi nous avons\n", accent: "construit Nexus" },
     goals: { kicker: "Objectifs", before: "Ce que nous cherchons\nà obtenir avec ", accent: "Nexus" },
   },
   en: {
-    context: { kicker: "Context", before: "The context of\nour ", accent: "B2B prospecting" },
+    context: { kicker: "Context", before: "Why we\n", accent: "built Nexus" },
     goals: { kicker: "Goals", before: "What we aim to achieve\nwith ", accent: "Nexus" },
   },
 } as const;

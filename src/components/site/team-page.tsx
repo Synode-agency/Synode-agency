@@ -30,7 +30,9 @@ export function TeamPage({ locale }: { locale: Locale }) {
       ...sameAsField,
       member: team.people.map((person) => ({
         "@type": "Person",
-        name: person.first,
+        name: `${person.first} ${person.last}`,
+        givenName: person.first,
+        familyName: person.last,
         jobTitle: person.role,
         image: `${siteUrl}${person.photo}`,
         worksFor: { "@id": `${siteUrl}/#organization` },
@@ -60,7 +62,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
         <div className="section-gap">
           <TeamCards>
             {team.people.map((p) => (
-              <TeamCard key={p.first} first={p.first} photo={p.photo} headline={p.headline} role={p.role} text={p.text} />
+              <TeamCard key={p.first} first={p.first} last={p.last} photo={p.photo} role={p.role} text={p.text} />
             ))}
           </TeamCards>
         </div>

@@ -93,14 +93,17 @@ export function HomePage({ locale }: { locale: Locale }) {
          portent `title-accent` et sont des enfants directs du `h1` ; le texte
          autour reste un nœud de texte, il garde donc la couleur du titre. */
       title={<>
-        {/* Le message de Synode depuis le 14/11/2026 : une entreprise
-            technologique, et non une « agence IA ». Les trois domaines en
-            une phrase : le sur-mesure (les logiciels), les systèmes
-            connectés (l'intégration) et l'intelligence artificielle. */}
-        {fr ? "Des systèmes sur mesure, " : "Custom systems, "}
-        <span className="title-accent">{fr ? "connectés" : "connected"}</span>
-        {fr ? " et " : " and "}
+        {/* Le titre choisi par Antonino le 23/11/2026 (décision D7 de
+            l'audit) : trois promesses, les mots peints sont ce qu'elles
+            apportent. L'image de partage dit la même chose (`og-card.tsx`),
+            la description Google aussi (`home.metaDescription`). */}
+        {fr ? "Des systèmes " : ""}
+        <span className="title-accent">{fr ? "connectés" : "Connected"}</span>
+        {fr ? ", des logiciels " : " systems, "}
         <span className="title-accent">{fr ? "intelligents" : "intelligent"}</span>
+        {fr ? ", des processus " : " software, "}
+        <span className="title-accent">{fr ? "automatisés" : "automated"}</span>
+        {fr ? "" : " processes"}
       </>}
       strip={<div className="capability-strip">
         <span className="capability-strip-label">{fr ? "De votre besoin à votre outil" : "From your needs to the right tool"}</span>

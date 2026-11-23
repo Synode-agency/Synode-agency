@@ -28,12 +28,12 @@ const CYCLE_MS = 2800;
 
 const POSTS = {
   fr: [
-    { pill: "Avant le démarrage", title: "Développement sur devis", text: "Le prix de création dépend du périmètre, des fonctionnalités, des données et des intégrations nécessaires." },
+    { pill: "Avant le démarrage", title: "Développement sur devis", text: "Le prix de création dépend du périmètre, des fonctionnalités, des données et des intégrations nécessaires. Le cadrage déjà payé en est déduit." },
     { pill: "Pendant l’exploitation", title: "Coûts d’exploitation", text: "L’hébergement, les API, les modèles IA, le monitoring et la maintenance sont estimés séparément." },
     { pill: "Au fil du temps", title: "Évolutions de la solution", text: "Toute fonctionnalité importante fait l’objet d’un nouveau cadrage et d’un chiffrage transparent." },
   ],
   en: [
-    { pill: "Before we start", title: "Development, quoted", text: "The build price depends on the scope, the features, the data and the integrations it requires." },
+    { pill: "Before we start", title: "Development, quoted", text: "The build price depends on the scope, the features, the data and the integrations it requires. The scoping fee already paid is deducted from it." },
     { pill: "While it runs", title: "Running costs", text: "Hosting, APIs, AI models, monitoring and maintenance are estimated separately." },
     { pill: "Over time", title: "Changes to the solution", text: "Any significant feature goes through a fresh scoping exercise and a transparent quote." },
   ],
