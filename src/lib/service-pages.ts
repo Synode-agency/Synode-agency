@@ -124,7 +124,6 @@ const fr: Record<string, ServicePageContent> = {
     whatKicker: "Comprendre les agents IA",
     whatTitle: "Qu’est-ce qu’un agent IA ?",
     whatTitleAccents: ["agent IA ?"],
-    whatTitleOneLine: true,
     whatText:
       "Un assistant IA aide vos équipes à rechercher, rédiger, résumer ou exploiter des informations plus rapidement. Un agent IA va plus loin : connecté à vos données et à vos logiciels métier, il peut analyser une demande, enchaîner plusieurs étapes et exécuter des actions selon des règles définies, tout en gardant un niveau de contrôle adapté à votre activité.",
     whatVisual: "agent",
@@ -463,7 +462,6 @@ const en: Record<string, ServicePageContent> = {
     whatKicker: "Understanding AI agents",
     whatTitle: "What is an AI agent?",
     whatTitleAccents: ["AI agent?"],
-    whatTitleOneLine: true,
     whatText:
       "An AI assistant helps your teams search, draft, summarise or make use of information faster. An AI agent goes further: connected to your data and your business software, it can analyse a request, carry out a sequence of steps and perform actions under defined rules, while keeping a level of control that suits your business.",
     whatVisual: "agent",

@@ -59,7 +59,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
         {/* ⚠ `Lede` ne passe pas ses paragraphes par `renderLines` — des
             coupes dormantes se réveilleraient ailleurs sur le site. Celle-ci
             est donc appliquée ici. */}
-        <Lede title={contact.form.title} text={renderLines(contact.form.text)} />
+        <Lede kicker={locale === "fr" ? "Formulaire de contact" : "Contact form"} title={contact.form.title} text={renderLines(contact.form.text)} />
         <div className="section-gap contact-form-card">
           <ContactForm locale={locale} />
         </div>

@@ -106,7 +106,7 @@ export function CooryContextSection({ c }: { c: ContextContent }) {
       rootRef={root}
       blocks={[
         <Fragment key="context">
-          <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
+          <Title kicker={c.title.kicker} before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <p>{c.tailBefore}<strong>{c.tailStrong}</strong>{c.tailAfter}</p>
         </Fragment>,
@@ -148,7 +148,7 @@ export function CooryGoalsSection({ c }: { c: GoalsContent }) {
       rootRef={root}
       blocks={[
         <Fragment key="goals">
-          <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
+          <Title kicker={c.title.kicker} before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <Goals items={c.goals} active={still ? 0 : goal} label={c.goalLabel} foot={c.goalsFoot} />
         </Fragment>,

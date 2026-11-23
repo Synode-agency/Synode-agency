@@ -40,7 +40,7 @@ const span = (t: number, from: number, to: number) => clamp((t - from) / (to - f
 export type ContextContent = {
   /** Optionnelle : la page Nexus n'en affiche pas. */
   badge?: string;
-  title: { before: string; accent: string; after?: string };
+  title: { kicker?: string; before: string; accent: string; after?: string };
   lead: string;
   tailBefore: string;
   tailStrong: string;
@@ -185,7 +185,7 @@ export function ContextSection({ c, w }: { c: ContextContent; w: WindowsContent 
       blocks={[
         <Fragment key="context">
           {c.badge && <Badge>{c.badge}</Badge>}
-          <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
+          <Title kicker={c.title.kicker} before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <p>{c.tailBefore}<strong>{c.tailStrong}</strong>{c.tailAfter}</p>
         </Fragment>,

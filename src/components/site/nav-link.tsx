@@ -20,12 +20,16 @@ export function NavLink({
   href,
   locale,
   onNavigate,
+  markCurrent = false,
   children,
   ...rest
 }: {
   href: string;
   locale: Locale;
   onNavigate?: () => void;
+  /** Pose `aria-current="page"` quand le lien mène à la page en cours (ou à
+      l'une de ses sous-pages). Le pied de page s'en sert. */
+  markCurrent?: boolean;
   children: React.ReactNode;
 } & Omit<React.ComponentProps<typeof Link>, "href" | "onClick" | "children">) {
   const pathname = usePathname();
@@ -56,8 +60,10 @@ export function NavLink({
     window.history.replaceState(window.history.state, "", `${route === "/" ? "" : route}#${hash}`);
   };
 
+  const current = markCurrent && (pathname === route || (route !== home && pathname.startsWith(`${route}/`)));
+
   return (
-    <Link href={href} onClick={handleClick} {...rest}>
+    <Link href={href} onClick={handleClick} {...rest} {...(current ? { "aria-current": "page" as const } : {})}>
       {children}
     </Link>
   );

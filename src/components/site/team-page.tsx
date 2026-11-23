@@ -54,7 +54,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       </PageHero>
 
       <Band id="associes" tone="white">
-        <Lede title={team.peopleTitle} accents={locale === "fr" ? ["expertises complémentaires"] : ["complementary expertise"]} />
+        <Lede kicker={locale === "fr" ? "Les associés" : "The partners"} title={team.peopleTitle} accents={locale === "fr" ? ["expertises complémentaires"] : ["complementary expertise"]} />
         {/* Les quatre textes de chaque carte viennent du contenu et sont
             affichés mot pour mot. Voir `components/equipe/team-card`. */}
         <div className="section-gap">
@@ -76,7 +76,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
           un conteneur de plus les ferait tomber. Le texte garderait sa place
           mais pas sa largeur de ligne. */}
       <Band id="complementarite" tone="base" className="tint-band" bodyClassName={layout.split}>
-        <Lede title={team.complementTitle} accents={locale === "fr" ? ["de l’IA au logiciel"] : ["from AI to software"]} text={team.complementText} />
+        <Lede kicker={locale === "fr" ? "Nos expertises" : "Our expertise"} title={team.complementTitle} accents={locale === "fr" ? ["de l’IA au logiciel"] : ["from AI to software"]} text={team.complementText} />
         <div className={layout.visual}><SkillsPanel locale={locale} /></div>
       </Band>
 
@@ -85,7 +85,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
           est explicite : les deux premiers l'un sous l'autre à gauche, la
           carte sur les deux rangées à droite. */}
       <Band id="facon" tone="white" bodyClassName={layout.splitList}>
-        <Lede title={team.workingTitle} accents={locale === "fr" ? ["votre projet"] : ["your project"]} />
+        <Lede kicker={locale === "fr" ? "Notre façon de travailler" : "How we work"} title={team.workingTitle} accents={locale === "fr" ? ["votre projet"] : ["your project"]} />
         <ul className="checks section-gap">
           {team.working.map((w) => (
             <li key={w}>{w}</li>
@@ -102,7 +102,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       {/* `cta-shell--tall` donne à la coquille un remplissage vertical SYMÉTRIQUE :
           par défaut elle a 2rem en haut et 5rem en bas, et la carte paraissait
           collée au haut de sa section. */}
-      <CardPanel id="conclusion" className="dark-cta svc-cta team-cta" shellClassName="cta-shell--tint cta-shell--tall">
+      <CardPanel id="conclusion" className="dark-cta svc-cta team-cta" shellClassName="cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
             <span className="eyebrow">{locale === "fr" ? "Échange découverte gratuit" : "Free discovery call"}</span>

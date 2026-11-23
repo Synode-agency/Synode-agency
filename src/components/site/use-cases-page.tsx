@@ -52,6 +52,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
 
       <Band id="exemples" tone="white" className="studio-section use-cases-catalog">
         <Lede
+          kicker={fr ? "22 cas d’usage" : "22 use cases"}
           title={fr ? "Du devis au pilotage,\ndes cas concrets" : "From quotes to reporting,\nconcrete cases"}
           accents={fr ? ["cas concrets"] : ["concrete cases"]}
           text={fr

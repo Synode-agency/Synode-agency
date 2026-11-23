@@ -17,7 +17,7 @@ export function Badge({ children, onWhite }: { children: ReactNode; onWhite?: bo
 }
 
 /** Le titre, avec sa partie clé peinte en bleu. */
-export function Title({ before, accent, after }: { before: string; accent: string; after?: string }) {
+export function Title({ kicker, before, accent, after }: { kicker?: string; before: string; accent: string; after?: string }) {
   /* Un `\n` dans la première partie coupe le titre, comme ailleurs sur le
      site. La coupe ne vaut qu'à partir de 768px : sur téléphone, une coupe
      calée sur une colonne large produit une ligne orpheline. */
@@ -28,6 +28,9 @@ export function Title({ before, accent, after }: { before: string; accent: strin
      avant un retour à la ligne ne s'affiche pas : rien n'y change. */
   const lines = before.split("\n");
   return (
+    <>
+    {/* Le surtitre, au même style que ceux des autres pages (23/11/2026). */}
+    {kicker && <span className="lede-kicker">{kicker}</span>}
     <h2 className={styles.h2}>
       {lines.map((line, i) => (
         <Fragment key={line}>
@@ -38,6 +41,7 @@ export function Title({ before, accent, after }: { before: string; accent: strin
       <span className={styles.accent}>{accent}</span>
       {after}
     </h2>
+    </>
   );
 }
 

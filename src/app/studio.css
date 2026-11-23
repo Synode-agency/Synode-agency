@@ -1142,7 +1142,7 @@ footer.band--white .wordmark-type {
   color: #8fc0ff;
 }
 .home-solutions-light {
-  background: #f7f9fc;
+  background: #f2f6fc;
 }
 .home-method-dark {
   /* Cette section se contente de 45rem là où les autres visent 48rem. Le
@@ -1319,7 +1319,8 @@ footer.band--white .wordmark-type {
   --border: rgb(188 215 255 / 22%);
 }
 .site-theme-alternating main > .band.home-faq-light {
-  background: #f7f9fc;
+  /* Même teinte claire que toutes les FAQ et bandes teintées (23/11/2026). */
+  background: #f2f6fc;
   color: #464444;
   --foreground: #464444;
   --muted-foreground: #605d5d;
@@ -4715,7 +4716,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 }
 
 .site-theme-alternating main > .band.solutions-faq-light {
-  background: #ffffff;
+  background: #f2f6fc;
   color: #464444;
   --foreground: #464444;
   --muted-foreground: #605d5d;
@@ -10401,4 +10402,12 @@ main > .band#top.work-detail-hero--centre .lede-text {
    comme celui de tous les heros (23/11/2026). Son texte reste à gauche. */
 main > .band#top > .col > .todo {
   margin-inline: auto;
+}
+
+/* ---- La page en cours, signalée aussi dans le pied de page (23/11/2026),
+   comme dans la barre du haut : un souligné discret. ---- */
+.site-footer-link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
 }

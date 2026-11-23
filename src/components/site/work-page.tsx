@@ -89,6 +89,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 
       <Band id="liste" tone="white">
         <Lede
+          kicker={locale === "fr" ? "Nos projets" : "Our projects"}
           title={locale === "fr" ? "Projets en cours : logiciels métier et IA" : "Current projects: business software and AI"}
           accents={locale === "fr" ? ["Projets en cours"] : ["Current projects"]}
           text={locale === "fr"
@@ -107,7 +108,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           gauche, les deux actions à droite l'une au-dessus de l'autre :
           `svc-cta` et `svc-cta-actions` portent cette composition, elles ne
           sont pas réservées aux pages services. ===== */}
-      <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tint cta-shell--tall">
+      <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
             <span className="eyebrow">{locale === "fr" ? "Échange découverte gratuit" : "Free discovery call"}</span>

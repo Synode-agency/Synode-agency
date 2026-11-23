@@ -25,7 +25,7 @@ const PRESS_TO = 1900;
 export type GoalsContent = {
   /** Optionnelle : la page Nexus n'en affiche pas. */
   badge?: string;
-  title: { before: string; accent: string; after?: string };
+  title: { kicker?: string; before: string; accent: string; after?: string };
   lead: string;
   goals: readonly string[];
   goalLabel: string;
@@ -91,7 +91,7 @@ export function GoalsSection({ c, w }: { c: GoalsContent; w: WindowsContent }) {
       blocks={[
         <Fragment key="goals">
           {c.badge && <Badge onWhite>{c.badge}</Badge>}
-          <Title before={c.title.before} accent={c.title.accent} after={c.title.after} />
+          <Title kicker={c.title.kicker} before={c.title.before} accent={c.title.accent} after={c.title.after} />
           <p>{c.lead}</p>
           <Goals items={c.goals} active={still ? 0 : goal} label={c.goalLabel} foot={c.goalsFoot} />
         </Fragment>,

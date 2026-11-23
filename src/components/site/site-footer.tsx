@@ -36,6 +36,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
                 href={path(locale, item.href)}
                 locale={locale}
                 className="site-footer-link"
+                markCurrent
               >
                 {item.label}
               </NavLink>
