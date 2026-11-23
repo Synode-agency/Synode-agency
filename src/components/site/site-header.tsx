@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
  * fond teinté reste visible derrière elle, ce qui préserve le principe du
  * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
  *
- * Une seule ligne sur ordinateur, cinq entrées et un bouton. Une barre qui
+ * Une seule ligne sur ordinateur, six entrées et un bouton. Une barre qui
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  */

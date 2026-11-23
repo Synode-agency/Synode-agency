@@ -99,63 +99,7 @@ const fr = {
 
   home: {
     metaTitle: "IA, intégration et logiciels sur mesure",
-    metaDescription: "Synode, entreprise technologique à Bruxelles : agents IA, automatisations, intégration de vos logiciels (CRM, ERP, API) et logiciels métier sur mesure.",
-    hero: {
-      title:
-        "Des solutions IA sur mesure,\nconçues autour de votre activité\n^et qui font avancer vos opérations",
-      text: "Nous concevons des agents IA, des automatisations et des outils métier pour simplifier vos opérations et mieux exploiter vos données.",
-      /* Ce que le visiteur doit comprendre en une ligne, sous les boutons.
-         Ce ne sont pas des liens : à l'arrivée il a deux choix, pas six. */
-      stack: [
-        "Agents IA",
-        "Automatisations",
-        "Intégrations",
-        "Outils métier",
-        "Données & tableaux de bord",
-      ],
-    },
-
-
-    useCases: {
-      kicker: "Cas d’usage",
-      title: "Ce qu’une solution IA\n^peut prendre en charge",
-      text: "Quatre exemples parmi ceux que nous détaillons. Chacun part d’un problème réel, pas d’une technologie.",
-      cta: "Explorer les cas d’usage",
-    },
-
-      /* Le schéma d'architecture de la bande Offre. Trois étages : ce que
-         l'entreprise possède déjà, ce que nous construisons entre les deux,
-         et ce qui en sort. C'est l'argument de la section, montré. */
-      architecture: {
-        caption: "Ce que nous construisons, et où cela se place",
-        tools: ["CRM", "Email", "Documents", "Agenda", "Logiciel métier"],
-        core: ["Agents IA", "Automatisations", "Intégrations", "Interface métier"],
-        out: ["Demandes traitées", "Documents produits", "Suivi à jour"],
-      },
-
-
-
-    method: {
-      kicker: "Méthode",
-      title: "Comment un projet\n^se déroule",
-      text: "Cinq temps, et aucun ne commence avant que le précédent soit validé avec vous.",
-      steps: [
-        { title: "Comprendre", text: "Votre problème, sa fréquence, vos outils et ce qu’il vous coûte aujourd’hui." },
-        { title: "Proposer", text: "Un périmètre écrit, des livrables, un prix et des critères de réussite." },
-        { title: "Construire", text: "Par jalons, avec des démonstrations que vous validez au fur et à mesure." },
-        { title: "Déployer", text: "Tests sur vos critères, formation de vos équipes, documentation transmise." },
-        { title: "Suivre", text: "Surveillance du fonctionnement et interventions dans le cadre convenu." },
-      ],
-      cta: "Comment se déroule un projet ?",
-    },
-
-    team: {
-      kicker: "L’équipe",
-      title: "Deux associés,\n^un interlocuteur par sujet",
-      text: "Vous savez toujours à qui vous parlez : celui qui comprend et suit votre besoin, et celui qui conçoit et réalise la solution.",
-      cta: "Rencontrer l’équipe",
-    },
-
+    metaDescription: "Synode Agency, entreprise technologique à Bruxelles : agents IA, intégration de vos logiciels (CRM, ERP, API), automatisations et logiciels métier sur mesure.",
     faq: {
       kicker: "Questions fréquentes",
       title: "Questions fréquentes sur nos solutions sur mesure",
@@ -191,10 +135,6 @@ const fr = {
       ],
     },
 
-    cta: {
-      title: "Quel processus aimeriez-vous\n^simplifier en premier ?",
-      text: "Un échange de 30 minutes, gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet, et rien ne vous engage à la suite.",
-    },
   },
 
   /* ---------------------------------------------------------------- Solutions */
@@ -501,52 +441,7 @@ const en = {
 
   home: {
     metaTitle: "AI, integration and custom software",
-    metaDescription: "Synode, a technology company in Brussels: AI agents, automations, integration of your software (CRM, ERP, API) and custom business software.",
-    hero: {
-      title:
-        "Custom AI solutions,\nbuilt around how you work\n^and made to move your operations",
-      text: "We build AI agents, automations and internal tools that take work off your plate and put your own data to use.",
-      stack: ["AI agents", "Automations", "Integrations", "Internal tools", "Data & dashboards"],
-    },
-
-
-    useCases: {
-      kicker: "Use cases",
-      title: "What an AI solution\n^can take on",
-      text: "Four examples from the ones we document. Each starts with a real problem, not with a technology.",
-      cta: "Explore the use cases",
-    },
-
-      architecture: {
-        caption: "What we build, and where it sits",
-        tools: ["CRM", "Email", "Documents", "Calendar", "Line-of-business app"],
-        core: ["AI agents", "Automations", "Integrations", "Business interface"],
-        out: ["Requests handled", "Documents produced", "Tracking up to date"],
-      },
-
-
-
-    method: {
-      kicker: "Method",
-      title: "How a project\n^runs",
-      text: "Five stages, and none starts before the previous one is signed off with you.",
-      steps: [
-        { title: "Understand", text: "Your problem, how often it happens, your tools, and what it costs you today." },
-        { title: "Propose", text: "A written scope, deliverables, a price and success criteria." },
-        { title: "Build", text: "In milestones, with demos you sign off as we go." },
-        { title: "Ship", text: "Testing against your criteria, training your people, handing over the documentation." },
-        { title: "Support", text: "Watching how it runs and stepping in within the agreed scope." },
-      ],
-      cta: "How does a project run?",
-    },
-
-    team: {
-      kicker: "The team",
-      title: "Two partners,\n^one person per subject",
-      text: "You always know who you are talking to: the one who understands and follows your need, and the one who designs and builds the solution.",
-      cta: "Meet the team",
-    },
-
+    metaDescription: "Synode Agency, a technology company in Brussels: AI agents, integration of your software (CRM, ERP, API), automations and custom business software.",
     faq: {
       kicker: "FAQ",
       title: "Common questions about our custom solutions",
@@ -582,10 +477,6 @@ const en = {
       ],
     },
 
-    cta: {
-      title: "Which process would you\n^simplify first?",
-      text: "A 30-minute call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit, and nothing commits you to what comes next.",
-    },
   },
 
   solutions: {

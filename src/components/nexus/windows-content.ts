@@ -4,10 +4,11 @@ import type { Locale } from "@/lib/content";
  * LE CONTENU DES QUATRE ÉCRANS DE NEXUS.
  *
  * ⚠ Ce sont les données de la DÉMONSTRATION de Nexus, l'outil interne de
- * Synode : des entreprises réellement présentes dans des sources
- * professionnelles publiques, et les chiffres de l'outil. Aucune n'est un
+ * Synode : des entreprises, des personnes et des adresses INVENTÉES (les
+ * vraies, issues de la prospection, ont été remplacées le 11/11/2026 :
+ * c'est une page publique), et des chiffres d'illustration. Aucune n'est un
  * client, aucun chiffre n'est un résultat commercial, et rien ici ne doit
- * être repris ailleurs comme tel.
+ * être repris ailleurs comme tel. Ne jamais y remettre de vraies données.
  *
  * Tout est en props dans les composants : ce fichier ne sert qu'à Nexus, et
  * un autre projet apporte le sien.
