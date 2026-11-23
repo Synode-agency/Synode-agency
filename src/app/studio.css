@@ -820,7 +820,7 @@ footer.band--white .wordmark-type {
   color: #19304f;
   --foreground: #19304f;
   --muted-foreground: #5f6f84;
-  --text-mono: #71839a;
+  --text-mono: #5f6f84; /* 5,1:1 sur blanc ; #71839a ne donnait que 3,9:1 */
 }
 .calendar-demo--cta .calendar-demo-body {
   grid-template-columns: 1fr;
@@ -1670,7 +1670,7 @@ footer.band--white .wordmark-type {
   background: #0067ea;
   color: #ffffff;
   --foreground: #ffffff;
-  --muted-foreground: rgb(255 255 255 / 84%);  /* 4,6:1 sur #0067EA */
+  --muted-foreground: rgb(255 255 255 / 92%);  /* 4,55:1 sur #0067EA (84 % ne donnait que 4,04:1) */
   --text-mono: rgb(255 255 255 / 78%);
   --hairline: rgb(255 255 255 / 24%);
   --border: rgb(255 255 255 / 24%);
@@ -1679,7 +1679,7 @@ footer.band--white .wordmark-type {
   --brand-hover: #edf3fc;
 }
 .daily-open-callout .eyebrow {
-  color: rgb(255 255 255 / 84%);
+  color: rgb(255 255 255 / 92%);
 }
 .daily-open-callout .status-dot {
   background: #ffffff;
@@ -5556,11 +5556,11 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 .auc-tag--blue {
   background: #eaf2fe;
-  color: #0b6be6;
+  color: #0a5bc4; /* 5,6:1 ; #0b6be6 sur ce fond : 4,4:1 */
 }
 .auc-tag--warm {
   background: #fdf1e4;
-  color: #a0632e;
+  color: #8a5226; /* 5,6:1 ; #a0632e : 4,4:1 */
 }
 .auc-tag--grey {
   background: #f1f3f6;
@@ -8120,7 +8120,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   color: #19304f;
   --foreground: #19304f;
   --muted-foreground: #5f6f84;
-  --text-mono: #71839a;
+  --text-mono: #5f6f84; /* 5,1:1 sur blanc ; #71839a ne donnait que 3,9:1 */
   --brand: #0067ea;
   --brand-foreground: #ffffff;
   --hairline: rgb(70 68 68 / 12%);

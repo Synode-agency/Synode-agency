@@ -2,6 +2,12 @@ import Link from "next/link";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { organizationProfiles } from "@/lib/organization";
+
+/* La page LinkedIn de Synode : un lien visible, et pas seulement dans les
+   données structurées. Google relie le site à l'entité par ces liens
+   réciproques, et un acheteur y vérifie qui est derrière le site. */
+const linkedin = organizationProfiles.find((u) => u.includes("linkedin.com"));
 
 /**
  * Le pied de page.
@@ -53,6 +59,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <a href={`mailto:${site.email}`} className="site-footer-link site-footer-mail">
               {site.email}
             </a>
+            {linkedin && (
+              <a href={linkedin} className="site-footer-link" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            )}
             <span className="site-footer-place">{site.location}</span>
           </div>
         </div>

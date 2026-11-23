@@ -17,5 +17,9 @@ export const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+  /* Pas de préchargement : sans ça, les 27 Ko de la police partaient sur
+     TOUTES les pages, mentions légales comprises, alors qu'elle ne sert
+     qu'aux illustrations de Coory. */
+  preload: false,
   variable: "--font-coory-illustrations",
 });

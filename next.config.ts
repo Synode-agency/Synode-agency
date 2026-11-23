@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /* Ne pas annoncer la technologie du site dans chaque réponse HTTP. */
+  poweredByHeader: false,
   // Next blocks cross-origin requests to dev-only assets by default, so the
   // dev server reached from a phone over the LAN serves the HTML but refuses
   // the JS chunks. The page then renders with `.reveal` still at opacity 0,

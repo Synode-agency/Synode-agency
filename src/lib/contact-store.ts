@@ -86,6 +86,10 @@ function brevoFetch(apiKey: string, endpoint: string, body: unknown) {
     headers: { "api-key": apiKey, "content-type": "application/json", accept: "application/json" },
     body: JSON.stringify(body),
     cache: "no-store",
+    /* 4 s au plus : sans délai, un Brevo qui ne répond pas laissait
+       l'hébergeur couper la fonction, le visiteur voyait une erreur alors
+       que sa demande était peut-être enregistrée, et il la renvoyait. */
+    signal: AbortSignal.timeout(4000),
   });
 }
 

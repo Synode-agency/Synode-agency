@@ -9,28 +9,28 @@ const locale = "en";
 
 const SERVICE_SEO: Record<string, { title: string; description: string }> = {
   "agents-ia": {
-    title: "Custom AI agents for business",
-    description: "AI agents that search, draft, analyse and carry out actions inside your tools, with the access you grant and the approvals you decide.",
+    title: "Custom AI agents in Brussels",
+    description: "Custom AI agents in Brussels that search, draft, analyse and act inside your tools, with the access you grant and the approvals you decide.",
   },
   "automatisations-intelligentes": {
-    title: "Intelligent process automation",
-    description: "Automate repetitive business processes, connect your software and keep human control over exceptions with reliable AI automation.",
+    title: "AI process automation in Brussels",
+    description: "AI process automation in Brussels: automate repetitive processes, connect your software and keep human control over exceptions.",
   },
   "logiciels-applications-ia": {
-    title: "Custom software & applications",
-    description: "Build custom business software and applications designed around your processes, teams, data and operational needs.",
+    title: "Custom business software in Brussels",
+    description: "Custom business software and applications built in Brussels around your processes, teams, data and operational needs.",
   },
   "integrations-systemes-connectes": {
-    title: "Integrations & connected systems",
-    description: "Connect your CRM, ERP, website, APIs and databases to synchronise data, eliminate duplicate entry and streamline operations.",
+    title: "CRM, ERP and API integration in Brussels",
+    description: "CRM, ERP, website, API and database integration in Brussels, to synchronise data, reduce duplicate entry and streamline operations.",
   },
   "data-intelligence": {
-    title: "Data & intelligence: dashboards",
-    description: "Centralise your business data and turn it into reliable dashboards, indicators and analyses that support better decisions.",
+    title: "Dashboards and data in Brussels",
+    description: "Dashboards and data in Brussels: centralise your business data and turn it into reliable indicators and analyses that support decisions.",
   },
   "formation-adoption-ia": {
-    title: "AI training & adoption for teams",
-    description: "Train your teams to use AI effectively, responsibly and securely through practical business use cases and lasting adoption support.",
+    title: "AI training for companies in Brussels",
+    description: "AI training for companies in Brussels: practical business use cases, verification methods and confidentiality rules for your teams.",
   },
 };
 

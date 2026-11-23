@@ -21,7 +21,9 @@ import { AgentNetwork } from "./agent-network";
 import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
 import { servicePage } from "@/lib/service-pages";
 import { renderLines } from "@/lib/lines";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
+import { siteUrl } from "@/lib/site-url";
+import { organizationName } from "@/lib/organization";
 import { type solutionFamilies } from "@/lib/solution-details";
 
 /**
@@ -95,7 +97,41 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
   const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
 
+  /* Les données structurées de l'offre : un `Service` rattaché à
+     l'organisation (même `@id` que sur l'accueil), servi à Bruxelles et en
+     Belgique, et le fil d'Ariane Accueil › Solutions › offre. */
+  const solutionsUrl = `${siteUrl}${path(locale, ROUTES.solutions)}`;
+  const pageUrl = `${solutionsUrl}/${family.slug}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${pageUrl}#service`,
+        name: family.title,
+        serviceType: family.title,
+        description: d.heroLead,
+        url: pageUrl,
+        provider: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: organizationName, url: siteUrl },
+        areaServed: [
+          { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
+          { "@type": "Country", name: fr ? "Belgique" : "Belgium" },
+        ],
+        availableLanguage: ["fr", "en"],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: fr ? "Accueil" : "Home", item: `${siteUrl}${homePath(locale) === "/" ? "/" : homePath(locale)}` },
+          { "@type": "ListItem", position: 2, name: "Solutions", item: solutionsUrl },
+          { "@type": "ListItem", position: 3, name: family.title, item: pageUrl },
+        ],
+      },
+    ],
+  };
+
   return <Shell locale={locale}>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     {/* ===== 1 · HERO — bleu nuit ===== */}
     <PageHero
       className="svc-hero"

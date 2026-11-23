@@ -54,12 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return pages.flatMap(({ path: p, priority }) => {
     const fr = `${siteUrl}${p}`;
     const en = `${siteUrl}/en${p}`;
-    const alternates = { languages: { fr, en } };
+    /* `x-default` comme sur les pages : le français est la version par défaut. */
+    const alternates = { languages: { fr, en, "x-default": fr } };
     return [
       { url: fr || siteUrl, lastModified, priority, alternates },
       /* La version anglaise est servie, mais le français est la langue
          d'origine du site : elle passe légèrement derrière. */
-      { url: en, lastModified, priority: priority * 0.9, alternates },
+      { url: en, lastModified, priority: Math.round(priority * 90) / 100, alternates },
     ];
   });
 }
