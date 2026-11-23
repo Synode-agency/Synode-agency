@@ -372,9 +372,6 @@ const fr = {
     noticeDescription: "Mentions légales du site de Synode : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
-    draftLabel: "Brouillon",
-    draftText:
-      "Cette page n’est pas encore validée. Les éléments entre crochets restent à confirmer, notamment auprès de Smart : ils ne sont pas des informations vérifiées.",
     updated: "Dernière mise à jour",
   },
 } as const;
@@ -672,9 +669,6 @@ const en = {
     noticeDescription: "Legal notice for the Synode website: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
     privacyTitle: "Privacy policy",
     privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
-    draftLabel: "Draft",
-    draftText:
-      "This page has not been validated yet. Items in square brackets still have to be confirmed, notably with Smart: they are not verified information.",
     updated: "Last updated",
   },
 } as const;

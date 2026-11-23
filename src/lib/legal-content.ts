@@ -3,34 +3,39 @@ import type { Locale } from "./content";
 /**
  * LE TEXTE DES PAGES LÉGALES, EN FRANÇAIS ET EN ANGLAIS.
  *
- * ⚠ RIEN ICI N'EST VALIDÉ JURIDIQUEMENT. Tout ce qui doit encore être
- * confirmé, notamment par Smart, est écrit ENTRE CROCHETS : la page les
- * affiche en évidence, pour qu'aucun visiteur ne les lise comme des
- * informations vérifiées. Ne jamais remplacer un crochet par une valeur
- * supposée. La liste de ce qui manque, et où le trouver, est tenue dans une
- * note de travail locale (`LEGAL_TODO.md`, hors dépôt).
- *
- * Responsables du site et du traitement : Killian Schoebben et Antonino Lo
- * Bianco, rue des Alcyons 86, 1082 Bruxelles (donnés par Antonino le
- * 12/11/2026). Seule l'entité Smart reste à confirmer.
+ * Texte validé par Antonino le 23/11/2026, une fois le cadre Smart connu :
+ * Synode n'est pas une société, c'est le nom commercial d'une activité
+ * hébergée au sein de Productions Associées ASBL (Smart), qui émet les
+ * devis, les contrats et les factures. L'anglais en est la traduction
+ * fidèle : les noms propres, les adresses, les numéros et les articles du
+ * RGPD ne sont pas traduits.
  *
  * Écriture des paragraphes (lue par `LegalText`, dans `simple-pages.tsx`) :
  *   **texte**            texte en gras
- *   [TEXTE]              élément à confirmer, affiché en évidence
  *   {email}              l'adresse de contact du site, en lien mailto
- *   <<libellé|https://>> lien externe
+ *   <<libellé|https://>> lien externe (ou mailto:)
  *   <<libellé|@privacy>> lien vers la page Confidentialité de la langue
  *   <<libellé|@notice>>  lien vers la page Mentions légales de la langue
- *
- * Sources vérifiées le 12/11/2026 : SPF Économie (informations obligatoires
- * sur un site web, art. XII.6 et III.74 CDE), RGPD, politiques de Netlify et
- * de Cal.com, page « Entités » de smartbe.be. Le détail est dans la note de
- * travail locale `LEGAL_TODO.md` (hors dépôt).
+ *   un retour à la ligne (\n) devient un saut de ligne dans le paragraphe
  *
  * ⚠ Les prestataires cités doivent TOUJOURS correspondre à ceux réellement
  * branchés : un changement d'hébergeur, de boîte e-mail ou d'agenda change
  * ce fichier.
  */
+
+/**
+ * LE NUMÉRO D'ACTIVITÉ SMART DE SYNODE.
+ *
+ * Vide tant qu'Antonino ne l'a pas reçu : les mentions légales n'affichent
+ * alors pas « activité n° … ». Il suffit de le saisir ici, par exemple
+ * "12345", pour qu'il apparaisse dans les deux langues.
+ */
+export const SMART_ACTIVITY_NUMBER = "";
+
+const activityFr = SMART_ACTIVITY_NUMBER ? `, activité n° ${SMART_ACTIVITY_NUMBER}` : "";
+const activityEn = SMART_ACTIVITY_NUMBER ? `, activity no. ${SMART_ACTIVITY_NUMBER}` : "";
+
+const SMART_POLICY = "https://smartbe.be/fr/smart-politique-de-protection-des-donnees-personnelles/";
 
 export type LegalBlock = string | { list: string[] };
 export type LegalSection = { title: string; blocks: LegalBlock[] };
@@ -46,193 +51,166 @@ const fr: LegalTexts = {
   /* --------------------------------------------------- Mentions légales */
   notice: [
     {
-      title: "Présentation de Synode",
+      title: "1. Éditeur du site et statut juridique",
       blocks: [
-        "Synode agency (marque : Synode) est le nom commercial d’une activité de services aux entreprises (B2B) : conception et développement de solutions d’intelligence artificielle, d’intégration de systèmes et de logiciels sur mesure.",
-        {
-          list: [
-            "**Nom commercial :** Synode agency (marque : Synode)",
-            "**Responsables du site :** Killian Schoebben et Antonino Lo Bianco",
-            "**Adresse professionnelle :** rue des Alcyons 86, 1082 Bruxelles, Belgique",
-            "**E-mail :** {email}",
-          ],
-        },
-        "Synode n’est pas une société : ce n’est ni une SRL, ni une ASBL, ni une entreprise disposant de son propre numéro d’entreprise. C’est le nom sous lequel deux personnes physiques établies à Bruxelles présentent leur activité. Elles gèrent elles-mêmes ce site.",
+        `**Synode** est le nom commercial d’une activité hébergée au sein de **Productions Associées ASBL** (Smart)${activityFr}. L’activité est portée par **Killian Schoebben** et **Antonino Lo Bianco**.`,
+        "Synode n’est pas une société distincte et ne dispose pas d’un numéro d’entreprise propre. Les informations légales sont celles de la structure qui héberge l’activité :",
+        "**Productions Associées ASBL (Smart)**\nRue Coenraets 72, 1060 Saint-Gilles, Belgique\nN° d’entreprise : 0896.755.397\nN° de TVA : BE 0896.755.397",
+        "**Contact Synode**\nRue des Alcyons 86, 1082 Bruxelles, Belgique\nE-mail : {email}",
+        "**Responsables du contenu du site :** Killian Schoebben et Antonino Lo Bianco.",
       ],
     },
     {
-      title: "Cadre juridique et Smart",
+      title: "2. Activité",
       blocks: [
-        "Les prestations proposées sous le nom Synode seront contractualisées et facturées dans le cadre de Smart, entreprise partagée belge (<<smartbe.be|https://smartbe.be/>>). L’inscription de l’activité est en cours. [FORMULATION À VALIDER PAR SMART]",
-        {
-          list: [
-            "**Entité juridique contractante :** [À CONFIRMER AUPRÈS DE SMART]",
-            "**Dénomination légale :** [À CONFIRMER]",
-            "**Adresse du siège :** [À CONFIRMER]",
-            "**Numéro d’entreprise (BCE) :** [À CONFIRMER]",
-            "**Numéro de TVA :** [À CONFIRMER]",
-          ],
-        },
+        "Synode conçoit des solutions d’intelligence artificielle, intègre des systèmes et développe des logiciels sur mesure pour les entreprises (B2B).",
       ],
     },
     {
-      title: "Hébergement",
+      title: "3. Contrats et facturation",
       blocks: [
-        "Le site est hébergé par Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis (<<netlify.com|https://www.netlify.com/>>).",
+        "Les devis, contrats et factures sont émis par Productions Associées ASBL, qui est le cocontractant des clients de Synode et en assure la facturation et le recouvrement.",
+        "Les conditions générales de Productions Associées ASBL (Smart) s’appliquent à la conclusion du contrat, à la facturation, aux délais de paiement et au recouvrement. Le devis signé précise l’objet, le prix et les conditions particulières de chaque mission ; il prime en cas de divergence.",
+        "Le site présente l’activité de Synode. Il ne permet ni commande ni paiement en ligne.",
       ],
     },
     {
-      title: "Propriété intellectuelle",
+      title: "4. Hébergement",
       blocks: [
-        "Sauf mention contraire, les textes, les illustrations, les éléments graphiques et le logo de ce site ont été créés pour Synode et sont protégés par le droit d’auteur. Leur reproduction ou leur réutilisation, totale ou partielle, demande une autorisation écrite préalable. Titulaire des droits : [À CONFIRMER, NOTAMMENT AU REGARD DU CONTRAT SMART].",
-        "Les noms de logiciels, de services et de marques de tiers cités sur ce site appartiennent à leurs titulaires. Les citer n’implique aucun partenariat.",
+        "Le site est hébergé par **Netlify, Inc.**, 101 2nd Street, San Francisco, CA 94105, États-Unis.",
       ],
     },
     {
-      title: "Prestations",
+      title: "5. Propriété intellectuelle",
       blocks: [
-        "Ce site présente une activité. Il ne permet ni commande ni paiement en ligne.",
-        "Chaque prestation fait l’objet d’une proposition écrite. Les conditions contractuelles qui s’y appliquent (devis, facturation, paiement) sont celles validées avec Smart : [À CONFIRMER AVEC SMART].",
+        "Les textes, illustrations, éléments graphiques et le logo présents sur ce site sont protégés par le droit d’auteur. Toute reproduction ou réutilisation, totale ou partielle, nécessite l’autorisation écrite préalable de Synode.",
+        "Les droits sur les livrables réalisés pour un client (code, logiciels, documents) et leur éventuelle cession sont définis dans le devis signé.",
+        "Les marques, logos et logiciels de tiers cités sur le site appartiennent à leurs titulaires respectifs. Leur mention n’implique aucun partenariat.",
       ],
     },
     {
-      title: "Données personnelles",
-      blocks: ["Le traitement de vos données est décrit dans notre <<politique de confidentialité|@privacy>>."],
+      title: "6. Responsabilité et liens externes",
+      blocks: [
+        "Les informations du site sont fournies à titre indicatif et peuvent évoluer. Synode s’efforce de les tenir à jour, sans pouvoir garantir leur exhaustivité. Les liens vers des sites tiers sont fournis pour information ; Synode n’est pas responsable de leur contenu.",
+      ],
+    },
+    {
+      title: "7. Données personnelles",
+      blocks: ["Le traitement des données personnelles est décrit dans notre <<politique de confidentialité|@privacy>>."],
+    },
+    {
+      title: "8. Droit applicable",
+      blocks: ["Le présent site et les présentes mentions légales sont soumis au droit belge."],
     },
   ],
 
   /* --------------------------------------- Politique de confidentialité */
   privacy: [
     {
-      title: "Qui traite vos données",
+      title: "1. Qui est responsable de vos données ?",
+      blocks: [
+        "**Pour les données collectées par ce site** (formulaire de contact, réservation d’un échange, e-mails) : Killian Schoebben et Antonino Lo Bianco, qui exercent sous le nom commercial **Synode**, sont responsables conjoints du traitement.\nContact : {email}, rue des Alcyons 86, 1082 Bruxelles, Belgique. Vous pouvez exercer vos droits auprès de l’un ou l’autre.",
+        `**Pour les données de contrat et de facturation** : Synode est une activité hébergée au sein de **Productions Associées ASBL** (Smart), rue Coenraets 72, 1060 Saint-Gilles, Belgique, n° d’entreprise et TVA BE 0896.755.397. Lorsqu’une demande aboutit à un devis, les données nécessaires (identité et coordonnées de facturation du client, de la personne de contact) sont transmises à Productions Associées ASBL, qui les traite en tant que responsable du traitement distinct pour l’établissement des devis, contrats et factures, le recouvrement et la comptabilité. Ce traitement est régi par la <<politique de protection des données de Smart|${SMART_POLICY}>>. Son délégué à la protection des données est joignable à <<dpo@smart.coop|mailto:dpo@smart.coop>>.`,
+        "Aucune autre donnée n’est transmise à Productions Associées ASBL.",
+      ],
+    },
+    {
+      title: "2. Données collectées",
       blocks: [
         {
           list: [
-            "**Responsables conjoints du traitement :** Killian Schoebben et Antonino Lo Bianco, qui exercent sous le nom commercial Synode",
-            "**Adresse :** rue des Alcyons 86, 1082 Bruxelles, Belgique",
-            "**Contact pour toute question sur vos données :** {email}",
-          ],
-        },
-        "Ils décident ensemble pourquoi et comment vos données sont traitées sur ce site (art. 26 du RGPD). Vous pouvez exercer vos droits auprès de l’un ou de l’autre, à l’adresse e-mail ci-dessus.",
-        "Les prestations de Synode seront contractualisées et facturées dans le cadre de Smart (voir les <<mentions légales|@notice>>). Si votre demande aboutit à une proposition ou à un contrat, Smart traite les données nécessaires à la contractualisation et à la facturation : [RÔLE DE SMART À CONFIRMER AUPRÈS DE SMART].",
-      ],
-    },
-    {
-      title: "Les données que nous traitons",
-      blocks: [
-        "**Par le formulaire de contact.** Obligatoires : votre nom, votre adresse e-mail et la description de votre besoin. Facultatifs : entreprise ou activité, téléphone, site internet, échéance et budget envisagés. S’y ajoutent automatiquement la date de la demande et la langue de la page.",
-        "**Par la réservation d’un échange.** Les informations que Cal.com vous demande pour réserver (au minimum votre nom, votre adresse e-mail et le créneau choisi).",
-        "**Par e-mail.** Les messages que vous nous envoyez et nos échanges qui suivent.",
-        "**Données techniques.** Pour afficher le site, notre hébergeur Netlify traite des données de connexion, dont votre adresse IP, votre navigateur et les pages demandées. Notre serveur utilise aussi votre adresse IP, temporairement et en mémoire seulement, pour limiter les envois répétés du formulaire. Il ne l’enregistre pas.",
-        "**Les outils de l’accueil.** Le diagnostic, la recherche du processus à prioriser et la préparation d’un brief fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
-      ],
-    },
-    {
-      title: "Pourquoi, et sur quelle base",
-      blocks: [
-        {
-          list: [
-            "**Recevoir votre demande, y répondre et préparer un premier échange.** Base : les mesures précontractuelles prises à votre demande (art. 6.1.b du RGPD), lorsque vous envisagez un contrat pour vous-même, par exemple comme indépendant ; dans les autres cas, notamment si vous écrivez pour une entreprise, notre intérêt légitime (art. 6.1.f).",
-            "**Organiser le rendez-vous que vous réservez.** Même base.",
-            "**Vous envoyer un accusé de réception.** Base : notre intérêt légitime à vous confirmer que votre demande est bien arrivée.",
-            "**Assurer le suivi que vous avez demandé** : réponse, proposition, relance liée à votre demande. Base : mesures précontractuelles ou intérêt légitime, comme ci-dessus.",
-            "**Protéger le site et le formulaire contre les abus, et assurer leur fonctionnement.** Base : notre intérêt légitime.",
-          ],
-        },
-        "Notre intérêt légitime consiste à répondre aux demandes professionnelles qui nous sont adressées, à en assurer le suivi et à protéger le site contre les envois abusifs. Il ne va jamais au-delà de votre demande : pas de newsletter, pas de revente, pas de réutilisation de vos coordonnées pour des campagnes marketing. Vous pouvez vous opposer à ces traitements à tout moment (voir « Vos droits »).",
-      ],
-    },
-    {
-      title: "Champs obligatoires",
-      blocks: [
-        "Le nom, l’adresse e-mail et la description du besoin sont nécessaires pour vous répondre : sans eux, le formulaire ne peut pas être envoyé. Les autres champs sont facultatifs, et les laisser vides ne change rien au traitement de votre demande.",
-      ],
-    },
-    {
-      title: "Qui reçoit vos données",
-      blocks: [
-        "Les deux personnes qui développent Synode, et les prestataires suivants, qui agissent pour notre compte :",
-        {
-          list: [
-            "**Brevo** (Sendinblue SAS, France) : enregistre votre demande dans une liste réservée aux demandes de contact, nous envoie la notification et vous envoie l’accusé de réception. <<Politique de Brevo|https://www.brevo.com/fr/legal/privacypolicy/>>",
-            "**Netlify, Inc.** (États-Unis) : héberge le site et exécute l’envoi du formulaire. <<Politique de Netlify|https://www.netlify.com/privacy/>>",
-            "**Cal.com, Inc.** (États-Unis) : gère la réservation des échanges. <<Politique de Cal.com|https://cal.com/privacy>>",
-            "**Hostinger International Ltd** (Chypre) : héberge notre boîte e-mail. <<Politique d’Hostinger|https://www.hostinger.com/fr/legal/politique-de-confidentialite>>",
-            "**Google** (Google Ireland Limited, Irlande) : l’agenda Google de Synode, relié à Cal.com, qui reçoit les rendez-vous réservés, et la boîte Gmail dans laquelle nous lisons les e-mails reçus sur notre adresse de contact. <<Politique de Google|https://policies.google.com/privacy?hl=fr>>",
-            "**Smart** : si votre demande aboutit à une proposition ou à une facture. [À CONFIRMER AVEC SMART]",
-          ],
-        },
-        "Chacun de ces prestataires fait appel à ses propres sous-traitants, listés dans sa documentation. Nous ne vendons ni ne cédons vos données à personne.",
-      ],
-    },
-    {
-      title: "Transferts hors de l’Union européenne",
-      blocks: [
-        "Vos données ne restent pas toutes dans l’Union européenne. Netlify et Cal.com sont établis aux États-Unis, et Google y transfère une partie des données qu’il traite. Netlify, Cal.com et Google LLC déclarent participer au EU-U.S. Data Privacy Framework, reconnu par la décision d’adéquation de la Commission européenne du 10 juillet 2023 (art. 45 du RGPD). Google utilise en outre les clauses contractuelles types de la Commission lorsque c’est nécessaire.",
-        "Brevo est établi en France et Hostinger à Chypre. Lorsqu’un de leurs sous-traitants traite des données hors de l’Union européenne, leurs contrats de traitement prévoient les clauses contractuelles types de la Commission européenne (art. 46 du RGPD).",
-      ],
-    },
-    {
-      title: "Combien de temps",
-      blocks: [
-        {
-          list: [
-            "**Vos demandes, vos réservations et nos échanges :** 12 mois après notre dernier échange relatif à votre demande, puis suppression dans Brevo, Cal.com, l’agenda et notre boîte e-mail.",
-            "**Si la demande aboutit à une prestation :** les documents contractuels et comptables sont conservés pendant les durées imposées par la loi. [À CONFIRMER AVEC SMART]",
-            "**Données techniques de connexion :** selon les durées de Netlify, décrites dans sa politique.",
+            "**Formulaire de contact** : nom, e-mail et description du besoin (obligatoires) ; entreprise, téléphone, site, échéance et budget (facultatifs). S’y ajoutent la date de la demande et la langue de la page.",
+            "**Réservation d’un échange (Cal.com)** : au minimum nom, e-mail et créneau choisi.",
+            "**E-mails** que vous échangez avec nous.",
+            "**Données techniques** : notre hébergeur Netlify traite les données de connexion, dont l’adresse IP. Notre serveur utilise l’adresse IP temporairement, en mémoire, pour limiter les envois répétés du formulaire, sans l’enregistrer. Il garde de la même façon l’adresse e-mail, pour n’envoyer qu’un accusé de réception par jour.",
+            "**Outils de la page d’accueil** (diagnostic, recherche de processus, brief) : ils fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
           ],
         },
       ],
     },
     {
-      title: "Les e-mails que nous envoyons",
+      title: "3. Finalités et bases légales",
       blocks: [
-        "L’accusé de réception est envoyé par Brevo. Brevo mesure l’ouverture de ses e-mails, au moyen d’une petite image invisible, et les clics sur leurs liens. Nous avons activé l’anonymisation de cette mesure : elle n’est pas rattachée à votre adresse e-mail et ne nous donne que des statistiques globales d’envoi.",
-      ],
-    },
-    {
-      title: "Décisions automatisées",
-      blocks: [
-        "Aucune décision fondée exclusivement sur un traitement automatisé, profilage compris, n’est prise à votre égard au sens de l’article 22 du RGPD. Chaque demande est lue et traitée par une personne.",
-      ],
-    },
-    {
-      title: "Sécurité",
-      blocks: [
-        "Le site est servi en HTTPS : ce que vous envoyez par le formulaire est transmis chiffré. L’accès aux comptes qui contiennent vos données est réservé aux deux personnes de Synode.",
-      ],
-    },
-    {
-      title: "Vos droits",
-      blocks: [
-        "Vous pouvez à tout moment demander :",
         {
           list: [
-            "l’accès aux données que nous détenons sur vous (art. 15 du RGPD) ;",
-            "leur rectification (art. 16) ;",
-            "leur effacement (art. 17) ;",
-            "la limitation de leur traitement (art. 18) ;",
-            "leur portabilité, pour les données que vous nous avez fournies dans le cadre de mesures précontractuelles (art. 20).",
+            "**Traiter et suivre votre demande, organiser un rendez-vous** : mesures précontractuelles (art. 6.1.b) si vous envisagez un contrat pour vous-même ; sinon intérêt légitime (art. 6.1.f), par exemple si vous écrivez pour une entreprise.",
+            "**Envoyer un accusé de réception** : intérêt légitime (art. 6.1.f).",
+            "**Protéger le site et le formulaire contre les abus** : intérêt légitime (art. 6.1.f).",
           ],
         },
-        "Vous pouvez aussi vous opposer aux traitements fondés sur notre intérêt légitime (art. 21). Aucun traitement décrit ici ne repose sur votre consentement ; si cela changeait, vous pourriez le retirer à tout moment.",
-        "Pour exercer ces droits, écrivez-nous à {email}. Nous répondons dans un délai d’un mois (art. 12) et pouvons vous demander de confirmer votre identité en cas de doute.",
-        "Vous pouvez également introduire une plainte auprès de l’Autorité de protection des données, rue de la Presse 35, 1000 Bruxelles : <<autoriteprotectiondonnees.be|https://www.autoriteprotectiondonnees.be/>>.",
+        "Nous n’envoyons pas de newsletter, ne revendons pas vos données et ne faisons pas de prospection marketing. Aucun traitement ne repose sur le consentement.",
       ],
     },
     {
-      title: "Cookies et traceurs",
+      title: "4. Sous-traitants",
       blocks: [
-        "Ce site ne dépose aucun cookie et n’utilise aucun outil de mesure d’audience, de publicité ou de réseau social. C’est pourquoi il n’affiche pas de bandeau de cookies.",
-        "**Stockage dans votre navigateur.** Quand vous envoyez vers le formulaire un brief préparé sur l’accueil, il est gardé dans le stockage de session de votre navigateur, puis effacé dès que le formulaire le reprend, ou à la fermeture de l’onglet. Ce stockage sert uniquement au service que vous demandez.",
-        "**Le calendrier Cal.com.** Il n’est chargé que lorsque vous cliquez sur « Ouvrir le calendrier », jamais avant. Ce clic active un service externe, Cal.com, qui dépose alors un cookie technique de sécurité (« __cf_bm », valable 30 minutes) et fonctionne selon sa propre politique de confidentialité. Ce clic sert uniquement à ouvrir le calendrier : il ne vaut pas consentement à des cookies publicitaires ou de mesure d’audience.",
-        "**Dans nos e-mails.** Voir « Les e-mails que nous envoyons ».",
+        "Nous faisons appel aux prestataires suivants, qui traitent les données pour notre compte :",
+        {
+          list: [
+            "**Brevo** (France) : enregistrement des demandes, notifications et accusé de réception ;",
+            "**Netlify** (États-Unis) : hébergement du site et réception du formulaire ;",
+            "**Cal.com** (États-Unis) : gestion des réservations ;",
+            "**Hostinger** (Chypre) : hébergement de la boîte e-mail ;",
+            "**Google Ireland** (Irlande) : agenda relié à Cal.com et boîte Gmail de contact.",
+          ],
+        },
+        "Vos données ne sont ni vendues ni cédées.",
       ],
     },
     {
-      title: "Mises à jour",
+      title: "5. Transferts hors de l’Union européenne",
       blocks: [
-        "Cette politique change quand nos prestataires ou nos traitements changent. La date de la dernière mise à jour figure en bas de page.",
+        "Netlify, Cal.com et Google LLC déclarent participer au EU-U.S. Data Privacy Framework, couvert par la décision d’adéquation de la Commission européenne du 10 juillet 2023. Google peut également recourir aux clauses contractuelles types. Brevo et Hostinger recourent aux clauses contractuelles types pour leurs éventuels sous-traitants situés hors de l’Union européenne.",
+      ],
+    },
+    {
+      title: "6. Durées de conservation",
+      blocks: [
+        {
+          list: [
+            "**Demandes, réservations et échanges** : 12 mois après le dernier échange, puis suppression dans Brevo, Cal.com, l’agenda et la boîte e-mail.",
+            "**Si un contrat est conclu** : les documents contractuels et comptables sont conservés par Productions Associées ASBL selon ses obligations légales et sa propre politique de protection des données.",
+            "**Données de connexion** : selon la politique de Netlify.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "7. Cookies et traceurs",
+      blocks: [
+        "Le site ne dépose aucun cookie et n’utilise ni mesure d’audience, ni publicité, ni module de réseau social. Il n’affiche donc pas de bandeau cookies.",
+        {
+          list: [
+            "**Stockage de session** : le brief préparé sur la page d’accueil est conservé dans votre navigateur, puis effacé dès que le formulaire de contact le reprend, ou à la fermeture de l’onglet.",
+            "**Cal.com** : chargé uniquement lorsque vous cliquez sur « Ouvrir le calendrier ». Cal.com dépose alors un cookie technique de sécurité (« __cf_bm », 30 minutes).",
+            "**E-mails** : Brevo mesure l’ouverture et les clics de manière anonymisée, sans lien avec votre adresse.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "8. Vos droits",
+      blocks: [
+        "Vous pouvez demander l’accès à vos données (art. 15), leur rectification (art. 16), leur effacement (art. 17), la limitation du traitement (art. 18), la portabilité des données fournies dans le cadre de mesures précontractuelles (art. 20), et vous opposer aux traitements fondés sur l’intérêt légitime (art. 21).",
+        "Écrivez-nous à {email}. Nous répondons dans un délai d’un mois (art. 12) et pouvons demander une vérification d’identité en cas de doute. Pour les données de contrat et de facturation, vous pouvez aussi vous adresser directement à Smart (<<dpo@smart.coop|mailto:dpo@smart.coop>>).",
+      ],
+    },
+    {
+      title: "9. Décisions automatisées",
+      blocks: [
+        "Aucune décision exclusivement automatisée, profilage compris (art. 22), n’est prise. Chaque demande est lue et traitée par une personne.",
+      ],
+    },
+    {
+      title: "10. Sécurité",
+      blocks: [
+        "Le site est servi en HTTPS et l’accès aux comptes des outils utilisés est réservé aux deux fondateurs.",
+      ],
+    },
+    {
+      title: "11. Réclamation",
+      blocks: [
+        "Vous pouvez introduire une réclamation auprès de l’**Autorité de protection des données**, rue de la Presse 35, 1000 Bruxelles (<<autoriteprotectiondonnees.be|https://www.autoriteprotectiondonnees.be>>).",
       ],
     },
   ],
@@ -244,193 +222,166 @@ const en: LegalTexts = {
   /* ------------------------------------------------------- Legal notice */
   notice: [
     {
-      title: "About Synode",
+      title: "1. Website publisher and legal status",
       blocks: [
-        "Synode agency (brand: Synode) is the trading name of a business-to-business (B2B) service activity: designing and building artificial intelligence solutions, systems integration and custom software.",
-        {
-          list: [
-            "**Trading name:** Synode agency (brand: Synode)",
-            "**People responsible for the website:** Killian Schoebben and Antonino Lo Bianco",
-            "**Business address:** Rue des Alcyons 86, 1082 Brussels, Belgium",
-            "**Email:** {email}",
-          ],
-        },
-        "Synode is not an incorporated company: it is not an SRL, not a non-profit (ASBL) and not a business with its own company number. It is the name under which two individuals based in Brussels present their activity. They run this website themselves.",
+        `**Synode** is the trading name of an activity hosted within **Productions Associées ASBL** (Smart)${activityEn}. The activity is run by **Killian Schoebben** and **Antonino Lo Bianco**.`,
+        "Synode is not a separate company and does not have its own company number. The legal information is that of the organisation hosting the activity:",
+        "**Productions Associées ASBL (Smart)**\nRue Coenraets 72, 1060 Saint-Gilles, Belgium\nCompany number: 0896.755.397\nVAT number: BE 0896.755.397",
+        "**Synode contact**\nRue des Alcyons 86, 1082 Bruxelles, Belgium\nEmail: {email}",
+        "**People responsible for the website content:** Killian Schoebben and Antonino Lo Bianco.",
       ],
     },
     {
-      title: "Legal framework and Smart",
+      title: "2. Activity",
       blocks: [
-        "Services offered under the Synode name will be contracted and invoiced within the framework of Smart, a Belgian shared enterprise (<<smartbe.be|https://smartbe.be/>>). Registration of the activity is in progress. [WORDING TO BE APPROVED BY SMART]",
-        {
-          list: [
-            "**Contracting legal entity:** [TO BE CONFIRMED WITH SMART]",
-            "**Legal name:** [TO BE CONFIRMED]",
-            "**Registered office:** [TO BE CONFIRMED]",
-            "**Company number (BCE/KBO):** [TO BE CONFIRMED]",
-            "**VAT number:** [TO BE CONFIRMED]",
-          ],
-        },
+        "Synode designs artificial intelligence solutions, integrates systems and develops custom software for businesses (B2B).",
       ],
     },
     {
-      title: "Hosting",
+      title: "3. Contracts and invoicing",
       blocks: [
-        "This website is hosted by Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, United States (<<netlify.com|https://www.netlify.com/>>).",
+        "Quotes, contracts and invoices are issued by Productions Associées ASBL, which is the contracting party for Synode’s clients and handles invoicing and debt collection.",
+        "The general terms and conditions of Productions Associées ASBL (Smart) apply to the conclusion of the contract, invoicing, payment terms and debt collection. The signed quote sets out the subject, the price and the specific terms of each assignment; it prevails in the event of any discrepancy.",
+        "This website presents Synode’s activity. It does not allow ordering or paying online.",
       ],
     },
     {
-      title: "Intellectual property",
+      title: "4. Hosting",
       blocks: [
-        "Unless stated otherwise, the text, illustrations, graphic elements and logo on this website were created for Synode and are protected by copyright. Reproducing or reusing them, in whole or in part, requires prior written permission. Rights holder: [TO BE CONFIRMED, IN PARTICULAR UNDER THE SMART CONTRACT].",
-        "Names of third-party software, services and brands mentioned on this website belong to their owners. Mentioning them does not imply any partnership.",
+        "This website is hosted by **Netlify, Inc.**, 101 2nd Street, San Francisco, CA 94105, United States.",
       ],
     },
     {
-      title: "Services",
+      title: "5. Intellectual property",
       blocks: [
-        "This website presents an activity. It does not allow ordering or paying online.",
-        "Every engagement is based on a written proposal. The contractual terms that apply to it (quote, invoicing, payment) are those agreed with Smart: [TO BE CONFIRMED WITH SMART].",
+        "The text, illustrations, graphic elements and logo on this website are protected by copyright. Any reproduction or reuse, in whole or in part, requires Synode’s prior written permission.",
+        "Rights to the deliverables produced for a client (code, software, documents) and any transfer of those rights are defined in the signed quote.",
+        "Third-party trademarks, logos and software mentioned on this website belong to their respective owners. Mentioning them does not imply any partnership.",
       ],
     },
     {
-      title: "Personal data",
-      blocks: ["How we handle your data is described in our <<privacy policy|@privacy>>."],
+      title: "6. Liability and external links",
+      blocks: [
+        "The information on this website is provided for guidance only and may change. Synode makes every effort to keep it up to date, without being able to guarantee that it is complete. Links to third-party websites are provided for information; Synode is not responsible for their content.",
+      ],
+    },
+    {
+      title: "7. Personal data",
+      blocks: ["The processing of personal data is described in our <<privacy policy|@privacy>>."],
+    },
+    {
+      title: "8. Governing law",
+      blocks: ["This website and this legal notice are governed by Belgian law."],
     },
   ],
 
   /* ----------------------------------------------------- Privacy policy */
   privacy: [
     {
-      title: "Who handles your data",
+      title: "1. Who is responsible for your data?",
+      blocks: [
+        "**For data collected by this website** (contact form, call booking, emails): Killian Schoebben and Antonino Lo Bianco, trading as **Synode**, are joint controllers.\nContact: {email}, rue des Alcyons 86, 1082 Bruxelles, Belgium. You can exercise your rights with either of them.",
+        `**For contract and invoicing data**: Synode is an activity hosted within **Productions Associées ASBL** (Smart), rue Coenraets 72, 1060 Saint-Gilles, Belgium, company and VAT number BE 0896.755.397. When a request leads to a quote, the necessary data (identity and billing details of the client and of the contact person) are passed to Productions Associées ASBL, which processes them as a separate controller to prepare quotes, contracts and invoices, for debt collection and for accounting. This processing is governed by <<Smart’s data protection policy|${SMART_POLICY}>> (in French). Its data protection officer can be reached at <<dpo@smart.coop|mailto:dpo@smart.coop>>.`,
+        "No other data is passed to Productions Associées ASBL.",
+      ],
+    },
+    {
+      title: "2. Data collected",
       blocks: [
         {
           list: [
-            "**Joint data controllers:** Killian Schoebben and Antonino Lo Bianco, trading as Synode",
-            "**Address:** Rue des Alcyons 86, 1082 Brussels, Belgium",
-            "**Contact for any question about your data:** {email}",
-          ],
-        },
-        "They decide together why and how your data is processed on this website (Art. 26 GDPR). You can exercise your rights with either of them, at the email address above.",
-        "Synode’s services will be contracted and invoiced within the framework of Smart (see the <<legal notice|@notice>>). If your request leads to a proposal or a contract, Smart processes the data needed for contracting and invoicing: [SMART’S ROLE TO BE CONFIRMED WITH SMART].",
-      ],
-    },
-    {
-      title: "The data we process",
-      blocks: [
-        "**Through the contact form.** Required: your name, your email address and a description of your request. Optional: company or activity, phone, website, timeline and budget in mind. We also record the date of the request and the language of the page.",
-        "**When you book a call.** The details Cal.com asks for to make the booking (at least your name, your email address and the slot you choose).",
-        "**By email.** The messages you send us and the exchanges that follow.",
-        "**Technical data.** To display the website, our host Netlify processes connection data, including your IP address, your browser and the pages requested. Our server also uses your IP address, temporarily and in memory only, to limit repeated form submissions. It does not record it.",
-        "**The tools on the home page.** The diagnostic, the process finder and the brief builder run in your browser. Nothing reaches us until you send the form.",
-      ],
-    },
-    {
-      title: "Why, and on what legal basis",
-      blocks: [
-        {
-          list: [
-            "**Receiving your request, answering it and preparing a first call.** Basis: steps taken at your request before entering into a contract (Art. 6(1)(b) GDPR), when you are considering a contract for yourself, for example as a freelancer; otherwise, in particular when you write on behalf of a company, our legitimate interest (Art. 6(1)(f)).",
-            "**Organising the call you book.** Same basis.",
-            "**Sending you an acknowledgement.** Basis: our legitimate interest in confirming that your request has arrived.",
-            "**Following up as you asked:** answer, proposal, reminder about your request. Basis: pre-contractual steps or legitimate interest, as above.",
-            "**Protecting the website and the form against abuse, and keeping them running.** Basis: our legitimate interest.",
-          ],
-        },
-        "Our legitimate interest is to answer the business requests sent to us, to follow them up and to protect the website against abusive submissions. It never goes beyond your request: no newsletter, no reselling, no reuse of your details for marketing campaigns. You can object to this processing at any time (see “Your rights”).",
-      ],
-    },
-    {
-      title: "Required fields",
-      blocks: [
-        "Your name, email address and a description of your request are required for us to answer: without them, the form cannot be sent. The other fields are optional, and leaving them empty makes no difference to how your request is handled.",
-      ],
-    },
-    {
-      title: "Who receives your data",
-      blocks: [
-        "The two people who run Synode, and the following providers, acting on our behalf:",
-        {
-          list: [
-            "**Brevo** (Sendinblue SAS, France): records your request in a list kept for contact requests only, sends us the notification and sends you the acknowledgement. <<Brevo’s policy|https://www.brevo.com/legal/privacypolicy/>>",
-            "**Netlify, Inc.** (United States): hosts the website and runs the form submission. <<Netlify’s policy|https://www.netlify.com/privacy/>>",
-            "**Cal.com, Inc.** (United States): handles call bookings. <<Cal.com’s policy|https://cal.com/privacy>>",
-            "**Hostinger International Ltd** (Cyprus): hosts our mailbox. <<Hostinger’s policy|https://www.hostinger.com/legal/privacy-policy>>",
-            "**Google** (Google Ireland Limited, Ireland): Synode’s Google calendar, connected to Cal.com, which receives booked calls, and the Gmail inbox where we read the emails sent to our contact address. <<Google’s policy|https://policies.google.com/privacy?hl=en>>",
-            "**Smart**: if your request leads to a proposal or an invoice. [TO BE CONFIRMED WITH SMART]",
-          ],
-        },
-        "Each of these providers relies on its own sub-processors, listed in its documentation. We do not sell or hand over your data to anyone.",
-      ],
-    },
-    {
-      title: "Transfers outside the European Union",
-      blocks: [
-        "Not all of your data stays in the European Union. Netlify and Cal.com are based in the United States, and Google transfers part of the data it processes there. Netlify, Cal.com and Google LLC state that they take part in the EU-U.S. Data Privacy Framework, recognised by the European Commission’s adequacy decision of 10 July 2023 (Art. 45 GDPR). Google also relies on the Commission’s standard contractual clauses where needed.",
-        "Brevo is based in France and Hostinger in Cyprus. When one of their sub-processors handles data outside the European Union, their data processing agreements provide for the European Commission’s standard contractual clauses (Art. 46 GDPR).",
-      ],
-    },
-    {
-      title: "How long",
-      blocks: [
-        {
-          list: [
-            "**Your requests, bookings and our exchanges:** 12 months after our last exchange about your request, then deleted from Brevo, Cal.com, the calendar and our mailbox.",
-            "**If the request leads to an engagement:** contractual and accounting records are kept for the periods required by law. [TO BE CONFIRMED WITH SMART]",
-            "**Technical connection data:** for the periods set by Netlify, described in its policy.",
+            "**Contact form**: name, email and description of your needs (required); company, phone, website, timeline and budget (optional). The date of the request and the language of the page are added.",
+            "**Booking a call (Cal.com)**: at least your name, email and the slot you choose.",
+            "**Emails** you exchange with us.",
+            "**Technical data**: our host Netlify processes connection data, including the IP address. Our server uses the IP address temporarily, in memory, to limit repeated form submissions, without recording it. It keeps the email address in the same way, so that only one acknowledgement is sent per day.",
+            "**Home page tools** (diagnostic, process finder, brief): they run in your browser. Nothing is sent to us until you submit the form.",
           ],
         },
       ],
     },
     {
-      title: "The emails we send",
+      title: "3. Purposes and legal bases",
       blocks: [
-        "The acknowledgement is sent by Brevo. By default, Brevo measures whether its emails are opened, using a small invisible image, and whether their links are clicked. We have turned on anonymisation of this measurement: it is not linked to your email address and only gives us overall sending statistics.",
-      ],
-    },
-    {
-      title: "Automated decisions",
-      blocks: [
-        "No decision based solely on automated processing, including profiling, is made about you within the meaning of Article 22 GDPR. Every request is read and handled by a person.",
-      ],
-    },
-    {
-      title: "Security",
-      blocks: [
-        "The website is served over HTTPS: what you send through the form is encrypted in transit. Access to the accounts holding your data is limited to the two people who run Synode.",
-      ],
-    },
-    {
-      title: "Your rights",
-      blocks: [
-        "At any time, you can ask for:",
         {
           list: [
-            "access to the data we hold about you (Art. 15 GDPR);",
-            "its correction (Art. 16);",
-            "its deletion (Art. 17);",
-            "restriction of its processing (Art. 18);",
-            "its portability, for the data you gave us as part of pre-contractual steps (Art. 20).",
+            "**Handling and following up your request, arranging a meeting**: pre-contractual steps (art. 6.1.b) if you are considering a contract for yourself; otherwise legitimate interest (art. 6.1.f), for example if you are writing on behalf of a company.",
+            "**Sending an acknowledgement of receipt**: legitimate interest (art. 6.1.f).",
+            "**Protecting the website and the form against abuse**: legitimate interest (art. 6.1.f).",
           ],
         },
-        "You can also object to processing based on our legitimate interest (Art. 21). None of the processing described here relies on your consent; if that changed, you could withdraw it at any time.",
-        "To exercise these rights, write to us at {email}. We answer within one month (Art. 12) and may ask you to confirm your identity if in doubt.",
-        "You can also lodge a complaint with the Belgian Data Protection Authority, Rue de la Presse 35, 1000 Brussels: <<dataprotectionauthority.be|https://www.dataprotectionauthority.be/>>.",
+        "We do not send newsletters, do not sell your data and do not carry out marketing prospecting. No processing relies on consent.",
       ],
     },
     {
-      title: "Cookies and trackers",
+      title: "4. Processors",
       blocks: [
-        "This website sets no cookies and uses no audience measurement, advertising or social media tools. That is why it shows no cookie banner.",
-        "**Storage in your browser.** When you send a brief prepared on the home page to the form, it is kept in your browser’s session storage, then deleted as soon as the form picks it up, or when you close the tab. This storage only serves the service you asked for.",
-        "**The Cal.com calendar.** It only loads when you click “Open the calendar”, never before. That click turns on an external service, Cal.com, which then sets a technical security cookie (“__cf_bm”, valid for 30 minutes) and works under its own privacy policy. The click only opens the calendar: it is not consent to advertising or audience measurement cookies.",
-        "**In our emails.** See “The emails we send”.",
+        "We use the following providers, who process data on our behalf:",
+        {
+          list: [
+            "**Brevo** (France): recording requests, notifications and acknowledgements of receipt;",
+            "**Netlify** (United States): hosting the website and receiving the form;",
+            "**Cal.com** (United States): managing bookings;",
+            "**Hostinger** (Cyprus): hosting the mailbox;",
+            "**Google Ireland** (Ireland): calendar connected to Cal.com and the Gmail contact inbox.",
+          ],
+        },
+        "Your data is neither sold nor handed over.",
       ],
     },
     {
-      title: "Updates",
+      title: "5. Transfers outside the European Union",
       blocks: [
-        "This policy changes when our providers or our processing change. The date of the last update is shown at the bottom of the page.",
+        "Netlify, Cal.com and Google LLC state that they participate in the EU-U.S. Data Privacy Framework, covered by the European Commission’s adequacy decision of 10 July 2023. Google may also rely on standard contractual clauses. Brevo and Hostinger rely on standard contractual clauses for any of their sub-processors located outside the European Union.",
+      ],
+    },
+    {
+      title: "6. Retention periods",
+      blocks: [
+        {
+          list: [
+            "**Requests, bookings and exchanges**: 12 months after the last exchange, then deleted from Brevo, Cal.com, the calendar and the mailbox.",
+            "**If a contract is concluded**: contractual and accounting documents are kept by Productions Associées ASBL in line with its legal obligations and its own data protection policy.",
+            "**Connection data**: according to Netlify’s policy.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "7. Cookies and trackers",
+      blocks: [
+        "This website sets no cookies and uses no audience measurement, no advertising and no social media plugins. It therefore shows no cookie banner.",
+        {
+          list: [
+            "**Session storage**: the brief prepared on the home page is kept in your browser, then deleted as soon as the contact form picks it up, or when you close the tab.",
+            "**Cal.com**: only loaded when you click “Open the calendar”. Cal.com then sets a technical security cookie (“__cf_bm”, 30 minutes).",
+            "**Emails**: Brevo measures opens and clicks anonymously, without any link to your address.",
+          ],
+        },
+      ],
+    },
+    {
+      title: "8. Your rights",
+      blocks: [
+        "You can request access to your data (art. 15), its rectification (art. 16), its erasure (art. 17), the restriction of processing (art. 18), the portability of the data provided as part of pre-contractual steps (art. 20), and object to processing based on legitimate interest (art. 21).",
+        "Write to us at {email}. We reply within one month (art. 12) and may ask you to verify your identity if in doubt. For contract and invoicing data, you can also contact Smart directly (<<dpo@smart.coop|mailto:dpo@smart.coop>>).",
+      ],
+    },
+    {
+      title: "9. Automated decisions",
+      blocks: [
+        "No decision based solely on automated processing, including profiling (art. 22), is made. Every request is read and handled by a person.",
+      ],
+    },
+    {
+      title: "10. Security",
+      blocks: [
+        "The website is served over HTTPS, and access to the accounts of the tools used is restricted to the two founders.",
+      ],
+    },
+    {
+      title: "11. Complaints",
+      blocks: [
+        "You can lodge a complaint with the **Autorité de protection des données** (the Belgian Data Protection Authority), rue de la Presse 35, 1000 Bruxelles (<<dataprotectionauthority.be|https://www.dataprotectionauthority.be>>).",
       ],
     },
   ],

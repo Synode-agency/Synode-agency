@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
@@ -46,15 +47,9 @@ export function ThanksPage({ locale }: { locale: Locale }) {
 /**
  * Les pages légales.
  *
- * Elles sont des BROUILLONS, et elles le disent en haut de page. Publier des
- * mentions légales incomplètes sans le signaler est pire que ne pas les
- * publier : un visiteur les lit comme des informations vérifiées.
- *
- * ⚠ Rien ici n'est inventé : ni numéro d'entreprise, ni adresse, ni forme
- * juridique. Le montage passe par Smart et les mentions exactes doivent être
- * confirmées avec eux. Le texte vit dans `src/lib/legal-content.ts` ; ce qui
- * manque est entre crochets, affiché en évidence, et listé dans la note de
- * travail locale `LEGAL_TODO.md` (hors dépôt).
+ * Texte validé le 23/11/2026 (cadre Smart : Productions Associées ASBL). Il
+ * vit dans `src/lib/legal-content.ts`, avec le numéro d'activité Smart
+ * (`SMART_ACTIVITY_NUMBER`), affiché seulement une fois connu.
  */
 export function LegalPage({
   locale,
@@ -71,11 +66,6 @@ export function LegalPage({
     <Shell locale={locale}>
       <Band id="top" tone="base">
         <Lede as="h1" title={notice ? legal.noticeTitle : legal.privacyTitle} align="center" />
-
-        <div className="todo section-gap">
-          <span className="todo-label">{legal.draftLabel}</span>
-          <p>{legal.draftText}</p>
-        </div>
       </Band>
 
       <Band tone="white">
@@ -109,9 +99,10 @@ export function LegalPage({
   );
 }
 
-/* Les marques d'écriture de `legal-content.ts` : gras, élément à confirmer,
-   adresse e-mail, lien externe ou vers l'autre page légale. */
-const LEGAL_TOKEN = /(\*\*[^*]+\*\*|\[[^\]]+\]|\{email\}|<<[^|>]+\|[^>]+>>)/g;
+/* Les marques d'écriture de `legal-content.ts` : gras, adresse e-mail, lien
+   externe ou vers l'autre page légale. Un retour à la ligne devient un saut
+   de ligne (les adresses). */
+const LEGAL_TOKEN = /(\*\*[^*]+\*\*|\{email\}|<<[^|>]+\|[^>]+>>)/g;
 
 function LegalText({ text, locale, email }: { text: string; locale: Locale; email: string }) {
   return (
@@ -119,8 +110,6 @@ function LegalText({ text, locale, email }: { text: string; locale: Locale; emai
       {text.split(LEGAL_TOKEN).map((part, i) => {
         if (!part) return null;
         if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
-        /* Un manque reste visible, jamais déguisé en information vérifiée. */
-        if (part.startsWith("[") && part.endsWith("]")) return <span key={i} className="legal-todo">{part}</span>;
         if (part === "{email}") return <a key={i} href={`mailto:${email}`}>{email}</a>;
         if (part.startsWith("<<") && part.endsWith(">>")) {
           const [label, href] = part.slice(2, -2).split("|");
@@ -128,7 +117,9 @@ function LegalText({ text, locale, email }: { text: string; locale: Locale; emai
           if (href === "@notice") return <Link key={i} href={path(locale, ROUTES.legalNotice)}>{label}</Link>;
           return <a key={i} href={href} rel="noopener noreferrer">{label}</a>;
         }
-        return part;
+        return part.split("\n").map((line, j) => (
+          <Fragment key={`${i}-${j}`}>{j > 0 ? <br /> : null}{line}</Fragment>
+        ));
       })}
     </>
   );
