@@ -62,3 +62,13 @@
   to = "https://synode-agency.com/:splat"
   status = 301
   force = true
+
+# L'adresse technique de Netlify sert le même site que le domaine : on la
+# redirige elle aussi, pour qu'une seule adresse existe aux yeux de Google.
+# Les aperçus de déploiement (deploy-preview-…--synode-agency.netlify.app)
+# ont une autre adresse et ne sont pas concernés.
+[[redirects]]
+  from = "https://synode-agency.netlify.app/*"
+  to = "https://synode-agency.com/:splat"
+  status = 301
+  force = true

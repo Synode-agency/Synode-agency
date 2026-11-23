@@ -26,7 +26,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       "@id": `${siteUrl}/#organization`,
       name: organizationName,
       alternateName: organizationAlternateName,
-      url: siteUrl,
+      url: `${siteUrl}/`,
       ...sameAsField,
       member: team.people.map((person) => ({
         "@type": "Person",

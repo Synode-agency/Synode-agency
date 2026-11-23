@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogBase, withBrand } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { WorkDetailPage } from "@/components/site/work-page";
 import { findWork, workItems } from "@/lib/work";
@@ -24,7 +25,7 @@ export async function generateMetadata({
     coory: {
       title: "Coory: sports coaching platform",
       description:
-        "Coory, built by Synode, brings together a sports coach’s athletes, training programmes, schedule and payments, with an AI assistant the coach stays in control of.",
+        "Coory, built by Synode, brings together a sports coach’s athletes, programmes, schedule and payments, with an AI assistant the coach stays in control of.",
     },
   };
   const title = SEO[slug]?.title ?? item.title;
@@ -36,8 +37,8 @@ export async function generateMetadata({
       canonical: `/en/realisations/${slug}`,
       languages: { fr: `/realisations/${slug}`, en: `/en/realisations/${slug}`, "x-default": `/realisations/${slug}` },
     },
-    openGraph: { title, description, url: `/en/realisations/${slug}`, type: "website", locale: "en_BE" },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { ...ogBase("en"), title: withBrand(title), description, url: `/en/realisations/${slug}`, type: "website", locale: "en_BE" },
+    twitter: { card: "summary_large_image", title: withBrand(title), description },
   };
 }
 

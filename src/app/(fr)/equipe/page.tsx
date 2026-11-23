@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogBase, withBrand } from "@/lib/seo";
 import { TeamPage } from "@/components/site/team-page";
 import { getContent } from "@/lib/content";
 
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
     canonical: `${prefix}/equipe`,
     languages: { fr: "/equipe", en: "/en/equipe", "x-default": "/equipe" },
   },
-  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/equipe`, type: "website" },
-  twitter: { card: "summary_large_image", title: c.metaTitle, description: c.metaDescription },
+  openGraph: { ...ogBase("fr"), title: withBrand(c.metaTitle), description: c.metaDescription, url: `${prefix}/equipe`, type: "website" },
+  twitter: { card: "summary_large_image", title: withBrand(c.metaTitle), description: c.metaDescription },
 };
 
 export default function Page() {

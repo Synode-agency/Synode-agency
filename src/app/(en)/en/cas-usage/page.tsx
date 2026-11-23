@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogBase, withBrand } from "@/lib/seo";
 import { UseCasesPage } from "@/components/site/use-cases-page";
 
 const title = "AI use cases and business automation";
@@ -11,8 +12,8 @@ export const metadata: Metadata = {
     canonical: "/en/cas-usage",
     languages: { fr: "/cas-usage", en: "/en/cas-usage", "x-default": "/cas-usage" },
   },
-  openGraph: { title, description, url: "/en/cas-usage", type: "website", locale: "en_BE" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: { ...ogBase("en"), title: withBrand(title), description, url: "/en/cas-usage", type: "website", locale: "en_BE" },
+  twitter: { card: "summary_large_image", title: withBrand(title), description },
 };
 
 export default function Page() {

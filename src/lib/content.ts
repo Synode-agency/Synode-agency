@@ -98,7 +98,7 @@ const fr = {
   },
 
   home: {
-    metaTitle: "IA, intégration et logiciels sur mesure à Bruxelles",
+    metaTitle: "IA, intégration et logiciels sur mesure",
     metaDescription: "Synode, entreprise technologique à Bruxelles : agents IA, automatisations, intégration de vos logiciels (CRM, ERP, API) et logiciels métier sur mesure.",
     hero: {
       title:
@@ -353,9 +353,9 @@ const fr = {
 
   /* ------------------------------------------------------------------- Équipe */
   team: {
-    metaTitle: "L’équipe de Synode à Bruxelles : Antonino et Killian",
+    metaTitle: "L’équipe de Synode : Antonino et Killian",
     metaDescription:
-      "Découvrez l’équipe de Synode, entreprise technologique à Bruxelles : deux développeurs spécialisés en intelligence artificielle, intégration de systèmes et logiciels métier sur mesure.",
+      "L’équipe de Synode Agency, entreprise technologique à Bruxelles : Antonino (IA, agents et automatisations) et Killian (logiciels et intégrations).",
     kicker: "L’équipe",
     title: "Pourquoi nous\n^construisons Synode",
     vision:
@@ -390,7 +390,7 @@ const fr = {
   contact: {
     metaTitle: "Parlons de votre projet",
     metaDescription:
-      "Réservez un échange gratuit de 30 minutes avec Synode, entreprise technologique à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement et sans devis automatique.",
+      "Réservez un échange gratuit de 30 minutes avec Synode Agency à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement ni devis automatique.",
     kicker: "Contact",
     title: "Parlons de\n^votre projet",
     text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
@@ -461,7 +461,7 @@ const fr = {
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Mentions légales du site Synode, entreprise technologique à Bruxelles : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
+    noticeDescription: "Mentions légales du site de Synode Agency : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     draftLabel: "Brouillon",
@@ -500,7 +500,7 @@ const en = {
   },
 
   home: {
-    metaTitle: "AI, integration and custom software in Brussels",
+    metaTitle: "AI, integration and custom software",
     metaDescription: "Synode, a technology company in Brussels: AI agents, automations, integration of your software (CRM, ERP, API) and custom business software.",
     hero: {
       title:
@@ -709,9 +709,9 @@ const en = {
   },
 
   team: {
-    metaTitle: "The Synode team in Brussels: Antonino and Killian",
+    metaTitle: "The Synode team: Antonino and Killian",
     metaDescription:
-      "Meet the Synode team, a technology company in Brussels: two developers specialising in artificial intelligence, systems integration and custom business software.",
+      "The Synode Agency team, a technology company in Brussels: Antonino (AI, agents and automation) and Killian (software and integrations).",
     kicker: "The team",
     title: "Why we are\n^building Synode",
     vision:
@@ -810,7 +810,7 @@ const en = {
 
   legal: {
     noticeTitle: "Legal notice",
-    noticeDescription: "Legal notice for the Synode website, a technology company based in Brussels: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
+    noticeDescription: "Legal notice for the Synode Agency website: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
     privacyTitle: "Privacy policy",
     privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
     draftLabel: "Draft",

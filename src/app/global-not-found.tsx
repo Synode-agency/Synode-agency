@@ -19,7 +19,7 @@ import { NotFoundPage } from "@/components/site/simple-pages";
  * par `(en)/en/[...missing]`, qui les envoie vers la 404 anglaise.
  */
 export const metadata: Metadata = {
-  title: "Page introuvable — Synode",
+  title: "Page introuvable - Synode Agency",
   robots: { index: false, follow: false },
 };
 

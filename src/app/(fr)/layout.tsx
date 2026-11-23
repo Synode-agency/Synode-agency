@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_NAME } from "@/lib/seo";
 import { SiteShell, siteUrl } from "@/app/site-shell";
 import { getContent } from "@/lib/content";
 
@@ -16,15 +17,15 @@ const { site } = getContent("fr");
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${site.name} — ${site.tagline}`,
-    template: `%s — ${site.name}`,
+    default: `${SITE_NAME} - ${getContent("fr").home.metaTitle}`,
+    template: `%s - ${SITE_NAME}`,
   },
   description: site.tagline,
   openGraph: {
     type: "website",
     locale: "fr_BE",
-    siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} - ${getContent("fr").home.metaTitle}`,
     description: site.tagline,
   },
   twitter: { card: "summary_large_image" },

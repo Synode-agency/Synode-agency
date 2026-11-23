@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ogBase, withBrand } from "@/lib/seo";
 import { ContactPage } from "@/components/site/contact-page";
 import { getContent } from "@/lib/content";
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     canonical: `${prefix}/contact`,
     languages: { fr: "/contact", en: "/en/contact", "x-default": "/contact" },
   },
-  openGraph: { title: c.metaTitle, description: c.metaDescription, url: `${prefix}/contact`, type: "website" },
+  openGraph: { ...ogBase("fr"), title: withBrand(c.metaTitle), description: c.metaDescription, url: `${prefix}/contact`, type: "website" },
 };
 
 export default function Page() {

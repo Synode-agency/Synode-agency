@@ -49,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
      pour une virgule n'est pas une page modifiée. Changer cette constante
      fait partie d'une vraie mise à jour de contenu, au même titre que le
      texte. ---- */
-  const lastModified = new Date("2026-10-13");
+  const lastModified = new Date("2026-11-23");
 
   return pages.flatMap(({ path: p, priority }) => {
     const fr = `${siteUrl}${p}`;
