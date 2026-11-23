@@ -65,7 +65,7 @@ const fr = {
   } satisfies Record<ObservationId, string>,
   approaches: {
     automation: {
-      title: "Automatisation intelligente",
+      title: "Automatisations intelligentes",
       text: "Automatiser certaines étapes répétitives et orchestrer le passage d’une action à l’autre.",
     },
     agents: {
@@ -77,11 +77,11 @@ const fr = {
       text: "Relier les logiciels impliqués afin de faire circuler les informations et réduire les ressaisies.",
     },
     data: {
-      title: "Data & Intelligence",
+      title: "Data & intelligence",
       text: "Centraliser et exploiter les données disponibles pour améliorer le pilotage, la détection d’anomalies ou la priorisation.",
     },
     software: {
-      title: "Logiciel métier sur mesure",
+      title: "Logiciels & applications sur mesure",
       text: "Réunir plusieurs briques du processus dans une interface métier adaptée à votre fonctionnement.",
     },
     human: {
@@ -153,15 +153,15 @@ const en: typeof fr = {
   },
   approaches: {
     automation: {
-      title: "Intelligent automation",
+      title: "Intelligent Automations",
       text: "Automate repetitive steps and orchestrate the move from one action to the next.",
     },
     agents: {
-      title: "AI agents",
+      title: "AI Agents",
       text: "Analyse, search, contextualise or prepare the information your teams need.",
     },
     integration: {
-      title: "Integrations & connected systems",
+      title: "Integrations & Connected Systems",
       text: "Connect the software involved so information circulates and re-entry is reduced.",
     },
     data: {
@@ -169,7 +169,7 @@ const en: typeof fr = {
       text: "Centralise and use the available data to improve oversight, anomaly detection or prioritisation.",
     },
     software: {
-      title: "Custom business software",
+      title: "Custom Software & Applications",
       text: "Bring several parts of the process together in an interface shaped around how you work.",
     },
     human: {

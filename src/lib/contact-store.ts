@@ -239,8 +239,8 @@ export async function notifyByEmail(req: ContactRequest): Promise<boolean> {
 }
 
 /**
- * L'accusé de réception au prospect. Son texte et sa signature sont dans
- * `ack-email.ts`, en version texte ET HTML : la version texte sert de secours
+ * L'accusé de réception au prospect. Son texte est dans `ack-email.ts` (sans
+ * signature pour l'instant), en version texte ET HTML : la version texte sert de secours
  * aux messageries qui n'affichent pas le HTML.
  *
  * ⚠ IL NE REPREND RIEN DE CE QUE LE VISITEUR A TAPÉ, pas même son nom. Le

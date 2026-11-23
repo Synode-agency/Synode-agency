@@ -1,4 +1,4 @@
-import { Bot, Workflow, Blocks, LayoutDashboard, ChartNoAxesColumnIncreasing, GraduationCap } from "lucide-react";
+import { Bot, Workflow, Blocks, LayoutDashboard, ChartNoAxesColumnIncreasing, GraduationCap, type LucideIcon } from "lucide-react";
 
 /**
  * LES ICÔNES DES SIX FAMILLES DE SOLUTIONS.
@@ -17,3 +17,18 @@ import { Bot, Workflow, Blocks, LayoutDashboard, ChartNoAxesColumnIncreasing, Gr
  * de la bande bleu nuit des pages service.
  */
 export const brickIcons = [Bot, Workflow, Blocks, LayoutDashboard, ChartNoAxesColumnIncreasing, GraduationCap];
+
+/**
+ * L'icône de chaque offre, par SLUG : la MÊME partout où l'offre apparaît,
+ * menus, panneaux des solutions et recommandations du diagnostic (décision
+ * du 23/11/2026 : les trois endroits en employaient trois jeux différents, et
+ * la même icône désignait deux offres). Ce sont celles du menu, `brickIcons`.
+ */
+export const offerIcons: Record<string, LucideIcon> = {
+  "agents-ia": Bot,
+  "integrations-systemes-connectes": Blocks,
+  "automatisations-intelligentes": Workflow,
+  "logiciels-applications-ia": LayoutDashboard,
+  "data-intelligence": ChartNoAxesColumnIncreasing,
+  "formation-adoption-ia": GraduationCap,
+};

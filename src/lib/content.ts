@@ -201,7 +201,7 @@ const fr = {
   solutions: {
     metaTitle: "Solutions sur mesure avec l’IA intégrée",
     metaDescription:
-      "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, automatisations, intégrations, logiciels métier, data et formation.",
+      "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, intégrations, automatisations, logiciels métier, data et formation.",
     kicker: "Notre offre",
     title: "Une solution construite\n^à partir de votre besoin",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
@@ -233,7 +233,7 @@ const fr = {
       },
       {
             "slug": "logiciels-applications-ia",
-            "title": "Logiciels & Applications sur mesure",
+            "title": "Logiciels & applications sur mesure",
             "text": "Des logiciels métier et des applications sur mesure, conçus autour de vos processus, de vos utilisateurs et de vos règles, avec l’IA intégrée là où elle apporte un gain.",
             "benefit": "Disposer d’un outil métier adapté au travail réel de vos équipes.",
             "example": "Vos interventions sont centralisées dans une interface métier avec suivi, historique et comptes rendus assistés par IA.",
@@ -241,7 +241,7 @@ const fr = {
       },
       {
             "slug": "data-intelligence",
-            "title": "Data & Intelligence",
+            "title": "Data & intelligence",
             "text": "Centralisation et analyse de données, tableaux de bord, détection d’anomalies, prévisions et recommandations lorsque les données le permettent.",
             "benefit": "Transformer vos données métier en indicateurs utiles à la décision.",
             "example": "Vos chiffres de ventes, de marge et de trésorerie sont réunis dans un tableau de bord Power BI ou Excel, à jour sans export manuel, avec les écarts à vérifier signalés.",
@@ -249,7 +249,7 @@ const fr = {
       },
       {
             "slug": "formation-adoption-ia",
-            "title": "Formation & Adoption IA",
+            "title": "Formation & adoption IA",
             "text": "La prise en main de chaque solution livrée est incluse dans le projet. Cette offre forme aussi vos équipes à l’IA sans projet : ateliers pratiques, bons réflexes et règles d’usage.",
             "benefit": "Rendre vos équipes autonomes et responsables dans leurs usages de l’IA.",
             "example": "À partir de situations réelles, votre équipe apprend à utiliser l’IA pour préparer, vérifier et améliorer ses réponses clients.",
@@ -591,7 +591,7 @@ const en = {
   solutions: {
     metaTitle: "Custom solutions with built-in AI",
     metaDescription:
-      "Custom solutions with built-in AI from Synode in Brussels: AI agents, automations, integrations, business software, data and team training.",
+      "Custom solutions with built-in AI from Synode in Brussels: AI agents, integrations, automations, business software, data and team training.",
     kicker: "What we sell",
     title: "A solution built\n^from your need",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",

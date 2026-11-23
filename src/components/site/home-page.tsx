@@ -44,15 +44,15 @@ export function HomePage({ locale }: { locale: Locale }) {
         email: site.email,
         ...sameAsField,
         description: fr
-          ? "Entreprise technologique à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en ingénierie logicielle : agents IA, automatisations, systèmes connectés et logiciels métier sur mesure, en Belgique."
-          : "Brussels-based technology company specialising in artificial intelligence, systems integration and software engineering: AI agents, automations, connected systems and custom business software, across Belgium.",
+          ? "Entreprise technologique à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes connectés et en logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
+          : "Brussels-based technology company specialising in artificial intelligence, connected systems integration and custom software: AI agents, integrations, automations, business software, data and training.",
         areaServed: [
           { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
           { "@type": "Country", name: fr ? "Belgique" : "Belgium" },
         ],
         knowsAbout: fr
-          ? ["Intelligence artificielle", "Agents IA", "Automatisation IA", "Intégration de systèmes", "Intégration de logiciels et API", "Ingénierie logicielle", "Logiciels métier sur mesure", "Data et tableaux de bord"]
-          : ["Artificial intelligence", "AI agents", "AI automation", "Systems integration", "Software and API integration", "Software engineering", "Custom business software", "Data and dashboards"],
+          ? ["Intelligence artificielle", "Agents IA", "Intégration de systèmes", "Intégration de logiciels et API", "Automatisation des processus", "Logiciels métier sur mesure", "Data et tableaux de bord", "Formation à l’IA"]
+          : ["Artificial intelligence", "AI agents", "Systems integration", "Software and API integration", "Process automation", "Custom business software", "Data and dashboards", "AI training"],
       },
     ],
   };
@@ -60,24 +60,22 @@ export function HomePage({ locale }: { locale: Locale }) {
 
   const capabilityItems = fr ? [
     "Agents IA",
-    "Automatisations",
     "Intégrations & systèmes connectés",
+    "Automatisations intelligentes",
     "Logiciels & applications sur mesure",
     "Data & intelligence",
-    "Conseil & consultance IA",
+    "Formation & adoption IA",
     "Cadrage des besoins",
-    "Formation & adoption",
-    "Maintenance & monitoring",
+    "Maintenance & évolution",
   ] : [
-    "AI agents",
-    "Automations",
-    "Integrations & connected systems",
-    "Custom software & applications",
-    "Data & intelligence",
-    "AI consulting",
+    "AI Agents",
+    "Integrations & Connected Systems",
+    "Intelligent Automations",
+    "Custom Software & Applications",
+    "Data & Intelligence",
+    "AI Training & Adoption",
     "Needs assessment",
-    "Training & adoption",
-    "Maintenance & monitoring",
+    "Maintenance & changes",
   ];
 
   return <Shell locale={locale}>

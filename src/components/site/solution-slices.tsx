@@ -2,12 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ArrowUpRight, BarChart3, Blocks, Bot, Check, GraduationCap, LayoutGrid, Link2, Mail,
-  Network, type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, Bot, Check, GraduationCap, Link2, Mail } from "lucide-react";
 import { path, ROUTES, type Locale } from "@/lib/content";
 import { RobotScene } from "@/components/site/robot-scene";
+import { offerIcons } from "@/components/site/solution-visuals";
 
 /**
  * Les six solutions, en tranches.
@@ -38,9 +36,8 @@ const SIDE_BY_SIDE = 930;
 const RAIL = 72;
 const GAP = 10;
 
-const ICONS: LucideIcon[] = [Bot, Blocks, LayoutGrid, Network, BarChart3, GraduationCap];
-
-/* L'icône et le mini-visuel de chaque solution, choisis par son SLUG.
+/* Le mini-visuel de chaque solution, choisi par son SLUG (l'icône vient de
+   `offerIcons`, la même que dans les menus).
 
    ⚠ Ni par la position de la carte, ni par le champ `visual` du contenu.
    Les numéros ci-dessous sont ceux de l'ordre d'origine des cartes (agents,
@@ -303,7 +300,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
     <div ref={box} className={stacked ? "slc slc--stacked" : "slc"}>
       {items.map((item, i) => {
         const kind = KIND[item.slug] ?? i;
-        const Icon = ICONS[kind] ?? Bot;
+        const Icon = offerIcons[item.slug] ?? Bot;
         const on = i === open;
         return (
           <div

@@ -1,4 +1,5 @@
-import { ArrowUpRight, Bot, Database, Plug, UserCheck, Workflow, AppWindow, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, UserCheck, Bot, type LucideIcon } from "lucide-react";
+import { offerIcons } from "@/components/site/solution-visuals";
 import Link from "next/link";
 import type { Locale } from "@/lib/content";
 import { ROUTES, path } from "@/lib/content";
@@ -7,11 +8,11 @@ import { diagnosticContent } from "@/lib/ai-diagnostic-content";
 
 /** Chaque approche renvoie vers la famille de Solutions correspondante. */
 const META: Record<ApproachId, { icon: LucideIcon; slug?: string }> = {
-  automation: { icon: Workflow, slug: "automatisations-intelligentes" },
-  agents: { icon: Bot, slug: "agents-ia" },
-  integration: { icon: Plug, slug: "integrations-systemes-connectes" },
-  data: { icon: Database, slug: "data-intelligence" },
-  software: { icon: AppWindow, slug: "logiciels-applications-ia" },
+  automation: { icon: offerIcons["automatisations-intelligentes"] ?? Bot, slug: "automatisations-intelligentes" },
+  agents: { icon: offerIcons["agents-ia"] ?? Bot, slug: "agents-ia" },
+  integration: { icon: offerIcons["integrations-systemes-connectes"] ?? Bot, slug: "integrations-systemes-connectes" },
+  data: { icon: offerIcons["data-intelligence"] ?? Bot, slug: "data-intelligence" },
+  software: { icon: offerIcons["logiciels-applications-ia"] ?? Bot, slug: "logiciels-applications-ia" },
   human: { icon: UserCheck },
 };
 

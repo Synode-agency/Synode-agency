@@ -174,7 +174,7 @@ const fr: Record<string, ServicePageContent> = {
   },
 
   "automatisations-intelligentes": {
-    kicker: "Automatisation des processus métier",
+    kicker: "Automatisations intelligentes",
     h1: "Automatisez vos processus métier avec l’IA",
     h1Accents: ["Automatisez"],
     whatKicker: "Comprendre l’automatisation des processus",
@@ -229,8 +229,8 @@ const fr: Record<string, ServicePageContent> = {
   },
 
   "logiciels-applications-ia": {
-    kicker: "Développement de logiciels métier sur mesure",
-    h1: "Des logiciels métier et des applications IA sur mesure",
+    kicker: "Logiciels & applications sur mesure",
+    h1: "Des logiciels métier et des applications sur mesure",
     h1Accents: ["logiciels", "applications"],
     whatKicker: "Comprendre le développement sur mesure",
     whatTitle: "Qu’est-ce qu’un logiciel métier sur mesure ?",
@@ -285,7 +285,7 @@ const fr: Record<string, ServicePageContent> = {
   },
 
   "integrations-systemes-connectes": {
-    kicker: "Intégration de logiciels & API",
+    kicker: "Intégrations & systèmes connectés",
     h1: "Connectez vos logiciels, API et données d’entreprise",
     h1Accents: ["Connectez", "logiciels", "API", "données"],
     whatKicker: "Comprendre l’intégration de systèmes",
@@ -341,7 +341,7 @@ const fr: Record<string, ServicePageContent> = {
   },
 
   "data-intelligence": {
-    kicker: "Analyse de données & tableaux de bord",
+    kicker: "Data & intelligence",
     h1: "Transformez vos données d’entreprise en décisions utiles",
     h1Accents: ["données"],
     whatKicker: "Comprendre l’analyse de données",
@@ -398,7 +398,7 @@ const fr: Record<string, ServicePageContent> = {
   },
 
   "formation-adoption-ia": {
-    kicker: "Formation IA en entreprise",
+    kicker: "Formation & adoption IA",
     h1: "Formez vos équipes à l’IA et développez des usages durables",
     h1Accents: ["Formez", "développez"],
     whatKicker: "Comprendre l’adoption de l’intelligence artificielle",
@@ -457,7 +457,7 @@ const fr: Record<string, ServicePageContent> = {
 
 const en: Record<string, ServicePageContent> = {
   "agents-ia": {
-    kicker: "AI agents",
+    kicker: "AI Agents",
     h1: "AI agents built into your tools",
     h1Accents: ["AI agents"],
     whatKicker: "Understanding AI agents",
@@ -513,7 +513,7 @@ const en: Record<string, ServicePageContent> = {
   },
 
   "automatisations-intelligentes": {
-    kicker: "Business process automation",
+    kicker: "Intelligent Automations",
     h1: "Automate your business processes with artificial intelligence",
     h1Accents: ["Automate your business processes"],
     whatKicker: "Understanding process automation",
@@ -568,9 +568,9 @@ const en: Record<string, ServicePageContent> = {
   },
 
   "logiciels-applications-ia": {
-    kicker: "Custom business software development",
-    h1: "Custom business software and AI applications",
-    h1Accents: ["Custom business software", "AI applications"],
+    kicker: "Custom Software & Applications",
+    h1: "Custom business software and applications",
+    h1Accents: ["Custom business software", "applications"],
     whatKicker: "Understanding custom business software",
     whatTitle: "What is custom business software?",
     whatTitleAccents: ["custom business software?"],
@@ -624,7 +624,7 @@ const en: Record<string, ServicePageContent> = {
   },
 
   "integrations-systemes-connectes": {
-    kicker: "Software & API integration",
+    kicker: "Integrations & Connected Systems",
     h1: "Connect your software, APIs and business data",
     h1Accents: ["Connect your software,"],
     whatKicker: "Understanding software integration",
@@ -680,7 +680,7 @@ const en: Record<string, ServicePageContent> = {
   },
 
   "data-intelligence": {
-    kicker: "Data analysis & dashboards",
+    kicker: "Data & Intelligence",
     h1: "Turn your business data into useful decisions",
     h1Accents: ["business data"],
     whatKicker: "Understanding business data analysis",
@@ -738,7 +738,7 @@ const en: Record<string, ServicePageContent> = {
   },
 
   "formation-adoption-ia": {
-    kicker: "AI training for business",
+    kicker: "AI Training & Adoption",
     h1: "Train your teams in AI and build lasting practices",
     h1Accents: ["Train your teams in AI", "lasting practices"],
     whatKicker: "Understanding AI adoption in business",
