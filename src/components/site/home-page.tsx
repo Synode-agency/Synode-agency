@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { SolutionSlices } from "@/components/site/solution-slices";
@@ -66,7 +66,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     "Data & intelligence",
     "Formation & adoption IA",
     "Cadrage des besoins",
-    "Maintenance & évolution",
+    "Suivi & maintenance",
   ] : [
     "AI Agents",
     "Integrations & Connected Systems",
@@ -75,7 +75,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     "Data & Intelligence",
     "AI Training & Adoption",
     "Scoping",
-    "Maintenance & changes",
+    "Support & maintenance",
   ];
 
   return <Shell locale={locale}>
@@ -124,7 +124,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     </Band>
 
     <Band id="offre" tone="base" className="studio-section home-solutions-light solutions-light">
-      <div className="section-heading"><Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Chaque solution combine trois savoir-faire : l’IA, la connexion de vos logiciels et le développement sur mesure. Nous ne mobilisons que ceux dont votre projet a besoin." : "Every solution draws on three skills: AI, connecting your software and custom development. We only bring in the ones your project needs."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions" : "Explore all our solutions"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Chaque solution s’appuie sur un ou plusieurs de nos trois savoir-faire : l’IA, la connexion de vos logiciels et le développement sur mesure. Nous ne mobilisons que ceux dont votre projet a besoin." : "Every solution draws on one or more of our three skills: AI, connecting your software and custom development. We only bring in the ones your project needs."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions" : "Explore all our solutions"}<ArrowRight aria-hidden /></Link></div>
       <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
       <p className="families-note">
         {fr ? (
@@ -176,7 +176,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
     <CardPanel id="conclusion" className="booking-cta dark-cta home-booking-cta">
       <div className="col card-body cta-panel cta-booking-grid">
-        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s talk about your project"} accents={fr ? ["votre projet"] : ["your project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href="#calendrier-accueil" className="btn btn--primary">{fr ? "Réserver un échange gratuit" : "Book a free call"}<ArrowDown aria-hidden /></Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes, with no commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
+        <div className="cta-booking-copy"><span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span><Lede title={fr ? "Parlons de votre projet" : "Let’s talk about your project"} accents={fr ? ["votre projet"] : ["your project"]} text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."} /><Link href={contactHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link><p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes, with no commitment. "}<br className="only-desktop" />{fr ? "Un besoin concret suffit pour commencer." : "A concrete need is all it takes to begin."}</p></div>
         <div id="calendrier-accueil" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
       </div>
     </CardPanel>

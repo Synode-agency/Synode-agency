@@ -46,7 +46,7 @@ const STEPS: Record<"fr" | "en", Step[]> = {
     { short: "Développement", title: "Développement sur mesure", text: "Création des agents IA, des automatisations ou des logiciels métier prévus au périmètre, testés au fur et à mesure sur vos cas réels.", out: "Une version testée sur vos cas." },
     { short: "Intégration", title: "Intégration & déploiement", text: "Connexion à vos logiciels existants, recette sur des données réelles, puis mise en service de la solution dans votre environnement.", out: "La solution en service." },
     { short: "Formation", title: "Documentation & formation", text: "Documentation du fonctionnement et accompagnement de vos équipes jusqu’à la prise en main complète de la solution.", out: "Une documentation et une équipe autonome." },
-    { short: "Suivi", title: "Maintenance & évolution", text: "Monitoring, maintenance et évolutions selon les besoins du projet. Vous choisissez de nous confier ce suivi ou de le reprendre en interne.", out: "Un suivi défini et des évolutions chiffrées." },
+    { short: "Suivi", title: "Suivi & maintenance", text: "Monitoring, maintenance et évolutions selon les besoins du projet. Vous choisissez de nous confier ce suivi ou de le reprendre en interne.", out: "Un suivi défini et des évolutions chiffrées." },
   ],
   en: [
     { short: "Scoping", title: "Scoping the business need", text: "Analysis of the process to improve, your tools, your data and your constraints. The scope is written and agreed before any development.", out: "A written, agreed scope." },
@@ -54,7 +54,7 @@ const STEPS: Record<"fr" | "en", Step[]> = {
     { short: "Development", title: "Custom development", text: "We build the AI agents, automations or business software set out in the scope, tested as we go on your real cases.", out: "A version tested on your cases." },
     { short: "Integration", title: "Integration & go-live", text: "Connection to your existing software, acceptance testing on real data, then putting the solution into service in your environment.", out: "The solution in service." },
     { short: "Training", title: "Documentation & training", text: "We document how it works and support your teams until they have fully taken the solution in hand.", out: "Documentation and an autonomous team." },
-    { short: "Follow-up", title: "Maintenance & changes", text: "Monitoring, maintenance and changes according to the needs of the project. You choose whether to entrust this to us or handle it in-house.", out: "A defined support level and costed changes." },
+    { short: "Support", title: "Support & maintenance", text: "Monitoring, maintenance and changes according to the needs of the project. You choose whether to entrust this to us or handle it in-house.", out: "A defined support level and costed changes." },
   ],
 };
 

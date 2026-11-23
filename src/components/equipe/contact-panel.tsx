@@ -34,9 +34,9 @@ const COPY = {
   },
   en: {
     who: "Your contact",
-    sub: "from scoping to follow-up",
+    sub: "from scoping to support",
     step: (n: number) => `step ${n} / 6`,
-    steps: ["Scoping", "Design", "Development", "Integration", "Training", "Follow-up"],
+    steps: ["Scoping", "Design", "Development", "Integration", "Training", "Support"],
     checks: ["Processes and data analysed", "Tested on your real cases", "Documentation and maintenance"],
     states: ["✓ done", "✓ approved", "✓ ready"],
   },

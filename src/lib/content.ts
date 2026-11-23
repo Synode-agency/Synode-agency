@@ -118,7 +118,7 @@ const fr = {
         },
         {
           q: "Y a-t-il des coûts récurrents après la mise en service ?",
-          a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
+          a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous nous confiez le suivi et la maintenance, et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
         },
         {
           q: "Comment se déroule un projet avec Synode ?",
@@ -229,7 +229,7 @@ const fr = {
       { q: "Combien coûte une solution sur mesure ?", a: "Il n’y a pas de grille tarifaire publique : le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé avant tout démarrage, qui distingue le développement, les coûts techniques récurrents, la maintenance si vous la choisissez et les services tiers." },
       { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit six étapes : cadrage du besoin métier, conception et architecture, développement sur mesure, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous." },
       { q: "Mes données restent-elles confidentielles ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation." },
-      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous prenez notre service de suivi : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous nous confiez le suivi et la maintenance : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
       { q: "Combien de temps faut-il pour développer une solution sur mesure ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
       { q: "Une solution sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
     ],
@@ -460,7 +460,7 @@ const en = {
         },
         {
           q: "Are there recurring costs after go-live?",
-          a: "Yes, as soon as your solution relies on paid services (AI models, hosting, automation platforms), billed by subscription for as long as it runs. Synode never absorbs these costs. Either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you subscribe to and pay those services directly with the providers. Amounts are estimated before work starts.",
+          a: "Yes, as soon as your solution relies on paid services (AI models, hosting, automation platforms), billed by subscription for as long as it runs. Synode never absorbs these costs. Either you entrust support and maintenance to us and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you subscribe to and pay those services directly with the providers. Amounts are estimated before work starts.",
         },
         {
           q: "How does a project with Synode work?",
@@ -568,7 +568,7 @@ const en = {
       { q: "How much does a custom solution cost?", a: "There is no public price list: the price depends on the scope, the features, the volumes, the data and the software to connect. You receive a tailored quote before anything starts, separating development, recurring technical costs, maintenance if you choose it, and third-party services." },
       { q: "How does a project with Synode run?", a: "In six steps: scoping the business need, design and architecture, custom development, integration and go-live, documentation and training, then maintenance and changes if you entrust them to us. Each step is agreed with you." },
       { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval." },
-      { q: "Do you handle maintenance after deployment?", a: "Yes, if you take our support service: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
+      { q: "Do you handle maintenance after deployment?", a: "Yes, if you entrust support and maintenance to us: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
       { q: "How long does it take to build a solution?", a: "It depends on the scope and the integrations. The schedule, its steps and its deadlines are set in the quote, before work starts." },
       { q: "Can the solution evolve later on?", a: "Yes. Significant changes or new features go through a fresh scoping exercise, a new quote and a written agreement before any work begins." },
     ],

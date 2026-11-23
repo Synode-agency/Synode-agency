@@ -14,6 +14,7 @@ import { Booking } from "@/components/site/booking";
 import { SecurityPanel } from "@/components/site/security-panel";
 import { MethodFrame } from "@/components/site/method-frame";
 import { PricingDoc } from "@/components/site/pricing-doc";
+import { businessUseCases } from "@/lib/business-use-cases";
 
 /**
  * La page Solutions.
@@ -41,17 +42,33 @@ import { PricingDoc } from "@/components/site/pricing-doc";
  * suite effaçaient la carte.
  */
 
-/** Les besoins métier de la section « Solutions concrètes ». */
+/** Les besoins métier de la section « Solutions concrètes ».
+ *
+ *  Chaque carte reprend un cas de la page Cas d'usage, par son slug : le
+ *  nom de la carte est le domaine du cas, et sa phrase en est le titre. Le
+ *  lien « Voir plus de cas d'usage » mène donc à des cas qui portent les
+ *  mêmes noms (constat C41 de l'audit du 23/11/2026). Un slug qui
+ *  disparaît du catalogue fait échouer la construction, il ne laisse pas
+ *  une carte vide. */
 const NEEDS = [
-  { icon: MessagesSquare, fr: ["Traitement des demandes clients", "Trier les demandes reçues et préparer des réponses contextualisées."], en: ["Customer request handling", "Sort incoming requests and draft replies that fit their context."] },
-  { icon: Target, fr: ["Qualification commerciale par IA", "Analyser et prioriser les prospects selon vos critères commerciaux."], en: ["AI lead qualification", "Analyse and prioritise prospects against your sales criteria."] },
-  { icon: FileSearch, fr: ["Analyse intelligente de documents", "Extraire, classer et vérifier les données de vos documents métier."], en: ["Smart document analysis", "Extract, classify and check the data in your business documents."] },
-  { icon: UserPlus, fr: ["Onboarding client automatisé", "Automatiser la collecte d’informations, les étapes d’accueil et les relances."], en: ["Automated client onboarding", "Automate information gathering, welcome steps and reminders."] },
-  { icon: Mail, fr: ["Automatisation des emails", "Classer les messages, détecter les priorités et préparer les réponses."], en: ["Email automation", "Sort messages, spot priorities and draft replies."] },
-  { icon: BarChart3, fr: ["Tableaux de bord & pilotage", "Centraliser vos indicateurs clés pour faciliter le pilotage de l’activité."], en: ["Dashboards & reporting", "Bring your key indicators together to make the business easier to run."] },
-  { icon: CalendarRange, fr: ["Planification des rendez-vous", "Coordonner les disponibilités, les plannings et les rappels."], en: ["Appointment scheduling", "Coordinate availability, schedules and reminders."] },
-  { icon: LifeBuoy, fr: ["Suivi après-vente", "Suivre les demandes après livraison et automatiser les relances utiles."], en: ["After-sales follow-up", "Track requests after delivery and automate useful reminders."] },
+  { icon: Mail, slug: "demandes-de-devis" },
+  { icon: MessagesSquare, slug: "questions-frequentes" },
+  { icon: Target, slug: "opportunites-commerciales" },
+  { icon: FileSearch, slug: "documents-en-volume" },
+  { icon: UserPlus, slug: "onboarding-client" },
+  { icon: CalendarRange, slug: "rendez-vous" },
+  { icon: LifeBuoy, slug: "support-incidents" },
+  { icon: BarChart3, slug: "detection-priorites" },
 ] as const;
+
+function needTiles(locale: Locale) {
+  const cases = businessUseCases(locale);
+  return NEEDS.map(({ icon, slug }) => {
+    const useCase = cases.find((c) => c.slug === slug);
+    if (!useCase) throw new Error(`Cas d’usage introuvable pour la page Solutions : ${slug}`);
+    return { icon, slug, title: useCase.domain, text: useCase.title };
+  });
+}
 
 const SECURITY = {
   fr: {
@@ -59,7 +76,7 @@ const SECURITY = {
       { title: "Protection des données", text: "La solution accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
       { title: "Gestion des droits d’accès", text: "Les permissions sont limitées selon les utilisateurs, les rôles et les logiciels connectés." },
       { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes restent soumises à votre validation." },
-      { title: "Monitoring technique", text: "Le fonctionnement, les erreurs et les intégrations peuvent être surveillés après le déploiement." },
+      { title: "Suivi & maintenance", text: "Si vous nous confiez le suivi, le fonctionnement, les erreurs et les intégrations sont surveillés après le déploiement." },
     ],
     panelTitle: "Vos données restent sous votre contrôle",
     checks: ["Accès restreints", "Validation humaine", "Monitoring", "Traçabilité"],
@@ -70,7 +87,7 @@ const SECURITY = {
       { title: "Data protection", text: "The solution only accesses the data needed for the operation agreed with you." },
       { title: "Access rights management", text: "Permissions are limited by user, role and connected software." },
       { title: "Human approval", text: "Sensitive decisions and important actions stay subject to your approval." },
-      { title: "Technical monitoring", text: "Operation, errors and integrations can be monitored after deployment." },
+      { title: "Support & maintenance", text: "If you entrust support to us, operation, errors and integrations are monitored after deployment." },
     ],
     panelTitle: "Your data stays under your control",
     checks: ["Restricted access", "Human approval", "Monitoring", "Traceability"],
@@ -129,15 +146,14 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
             title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "AI use cases for\nyour business challenges"}
             accents={fr ? ["cas d’usage IA"] : ["AI use cases"]}
-            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "Our solutions meet concrete operational needs: handling customer requests, lead qualification, document analysis, email management, planning and performance tracking."}
+            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : devis et relances, service client, prospection, documents en volume, démarrage des nouveaux clients, rendez-vous, SAV et pilotage." : "Our solutions meet concrete operational needs: quotes and follow-ups, customer service, prospecting, high-volume documents, onboarding new clients, appointments, after-sales support and performance tracking."}
           />
           <Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Voir plus de cas d’usage" : "See more use cases"}<ArrowRight aria-hidden /></Link>
         </div>
         <ul className="need-tiles section-gap">
-          {NEEDS.map(({ icon: Icon, fr: textFr, en: textEn }) => {
-            const [title, text] = fr ? textFr : textEn;
+          {needTiles(locale).map(({ icon: Icon, slug, title, text }) => {
             return (
-              <li key={title} className="need-tile">
+              <li key={slug} className="need-tile">
                 <span className="need-tile-heading">
                   <span className="need-tile-icon"><Icon aria-hidden /></span>
                   <strong>{title}</strong>

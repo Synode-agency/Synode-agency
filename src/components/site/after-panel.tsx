@@ -34,8 +34,8 @@ import { useOnScreen } from "@/lib/use-on-screen";
 const STEP_MS = 2600;
 
 const COPY = {
-  fr: { live: "Suivi actif", cycle: (n: number) => `cycle continu · passage n° ${n}`, idle: "à jour" },
-  en: { live: "Support active", cycle: (n: number) => `continuous cycle · pass no. ${n}`, idle: "up to date" },
+  fr: { live: "Suivi en cours", cycle: (n: number) => `cycle continu · passage n° ${n}`, idle: "à jour" },
+  en: { live: "Support in progress", cycle: (n: number) => `continuous cycle · pass no. ${n}`, idle: "up to date" },
 } as const;
 
 /** Le pouls du bandeau, et la flèche de cycle du pied. Deux tracés, pas une

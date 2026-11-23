@@ -41,7 +41,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
       <PageHero
         kicker={fr ? "Cas d’usage" : "Use cases"}
         kickerMobileOnly
-        title={fr ? <>Des <span>systèmes IA</span> intégrés à vos processus métier</> : <><span>AI systems</span> integrated into your business processes</>}
+        title={fr ? <>Des <span>solutions</span> intégrées à vos processus métier</> : <><span>Solutions</span> built into your business processes</>}
       >
         <p>{fr ? "Découvrez comment l’intelligence artificielle peut répondre plus vite à vos clients, relier vos outils, exploiter vos chiffres et assister vos équipes au quotidien. Agents IA, intégrations, automatisations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can answer your clients faster, connect your tools, use your figures and support your teams every day. AI agents, integrations, automations and business software are combined around your tools, data and business rules."}</p>
         <div className="btn-row">

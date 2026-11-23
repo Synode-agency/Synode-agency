@@ -165,11 +165,11 @@ const en: SolutionDetail[] = [
 const RECURRING_FAQ = {
   fr: {
     q: "Y a-t-il des coûts récurrents après la mise en service ?",
-    a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation, connexions aux logiciels), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Vous choisissez : soit vous prenez notre suivi et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous ne le prenez pas, la solution est livrée et déployée, et vous souscrivez puis payez ces services directement auprès des fournisseurs. Dans les deux cas, les montants sont estimés avant le démarrage.",
+    a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation, connexions aux logiciels), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Vous choisissez : soit vous nous confiez le suivi et la maintenance, et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous ne nous les confiez pas, la solution est livrée et déployée, et vous souscrivez puis payez ces services directement auprès des fournisseurs. Dans les deux cas, les montants sont estimés avant le démarrage.",
   },
   en: {
     q: "Are there recurring costs after go-live?",
-    a: "Yes, whenever your solution relies on paid services (AI models, hosting, automation platforms, software connections), billed by subscription for as long as it runs. Synode never absorbs these costs. You choose: either you take our support service and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you do not, the solution is delivered and deployed, and you subscribe to and pay those services directly with the providers. In both cases the amounts are estimated before work starts.",
+    a: "Yes, whenever your solution relies on paid services (AI models, hosting, automation platforms, software connections), billed by subscription for as long as it runs. Synode never absorbs these costs. You choose: either you entrust support and maintenance to us and we handle running, monitoring and maintenance for a recurring payment set out in the contract; or you do not, and the solution is delivered and deployed, and you subscribe to and pay those services directly with the providers. In both cases the amounts are estimated before work starts.",
   },
 } as const;
 

@@ -491,7 +491,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Access is limited to what is necessary. Sensitive actions remain subject to human approval.",
     afterTitle: "Your agent changes as your business does",
     afterTitleAccents: ["changes"],
-    afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. If you entrust the follow-up to us, here is what we handle after go-live.",
+    afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. If you entrust support and maintenance to us, here is what we handle after go-live.",
     after: [
       { title: "Monitoring", text: "We watch runs, errors and cases that fall outside the intended scope.", status: "monitoring in progress" },
       { title: "Rule adjustments", text: "Answers and actions are corrected from your users’ feedback.", status: "adjustment in progress" },
@@ -546,7 +546,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Original files are kept, and every run leaves a record you can consult.",
     afterTitle: "Your automations evolve with your processes",
     afterTitleAccents: ["evolve"],
-    afterText: "An automated workflow is never set in stone: your business rules change, volumes grow and software gets updated. If you entrust the follow-up to us, we monitor how the workflow runs after go-live and adapt it whenever your business needs it to.",
+    afterText: "An automated workflow is never set in stone: your business rules change, volumes grow and software gets updated. If you entrust support and maintenance to us, we monitor how the workflow runs after go-live and adapt it whenever your business needs it to.",
     after: [
       { title: "Run monitoring", text: "Failures, blockages and unusual queues are detected.", status: "monitoring in progress" },
       { title: "Exception handling", text: "Cases that left the flow are reviewed, then folded into the rules if useful.", status: "handling in progress" },
@@ -602,7 +602,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Hosting, backups and access conditions are agreed with you before development starts.",
     afterTitle: "Your custom software grows with your business",
     afterTitleAccents: ["grows"],
-    afterText: "A business application used every day has to evolve with your teams, processes and volumes. If you entrust the follow-up to us, we handle technical maintenance after go-live, monitor how it is used and gradually build the new features you prioritise.",
+    afterText: "A business application used every day has to evolve with your teams, processes and volumes. If you entrust support and maintenance to us, we handle technical maintenance after go-live, monitor how it is used and gradually build the new features you prioritise.",
     after: [
       { title: "Technical maintenance", text: "Updates, fixes and availability monitoring.", status: "maintenance in progress" },
       { title: "New features", text: "Requests are prioritised, estimated, then built in stages.", status: "review in progress" },
@@ -658,7 +658,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Each exchange is limited to the data required, and logged so it can be checked.",
     afterTitle: "Your software integrations remain reliable",
     afterTitleAccents: ["remain reliable"],
-    afterText: "A software connection relies on APIs, formats and third-party services that change over time. If you entrust the follow-up to us, after go-live we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
+    afterText: "A software connection relies on APIs, formats and third-party services that change over time. If you entrust support and maintenance to us, after go-live we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
     after: [
       { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly.", status: "monitoring in progress" },
       { title: "Following API changes", text: "A change on the vendor’s side can require adapting the connection.", status: "check in progress" },
@@ -715,7 +715,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "The quality of the available data decides what can be claimed. We say so before delivering a figure.",
     afterTitle: "Your dashboards stay reliable over time",
     afterTitleAccents: ["stay reliable"],
-    afterText: "Business data changes continuously as sources, formats and definitions evolve. If you entrust the follow-up to us, we monitor feeds, data quality, models and key performance indicators after go-live.",
+    afterText: "Business data changes continuously as sources, formats and definitions evolve. If you entrust support and maintenance to us, we monitor feeds, data quality, models and key performance indicators after go-live.",
     after: [
       { title: "Feed monitoring", text: "An interrupted or incomplete source is detected before it is read.", status: "monitoring in progress" },
       { title: "Quality control", text: "Gaps and outliers are tracked over time.", status: "check in progress" },
