@@ -235,7 +235,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
 
       {!isCta && (
         <div className="calendar-demo-footer">
-          <span><Clock3 aria-hidden />{fr ? "Pour convenir d’un vrai rendez-vous :" : "To arrange an actual meeting:"}</span>
+          <span><Clock3 aria-hidden />{fr ? "Pour convenir d’un vrai rendez-vous :" : "To arrange an actual meeting:"}</span>
           <Link className="go" href={contactHref}>
             {fr ? "Nous contacter" : "Contact us"}<ChevronRight aria-hidden />
           </Link>

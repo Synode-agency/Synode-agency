@@ -93,7 +93,7 @@ const COPY = {
     names: ["Nouvelle demande", "Analyse IA", "Archiver", "Transmettre", "Mettre à jour", "Notifier", "Contrôle humain", "Modèle IA"],
     metas: ["déclencheur", "", "", "", "", "équipe commerciale", "", ""],
     item: "1 élément",
-    alt: "Un flux automatisé : une demande arrive, une analyse IA la lit, puis le flux transmet, archive, met à jour et notifie. Un cas ambigu part en contrôle humain.",
+    alt: "Un flux automatisé : une demande arrive, une analyse IA la lit, puis le flux transmet, archive, met à jour et notifie. Un cas ambigu part en contrôle humain.",
   },
   en: {
     names: ["New request", "AI analysis", "Archive", "Send", "Update", "Notify", "Human approval", "AI model"],

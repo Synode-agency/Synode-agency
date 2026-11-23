@@ -55,7 +55,7 @@ export function AppWindow({
       <div className={styles.side}>
         <span className={styles.brand}>
           {brand.kind === "nexus" ? (
-            <Image className={styles.mark} src="/demos/logoN.png" alt="" width={613} height={530} />
+            <Image className={styles.mark} src="/demos/logoN.png" alt="" width={51} height={44} /* affiché à 22px de haut : le double, dans les proportions du fichier (K16) */ />
           ) : (
             <i className={styles.letter}>{brand.letter}</i>
           )}

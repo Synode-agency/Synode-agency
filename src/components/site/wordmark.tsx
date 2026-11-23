@@ -38,7 +38,7 @@ export function Wordmark({
            1920px-wide image for a logo in the navbar. */
         width={isMark ? 80 : 112}
         height={isMark ? 80 : 112}
-        priority
+        loading="eager"
         className={cn(
           "wordmark-part shrink-0",
           isMark ? "size-10 object-contain" : "size-12 rounded-[22%]",
@@ -49,9 +49,14 @@ export function Wordmark({
         <Image
           src="/synode-wordmark.png"
           alt="Synode"
-          width={822}
-          height={232}
-          priority
+          /* La taille affichée (1,9rem de haut), dans les proportions du
+             fichier (822 × 232) : avec 822, Next envoyait une image de 822px
+             pour un mot de 106px (K16). `loading="eager"` remplace `priority`,
+             déprécié en Next 16 : le logo est en haut, sans être l'élément
+             principal de la page. */
+          width={106}
+          height={30}
+          loading="eager"
           className="wordmark-part wordmark-type h-[1.9rem] w-auto shrink-0"
         />
       )}

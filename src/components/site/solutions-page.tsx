@@ -109,7 +109,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         kickerMobileOnly
         title={renderLines(solutions.title)}
       >
-        <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
+        <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
         <div className="btn-row">
           <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions" : "Explore our solutions"}<ArrowDown aria-hidden /></Link>
           <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link>
@@ -146,7 +146,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
             title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "AI use cases for\nyour business challenges"}
             accents={fr ? ["cas d’usage IA"] : ["AI use cases"]}
-            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : devis et relances, service client, prospection, documents en volume, démarrage des nouveaux clients, rendez-vous, SAV et pilotage." : "Our solutions meet concrete operational needs: quotes and follow-ups, customer service, prospecting, high-volume documents, onboarding new clients, appointments, after-sales support and performance tracking."}
+            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : devis et relances, service client, prospection, documents en volume, démarrage des nouveaux clients, rendez-vous, SAV et pilotage." : "Our solutions meet concrete operational needs: quotes and follow-ups, customer service, prospecting, high-volume documents, onboarding new clients, appointments, after-sales support and performance tracking."}
           />
           <Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Voir plus de cas d’usage" : "See more use cases"}<ArrowRight aria-hidden /></Link>
         </div>
@@ -181,7 +181,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
               kicker={fr ? "Conception & développement" : "Design & development"}
               title={fr ? "Notre méthode\npour votre projet" : "Our method\nfor your project"}
               accents={fr ? ["méthode"] : ["method"]}
-              text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
+              text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."}
             />
           </div>
           <MethodFrame locale={locale} />

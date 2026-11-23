@@ -53,6 +53,7 @@ export function PlancheFrame({
   return (
     <div
       ref={rootRef}
+      data-fit-scene=""
       className={`${styles.root} ${styles.planche} ${jakarta.variable}`}
       aria-hidden="true"
       style={{ position: "relative", width: "100%", aspectRatio: `${W} / ${height}`, overflow: "hidden" }}

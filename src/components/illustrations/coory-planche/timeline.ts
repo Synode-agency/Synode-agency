@@ -52,7 +52,7 @@ export function computeFrame(time: number) {
     const t7 = T % 8, paid = t7 >= 7.4 ? 0 : [1.4, 2.4, 3.4].filter(x => t7 >= x).length;
     const R7 = [['YK', 'Yanis Khelifi', 'Ven 6 · 08:15 · Coaching force'], ['SL', 'Sophie Lambert', 'Jeu 5 · 18:00 · Remise en forme'], ['CM', 'Chloé Martin', 'Jeu 5 · 08:15 · Remise en forme'], ['NA', 'Nadia El Amrani', 'Jeu 5 · 07:00 · Coaching force']];
     // ILL-08 assistant (9.5 s)
-    const t8 = T % 9.5, P = "Prépare une semaine d'affûtage pour Anaïs";
+    const t8 = T % 9.5, P = "Prépare une semaine d’affûtage pour Anaïs";
     const typed = P.slice(0, Math.floor(cl((t8 - .8) / 2.6) * P.length)), sent = t8 >= 4.1 && t8 < 9.1, created = t8 >= 7.6 && t8 < 9.1;
     const R8 = [['Endurance', '40 min · Z2', '#6E7BF2'], ['Fractionné court', '6 × 30 s', '#6E7BF2'], ['Ergomètres légers', '3 × 500 m', '#F2B23A'], ['Repos actif', 'Mobilité', '#16A79A']];
     return {

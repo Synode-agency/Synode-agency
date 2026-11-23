@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
 import { ROUTES, path, type Locale } from "@/lib/routes";
 import type { ContactFormCopy } from "@/lib/content";
+import { isValidEmail, isValidWebsite } from "@/lib/form-rules";
 
 type FieldName = "name" | "email" | "need" | "website";
 
@@ -103,8 +104,9 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
     if (!get("name")) local.push("name");
     const email = get("email");
     setEmailEmpty(!email);
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) local.push("email");
+    if (!email || !isValidEmail(email)) local.push("email");
     if (get("need").length < 10) local.push("need");
+    if (get("website") && !isValidWebsite(get("website"))) local.push("website");
     if (local.length) {
       setFieldErrors(local);
       setFormError(null);
@@ -150,7 +152,12 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
         fields?: FieldName[];
       };
       if (payload.error === "invalid" && payload.fields?.length) {
+        const first = payload.fields[0];
         setFieldErrors(payload.fields);
+        /* Comme pour les erreurs vues dans le navigateur : le focus part sur
+           le premier champ fautif, qui annonce son message (K13). Après le
+           rendu, pour que le champ porte déjà son erreur. */
+        requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus());
       } else if (payload.error === "rate_limited") {
         setFormError(f.errors.rateLimited);
       } else if (payload.error === "not_configured") {

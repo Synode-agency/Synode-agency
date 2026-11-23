@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { notifyByEmail, saveRequest, sendAcknowledgement, storeReady, type ContactRequest } from "@/lib/contact-store";
 import { siteUrl } from "@/lib/site-url";
+import { isValidEmail, isValidWebsite } from "@/lib/form-rules";
 
 /**
  * La réception d'une demande.
@@ -124,7 +125,6 @@ function fromThisSite(request: Request) {
   return allowed.has(originHost);
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function clean(value: unknown, max: number): string {
   if (typeof value !== "string") return "";
@@ -175,7 +175,7 @@ export async function POST(request: Request) {
      d'un vrai prospect disparaissait sans trace. La ligne de journal, sans
      aucune donnée personnelle, permet de repérer ces faux positifs. */
   if (clean(body.hp_ref, 200) !== "") {
-    console.warn("[contact] Pot de miel déclenché : demande ignorée.");
+    console.warn("[contact] Pot de miel déclenché : demande ignorée.");
     return NextResponse.json({ ok: true, notified: true });
   }
 
@@ -191,11 +191,11 @@ export async function POST(request: Request) {
      L'erreur revenait du serveur et ne s'affichait nulle part. Le message
      montré, lui, s'appelle bien `errors.emailInvalid` dans les textes : ce
      sont deux choses différentes, un champ et un libellé. */
-  else if (!EMAIL_RE.test(email)) errors.push("email");
+  else if (!isValidEmail(email)) errors.push("email");
   if (need.length < 10) errors.push("need");
 
   const website = clean(body.website, LIMITS.website);
-  if (website && !/^https?:\/\/\S+\.\S+/.test(website) && !/^\S+\.\S{2,}/.test(website)) {
+  if (website && !isValidWebsite(website)) {
     errors.push("website");
   }
 
@@ -226,6 +226,11 @@ export async function POST(request: Request) {
   };
 
   const stored = await saveRequest(req);
+  /* Brevo a refusé l'adresse : c'est une erreur du champ, pas du serveur.
+     Le visiteur corrige son adresse au lieu de lire « erreur serveur ». */
+  if (!stored.ok && stored.reason === "invalid_email") {
+    return NextResponse.json({ error: "invalid", fields: ["email"] }, { status: 400 });
+  }
   if (!stored.ok) {
     /* On distingue « pas configuré » de « a échoué » : le premier est un
        oubli de déploiement, le second un incident. Le visiteur reçoit un

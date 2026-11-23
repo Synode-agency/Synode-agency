@@ -52,7 +52,7 @@ const COPY = {
     modules: ["Rôles et droits", "Règles métier", "Vos données", "Écrans dédiés", "Historique", "Exports", "Connexions", "Assistance IA"],
     building: "assemblage des modules…",
     done: "votre organisation, reprise telle quelle",
-    label: "Huit modules métier se rangent dans une application sur mesure : rôles et droits, règles métier, vos données, écrans dédiés, historique, exports, connexions et assistance IA.",
+    label: "Huit modules métier se rangent dans une application sur mesure : rôles et droits, règles métier, vos données, écrans dédiés, historique, exports, connexions et assistance IA.",
   },
   en: {
     title: "Your application",

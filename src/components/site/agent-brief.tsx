@@ -97,7 +97,7 @@ const COPY = {
   fr: {
     steps: ["Recevoir", "Comprendre", "Préparer", "Faire valider", "Agir"],
     human: "humain",
-    alt: "Un agent IA et ses cinq temps : recevoir, comprendre, préparer, faire valider par une personne, puis agir.",
+    alt: "Un agent IA et ses cinq temps : recevoir, comprendre, préparer, faire valider par une personne, puis agir.",
   },
   en: {
     steps: ["Receive", "Understand", "Prepare", "Get approval", "Act"],

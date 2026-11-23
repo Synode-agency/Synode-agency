@@ -56,7 +56,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "sales",
     domain: "Devis & relances",
     title: "Répondre plus vite aux demandes de devis, et relancer ceux qui dorment",
-    description: "Les demandes arrivent par le site, par email ou par téléphone. Le devis se prépare le soir, et celui qui reste sans réponse est souvent oublié.",
+    description: "Les demandes arrivent par le site, par e-mail ou par téléphone. Le devis se prépare le soir, et celui qui reste sans réponse est souvent oublié.",
     tags: ["Formulaire", "Email", "Modèle de devis", "Relance", "Signature"],
     example: "La demande est lue et résumée, un brouillon de devis est préparé à partir de vos tarifs pour que vous le relisiez, puis une relance part automatiquement si le client ne répond pas.",
   },
@@ -74,7 +74,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "support",
     domain: "Service client",
     title: "Répondre aux questions qui reviennent sans cesse",
-    description: "Horaires, délais, prix, documents à fournir : les mêmes questions arrivent chaque jour par email, sur le site ou sur WhatsApp, et coupent le travail.",
+    description: "Horaires, délais, prix, documents à fournir : les mêmes questions arrivent chaque jour par e-mail, sur le site ou sur WhatsApp, et coupent le travail.",
     tags: ["Site web", "Email", "WhatsApp", "Questions fréquentes"],
     example: "Un assistant répond aux questions courantes à partir de vos informations, à toute heure, et vous transmet les demandes qui méritent une vraie réponse.",
   },
@@ -92,7 +92,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "knowledge",
     domain: "Savoir-faire & documentation",
     title: "Garder la mémoire de l’entreprise",
-    description: "Un problème a déjà été résolu, mais la solution est dans la tête d’un collègue, dans un vieil email ou dans un dossier introuvable. Quand cette personne part, le savoir-faire part avec elle.",
+    description: "Un problème a déjà été résolu, mais la solution est dans la tête d’un collègue, dans un vieil e-mail ou dans un dossier introuvable. Quand cette personne part, le savoir-faire part avec elle.",
     tags: ["Problèmes", "Solutions", "Procédures", "Documents", "Recherche"],
     example: "Chaque problème rencontré et sa solution sont notés dans une base partagée. L’équipe les retrouve en posant sa question avec ses propres mots, et la réponse cite la fiche d’origine.",
   },
@@ -119,7 +119,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "incidents",
     domain: "Support interne IT & RH",
     title: "Désengorger le support informatique et RH interne",
-    description: "Mots de passe, accès, congés, notes de frais, procédures : les mêmes demandes internes reviennent sans cesse et occupent les équipes de support.",
+    description: "Mots de passe, accès, congés, notes de frais, procédures : les mêmes demandes internes reviennent sans cesse et occupent les équipes de support.",
     tags: ["ServiceNow", "Jira", "Teams", "Procédures", "Tickets"],
     example: "Les demandes courantes reçoivent une réponse à partir de vos procédures, les tickets sont classés et complétés, et seuls les cas qui le demandent sont transmis à la bonne équipe.",
   },
@@ -155,7 +155,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "workflow",
     domain: "Système d’information",
     title: "Connecter l’IA à votre système d’information, sans le remplacer",
-    description: "Une grande organisation tourne déjà sur des systèmes établis : ERP, CRM, gestion documentaire, outils de tickets. Un outil d’IA isolé, sans accès à ces données, reste un gadget.",
+    description: "Une grande organisation tourne déjà sur des systèmes établis : ERP, CRM, gestion documentaire, outils de tickets. Un outil d’IA isolé, sans accès à ces données, reste un gadget.",
     tags: ["SAP", "Salesforce", "Microsoft 365", "ServiceNow", "API"],
     example: "L’IA est branchée sur vos systèmes existants, comme SAP, Salesforce, Microsoft 365 ou ServiceNow, par leurs API et avec des accès limités au nécessaire, pour travailler sur vos vraies données.",
   },
@@ -227,7 +227,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "finance",
     domain: "Contrôles financiers",
     title: "Repérer les écarts et les anomalies dans les flux financiers",
-    description: "Rapprochements, notes de frais, factures fournisseurs : les contrôles se font souvent par échantillon, et les écarts se découvrent tard.",
+    description: "Rapprochements, notes de frais, factures fournisseurs : les contrôles se font souvent par échantillon, et les écarts se découvrent tard.",
     tags: ["Rapprochements", "Notes de frais", "Doublons", "Écarts", "ERP"],
     example: "Les flux sont comparés automatiquement à vos règles et à vos référentiels, les écarts et les doublons sont signalés à la bonne équipe, qui garde la décision finale.",
   },
@@ -236,7 +236,7 @@ const fr: readonly BusinessUseCase[] = [
     icon: "contracts",
     domain: "Contrats & échéances",
     title: "Ne plus rater une échéance de contrat",
-    description: "Reconductions, préavis, révisions de prix : les dates importantes sont écrites dans les contrats, mais personne ne les relit à temps.",
+    description: "Reconductions, préavis, révisions de prix : les dates importantes sont écrites dans les contrats, mais personne ne les relit à temps.",
     tags: ["Contrats", "Échéances", "Préavis", "Alertes"],
     example: "Les dates et obligations clés sont relevées dans vos contrats, réunies au même endroit, et un rappel vous prévient avant chaque échéance.",
   },
@@ -453,7 +453,7 @@ const en: readonly BusinessUseCase[] = [
 ];
 
 /** Le nombre de cas du catalogue, contrôlé à la construction du sitemap. */
-export const BUSINESS_USE_CASE_COUNT = 22;
+const BUSINESS_USE_CASE_COUNT = 22;
 
 export function businessUseCases(locale: Locale) {
   return locale === "fr" ? fr : en;

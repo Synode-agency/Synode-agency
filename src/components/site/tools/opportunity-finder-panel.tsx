@@ -31,7 +31,7 @@ const content = {
     title: "Qu’est-ce qui ralentit le plus votre activité ?",
     help: "Sélectionnez les situations que vos équipes rencontrent régulièrement. Il ne s’agit pas encore de choisir une technologie.",
     pains: {
-      emails: "Trop d’emails ou de demandes à traiter",
+      emails: "Trop d’e-mails ou de demandes à traiter",
       reentry: "Informations recopiées entre plusieurs outils",
       search: "Informations internes difficiles à retrouver",
       followup: "Relances et suivi commercial chronophages",

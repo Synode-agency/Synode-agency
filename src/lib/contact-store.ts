@@ -52,7 +52,7 @@ export type ContactRequest = {
 
 export type StoreResult =
   | { ok: true; backend: string }
-  | { ok: false; reason: "not_configured" | "failed" };
+  | { ok: false; reason: "not_configured" | "failed" | "invalid_email" };
 
 /** Le dépôt configuré, ou `null` si aucun ne l'est. */
 export function storeBackend(): string | null {
@@ -232,6 +232,12 @@ async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
       console.error("[contact] Brevo refuse aussi le contact seul :", retry.status, await retry.text());
       return { ok: false, reason: "failed" };
     }
+    /* Une adresse que Brevo juge invalide est une erreur du visiteur, pas un
+       incident : la route la renvoie comme erreur du champ (K8). */
+    if (res.status === 400 && /email/i.test(detail) && /invalid|not valid/i.test(detail)) {
+      console.warn("[contact] Brevo refuse l'adresse e-mail :", detail);
+      return { ok: false, reason: "invalid_email" };
+    }
     console.error("[contact] Brevo a refusé le contact :", res.status, detail);
     return { ok: false, reason: "failed" };
   } catch (error) {
@@ -248,7 +254,9 @@ export async function saveRequest(req: ContactRequest): Promise<StoreResult> {
 
   if (backend === "file") {
     try {
-      const dir = process.env.SYNODE_STORE_DIR ?? path.join(process.cwd(), ".data");
+      /* `||` et non `??` : une variable présente mais vide doit aussi prendre
+         le dossier par défaut (C64). */
+      const dir = process.env.SYNODE_STORE_DIR || path.join(process.cwd(), ".data");
       await fs.mkdir(dir, { recursive: true });
       /* JSON Lines : chaque demande est une ligne complète. Une écriture
          interrompue abîme au pire la dernière ligne, jamais le fichier. */

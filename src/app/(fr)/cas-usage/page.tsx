@@ -3,7 +3,7 @@ import { ogBase, withBrand } from "@/lib/seo";
 import { UseCasesPage } from "@/components/site/use-cases-page";
 
 const title = "Cas d’usage de l’IA en entreprise";
-const description = "22 cas d’usage de l’IA en entreprise : devis, documentation interne, appels d’offres, service client multilingue, intégration au SI et AI Act.";
+const description = "22 cas d’usage de l’IA en entreprise : devis, documentation interne, appels d’offres, service client multilingue, intégration au SI et AI Act.";
 
 export const metadata: Metadata = {
   title,

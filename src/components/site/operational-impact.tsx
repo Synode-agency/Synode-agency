@@ -24,7 +24,7 @@ export function OperationalImpact({ locale }: { locale: Locale }) {
         kicker: "Résultats recherchés",
         accent: "fonctionnement réel",
         title: "Des solutions conçues pour\nle fonctionnement réel de votre entreprise",
-        text: "Un système bien intégré agit sur le fonctionnement lui-même : il réduit les frictions entre les outils, fiabilise l’exécution d’un processus métier, rend les données exploitables au bon moment et laisse aux équipes les décisions qui demandent leur jugement.",
+        text: "Un système bien intégré agit sur le fonctionnement lui-même : il réduit les frictions entre les outils, fiabilise l’exécution d’un processus métier, rend les données exploitables au bon moment et laisse aux équipes les décisions qui demandent leur jugement.",
       }
     : {
         kicker: "Intended outcomes",

@@ -6,13 +6,13 @@ import type { DimensionKey } from "@/lib/ai-diagnostic-questions";
 const fr = {
   metaTitle: "Diagnostic de faisabilité d’une solution IA",
   metaDescription:
-    "Vérifiez les premières conditions de faisabilité d’une solution IA pour un processus métier : outils, données, documents, ressaisies et contrôle humain.",
+    "Vérifiez les premières conditions de faisabilité d’une solution IA pour un processus métier : outils, données, documents, ressaisies et contrôle humain.",
   kicker: "Outils & Diagnostics IA",
   h1: "Diagnostic de faisabilité d’une solution IA",
   intro:
     "Examinez un processus métier et les conditions nécessaires à une automatisation, une intégration ou une assistance par l’intelligence artificielle.",
   lead:
-    "Six questions sur le fonctionnement réel d’un processus, puis une première lecture de sa faisabilité et des approches à étudier. Aucune inscription, aucune adresse email, aucune réponse enregistrée sur nos serveurs.",
+    "Six questions sur le fonctionnement réel d’un processus, puis une première lecture de sa faisabilité et des approches à étudier. Aucune inscription, aucune adresse e-mail, aucune réponse enregistrée sur nos serveurs.",
   processLabel: "Quel processus souhaitez-vous analyser ?",
   processPlaceholder: "Ex. traitement des demandes clients",
   processHelp: "Un processus précis donne un résultat plus utile qu’une activité entière.",
@@ -230,7 +230,7 @@ export function diagnosticSummary(locale: Locale, result: DiagnosticResult): str
           ? " Une partie du fonctionnement semble pouvoir être automatisée ou assistée, à condition de cadrer les accès, les données et les règles métier."
           : " Part of how it runs looks like it could be automated or assisted, provided access, data and business rules are properly scoped."
         : fr
-          ? " Le processus réunit plusieurs conditions favorables à la fois : il relève davantage d’un système combinant plusieurs familles que d’une brique isolée."
+          ? " Le processus réunit plusieurs conditions favorables à la fois : il relève davantage d’un système combinant plusieurs familles que d’une brique isolée."
           : " The process meets several favourable conditions at once: it calls for a system combining several families rather than a single building block.";
 
   const human = result.scores.human >= 40

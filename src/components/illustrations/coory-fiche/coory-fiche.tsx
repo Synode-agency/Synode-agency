@@ -49,6 +49,7 @@ export function CooryFiche({ debugT }: { debugT?: number }) {
   return (
     <div
       ref={rootRef}
+      data-fit-scene=""
       className={`${styles.root} ${styles.planche} ${jakarta.variable}`}
       aria-hidden="true"
       style={{ position: "relative", width: "100%", aspectRatio: `${FRAME_W} / 400`, overflow: "hidden" }}

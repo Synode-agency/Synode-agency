@@ -90,7 +90,7 @@ const COPY = {
     names: ["CRM", "ERP", "Email", "Documents", "Base de données", "API", "Outils métier", "Agenda"],
     idle: "connecté",
     states: { read: "lit", write: "écrit", approve: "à valider" },
-    alt: "Un agent IA au centre de huit outils d’entreprise : il lit dans certains, écrit dans d’autres, et une action attend une validation humaine.",
+    alt: "Un agent IA au centre de huit outils d’entreprise : il lit dans certains, écrit dans d’autres, et une action attend une validation humaine.",
   },
   en: {
     names: ["CRM", "ERP", "Email", "Documents", "Database", "API", "Business tools", "Calendar"],

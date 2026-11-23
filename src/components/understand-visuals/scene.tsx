@@ -16,7 +16,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
  * `aspect-ratio: 520 / 340`. Sans ce rapport, le SVG se centrerait dans sa
  * boîte avec des bandes vides et les textes tomberaient à côté des formes.
  *
- * Les textes sont en HTML et non en `<text>` SVG : un `<text>` ne se replie
+ * Les textes sont en HTML et non en `<text>` SVG : un `<text>` ne se replie
  * pas, ne s'ellipse pas, n'hérite pas de la police du site et se rend
  * différemment d'un navigateur à l'autre. Leur corps est en `cqw`,
  * pourcentage de la largeur de la scène, donc tout rétrécit ensemble.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { BusinessUseCase } from "@/lib/business-use-cases";
 import type { Locale } from "@/lib/content";
@@ -45,6 +45,20 @@ export function UseCaseAccordion({
   const [open, setOpen] = useState<readonly number[]>([]);
   const toggle = (i: number) =>
     setOpen(list => (list.includes(i) ? list.filter(n => n !== i) : [...list, i]));
+
+  /* Un lien vers un cas précis (`/cas-usage#rendez-vous`) l'ouvre : avant,
+     le visiteur arrivait sur un cas fermé (K18 de l'audit). */
+  useEffect(() => {
+    if (!anchors) return;
+    const openFromHash = () => {
+      const slug = decodeURIComponent(window.location.hash.slice(1));
+      const i = items.findIndex(item => item.slug === slug);
+      if (i >= 0) setOpen(list => (list.includes(i) ? list : [...list, i]));
+    };
+    queueMicrotask(openFromHash);
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [anchors, items]);
 
   return (
     <div className={rich ? "uca uca--rich" : "uca"}>

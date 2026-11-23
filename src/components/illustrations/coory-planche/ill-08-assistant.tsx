@@ -69,7 +69,7 @@ export function CooryAssistant({ debugT }: { debugT?: number }) {
                   <span style={{ width: "40px", height: "40px", borderRadius: "50%", background: "radial-gradient(circle at 35% 30%,#C9B8FF,#7C5CFA 55%,#5A3FD6)", boxShadow: "0 10px 26px rgba(124,92,250,.35)" }} />
                   {" "}
                   <div style={{ marginTop: "12px", fontSize: "19px", lineHeight: "24px", fontWeight: "700", color: "#1C1C28" }}>
-                    {"Bonjour Samuel. Comment puis-je t'aider ?"}
+                    {"Bonjour Samuel. Comment puis-je t’aider ?"}
                   </div>
                   {" "}
                   <div style={{ marginTop: "16px", width: "100%", boxSizing: "border-box", borderRadius: "14px", border: "1px solid #C9BCFF", background: "#FFFFFF", boxShadow: "0 0 0 3px rgba(124,92,250,.10)", padding: "12px 12px 10px" }}>
@@ -98,7 +98,7 @@ export function CooryAssistant({ debugT }: { debugT?: number }) {
                 <div style={{ position: "absolute", inset: "0", padding: "16px 100px 0 22px", display: "flex", flexDirection: "column", gap: "9px", transition: "opacity .4s", opacity: `${v.i8.b ?? ""}` }}>
                   {" "}
                   <div style={{ alignSelf: "flex-end", borderRadius: "14px 14px 4px 14px", background: "#7C5CFA", color: "#FFFFFF", fontSize: "12px", lineHeight: "16px", padding: "8px 12px", whiteSpace: "nowrap" }}>
-                    {"Prépare une semaine d'affûtage pour Anaïs"}
+                    {"Prépare une semaine d’affûtage pour Anaïs"}
                   </div>
                   {" "}
                   <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "11px", color: "#6B6E7B", transition: "opacity .3s", opacity: `${v.i8.think ?? ""}` }}>
@@ -111,10 +111,10 @@ export function CooryAssistant({ debugT }: { debugT?: number }) {
                     {" "}
                     <div style={{ display: "flex", alignItems: "baseline", gap: "8px", whiteSpace: "nowrap" }}>
                       <span style={{ fontSize: "13px", fontWeight: "700", color: "#1C1C28" }}>
-                        {"Semaine d'affûtage · Anaïs"}
+                        {"Semaine d’affûtage · Anaïs"}
                       </span>
                       <span style={{ fontSize: "10.5px", color: "#8A8D9A" }}>
-                        {"Prépa HYROX · semaine 12"}
+                        {"Prépa marathon · semaine 12"}
                       </span>
                     </div>
                     {" "}

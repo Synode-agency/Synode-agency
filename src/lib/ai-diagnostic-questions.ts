@@ -66,7 +66,7 @@ export const fr: readonly Question[] = [
     id: "tools",
     kind: "single",
     label: "Combien d’outils ou logiciels sont utilisés pendant ce processus ?",
-    help: "Email, CRM, ERP, Excel, Drive, logiciel métier, formulaires, bases de données…",
+    help: "E-mail, CRM, ERP, Excel, Drive, logiciel métier, formulaires, bases de données…",
     options: [
       { id: "one", label: "1" },
       { id: "two", label: "2" },
@@ -101,7 +101,7 @@ export const fr: readonly Question[] = [
   {
     id: "documents",
     kind: "single",
-    label: "Le processus implique-t-il des emails, documents, demandes écrites ou autres contenus qu’il faut comprendre ou analyser ?",
+    label: "Le processus implique-t-il des e-mails, documents, demandes écrites ou autres contenus qu’il faut comprendre ou analyser ?",
     options: [
       { id: "few", label: "Très peu" },
       { id: "some", label: "Un peu" },
@@ -113,7 +113,7 @@ export const fr: readonly Question[] = [
     id: "humanApproval",
     kind: "single",
     label: "Certaines étapes nécessitent-elles obligatoirement une validation humaine ?",
-    help: "Un besoin élevé de validation n’est pas un défaut : il oriente la solution vers une architecture avec contrôle humain.",
+    help: "Un besoin élevé de validation n’est pas un défaut : il oriente la solution vers une architecture avec contrôle humain.",
     options: [
       { id: "no", label: "Non" },
       { id: "sometimes", label: "Occasionnellement" },

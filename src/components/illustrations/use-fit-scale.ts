@@ -16,6 +16,11 @@ import { useLayoutEffect, useState, type RefObject } from "react";
  *
  * `useLayoutEffect` plutôt que `useEffect` : la première mesure tombe avant
  * que le navigateur ne peigne, donc on ne voit jamais la scène à l'échelle 1.
+ *
+ * ⚠ Mais le HTML du serveur arrive AVANT le JavaScript : sur un téléphone
+ * lent, la scène s'affichait à pleine taille, coupée, puis sautait (K12 de
+ * l'audit). L'élément mesuré porte donc `data-fit-scene` et reste invisible
+ * (règle dans studio.css) jusqu'à ce que ce crochet pose `data-fitted`.
  */
 export function useFitScale(ref: RefObject<HTMLElement | null>, canvasWidth: number) {
   const [scale, setScale] = useState(1);
@@ -25,7 +30,9 @@ export function useFitScale(ref: RefObject<HTMLElement | null>, canvasWidth: num
     if (!el) return;
     const update = () => {
       const s = el.clientWidth / canvasWidth;
-      if (s) setScale(prev => (Math.abs(s - prev) > 0.001 ? s : prev));
+      if (!s) return;
+      setScale(prev => (Math.abs(s - prev) > 0.001 ? s : prev));
+      el.setAttribute("data-fitted", "");
     };
     const ro = new ResizeObserver(update);
     ro.observe(el);

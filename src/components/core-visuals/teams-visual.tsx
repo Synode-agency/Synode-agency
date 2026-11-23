@@ -49,7 +49,7 @@ const COPY = {
     steps: ["Cas pratiques", "Exercices métier", "Méthodes de vérification", "Règles de partage", "Référents internes", "Supports écrits", "Suivi d’adoption", "Questions ouvertes"],
     title: "Vos équipes",
     count: (n: number) => `${n}/5 autonomes`,
-    label: "Un parcours de huit étapes rend cinq personnes autonomes : cas pratiques, exercices métier, méthodes de vérification, règles de partage, référents internes, supports écrits, suivi d’adoption et questions ouvertes.",
+    label: "Un parcours de huit étapes rend cinq personnes autonomes : cas pratiques, exercices métier, méthodes de vérification, règles de partage, référents internes, supports écrits, suivi d’adoption et questions ouvertes.",
   },
   en: {
     steps: ["Practical cases", "Business exercises", "Checking methods", "Sharing rules", "Internal champions", "Written material", "Adoption follow-up", "Open questions"],

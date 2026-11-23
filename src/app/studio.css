@@ -727,6 +727,10 @@ footer.band--white .wordmark-type {
   color: var(--text-mono);
 }
 .booking-closed-note a {
+  /* La cible grandit à 24px sans bouger la ligne (C53). */
+  display: inline-block;
+  padding-block: 5px;
+  margin-block: -5px;
   color: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -9003,7 +9007,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     color: var(--text-mono);
   }
   .site-footer-legal .site-footer-link {
-    min-height: 0;
+    /* Pas 40px comme les autres liens du pied, mais 24px au moins (C53). */
+    min-height: 24px;
   }
   /* La barre du bas passe à la ligne plutôt que de comprimer ses liens. */
   .site-footer-bottom {
@@ -10236,6 +10241,17 @@ main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
   }
 }
 
+/* ---- L'accueil, sur téléphone : 32px et non 36px ----
+   Son titre (« Des systèmes connectés, intelligents et automatisés ») est
+   le plus long du site : à 36px il prenait 4 lignes, à 32px il en prend 3,
+   comme les titres des autres pages (demande d'Antonino du 23/11/2026). */
+@media (max-width: 900px) {
+  main > section.home-page-hero h1 {
+    font-size: 32px;
+    letter-spacing: -0.7px;
+  }
+}
+
 /* ---- Les paragraphes : la taille de celui de l'accueil ----
    Les pages en `PageHero` l'ont déjà (`.studio-hero-copy > p`) ; Nexus et
    Coory passent par `.lede-text`, aligné ici sur la même chaîne. */
@@ -10426,4 +10442,12 @@ main > .band#top > .col > .todo {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
+}
+
+/* ---- Les scènes à l'échelle restent invisibles tant qu'elles ne sont pas
+   mesurées (K12 de l'audit) : sans ça, le HTML du serveur les montrait à
+   pleine taille et coupées sur un téléphone lent, avant le saut. Le crochet
+   `useFitScale` (et la scène de Nexus) pose `data-fitted`. ---- */
+[data-fit-scene]:not([data-fitted]) {
+  visibility: hidden;
 }

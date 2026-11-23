@@ -29,7 +29,7 @@ import styles from "./nexus-visual.module.css";
  * ────────────────────────────────────────────────────────────────────────
  *
  * ── Ce que ce bloc n'est pas ────────────────────────────────────────────
- * « Atelier Brun », « Dumont SRL », « Lumen SA », « Verhaegen & Fils »,
+ * « Atelier Brun », « Dumarel SRL », « Lumivra SA », « Verhaegen & Fils »,
  * « Nova Logistique », les scores et les compteurs sont ILLUSTRATIFS. Ce ne
  * sont ni des clients, ni des résultats mesurés, et ils ne doivent jamais
  * être repris ailleurs comme tels.
@@ -87,19 +87,19 @@ const gaugeColour = (score: number) => (score > 70 ? "#34D399" : score > 50 ? "#
 
 const COPY = {
   fr: {
-    label: "Nexus, logiciel de prospection commerciale : une recherche sectorielle, cinq entreprises notées par l’IA, et la fiche d’une entreprise avec son premier message préparé. Données d’exemple.",
+    label: "Nexus, logiciel de prospection commerciale : une recherche sectorielle, cinq entreprises notées par l’IA, et la fiche d’une entreprise avec son premier message préparé. Données d’exemple.",
     product: "Prospection B2B",
     query: "Menuiserie, construction · Wallonie · 20–200 employés",
     companies: (n: number) => `${n} entreprises`,
     heads: ["Entreprise", "Taille", "Score IA", "Statut"],
-    names: ["Atelier Brun", "Dumont SRL", "Lumen SA", "Verhaegen & Fils", "Nova Logistique"],
+    names: ["Atelier Brun", "Dumarel SRL", "Lumivra SA", "Verhaegen & Fils", "Nova Logistique"],
     sectors: ["Menuiserie", "Construction", "Rénovation", "Charpente", "Transport"],
     sizes: ["48 empl.", "120 empl.", "35 empl.", "22 empl.", "160 empl."],
     tones: { ok: "Qualifié", wait: "À analyser", off: "Non pertinent" },
     sheetMeta: "Menuiserie · 48 empl. · Namur",
     sheetScore: "score 92",
     why: "Pourquoi cette entreprise",
-    reasons: ["Secteur et taille correspondent", "Site web actif, croissance récente", "Besoin probable : devis et relances"],
+    reasons: ["Secteur et taille correspondent", "Site web actif, croissance récente", "Besoin probable : devis et relances"],
     draft: "Premier message préparé",
     writing: "rédaction…",
     ready: "✓ prêt à envoyer",
@@ -112,7 +112,7 @@ const COPY = {
     query: "Joinery, construction · Wallonia · 20–200 employees",
     companies: (n: number) => `${n} companies`,
     heads: ["Company", "Size", "AI score", "Status"],
-    names: ["Atelier Brun", "Dumont SRL", "Lumen SA", "Verhaegen & Fils", "Nova Logistique"],
+    names: ["Atelier Brun", "Dumarel SRL", "Lumivra SA", "Verhaegen & Fils", "Nova Logistique"],
     sectors: ["Joinery", "Construction", "Renovation", "Roof framing", "Transport"],
     sizes: ["48 staff", "120 staff", "35 staff", "22 staff", "160 staff"],
     tones: { ok: "Qualified", wait: "To review", off: "Not relevant" },
@@ -166,6 +166,8 @@ export function NexusVisual({ locale }: { locale: Locale }) {
       const { width, height } = entry.contentRect;
       const k = width / W;
       setFit({ k, top: Math.max(0, (height - H * k) / 2) });
+      /* Visible seulement une fois à l'échelle : voir `use-fit-scale.ts` (K12). */
+      if (k) el.setAttribute("data-fitted", "");
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -282,7 +284,7 @@ export function NexusVisual({ locale }: { locale: Locale }) {
   const active = shown ? 2 : 1;
 
   return (
-    <div className={styles.root} ref={box} role="img" aria-label={c.label}>
+    <div className={styles.root} ref={box} data-fit-scene="" role="img" aria-label={c.label}>
       <div className={styles.scene} style={{ top: `${fit.top}px`, transform: `scale(${fit.k})` }}>
         {/* ---- La fenêtre de l'application ---- */}
         <div className={styles.win}>

@@ -17,7 +17,7 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
  * centrerait dans sa boîte avec des bandes vides et tout le HTML tomberait
  * à côté des formes.
  *
- * Les textes sont en HTML et non en `<text>` SVG : un `<text>` n'hérite pas
+ * Les textes sont en HTML et non en `<text>` SVG : un `<text>` n'hérite pas
  * de la police du site, ne s'ellipse pas et se rend différemment d'un
  * navigateur à l'autre. Leur corps est en `cqw`, pourcentage de la largeur
  * de la scène, donc tout rétrécit ensemble.

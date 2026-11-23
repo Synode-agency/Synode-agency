@@ -3,6 +3,7 @@ import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { ROUTES, getContent, path, type Locale } from "@/lib/content";
 import { organizationProfiles } from "@/lib/organization";
+import { CurrentYear } from "./current-year";
 
 /* La page LinkedIn de Synode : un lien visible, et pas seulement dans les
    données structurées. Google relie le site à l'entité par ces liens
@@ -70,7 +71,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
         <div className="site-footer-bottom">
           <span>
-            © {year} {site.copyright}
+            © <CurrentYear buildYear={year} /> {site.copyright}
           </span>
           <nav aria-label={site.footerLegal} className="site-footer-legal">
             {legal.map((l) => (

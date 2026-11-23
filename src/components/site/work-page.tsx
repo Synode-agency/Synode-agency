@@ -43,7 +43,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: locale === "fr" ? "Réalisations de Synode : logiciels métier et IA" : "Synode work: business software and AI",
+    name: locale === "fr" ? "Réalisations de Synode : IA et logiciels métier" : "Synode work: AI and business software",
     description: w.intro.text,
     url: `${siteUrl}${pagePath}`,
     mainEntity: {
@@ -76,8 +76,8 @@ export function WorkPage({ locale }: { locale: Locale }) {
         /* La coupe ne vaut qu'à partir de 768px, comme tous les titres du
            site : sur téléphone la phrase coule d'elle-même. */
         title={locale === "fr"
-          ? <><span>Nos réalisations :</span><br className="only-desktop" /> logiciels métier et IA</>
-          : <><span>Our work:</span> business software and AI</>}
+          ? <><span>Nos réalisations :</span><br className="only-desktop" /> IA et logiciels métier</>
+          : <><span>Our work:</span> AI and business software</>}
       >
         <p>{w.intro.text}</p>
         <div className="btn-row">
@@ -90,7 +90,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
       <Band id="liste" tone="white">
         <Lede
           kicker={locale === "fr" ? "Nos projets" : "Our projects"}
-          title={locale === "fr" ? "Projets en cours : logiciels métier et IA" : "Current projects: business software and AI"}
+          title={locale === "fr" ? "Projets en cours : IA et logiciels métier" : "Current projects: AI and business software"}
           accents={locale === "fr" ? ["Projets en cours"] : ["Current projects"]}
           text={locale === "fr"
             ? "Découvrez des logiciels et des solutions développés autour de besoins métier concrets, avec leur statut réel, leurs usages et les technologies mobilisées."
@@ -245,7 +245,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                   </dl>
                   <p className={cooryStyles.demoFine}>
                     {locale === "fr"
-                      ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
+                      ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
                       : "AI assistant included. Coory is currently available in French only. Shared account: please do not enter real data, everything is reset every night."}
                   </p>
                 </div>

@@ -31,7 +31,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "Un système,\n^pas une charte" : "A system,\n^not a style sheet"}
           text={
             fr
-              ? "Tout le site se compose avec ce qui suit. Cette page est rendue par le site lui-même : si une valeur change dans la feuille de style, elle change ici aussi."
+              ? "Tout le site se compose avec ce qui suit. Cette page est rendue par le site lui-même : si une valeur change dans la feuille de style, elle change ici aussi."
               : "The whole site is built from what follows. This page is rendered by the site itself: if a value changes in the stylesheet, it changes here too."
           }
         />
@@ -44,7 +44,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "C'est le fond qui\n^découpe la page" : "The background is\n^what cuts the page"}
           text={
             fr
-              ? "Une page Synode est une suite de bandes pleine largeur. Chacune porte son fond, et c'est le changement de fond, pas un cadre, qui sépare deux sections. Deux exceptions seulement : le hero et le CTA final, qui sont des cartes encartées à bords arrondis. La page s'ouvre et se referme sur un objet posé, et se lit à plat entre les deux."
+              ? "Une page Synode est une suite de bandes pleine largeur. Chacune porte son fond, et c'est le changement de fond, pas un cadre, qui sépare deux sections. Deux exceptions seulement : le hero et le CTA final, qui sont des cartes encartées à bords arrondis. La page s'ouvre et se referme sur un objet posé, et se lit à plat entre les deux."
               : "A Synode page is a run of full-width bands. Each carries its own background, and it is the change of background, not a frame, that separates two sections. Two exceptions only: the hero and the closing call to action, which are inset rounded cards. The page opens and closes on an object; in between, it reads flat."
           }
         />
@@ -57,7 +57,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "Trois valeurs,\n^et tout le reste en dérive" : "Three values,\n^everything else derives"}
           text={
             fr
-              ? "Chaque paire texte sur fond a été mesurée avant d'être écrite. Les ratios ci-dessous sont les limites du système, pas des décorations : ils disent ce qui ne peut pas bouger."
+              ? "Chaque paire texte sur fond a été mesurée avant d'être écrite. Les ratios ci-dessous sont les limites du système, pas des décorations : ils disent ce qui ne peut pas bouger."
               : "Every text-on-background pair was measured before it was written. The ratios below are the system's limits, not decoration: they say what cannot move."
           }
         />
@@ -90,7 +90,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "Quatre fonds,\n^et deux ne servent qu'une fois" : "Four backgrounds,\n^two of them once only"}
           text={
             fr
-              ? "Deux bandes voisines ne portent jamais le même fond, sinon elles n'en font qu'une. Le bleu et l'encre sont des accents : une page qui en compte trois n'a plus de point d'appui, et la couleur cesse de vouloir dire quelque chose."
+              ? "Deux bandes voisines ne portent jamais le même fond, sinon elles n'en font qu'une. Le bleu et l'encre sont des accents : une page qui en compte trois n'a plus de point d'appui, et la couleur cesse de vouloir dire quelque chose."
               : "Two neighbouring bands never share a background, or they read as one. Blue and ink are accents: a page with three of them has no anchor left, and the colour stops meaning anything."
           }
         />
@@ -109,7 +109,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           title={fr ? "Une famille,\n^dix corps" : "One family,\n^ten sizes"}
           text={
             fr
-              ? "Helvetica Neue, pour les titres comme pour le texte. La différence se fait par le corps et la graisse, jamais par un changement de police : deux familles mal appariées font plus amateur qu'une seule tenue fermement."
+              ? "Helvetica Neue, pour les titres comme pour le texte. La différence se fait par le corps et la graisse, jamais par un changement de police : deux familles mal appariées font plus amateur qu'une seule tenue fermement."
               : "Helvetica Neue, for headings and for running text. The difference comes from size and weight, never from a change of face: two badly paired families look more amateur than one held firmly."
           }
         />
@@ -195,7 +195,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           <h3 className="ds-demo-title">{fr ? "Tuiles" : "Tiles"}</h3>
           <p className="ds-demo-note">
             {fr
-              ? "La carte à l'intérieur d'un panneau. Fond plutôt qu'ombre : deux ombres emboîtées font de la boue."
+              ? "La carte à l'intérieur d'un panneau. Fond plutôt qu'ombre : deux ombres emboîtées font de la boue."
               : "The card inside a panel. A fill rather than a shadow: two nested shadows make mud."}
           </p>
           <div className="tile-grid tile-grid--3">

@@ -49,7 +49,7 @@ export type WindowsContent = {
   };
 };
 
-export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
+const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
   fr: {
     brandWord: "Nexus",
     by: "by Synode · Prospection B2B",
@@ -65,15 +65,15 @@ export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
       cols: ["Entreprise", "ICP", "Statut"],
       rows: [
         { initials: "BU", name: "Bunel Construct", where: "Entreprise de construction · Ganshoren", icp: "—", status: "Téléphone uniquement" },
-        { initials: "SE", name: "Setra Bouw", where: "Entreprise de construction · Ganshoren", icp: "27", status: "Faible priorité" },
+        { initials: "SE", name: "Setrabo Bouw", where: "Entreprise de construction · Ganshoren", icp: "27", status: "Faible priorité" },
         { initials: "N.", name: "N.R.T", where: "Entrepreneur · Forest", icp: "16", status: "Faible priorité" },
-        { initials: "TR", name: "Travelo Sprl", where: "Entreprise de construction · Bruxelles", icp: "26", status: "Faible priorité" },
+        { initials: "TR", name: "Travexo SRL", where: "Entreprise de construction · Bruxelles", icp: "26", status: "Faible priorité" },
         { initials: "CO", name: "Construction OLMA", where: "Entreprise de construction · Etterbeek", icp: "—", status: "Téléphone uniquement" },
         { initials: "CA", name: "Castel Rénov", where: "Travaux généraux · Evere", icp: "24", status: "Faible priorité" },
       ] as LeadRow[],
       cardTitle: "Analyse IA",
       synth: [
-        "Entreprise de construction active à Ganshoren. Aucun site trouvé : contact par téléphone uniquement.",
+        "Entreprise de construction active à Ganshoren. Aucun site trouvé : contact par téléphone uniquement.",
         "Activité de construction à Ganshoren. Site disponible, peu d’indices d’un besoin immédiat.",
         "Entrepreneur indépendant à Forest. Besoin potentiel faible, à recontacter plus tard.",
         "Construction à Bruxelles. Informations publiques limitées, priorité faible.",
@@ -157,9 +157,9 @@ export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
       cols: ["Company", "ICP", "Status"],
       rows: [
         { initials: "BU", name: "Bunel Construct", where: "Construction company · Ganshoren", icp: "—", status: "Phone only" },
-        { initials: "SE", name: "Setra Bouw", where: "Construction company · Ganshoren", icp: "27", status: "Low priority" },
+        { initials: "SE", name: "Setrabo Bouw", where: "Construction company · Ganshoren", icp: "27", status: "Low priority" },
         { initials: "N.", name: "N.R.T", where: "Contractor · Forest", icp: "16", status: "Low priority" },
-        { initials: "TR", name: "Travelo Sprl", where: "Construction company · Brussels", icp: "26", status: "Low priority" },
+        { initials: "TR", name: "Travexo SRL", where: "Construction company · Brussels", icp: "26", status: "Low priority" },
         { initials: "CO", name: "Construction OLMA", where: "Construction company · Etterbeek", icp: "—", status: "Phone only" },
         { initials: "CA", name: "Castel Rénov", where: "General works · Evere", icp: "24", status: "Low priority" },
       ] as LeadRow[],

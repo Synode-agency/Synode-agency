@@ -44,41 +44,48 @@ export function useLoopClock(ref: RefObject<HTMLElement | null>, clock: LoopCloc
       return;
     }
 
-    let vis = true;
-    const io = new IntersectionObserver(([entry]) => { vis = entry.isIntersecting; });
-    if (el) io.observe(el);
-
+    /* Hors écran, la boucle est ARRÊTÉE, pas seulement muette : avant le
+       23/11/2026, elle demandait une image à chaque rafraîchissement sans rien
+       peindre (K17 de l'audit), et vidait la batterie d'un téléphone pour
+       rien. Elle repart là où elle s'était arrêtée. */
     let value = 0;
     let last = performance.now();
+    let lastPaint = 0;
+    let raf = 0;
+    let id = 0;
 
-    if (kind === "raf") {
-      let lastPaint = 0;
-      let raf = 0;
-      const loop = (now: number) => {
-        const dt = Math.min((now - last) / 1000, maxDt);
-        last = now;
-        if (vis) {
-          value = (value + dt) % length;
-          if (now - lastPaint > step) {
-            lastPaint = now;
-            setT(value);
-          }
-        }
-        raf = requestAnimationFrame(loop);
-      };
+    const loop = (now: number) => {
+      const dt = Math.min((now - last) / 1000, maxDt);
+      last = now;
+      value = (value + dt) % length;
+      if (now - lastPaint > step) {
+        lastPaint = now;
+        setT(value);
+      }
       raf = requestAnimationFrame(loop);
-      return () => { cancelAnimationFrame(raf); io.disconnect(); };
-    }
-
-    const id = window.setInterval(() => {
+    };
+    const tick = () => {
       const now = performance.now();
       const dt = (now - last) / 1000;
       last = now;
-      if (!vis) return;
       value = (value + Math.min(dt, maxDt)) % length;
       setT(value);
-    }, step);
-    return () => { window.clearInterval(id); io.disconnect(); };
+    };
+    const start = () => {
+      /* Le temps passé hors écran ne compte pas. */
+      last = performance.now();
+      if (kind === "raf") { if (!raf) raf = requestAnimationFrame(loop); }
+      else if (!id) id = window.setInterval(tick, step);
+    };
+    const stop = () => {
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      if (id) { window.clearInterval(id); id = 0; }
+    };
+
+    const io = new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()));
+    if (el) io.observe(el);
+    else start();
+    return () => { stop(); io.disconnect(); };
   }, [ref, kind, length, reducedT, maxDt, step, debugT]);
 
   return debugT ?? t;

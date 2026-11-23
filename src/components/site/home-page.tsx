@@ -44,7 +44,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         email: site.email,
         ...sameAsField,
         description: fr
-          ? "Agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
+          ? "Agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
           : "Brussels-based technology agency specialising in artificial intelligence, systems integration and custom software development: AI agents, integrations, automations, business software, data and training.",
         areaServed: [
           { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
@@ -94,16 +94,16 @@ export function HomePage({ locale }: { locale: Locale }) {
          autour reste un nœud de texte, il garde donc la couleur du titre. */
       title={<>
         {/* Le titre choisi par Antonino le 23/11/2026 (décision D7 de
-            l'audit) : trois promesses, les mots peints sont ce qu'elles
-            apportent. L'image de partage dit la même chose (`og-card.tsx`),
-            la description Google aussi (`home.metaDescription`). */}
+            l'audit), raccourci le soir même : trois qualités, les mots
+            peints. L'image de partage dit la même chose (`og-card.tsx`),
+            la description Google la développe (`home.metaDescription`). */}
         {fr ? "Des systèmes " : ""}
         <span className="title-accent">{fr ? "connectés" : "Connected"}</span>
-        {fr ? ", des logiciels " : " systems, "}
+        {", "}
         <span className="title-accent">{fr ? "intelligents" : "intelligent"}</span>
-        {fr ? ", des processus " : " software, "}
+        {fr ? " et " : " and "}
         <span className="title-accent">{fr ? "automatisés" : "automated"}</span>
-        {fr ? "" : " processes"}
+        {fr ? "" : " systems"}
       </>}
       strip={<div className="capability-strip">
         <span className="capability-strip-label">{fr ? "De votre besoin à votre outil" : "From your needs to the right tool"}</span>
@@ -121,13 +121,13 @@ export function HomePage({ locale }: { locale: Locale }) {
     </PageHero>
 
     <Band id="cas-usage" tone="white" className="studio-section home-usecases-light">
-      <div className="section-heading daily-section-heading"><Lede kicker={fr ? "Usages de l’IA en entreprise" : "AI use cases for business"} title={fr ? "Quand l’IA s’intègre\nà vos processus métier" : "When AI becomes part of\nyour business processes"} accents={fr ? ["processus"] : ["processes"]} text={fr ? "L’IA devient un véritable outil de travail dans l’entreprise : elle peut répondre plus vite à vos clients, relier vos outils, garder la mémoire de l’entreprise et assister vos équipes là où le temps, l’information et les décisions se dispersent." : "AI becomes a real working tool within the business: it can answer your clients faster, connect your tools, keep your company’s know-how in one place and support your teams wherever time, information and decisions become scattered."} /><div className="daily-section-aside"><p className="section-side-text">{fr ? "Ces exemples montrent comment l’intelligence artificielle peut répondre à des difficultés fréquentes en entreprise. Votre besoin peut être différent : nous l’étudions à partir de votre organisation, de vos outils, de vos données et de vos priorités." : "These examples show how artificial intelligence can address common business challenges. Yours may be different: we study it in the context of your organisation, tools, data and priorities."}</p><Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Découvrir tous les cas d’usage" : "Explore all use cases"}<ArrowRight aria-hidden /></Link></div></div>
+      <div className="section-heading daily-section-heading"><Lede kicker={fr ? "Usages de l’IA en entreprise" : "AI use cases for business"} title={fr ? "Quand l’IA s’intègre\nà vos processus métier" : "When AI becomes part of\nyour business processes"} accents={fr ? ["processus"] : ["processes"]} text={fr ? "L’IA devient un véritable outil de travail dans l’entreprise : elle peut répondre plus vite à vos clients, relier vos outils, garder la mémoire de l’entreprise et assister vos équipes là où le temps, l’information et les décisions se dispersent." : "AI becomes a real working tool within the business: it can answer your clients faster, connect your tools, keep your company’s know-how in one place and support your teams wherever time, information and decisions become scattered."} /><div className="daily-section-aside"><p className="section-side-text">{fr ? "Ces exemples montrent comment l’intelligence artificielle peut répondre à des difficultés fréquentes en entreprise. Votre besoin peut être différent : nous l’étudions à partir de votre organisation, de vos outils, de vos données et de vos priorités." : "These examples show how artificial intelligence can address common business challenges. Yours may be different: we study it in the context of your organisation, tools, data and priorities."}</p><Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Découvrir tous les cas d’usage" : "Explore all use cases"}<ArrowRight aria-hidden /></Link></div></div>
       <UseCaseAccordion items={featuredBusinessUseCases(locale)} locale={locale} />
       <div className="daily-open-callout"><div><span className="eyebrow"><span className="status-dot" />{fr ? "Votre situation est unique" : "Your situation is unique"}</span><h3>{renderLines(fr ? "Votre besoin ne correspond pas exactement à\nces cas d’usage IA ?|C’est normal." : "Don’t see your exact case\namong these AI use cases? That is normal.")}</h3><p>{renderLines(fr ? "Une solution sur mesure commence par votre organisation, vos contraintes et\nvos priorités, pas par une liste de fonctionnalités prédéfinies." : "A custom solution starts with your organisation, constraints and\npriorities, not a predefined list of features.")}</p></div><Link className="btn btn--primary" href={contactHref}>{fr ? "Décrire votre besoin" : "Tell us what you need"}<ArrowRight aria-hidden /></Link></div>
     </Band>
 
     <Band id="offre" tone="base" className="studio-section home-solutions-light solutions-light">
-      <div className="section-heading"><Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Chaque solution s’appuie sur un ou plusieurs de nos trois savoir-faire : l’IA, la connexion de vos logiciels et le développement sur mesure. Nous ne mobilisons que ceux dont votre projet a besoin." : "Every solution draws on one or more of our three skills: AI, connecting your software and custom development. We only bring in the ones your project needs."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions" : "Explore all our solutions"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Chaque solution s’appuie sur un ou plusieurs de nos trois savoir-faire : l’IA, la connexion de vos logiciels et le développement sur mesure. Nous ne mobilisons que ceux dont votre projet a besoin." : "Every solution draws on one or more of our three skills: AI, connecting your software and custom development. We only bring in the ones your project needs."} /><Link className="go" href={path(locale, ROUTES.solutions)}>{fr ? "Découvrir toutes nos solutions" : "Explore all our solutions"}<ArrowRight aria-hidden /></Link></div>
       <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
       <p className="families-note">
         {fr ? (
@@ -161,14 +161,14 @@ export function HomePage({ locale }: { locale: Locale }) {
           partagent le composant, elles doivent partager la mise en page. */}
       <div className="mfr-layout">
         <div className="mfr-copy">
-          <Lede kicker={fr ? "Conception & développement" : "Design & development"} title={fr ? "Notre méthode\npour votre projet" : "Our method\nfor your project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} />
+          <Lede kicker={fr ? "Conception & développement" : "Design & development"} title={fr ? "Notre méthode\npour votre projet" : "Our method\nfor your project"} accents={fr ? ["méthode"] : ["method"]} text={fr ? "Du cadrage du besoin métier à la maintenance, un projet Synode suit six étapes. Chacune produit un résultat concret : un périmètre validé, une architecture adaptée, un développement testé, une intégration à vos logiciels existants, des équipes formées et un suivi technique défini." : "From scoping the business need to maintenance, a Synode project runs in six stages. Each one produces a concrete result: an agreed scope, a fitting architecture, tested development, integration with your existing software, trained teams and a defined level of technical monitoring."} />
         </div>
         <MethodFrame locale={locale} />
       </div>
     </Band>
 
     <Band id="realisations" tone="white" className="studio-section home-work-light">
-      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations :\nIA et logiciels métier" : "Our work:\nAI and business software"} accents={fr ? ["logiciels métier"] : ["business software"]} text={fr ? "Nexus et Coory sont des logiciels métier que nous avons conçus et développés nous-mêmes, avec l’IA là où elle sert. Chaque réalisation est présentée avec son état réel, sans résultat inventé." : "Nexus and Coory are business applications we designed and built ourselves, with AI where it helps. Each one is presented with its actual status, with no invented results."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations" : "See all our work"}<ArrowRight aria-hidden /></Link></div>
+      <div className="section-heading"><Lede kicker={fr ? "Réalisations" : "Work"} title={fr ? "Nos réalisations :\nIA et logiciels métier" : "Our work:\nAI and business software"} accents={fr ? ["logiciels métier"] : ["business software"]} text={fr ? "Nexus et Coory sont des logiciels métier que nous avons conçus et développés nous-mêmes, avec l’IA là où elle sert. Chaque réalisation est présentée avec son état réel, sans résultat inventé." : "Nexus and Coory are business applications we designed and built ourselves, with AI where it helps. Each one is presented with its actual status, with no invented results."} /><Link className="go" href={path(locale, ROUTES.work)}>{fr ? "Voir toutes nos réalisations" : "See all our work"}<ArrowRight aria-hidden /></Link></div>
       <HomeWorkCards locale={locale} />
     </Band>
 

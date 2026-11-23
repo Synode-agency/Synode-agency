@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ogBase, withBrand } from "@/lib/seo";
 import { WorkPage } from "@/components/site/work-page";
 
-const title = "Work: business software and AI projects";
+const title = "Work: AI and business software projects";
 const description = "Synode’s projects: Nexus, AI-assisted sales prospecting software, and Coory, a sports coaching platform, both designed and built by us.";
 
 export const metadata: Metadata = {

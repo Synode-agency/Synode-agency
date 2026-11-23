@@ -49,7 +49,7 @@ const COPY = {
     data: ["contact", "facture", "disponibilité", "commande"],
     run: (a: string, b: string, d: string) => `${a} → ${b} · ${d} · transfert…`,
     kept: "échange consigné",
-    label: "Une couche d’intégration fait circuler les données entre vos systèmes : CRM, ERP, API, base de données, site web, outils SaaS, documents et reporting.",
+    label: "Une couche d’intégration fait circuler les données entre vos systèmes : CRM, ERP, API, base de données, site web, outils SaaS, documents et reporting.",
   },
   en: {
     top: ["CRM", "ERP", "API", "Database"],

@@ -20,7 +20,7 @@ const NEW = {
   fr: {
     stepsTitle: "Le parcours d’un programme avec Coory",
     stepTexts: [
-      "Rassembler les objectifs, les disponibilités et les repères de chaque sportif : allures, charges, échéances.",
+      "Rassembler les objectifs, les disponibilités et les repères de chaque sportif : allures, charges, échéances.",
       "Construire le programme semaine par semaine à partir de modèles, avec des allures et des charges propres à chaque sportif.",
       "Placer les séances dans l’agenda du coach, à côté des rendez-vous et des séances de groupe.",
       "Remettre au sportif un PDF clair de son programme, issu de la version validée par le coach.",
@@ -31,7 +31,7 @@ const NEW = {
     goalLabel: "objectif",
     goalsFoot: "● Mesure en conditions réelles · à venir",
     /* Note propre à Coory : celle de `work.ts` parle des écrans de Nexus. */
-    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les noms, séances et montants des écrans de Coory sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
+    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les noms, séances et montants des écrans de Coory sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     /* Le découpage des textes du projet. */
     tailFrom: "Coory est conçu et testé",
     tailStrong: "une plateforme similaire peut être conçue sur mesure",

@@ -114,7 +114,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
         </NavLink>
 
         <nav aria-label="Navigation" className="site-nav">
-          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} bricks={copy.bricks} /> : (
+          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} bricks={copy.bricks} /> : (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -173,6 +173,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
  * l'accueil, et les deux ne doivent pas pouvoir en décider autrement.
  */
 export function localePath(target: Locale, locale: Locale, pathname: string) {
+  /* La page 404 est générée sous `/_not-found` : la traduire mènerait à
+     une autre 404. Elle renvoie à l'accueil de la langue visée (C47). */
+  if (pathname.includes("_not-found")) return target === "fr" ? "/" : "/en";
   const bare = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
   const href = target === "fr" ? bare : `/en${bare === "/" ? "" : bare}`;
   return href || "/";

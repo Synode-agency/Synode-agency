@@ -109,7 +109,7 @@ export function CooryEncaissements({ debugT }: { debugT?: number }) {
                 {" "}
                 <div style={{ borderRadius: "10px", padding: "8px", background: "#FAFAFC", display: "flex", flexDirection: "column", gap: "4px" }}>
                   <span style={{ fontSize: "11px", fontWeight: "600", color: "#1C1C28", whiteSpace: "nowrap" }}>
-                    {"Relancer Sophie pour son paiement d'octobre"}
+                    {"Relancer Sophie pour son paiement d’octobre"}
                   </span>
                   <span style={{ display: "flex", gap: "5px" }}>
                     <span style={{ fontSize: "9px", color: "#B57A12", background: "#FFF4DE", borderRadius: "6px", padding: "2px 6px" }}>

@@ -38,7 +38,7 @@ export function CooryDesktopMobile({ debugT }: { debugT?: number }) {
   const rootClassName = `${styles.root} ${styles.desktopMobile} ${jakarta.variable}`;
 
   return (
-    <div className={rootClassName} ref={rootRef} aria-hidden="true" style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", background: "#F2F5F9", backgroundImage: "radial-gradient(#DDE3EB 1px,transparent 1px)", backgroundSize: "22px 22px" }}>
+    <div className={rootClassName} ref={rootRef} data-fit-scene="" aria-hidden="true" style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", overflow: "hidden", background: "#F2F5F9", backgroundImage: "radial-gradient(#DDE3EB 1px,transparent 1px)", backgroundSize: "22px 22px" }}>
       {" "}
       <div style={{ position: "absolute", left: "0", top: "0", width: "800px", height: "500px", transformOrigin: "0 0", transform: `${v.scaleTf ?? ""}`, fontFamily: "'Plus Jakarta Sans','Helvetica Neue',Helvetica,Arial,sans-serif", color: "#1C1C28" }}>
         {" "}
@@ -51,7 +51,7 @@ export function CooryDesktopMobile({ debugT }: { debugT?: number }) {
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#E3E3EA" }} />
               <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#E3E3EA" }} />
               <span style={{ margin: "0 auto", fontSize: "9.5px", color: "#8A8D9A", padding: "3px 40px", borderRadius: "6px", background: "#F4F4F8", whiteSpace: "nowrap" }}>
-                {"app.coory.be/coach/"}{hole(v.path)}
+                {"coory-beta.vercel.app/coach/"}{hole(v.path)}
               </span>
             </div>
             {" "}
@@ -688,7 +688,7 @@ export function CooryDesktopMobile({ debugT }: { debugT?: number }) {
                 {"✦"}
               </div>
               <div style={{ marginTop: "8px", fontSize: "11px", fontWeight: "600" }}>
-                {"Que veux-tu préparer ?"}
+                {"Que veux-tu préparer ?"}
               </div>
               <div style={{ marginTop: "3px", fontSize: "8px", color: "#6B6E7B" }}>
                 {"Programmes, séances, relances…"}

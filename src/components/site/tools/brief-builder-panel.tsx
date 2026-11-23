@@ -27,7 +27,7 @@ const content = {
       process: ["Processus concerné", "Ex. Traitement des demandes clients."],
       users: ["Personnes concernées", "Ex. Équipe commerciale et service client."],
       tools: ["Outils actuels", "Ex. Outlook, HubSpot, Excel et SharePoint."],
-      data: ["Données ou documents disponibles", "Ex. Emails, fiches clients et procédures internes."],
+      data: ["Données ou documents disponibles", "Ex. E-mails, fiches clients et procédures internes."],
       control: ["Décisions à garder sous contrôle humain", "Ex. Validation d’un devis et envoi au client."],
       outcome: ["Résultat attendu", "Ex. Réduire le tri manuel et répondre plus régulièrement."],
     } satisfies Record<keyof Brief, readonly [string, string]>,
@@ -37,6 +37,8 @@ const content = {
     missing: "À préciser pendant l’échange",
     copy: "Copier le brief",
     copied: "Brief copié",
+    copyFailed: "Copie impossible : sélectionnez le texte du brief",
+    tooLong: "Ce brief dépasse 4 000 caractères, la limite du formulaire : raccourcissez-le, sinon la fin sera coupée.",
     contact: "Présenter ce besoin à Synode",
     note: "Ce brief prépare un premier échange. Il ne constitue ni une spécification technique, ni un devis.",
   },
@@ -58,6 +60,8 @@ const content = {
     missing: "To clarify during the call",
     copy: "Copy the brief",
     copied: "Brief copied",
+    copyFailed: "Copy failed: select the brief text",
+    tooLong: "This brief is over 4,000 characters, the form’s limit: shorten it, or the end will be cut off.",
     contact: "Present this need to Synode",
     note: "This brief prepares an initial conversation. It is neither a technical specification nor a quote.",
   },
@@ -73,6 +77,7 @@ export function BriefBuilderPanel({
   const c = content[locale];
   const [edited, setEdited] = useState<Partial<Brief>>({});
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
 
   /* Ce que le visiteur a tapé l'emporte TOUJOURS sur ce que les étapes
      précédentes ont rempli, champ par champ. Une fois une case touchée,
@@ -101,11 +106,29 @@ export function BriefBuilderPanel({
     }
   };
 
+  /* Le presse-papiers moderne peut manquer (page non sécurisée, ancien
+     navigateur) ou refuser : on tente l'ancienne méthode, puis on le dit au
+     lieu d'échouer en silence (K18 de l'audit). */
   const copy = async () => {
     if (!ready) return;
-    await navigator.clipboard.writeText(summary);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(summary);
+      ok = true;
+    } catch {
+      const area = document.createElement("textarea");
+      area.value = summary;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      try { ok = document.execCommand("copy"); } catch { ok = false; }
+      area.remove();
+    }
+    setCopyFailed(!ok);
+    setCopied(ok);
+    if (ok) window.setTimeout(() => setCopied(false), 1800);
   };
 
   return (
@@ -134,7 +157,7 @@ export function BriefBuilderPanel({
             </dl>
             <div className="tool-brief-actions">
               <button type="button" className="btn btn--ghost" onClick={copy}>
-                {copied ? <Check aria-hidden /> : <Copy aria-hidden />}{copied ? c.copied : c.copy}
+                {copied ? <Check aria-hidden /> : <Copy aria-hidden />}{copied ? c.copied : copyFailed ? c.copyFailed : c.copy}
               </button>
               <Link
                 className="btn btn--primary"
@@ -144,6 +167,9 @@ export function BriefBuilderPanel({
                 {c.contact}<ArrowRight aria-hidden />
               </Link>
             </div>
+            {/* Le formulaire garde 4 000 caractères : le dire ici plutôt
+                que de couper la fin sans prévenir (K18). */}
+            {summary.length > 4000 ? <p className="tool-readout-note" role="status">{c.tooLong}</p> : null}
             <p className="tool-readout-note">{c.note}</p>
           </>
         )}

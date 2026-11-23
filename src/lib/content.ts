@@ -51,7 +51,7 @@ const fr = {
     email: "contact@synode-agency.com",
     location: "Bruxelles, Belgique",
     tagline:
-      "Solutions sur mesure, avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
+      "Solutions sur mesure, avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
     nav: nav.fr,
     cta: "Réserver un échange gratuit",
     ctaShort: "Réserver un échange",
@@ -101,7 +101,7 @@ const fr = {
   solutions: {
     metaTitle: "Solutions sur mesure, avec l’IA intégrée",
     metaDescription:
-      "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, intégrations, automatisations, logiciels métier, data et formation.",
+      "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, intégrations, automatisations, logiciels métier, data et formation.",
     kicker: "Notre offre",
     title: "Une solution construite\n^à partir de votre besoin",
     text: "De l’amélioration d’une tâche à une application complète ou à la formation de votre équipe, nous construisons la réponse autour de votre activité.",
@@ -150,7 +150,7 @@ const fr = {
       {
             "slug": "formation-adoption-ia",
             "title": "Formation & adoption IA",
-            "text": "La prise en main de chaque solution livrée est incluse dans le projet. Cette offre forme aussi vos équipes à l’IA sans projet : ateliers pratiques, bons réflexes et règles d’usage.",
+            "text": "La prise en main de chaque solution livrée est incluse dans le projet. Cette offre forme aussi vos équipes à l’IA sans projet : ateliers pratiques, bons réflexes et règles d’usage.",
             "benefit": "Rendre vos équipes autonomes et responsables dans leurs usages de l’IA.",
             "example": "À partir de situations réelles, votre équipe apprend à utiliser l’IA pour préparer, vérifier et améliorer ses réponses clients.",
             "visual": 5
@@ -185,8 +185,8 @@ const fr = {
 
     faqTitle: "Questions fréquentes sur nos solutions sur mesure",
     faq: [
-      { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit six étapes : cadrage du besoin métier, conception et architecture, développement sur mesure, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous." },
-      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous nous confiez le suivi et la maintenance : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
+      { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit six étapes : cadrage du besoin métier, conception et architecture, développement sur mesure, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous." },
+      { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous nous confiez le suivi et la maintenance : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
       { q: "Combien de temps faut-il pour développer une solution sur mesure ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
       { q: "Une solution sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
       { q: "Avec qui signons-nous ?", a: "Le contrat et les factures sont établis par Productions Associées ASBL (Smart), qui héberge l’activité de Synode : un contrat écrit, des factures avec TVA et un cocontractant établi en Belgique. Au quotidien, vous travaillez directement avec nous." },
@@ -194,66 +194,11 @@ const fr = {
 
   },
 
-  /* ------------------------------------------------------------------ Méthode */
-  method: {
-    metaTitle: "Notre méthode : du premier échange au suivi",
-    metaDescription:
-      "Six étapes, ce que fait Synode, ce que vous apportez et ce qui sort de chacune. Aucun délai universel annoncé : il dépend du périmètre.",
-    kicker: "Méthode",
-    title: "Ce qui se passe,\n^étape par étape",
-    text: "Chaque étape a une sortie visible. Vous savez à tout moment où en est le projet et ce qui vous est demandé.",
-    steps: [
-      {
-        title: "Premier échange",
-        work: "Comprendre votre besoin, vos outils, vos contraintes et la priorité du projet.",
-        client: "Partir d’un cas concret, récent de préférence.",
-        output: "Un résumé du besoin et la prochaine étape proposée.", brief: "On fait le point sur votre besoin en 30 minutes, gratuit et sans engagement", accents: ["besoin", "30 minutes", "sans engagement"],
-      },
-      {
-        title: "Analyse et proposition",
-        work: "Évaluer la faisabilité, définir le périmètre du projet et préciser les critères de réussite. C’est le cadrage : il est payant, et son montant est déduit du prix du projet au démarrage du développement.",
-        client: "Confirmer les données disponibles, les contraintes et les personnes impliquées dans la décision.",
-        output: "Une proposition, un devis et des critères de réussite.", brief: "Vos données et contraintes donnent la faisabilité, le périmètre et le devis", accents: ["données", "contraintes", "faisabilité", "périmètre", "devis"],
-      },
-      {
-        title: "Conception",
-        work: "Définir le fonctionnement de la solution, les accès nécessaires et les étapes qui nécessitent une validation humaine.",
-        client: "Valider le périmètre, les règles métier et les exemples qui serviront de référence.",
-        output: "Un plan de réalisation partagé.", brief: "Vos règles métier deviennent le plan\nde réalisation", accents: ["règles métier", "plan", "de réalisation"],
-      },
-      {
-        title: "Construction",
-        work: "Développer la solution et la confronter progressivement à vos processus et à vos cas réels.",
-        client: "Tester les parcours, valider les premiers résultats et nous transmettre vos retours.",
-        output: "Une version prête pour la recette.", brief: "On développe sur vos cas réels, guidés par vos retours", accents: ["cas réels", "retours"],
-      },
-      {
-        title: "Recette et déploiement",
-        work: "Tester, corriger, documenter et mettre la solution en service dans votre environnement.",
-        client: "Valider les critères de réussite définis au début du projet avant la mise en production.",
-        output: "La solution en service, et sa documentation transmise.", brief: "Votre validation ouvre la mise en service et la documentation", accents: ["validation", "mise en service", "documentation"],
-      },
-      {
-        title: "Suivi",
-        work: "Surveiller le fonctionnement de la solution, assurer sa maintenance et cadrer les évolutions nécessaires.",
-        client: "Signaler les incidents, les nouveaux besoins et les évolutions de vos processus métier.",
-        output: "Une maintenance suivie, et les évolutions chiffrées.", brief: "Vos retours d’usage orientent la maintenance\net les évolutions", accents: ["retours d’usage", "maintenance", "évolutions"],
-      },
-    ],
-    notes: [
-      { title: "Un changement de périmètre se chiffre", text: "Ajouter un cas non prévu en cours de route est possible, mais cela se discute et se chiffre. Nous ne l’absorbons pas en silence, et nous ne le découvrons pas non plus à la facture." },
-      { title: "Le projet dépend de vos accès", text: "Une donnée indisponible ou un accès qui tarde décale la suite. C’est la cause de retard la plus fréquente, et la plus facile à éviter en la nommant tôt." },
-      { title: "Vos données restent les vôtres", text: "Nous travaillons sur le strict nécessaire, et les conditions de traitement sont écrites avant le démarrage." },
-      { title: "Maintenance et nouveauté ne sont pas la même chose", text: "Corriger ce qui ne fonctionne plus comme convenu relève de la maintenance. Ajouter une fonction qui n’existait pas relève d’un nouveau devis." },
-    ],
-    cta: "Commençons par votre situation actuelle",
-  },
-
   /* ------------------------------------------------------------------- Équipe */
   team: {
-    metaTitle: "L’équipe de Synode : Antonino et Killian",
+    metaTitle: "L’équipe de Synode : Antonino et Killian",
     metaDescription:
-      "L’équipe de Synode, agence technologique à Bruxelles : Antonino (IA, agents et automatisations) et Killian (logiciels et intégrations).",
+      "L’équipe de Synode, agence technologique à Bruxelles : Antonino (agents IA, intégrations et logiciels) et Killian (agents IA, automatisations et data).",
     kicker: "L’équipe",
     title: "Pourquoi nous\n^construisons Synode",
     vision:
@@ -261,12 +206,12 @@ const fr = {
     peopleTitle: "Deux développeurs,\ndes expertises complémentaires",
     people: [
       {
-        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Cofondateur · IA, agents & automatisations",
-        text: "Antonino analyse vos processus métier, conçoit les workflows et développe les agents IA. Il identifie les tâches qui méritent d’être automatisées et prépare leur intégration dans votre environnement.",
+        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Cofondateur · Agents IA, intégrations & logiciels",
+        text: "Antonino conçoit les agents IA, connecte vos outils entre eux et développe les logiciels métier dont vos équipes ont besoin. Il part de vos processus pour livrer une solution intégrée à votre environnement.",
       },
       {
-        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Cofondateur · Logiciels & intégrations",
-        text: "Killian développe les applications IA, les logiciels métier et les intégrations entre vos outils. Il transforme le besoin cadré en une solution utilisable, testée et adaptée à votre activité.",
+        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Cofondateur · Agents IA, automatisations & data",
+        text: "Killian conçoit les agents IA, automatise les tâches répétitives et exploite vos données pour en tirer des tableaux de bord et des indicateurs utiles. Il transforme le besoin cadré en une solution testée et adaptée à votre activité.",
       },
     ],
     complementTitle: "Complémentaires,\nde l’IA au logiciel",
@@ -281,7 +226,7 @@ const fr = {
     ],
     cta: "Parlons de votre projet",
     ctaText:
-      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions sur mesure de la même façon : un interlocuteur identifié pour votre projet, du cadrage à la mise en service.",
+      "Antonino conçoit les agents, connecte vos outils et développe les logiciels ; Killian conçoit les agents, automatise vos processus et exploite vos données. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions sur mesure de la même façon : un interlocuteur identifié pour votre projet, du cadrage à la mise en service.",
   },
 
   /* ------------------------------------------------------------------ Contact */
@@ -309,7 +254,7 @@ const fr = {
       text: "Si vous préférez écrire, ou si aucun créneau ne vous convient.",
       fields: {
         name: { label: "Nom", placeholder: "Votre nom" },
-        email: { label: "Email de contact", placeholder: "vous@exemple.com" },
+        email: { label: "E-mail de contact", placeholder: "vous@exemple.com" },
         company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
         need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche qui vous coûte le plus de temps, ou les logiciels que vous aimeriez relier.", hint: "Un exemple concret vaut mieux qu’une description générale." },
         phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
@@ -325,13 +270,13 @@ const fr = {
       privacyLink: "Comment nous traitons vos données",
       errors: {
         name: "Indiquez votre nom.",
-        email: "Indiquez une adresse email.",
+        email: "Indiquez une adresse e-mail.",
         emailInvalid: "Cette adresse email semble incorrecte.",
         need: "Décrivez votre besoin en quelques mots (10 caractères minimum).",
         website: "Cette adresse de site semble incorrecte.",
         tooLong: "Ce champ est trop long.",
         rateLimited: "Vous venez d’envoyer une demande. Patientez un instant avant de recommencer.",
-        server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",
+        server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",
         notConfigured:
           "L’envoi de messages n’est pas encore activé sur cette version du site. Votre texte est conservé ci-dessous ; écrivez-nous directement à contact@synode-agency.com en attendant.",
       },
@@ -342,7 +287,7 @@ const fr = {
   thanks: {
     metaTitle: "Message bien reçu",
     title: "Votre message\n^a bien été reçu",
-    text: "Nous l’avons enregistré et nous revenons vers vous. Si votre demande est urgente, réservez directement un créneau : c’est le chemin le plus rapide.",
+    text: "Nous l’avons enregistré et nous revenons vers vous. Si votre demande est urgente, réservez directement un créneau : c’est le chemin le plus rapide.",
     /* On ne promet pas de délai : la référence l'interdit tant qu'il n'est
        pas tenable. */
     notBooked: "Ce message n’est pas un rendez-vous. Pour en fixer un, passez par le calendrier.",
@@ -352,14 +297,14 @@ const fr = {
 
   notFound: {
     title: "Cette page\n^n’existe pas",
-    text: "Le lien est peut-être ancien, ou l’adresse comporte une faute. Voici les pages les plus consultées.",
+    text: "Le lien est peut-être ancien, ou l’adresse comporte une faute. Voici les pages principales du site.",
     homeCta: "Revenir à l’accueil",
   },
 
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Mentions légales du site de Synode : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
+    noticeDescription: "Mentions légales du site de Synode : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     updated: "Dernière mise à jour",
@@ -520,34 +465,10 @@ const en = {
 
   },
 
-  method: {
-    metaTitle: "Our method: from the first call to ongoing support",
-    metaDescription:
-      "Six stages, what Synode does, what you bring and what comes out of each. No universal delivery time: it depends on the scope.",
-    kicker: "Method",
-    title: "What happens,\n^stage by stage",
-    text: "Every stage has a visible output. You always know where the project stands and what is being asked of you.",
-    steps: [
-      { title: "First call", work: "Understand your need, your tools, your constraints and the priority of the project.", client: "Start from a concrete example, ideally a recent one.", output: "A summary of the need and a proposed next step.", brief: "We look at your need in 30 minutes, free and with no commitment", accents: ["need", "30 minutes", "no commitment"], },
-      { title: "Analysis and proposal", work: "Assess feasibility, define the scope of the project and set the success criteria. This is the scoping stage: it is paid, and its fee is deducted from the project price when development starts.", client: "Confirm the data available, the constraints and the people involved in the decision.", output: "A proposal, a quote and success criteria.", brief: "Your data and constraints give the feasibility, scope and quote", accents: ["data", "constraints", "feasibility", "scope", "quote"], },
-      { title: "Design", work: "Define how the solution works, the access it needs and the steps that require human approval.", client: "Sign off the scope, the business rules and the examples that will serve as reference.", output: "A shared build plan.", brief: "Your business rules become the build plan", accents: ["business rules", "build plan"], },
-      { title: "Build", work: "Develop the solution and test it progressively against your processes and your real cases.", client: "Test the flows, review the first results and send us your feedback.", output: "A version ready for acceptance.", brief: "We build on your real cases, guided by your feedback", accents: ["real cases", "feedback"], },
-      { title: "Acceptance and go-live", work: "Test, fix, document and put the solution into service in your environment.", client: "Sign off the success criteria set at the start of the project before going live.", output: "The solution live, with its documentation handed over.", brief: "Your sign-off opens go-live and documentation", accents: ["sign-off", "go-live", "documentation"], },
-      { title: "Support", work: "Watch how the solution runs, maintain it and scope the changes it needs.", client: "Report incidents, new needs and changes in your business processes.", output: "Maintenance tracked, and changes quoted.", brief: "Your usage feedback drives maintenance and changes", accents: ["usage feedback", "maintenance", "changes"], },
-    ],
-    notes: [
-      { title: "A change of scope gets quoted", text: "Adding an unplanned case mid-project is possible, but it gets discussed and priced. We do not absorb it silently, and you do not discover it on the invoice." },
-      { title: "The project depends on your access", text: "Data that is not available, or an access that takes weeks, pushes everything back. It is the most common cause of delay and the easiest to avoid by naming it early." },
-      { title: "Your data stays yours", text: "We work on strictly what is needed, and the processing terms are written down before anything starts." },
-      { title: "Maintenance and new features are different things", text: "Fixing something that stopped working as agreed is maintenance. Adding a capability that did not exist is a new quote." },
-    ],
-    cta: "Let’s start with where you are",
-  },
-
   team: {
     metaTitle: "The Synode team: Antonino and Killian",
     metaDescription:
-      "The Synode team, a technology agency in Brussels: Antonino (AI, agents and automation) and Killian (software and integrations).",
+      "The Synode team, a technology agency in Brussels: Antonino (AI agents, integrations and software) and Killian (AI agents, automation and data).",
     kicker: "The team",
     title: "Why we are\n^building Synode",
     vision:
@@ -555,12 +476,12 @@ const en = {
     peopleTitle: "Two developers with complementary expertise",
     people: [
       {
-        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Co-founder · AI, agents & automation",
-        text: "Antonino analyses business processes, designs workflows and develops AI agents. He identifies the tasks worth automating and prepares their integration into your environment.",
+        first: "Antonino", last: "Lo Bianco", photo: "/equipe/AntoEquipe.webp", role: "Co-founder · AI agents, integrations & software",
+        text: "Antonino designs AI agents, connects your tools and builds the business software your teams need. He starts from your processes to deliver a solution that fits your environment.",
       },
       {
-        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Co-founder · Software & integrations",
-        text: "Killian develops AI applications, business software and integrations between your tools. He turns the scoped need into a usable, tested solution suited to your business.",
+        first: "Killian", last: "Schoebben", photo: "/equipe/KillianEquipe.webp", role: "Co-founder · AI agents, automation & data",
+        text: "Killian designs AI agents, automates repetitive tasks and puts your data to work in useful dashboards and indicators. He turns the scoped need into a tested solution suited to your business.",
       },
     ],
     complementTitle: "A complementary team,\nfrom AI to software",
@@ -574,7 +495,7 @@ const en = {
     ],
     cta: "Let’s talk about your project",
     ctaText:
-      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom solutions the same way: one named contact for your project, from scoping to go-live.",
+      "Antonino designs agents, connects your tools and builds software; Killian designs agents, automates your processes and puts your data to work. We built this site ourselves, and we design your custom solutions the same way: one named contact for your project, from scoping to go-live.",
   },
 
   contact: {
@@ -640,7 +561,7 @@ const en = {
 
   notFound: {
     title: "This page\n^does not exist",
-    text: "The link may be old, or the address has a typo. Here are the pages people visit most.",
+    text: "The link may be old, or the address has a typo. Here are the main pages of the site.",
     homeCta: "Back to home",
   },
 

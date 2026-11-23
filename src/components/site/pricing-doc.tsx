@@ -101,7 +101,7 @@ export function PricingDoc({ locale }: { locale: Locale }) {
 
       <div className="pdoc-foot">
         <span>{fr ? "Chaque poste est chiffré séparément dans votre devis." : "Each line is quoted separately in your proposal."}</span>
-        <em>{fr ? "= budget total transparent" : "= a transparent total"}</em>
+        <em>{fr ? "= votre budget total" : "= your total budget"}</em>
       </div>
     </div>
   );

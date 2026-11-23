@@ -26,14 +26,14 @@ export async function generateMetadata({
   if (!item) return {};
   const SEO: Record<string, { title: string; description: string }> = {
     nexus: {
-      title: "Nexus : logiciel de prospection commerciale",
+      title: "Nexus : logiciel de prospection commerciale",
       description:
-        "Nexus, le logiciel de prospection commerciale de Synode : rechercher des entreprises à Bruxelles et en Belgique, les qualifier avec l’IA et préparer un premier contact.",
+        "Nexus, le logiciel de prospection commerciale de Synode : rechercher des entreprises à Bruxelles et en Belgique, les qualifier avec l’IA et préparer un premier contact.",
     },
     coory: {
-      title: "Coory : plateforme de coaching sportif",
+      title: "Coory : plateforme de coaching sportif",
       description:
-        "Coory, conçue par Synode, réunit les sportifs, les programmes, l’agenda et les paiements d’un coach sportif, avec un assistant IA validé par le coach.",
+        "Coory, conçu par Synode, réunit les sportifs, les programmes, l’agenda et les paiements d’un coach sportif, avec un assistant IA validé par le coach.",
     },
   };
   const title = SEO[slug]?.title ?? item.title;

@@ -1442,6 +1442,11 @@
     color: var(--text-mono);
   }
   .site-footer-link {
+    /* 24px de cible au moins (C53 de l'audit, WCAG 2.5.8) : le texte seul
+       faisait 20px de haut. */
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     font-size: var(--fs-small);
     color: var(--muted-foreground);
     transition: color 0.18s var(--anim-ease);

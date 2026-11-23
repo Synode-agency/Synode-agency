@@ -18,7 +18,7 @@ import type { Locale } from "@/lib/content";
  * ────────────────────────────────────────────────────────────────────────
  *
  * ── Ce que ces aperçus ne sont pas ──────────────────────────────────────
- * Ce ne sont pas des captures. « Marie Lambert », « Lumen SA », « Julie »,
+ * Ce ne sont pas des captures. « Marie Lambert », « Lumivra SA », « Julie »,
  * les horaires, les dates et les noms de fichiers sont illustratifs et ne
  * doivent jamais être repris ailleurs comme des données réelles. Ce sont
  * des dessins faits de blocs et de filets, pas des écrans de produit.
@@ -37,11 +37,11 @@ import type { Locale } from "@/lib/content";
 const COPY = {
   fr: {
     ask: "Quels sont vos horaires ?",
-    reply: "Du lundi au vendredi, 8h–18h.",
+    reply: "Du lundi au vendredi, de 8 h à 18 h.",
     source: "source · FAQ.pdf",
     query: "délai de livraison",
-    tags: ["Objet : SAV", "Urgence : haute", "→ Julie, support"],
-    crm: [["Contact", "Marie Lambert"], ["Société", "Lumen SA"], ["Prochaine étape", "Rappel le 14/10"]],
+    tags: ["Objet : SAV", "Urgence : haute", "→ Julie, support"],
+    crm: [["Contact", "Marie Lambert"], ["Société", "Lumivra SA"], ["Prochaine étape", "Rappel le 14/10"]],
     checks: ["Tarifs", "Conditions", "Planning"],
     toReview: "à relire",
     inbox: ["Décision", "Résumé", "Info", "Info"],
@@ -53,7 +53,7 @@ const COPY = {
     source: "source · FAQ.pdf",
     query: "delivery time",
     tags: ["Subject: support", "Urgency: high", "→ Julie, support"],
-    crm: [["Contact", "Marie Lambert"], ["Company", "Lumen SA"], ["Next step", "Call back on 14/10"]],
+    crm: [["Contact", "Marie Lambert"], ["Company", "Lumivra SA"], ["Next step", "Call back on 14/10"]],
     checks: ["Pricing", "Terms", "Schedule"],
     toReview: "to review",
     inbox: ["Decision", "Summary", "Info", "Info"],
