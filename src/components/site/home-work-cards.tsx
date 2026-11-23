@@ -14,12 +14,12 @@ const COPY = {
   fr: {
     project: "Projet",
     discover: "Découvrir le projet",
-    nexusStatus: "Nexus est un outil interne de Synode, déjà opérationnel.",
+    nexusStatus: "Nexus est un outil interne de Synode, déjà opérationnel. L’illustration montre des données fictives.",
   },
   en: {
     project: "Project",
     discover: "Explore the project",
-    nexusStatus: "Nexus is an internal Synode tool, already in use.",
+    nexusStatus: "Nexus is an internal Synode tool, already in use. The illustration shows sample data.",
   },
 } as const;
 

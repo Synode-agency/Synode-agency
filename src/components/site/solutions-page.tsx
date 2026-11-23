@@ -58,7 +58,7 @@ const SECURITY = {
     items: [
       { title: "Protection des données", text: "La solution accède uniquement aux données nécessaires au fonctionnement défini avec vous." },
       { title: "Gestion des droits d’accès", text: "Les permissions sont limitées selon les utilisateurs, les rôles et les logiciels connectés." },
-      { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes peuvent rester soumises à votre validation." },
+      { title: "Validation humaine", text: "Les décisions sensibles et les actions importantes restent soumises à votre validation." },
       { title: "Monitoring technique", text: "Le fonctionnement, les erreurs et les intégrations peuvent être surveillés après le déploiement." },
     ],
     panelTitle: "Vos données restent sous votre contrôle",
@@ -69,7 +69,7 @@ const SECURITY = {
     items: [
       { title: "Secured data", text: "Access to data is limited to what the system actually needs." },
       { title: "Access rights", text: "Permissions are set according to the users and the tools involved." },
-      { title: "Human control", text: "Sensitive actions can stay subject to human approval." },
+      { title: "Human control", text: "Sensitive decisions and important actions stay subject to your approval." },
       { title: "Technical monitoring", text: "The solution can be watched, so errors and integration problems are caught." },
     ],
     panelTitle: "Your data stays under your control",

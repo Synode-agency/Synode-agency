@@ -41,9 +41,9 @@ import { CompactPanel } from "@/components/compact-panel";
  * ── SUR TÉLÉPHONE, UN PANNEAU COMPACT ───────────────────────────────────
  * Les cinq temps tournent autour d'un petit robot dessiné. Le robot et son
  * orbite ne disent rien que les cinq mots ne disent, et à cette largeur ils
- * deviennent un rond gris. Le panneau garde les cinq temps, et le dernier
- * garde sa mention « humain » : c'est lui qui dit que l'agent ne décide pas
- * seul.
+ * deviennent un rond gris. Le panneau garde les cinq temps, et celui de la
+ * validation garde sa mention « humain » : c'est lui qui dit que l'agent
+ * n'agit pas seul.
  *
  * ⚠ Pas de bandeau : `COPY` ne contient aucun titre, et en inventer un
  * reviendrait à ajouter du texte au site.
@@ -61,6 +61,10 @@ const RY = 118;
 /* ---- La chronologie. Cinq temps, puis un temps de repos. ---- */
 const STEP_MS = 1800;
 const STEPS = 5;
+/* Le temps validé par une personne, AVANT l'action : l'agent prépare, un
+   humain valide, puis l'agent agit (règle du 23/11/2026, la même que dans
+   les textes du site). */
+const HUMAN = 3;
 const DONE_AT = STEP_MS * STEPS;
 const HAPPY_FROM = DONE_AT + 100;
 const FADE_FROM = 10600;
@@ -91,14 +95,14 @@ const pc = (v: number, total: number) => `${((v / total) * 100).toFixed(3)}%`;
 
 const COPY = {
   fr: {
-    steps: ["Recevoir", "Comprendre", "Décider", "Agir", "Faire valider"],
+    steps: ["Recevoir", "Comprendre", "Préparer", "Faire valider", "Agir"],
     human: "humain",
-    alt: "Un agent IA et ses cinq temps : recevoir, comprendre, décider, agir, puis faire valider par une personne.",
+    alt: "Un agent IA et ses cinq temps : recevoir, comprendre, préparer, faire valider par une personne, puis agir.",
   },
   en: {
-    steps: ["Receive", "Understand", "Decide", "Act", "Get approval"],
+    steps: ["Receive", "Understand", "Prepare", "Get approval", "Act"],
     human: "human",
-    alt: "An AI agent and its five steps: receive, understand, decide, act, then have a person approve.",
+    alt: "An AI agent and its five steps: receive, understand, prepare, have a person approve, then act.",
   },
 } as const;
 
@@ -206,7 +210,7 @@ export function AgentBrief({ locale }: { locale: Locale }) {
               style={{ left: pc(SPOTS[i].x, W), top: pc(SPOTS[i].y, H) }}
             >
               {label}
-              {i === STEPS - 1 && <em>{c.human}</em>}
+              {i === HUMAN && <em>{c.human}</em>}
             </span>
           ))}
 
@@ -252,7 +256,7 @@ export function AgentBrief({ locale }: { locale: Locale }) {
         num: String(k + 1).padStart(2, "0"),
         label,
         /* Le dernier temps passe par une personne, et la scène l'écrit. */
-        ...(k === c.steps.length - 1 ? { state: c.human } : {}),
+        ...(k === HUMAN ? { state: c.human } : {}),
       }))}
     />
     </>

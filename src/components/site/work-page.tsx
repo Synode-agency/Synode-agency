@@ -19,6 +19,7 @@ import { sansVeuve } from "@/lib/sans-veuve";
 /** La pastille dit la NATURE du projet avant qu'on ait lu son titre. */
 const BADGE: Record<WorkKind, string> = {
   internal: "badge badge--live",
+  beta: "badge badge--live",
   demo: "badge badge--demo",
   client: "badge badge--live",
   software: "badge badge--live",

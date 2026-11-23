@@ -48,10 +48,10 @@ const fr: LegalTexts = {
     {
       title: "Présentation de Synode",
       blocks: [
-        "Synode est le nom commercial d’une activité de services aux entreprises (B2B) : conception et développement de solutions d’intelligence artificielle, d’agents IA, d’automatisations et de logiciels sur mesure.",
+        "Synode Agency (marque : Synode) est le nom commercial d’une activité de services aux entreprises (B2B) : conception et développement de solutions d’intelligence artificielle, d’intégration de systèmes et de logiciels sur mesure.",
         {
           list: [
-            "**Nom commercial :** Synode",
+            "**Nom commercial :** Synode Agency (marque : Synode)",
             "**Responsables du site :** Killian Schoebben et Antonino Lo Bianco",
             "**Adresse professionnelle :** rue des Alcyons 86, 1082 Bruxelles, Belgique",
             "**E-mail :** {email}",
@@ -246,16 +246,16 @@ const en: LegalTexts = {
     {
       title: "About Synode",
       blocks: [
-        "Synode is the trading name of a business-to-business (B2B) service activity: designing and building artificial intelligence solutions, AI agents, automations and custom software.",
+        "Synode Agency (brand: Synode) is the trading name of a business-to-business (B2B) service activity: designing and building artificial intelligence solutions, systems integration and custom software.",
         {
           list: [
-            "**Trading name:** Synode",
+            "**Trading name:** Synode Agency (brand: Synode)",
             "**People responsible for the website:** Killian Schoebben and Antonino Lo Bianco",
             "**Business address:** Rue des Alcyons 86, 1082 Brussels, Belgium",
             "**Email:** {email}",
           ],
         },
-        "Synode is not a company: it is not an SRL, not a non-profit (ASBL) and not a business with its own company number. It is the name under which two individuals based in Brussels present their activity. They run this website themselves.",
+        "Synode is not an incorporated company: it is not an SRL, not a non-profit (ASBL) and not a business with its own company number. It is the name under which two individuals based in Brussels present their activity. They run this website themselves.",
       ],
     },
     {

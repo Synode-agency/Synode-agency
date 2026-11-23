@@ -26,17 +26,17 @@ const CHECK_AT = [2, 4, 5];
 const COPY = {
   fr: {
     who: "Votre interlocuteur",
-    sub: "du cadrage à la mise en service",
-    step: (n: number) => `étape ${n} / 5`,
-    steps: ["Cadrage", "Analyse", "Développement", "Tests", "Mise en service"],
+    sub: "du cadrage au suivi",
+    step: (n: number) => `étape ${n} / 6`,
+    steps: ["Cadrage", "Conception", "Développement", "Intégration", "Formation", "Suivi"],
     checks: ["Processus et données analysés", "Tests sur vos cas réels", "Documentation et maintenance"],
     states: ["✓ fait", "✓ validé", "✓ prête"],
   },
   en: {
     who: "Your contact",
-    sub: "from scoping to go-live",
-    step: (n: number) => `stage ${n} / 5`,
-    steps: ["Scoping", "Analysis", "Development", "Testing", "Go-live"],
+    sub: "from scoping to follow-up",
+    step: (n: number) => `stage ${n} / 6`,
+    steps: ["Scoping", "Design", "Build", "Integration", "Training", "Follow-up"],
     checks: ["Processes and data analysed", "Tested on your real cases", "Documentation and maintenance"],
     states: ["✓ done", "✓ approved", "✓ ready"],
   },
@@ -54,7 +54,7 @@ export function ContactPanel({ locale }: { locale: Locale }) {
   const [pass, setPass] = useState(0);
 
   const { root, still } = useVisualClock(LOOP, t => {
-    const n = Math.min(5, Math.floor(t / STEP) + 1);
+    const n = Math.min(6, Math.floor(t / STEP) + 1);
     setStage(prev => {
       if (prev === n) return prev;
       if (n < prev) setPass(p => p + 1);
@@ -62,7 +62,7 @@ export function ContactPanel({ locale }: { locale: Locale }) {
     });
   });
 
-  const n = still ? 5 : stage;
+  const n = still ? 6 : stage;
   const who = PEOPLE[(still ? 0 : pass) % PEOPLE.length];
 
   return (

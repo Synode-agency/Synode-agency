@@ -13,7 +13,7 @@ import type { Locale } from "@/lib/content";
  * `false`, puis la relier à un cas d'usage lorsqu'elle l'illustre.
  */
 
-export type WorkKind = "internal" | "demo" | "client" | "software";
+export type WorkKind = "internal" | "beta" | "demo" | "client" | "software";
 
 export type WorkItem = {
   slug: string;
@@ -46,6 +46,7 @@ export type WorkItem = {
 const fr = {
   kinds: {
     internal: "Outil interne",
+    beta: "Bêta",
     demo: "Démonstration",
     client: "Projet client",
     software: "Logiciel métier",
@@ -68,7 +69,7 @@ const fr = {
     doesTitle: "Ce que Nexus fait aujourd’hui",
     aiTitle: "Comment l’IA assiste la recherche et la qualification",
     goalsTitle: "Ce que nous cherchons à obtenir avec Nexus",
-    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Aucun chiffre ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
+    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les chiffres des écrans de Nexus sont des données d’illustration : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     limitsTitle: "Limites et validation humaine",
     backLabel: "Toutes les réalisations",
     cta: "Un besoin similaire ?",
@@ -85,7 +86,7 @@ const fr = {
   items: [
     {
       slug: "nexus",
-      kind: "software" as WorkKind,
+      kind: "internal" as WorkKind,
       title: "Nexus - Logiciel de prospection B2B assisté par IA",
       accent: "B2B assisté par IA",
       status: "Outil interne · opérationnel",
@@ -109,13 +110,13 @@ const fr = {
       ],
       limits: [
         "Aucune donnée personnelle n’est exposée publiquement, et cet outil n’est pas accessible depuis le site.",
-        "Toute prise de contact reste écrite et envoyée par un humain.",
+        "Chaque premier message est préparé par l’outil, puis relu et envoyé par un humain.",
       ],
       todo: false,
     },
     {
       slug: "coory",
-      kind: "software" as WorkKind,
+      kind: "beta" as WorkKind,
       title: "Coory - Plateforme de coaching sportif",
       accent: "coaching sportif",
       status: "Espace coach opérationnel · espace sportif en préparation",
@@ -149,6 +150,7 @@ const fr = {
 const en = {
   kinds: {
     internal: "Internal tool",
+    beta: "Beta",
     demo: "Demo",
     client: "Client project",
     software: "Business software",
@@ -171,7 +173,7 @@ const en = {
     doesTitle: "What Nexus does today",
     aiTitle: "How AI supports research and qualification",
     goalsTitle: "What we aim to achieve with Nexus",
-    goalsNote: "These are goals, not measured results. No figure will be published here before it has been measured in real conditions.",
+    goalsNote: "These are goals, not measured results. The figures on the Nexus screens are sample data: no result will be published here before it has been measured in real conditions.",
     limitsTitle: "Limits and human approval",
     backLabel: "All work",
     cta: "Something similar in mind?",
@@ -212,7 +214,7 @@ const en = {
       ],
       limits: [
         "No personal data is exposed publicly, and this tool is not reachable from the website.",
-        "Every approach is still written and sent by a person.",
+        "Each first message is prepared by the tool, then reviewed and sent by a person.",
       ],
       todo: false,
     },

@@ -111,8 +111,8 @@ export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
       splitTitle: "Répartition des leads",
       splitCount: "278 LEADS",
       splits: [
-        ["Nouveau", "168"], ["Site introuvable", "11"], ["Analysé", "4"],
-        ["Qualifié", "7"], ["À revoir", "3"], ["Revue approfondie", "4"],
+        ["Nouveau", "169"], ["Site introuvable", "11"], ["Analysé", "4"],
+        ["Qualifié", "24"], ["À revoir", "3"], ["Revue approfondie", "4"],
         ["Faible priorité", "31"], ["Contact non trouvé", "15"], ["Contacté", "17"],
       ] as [string, string][],
     },
@@ -203,8 +203,8 @@ export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
       splitTitle: "Leads by status",
       splitCount: "278 LEADS",
       splits: [
-        ["New", "168"], ["Website not found", "11"], ["Analysed", "4"],
-        ["Qualified", "7"], ["To review", "3"], ["In-depth review", "4"],
+        ["New", "169"], ["Website not found", "11"], ["Analysed", "4"],
+        ["Qualified", "24"], ["To review", "3"], ["In-depth review", "4"],
         ["Low priority", "31"], ["No contact found", "15"], ["Contacted", "17"],
       ] as [string, string][],
     },
