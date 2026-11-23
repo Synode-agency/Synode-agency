@@ -44,8 +44,8 @@ export function HomePage({ locale }: { locale: Locale }) {
         email: site.email,
         ...sameAsField,
         description: fr
-          ? "Entreprise technologique à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes connectés et en logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
-          : "Brussels-based technology company specialising in artificial intelligence, connected systems integration and custom software: AI agents, integrations, automations, business software, data and training.",
+          ? "Agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
+          : "Brussels-based technology agency specialising in artificial intelligence, systems integration and custom software development: AI agents, integrations, automations, business software, data and training.",
         areaServed: [
           { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
           { "@type": "Country", name: fr ? "Belgique" : "Belgium" },
@@ -87,7 +87,7 @@ export function HomePage({ locale }: { locale: Locale }) {
     <PageHero
       layout="feature"
       className="home-page-hero"
-      kicker={fr ? "Synode Agency · IA, intégration & logiciels" : "Synode Agency · AI, integration & software"}
+      kicker={fr ? "Agence technologique · Bruxelles" : "Technology agency · Brussels"}
       kickerMobileOnly
       /* Une seule phrase, à toutes les tailles d'écran. Les mots peints
          portent `title-accent` et sont des enfants directs du `h1` ; le texte
@@ -112,7 +112,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </div>}
     >
-      <p>{fr ? "Synode Agency est une entreprise technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en logiciels sur mesure. Nous connectons les outils de votre organisation, concevons les logiciels dont vos équipes ont besoin, et y intégrons l’IA pour automatiser, analyser et assister au quotidien." : "Synode Agency is a Brussels-based technology company specialising in artificial intelligence, systems integration and custom software. We connect your organisation’s tools, build the software your teams need, and bring in AI to automate, analyse and assist day to day."}</p>
+      <p>{fr ? "Synode est une agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure. Nous connectons les outils de votre organisation, concevons les logiciels dont vos équipes ont besoin et y intégrons l’IA pour automatiser vos processus, analyser vos données et faciliter votre quotidien." : "Synode is a Brussels-based technology agency specialising in artificial intelligence, systems integration and custom software development. We connect your organisation’s tools, build the software your teams need and bring in AI to automate your processes, analyse your data and make your day-to-day easier."}</p>
       <div className="btn-row"><Link href={bookHref} className="btn btn--primary">{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
       <span className="hero-reassurance">{fr ? "* Un premier échange gratuit, sans engagement." : "* A free first conversation. No commitment."}</span>
     </PageHero>

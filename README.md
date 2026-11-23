@@ -1,6 +1,6 @@
 # Synode
 
-Site de **Synode**, entreprise technologique basée à Bruxelles : solutions sur
+Site de **Synode**, agence technologique basée à Bruxelles : solutions sur
 mesure, avec l'IA intégrée (agents IA, automatisations, intégrations de
 systèmes, logiciels métier, data et formation).
 

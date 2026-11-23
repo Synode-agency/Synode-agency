@@ -43,7 +43,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <PageHero
         className="team-hero"
-        kicker={locale === "fr" ? "Entreprise technologique · Bruxelles" : "Technology company · Brussels"}
+        kicker={locale === "fr" ? "Agence technologique · Bruxelles" : "Technology agency · Brussels"}
         title={locale === "fr" ? <>Les <span>experts</span> de Synode</> : <>The <span>experts</span> behind Synode</>}
       >
         <p>{team.vision}</p>

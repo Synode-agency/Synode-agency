@@ -32,18 +32,18 @@ export const ogContentType = "image/png";
 
 const COPY = {
   fr: {
-    kicker: "ENTREPRISE TECHNOLOGIQUE · BRUXELLES",
+    kicker: "AGENCE TECHNOLOGIQUE · BRUXELLES",
     title: "Solutions sur mesure, avec l’IA intégrée",
     text: "Intelligence artificielle, systèmes connectés et logiciels métier, conçus autour de vos outils et de vos données.",
     foot: "synode-agency.com",
-    alt: "Synode Agency, entreprise technologique à Bruxelles : solutions sur mesure, avec l’IA intégrée",
+    alt: "Synode, agence technologique à Bruxelles : solutions sur mesure, avec l’IA intégrée",
   },
   en: {
-    kicker: "TECHNOLOGY COMPANY · BRUSSELS",
+    kicker: "TECHNOLOGY AGENCY · BRUSSELS",
     title: "Custom solutions, with built-in AI",
     text: "Artificial intelligence, connected systems and business software, built around your tools and your data.",
     foot: "synode-agency.com",
-    alt: "Synode Agency, technology company in Brussels: custom solutions, with built-in AI",
+    alt: "Synode, technology agency in Brussels: custom solutions, with built-in AI",
   },
 } as const;
 

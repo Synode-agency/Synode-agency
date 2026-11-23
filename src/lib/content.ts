@@ -99,7 +99,7 @@ const fr = {
 
   home: {
     metaTitle: "IA, intégration et logiciels sur mesure",
-    metaDescription: "Synode Agency, entreprise technologique à Bruxelles : agents IA, intégration de vos logiciels (CRM, ERP, API), automatisations et logiciels métier sur mesure.",
+    metaDescription: "Synode, agence technologique à Bruxelles : agents IA, intégration de vos logiciels (CRM, ERP, API), automatisations et logiciels métier sur mesure.",
     faq: {
       kicker: "Questions fréquentes",
       title: "Questions fréquentes sur nos solutions sur mesure",
@@ -295,11 +295,11 @@ const fr = {
   team: {
     metaTitle: "L’équipe de Synode : Antonino et Killian",
     metaDescription:
-      "L’équipe de Synode Agency, entreprise technologique à Bruxelles : Antonino (IA, agents et automatisations) et Killian (logiciels et intégrations).",
+      "L’équipe de Synode, agence technologique à Bruxelles : Antonino (IA, agents et automatisations) et Killian (logiciels et intégrations).",
     kicker: "L’équipe",
     title: "Pourquoi nous\n^construisons Synode",
     vision:
-      "Synode est une entreprise technologique bruxelloise fondée par Antonino et Killian. Nous intégrons l’IA dans les organisations, connectons leurs logiciels et développons des logiciels métier sur mesure, à partir de leurs processus, de leurs outils et de leurs données.",
+      "Synode est une agence technologique bruxelloise fondée par Antonino et Killian. Nous intégrons l’IA dans les organisations, connectons leurs logiciels et développons des logiciels métier sur mesure, à partir de leurs processus, de leurs outils et de leurs données.",
     peopleTitle: "Deux développeurs,\ndes expertises complémentaires",
     people: [
       {
@@ -330,7 +330,7 @@ const fr = {
   contact: {
     metaTitle: "Parlons de votre projet",
     metaDescription:
-      "Réservez un échange gratuit de 30 minutes avec Synode Agency à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement ni devis automatique.",
+      "Réservez un échange gratuit de 30 minutes avec Synode, agence technologique à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement.",
     kicker: "Contact",
     title: "Parlons de\n^votre projet",
     text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
@@ -401,7 +401,7 @@ const fr = {
   /* ------------------------------------------------------------------- Légal */
   legal: {
     noticeTitle: "Mentions légales",
-    noticeDescription: "Mentions légales du site de Synode Agency : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
+    noticeDescription: "Mentions légales du site de Synode : responsables du site, cadre juridique et facturation via Smart, hébergement et propriété intellectuelle.",
     privacyTitle: "Politique de confidentialité",
     privacyDescription: "Quelles données personnelles Synode traite, pour quelles finalités, avec quels prestataires, pendant combien de temps, et comment exercer vos droits.",
     draftLabel: "Brouillon",
@@ -441,7 +441,7 @@ const en = {
 
   home: {
     metaTitle: "AI, integration and custom software",
-    metaDescription: "Synode Agency, a technology company in Brussels: AI agents, integration of your software (CRM, ERP, API), automations and custom business software.",
+    metaDescription: "Synode, a technology agency in Brussels: AI agents, integration of your software (CRM, ERP, API), automations and custom business software.",
     faq: {
       kicker: "FAQ",
       title: "Common questions about our custom solutions",
@@ -602,11 +602,11 @@ const en = {
   team: {
     metaTitle: "The Synode team: Antonino and Killian",
     metaDescription:
-      "The Synode Agency team, a technology company in Brussels: Antonino (AI, agents and automation) and Killian (software and integrations).",
+      "The Synode team, a technology agency in Brussels: Antonino (AI, agents and automation) and Killian (software and integrations).",
     kicker: "The team",
     title: "Why we are\n^building Synode",
     vision:
-      "Synode is a Brussels-based technology company founded by Antonino and Killian. We bring AI into organisations, connect their software and build custom business software, based on their processes, tools and data.",
+      "Synode is a Brussels-based technology agency founded by Antonino and Killian. We bring AI into organisations, connect their software and build custom business software, based on their processes, tools and data.",
     peopleTitle: "Two developers with complementary expertise",
     people: [
       {
@@ -634,7 +634,7 @@ const en = {
 
   contact: {
     metaTitle: "Let’s talk about your project",
-    metaDescription: "Book a free 30-minute call with Synode, a technology company in Brussels, or describe your need in writing. No strings attached and no automated quote.",
+    metaDescription: "Book a free 30-minute call with Synode, a technology agency in Brussels, or describe your need in writing. No commitment.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project",
     text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
@@ -701,7 +701,7 @@ const en = {
 
   legal: {
     noticeTitle: "Legal notice",
-    noticeDescription: "Legal notice for the Synode Agency website: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
+    noticeDescription: "Legal notice for the Synode website: people responsible for the site, legal framework and invoicing through Smart, hosting and intellectual property.",
     privacyTitle: "Privacy policy",
     privacyDescription: "What personal data Synode processes, for what purposes, with which providers, for how long, and how you can exercise your rights.",
     draftLabel: "Draft",

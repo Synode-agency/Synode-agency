@@ -3,7 +3,7 @@ import { ogBase, withBrand } from "@/lib/seo";
 import { WorkPage } from "@/components/site/work-page";
 
 const title = "Réalisations : logiciels métier et IA";
-const description = "Les projets de Synode Agency : Nexus, logiciel de prospection B2B avec IA, et Coory, plateforme de coaching sportif, conçus et développés par nos soins.";
+const description = "Les projets de Synode : Nexus, logiciel de prospection B2B avec IA, et Coory, plateforme de coaching sportif, conçus et développés par nos soins.";
 
 export const metadata: Metadata = {
   title,
