@@ -217,15 +217,19 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         pas exister en six exemplaires. */}
     <Band id="accompagnement" className="svc-band svc-tint svc-rhythm">
       <div className="section-heading">
-        <Lede kicker={fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} accents={p.afterTitleAccents} text={p.afterText} />
+        <Lede kicker={family.slug === "formation-adoption-ia" ? (fr ? "Après la formation" : "After the training") : fr ? "Après la mise en service" : "After go-live"} title={p.afterTitle} accents={p.afterTitleAccents} text={p.afterText} />
       </div>
       <AfterPanel items={p.after} pill={family.slug === "formation-adoption-ia" ? undefined : operations.recurringLabel} note={operations.familyNote} locale={locale} />
-      <IncludedStrip
-        title={operations.included.title}
-        items={operations.included.items}
-        more={operations.included.more}
-        moreHref={family.slug === "formation-adoption-ia" ? undefined : `${path(locale, ROUTES.solutions)}/formation-adoption-ia`}
-      />
+      {/* « Installation et mise en service » n'a pas de sens sur la page
+          Formation, qui EST l'offre de formation : la bande n'y figure pas. */}
+      {family.slug !== "formation-adoption-ia" && (
+        <IncludedStrip
+          title={operations.included.title}
+          items={operations.included.items}
+          more={operations.included.more}
+          moreHref={`${path(locale, ROUTES.solutions)}/formation-adoption-ia`}
+        />
+      )}
     </Band>
 
     {/* ===== 7 · CTA — bleu nuit, une carte posée ===== */}

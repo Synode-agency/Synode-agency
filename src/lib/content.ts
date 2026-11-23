@@ -126,7 +126,7 @@ const fr = {
         },
         {
           q: "Mes données restent-elles confidentielles ?",
-          a: "La confidentialité et la gestion des accès sont prises en compte lors de la conception. Les outils et services utilisés, ainsi que les modalités de traitement des données, sont définis selon les exigences de votre projet.",
+          a: "Oui. Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation.",
         },
         {
           q: "Assurez-vous la maintenance après le déploiement ?",
@@ -202,7 +202,7 @@ const fr = {
       title: "Votre solution évolue.\n^Nous restons à vos côtés",
       text: "Pour chaque solution mise en service, notre proposition distingue le coût de création et le paiement récurrent lié à son exploitation. Son montant dépend de la complexité, des volumes et des services nécessaires, avec des conditions définies avant le démarrage.",
       recurringLabel: "Paiement récurrent · défini au contrat",
-      familyNote: "Ce suivi accompagne les six familles de solutions. Il ne constitue pas une septième offre.",
+      familyNote: "Ce suivi est proposé en option pour chacune de nos six solutions.",
       /* Décision du 14/11/2026 : la formation fait partie de chaque projet.
          Affiché sur les six pages solutions (`IncludedStrip`). */
       included: {
@@ -303,11 +303,11 @@ const fr = {
     peopleTitle: "Deux développeurs,\ndes expertises complémentaires",
     people: [
       {
-        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Co-fondateur · IA, agents & automatisations",
+        first: "Antonino", photo: "/equipe/AntoEquipe.webp", headline: "Automatiser et faire grandir", role: "Cofondateur · IA, agents & automatisations",
         text: "Antonino analyse vos processus métier, conçoit les workflows et développe les agents IA. Il identifie les tâches qui méritent d’être automatisées et prépare leur intégration dans votre environnement.",
       },
       {
-        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Co-fondateur · Logiciels & intégrations",
+        first: "Killian", photo: "/equipe/KillianEquipe.webp", headline: "Concevoir des idées durables", role: "Cofondateur · Logiciels & intégrations",
         text: "Killian développe les applications IA, les logiciels métier et les intégrations entre vos outils. Il transforme le besoin cadré en une solution utilisable, testée et adaptée à votre activité.",
       },
     ],
@@ -468,7 +468,7 @@ const en = {
         },
         {
           q: "Will my data remain confidential?",
-          a: "Confidentiality and access control are built in from the design stage. The tools and services involved, along with how data is handled, are defined according to your project requirements.",
+          a: "Yes. Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval.",
         },
         {
           q: "Do you provide maintenance after deployment?",
@@ -543,7 +543,7 @@ const en = {
       title: "Your solution evolves.\n^We keep it running",
       text: "For every solution that goes live, our proposal separates the build cost from the recurring payment required to run it. The amount depends on complexity, usage volumes and the services involved, with the terms agreed before work begins.",
       recurringLabel: "Recurring payment · defined in the contract",
-      familyNote: "This support applies across all six solution families. It is not a seventh offer.",
+      familyNote: "This support is available as an option for each of our six solutions.",
       included: {
         title: "Included in every project",
         items: ["Installation and go-live", "Training for your users", "Documentation handed over", "Support until your team is up to speed"],

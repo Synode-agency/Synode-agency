@@ -84,7 +84,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowDown aria-hidden /></Link>
           <Link href={bookHref} className="btn btn--ghost">{site.cta}</Link>
         </div>
-        <span className="hero-reassurance">{locale === "fr" ? <>Chaque projet garde son statut visible : outil interne, outil en bêta ou projet client.</> : "Every project keeps its status visible: internal tool, beta tool or client project."}</span>
+        <span className="hero-reassurance">{locale === "fr" ? <>Nexus est notre outil interne, Coory est en bêta avec un coach en activité.</> : "Nexus is our internal tool; Coory is in beta with a working coach."}</span>
       </PageHero>
 
       <Band id="liste" tone="white">

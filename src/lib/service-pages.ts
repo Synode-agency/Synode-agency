@@ -132,7 +132,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Usages concrets et formes d’agents",
     usesCards: true,
     mergeForms: true,
-    usesText: "Les usages ci-dessous sont ceux que nous rencontrons le plus souvent en entreprise. Votre besoin peut être différent : il est cadré à partir de vos processus métier.",
+    usesText: "Voici des usages courants en entreprise. Votre besoin peut être différent : il est cadré à partir de vos processus métier.",
     uses: [
       { title: "Répondre aux demandes courantes", text: "Préparer une réponse à partir de vos documents, avec les sources utilisées.", form: "Agent conversationnel" },
       { title: "Rechercher dans vos documents", text: "Retrouver une information précise dans des fichiers autorisés.", form: "Agent documentaire" },
@@ -153,7 +153,7 @@ const fr: Record<string, ServicePageContent> = {
     coreNote: "Les accès sont limités au nécessaire. Les actions sensibles restent soumises à validation humaine.",
     afterTitle: "Votre agent évolue avec votre activité",
     afterTitleAccents: ["évolue"],
-    afterText: "Un agent vit dans un environnement qui change : vos documents, vos règles et vos outils évoluent. Voici ce que nous assurons après la mise en service.",
+    afterText: "Un agent vit dans un environnement qui change : vos documents, vos règles et vos outils évoluent. Si vous nous confiez le suivi, voici ce que nous assurons après la mise en service.",
     after: [
       { title: "Surveillance du fonctionnement", text: "Nous suivons les exécutions, les erreurs et les cas sortis du périmètre prévu.", status: "surveillance en cours" },
       { title: "Ajustement des règles", text: "Les réponses et les actions sont corrigées à partir des retours de vos utilisateurs.", status: "ajustement en cours" },
@@ -187,7 +187,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Cas d’usage de l’automatisation intelligente",
     usesCards: true,
     mergeForms: true,
-    usesText: "L’automatisation des processus métier devient pertinente lorsqu’une tâche se répète selon des règles connues. Ces exemples présentent les usages les plus fréquents pour réduire la saisie manuelle, accélérer les traitements et limiter les oublis en entreprise.",
+    usesText: "L’automatisation des processus métier devient pertinente lorsqu’une tâche se répète selon des règles connues. Ces exemples présentent des usages courants pour réduire la saisie manuelle, accélérer les traitements et limiter les oublis en entreprise.",
     uses: [
       { title: "Trier les demandes entrantes", text: "Classer un email ou un formulaire et l’attribuer au bon interlocuteur.", form: "Administratif" },
       { title: "Extraire les données d’un document", text: "Lire un bon de commande, un formulaire ou une pièce jointe reçue par email.", form: "Documentaire" },
@@ -208,7 +208,7 @@ const fr: Record<string, ServicePageContent> = {
     coreNote: "Les fichiers d’origine sont conservés, et chaque exécution laisse une trace consultable.",
     afterTitle: "Vos automatisations évoluent\navec vos processus",
     afterTitleAccents: ["évoluent"],
-    afterText: "Une automatisation de processus n’est jamais figée : vos règles métier changent, vos volumes évoluent et vos logiciels sont mis à jour. Après la mise en service, nous suivons le fonctionnement du flux et adaptons la solution lorsque votre activité l’exige.",
+    afterText: "Une automatisation de processus n’est jamais figée : vos règles métier changent, vos volumes évoluent et vos logiciels sont mis à jour. Si vous nous confiez le suivi, nous surveillons le fonctionnement du flux après la mise en service et adaptons la solution lorsque votre activité l’exige.",
     after: [
       { title: "Surveillance des exécutions", text: "Les échecs, les blocages et les files d’attente anormales sont détectés.", status: "surveillance en cours" },
       { title: "Traitement des exceptions", text: "Les cas sortis du flux sont analysés, puis intégrés aux règles si c’est utile.", status: "traitement en cours" },
@@ -243,7 +243,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Cas d’usage des logiciels sur mesure",
     usesCards: true,
     mergeForms: true,
-    usesText: "Le développement d’un logiciel sur mesure se justifie lorsque vos processus métier ne tiennent plus dans un tableur ou qu’un logiciel généraliste oblige vos équipes à multiplier les contournements. Voici les applications internes et interfaces métier les plus fréquemment demandées.",
+    usesText: "Le développement d’un logiciel sur mesure se justifie lorsque vos processus métier ne tiennent plus dans un tableur ou qu’un logiciel généraliste oblige vos équipes à multiplier les contournements. Voici des applications internes et interfaces métier typiques.",
     uses: [
       { title: "Centraliser les dossiers", text: "Réunir dans un seul espace ce qui circule aujourd’hui par email.", form: "Outil de gestion" },
       { title: "Suivre des interventions", text: "Planifier, suivre l’avancement et conserver l’historique d’un dossier.", form: "Interface métier" },
@@ -264,7 +264,7 @@ const fr: Record<string, ServicePageContent> = {
     coreNote: "L’hébergement, les sauvegardes et les conditions d’accès sont définis avec vous avant le développement.",
     afterTitle: "Votre logiciel métier évolue\navec votre activité",
     afterTitleAccents: ["évolue"],
-    afterText: "Une application métier utilisée au quotidien doit évoluer avec vos équipes, vos processus et vos volumes. Après sa mise en service, nous assurons la maintenance technique, le suivi des usages et le développement progressif des nouvelles fonctionnalités prioritaires.",
+    afterText: "Une application métier utilisée au quotidien doit évoluer avec vos équipes, vos processus et vos volumes. Si vous nous confiez le suivi, nous assurons après sa mise en service la maintenance technique, le suivi des usages et le développement progressif des nouvelles fonctionnalités prioritaires.",
     after: [
       { title: "Maintenance technique", text: "Mises à jour, correctifs et surveillance de la disponibilité.", status: "maintenance en cours" },
       { title: "Nouvelles fonctionnalités", text: "Les demandes sont priorisées, estimées, puis développées par étapes.", status: "arbitrage en cours" },
@@ -299,7 +299,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Cas d’usage des systèmes connectés",
     usesCards: true,
     mergeForms: true,
-    usesText: "Une intégration devient utile dès que la même information doit être copiée ou vérifiée dans plusieurs logiciels. Ces exemples présentent les connexions les plus demandées pour synchroniser un CRM, un ERP, des outils SaaS, des bases de données et des applications internes.",
+    usesText: "Une intégration devient utile dès que la même information doit être copiée ou vérifiée dans plusieurs logiciels. Ces exemples présentent des connexions courantes pour synchroniser un CRM, un ERP, des outils SaaS, des bases de données et des applications internes.",
     uses: [
       { title: "Relier votre site à votre CRM", text: "Une demande validée crée ou met à jour la fiche correspondante.", form: "Site web et formulaires" },
       { title: "Synchroniser des contacts", text: "Une même fiche client, à jour dans les outils concernés.", form: "CRM" },
@@ -320,7 +320,7 @@ const fr: Record<string, ServicePageContent> = {
     coreNote: "Chaque échange est limité aux données nécessaires, et consigné pour pouvoir être vérifié.",
     afterTitle: "Vos intégrations demandent\nun suivi technique",
     afterTitleAccents: ["suivi technique"],
-    afterText: "Une connexion entre logiciels dépend d’API, de formats et de services externes qui peuvent évoluer. Après la mise en service, nous surveillons les échanges, les erreurs, les quotas et les changements techniques susceptibles d’affecter la synchronisation.",
+    afterText: "Une connexion entre logiciels dépend d’API, de formats et de services externes qui peuvent évoluer. Si vous nous confiez le suivi, nous surveillons après la mise en service les échanges, les erreurs, les quotas et les changements techniques susceptibles d’affecter la synchronisation.",
     after: [
       { title: "Surveillance des échanges", text: "Les erreurs de transfert et les interruptions sont détectées rapidement.", status: "surveillance en cours" },
       { title: "Suivi des évolutions d’API", text: "Une modification côté éditeur peut demander une adaptation de la connexion.", status: "vérification en cours" },
@@ -355,7 +355,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Cas d’usage de la Data & intelligence",
     usesCards: true,
     mergeForms: true,
-    usesText: "Un projet data ne consiste pas seulement à produire des graphiques : il doit répondre à des questions métier précises avec des données fiables. Voici les usages les plus fréquents, de la centralisation des données au tableau de bord, jusqu’à la détection d’anomalies et à la prévision.",
+    usesText: "Un projet data ne consiste pas seulement à produire des graphiques : il doit répondre à des questions métier précises avec des données fiables. Voici des usages courants, de la centralisation des données au tableau de bord, jusqu’à la détection d’anomalies et à la prévision.",
     uses: [
       { title: "Réunir des données dispersées", text: "Rassembler ce qui vit aujourd’hui dans plusieurs outils et fichiers.", form: "Centralisation des données" },
       { title: "Suivre l’activité", text: "Chiffre d’affaires, marge, trésorerie, délais de paiement : à jour, sans export manuel.", form: "Tableau de bord métier" },
@@ -376,7 +376,7 @@ const fr: Record<string, ServicePageContent> = {
     coreNote: "La qualité des données disponibles détermine ce qui peut être affirmé. Nous le disons avant de livrer un chiffre.",
     afterTitle: "Vos données et tableaux de bord restent fiables",
     afterTitleAccents: ["données", "tableaux", "fiables"],
-    afterText: "La fiabilité d’un tableau de bord dépend de sources qui évoluent, de formats qui changent et d’indicateurs qui doivent rester alignés sur votre activité. Après la mise en service, nous surveillons les alimentations, la qualité des données et les éventuelles dérives des modèles.",
+    afterText: "La fiabilité d’un tableau de bord dépend de sources qui évoluent, de formats qui changent et d’indicateurs qui doivent rester alignés sur votre activité. Si vous nous confiez le suivi, nous surveillons après la mise en service les alimentations, la qualité des données et les éventuelles dérives des modèles.",
     after: [
       { title: "Surveillance des alimentations", text: "Une source interrompue ou incomplète est détectée avant d’être lue.", status: "surveillance en cours" },
       { title: "Contrôle de qualité", text: "Les écarts et les valeurs aberrantes sont suivis dans le temps.", status: "contrôle en cours" },
@@ -413,7 +413,7 @@ const fr: Record<string, ServicePageContent> = {
     usesKicker: "Cas d’usage et formats de formation IA",
     usesCards: true,
     mergeForms: true,
-    usesText: "Une formation IA en entreprise doit partir des métiers, des outils autorisés et des situations rencontrées par vos équipes. Ces objectifs couvrent les besoins les plus fréquents : comprendre les limites de l’IA, mieux formuler les demandes, vérifier les réponses et protéger les informations sensibles.",
+    usesText: "Une formation IA en entreprise doit partir des métiers, des outils autorisés et des situations rencontrées par vos équipes. Ces objectifs couvrent des besoins courants : comprendre les limites de l’IA, mieux formuler les demandes, vérifier les réponses et protéger les informations sensibles.",
     uses: [
       { title: "Comprendre ce que l’IA peut faire", text: "Et surtout ce qu’elle ne sait pas faire de façon fiable.", form: "Atelier de découverte" },
       { title: "Choisir les bons usages", text: "Identifier les tâches où l’IA apporte un gain vérifiable.", form: "Session métier" },
@@ -470,7 +470,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Concrete uses and agent types",
     usesCards: true,
     mergeForms: true,
-    usesText: "These are the uses we meet most often in business. Your need may be different: it is scoped around your own processes.",
+    usesText: "Here are common uses in business. Your need may be different: it is scoped around your own processes.",
     uses: [
       { title: "Answer routine requests", text: "Prepare a reply from your documents, with the sources used.", form: "Conversational agent" },
       { title: "Search your documents", text: "Find one specific detail inside authorised files.", form: "Document agent" },
@@ -491,7 +491,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Access is limited to what is necessary. Sensitive actions remain subject to human approval.",
     afterTitle: "Your agent changes as your business does",
     afterTitleAccents: ["changes"],
-    afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. Here is what we handle after go-live.",
+    afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. If you entrust the follow-up to us, here is what we handle after go-live.",
     after: [
       { title: "Monitoring", text: "We watch runs, errors and cases that fall outside the intended scope.", status: "monitoring in progress" },
       { title: "Rule adjustments", text: "Answers and actions are corrected from your users' feedback.", status: "adjustment in progress" },
@@ -546,7 +546,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Original files are kept, and every run leaves a record you can consult.",
     afterTitle: "Your automations evolve with your processes",
     afterTitleAccents: ["evolve"],
-    afterText: "An automated workflow is never set in stone: your business rules change, volumes grow and software gets updated. After go-live, we monitor how the workflow runs and adapt it whenever your business needs it to.",
+    afterText: "An automated workflow is never set in stone: your business rules change, volumes grow and software gets updated. If you entrust the follow-up to us, we monitor how the workflow runs after go-live and adapt it whenever your business needs it to.",
     after: [
       { title: "Run monitoring", text: "Failures, blockages and unusual queues are detected.", status: "monitoring in progress" },
       { title: "Exception handling", text: "Cases that left the flow are reviewed, then folded into the rules if useful.", status: "handling in progress" },
@@ -602,7 +602,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Hosting, backups and access conditions are agreed with you before development starts.",
     afterTitle: "Your custom software grows with your business",
     afterTitleAccents: ["grows"],
-    afterText: "A business application used every day has to evolve with your teams, processes and volumes. After go-live, we handle technical maintenance, monitor how it is used and gradually build the new features you prioritise.",
+    afterText: "A business application used every day has to evolve with your teams, processes and volumes. If you entrust the follow-up to us, we handle technical maintenance after go-live, monitor how it is used and gradually build the new features you prioritise.",
     after: [
       { title: "Technical maintenance", text: "Updates, fixes and availability monitoring.", status: "maintenance in progress" },
       { title: "New features", text: "Requests are prioritised, estimated, then built in stages.", status: "review in progress" },
@@ -658,7 +658,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "Each exchange is limited to the data required, and logged so it can be checked.",
     afterTitle: "Your software integrations remain reliable",
     afterTitleAccents: ["remain reliable"],
-    afterText: "A software connection relies on APIs, formats and third-party services that change over time. After go-live, we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
+    afterText: "A software connection relies on APIs, formats and third-party services that change over time. If you entrust the follow-up to us, after go-live we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
     after: [
       { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly.", status: "monitoring in progress" },
       { title: "Following API changes", text: "A change on the vendor's side can require adapting the connection.", status: "check in progress" },
@@ -715,7 +715,7 @@ const en: Record<string, ServicePageContent> = {
     coreNote: "The quality of the available data decides what can be claimed. We say so before delivering a figure.",
     afterTitle: "Your dashboards stay reliable over time",
     afterTitleAccents: ["stay reliable"],
-    afterText: "Business data changes continuously as sources, formats and definitions evolve. We monitor feeds, data quality, models and key performance indicators after go-live.",
+    afterText: "Business data changes continuously as sources, formats and definitions evolve. If you entrust the follow-up to us, we monitor feeds, data quality, models and key performance indicators after go-live.",
     after: [
       { title: "Feed monitoring", text: "An interrupted or incomplete source is detected before it is read.", status: "monitoring in progress" },
       { title: "Quality control", text: "Gaps and outliers are tracked over time.", status: "check in progress" },

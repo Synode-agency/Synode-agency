@@ -44,17 +44,17 @@ export function TeamPage({ locale }: { locale: Locale }) {
       <PageHero
         className="team-hero"
         kicker={locale === "fr" ? "Agence technologique · Bruxelles" : "Technology agency · Brussels"}
-        title={locale === "fr" ? <>Les <span>experts</span> de Synode</> : <>The <span>experts</span> behind Synode</>}
+        title={locale === "fr" ? <>Les <span>fondateurs</span> de Synode</> : <>The <span>founders</span> of Synode</>}
       >
         <p>{team.vision}</p>
         <div className="btn-row">
-          <Link href="#associes" className="btn btn--primary">{locale === "fr" ? "Rencontrer les associés" : "Meet the partners"}<ArrowDown aria-hidden /></Link>
+          <Link href="#associes" className="btn btn--primary">{locale === "fr" ? "Rencontrer les fondateurs" : "Meet the founders"}<ArrowDown aria-hidden /></Link>
           <Link href={bookHref} className="btn btn--ghost">{site.cta}</Link>
         </div>
       </PageHero>
 
       <Band id="associes" tone="white">
-        <Lede kicker={locale === "fr" ? "Les associés" : "The partners"} title={team.peopleTitle} accents={locale === "fr" ? ["expertises complémentaires"] : ["complementary expertise"]} />
+        <Lede kicker={locale === "fr" ? "Les fondateurs" : "The founders"} title={team.peopleTitle} accents={locale === "fr" ? ["expertises complémentaires"] : ["complementary expertise"]} />
         {/* Les quatre textes de chaque carte viennent du contenu et sont
             affichés mot pour mot. Voir `components/equipe/team-card`. */}
         <div className="section-gap">

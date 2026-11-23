@@ -54,7 +54,7 @@ const fr = {
   intro: {
     kicker: "Réalisations",
     title: "Ce que nous construisons,\n^et où nous en sommes",
-    text: "Les projets de Synode : des logiciels métier que nous concevons et développons nous-mêmes, avec l’IA intégrée là où elle apporte un vrai gain. Chaque projet présente son état réel, sans résultat inventé ni référence client non autorisée.",
+    text: "Les projets de Synode : des logiciels métier que nous concevons et développons nous-mêmes, avec l’IA intégrée là où elle apporte un vrai gain. Nos deux premiers logiciels sont présentés tels qu’ils sont ; les projets clients s’ajouteront ici, avec l’accord de chaque client.",
   },
   empty: {
     title: "D’autres projets sont en préparation",
@@ -69,7 +69,7 @@ const fr = {
     doesTitle: "Ce que Nexus fait aujourd’hui",
     aiTitle: "Comment l’IA assiste la recherche et la qualification",
     goalsTitle: "Ce que nous cherchons à obtenir avec Nexus",
-    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les chiffres des écrans de Nexus sont des données d’illustration : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
+    goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les entreprises, les noms, les adresses et les chiffres des écrans de Nexus sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     limitsTitle: "Limites et validation humaine",
     backLabel: "Toutes les réalisations",
     cta: "Un besoin similaire ?",
@@ -109,7 +109,7 @@ const fr = {
         "Éviter de contacter des entreprises pour qui notre travail n’a pas de sens.",
       ],
       limits: [
-        "Aucune donnée personnelle n’est exposée publiquement, et cet outil n’est pas accessible depuis le site.",
+        "Nexus est un outil interne, inaccessible depuis le site : les données qu’il traite ne sont jamais publiées. Les entreprises et les personnes visibles sur ces écrans sont fictives.",
         "Chaque premier message est préparé par l’outil, puis relu et envoyé par un humain.",
       ],
       todo: false,
@@ -158,7 +158,7 @@ const en = {
   intro: {
     kicker: "Work",
     title: "What we are building\n^and where we stand",
-    text: "Synode’s projects: business software we design and build ourselves, with AI built in where it brings a real gain. Every project shows its actual status, with no invented results or unauthorised client references.",
+    text: "Synode’s projects: business software we design and build ourselves, with AI built in where it brings a real gain. Our first two products are shown as they are; client projects will be added here, with each client’s agreement.",
   },
   empty: {
     title: "More projects are in preparation",
@@ -173,7 +173,7 @@ const en = {
     doesTitle: "What Nexus does today",
     aiTitle: "How AI supports research and qualification",
     goalsTitle: "What we aim to achieve with Nexus",
-    goalsNote: "These are goals, not measured results. The figures on the Nexus screens are sample data: no result will be published here before it has been measured in real conditions.",
+    goalsNote: "These are goals, not measured results. The companies, names, addresses and figures on the Nexus screens are fictitious: no result will be published here before it has been measured in real conditions.",
     limitsTitle: "Limits and human approval",
     backLabel: "All work",
     cta: "Something similar in mind?",
@@ -213,7 +213,7 @@ const en = {
         "Avoid contacting companies our work makes no sense for.",
       ],
       limits: [
-        "No personal data is exposed publicly, and this tool is not reachable from the website.",
+        "Nexus is an internal tool, not reachable from the website: the data it handles is never published. The companies and people shown on these screens are fictitious.",
         "Each first message is prepared by the tool, then reviewed and sent by a person.",
       ],
       todo: false,
