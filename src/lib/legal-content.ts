@@ -48,10 +48,10 @@ const fr: LegalTexts = {
     {
       title: "Présentation de Synode",
       blocks: [
-        "Synode Agency (marque : Synode) est le nom commercial d’une activité de services aux entreprises (B2B) : conception et développement de solutions d’intelligence artificielle, d’intégration de systèmes et de logiciels sur mesure.",
+        "Synode agency (marque : Synode) est le nom commercial d’une activité de services aux entreprises (B2B) : conception et développement de solutions d’intelligence artificielle, d’intégration de systèmes et de logiciels sur mesure.",
         {
           list: [
-            "**Nom commercial :** Synode Agency (marque : Synode)",
+            "**Nom commercial :** Synode agency (marque : Synode)",
             "**Responsables du site :** Killian Schoebben et Antonino Lo Bianco",
             "**Adresse professionnelle :** rue des Alcyons 86, 1082 Bruxelles, Belgique",
             "**E-mail :** {email}",
@@ -246,10 +246,10 @@ const en: LegalTexts = {
     {
       title: "About Synode",
       blocks: [
-        "Synode Agency (brand: Synode) is the trading name of a business-to-business (B2B) service activity: designing and building artificial intelligence solutions, systems integration and custom software.",
+        "Synode agency (brand: Synode) is the trading name of a business-to-business (B2B) service activity: designing and building artificial intelligence solutions, systems integration and custom software.",
         {
           list: [
-            "**Trading name:** Synode Agency (brand: Synode)",
+            "**Trading name:** Synode agency (brand: Synode)",
             "**People responsible for the website:** Killian Schoebben and Antonino Lo Bianco",
             "**Business address:** Rue des Alcyons 86, 1082 Brussels, Belgium",
             "**Email:** {email}",

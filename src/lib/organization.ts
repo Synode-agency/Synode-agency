@@ -9,7 +9,7 @@
  * synode-it.com, une plateforme 3D canadienne). Le nom complet est donc le
  * nom principal des données structurées, et la marque son autre nom.
  */
-export const organizationName = "Synode Agency";
+export const organizationName = "Synode agency";
 export const organizationAlternateName = "Synode";
 
 /**

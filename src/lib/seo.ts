@@ -3,12 +3,12 @@
  * cartes de partage (l'aperçu qui s'affiche quand on envoie un lien par
  * WhatsApp, par message, sur LinkedIn…).
  *
- * Décision du 23/11/2026 : « Synode » est la MARQUE, « Synode Agency » le
+ * Décision du 23/11/2026 : « Synode » est la MARQUE, « Synode agency » le
  * NOM COMPLET. C'est lui que portent les titres des pages, le nom du site
  * dans les cartes de partage et les données structurées : c'est aussi ce
  * que les gens tapent dans Google.
  */
-export const SITE_NAME = "Synode Agency";
+export const SITE_NAME = "Synode agency";
 
 /** Le titre d'une page : son sujet, puis le nom complet. */
 export const withBrand = (title: string) => `${title} - ${SITE_NAME}`;

@@ -7,7 +7,7 @@ const c = getContent("en").home;
 
 export const metadata: Metadata = {
   /* ⚠ `absolute` : sur l'accueil, et seulement là, le nom complet vient
-     EN PREMIER (« Synode Agency - … », décision du 23/11/2026). Le gabarit
+     EN PREMIER (« Synode agency - … », décision du 23/11/2026). Le gabarit
      du layout ne s'applique de toute façon pas au segment qui le déclare. */
   title: { absolute: `${SITE_NAME} - ${c.metaTitle}` },
   description: c.metaDescription,
