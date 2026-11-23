@@ -97,21 +97,27 @@ function brevoFetch(apiKey: string, endpoint: string, body: unknown) {
  * S'il en manque, Brevo refuse le contact : on réessaie alors avec l'adresse
  * seule, pour ne jamais perdre la demande, et le serveur le signale.
  */
-/* ⚠ TOUS les attributs partent à chaque demande, vides compris. Avec
-   `updateEnabled`, une deuxième demande de la même adresse met la fiche à
-   jour : si les champs facultatifs vides étaient omis, ceux de la demande
-   précédente restaient, et la fiche mélangeait deux demandes. */
+/* ⚠ TOUS les attributs partent à chaque demande. Avec `updateEnabled`, une
+   deuxième demande de la même adresse met la fiche à jour : si les champs
+   facultatifs vides étaient omis, ceux de la demande précédente restaient,
+   et la fiche mélangeait deux demandes.
+
+   ⚠ JAMAIS UNE CHAÎNE VIDE : Brevo la refuse avec une erreur 500, et le
+   formulaire échouait (testé le 23/11/2026 avec deux envois de la même
+   adresse). Un champ laissé vide part donc en « Non renseigné ». */
+const NOT_GIVEN = "Non renseigné";
+
 function brevoAttributes(req: ContactRequest) {
   return {
     NOM: req.name,
     DEMANDE: req.need,
     DATE_DEMANDE: req.receivedAt.slice(0, 10),
     LANGUE: req.locale,
-    ENTREPRISE: req.company ?? "",
-    TELEPHONE_DEMANDE: req.phone ?? "",
-    SITE_WEB: req.website ?? "",
-    ECHEANCE: req.timeline ?? "",
-    BUDGET: req.budget ?? "",
+    ENTREPRISE: req.company || NOT_GIVEN,
+    TELEPHONE_DEMANDE: req.phone || NOT_GIVEN,
+    SITE_WEB: req.website || NOT_GIVEN,
+    ECHEANCE: req.timeline || NOT_GIVEN,
+    BUDGET: req.budget || NOT_GIVEN,
   };
 }
 
@@ -128,7 +134,16 @@ async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
     updateEnabled: true,
   };
   try {
-    const res = await brevoFetch(config.apiKey, "/contacts", { ...contact, attributes: brevoAttributes(req) });
+    const body = { ...contact, attributes: brevoAttributes(req) };
+    let res = await brevoFetch(config.apiKey, "/contacts", body);
+    /* Brevo répond parfois 500 « Internal Server Error » à une demande
+       valide, puis l'accepte quelques secondes plus tard (constaté le
+       23/11/2026 : deux échecs de suite, puis la même demande acceptée). Un
+       second essai évite au visiteur une erreur qui n'est pas la sienne. */
+    if (res.status >= 500) {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      res = await brevoFetch(config.apiKey, "/contacts", body);
+    }
     if (res.ok) return { ok: true, backend: "brevo" };
 
     const detail = await res.text();
