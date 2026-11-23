@@ -182,7 +182,7 @@ const fr: LegalTexts = {
         {
           list: [
             "**Stockage de session** : le brief préparé sur la page d’accueil est conservé dans votre navigateur, puis effacé dès que le formulaire de contact le reprend, ou à la fermeture de l’onglet.",
-            "**Cal.com** : chargé uniquement lorsque vous cliquez sur « Ouvrir le calendrier ». Cal.com dépose alors un cookie technique de sécurité (« __cf_bm », 30 minutes).",
+            "**Cal.com** : chargé uniquement lorsque vous cliquez sur « Ouvrir le calendrier ». Cal.com dépose alors notamment un cookie technique de sécurité (« __cf_bm », 30 minutes).",
             "**E-mails** : Brevo mesure l’ouverture et les clics de manière anonymisée, sans lien avec votre adresse.",
           ],
         },
@@ -353,7 +353,7 @@ const en: LegalTexts = {
         {
           list: [
             "**Session storage**: the brief prepared on the home page is kept in your browser, then deleted as soon as the contact form picks it up, or when you close the tab.",
-            "**Cal.com**: only loaded when you click “Open the calendar”. Cal.com then sets a technical security cookie (“__cf_bm”, 30 minutes).",
+            "**Cal.com**: only loaded when you click “Open the calendar”. Cal.com then sets cookies, including a technical security cookie (“__cf_bm”, 30 minutes).",
             "**Emails**: Brevo measures opens and clicks anonymously, without any link to your address.",
           ],
         },
