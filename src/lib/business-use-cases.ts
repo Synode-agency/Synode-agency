@@ -106,7 +106,7 @@ const fr: readonly BusinessUseCase[] = [
     example: "Chaque demande est comprise quelle que soit sa langue, classée et orientée, et une réponse est préparée dans la langue du client à partir de vos informations, avant d’être validée.",
   },
   {
-    slug: "orchestration-processus-metier",
+    slug: "enchainement-des-etapes",
     icon: "workflow",
     domain: "Circulation des demandes",
     title: "Faire suivre une demande d’une étape à l’autre, sans ressaisie",
@@ -307,7 +307,7 @@ const en: readonly BusinessUseCase[] = [
     example: "Each request is understood whatever its language, classified and routed, and a reply is drafted in the client’s language from your information, before being approved.",
   },
   {
-    slug: "end-to-end-process-orchestration",
+    slug: "connected-process-steps",
     icon: "workflow",
     domain: "Request flow",
     title: "Move a request from one step to the next, without retyping",

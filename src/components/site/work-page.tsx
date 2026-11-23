@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { ContextSection } from "@/components/nexus/context-section";
@@ -53,7 +53,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           "@type": "ListItem",
           position: 1,
           url: `${siteUrl}${pagePath}/${nexus.slug}`,
-          name: locale === "fr" ? "Nexus — Logiciel de prospection" : "Nexus — Prospecting software",
+          name: locale === "fr" ? "Nexus - Logiciel de prospection" : "Nexus - Prospecting software",
           description: nexus.problem,
         },
         coory && {
@@ -81,8 +81,8 @@ export function WorkPage({ locale }: { locale: Locale }) {
       >
         <p>{w.intro.text}</p>
         <div className="btn-row">
-          <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowRight aria-hidden /></Link>
-          <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
+          <Link href="#liste" className="btn btn--primary">{locale === "fr" ? "Voir les projets" : "See the projects"}<ArrowDown aria-hidden /></Link>
+          <Link href={bookHref} className="btn btn--ghost">{site.cta}</Link>
         </div>
         <span className="hero-reassurance">{locale === "fr" ? <>* Chaque projet garde son statut visible : outil interne, outil en bêta ou projet client.</> : "* Every project keeps its status visible: internal tool, beta tool or client project."}</span>
       </PageHero>

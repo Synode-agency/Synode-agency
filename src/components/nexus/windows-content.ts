@@ -88,7 +88,7 @@ export const NEXUS_WINDOWS: Record<"fr" | "en", WindowsContent> = {
     discovery: {
       kicker: "EXÉCUTION",
       title: "Discovery",
-      lede: "Orchestrez les recherches et suivez leur traitement.",
+      lede: "Lancez les recherches et suivez leur traitement.",
       manualTitle: "Lancement manuel",
       manualText: "Traite les prochains jobs disponibles dans la file.",
       launch: "Lancer maintenant",

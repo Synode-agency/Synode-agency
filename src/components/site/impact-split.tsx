@@ -30,14 +30,14 @@ const ICONS = [GitMerge, ShieldCheck, Database, UserCheck];
 
 const ITEMS = {
   fr: [
-    { label: "Orchestration", title: "Continuité des processus", text: "Réduisez les ruptures entre vos outils, vos équipes et les différentes étapes de vos processus métier grâce à une meilleure orchestration des systèmes." },
-    { label: "Règles métier", title: "Fiabilité opérationnelle", text: "Intégrez vos règles métier, contrôles et validations directement dans votre système IA afin de fiabiliser l’exécution de vos processus." },
+    { label: "Coordination", title: "Continuité des processus", text: "Réduisez les ruptures entre vos outils, vos équipes et les différentes étapes de vos processus métier grâce à une meilleure orchestration des systèmes." },
+    { label: "Règles métier", title: "Fiabilité opérationnelle", text: "Intégrez vos règles métier, contrôles et validations directement dans votre solution afin de fiabiliser l’exécution de vos processus." },
     { label: "Pilotage", title: "Exploitation des données", text: "Centralisez, contextualisez et rendez vos données exploitables au bon moment pour faciliter le pilotage et la prise de décision." },
     { label: "Validation humaine", title: "Capacité opérationnelle augmentée", text: "Automatisez certaines étapes de vos processus métier tout en conservant un contrôle humain sur les décisions importantes et les situations complexes." },
   ],
   en: [
-    { label: "Orchestration", title: "Process continuity", text: "Reduce the breaks between your tools, your teams and the successive steps of a business process through better orchestration of your systems." },
-    { label: "Business rules", title: "Operational reliability", text: "Build your business rules, checks and approvals into your AI system itself, so that your processes run reliably." },
+    { label: "Coordination", title: "Process continuity", text: "Reduce the breaks between your tools, your teams and the successive steps of a business process through better orchestration of your systems." },
+    { label: "Business rules", title: "Operational reliability", text: "Build your business rules, checks and approvals into the solution itself, so that your processes run reliably." },
     { label: "Oversight", title: "Data you can use", text: "Centralise and contextualise your data, and make it usable at the right moment to support oversight and decision-making." },
     { label: "Human approval", title: "Extended operational capacity", text: "Automate selected steps of your business processes while keeping human control over the decisions that matter and the situations that are complex." },
   ],

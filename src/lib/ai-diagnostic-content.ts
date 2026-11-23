@@ -66,7 +66,7 @@ const fr = {
   approaches: {
     automation: {
       title: "Automatisations intelligentes",
-      text: "Automatiser certaines étapes répétitives et orchestrer le passage d’une action à l’autre.",
+      text: "Automatiser certaines étapes répétitives et organiser le passage d’une action à l’autre.",
     },
     agents: {
       title: "Agents IA",
@@ -154,7 +154,7 @@ const en: typeof fr = {
   approaches: {
     automation: {
       title: "Intelligent Automations",
-      text: "Automate repetitive steps and orchestrate the move from one action to the next.",
+      text: "Automate repetitive steps and organise the move from one action to the next.",
     },
     agents: {
       title: "AI Agents",

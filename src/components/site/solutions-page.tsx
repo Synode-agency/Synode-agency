@@ -95,7 +95,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
         <div className="btn-row">
           <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions" : "Explore our solutions"}<ArrowDown aria-hidden /></Link>
-          <Link href={formHref} className="btn btn--ghost">{fr ? "Parlons de votre besoin" : "Tell us what you need"}</Link>
+          <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
         </div>
         <span className="hero-reassurance">{fr ? <>* Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "* A free first conversation. A clear scope. A tailored quote."}</span>
       </PageHero>
@@ -209,20 +209,18 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       <CardPanel id="autre" className="dark-cta solutions-cta solutions-page-cta">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
-            <span className="eyebrow">{fr ? "Parlons de votre projet" : "Let’s talk about your project"}</span>
+            <span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span>
             <Lede
-              title={fr ? "Parlons de votre projet" : "Let’s discuss your project"}
+              title={fr ? "Parlons de votre projet" : "Let’s talk about your project"}
               accents={fr ? ["votre projet"] : ["project"]}
 
               text={fr ? "En 30 minutes, Synode prend le temps de comprendre votre activité, vos outils et le processus à améliorer afin d’identifier une première piste adaptée à votre entreprise." : "In 30 minutes, Synode takes the time to understand your business, tools and the process you want to improve, then identify a first direction suited to your company."}
             />
             <div className="btn-row">
-              <Link href="#calendrier-solutions" className="btn btn--primary">{fr ? "Réserver un échange" : "Book a call"}<ArrowRight aria-hidden /></Link>
+              <Link href="#calendrier-solutions" className="btn btn--primary">{site.cta}<ArrowRight aria-hidden /></Link>
               <Link href={formHref} className="btn btn--ghost">{fr ? "Nous contacter" : "Contact us"}</Link>
             </div>
-            <p className="cta-note">{fr ? "30 minutes, sans engagement. " : "30 minutes. No commitment. "}{/* La coupe ne vaut qu'au bureau : sur téléphone les deux phrases
-                 tiennent sur une ligne, 286px pour 340 de colonne. L'espace est
-                 AVANT la coupe, pour ne rien décaler au bureau. */}<br className="only-desktop" />{site.ctaShort}</p>
+            <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
           <div id="calendrier-solutions" className="cta-booking-calendar"><Booking locale={locale} variant="card" /></div>
         </div>

@@ -34,16 +34,16 @@ const COPY = {
   fr: {
     kicker: "ENTREPRISE TECHNOLOGIQUE · BRUXELLES",
     title: "Solutions sur mesure, avec l’IA intégrée",
-    text: "Systèmes connectés, logiciels métier et intelligence artificielle, conçus autour de vos outils et de vos données.",
+    text: "Intelligence artificielle, systèmes connectés et logiciels sur mesure, conçus autour de vos outils et de vos données.",
     foot: "synode-agency.com",
-    alt: "Synode, entreprise technologique à Bruxelles : solutions sur mesure avec l’IA intégrée",
+    alt: "Synode Agency, entreprise technologique à Bruxelles : solutions sur mesure, avec l’IA intégrée",
   },
   en: {
     kicker: "TECHNOLOGY COMPANY · BRUSSELS",
     title: "Custom solutions, with built-in AI",
-    text: "Connected systems, business software and artificial intelligence, built around your tools and your data.",
+    text: "Artificial intelligence, connected systems and custom software, built around your tools and your data.",
     foot: "synode-agency.com",
-    alt: "Synode, technology company in Brussels: custom solutions with built-in AI",
+    alt: "Synode Agency, technology company in Brussels: custom solutions, with built-in AI",
   },
 } as const;
 

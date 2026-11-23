@@ -83,7 +83,7 @@ const fr = {
     email: "contact@synode-agency.com",
     location: "Bruxelles, Belgique",
     tagline:
-      "Solutions sur mesure avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
+      "Solutions sur mesure, avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
     nav: nav.fr,
     cta: "Réserver un échange gratuit",
     ctaShort: "Réserver un échange",
@@ -161,8 +161,8 @@ const fr = {
       title: "Questions fréquentes sur nos solutions sur mesure",
       items: [
         {
-          q: "Dois-je changer mes logiciels pour utiliser une solution IA ?",
-          a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution IA à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
+          q: "Dois-je changer mes logiciels pour travailler avec vous ?",
+          a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
         },
         {
           q: "Développez-vous aussi des logiciels sans IA ?",
@@ -199,7 +199,7 @@ const fr = {
 
   /* ---------------------------------------------------------------- Solutions */
   solutions: {
-    metaTitle: "Solutions sur mesure avec l’IA intégrée",
+    metaTitle: "Solutions sur mesure, avec l’IA intégrée",
     metaDescription:
       "Les solutions sur mesure de Synode à Bruxelles, avec l’IA intégrée : agents IA, intégrations, automatisations, logiciels métier, data et formation.",
     kicker: "Notre offre",
@@ -267,7 +267,7 @@ const fr = {
          Affiché sur les six pages solutions (`IncludedStrip`). */
       included: {
         title: "Inclus dans chaque projet",
-        items: ["Installation et mise en service", "Formation de vos utilisateurs", "Documentation remise", "Accompagnement des premières semaines"],
+        items: ["Installation et mise en service", "Formation de vos utilisateurs", "Documentation remise", "Accompagnement jusqu’à la prise en main"],
         more: "Former toute votre équipe à l’IA, même sans projet",
       },
       cycle: ["Conception", "Déploiement", "Surveillance", "Amélioration"],
@@ -285,10 +285,10 @@ const fr = {
 
     faqTitle: "Questions fréquentes sur nos solutions sur mesure",
     faq: [
-      { q: "Une solution IA peut-elle s’intégrer à mes logiciels actuels ?", a: "Oui, lorsque vos outils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
+      { q: "Dois-je remplacer mes logiciels actuels ?", a: "Pas nécessairement. La solution s’intègre à vos logiciels lorsqu’ils proposent des API, des exports ou d’autres possibilités de connexion. Nous étudions d’abord votre CRM, ERP, messagerie, bases de données et logiciels métier afin de définir une intégration réaliste avant le devis." },
       { q: "Combien coûte une solution sur mesure ?", a: "Il n’y a pas de grille tarifaire publique : le prix dépend du périmètre, des fonctionnalités, des volumes, des données et des logiciels à connecter. Vous recevez un devis personnalisé avant tout démarrage, qui distingue le développement, les coûts techniques récurrents, la maintenance si vous la choisissez et les services tiers." },
       { q: "Comment se déroule un projet avec Synode ?", a: "Le projet suit six étapes : cadrage du besoin métier, conception et architecture, développement sur mesure, intégration et déploiement, documentation et formation, puis maintenance et évolution si vous nous les confiez. Chaque étape est validée avec vous." },
-      { q: "Comment protégez-vous les données utilisées par la solution IA ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation." },
+      { q: "Mes données restent-elles confidentielles ?", a: "Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. Les actions sensibles restent soumises à votre validation." },
       { q: "Proposez-vous la maintenance et le monitoring après le déploiement ?", a: "Oui, si vous prenez notre service de suivi : Synode assure le monitoring, la maintenance et les interventions prévues, contre un paiement récurrent fixé au contrat. Sinon, la solution vous est livrée et déployée, et vous souscrivez directement les services nécessaires auprès des fournisseurs. Dans les deux cas, Synode ne prend jamais ces coûts à sa charge." },
       { q: "Combien de temps faut-il pour développer une solution sur mesure ?", a: "La durée dépend du périmètre, du nombre d’intégrations, de la disponibilité des données et des tests nécessaires. Les étapes, les livrables et le calendrier sont définis dans le devis avant le démarrage." },
       { q: "Une solution sur mesure peut-elle évoluer ?", a: "Oui. Une solution peut évoluer avec vos usages, vos outils et vos volumes. Les nouvelles fonctionnalités importantes font l’objet d’un cadrage, d’un chiffrage et d’un accord écrit avant leur développement." },
@@ -383,7 +383,7 @@ const fr = {
     ],
     cta: "Parlons de votre projet",
     ctaText:
-      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions sur mesure de la même façon : un interlocuteur par sujet, du cadrage à la mise en service.",
+      "Antonino cartographie vos processus et conçoit les workflows et les agents ; Killian développe les applications et les intégrations. Nous avons construit ce site nous-mêmes, et nous concevons vos solutions sur mesure de la même façon : un interlocuteur identifié pour votre projet, du cadrage à la mise en service.",
   },
 
   /* ------------------------------------------------------------------ Contact */
@@ -485,7 +485,7 @@ const en = {
     email: "contact@synode-agency.com",
     location: "Brussels, Belgium",
     tagline:
-      "Custom solutions with built-in AI: connected systems and business software, built around how you work.",
+      "Custom solutions, with built-in AI: connected systems and business software, built around how you work.",
     nav: nav.en,
     cta: "Book a free call",
     ctaShort: "Book a call",
@@ -552,7 +552,7 @@ const en = {
       title: "Common questions about our custom solutions",
       items: [
         {
-          q: "Do I need to change my software to use an AI solution?",
+          q: "Do I need to change my software to work with you?",
           a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or suggest a more suitable solution.",
         },
         {
@@ -589,7 +589,7 @@ const en = {
   },
 
   solutions: {
-    metaTitle: "Custom solutions with built-in AI",
+    metaTitle: "Custom solutions, with built-in AI",
     metaDescription:
       "Custom solutions with built-in AI from Synode in Brussels: AI agents, integrations, automations, business software, data and team training.",
     kicker: "What we sell",
@@ -655,7 +655,7 @@ const en = {
       familyNote: "This support applies across all six solution families. It is not a seventh offer.",
       included: {
         title: "Included in every project",
-        items: ["Installation and go-live", "Training for your users", "Documentation handed over", "Support in the first weeks"],
+        items: ["Installation and go-live", "Training for your users", "Documentation handed over", "Support until your team is up to speed"],
         more: "Train your whole team in AI, even without a project",
       },
       cycle: ["Design", "Deployment", "Monitoring", "Improvement"],
@@ -673,7 +673,7 @@ const en = {
 
     faqTitle: "Common questions about our custom solutions",
     faq: [
-      { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the AI solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
+      { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
       { q: "How much does a custom solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
       { q: "How does a project with Synode run?", a: "In six steps: scoping the business need, design and architecture, custom development, integration and go-live, documentation and training, then maintenance and changes if you entrust them to us. Each step is agreed with you." },
       { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval." },
@@ -738,7 +738,7 @@ const en = {
     ],
     cta: "Let’s talk about your project",
     ctaText:
-      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom solutions the same way: one named contact per subject, from scoping to go-live.",
+      "Antonino maps your processes and designs the workflows and agents; Killian builds the applications and integrations. We built this site ourselves, and we design your custom solutions the same way: one named contact for your project, from scoping to go-live.",
   },
 
   contact: {

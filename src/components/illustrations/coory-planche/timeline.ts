@@ -39,7 +39,7 @@ export function computeFrame(time: number) {
     const t5 = T % 10, wk = t5 < 7.2 ? Math.floor(t5 / 2.4) : 2, pub = t5 >= 7.8 && t5 < 9.7;
     const RUN = '#6E7BF2', HYR = '#E09B1C', MUS = '#E5384F', BG = { [RUN]: '#EEF0FE', [HYR]: '#FFF6E5', [MUS]: '#FDECEF' };
     const W5 = [
-      [['Endurance', RUN, 'Running', '40 min · Z2'], ['Force bas du corps', MUS, 'Musculation', 'Squat 4 × 6'], ['Circuit stations', HYR, 'Hyrox', 'Run 1 km @6:00'], ['Sortie longue', RUN, 'Running', '60 min · Z2']],
+      [['Endurance', RUN, 'Running', '40 min · Z2'], ['Force bas du corps', MUS, 'Musculation', 'Squat 4 × 6'], ['Circuit stations', HYR, 'Hyrox', 'Run 1 km · 6:00 /km'], ['Sortie longue', RUN, 'Running', '60 min · Z2']],
       [['Endurance', RUN, 'Running', '45 min · Z2'], ['Force haut du corps', MUS, 'Musculation', 'DC 4 × 6'], ['Ergomètres', HYR, 'Hyrox', 'Rameur 4 × 500 m'], ['Sortie longue', RUN, 'Running', '70 min · Z2']],
       [['Fractionné', RUN, 'Running', '6 × 800 m'], ['Force bas du corps', MUS, 'Musculation', 'Squat 5 × 5'], ['Course compromise', HYR, 'Hyrox', 'AMRAP 25 min'], ['Sortie longue', RUN, 'Running', '80 min · Z2']],
     ];

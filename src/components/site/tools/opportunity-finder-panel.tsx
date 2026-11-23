@@ -50,7 +50,7 @@ const content = {
       sales: { title: "Suivi commercial et prospection", text: "Structurer la recherche, les relances et la préparation des prises de contact." },
       knowledge: { title: "Accès à la connaissance interne", text: "Retrouver une information fiable dans les procédures, documents et outils de l’entreprise." },
       data: { title: "Pilotage et exploitation des données", text: "Centraliser les données utiles et rendre le reporting plus régulier et lisible." },
-      operations: { title: "Coordination des opérations", text: "Orchestrer les étapes, les validations et les passages entre personnes et logiciels." },
+      operations: { title: "Coordination des opérations", text: "Coordonner les étapes, les validations et les passages entre personnes et logiciels." },
     } satisfies Record<CandidateId, { title: string; text: string }>,
   },
   en: {
@@ -76,7 +76,7 @@ const content = {
       sales: { title: "Sales follow-up and prospecting", text: "Structure research, follow-ups and contact preparation." },
       knowledge: { title: "Access to internal knowledge", text: "Find reliable information in company procedures, documents and tools." },
       data: { title: "Data and business oversight", text: "Centralise useful data and make reporting more regular and readable." },
-      operations: { title: "Operations coordination", text: "Orchestrate steps, approvals and handovers between people and software." },
+      operations: { title: "Operations coordination", text: "Coordinate steps, approvals and handovers between people and software." },
     } satisfies Record<CandidateId, { title: string; text: string }>,
   },
 };

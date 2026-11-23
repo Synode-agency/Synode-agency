@@ -191,7 +191,7 @@ const en = {
     {
       slug: "nexus",
       kind: "software" as WorkKind,
-      title: "Nexus — AI-assisted B2B prospecting software",
+      title: "Nexus - AI-assisted B2B prospecting software",
       accent: "B2B prospecting",
       status: "Internal tool · operational",
       problem:
@@ -221,7 +221,7 @@ const en = {
     {
       slug: "coory",
       kind: "software" as WorkKind,
-      title: "Coory — Sports coaching platform",
+      title: "Coory - Sports coaching platform",
       accent: "Sports coaching",
       status: "Coach workspace operational · athlete workspace in preparation",
       problem:
@@ -264,7 +264,7 @@ export function workItems(locale: Locale) {
 export function cooryCardCopy(locale: Locale) {
   const fr = locale === "fr";
   return {
-    title: fr ? "Coory — Plateforme de coaching sportif" : "Coory — Sports coaching platform",
+    title: fr ? "Coory - Plateforme de coaching sportif" : "Coory - Sports coaching platform",
     /* Le statut est écrit dans la description : il n'y a plus de pastille
        en haut des cartes (demande d'Antonino du 14/11). */
     text: fr

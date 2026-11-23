@@ -124,7 +124,7 @@ const fr: LegalTexts = {
         "**Par la réservation d’un échange.** Les informations que Cal.com vous demande pour réserver (au minimum votre nom, votre adresse e-mail et le créneau choisi).",
         "**Par e-mail.** Les messages que vous nous envoyez et nos échanges qui suivent.",
         "**Données techniques.** Pour afficher le site, notre hébergeur Netlify traite des données de connexion, dont votre adresse IP, votre navigateur et les pages demandées. Notre serveur utilise aussi votre adresse IP, temporairement et en mémoire seulement, pour limiter les envois répétés du formulaire. Il ne l’enregistre pas.",
-        "**Les outils de l’accueil.** Le diagnostic et la préparation d’un brief fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
+        "**Les outils de l’accueil.** Le diagnostic, la recherche du processus à prioriser et la préparation d’un brief fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
       ],
     },
     {
@@ -322,7 +322,7 @@ const en: LegalTexts = {
         "**When you book a call.** The details Cal.com asks for to make the booking (at least your name, your email address and the slot you choose).",
         "**By email.** The messages you send us and the exchanges that follow.",
         "**Technical data.** To display the website, our host Netlify processes connection data, including your IP address, your browser and the pages requested. Our server also uses your IP address, temporarily and in memory only, to limit repeated form submissions. It does not record it.",
-        "**The tools on the home page.** The diagnostic and the brief builder run in your browser. Nothing reaches us until you send the form.",
+        "**The tools on the home page.** The diagnostic, the process finder and the brief builder run in your browser. Nothing reaches us until you send the form.",
       ],
     },
     {

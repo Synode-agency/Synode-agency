@@ -44,7 +44,7 @@ function estTexteDuHero(node: ReactNode) {
  *
  * SEULE EXCEPTION, `aside` : une colonne de droite qui n'est pas une
  * illustration. Contact y met le calendrier Cal.com, qui porte l'ancre
- * `#reservation` visée par tous les boutons « Parler de votre besoin ».
+ * `#reservation` visée par tous les boutons de réservation.
  * Avec `aside`, le hero garde la disposition en deux colonnes, NON
  * centrée : texte à gauche, colonne à droite, l'un sous l'autre sur
  * téléphone. `aside` est rendu en enfant direct de la grille, sans

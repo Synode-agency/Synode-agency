@@ -86,7 +86,7 @@ export function HomeWorkCards({
           <div className={styles.meta}>
             <span>{c.project} 01</span>
           </div>
-          <Heading id="home-project-nexus">{fr ? "Nexus — Logiciel de prospection" : "Nexus — Prospecting software"}</Heading>
+          <Heading id="home-project-nexus">{fr ? "Nexus - Logiciel de prospection" : "Nexus - Prospecting software"}</Heading>
           <p>{nexus.problem} {c.nexusStatus}</p>
           <Tags items={nexusTags} />
         </div>

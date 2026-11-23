@@ -238,7 +238,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
           <Lede title={p.ctaTitle} accents={p.ctaTitleAccents} text={p.ctaText} />
         </div>
         <div className="svc-cta-actions">
-          <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.ctaShort}<ArrowRight aria-hidden /></Link>
+          <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
           <Link className="btn btn--ghost" href={formHref}>{fr ? "Nous contacter" : "Contact us"}</Link>
           <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
         </div>

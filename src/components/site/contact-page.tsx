@@ -31,7 +31,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
       <PageHero
         kicker="Contact"
         kickerMobileOnly
-        title={locale === "fr" ? <>Parlons de votre <span>projet</span></> : <>Let’s discuss your <span>project</span></>}
+        title={locale === "fr" ? <>Parlons de votre <span>projet</span></> : <>Let’s talk about your <span>project</span></>}
         /* Le seul hero en deux colonnes : texte à gauche, calendrier à
            droite (voir `PageHero`). */
         aside={

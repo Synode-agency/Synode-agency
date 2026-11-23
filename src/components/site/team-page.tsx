@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
@@ -48,8 +48,8 @@ export function TeamPage({ locale }: { locale: Locale }) {
       >
         <p>{team.vision}</p>
         <div className="btn-row">
-          <Link href="#associes" className="btn btn--primary">{locale === "fr" ? "Rencontrer les associés" : "Meet the partners"}<ArrowRight aria-hidden /></Link>
-          <Link href={bookHref} className="btn btn--ghost">{site.ctaShort}</Link>
+          <Link href="#associes" className="btn btn--primary">{locale === "fr" ? "Rencontrer les associés" : "Meet the partners"}<ArrowDown aria-hidden /></Link>
+          <Link href={bookHref} className="btn btn--ghost">{site.cta}</Link>
         </div>
       </PageHero>
 
