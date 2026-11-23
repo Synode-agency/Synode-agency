@@ -109,7 +109,7 @@ const fr: LegalTexts = {
     {
       title: "1. Qui est responsable de vos données ?",
       blocks: [
-        "**Pour les données collectées par ce site** (formulaire de contact, réservation d’un échange, e-mails) : Killian Schoebben et Antonino Lo Bianco, qui exercent sous le nom commercial **Synode**, sont responsables conjoints du traitement.\nContact : {email}, rue des Alcyons 86, 1082 Bruxelles, Belgique. Vous pouvez exercer vos droits auprès de l’un ou l’autre.",
+        "**Pour les données collectées par ce site** (formulaire de contact, réservation d’un échange, e-mails) **et pour notre prospection** : Killian Schoebben et Antonino Lo Bianco, qui exercent sous le nom commercial **Synode**, sont responsables conjoints du traitement.\nContact : {email}, rue des Alcyons 86, 1082 Bruxelles, Belgique. Vous pouvez exercer vos droits auprès de l’un ou l’autre.",
         `**Pour les données de contrat et de facturation** : Synode est une activité hébergée au sein de **Productions Associées ASBL** (Smart), rue Coenraets 72, 1060 Saint-Gilles, Belgique, n° d’entreprise et TVA BE 0896.755.397. Lorsqu’une demande aboutit à un devis, les données nécessaires (identité et coordonnées de facturation du client, de la personne de contact) sont transmises à Productions Associées ASBL, qui les traite en tant que responsable du traitement distinct pour l’établissement des devis, contrats et factures, le recouvrement et la comptabilité. Ce traitement est régi par la <<politique de protection des données de Smart|${SMART_POLICY}>>. Son délégué à la protection des données est joignable à <<dpo@smart.coop|mailto:dpo@smart.coop>>.`,
         "Aucune autre donnée n’est transmise à Productions Associées ASBL.",
       ],
@@ -124,6 +124,7 @@ const fr: LegalTexts = {
             "**E-mails** que vous échangez avec nous.",
             "**Données techniques** : notre hébergeur Netlify traite les données de connexion, dont l’adresse IP. Notre serveur utilise l’adresse IP temporairement, en mémoire, pour limiter les envois répétés du formulaire, sans l’enregistrer. Il garde de la même façon l’adresse e-mail, pour n’envoyer qu’un accusé de réception par jour.",
             "**Outils de la page d’accueil** (diagnostic, recherche de processus, brief) : ils fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
+            "**Prospection** : si votre entreprise figure dans nos recherches, nous enregistrons les informations publiques de sa fiche Google Maps (nom, adresse, téléphone, site, catégorie), le nom et la fonction de la personne à contacter lorsqu’ils y figurent, nos notes de qualification et l’historique de nos échanges.",
           ],
         },
       ],
@@ -136,9 +137,10 @@ const fr: LegalTexts = {
             "**Traiter et suivre votre demande, organiser un rendez-vous** : mesures précontractuelles (art. 6.1.b) si vous envisagez un contrat pour vous-même ; sinon intérêt légitime (art. 6.1.f), par exemple si vous écrivez pour une entreprise.",
             "**Envoyer un accusé de réception** : intérêt légitime (art. 6.1.f).",
             "**Protéger le site et le formulaire contre les abus** : intérêt légitime (art. 6.1.f).",
+            "**Prospecter des entreprises susceptibles d’avoir besoin de nos services** : intérêt légitime (art. 6.1.f), celui de faire connaître notre activité aux entreprises. Notre premier message dit qui nous sommes, d’où viennent vos coordonnées et comment refuser la suite. Vous pouvez vous y opposer à tout moment, sans justification (art. 21.2) : répondez simplement à notre message ou écrivez à {email}.",
           ],
         },
-        "Nous n’envoyons pas de newsletter, ne revendons pas vos données et ne faisons pas de prospection marketing. Aucun traitement ne repose sur le consentement.",
+        "Nous n’envoyons pas de newsletter et ne revendons pas vos données. Notre prospection reste individuelle : par e-mail ou par téléphone, chaque message est relu et envoyé par une personne, jamais en envoi de masse. Aucun traitement ne repose sur le consentement.",
       ],
     },
     {
@@ -151,7 +153,9 @@ const fr: LegalTexts = {
             "**Netlify** (États-Unis) : hébergement du site et réception du formulaire ;",
             "**Cal.com** (États-Unis) : gestion des réservations ;",
             "**Hostinger** (Chypre) : hébergement de la boîte e-mail ;",
-            "**Google Ireland** (Irlande) : agenda relié à Cal.com et boîte Gmail de contact.",
+            "**Google Ireland** (Irlande) : agenda relié à Cal.com et boîte Gmail de contact ;",
+            "**Anthropic** (États-Unis) : analyse, par l’IA Claude, des informations publiques des entreprises que nous prospectons ;",
+            "**Supabase** (Singapour) : base de données de notre outil de prospection.",
           ],
         },
         "Vos données ne sont ni vendues ni cédées.",
@@ -160,7 +164,7 @@ const fr: LegalTexts = {
     {
       title: "5. Transferts hors de l’Union européenne",
       blocks: [
-        "Netlify, Cal.com et Google LLC déclarent participer au EU-U.S. Data Privacy Framework, couvert par la décision d’adéquation de la Commission européenne du 10 juillet 2023. Google peut également recourir aux clauses contractuelles types. Brevo et Hostinger recourent aux clauses contractuelles types pour leurs éventuels sous-traitants situés hors de l’Union européenne.",
+        "Netlify, Cal.com et Google LLC déclarent participer au EU-U.S. Data Privacy Framework, couvert par la décision d’adéquation de la Commission européenne du 10 juillet 2023. Google peut également recourir aux clauses contractuelles types. Brevo et Hostinger recourent aux clauses contractuelles types pour leurs éventuels sous-traitants situés hors de l’Union européenne. Anthropic et Supabase recourent aux clauses contractuelles types prévues par leur contrat de traitement.",
       ],
     },
     {
@@ -169,6 +173,7 @@ const fr: LegalTexts = {
         {
           list: [
             "**Demandes, réservations et échanges** : 12 mois après le dernier échange, puis suppression dans Brevo, Cal.com, l’agenda et la boîte e-mail.",
+            "**Prospection** : 12 mois après le dernier contact resté sans suite, puis suppression. Si vous vous opposez, vos données sont supprimées ; nous gardons seulement votre adresse e-mail ou votre numéro dans une liste d’opposition, pour ne plus vous contacter.",
             "**Si un contrat est conclu** : les documents contractuels et comptables sont conservés par Productions Associées ASBL selon ses obligations légales et sa propre politique de protection des données.",
             "**Données de connexion** : selon la politique de Netlify.",
           ],
@@ -198,7 +203,7 @@ const fr: LegalTexts = {
     {
       title: "9. Décisions automatisées",
       blocks: [
-        "Aucune décision exclusivement automatisée, profilage compris (art. 22), n’est prise. Chaque demande est lue et traitée par une personne.",
+        "Aucune décision exclusivement automatisée, profilage compris (art. 22), n’est prise. Chaque demande est lue et traitée par une personne. Dans notre prospection, l’IA aide à évaluer la pertinence d’une entreprise, mais la décision de la contacter est toujours prise par une personne.",
       ],
     },
     {
@@ -280,7 +285,7 @@ const en: LegalTexts = {
     {
       title: "1. Who is responsible for your data?",
       blocks: [
-        "**For data collected by this website** (contact form, call booking, emails): Killian Schoebben and Antonino Lo Bianco, trading as **Synode**, are joint controllers.\nContact: {email}, rue des Alcyons 86, 1082 Bruxelles, Belgium. You can exercise your rights with either of them.",
+        "**For data collected by this website** (contact form, call booking, emails) **and for our prospecting**: Killian Schoebben and Antonino Lo Bianco, trading as **Synode**, are joint controllers.\nContact: {email}, rue des Alcyons 86, 1082 Bruxelles, Belgium. You can exercise your rights with either of them.",
         `**For contract and invoicing data**: Synode is an activity hosted within **Productions Associées ASBL** (Smart), rue Coenraets 72, 1060 Saint-Gilles, Belgium, company and VAT number BE 0896.755.397. When a request leads to a quote, the necessary data (identity and billing details of the client and of the contact person) are passed to Productions Associées ASBL, which processes them as a separate controller to prepare quotes, contracts and invoices, for debt collection and for accounting. This processing is governed by <<Smart’s data protection policy|${SMART_POLICY}>> (in French). Its data protection officer can be reached at <<dpo@smart.coop|mailto:dpo@smart.coop>>.`,
         "No other data is passed to Productions Associées ASBL.",
       ],
@@ -295,6 +300,7 @@ const en: LegalTexts = {
             "**Emails** you exchange with us.",
             "**Technical data**: our host Netlify processes connection data, including the IP address. Our server uses the IP address temporarily, in memory, to limit repeated form submissions, without recording it. It keeps the email address in the same way, so that only one acknowledgement is sent per day.",
             "**Home page tools** (diagnostic, process finder, brief): they run in your browser. Nothing is sent to us until you submit the form.",
+            "**Prospecting**: if your company appears in our searches, we record the public information from its Google Maps listing (name, address, phone, website, category), the name and role of the person to contact where they appear there, our qualification notes and the history of our exchanges.",
           ],
         },
       ],
@@ -307,9 +313,10 @@ const en: LegalTexts = {
             "**Handling and following up your request, arranging a meeting**: pre-contractual steps (art. 6.1.b) if you are considering a contract for yourself; otherwise legitimate interest (art. 6.1.f), for example if you are writing on behalf of a company.",
             "**Sending an acknowledgement of receipt**: legitimate interest (art. 6.1.f).",
             "**Protecting the website and the form against abuse**: legitimate interest (art. 6.1.f).",
+            "**Prospecting companies that may need our services**: legitimate interest (art. 6.1.f), that of making our activity known to businesses. Our first message says who we are, where your contact details come from and how to opt out. You can object at any time, without giving a reason (art. 21.2): simply reply to our message or write to {email}.",
           ],
         },
-        "We do not send newsletters, do not sell your data and do not carry out marketing prospecting. No processing relies on consent.",
+        "We do not send newsletters and do not sell your data. Our prospecting stays individual: by email or by phone, every message is reviewed and sent by a person, never as a bulk mailing. No processing relies on consent.",
       ],
     },
     {
@@ -322,7 +329,9 @@ const en: LegalTexts = {
             "**Netlify** (United States): hosting the website and receiving the form;",
             "**Cal.com** (United States): managing bookings;",
             "**Hostinger** (Cyprus): hosting the mailbox;",
-            "**Google Ireland** (Ireland): calendar connected to Cal.com and the Gmail contact inbox.",
+            "**Google Ireland** (Ireland): calendar connected to Cal.com and the Gmail contact inbox;",
+            "**Anthropic** (United States): analysis, by the Claude AI, of the public information about the companies we prospect;",
+            "**Supabase** (Singapore): database of our prospecting tool.",
           ],
         },
         "Your data is neither sold nor handed over.",
@@ -331,7 +340,7 @@ const en: LegalTexts = {
     {
       title: "5. Transfers outside the European Union",
       blocks: [
-        "Netlify, Cal.com and Google LLC state that they participate in the EU-U.S. Data Privacy Framework, covered by the European Commission’s adequacy decision of 10 July 2023. Google may also rely on standard contractual clauses. Brevo and Hostinger rely on standard contractual clauses for any of their sub-processors located outside the European Union.",
+        "Netlify, Cal.com and Google LLC state that they participate in the EU-U.S. Data Privacy Framework, covered by the European Commission’s adequacy decision of 10 July 2023. Google may also rely on standard contractual clauses. Brevo and Hostinger rely on standard contractual clauses for any of their sub-processors located outside the European Union. Anthropic and Supabase rely on the standard contractual clauses set out in their data processing agreement.",
       ],
     },
     {
@@ -340,6 +349,7 @@ const en: LegalTexts = {
         {
           list: [
             "**Requests, bookings and exchanges**: 12 months after the last exchange, then deleted from Brevo, Cal.com, the calendar and the mailbox.",
+            "**Prospecting**: 12 months after the last contact that led nowhere, then deleted. If you object, your data is deleted; we keep only your email address or phone number in an opt-out list, so that we do not contact you again.",
             "**If a contract is concluded**: contractual and accounting documents are kept by Productions Associées ASBL in line with its legal obligations and its own data protection policy.",
             "**Connection data**: according to Netlify’s policy.",
           ],
@@ -369,7 +379,7 @@ const en: LegalTexts = {
     {
       title: "9. Automated decisions",
       blocks: [
-        "No decision based solely on automated processing, including profiling (art. 22), is made. Every request is read and handled by a person.",
+        "No decision based solely on automated processing, including profiling (art. 22), is made. Every request is read and handled by a person. In our prospecting, AI helps assess whether a company is relevant, but the decision to contact it is always made by a person.",
       ],
     },
     {
