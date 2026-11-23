@@ -32,25 +32,46 @@ const LIMITS = {
   need: 4000,
 } as const;
 
-/* Une limitation en mémoire, par adresse IP. Elle suffit à arrêter un envoi
-   répété depuis un navigateur, et c'est tout ce qu'elle prétend faire :
-   plusieurs instances ne la partagent pas. Pour une protection réelle il
-   faudra un compteur partagé ou le pare-feu de l'hébergeur. */
-const WINDOW_MS = 60_000;
-const MAX_PER_WINDOW = 3;
+/* Une limitation en mémoire, par adresse IP : 3 demandes par minute et 10
+   par jour. Elle suffit à arrêter un envoi répété depuis un navigateur, et
+   c'est tout ce qu'elle prétend faire : plusieurs instances ne la partagent
+   pas, et un démarrage à froid la remet à zéro. Pour une protection réelle
+   il faudra un compteur partagé, le pare-feu de l'hébergeur ou une
+   vérification anti-robot. */
+const MINUTE_MS = 60_000;
+const DAY_MS = 24 * 60 * 60_000;
+const MAX_PER_MINUTE = 3;
+const MAX_PER_DAY = 10;
 const hits = new Map<string, number[]>();
+
+/* La clé de comptage. Une adresse IPv6 est comptée par bloc /64 : chez un
+   fournisseur, un seul abonné dispose de tout le bloc, et compter l'adresse
+   entière laissait un robot en changer à chaque envoi. Une IPv4, y compris
+   écrite en IPv6 (`::ffff:1.2.3.4`), reste comptée seule. */
+function rateKey(ip: string) {
+  const ipv4 = ip.match(/(\d{1,3}(?:\.\d{1,3}){3})$/);
+  if (ipv4) return ipv4[1];
+  if (!ip.includes(":")) return ip;
+  const [head, tail] = ip.split("::");
+  const a = head ? head.split(":") : [];
+  const b = tail ? tail.split(":") : [];
+  const groups = tail === undefined ? a : [...a, ...Array(Math.max(0, 8 - a.length - b.length)).fill("0"), ...b];
+  return `${groups.slice(0, 4).join(":")}::/64`;
+}
 
 function rateLimited(ip: string) {
   const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  const key = rateKey(ip);
+  const recent = (hits.get(key) ?? []).filter((t) => now - t < DAY_MS);
   recent.push(now);
-  hits.set(ip, recent);
+  hits.set(key, recent);
   /* Sans ce nettoyage, la table grossit indéfiniment sur un serveur de
      longue durée. */
   if (hits.size > 5000) {
-    for (const [k, v] of hits) if (v.every((t) => now - t >= WINDOW_MS)) hits.delete(k);
+    for (const [k, v] of hits) if (v.every((t) => now - t >= DAY_MS)) hits.delete(k);
   }
-  return recent.length > MAX_PER_WINDOW;
+  const lastMinute = recent.filter((t) => now - t < MINUTE_MS).length;
+  return lastMinute > MAX_PER_MINUTE || recent.length > MAX_PER_DAY;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -71,9 +92,22 @@ export async function POST(request: Request) {
     request.headers.get("x-real-ip") ||
     "inconnu";
 
+  /* Seul le formulaire du site envoie du JSON. Un formulaire HTML posé sur un
+     autre site ne peut envoyer que du texte ou un formulaire classique, sans
+     passer par une vérification du navigateur : en exigeant du JSON, on
+     empêche qu'il fasse envoyer des demandes par les navigateurs de ses
+     visiteurs, chacun avec sa propre adresse IP. */
+  if (!(request.headers.get("content-type") ?? "").toLowerCase().includes("application/json")) {
+    return NextResponse.json({ error: "bad_request" }, { status: 415 });
+  }
+
   let body: Record<string, unknown>;
   try {
-    body = (await request.json()) as Record<string, unknown>;
+    const parsed: unknown = await request.json();
+    /* `null`, un nombre ou un tableau sont du JSON valide, mais pas une
+       demande : sans ce contrôle, la lecture des champs plantait en 500. */
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) throw new Error("pas un objet");
+    body = parsed as Record<string, unknown>;
   } catch {
     return NextResponse.json({ error: "bad_request" }, { status: 400 });
   }

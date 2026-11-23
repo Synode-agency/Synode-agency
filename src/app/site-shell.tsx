@@ -36,16 +36,14 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
       style={fontAliases}
     >
       <head>
-        {/* A reload lands at the top of the page, not where the visitor had
-            scrolled to. It runs before first paint, so the browser never gets
-            to restore the old offset and there is no jump to correct. An
-            anchor in the URL still wins: the hash is handled after this. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "if('scrollRestoration' in history){history.scrollRestoration='manual'}",
-          }}
-        />
+        {/* ⚠ NO `history.scrollRestoration = 'manual'` here. It was set from
+            22/09 to 23/11/2026 so that a reload landed at the top, but it
+            applied to every history entry: the Back button then dropped the
+            visitor at the top of the previous page instead of where they had
+            been (measured: 1674px on /cas-usage, then /contact, then Back,
+            landed at 0). Trying to limit it to reloads failed, Chrome keeps
+            the mode the page had when it was left. The browser's own
+            behaviour is kept: Back and reload both return to the position. */}
         {/* LE HÉROS DES PAGES INTÉRIEURES S'ANIME À L'ARRIVÉE (voir
             `ScrollReveal`). Pour qu'on ne le voie pas s'afficher, disparaître
             puis revenir, ce script le garde masqué AVANT le premier

@@ -40,6 +40,24 @@ const GAP = 10;
 
 const ICONS: LucideIcon[] = [Bot, Blocks, LayoutGrid, Network, BarChart3, GraduationCap];
 
+/* L'icône et le mini-visuel de chaque solution, choisis par son SLUG.
+
+   ⚠ Ni par la position de la carte, ni par le champ `visual` du contenu.
+   Les numéros ci-dessous sont ceux de l'ordre d'origine des cartes (agents,
+   automatisations, logiciels, intégrations, data, formation). Le 14/11/2026,
+   Intégrations est passée en 2e position : choisis par position, les visuels
+   des intégrations, des automatisations et des logiciels s'étaient décalés.
+   Et `visual` suit une autre numérotation, celle des icônes du menu, où
+   intégrations et logiciels sont inversés. */
+const KIND: Record<string, number> = {
+  "agents-ia": 0,
+  "automatisations-intelligentes": 1,
+  "logiciels-applications-ia": 2,
+  "integrations-systemes-connectes": 3,
+  "data-intelligence": 4,
+  "formation-adoption-ia": 5,
+};
+
 type Item = {
   slug: string;
   title: string;
@@ -284,7 +302,8 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
   return (
     <div ref={box} className={stacked ? "slc slc--stacked" : "slc"}>
       {items.map((item, i) => {
-        const Icon = ICONS[i] ?? Bot;
+        const kind = KIND[item.slug] ?? i;
+        const Icon = ICONS[kind] ?? Bot;
         const on = i === open;
         return (
           <div
@@ -332,7 +351,7 @@ export function SolutionSlices({ items, locale }: { items: readonly Item[]; loca
 
               {showVisual && (
                 <div className="slc-visual">
-                  <Visual kind={i} tick={tick} fr={fr} active={on} />
+                  <Visual kind={kind} tick={tick} fr={fr} active={on} />
                 </div>
               )}
             </div>

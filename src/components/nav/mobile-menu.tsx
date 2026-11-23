@@ -184,7 +184,10 @@ export function MobileMenu({
       tabIndex={-1}
       className={s.panel}
       role="dialog"
-      aria-modal="true"
+      /* PAS de `aria-modal` : le bouton qui ferme (le ☰ devenu croix) est
+         dans la barre, hors du panneau, et `aria-modal` le rendait
+         inaccessible à VoiceOver. Le reste de la page est déjà isolé par
+         `inert` (voir `SiteHeader`). */
       aria-label={c.dialog}
       onKeyDown={event => {
         if (event.key === "Escape") { event.stopPropagation(); onClose(); return; }
@@ -195,8 +198,12 @@ export function MobileMenu({
           .filter(element => element.getClientRects().length > 0);
         const first = stops[0];
         const last = stops[stops.length - 1];
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        /* Le cycle passe par le bouton de la barre qui ferme le menu : sans
+           lui, le clavier ne pouvait fermer qu'avec Échap. Depuis ce bouton,
+           Tab revient naturellement au panneau, qui le suit dans le DOM. */
+        const toggle = document.querySelector<HTMLElement>('[aria-controls="menu-mobile"]');
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); (toggle ?? last)?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); (toggle ?? first)?.focus(); }
       }}
     >
       {/* ---- Les six entrées ---- */}

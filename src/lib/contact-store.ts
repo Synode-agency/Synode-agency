@@ -97,19 +97,22 @@ function brevoFetch(apiKey: string, endpoint: string, body: unknown) {
  * S'il en manque, Brevo refuse le contact : on réessaie alors avec l'adresse
  * seule, pour ne jamais perdre la demande, et le serveur le signale.
  */
+/* ⚠ TOUS les attributs partent à chaque demande, vides compris. Avec
+   `updateEnabled`, une deuxième demande de la même adresse met la fiche à
+   jour : si les champs facultatifs vides étaient omis, ceux de la demande
+   précédente restaient, et la fiche mélangeait deux demandes. */
 function brevoAttributes(req: ContactRequest) {
-  const attributes: Record<string, string> = {
+  return {
     NOM: req.name,
     DEMANDE: req.need,
     DATE_DEMANDE: req.receivedAt.slice(0, 10),
     LANGUE: req.locale,
+    ENTREPRISE: req.company ?? "",
+    TELEPHONE_DEMANDE: req.phone ?? "",
+    SITE_WEB: req.website ?? "",
+    ECHEANCE: req.timeline ?? "",
+    BUDGET: req.budget ?? "",
   };
-  if (req.company) attributes.ENTREPRISE = req.company;
-  if (req.phone) attributes.TELEPHONE_DEMANDE = req.phone;
-  if (req.website) attributes.SITE_WEB = req.website;
-  if (req.timeline) attributes.ECHEANCE = req.timeline;
-  if (req.budget) attributes.BUDGET = req.budget;
-  return attributes;
 }
 
 async function saveToBrevo(req: ContactRequest): Promise<StoreResult> {
