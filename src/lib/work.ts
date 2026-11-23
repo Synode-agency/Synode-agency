@@ -269,7 +269,7 @@ export function cooryCardCopy(locale: Locale) {
        en haut des cartes (demande d'Antonino du 14/11). */
     text: fr
       ? "Une application qui réunit les sportifs, les programmes d’entraînement, l’agenda et le suivi des paiements d’un coach sportif, avec un assistant IA dont chaque action est validée par le coach. Coory est actuellement en bêta."
-      : "An application that brings together a sports coach’s athletes, training programmes, schedule and payment tracking, with an AI assistant whose every action the coach approves. Coory is currently in beta.",
+      : "An application that brings together a sports coach’s athletes, training programmes, schedule and payment tracking, with an AI assistant whose every action the coach approves. Coory is currently in beta, and available in French only.",
     tags: fr
       ? ["Agenda", "Programmes", "Comptabilité", "Assistant IA"]
       : ["Scheduling", "Programmes", "Accounting", "AI assistant"],

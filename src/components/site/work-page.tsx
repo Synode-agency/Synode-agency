@@ -116,7 +116,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{site.cta}<ArrowRight aria-hidden /></Link>
-            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Describe your need"}</Link>
+            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Tell us what you need"}</Link>
             <p className="cta-note">{locale === "fr" ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
         </div>
@@ -246,7 +246,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                   <p className={cooryStyles.demoFine}>
                     {locale === "fr"
                       ? "Assistant IA inclus. Compte partagé : n’y mettez aucune donnée réelle, tout est remis à zéro chaque nuit."
-                      : "AI assistant included. Shared account: please do not enter real data, everything is reset every night."}
+                      : "AI assistant included. Coory is currently available in French only. Shared account: please do not enter real data, everything is reset every night."}
                   </p>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           </div>
           <div className="svc-cta-actions">
             <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
-            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Describe your need"}</Link>
+            <Link className="btn btn--ghost" href={formHref}>{locale === "fr" ? "Décrire votre besoin" : "Tell us what you need"}</Link>
             <p className="cta-note">{locale === "fr" ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>
         </div>

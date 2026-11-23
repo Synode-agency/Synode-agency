@@ -448,7 +448,7 @@ const en = {
       items: [
         {
           q: "Do I need to change my software to work with you?",
-          a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or suggest a more suitable solution.",
+          a: "Not necessarily. We first look at how to work with your existing tools. Depending on their integration options and your needs, we can connect them, extend them or build a business tool that fits better.",
         },
         {
           q: "Do you also build software without AI?",
@@ -456,7 +456,7 @@ const en = {
         },
         {
           q: "How much does a custom solution cost?",
-          a: "The price depends on the project, its features and its complexity. We start with a free conversation to understand your need before preparing a tailored proposal. Any recurring costs are stated as well.",
+          a: "The price of an AI agent, an automation or custom software depends on the scope, the integrations and the complexity. A free first call lets us understand your needs before we prepare a tailored quote, including any recurring costs.",
         },
         {
           q: "Are there recurring costs after go-live?",
@@ -483,8 +483,8 @@ const en = {
     metaTitle: "Custom solutions, with built-in AI",
     metaDescription:
       "Custom solutions with built-in AI from Synode in Brussels: AI agents, integrations, automations, business software, data and team training.",
-    kicker: "What we sell",
-    title: "A solution built\n^from your need",
+    kicker: "What we offer",
+    title: "A solution built\n^around your needs",
     text: "From improving a task to building a full application or training your team, we shape the solution around your business.",
 
     bricks: [
@@ -492,39 +492,39 @@ const en = {
             "slug": "agents-ia",
             "title": "AI Agents",
             "text": "AI agents that search, draft or analyse information, and carry out a sequence of actions within an agreed scope.",
-            "benefit": "Find information and prepare the next step.",
-            "example": "A customer reply drafted from your documents, with sources and your approval.",
+            "benefit": "Get to information faster and speed up everyday tasks.",
+            "example": "An AI agent drafts a customer reply from your documents, cites its sources and asks for your approval before sending.",
             "visual": 0
       },
       {
             "slug": "integrations-systemes-connectes",
             "title": "Integrations & Connected Systems",
             "text": "We connect the tools you already use, CRM, ERP, website or databases, so your data flows without retyping and AI works on reliable information.",
-            "benefit": "Tools that work together.",
-            "example": "An approved website request updates the CRM and reaches your management software.",
+            "benefit": "Move data between your tools without entering it twice.",
+            "example": "An approved request on your website creates or updates the matching record in your CRM and your management software.",
             "visual": 2
       },
       {
             "slug": "automatisations-intelligentes",
             "title": "Intelligent Automations",
-            "text": "Intelligent automations that connect the repetitive steps of your business processes, using AI when information needs to be understood, classified or processed.",
-            "benefit": "Fewer manual steps along the way.",
+            "text": "Intelligent automations that connect the repetitive steps of your business processes and handle the information that flows between your tools.",
+            "benefit": "Cut manual data entry, oversights and repetitive tasks.",
             "example": "A quote request from your website is analysed, the quote is drafted for review, then followed up automatically until it is signed.",
             "visual": 1
       },
       {
             "slug": "logiciels-applications-ia",
             "title": "Custom Software & Applications",
-            "text": "Custom business software and applications built for your team or your customers, with AI built in wherever it adds value.",
-            "benefit": "Software that fits how people work.",
-            "example": "Service jobs in one interface, with a report drafted for a team member to review.",
+            "text": "Custom business software and applications, designed around your processes, your users and your rules, with AI built in where it brings a real gain.",
+            "benefit": "A business tool that fits how your teams actually work.",
+            "example": "Your service jobs are centralised in one business interface, with tracking, history and AI-assisted reports.",
             "visual": 3
       },
       {
             "slug": "data-intelligence",
             "title": "Data & Intelligence",
-            "text": "Centralisation and analysis of data, dashboards, forecasting, scoring or recommendations when the quality and volume of the data support them.",
-            "benefit": "Better-informed decisions.",
+            "text": "Data centralisation and analysis, dashboards, anomaly detection, forecasts and recommendations when the data allows it.",
+            "benefit": "Turn your business data into indicators that support decisions.",
             "example": "Your sales, margin and cash figures in one Power BI or Excel dashboard, updated without manual exports, with gaps to check flagged.",
             "visual": 4
       },
@@ -532,8 +532,8 @@ const en = {
             "slug": "formation-adoption-ia",
             "title": "AI Training & Adoption",
             "text": "Getting to grips with every solution we deliver is included in the project. This offer also trains your teams in AI without a project: practical workshops, good habits and usage rules.",
-            "benefit": "A team confident with their new way of working.",
-            "example": "Using real situations, your team learns to draft and review customer replies.",
+            "benefit": "Help your teams use AI independently and responsibly.",
+            "example": "Using real situations, your team learns to use AI to draft, check and improve its customer replies.",
             "visual": 5
       }
 ],
@@ -564,8 +564,8 @@ const en = {
 
     faqTitle: "Common questions about our custom solutions",
     faq: [
-      { q: "Do I have to replace my current software?", a: "Not necessarily. We first look to integrate the solution with the software you already have. If one of them does not expose its data, we say so before quoting and look for another route." },
-      { q: "How much does a custom solution cost?", a: "There is no public price list. The budget depends on the scope, the complexity and the integrations involved. You receive a tailored quote before anything starts, separating the build cost, any recurring payment and third-party services." },
+      { q: "Do I have to replace my current software?", a: "Not necessarily. The solution integrates with your software when it offers APIs, exports or other ways to connect. We first study your CRM, ERP, email, databases and business software to define a realistic integration before quoting." },
+      { q: "How much does a custom solution cost?", a: "There is no public price list: the price depends on the scope, the features, the volumes, the data and the software to connect. You receive a tailored quote before anything starts, separating development, recurring technical costs, maintenance if you choose it, and third-party services." },
       { q: "How does a project with Synode run?", a: "In six steps: scoping the business need, design and architecture, custom development, integration and go-live, documentation and training, then maintenance and changes if you entrust them to us. Each step is agreed with you." },
       { q: "Does my data stay confidential?", a: "Access is limited to what is strictly required and listed in the proposal. You grant it at kick-off, and it is revoked at the end if you want it to be. Sensitive actions stay subject to your approval." },
       { q: "Do you handle maintenance after deployment?", a: "Yes, if you take our support service: we handle running, monitoring and maintenance for a recurring payment set out in the contract. If you do not, the solution is delivered and deployed, and you subscribe to the required services directly with the providers. Either way, Synode never absorbs those costs." },
@@ -634,23 +634,23 @@ const en = {
 
   contact: {
     metaTitle: "Let’s talk about your project",
-    metaDescription: "Book a free 30-minute call with Synode, a technology agency in Brussels, or describe your need in writing. No commitment.",
+    metaDescription: "Book a free 30-minute call with Synode, a technology agency in Brussels, or tell us what you need in writing. No commitment.",
     kicker: "Contact",
     title: "Let’s talk about\n^your project",
-    text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
+    text: "A free first call, with no commitment. We use it to understand your situation and identify a first direction. It is not a full technical audit.",
 
     booking: {
       title: "Book a 30-minute call",
-      text: "A first call, free and with no strings attached. We use it to understand your situation and find a first angle. It is not a full technical audit.",
+      text: "A free first call, with no commitment. We use it to understand your situation and identify a first direction. It is not a full technical audit.",
       openLabel: "Open the calendar",
       closedTitle: "Choose your slot",
-      closedText: "30 minutes by video call, free and with no strings attached.",
+      closedText: "30 minutes by video call, free and with no commitment.",
       closedNote: "The calendar is provided by Cal.com. It only loads when you open it, and may then use its own cookies.",
       closedNoteLink: "Learn more",
     },
 
     form: {
-      title: "Describe your need in writing",
+      title: "Tell us what you need in writing",
       text: "If you would rather write, or if none of the slots suit you.",
       fields: {
         name: { label: "Name", placeholder: "Your name" },
@@ -672,7 +672,7 @@ const en = {
         name: "Please enter your name.",
         email: "Please enter an email address.",
         emailInvalid: "That email address looks wrong.",
-        need: "Describe your need in a few words (10 characters minimum).",
+        need: "Tell us what you need in a few words (10 characters minimum).",
         website: "That website address looks wrong.",
         tooLong: "This field is too long.",
         rateLimited: "You have just sent a request. Give it a moment before trying again.",

@@ -50,7 +50,7 @@ const NEW = {
     aiTitle: "How AI supports the coach day to day",
     goalLabel: "goal",
     goalsFoot: "● Measurement in real conditions · to come",
-    goalsNote: "These are goals, not measured results. The names, sessions and amounts on the Coory screens are fictitious: no result will be published here before it has been measured in real conditions.",
+    goalsNote: "These are goals, not measured results. The Coory screens are shown in French, the app’s current language, and their names, sessions and amounts are fictitious: no result will be published here before it has been measured in real conditions.",
     tailFrom: "Coory is designed and tested",
     tailStrong: "a similar platform can be designed",
     noteFrom: "Every action prepared by the assistant",

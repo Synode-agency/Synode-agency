@@ -41,7 +41,7 @@ const content = {
     note: "Ce brief prépare un premier échange. Il ne constitue ni une spécification technique, ni un devis.",
   },
   en: {
-    title: "Describe your need in your own words",
+    title: "Describe what you need in your own words",
     intro: "The brief is built in your browser. Nothing is sent to Synode unless you choose to contact us.",
     fields: {
       problem: ["Problem encountered", "e.g. We receive too many requests to sort manually."],

@@ -318,7 +318,7 @@ const en: LegalTexts = {
     {
       title: "The data we process",
       blocks: [
-        "**Through the contact form.** Required: your name, your email address and a description of your need. Optional: company or activity, phone, website, timeline and budget in mind. We also record the date of the request and the language of the page.",
+        "**Through the contact form.** Required: your name, your email address and a description of your request. Optional: company or activity, phone, website, timeline and budget in mind. We also record the date of the request and the language of the page.",
         "**When you book a call.** The details Cal.com asks for to make the booking (at least your name, your email address and the slot you choose).",
         "**By email.** The messages you send us and the exchanges that follow.",
         "**Technical data.** To display the website, our host Netlify processes connection data, including your IP address, your browser and the pages requested. Our server also uses your IP address, temporarily and in memory only, to limit repeated form submissions. It does not record it.",
@@ -343,7 +343,7 @@ const en: LegalTexts = {
     {
       title: "Required fields",
       blocks: [
-        "Your name, email address and a description of your need are required for us to answer: without them, the form cannot be sent. The other fields are optional, and leaving them empty makes no difference to how your request is handled.",
+        "Your name, email address and a description of your request are required for us to answer: without them, the form cannot be sent. The other fields are optional, and leaving them empty makes no difference to how your request is handled.",
       ],
     },
     {

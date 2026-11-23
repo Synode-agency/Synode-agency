@@ -80,7 +80,7 @@ export function ToolsSection({ locale }: { locale: Locale }) {
       title: fr ? "Préparer votre brief" : "Prepare your brief",
       text: fr
         ? "Structurez votre problème, votre environnement et le résultat attendu pour préparer un premier échange utile."
-        : "Structure your problem, environment and expected outcome to prepare a useful first conversation.",
+        : "Structure your problem, environment and expected outcome to prepare a useful first call.",
     },
   ];
 

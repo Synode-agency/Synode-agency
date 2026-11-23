@@ -280,7 +280,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
         </div>
         <div className="svc-cta-actions">
           <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
-          <Link className="btn btn--ghost" href={formHref}>{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
+          <Link className="btn btn--ghost" href={formHref}>{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link>
           <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
         </div>
       </div>

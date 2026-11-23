@@ -51,7 +51,7 @@ const COPY = {
   en: {
     all: "All our solutions",
     solutionsToggle: "Solutions",
-    ctaNote: "A free first conversation · no commitment",
+    ctaNote: "A free first call · no commitment",
     agency: "Technology agency · Brussels",
     dialog: "Menu",
   },

@@ -48,7 +48,7 @@ export function ContactPage({ locale }: { locale: Locale }) {
           {/* Une seule action : le calendrier est déjà à côté, un bouton qui
               y mène ne mènerait nulle part. La flèche descend parce que le
               formulaire est plus bas sur la même page. */}
-          <Link href={`#${ANCHORS.form}`} className="btn btn--ghost">{locale === "fr" ? "Décrire votre besoin" : "Describe your need"}<ArrowDown aria-hidden /></Link>
+          <Link href={`#${ANCHORS.form}`} className="btn btn--ghost">{locale === "fr" ? "Décrire votre besoin" : "Tell us what you need"}<ArrowDown aria-hidden /></Link>
         </div>
       </PageHero>
 

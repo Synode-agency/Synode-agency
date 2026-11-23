@@ -470,7 +470,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Concrete uses and agent types",
     usesCards: true,
     mergeForms: true,
-    usesText: "Here are common uses in business. Your need may be different: it is scoped around your own processes.",
+    usesText: "Here are common uses in business. Yours may be different: it is scoped around your own processes.",
     uses: [
       { title: "Answer routine requests", text: "Prepare a reply from your documents, with the sources used.", form: "Conversational agent" },
       { title: "Search your documents", text: "Find one specific detail inside authorised files.", form: "Document agent" },
@@ -494,13 +494,13 @@ const en: Record<string, ServicePageContent> = {
     afterText: "An agent lives in an environment that moves: your documents, rules and tools all change. If you entrust the follow-up to us, here is what we handle after go-live.",
     after: [
       { title: "Monitoring", text: "We watch runs, errors and cases that fall outside the intended scope.", status: "monitoring in progress" },
-      { title: "Rule adjustments", text: "Answers and actions are corrected from your users' feedback.", status: "adjustment in progress" },
+      { title: "Rule adjustments", text: "Answers and actions are corrected from your users’ feedback.", status: "adjustment in progress" },
       { title: "Source upkeep", text: "Documents and access are kept current so the agent stays reliable.", status: "update in progress" },
       { title: "Usage costs", text: "AI model consumption stays visible and is estimated before any change.", status: "estimate in progress" },
     ],
-    ctaTitle: "Let's see whether an AI agent fits your business",
+    ctaTitle: "Let’s see whether an AI agent fits your business",
     ctaTitleAccents: ["AI agent"],
-    ctaText: "Describe one specific task that takes your team's time. The first conversation checks whether an AI agent can genuinely help, and on what terms.",
+    ctaText: "Describe one specific task that takes your team’s time. The first call checks whether an AI agent can genuinely help, and on what terms.",
     faqTitle: "Frequently asked questions about AI agents",
     faqTitleAccents: ["AI agents"],
     faqExtra: [
@@ -525,7 +525,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Intelligent automation use cases",
     usesCards: true,
     mergeForms: true,
-    usesText: "Business process automation is useful wherever teams repeat the same task under the same rules. These are the most common starting points for an intelligent automation project.",
+    usesText: "Business process automation is useful wherever teams repeat the same task under the same rules. Here are common uses for cutting manual entry, speeding up processing and avoiding oversights.",
     uses: [
       { title: "Sort incoming requests", text: "Classify an email or a form and assign it to the right person.", form: "Administrative" },
       { title: "Extract data from a document", text: "Read a purchase order, a form or an attachment received by email.", form: "Documents" },
@@ -581,16 +581,16 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Custom software and AI application use cases",
     usesCards: true,
     mergeForms: true,
-    usesText: "Custom software development becomes relevant when a spreadsheet or off-the-shelf product no longer fits your processes. These are the most common business application use cases.",
+    usesText: "Custom software development becomes relevant when your processes no longer fit in a spreadsheet, or when off-the-shelf software forces your teams into constant workarounds. Here are typical internal applications and business interfaces.",
     uses: [
       { title: "Centralise your files", text: "Bring into one space what circulates by email today.", form: "Management tool" },
       { title: "Track jobs and visits", text: "Plan, follow progress and keep the history of a case.", form: "Business interface" },
       { title: "Give your clients access", text: "A portal where they find their requests and their status.", form: "Client application" },
       { title: "Replace shared files", text: "Move off a spreadsheet that has outgrown itself, with rights per role.", form: "Internal portal" },
       { title: "Capture data in the field", text: "A simple mobile-friendly interface, designed for entry.", form: "Data entry tool" },
-      { title: "See the activity", text: "Management screens fed by the tool's own data.", form: "Dashboard" },
+      { title: "See the activity", text: "Management screens fed by the tool’s own data.", form: "Dashboard" },
       { title: "Assist with writing", text: "Prepare a report or a document from the data entered.", form: "Embedded copilot" },
-      { title: "Keep the company’s memory", text: "Record each problem met and its solution, so the whole team can find them, even after someone leaves.", form: "Knowledge base" },
+      { title: "Keep your company’s know-how in one place", text: "Record each problem met and its solution, so the whole team can find them, even after someone leaves.", form: "Knowledge base" },
     ],
     coreKicker: "Software designed for your processes",
     coreTitle: "A business application built around your work",
@@ -617,7 +617,7 @@ const en: Record<string, ServicePageContent> = {
     faqExtra: [
       { q: "Why build rather than buy?", a: "In many cases an off-the-shelf product is enough, and we say so. Custom work is justified when your way of working is specific, when several tools should be connected, or when no product covers the core path of your activity." },
       { q: "Can we start small?", a: "That is the approach we recommend. A first version covers the most useful path, is tested by its users, then extended. It limits risk and makes trade-offs concrete." },
-      { q: "Who owns the application's code?", a: "Ownership, hosting and exit conditions are written into the proposal before work starts, along with the scope and each party's responsibilities." },
+      { q: "Who owns the application’s code?", a: "Ownership, hosting and exit conditions are written into the proposal before work starts, along with the scope and each party’s responsibilities." },
     ],
   },
 
@@ -637,7 +637,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Software integration and data synchronisation use cases",
     usesCards: true,
     mergeForms: true,
-    usesText: "A software integration is useful whenever the same business information exists in several tools. These are the most common connections between websites, CRM, ERP, APIs and databases.",
+    usesText: "A software integration is useful whenever the same business information exists in several tools. Here are common connections between websites, CRM, ERP, APIs and databases.",
     uses: [
       { title: "Connect your site to your CRM", text: "An approved request creates or updates the matching record.", form: "Website and forms" },
       { title: "Synchronise contacts", text: "One client record, current in the tools that need it.", form: "CRM" },
@@ -661,7 +661,7 @@ const en: Record<string, ServicePageContent> = {
     afterText: "A software connection relies on APIs, formats and third-party services that change over time. If you entrust the follow-up to us, after go-live we monitor exchanges, errors, quotas and any technical change that could affect synchronisation.",
     after: [
       { title: "Exchange monitoring", text: "Transfer errors and outages are detected quickly.", status: "monitoring in progress" },
-      { title: "Following API changes", text: "A change on the vendor's side can require adapting the connection.", status: "check in progress" },
+      { title: "Following API changes", text: "A change on the vendor’s side can require adapting the connection.", status: "check in progress" },
       { title: "Consistency checks", text: "Differences between two systems are spotted and corrected.", status: "check in progress" },
       { title: "Usage limits", text: "Volumes, quotas and the cost of connected services stay visible.", status: "measurement in progress" },
     ],
@@ -694,7 +694,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "Data analysis and dashboard use cases",
     usesCards: true,
     mergeForms: true,
-    usesText: "The goal of data intelligence is not to produce more charts, but to answer concrete business questions with reliable indicators. These are the most common data analysis use cases.",
+    usesText: "The goal of data intelligence is not to produce more charts, but to answer concrete business questions with reliable indicators. Here are common data analysis use cases.",
     uses: [
       { title: "Bring scattered data together", text: "Gather what lives across several tools and files today.", form: "Data centralisation" },
       { title: "Follow the activity", text: "Revenue, margin, cash and payment delays: up to date, with no manual export.", form: "Business dashboard" },
@@ -752,7 +752,7 @@ const en: Record<string, ServicePageContent> = {
     usesKicker: "AI training and adoption objectives",
     usesCards: true,
     mergeForms: true,
-    usesText: "Effective AI training starts from your teams' real work rather than a generic tour of tools. These are the most common objectives for building useful, responsible and lasting practices.",
+    usesText: "Effective AI training starts from your teams’ real work rather than a generic tour of tools. These objectives cover common needs for building useful, responsible and lasting practices.",
     uses: [
       { title: "Understand what AI can do", text: "And above all what it cannot do reliably.", form: "Discovery workshop" },
       { title: "Choose the right uses", text: "Identify the tasks where AI brings a gain you can verify.", form: "Business session" },

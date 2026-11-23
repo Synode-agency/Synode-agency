@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
@@ -192,6 +192,7 @@ function LangSwitch({
   pathname: string;
   label: string;
 }) {
+  const router = useRouter();
   return (
     <div className="lang" role="group" aria-label={label}>
       {(["fr", "en"] as const).map((l) => {
@@ -203,6 +204,17 @@ function LangSwitch({
             hrefLang={l}
             aria-current={current ? "true" : undefined}
             className={cn("lang-item", current && "is-current")}
+            /* Les ancres sont les mêmes dans les deux langues : quelqu'un qui
+               lit /en/cas-usage#rendez-vous et bascule doit arriver sur la
+               même section, pas en haut de /cas-usage. Le fragment n'est lu
+               qu'au clic, car `usePathname` ne le donne pas. Un clic avec
+               une touche (nouvel onglet) garde le lien nu. */
+            onClick={(event) => {
+              const hash = window.location.hash;
+              if (current || !hash || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              router.push(`${localePath(l, locale, pathname)}${hash}`);
+            }}
           >
             {l.toUpperCase()}
           </Link>

@@ -64,7 +64,7 @@ export function composeBrief(
       tools && (fr ? `Outils utilisés : ${tools.toLowerCase()}` : `Tools in use: ${tools.toLowerCase()}`),
       reentry && (fr ? `ressaisie entre outils : ${reentry.toLowerCase()}` : `re-entry between tools: ${reentry.toLowerCase()}`),
     ].filter(Boolean);
-    out.tools = `${parts.join(" ; ")}.`;
+    out.tools = `${parts.join(fr ? "\u00a0; " : "; ")}.`;
   }
 
   const data = answerLabel(locale, input.answers, "dataAvailability");
@@ -74,7 +74,7 @@ export function composeBrief(
       data && (fr ? `Données disponibles : ${data.toLowerCase()}` : `Data available: ${data.toLowerCase()}`),
       documents && (fr ? `documents et échanges écrits : ${documents.toLowerCase()}` : `documents and written exchanges: ${documents.toLowerCase()}`),
     ].filter(Boolean);
-    out.data = `${parts.join(" ; ")}.`;
+    out.data = `${parts.join(fr ? "\u00a0; " : "; ")}.`;
   }
 
   const control = answerLabel(locale, input.answers, "humanApproval");

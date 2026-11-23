@@ -43,14 +43,14 @@ import { PricingDoc } from "@/components/site/pricing-doc";
 
 /** Les besoins métier de la section « Solutions concrètes ». */
 const NEEDS = [
-  { icon: MessagesSquare, fr: ["Traitement des demandes clients", "Trier les demandes reçues et préparer des réponses contextualisées."], en: ["Customer request handling", "Sort, understand and draft the replies."] },
-  { icon: Target, fr: ["Qualification commerciale par IA", "Analyser et prioriser les prospects selon vos critères commerciaux."], en: ["Lead qualification", "Assess and prioritise incoming requests."] },
-  { icon: FileSearch, fr: ["Analyse intelligente de documents", "Extraire, classer et vérifier les données de vos documents métier."], en: ["Document analysis", "Extract and check the information that matters."] },
-  { icon: UserPlus, fr: ["Onboarding client automatisé", "Automatiser la collecte d’informations, les étapes d’accueil et les relances."], en: ["Client onboarding", "Guide a new client through the first steps."] },
-  { icon: Mail, fr: ["Automatisation des emails", "Classer les messages, détecter les priorités et préparer les réponses."], en: ["Email handling", "Classify, route and draft replies."] },
-  { icon: BarChart3, fr: ["Tableaux de bord & pilotage", "Centraliser vos indicateurs clés pour faciliter le pilotage de l’activité."], en: ["Reporting & steering", "Gather the numbers and make them readable."] },
-  { icon: CalendarRange, fr: ["Planification des rendez-vous", "Coordonner les disponibilités, les plannings et les rappels."], en: ["Planning & scheduling", "Organise tasks, schedules and appointments."] },
-  { icon: LifeBuoy, fr: ["Suivi après-vente", "Suivre les demandes après livraison et automatiser les relances utiles."], en: ["After-sales follow-up", "Track requests once the work is delivered."] },
+  { icon: MessagesSquare, fr: ["Traitement des demandes clients", "Trier les demandes reçues et préparer des réponses contextualisées."], en: ["Customer request handling", "Sort incoming requests and draft replies that fit their context."] },
+  { icon: Target, fr: ["Qualification commerciale par IA", "Analyser et prioriser les prospects selon vos critères commerciaux."], en: ["AI lead qualification", "Analyse and prioritise prospects against your sales criteria."] },
+  { icon: FileSearch, fr: ["Analyse intelligente de documents", "Extraire, classer et vérifier les données de vos documents métier."], en: ["Smart document analysis", "Extract, classify and check the data in your business documents."] },
+  { icon: UserPlus, fr: ["Onboarding client automatisé", "Automatiser la collecte d’informations, les étapes d’accueil et les relances."], en: ["Automated client onboarding", "Automate information gathering, welcome steps and reminders."] },
+  { icon: Mail, fr: ["Automatisation des emails", "Classer les messages, détecter les priorités et préparer les réponses."], en: ["Email automation", "Sort messages, spot priorities and draft replies."] },
+  { icon: BarChart3, fr: ["Tableaux de bord & pilotage", "Centraliser vos indicateurs clés pour faciliter le pilotage de l’activité."], en: ["Dashboards & reporting", "Bring your key indicators together to make the business easier to run."] },
+  { icon: CalendarRange, fr: ["Planification des rendez-vous", "Coordonner les disponibilités, les plannings et les rappels."], en: ["Appointment scheduling", "Coordinate availability, schedules and reminders."] },
+  { icon: LifeBuoy, fr: ["Suivi après-vente", "Suivre les demandes après livraison et automatiser les relances utiles."], en: ["After-sales follow-up", "Track requests after delivery and automate useful reminders."] },
 ] as const;
 
 const SECURITY = {
@@ -67,14 +67,14 @@ const SECURITY = {
   },
   en: {
     items: [
-      { title: "Secured data", text: "Access to data is limited to what the system actually needs." },
-      { title: "Access rights", text: "Permissions are set according to the users and the tools involved." },
-      { title: "Human control", text: "Sensitive decisions and important actions stay subject to your approval." },
-      { title: "Technical monitoring", text: "The solution can be watched, so errors and integration problems are caught." },
+      { title: "Data protection", text: "The solution only accesses the data needed for the operation agreed with you." },
+      { title: "Access rights management", text: "Permissions are limited by user, role and connected software." },
+      { title: "Human approval", text: "Sensitive decisions and important actions stay subject to your approval." },
+      { title: "Technical monitoring", text: "Operation, errors and integrations can be monitored after deployment." },
     ],
     panelTitle: "Your data stays under your control",
     checks: ["Restricted access", "Human approval", "Monitoring", "Traceability"],
-    panelNote: "The level we keep is decided project by project, against the real risks.",
+    panelNote: "The level of security is set for each project, according to the data, the uses and the risks identified.",
   },
 } as const;
 
@@ -95,13 +95,13 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <p>{fr ? "Intégrer l’IA à vos processus, connecter vos logiciels, développer l’application dont vos équipes ont besoin ou former votre équipe : chaque solution sur mesure part de votre activité, de vos outils et de vos contraintes." : "Bringing AI into your processes, connecting your software, building the application your teams need or training your staff: every custom solution starts from your business, your tools and your constraints."}</p>
         <div className="btn-row">
           <Link href="#briques" className="btn btn--primary">{fr ? "Découvrir nos solutions" : "Explore our solutions"}<ArrowDown aria-hidden /></Link>
-          <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
+          <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link>
         </div>
-        <span className="hero-reassurance">{fr ? <>Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "A free first conversation. A clear scope. A tailored quote."}</span>
+        <span className="hero-reassurance">{fr ? <>Un premier échange gratuit. Un périmètre clair. Un devis personnalisé.</> : "A free first call. A clear scope. A tailored quote."}</span>
       </PageHero>
 
       <Band id="briques" tone="base" className="solutions-rhythm solutions-light solutions-families-band">
-        <Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Synode combine agents IA, intégration de systèmes, automatisation des processus, logiciels métier, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "AI agents, systems integration, process automation, business software, data and training can be combined around your needs to design a solution that fits your tools, your data and your business processes. Every project is scoped individually, with no standard package imposed."} />
+        <Lede kicker={fr ? "Six familles de solutions" : "Six solution families"} title={fr ? "Nos solutions sur mesure,\navec l’IA intégrée" : "Our custom solutions,\nwith built-in AI"} accents={fr ? ["sur mesure"] : ["custom solutions"]} text={fr ? "Synode combine agents IA, intégration de systèmes, automatisation des processus, logiciels métier, data et formation. Chaque solution est conçue autour de votre fonctionnement réel, sans forfait standard ni technologie imposée." : "Synode combines AI agents, systems integration, process automation, business software, data and training. Every solution is designed around how you actually work, with no standard package and no imposed technology."} />
         <SolutionSlices items={getContent(locale).solutions.bricks} locale={locale} />
         <p className="families-note">
           {fr ? (
@@ -127,9 +127,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <div className="section-heading">
           <Lede
             kicker={fr ? "Des solutions concrètes" : "Concrete solutions"}
-            title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "Use cases for your business challenges"}
-            accents={fr ? ["cas d’usage IA"] : ["Use cases"]}
-            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "See how our solutions can answer concrete business problems, from handling customer requests to document analysis, by way of lead qualification and day-to-day steering."}
+            title={fr ? "Des cas d’usage IA pour\nvos enjeux métier" : "AI use cases for\nyour business challenges"}
+            accents={fr ? ["cas d’usage IA"] : ["AI use cases"]}
+            text={fr ? "Nos solutions répondent à des besoins opérationnels concrets : traitement des demandes clients, qualification commerciale, analyse documentaire, gestion des emails, planification et pilotage des activités." : "Our solutions meet concrete operational needs: handling customer requests, lead qualification, document analysis, email management, planning and performance tracking."}
           />
           <Link className="go" href={path(locale, ROUTES.useCases)}>{fr ? "Voir plus de cas d’usage" : "See more use cases"}<ArrowRight aria-hidden /></Link>
         </div>
@@ -182,9 +182,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
         <div className="section-heading">
           <Lede
             kicker={fr ? "Sécurité & contrôle" : "Security & control"}
-            title={fr ? "Sécurité et contrôle\nde vos solutions" : "Reliable solutions you stay in control of"}
-            accents={fr ? ["Sécurité", "contrôle"] : ["stay in control"]}
-            text={fr ? "La protection des données, la gestion des accès, la validation humaine et le monitoring sont intégrés dès la conception. Les mesures retenues dépendent des usages, des logiciels connectés et des risques du projet." : "Security, data confidentiality, access management, human control and technical monitoring are defined against the needs and the risks of each project."}
+            title={fr ? "Sécurité et contrôle\nde vos solutions" : "Security and control\nof your solutions"}
+            accents={fr ? ["Sécurité", "contrôle"] : ["Security", "control"]}
+            text={fr ? "La protection des données, la gestion des accès, la validation humaine et le monitoring sont intégrés dès la conception. Les mesures retenues dépendent des usages, des logiciels connectés et des risques du projet." : "Data protection, access management, human approval and monitoring are built in from the design stage. The measures chosen depend on how the solution is used, the software it connects to and the risks of the project."}
           />
         </div>
         <SecurityPanel
@@ -198,9 +198,9 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       <Band id="tarification" tone="base" className="solutions-rhythm solutions-full solutions-white-band">
         <Lede
           kicker={fr ? "Une tarification adaptée au projet" : "Pricing that fits the project"}
-          title={fr ? "Prix d’une solution sur mesure :\nnotre tarification" : "How we charge"}
-          accents={fr ? ["tarification"] : ["charge"]}
-          text={fr ? "Le budget d’un projet dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "Every project is different. We prepare a tailored quote based on your needs, the complexity of the solution, the integrations it requires and how it will be run."}
+          title={fr ? "Prix d’une solution sur mesure :\nnotre tarification" : "Custom solution pricing:\nhow we charge"}
+          accents={fr ? ["tarification"] : ["how we charge"]}
+          text={fr ? "Le budget d’un projet dépend du périmètre, de la complexité, des intégrations, des volumes et du niveau de suivi attendu. Notre devis distingue clairement le développement, les coûts techniques récurrents et les évolutions futures." : "A project’s budget depends on its scope, complexity, integrations, volumes and the level of support you expect. Our quote clearly separates development, recurring technical costs and future changes."}
         />
         <PricingDoc locale={locale} />
       </Band>
@@ -218,7 +218,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
             />
             <div className="btn-row">
               <Link href="#calendrier-solutions" className="btn btn--primary">{site.cta}<ArrowDown aria-hidden /></Link>
-              <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Describe your need"}</Link>
+              <Link href={formHref} className="btn btn--ghost">{fr ? "Décrire votre besoin" : "Tell us what you need"}</Link>
             </div>
             <p className="cta-note">{fr ? "30 minutes, gratuites et sans engagement." : "30 minutes, free and with no commitment."}</p>
           </div>

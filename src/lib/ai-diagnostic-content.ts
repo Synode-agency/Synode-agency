@@ -128,7 +128,7 @@ const en: typeof fr = {
   ctaText:
     "We can look more precisely at your process, your tools, your data and your constraints to determine which combination of technologies would genuinely be relevant.",
   toBrief: "Prepare your brief",
-  ctaPrimary: "Describe your need",
+  ctaPrimary: "Tell us what you need",
   ctaSecondary: "Explore our solutions",
   levels: {
     limited: "Another direction may be preferable",
