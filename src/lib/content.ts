@@ -98,7 +98,7 @@ const fr = {
   },
 
   home: {
-    metaTitle: "IA, intégration et logiciels sur mesure",
+    metaTitle: "IA, intégration et logiciels à Bruxelles",
     metaDescription: "Synode, agence technologique à Bruxelles : agents IA, intégration de vos logiciels (CRM, ERP, API), automatisations et logiciels métier sur mesure.",
     faq: {
       kicker: "Questions fréquentes",
@@ -440,7 +440,7 @@ const en = {
   },
 
   home: {
-    metaTitle: "AI, integration and custom software",
+    metaTitle: "AI, integration and software in Brussels",
     metaDescription: "Synode, a technology agency in Brussels: AI agents, integration of your software (CRM, ERP, API), automations and custom business software.",
     faq: {
       kicker: "FAQ",
