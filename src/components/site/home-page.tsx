@@ -113,7 +113,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       </div>}
     >
       <p>{fr ? "Synode Agency est une entreprise technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en logiciels sur mesure. Nous connectons les outils de votre organisation, concevons les logiciels dont vos équipes ont besoin, et y intégrons l’IA pour automatiser, analyser et assister au quotidien." : "Synode Agency is a Brussels-based technology company specialising in artificial intelligence, systems integration and custom software. We connect your organisation’s tools, build the software your teams need, and bring in AI to automate, analyse and assist day to day."}</p>
-      <div className="btn-row"><Link href={bookHref} className="btn btn--primary btn--white-blue">{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
+      <div className="btn-row"><Link href={bookHref} className="btn btn--primary">{fr ? "Parler de votre besoin" : "Tell us about your need"}<ArrowRight aria-hidden /></Link><Link href={path(locale, ROUTES.solutions)} className="btn btn--ghost">{fr ? "Découvrir nos solutions" : "Explore our solutions"}</Link></div>
       <span className="hero-reassurance">{fr ? "* Un premier échange gratuit, sans engagement." : "* A free first conversation. No commitment."}</span>
     </PageHero>
 

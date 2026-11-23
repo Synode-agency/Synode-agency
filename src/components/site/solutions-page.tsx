@@ -227,7 +227,7 @@ export function SolutionsPage({ locale }: { locale: Locale }) {
       </CardPanel>
 
       <Band id="faq" tone="base" className="solutions-rhythm solutions-faq-light">
-        <Lede kicker="FAQ" title={solutions.faqTitle} accents={fr ? ["solutions sur mesure"] : ["custom solutions"]} />
+        <Lede kicker={fr ? "Questions fréquentes" : "FAQ"} title={solutions.faqTitle} accents={fr ? ["solutions sur mesure"] : ["custom solutions"]} />
         <div className="section-gap"><FaqAccordion items={solutions.faq} /></div>
       </Band>
     </Shell>

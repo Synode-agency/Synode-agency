@@ -70,7 +70,7 @@ export function LegalPage({
   return (
     <Shell locale={locale}>
       <Band id="top" tone="base">
-        <Lede as="h1" title={notice ? legal.noticeTitle : legal.privacyTitle} />
+        <Lede as="h1" title={notice ? legal.noticeTitle : legal.privacyTitle} align="center" />
 
         <div className="todo section-gap">
           <span className="todo-label">{legal.draftLabel}</span>
@@ -141,7 +141,7 @@ export function NotFoundPage({ locale }: { locale: Locale }) {
   return (
     <Shell locale={locale}>
       <Band id="top" tone="base">
-        <Lede as="h1" title={notFound.title} text={notFound.text} />
+        <Lede as="h1" title={notFound.title} text={notFound.text} align="center" />
         <ul className="rows section-gap">
           {site.nav.map((item) => (
             <li key={item.href}>

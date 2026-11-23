@@ -9235,7 +9235,12 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   .dark-cta .lede,
   .dark-cta .svc-cta-actions,
   .home-cta-reminder-card,
-  .thanks-band .lede {
+  .thanks-band .lede,
+  /* ⚠ La règle des en-têtes de section, `main > .band > .col > .lede`,
+     pèse plus lourd que `.thanks-band .lede` : sans cette ligne, le titre de
+     la page Merci restait à gauche sur téléphone, au-dessus d'un texte
+     centré. */
+  main > .band.thanks-band > .col > .lede {
     align-items: center;
     text-align: center;
   }
@@ -9420,31 +9425,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 @media (min-width: 901px) {
   .daily-section-heading .lede-title {
     max-width: none;
-  }
-}
-
-/* ---- Le bouton principal du hero d'accueil : BLANC SUR TÉLÉPHONE SEULEMENT.
-
-   Au bureau il reprend le bleu clair des mots peints du titre, avec une
-   encre bleu nuit. Ce n'est pas écrit ici : `.home-hero-dark` pose déjà
-   `--brand: #8fc0ff` et `--brand-foreground: #0b192c`, et `.btn--primary`
-   lit ces deux jetons. Voir la règle de `.home-hero-dark` plus haut, et son
-   commentaire : 9,37:1, contre 3,25:1 pour le bleu de bouton ordinaire, qui
-   avait été essayé puis écarté sur ce fond.
-
-   ⚠ La borne à 900px est donc indispensable. Sans elle, cette règle écrase
-   les jetons sur TOUTES les tailles, et le bureau perd le bleu clair. C'est
-   exactement ce qui s'était passé en la posant.
-
-   Sur téléphone, en revanche, le blanc est voulu : le jeu de boutons
-   mobiles écrit `background` en dur et ignore les jetons, et c'est le blanc
-   qui a été retenu à l'œil. ---- */
-@media (max-width: 900px) {
-  .btn.btn--white-blue,
-  .btn.btn--white-blue:hover {
-    border-color: #ffffff;
-    background: #ffffff;
-    color: #0b6be6;
   }
 }
 
@@ -10392,4 +10372,33 @@ main > .band#top.work-detail-hero--centre .lede-text {
     inset-inline: 0;
     bottom: 0;
   }
+}
+
+/* =====================================================================
+   LE BOUTON PRINCIPAL SUR FOND BLEU NUIT : UN SEUL BLEU CLAIR (23/11/2026)
+
+   Il en circulait trois : le bleu clair des heros, le bleu de marque dans
+   les cartes de réservation (3,25:1 seulement sur ce fond, déjà écarté
+   pour les heros) et le blanc sur la page Merci. Partout, c'est désormais
+   celui des heros : encre #0B192C sur #8FC0FF, 9,37:1.
+
+   ⚠ Les jetons sont posés sur la RANGÉE de boutons, pas sur la carte : la
+   carte du calendrier, blanche, garde son bouton bleu de marque. Sur
+   téléphone, la règle des fonds sombres de `studio.css` donne déjà ce
+   même bleu clair.
+
+   (La règle `btn--white-blue` qui devait rendre ce bouton blanc sur
+   téléphone a été retirée le même jour : elle ne s'appliquait jamais.)
+   ===================================================================== */
+.dark-cta :is(.btn-row, .svc-cta-actions),
+.thanks-band .btn-row {
+  --brand: #8fc0ff;
+  --brand-foreground: #0b192c;
+  --brand-hover: #b3d4ff;
+}
+
+/* ---- L'encadré « Brouillon » des pages légales suit leur titre, centré
+   comme celui de tous les heros (23/11/2026). Son texte reste à gauche. */
+main > .band#top > .col > .todo {
+  margin-inline: auto;
 }

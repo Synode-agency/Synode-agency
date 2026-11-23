@@ -110,6 +110,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
       <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tint cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
+            <span className="eyebrow">{locale === "fr" ? "Échange découverte gratuit" : "Free discovery call"}</span>
             <Lede title={w.cta.title} accents={locale === "fr" ? ["solution adaptée"] : ["solution"]} text={w.cta.text} />
           </div>
           <div className="svc-cta-actions">
@@ -287,6 +288,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
       <CardPanel id="conclusion" className="dark-cta svc-cta" shellClassName="cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
+            <span className="eyebrow">{locale === "fr" ? "Échange découverte gratuit" : "Free discovery call"}</span>
             <Lede title={d.cta} text={d.ctaText} />
           </div>
           <div className="svc-cta-actions">

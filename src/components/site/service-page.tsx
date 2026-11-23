@@ -235,6 +235,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
           page, il n'a rien à illustrer. */}
       <div className="col card-body cta-panel cta-booking-grid">
         <div className="cta-booking-copy">
+          <span className="eyebrow">{fr ? "Échange découverte gratuit" : "Free discovery call"}</span>
           <Lede title={p.ctaTitle} accents={p.ctaTitleAccents} text={p.ctaText} />
         </div>
         <div className="svc-cta-actions">
@@ -247,7 +248,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
 
     {/* ===== 8 · FAQ — bleu clair, dernière section de la page ===== */}
     <Band id="faq" className="svc-band svc-tint svc-rhythm svc-faq">
-      <Lede kicker={fr ? "Questions fréquentes" : "Frequently asked"} title={p.faqTitle} accents={p.faqTitleAccents} />
+      <Lede kicker={fr ? "Questions fréquentes" : "FAQ"} title={p.faqTitle} accents={p.faqTitleAccents} />
       <div className="section-gap"><FaqAccordion items={[...p.faqExtra, ...d.faq]} /></div>
     </Band>
   </Shell>;

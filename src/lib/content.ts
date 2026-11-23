@@ -157,7 +157,7 @@ const fr = {
     },
 
     faq: {
-      kicker: "FAQ",
+      kicker: "Questions fréquentes",
       title: "Questions fréquentes sur nos solutions sur mesure",
       items: [
         {

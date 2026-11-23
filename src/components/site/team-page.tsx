@@ -105,6 +105,7 @@ export function TeamPage({ locale }: { locale: Locale }) {
       <CardPanel id="conclusion" className="dark-cta svc-cta team-cta" shellClassName="cta-shell--tint cta-shell--tall">
         <div className="col card-body cta-panel cta-booking-grid">
           <div className="cta-booking-copy">
+            <span className="eyebrow">{locale === "fr" ? "Échange découverte gratuit" : "Free discovery call"}</span>
             <Lede title={team.cta} accents={locale === "fr" ? ["votre projet"] : ["your project"]} text={team.ctaText} />
           </div>
           <div className="svc-cta-actions">

@@ -65,7 +65,7 @@
   color: #0b6be6;
 }
 
-/* ---- La frise des cinq étapes ---- */
+/* ---- La frise des six étapes de la méthode (23/11/2026) ---- */
 .steps {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -94,13 +94,17 @@
 .barDone {
   background: #9db8f2;
 }
-/* ⚠ Le nom d'étape n'est PAS en `nowrap` : « Mise en service » ne tient pas
-   dans un cinquième de la carte. Il se replie sur deux lignes, et les cinq
-   colonnes gardent la même hauteur. */
+/* ⚠ Le nom d'étape n'est PAS en `nowrap` : il se replie sur deux lignes,
+   et les six colonnes gardent la même hauteur. Un mot seul trop long pour
+   un sixième de la carte (« Développement », « Integration ») se coupe avec
+   un trait d'union, dans la langue de la page, et en dernier recours sans. */
 .step em {
   font-size: 11px;
   font-style: normal;
   line-height: 1.25;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
   color: #6e7177;
   transition: color 0.4s ease;
 }
