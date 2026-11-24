@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { diagnosticQuestions, type SingleQuestionId } from "@/lib/ai-diagnostic-questions";
 import type { Answers } from "@/lib/ai-diagnostic-score";
 

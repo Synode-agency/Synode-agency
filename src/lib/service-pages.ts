@@ -1,4 +1,4 @@
-import type { Locale } from "./content";
+import type { Locale } from "@/content";
 
 /**
  * LE CONTENU DES PAGES SERVICES, service par service.

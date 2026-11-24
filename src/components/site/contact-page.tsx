@@ -6,7 +6,7 @@ import { Lede } from "@/components/site/lede";
 import { renderLines } from "@/lib/lines";
 import { Booking } from "@/components/site/booking";
 import { ContactForm } from "@/components/site/contact-form";
-import { ANCHORS, getContent, type Locale } from "@/lib/content";
+import { ANCHORS, getContent, type Locale } from "@/content";
 
 /**
  * La page Contact.

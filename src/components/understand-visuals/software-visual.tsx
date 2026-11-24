@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { CompactPanel } from "@/components/compact-panel";
 import { Dot, Scene, T, curve, ease, onCurve, span, useSceneClock } from "./scene";
 

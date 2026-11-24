@@ -5,7 +5,7 @@ import { ChevronDown, ArrowRight } from "lucide-react";
 import { NavLink } from "./nav-link";
 import { brickIcons } from "./solution-visuals";
 import { path, ROUTES, type Locale } from "@/lib/routes";
-import type { HeaderCopy } from "@/lib/content";
+import type { HeaderCopy } from "@/content";
 
 /**
  * Le sous-menu Solutions de la navigation de BUREAU.

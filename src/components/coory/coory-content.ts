@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import type { WorkItem } from "@/lib/work";
 import type { ContextContent } from "@/components/nexus/context-section";
 import type { GoalsContent } from "@/components/nexus/goals-section";
@@ -7,7 +7,7 @@ import type { GoalsContent } from "@/components/nexus/goals-section";
  * LE CONTENU DES DEUX SECTIONS DE LA PAGE COORY.
  *
  * Même principe que `components/nexus/nexus-sections` : les textes du projet
- * ne sont PAS recopiés ici, ils sont lus dans `work.ts` et seulement
+ * ne sont PAS recopiés ici, ils sont lus dans `src/content/{fr,en}/work.ts` et seulement
  * découpés. Le contexte se coupe à la phrase « Coory est conçu et testé »,
  * et le rôle de l'IA laisse sa dernière phrase à l'encadré au bouclier.
  *
@@ -30,7 +30,7 @@ const NEW = {
     aiTitle: "Comment l’IA assiste le coach au quotidien",
     goalLabel: "objectif",
     goalsFoot: "● Mesure en conditions réelles · à venir",
-    /* Note propre à Coory : celle de `work.ts` parle des écrans de Nexus. */
+    /* Note propre à Coory : celle de `src/content/{fr,en}/work.ts` parle des écrans de Nexus. */
     goalsNote: "Ce sont des objectifs, pas des résultats mesurés. Les noms, séances et montants des écrans de Coory sont fictifs : aucun résultat ne sera publié ici avant d’avoir été mesuré en conditions réelles.",
     /* Le découpage des textes du projet. */
     tailFrom: "Coory est conçu et testé",

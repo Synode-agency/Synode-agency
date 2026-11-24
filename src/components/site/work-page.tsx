@@ -11,7 +11,7 @@ import { CooryContextSection, CooryGoalsSection, cooryContent } from "@/componen
 import cooryStyles from "@/components/coory/coory-sections.module.css";
 import { HomeWorkCards } from "./home-work-cards";
 import { Lede } from "@/components/site/lede";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { COORY_DEMO, COORY_DEMO_URL, cooryCardCopy, findWork, work, type WorkItem, type WorkKind } from "@/lib/work";
 import { siteUrl } from "@/lib/site-url";
 import { sansVeuve } from "@/lib/sans-veuve";
@@ -206,7 +206,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
                 </a>
               ) : (
                 /* La démo n'est pas encore en ligne : le bouton est là,
-                   désactivé, sans lien. Voir `COORY_DEMO_URL` dans work.ts. */
+                   désactivé, sans lien. Voir `COORY_DEMO_URL` dans `src/lib/work.ts`. */
                 <span
                   className={`btn btn--ghost ${cooryStyles.demoSoon}`}
                   role="link"
@@ -261,7 +261,7 @@ export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkIte
           studio.css. */}
       {/* ===== LE CONTEXTE ET LES OBJECTIFS — deux sections en deux blocs :
           tous les textes à gauche, les écrans de Nexus à droite. Les textes
-          du projet viennent de `work.ts` et ne sont que découpés, jamais
+          du projet viennent de `src/content/{fr,en}/work.ts` et ne sont que découpés, jamais
           recopiés : voir `components/nexus/nexus-sections`. ===== */}
       {isCoory ? (
         <>

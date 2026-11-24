@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight, Check } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 export type PainId =
   | "emails"

@@ -348,7 +348,7 @@ export async function notifyByEmail(req: ContactRequest): Promise<boolean> {
  * adresse choisie par lui. Un texte fixe ne sert à rien à un spammeur.
  *
  * Pas de délai promis : le site n'en promet aucun (voir `thanks` dans
- * `content.ts`), l'email non plus.
+ * `src/content/`), l'email non plus.
  */
 export async function sendAcknowledgement(req: ContactRequest): Promise<boolean> {
   const config = mailConfig();

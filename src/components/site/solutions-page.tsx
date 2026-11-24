@@ -7,7 +7,7 @@ import { Band, CardPanel, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { SolutionSlices } from "@/components/site/solution-slices";
 import { FaqAccordion } from "@/components/site/faq-accordion";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { renderLines } from "@/lib/lines";
 import { PageHero } from "@/components/site/page-hero";
 import { Booking } from "@/components/site/booking";

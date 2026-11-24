@@ -1,10 +1,10 @@
 /**
  * Les langues et les adresses du site.
  *
- * Séparées de `content.ts` le 23/11/2026 (constat K9 de l'audit) : les
+ * Séparées des textes le 23/11/2026 (constat K9 de l'audit) : les
  * composants interactifs (menu, formulaire, calendrier…) en ont besoin, et
- * en les important depuis `content.ts` ils faisaient partir TOUS les textes
- * français et anglais dans le navigateur, sur chaque page. `content.ts` les
+ * en les important avec les textes ils faisaient partir TOUS les textes
+ * français et anglais dans le navigateur, sur chaque page. `@/content` les
  * réexporte : le code serveur n'a rien à changer.
  */
 

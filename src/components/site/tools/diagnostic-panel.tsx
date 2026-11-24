@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { ArrowRight, Check } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { diagnosticQuestions, type SingleQuestionId } from "@/lib/ai-diagnostic-questions";
 import { scoreDiagnostic, type Answers } from "@/lib/ai-diagnostic-score";
 import { diagnosticContent, diagnosticSummary } from "@/lib/ai-diagnostic-content";

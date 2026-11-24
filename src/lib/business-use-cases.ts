@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * LES CAS D'USAGE DE LA PAGE « CAS D'USAGE » (et les quatre premiers, repris

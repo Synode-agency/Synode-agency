@@ -1,8 +1,8 @@
 import { ArrowUpRight, UserCheck, Bot, type LucideIcon } from "lucide-react";
 import { offerIcons } from "@/components/site/solution-visuals";
 import Link from "next/link";
-import type { Locale } from "@/lib/content";
-import { ROUTES, path } from "@/lib/content";
+import type { Locale } from "@/content";
+import { ROUTES, path } from "@/content";
 import type { ApproachId } from "@/lib/ai-diagnostic-score";
 import { diagnosticContent } from "@/lib/ai-diagnostic-content";
 

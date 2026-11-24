@@ -5,7 +5,7 @@ import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
 import { ROUTES, path, type Locale } from "@/lib/routes";
-import type { ContactFormCopy } from "@/lib/content";
+import type { ContactFormCopy } from "@/content";
 import { isValidEmail, isValidWebsite } from "@/lib/form-rules";
 
 type FieldName = "name" | "email" | "need" | "website";

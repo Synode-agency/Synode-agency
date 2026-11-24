@@ -14,7 +14,7 @@ import { OperationalImpact } from "@/components/site/operational-impact";
 import { ToolsSection } from "@/components/site/tools/tools-section";
 import { HomeWorkCards } from "@/components/site/home-work-cards";
 import { featuredBusinessUseCases } from "@/lib/business-use-cases";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 

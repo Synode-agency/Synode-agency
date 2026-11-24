@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Search, Target } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import styles from "./nexus-visual.module.css";
 
 /**

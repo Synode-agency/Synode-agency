@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { ContactPanel, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
 import layout from "@/components/equipe/equipe.module.css";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 

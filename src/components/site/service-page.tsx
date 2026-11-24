@@ -21,7 +21,7 @@ import { AgentNetwork } from "./agent-network";
 import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
 import { servicePage } from "@/lib/service-pages";
 import { renderLines } from "@/lib/lines";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationName } from "@/lib/organization";
 import { type solutionFamilies } from "@/lib/solution-details";

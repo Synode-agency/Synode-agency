@@ -3,7 +3,7 @@ import { ogBase, withBrand } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { ServicePage } from "@/components/site/service-page";
 import { findSolution, solutionFamilies } from "@/lib/solution-details";
-import { path } from "@/lib/content";
+import { path } from "@/content";
 
 const locale = "fr";
 

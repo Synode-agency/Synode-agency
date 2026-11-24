@@ -3,7 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { BusinessUseCase } from "@/lib/business-use-cases";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * Les cas d'usage, en accordéons.

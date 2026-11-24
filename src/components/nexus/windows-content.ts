@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * LE CONTENU DES QUATRE ÉCRANS DE NEXUS.

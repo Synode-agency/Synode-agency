@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import type { ApproachId, DiagnosticResult, ObservationId, PotentialLevel } from "@/lib/ai-diagnostic-score";
 import type { DimensionKey } from "@/lib/ai-diagnostic-questions";
 

@@ -3,7 +3,7 @@ import {
   type DimensionKey,
   type SingleQuestionId,
 } from "@/lib/ai-diagnostic-questions";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * Le calcul du diagnostic.

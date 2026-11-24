@@ -110,11 +110,18 @@ src/
 │   │                       Visuels animés des pages services, et leurs
 │   │                       versions compactes pour téléphone
 │   └── equipe/             Visuels de la page Équipe
+├── content/
+│   ├── fr/, en/            Textes du site, un fichier par page + common.ts
+│   │                       (menu, pied de page, boutons), work.ts (projets),
+│   │                       legal.ts (mentions légales et confidentialité)
+│   ├── types.ts            Forme commune : l'anglais doit suivre le français
+│   ├── legal-shared.ts     Numéro d'activité Smart et règles d'écriture du légal
+│   └── index.ts            getContent(locale) et le reste de l'accès aux textes
 └── lib/
-    ├── content.ts          Textes communs du site, FR et EN, et routes
-    ├── service-pages.ts, solution-details.ts, business-use-cases.ts, work.ts
-    │                       Contenu des services, des cas d'usage et des projets
-    ├── legal-content.ts    Mentions légales et politique de confidentialité
+    ├── routes.ts           Langues, adresses et ancres
+    ├── service-pages.ts, solution-details.ts, business-use-cases.ts
+    │                       Contenu des services et des cas d'usage
+    ├── work.ts             Logique des projets (démo de Coory, recherche)
     ├── contact-store.ts, ack-email.ts   Traitement des demandes de contact
     ├── ai-diagnostic-*.ts, tools-brief.ts   Les outils de l'accueil
     └── og-image.tsx, og-card.tsx, organization.ts, site-url.ts
@@ -122,10 +129,11 @@ src/
 public/                     Logos, portraits de l'équipe, logos des projets
 ```
 
-Les textes vivent pour l'essentiel dans `src/lib/`, en français et en anglais
-côte à côte. Certaines pages portent aussi leurs textes FR et EN directement
-dans leur composant : une traduction se fait toujours au même endroit que le
-texte français.
+Les textes vivent dans `src/content/`, un dossier par langue avec les mêmes
+fichiers. Le français fait foi : si un fichier anglais oublie ou ajoute une
+clé, la compilation échoue. Certaines pages portent encore leurs textes FR et
+EN dans leur composant ou dans `src/lib/` : ils rejoignent `src/content/` au
+fil de la refonte.
 
 ---
 

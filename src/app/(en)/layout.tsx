@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_NAME } from "@/lib/seo";
 import { SiteShell, siteUrl } from "@/app/site-shell";
-import { getContent } from "@/lib/content";
+import { getContent } from "@/content";
 
 const { site } = getContent("en");
 

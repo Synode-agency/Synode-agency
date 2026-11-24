@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { HeroCompact } from "@/components/hero-compact";
 import { Box, Dot, Scene, T, ease, polyline, px, py, span, useSceneClock } from "./scene";
 

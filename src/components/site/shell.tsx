@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
-import { getContent, headerCopy, type Locale } from "@/lib/content";
+import { getContent, headerCopy, type Locale } from "@/content";
 import { SITE_THEME } from "@/lib/site-theme";
 
 /**

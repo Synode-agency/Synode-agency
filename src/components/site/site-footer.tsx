@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
-import { ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ROUTES, getContent, path, type Locale } from "@/content";
 import { organizationProfiles } from "@/lib/organization";
 import { CurrentYear } from "./current-year";
 

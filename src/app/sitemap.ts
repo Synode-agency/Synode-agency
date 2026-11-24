@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { solutionFamilies } from "@/lib/solution-details";
-import { ROUTES } from "@/lib/content";
+import { ROUTES } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { assertBusinessUseCases } from "@/lib/business-use-cases";
 import { workItems } from "@/lib/work";

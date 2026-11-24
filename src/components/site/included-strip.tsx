@@ -12,7 +12,7 @@ import styles from "./included-strip.module.css";
  * Formation & Adoption reste une offre à part, pour former une équipe à
  * l'IA sans projet.
  *
- * Le texte vient de `content.ts` (`solutions.operations.included`), écrit
+ * Le texte vient de `src/content/{fr,en}/solutions.ts` (`operations.included`), écrit
  * une seule fois pour les six pages : c'est un engagement, il ne doit pas
  * exister en six exemplaires. Sur la page Formation elle-même, le lien vers
  * cette page n'a pas de sens : `moreHref` est alors omis.

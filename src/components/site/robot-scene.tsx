@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Check } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * Le robot qui cherche, comprend et prépare.

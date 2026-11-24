@@ -3,8 +3,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/lib/content";
-import { LEGAL } from "@/lib/legal-content";
+import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/content";
+import { LEGAL } from "@/content";
 
 /**
  * La confirmation d'envoi.
@@ -48,7 +48,7 @@ export function ThanksPage({ locale }: { locale: Locale }) {
  * Les pages légales.
  *
  * Texte validé le 23/11/2026 (cadre Smart : Productions Associées ASBL). Il
- * vit dans `src/lib/legal-content.ts`, avec le numéro d'activité Smart
+ * vit dans `src/content/{fr,en}/legal.ts`, avec le numéro d'activité Smart
  * (`SMART_ACTIVITY_NUMBER`), affiché seulement une fois connu.
  */
 export function LegalPage({
@@ -99,7 +99,7 @@ export function LegalPage({
   );
 }
 
-/* Les marques d'écriture de `legal-content.ts` : gras, adresse e-mail, lien
+/* Les marques d'écriture de `src/content/{fr,en}/legal.ts` : gras, adresse e-mail, lien
    externe ou vers l'autre page légale. Un retour à la ligne devient un saut
    de ligne (les adresses). */
 const LEGAL_TOKEN = /(\*\*[^*]+\*\*|\{email\}|<<[^|>]+\|[^>]+>>)/g;

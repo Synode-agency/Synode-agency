@@ -7,7 +7,7 @@ import { Booking } from "@/components/site/booking";
 import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { businessUseCases } from "@/lib/business-use-cases";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/lib/content";
+import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 
 export function UseCasesPage({ locale }: { locale: Locale }) {

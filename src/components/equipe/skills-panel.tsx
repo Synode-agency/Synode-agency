@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Check } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { span, useVisualClock } from "./use-visual-clock";
 import styles from "./skills-panel.module.css";
 

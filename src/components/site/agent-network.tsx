@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { HeroCompact } from "@/components/hero-compact";
 
 /**

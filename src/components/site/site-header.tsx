@@ -9,7 +9,7 @@ import { NavLink } from "./nav-link";
 import { SolutionsMenu } from "./solutions-menu";
 import { MobileMenu } from "@/components/nav/mobile-menu";
 import { ANCHORS, ROUTES, homePath, path, type Locale } from "@/lib/routes";
-import type { HeaderCopy } from "@/lib/content";
+import type { HeaderCopy } from "@/content";
 import { cx } from "@/lib/cx";
 
 /**

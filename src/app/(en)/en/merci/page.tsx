@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThanksPage } from "@/components/site/simple-pages";
-import { getContent } from "@/lib/content";
+import { getContent } from "@/content";
 
 /* Hors index : cette page n'a de sens qu'après un envoi, et l'architecture
    demande explicitement de l'exclure. */

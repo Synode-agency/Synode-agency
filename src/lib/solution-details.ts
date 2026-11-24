@@ -1,4 +1,4 @@
-import { getContent, type Locale } from "./content";
+import { getContent, type Locale } from "@/content";
 
 /* Seuls les champs que les pages lisent : six autres (public, possibilités,
    scénario, exemples, prérequis, intégration), jamais affichés, ont été

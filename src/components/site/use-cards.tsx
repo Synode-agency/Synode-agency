@@ -1,5 +1,5 @@
 import { ArrowRight, Check, Lock, Search, ShieldCheck, X } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * LES HUIT USAGES D'UNE PAGE SERVICE, EN CARTES.

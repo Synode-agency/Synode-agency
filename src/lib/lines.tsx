@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from "react";
 
 /**
  * Les retours à la ligne des titres et des chapeaux sont écrits à la main
- * dans `content.ts`, avec un `\n`, parce que la composition desktop doit être
+ * dans `src/content/`, avec un `\n`, parce que la composition desktop doit être
  * la même d'un portable à un écran 4K.
  *
  * Sur téléphone, aucun de ces retours ne s'applique. Une coupe calée sur une

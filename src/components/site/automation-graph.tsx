@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Archive, Bell, Cpu, Database, FileText, Send, Sparkles, User } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * LE VISUEL DE LA COLONNE DE DROITE DE « QU'EST-CE QU'UNE AUTOMATISATION ? ».

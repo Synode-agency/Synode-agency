@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { useOnScreen } from "@/lib/use-on-screen";
 
 /**

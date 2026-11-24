@@ -6,7 +6,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/site/nav-link";
 import { brickIcons } from "@/components/site/solution-visuals";
 import { ANCHORS, ROUTES, path, type Locale } from "@/lib/routes";
-import type { HeaderCopy } from "@/lib/content";
+import type { HeaderCopy } from "@/content";
 import { cx } from "@/lib/cx";
 import s from "./mobile-menu.module.css";
 

@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * La page du design system.

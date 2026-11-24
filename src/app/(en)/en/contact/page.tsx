@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ogBase, withBrand } from "@/lib/seo";
 import { ContactPage } from "@/components/site/contact-page";
-import { getContent } from "@/lib/content";
+import { getContent } from "@/content";
 
 const c = getContent("en").contact;
 const prefix = "/en";

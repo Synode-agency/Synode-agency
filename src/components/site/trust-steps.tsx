@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Activity, Check, LockKeyhole, Plug, UserCheck } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { useOnScreen } from "@/lib/use-on-screen";
 
 /**

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Database, GitMerge, ShieldCheck, UserCheck } from "lucide-react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { useOnScreen } from "@/lib/use-on-screen";
 
 /**

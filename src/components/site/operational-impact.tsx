@@ -1,6 +1,6 @@
 import { renderLines } from "@/lib/lines";
 import { ImpactSplit } from "@/components/site/impact-split";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 
 /**
  * Les résultats recherchés, en bloc éditorial.

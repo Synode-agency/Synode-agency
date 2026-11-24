@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import { useVisualClock } from "./use-visual-clock";
 import styles from "./contact-panel.module.css";
 

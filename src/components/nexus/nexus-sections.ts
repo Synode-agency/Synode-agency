@@ -1,4 +1,4 @@
-import type { Locale } from "@/lib/content";
+import type { Locale } from "@/content";
 import type { WorkItem } from "@/lib/work";
 import type { ContextContent } from "./context-section";
 import type { GoalsContent } from "./goals-section";
@@ -7,7 +7,7 @@ import type { GoalsContent } from "./goals-section";
  * LE CONTENU DES DEUX SECTIONS DE LA PAGE NEXUS.
  *
  * ⚠ Les textes du projet ne sont PAS recopiés ici : ils sont lus dans
- * `work.ts` et seulement découpés. Le paragraphe de contexte se coupe à la
+ * `src/content/{fr,en}/work.ts` et seulement découpés. Le paragraphe de contexte se coupe à la
  * phrase « Nexus reste un outil interne », et le rôle de l'IA laisse sa
  * dernière phrase à l'encadré au bouclier. Recopier ces textes créerait deux
  * sources de vérité pour la même phrase.

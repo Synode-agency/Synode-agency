@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { SITE_NAME, ogBase } from "@/lib/seo";
 import { HomePage } from "@/components/site/home-page";
-import { getContent } from "@/lib/content";
+import { getContent } from "@/content";
 
 const c = getContent("fr").home;
 

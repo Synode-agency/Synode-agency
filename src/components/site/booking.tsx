@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, CalendarClock } from "lucide-react";
 import { path, ROUTES, type Locale } from "@/lib/routes";
-import type { BookingCopy } from "@/lib/content";
+import type { BookingCopy } from "@/content";
 
 /** Accept a Cal.com event path or a full public booking URL. */
 function bookingUrl(value: string | undefined) {
