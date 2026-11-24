@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
-import { PrimaryButton } from "./primary-button";
+import { ServicesMenu } from "./services-menu";
 import { MobileMenu } from "@/components/nav/mobile-menu";
 import { ROUTES, homePath, path, switchLocalePath, translateHash, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
@@ -19,8 +19,10 @@ import { cx } from "@/lib/cx";
  * fond teinté reste visible derrière elle, ce qui préserve le principe du
  * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
  *
- * Une seule ligne sur ordinateur, trois entrées et un bouton (brief de la
- * refonte, 4.2). Pas d'entrée « Accueil » : le logo y mène. Une barre qui
+ * Une seule ligne sur ordinateur : trois entrées, dont « Services » qui
+ * déroule ses trois services, puis la langue et le bouton blanc
+ * « Contact » (maquette du 24/11/2026). Pas d'entrée « Accueil » : le logo
+ * y mène. Une barre qui
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  */
@@ -114,7 +116,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
         </NavLink>
 
         <nav aria-label={site.navLabel} className="site-nav">
-          {site.nav.map((item) => (
+          {site.nav.map((item) => item.href === ROUTES.services ? (
+            <ServicesMenu key={`services-${pathname}`} locale={locale} pathname={pathname} label={item.label} menu={site.servicesMenu} />
+          ) : (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -129,9 +133,12 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
 
         <div className="site-header-end">
           <LangSwitch locale={locale} pathname={pathname} label={site.langLabel} />
-          {/* Le bouton reste dans la barre sur téléphone, hors du menu ☰
-              (brief, 4.2) : c'est la seule action du site. */}
-          <PrimaryButton locale={locale} className="site-header-cta" />
+          {/* « Contact », en blanc, visible aussi sur téléphone hors du
+              menu ☰. Le bouton principal (« Réserver un appel de 30 min »)
+              reste dans les pages. */}
+          <Link href={path(locale, ROUTES.contact)} className="site-header-contact">
+            {site.contactLabel}
+          </Link>
 
           <button
             type="button"

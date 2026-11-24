@@ -19,6 +19,15 @@ export const site = {
   footerNav,
   footerTagline: "Custom software, integrations and AI. Brussels.",
   cta: ctaLabel.en,
+  contactLabel: "Contact",
+  servicesMenu: {
+    all: "All our services",
+    items: [
+      { key: "connect", title: "Connect your tools", text: "Link your software and automate the repetitive work" },
+      { key: "ai", title: "Put AI to work", text: "AI assistants connected to your tools" },
+      { key: "software", title: "Build your custom software", text: "The app you need, web or mobile" },
+    ] as const,
+  },
   ctaNote: "Free, no commitment.",
   menuOpen: "Open menu",
   menuClose: "Close menu",

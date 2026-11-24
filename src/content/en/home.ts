@@ -5,18 +5,28 @@ export const home = {
   metaDescription: "We connect your tools, add AI and build custom software, from freelancers to large companies. Free 30-min call.",
 
   hero: {
-    title: "We connect your tools and automate the repetitive work.",
-    accents: ["your tools", "the repetitive work"],
+    title: "We build the technology\nthat moves businesses forward.",
+    accents: ["technology", "forward"],
     subtitle:
-      "Synode links your existing software, adds AI where it helps and builds the tools you’re missing. Your team spends less time re-typing, chasing and searching.",
-    secondaryLink: "See our work",
+      "Synode, a software development & AI agency in Brussels, designs and builds software tailored to your company’s needs. We integrate artificial intelligence, connect your tools and automate your processes to support your growth.",
+    emphasis: "software development & AI agency in Brussels",
+    note: "Free, no commitment · one process is enough to start",
   },
 
   proof: {
-    logos: [] as readonly { src: string; alt: string }[],
+    logosLabel: "They trust us",
+    logosAccent: "trust",
+    logos: [
+      { src: "/clients/behybrid.png", alt: "BEHYBRID", width: 900, height: 90, display: 16 },
+      { src: "/clients/betapro.png", alt: "Betapro, construction and renovation", width: 198, height: 160, display: 48 },
+      { src: "/clients/baert.png", alt: "Baert", width: 434, height: 88, display: 24 },
+      { src: "/clients/picarle.png", alt: "Picarle Rénovation", width: 155, height: 160, display: 48 },
+      { src: "/clients/group-cleaning.png", alt: "Group Cleaning & Services", width: 133, height: 160, display: 48 },
+      { src: "/clients/glb-coaching.png", alt: "GLB Coaching", width: 437, height: 160, display: 32 },
+      { src: "/clients/batisseurs-espoir.png", alt: "Bâtisseurs d’espoir (non-profit)", width: 460, height: 160, display: 36 },
+    ] as readonly { src: string; alt: string; width: number; height: number; display: number }[],
     rating: "",
     quote: { text: "", author: "" },
-    fallback: ["Based in Brussels", "Two founding developers", "One point of contact"],
   },
 
   problems: {

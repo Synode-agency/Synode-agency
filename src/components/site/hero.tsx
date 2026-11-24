@@ -23,9 +23,11 @@ export function Hero({
   subtitle,
   primaryCta = false,
   secondaryLink,
+  arrows = true,
   note,
   layout = "inner",
   aside,
+  strip,
   className,
   children,
 }: {
@@ -35,22 +37,26 @@ export function Hero({
   subtitle?: ReactNode;
   primaryCta?: boolean;
   secondaryLink?: { href: string; label: string };
+  /** Les flèches après les libellés des deux actions. */
+  arrows?: boolean;
   note?: string;
   layout?: "feature" | "inner";
   aside?: ReactNode;
+  /** Une bande pleine largeur sous les deux colonnes (la bande de preuve). */
+  strip?: ReactNode;
   className?: string;
   children?: ReactNode;
 }) {
   return (
-    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside} className={className}>
+    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside} strip={strip} className={className}>
       {subtitle ? <p>{subtitle}</p> : null}
       {primaryCta || secondaryLink ? (
         <div className="btn-row hero-actions">
-          {primaryCta ? <PrimaryButton locale={locale} /> : null}
+          {primaryCta ? <PrimaryButton locale={locale} icon={arrows} /> : null}
           {secondaryLink ? (
             <Link className="go" href={secondaryLink.href}>
               {secondaryLink.label}
-              <ArrowRight aria-hidden />
+              {arrows && <ArrowRight aria-hidden />}
             </Link>
           ) : null}
         </div>

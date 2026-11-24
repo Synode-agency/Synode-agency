@@ -22,17 +22,20 @@ export function PrimaryButton({
   children,
   className,
   onClick,
+  icon = true,
 }: {
   locale: Locale;
   href?: string;
   children?: ReactNode;
   className?: string;
   onClick?: () => void;
+  /** La flèche après le libellé. Le hero de l'accueil s'en passe. */
+  icon?: boolean;
 }) {
   return (
     <Link href={href ?? bookingHref(locale)} className={cx("btn btn--primary", className)} onClick={onClick}>
       {children ?? ctaLabel[locale]}
-      <ArrowRight aria-hidden />
+      {icon && <ArrowRight aria-hidden />}
     </Link>
   );
 }

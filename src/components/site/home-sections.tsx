@@ -12,34 +12,17 @@ import { serviceHref, type Locale, type SiteContent } from "@/content";
 type Home = SiteContent["home"];
 
 /**
- * LA BANDE DE PREUVE (`ProofStrip`), juste sous le hero.
+ * LA PREUVE (`ProofStrip`), au bas du hero.
  *
- * Elle ne montre que ce qui existe : logos autorisés, note, citation. Tant
- * qu'il n'y en a aucun, elle se replie sur une ligne neutre. Rien n'est
- * inventé (brief, règle 8).
+ * Le bandeau défilant des logos des clients, puis la note et la citation si
+ * elles existent. Rien n'est inventé (brief,
+ * règle 8) : sans logo dans le contenu, pas de bandeau.
  */
 export function ProofStrip({ proof }: { proof: Home["proof"] }) {
   const hasQuote = proof.quote.text.trim() !== "";
-  if (proof.logos.length === 0 && proof.rating.trim() === "" && !hasQuote) {
-    return (
-      <p className="proof-strip proof-strip--fallback">
-        {proof.fallback.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </p>
-    );
-  }
   return (
     <div className="proof-strip">
-      {proof.logos.length > 0 && (
-        <ul className="proof-logos">
-          {proof.logos.map((logo) => (
-            <li key={logo.src}>
-              <Image src={logo.src} alt={logo.alt} width={120} height={40} />
-            </li>
-          ))}
-        </ul>
-      )}
+      {proof.logos.length > 0 && <LogoMarquee label={proof.logosLabel} accent={proof.logosAccent} logos={proof.logos} />}
       {proof.rating.trim() !== "" && <p className="proof-rating">{proof.rating}</p>}
       {hasQuote && (
         <figure className="proof-quote">
@@ -47,6 +30,57 @@ export function ProofStrip({ proof }: { proof: Home["proof"] }) {
           {proof.quote.author && <figcaption>{proof.quote.author}</figcaption>}
         </figure>
       )}
+    </div>
+  );
+}
+
+/* Combien de fois la liste est répétée dans une moitié du bandeau : assez
+   pour dépasser la largeur de l'écran avec peu de logos. */
+const MARQUEE_REPEAT = 2;
+
+/**
+ * LE BANDEAU DÉFILANT DES LOGOS (24/11/2026).
+ *
+ * La piste porte deux moitiés identiques et glisse d'une moitié : la boucle
+ * ne se voit pas. Seule la première série est annoncée aux lecteurs
+ * d'écran ; les copies sont masquées. Le défilement continue au survol
+ * (choix d'Antonino) ; il n'a pas lieu sous `prefers-reduced-motion` :
+ * les logos sont alors posés une seule fois.
+ */
+function LogoMarquee({ label, accent, logos }: { label: string; accent: string; logos: Home["proof"]["logos"] }) {
+  const copies = MARQUEE_REPEAT * 2;
+  /* Le mot mis en avant (« confiance ») dans sa propre police. */
+  const at = accent ? label.indexOf(accent) : -1;
+  return (
+    <div className="logo-marquee">
+      <p className="logo-marquee-label">
+        {at === -1 ? (
+          label
+        ) : (
+          <>
+            {label.slice(0, at)}
+            <span className="logo-marquee-accent">{accent}</span>
+            {label.slice(at + accent.length)}
+          </>
+        )}
+      </p>
+      <div className="logo-marquee-viewport">
+        <ul className="logo-marquee-track">
+          {Array.from({ length: copies }).flatMap((_, copy) =>
+            logos.map((logo) => (
+              <li key={`${copy}-${logo.src}`} aria-hidden={copy > 0 ? true : undefined}>
+                <Image
+                  src={logo.src}
+                  alt={copy > 0 ? "" : logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  style={{ height: logo.display, width: "auto" }}
+                />
+              </li>
+            )),
+          )}
+        </ul>
+      </div>
     </div>
   );
 }

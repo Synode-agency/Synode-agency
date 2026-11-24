@@ -65,7 +65,8 @@ body {
 }
 .btn {
   min-height: 2.8rem;
-  border-radius: 7px;
+  /* En pilule (24/11/2026, demande d'Antonino) : tous les boutons du site. */
+  border-radius: var(--r-pill);
   font-size: 0.8125rem;
   font-weight: 500;
   padding-inline: 1.1rem;
@@ -3451,12 +3452,12 @@ main > .band#tarification > .col > .lede {
     padding-bottom: 56px;
   }
 
-  /* ---- Les boutons. Pleine largeur, 52px, coins à 12px.
+  /* ---- Les boutons. Pleine largeur, 52px, en pilule comme partout.
      Le plafond de 20rem de la règle des deux actions tombe ici : sur
      téléphone, un bouton occupe toute la colonne. ---- */
   .btn {
     min-height: 52px;
-    border-radius: 12px;
+    border-radius: var(--r-pill);
     font-size: 16px;
   }
   /* ⚠ UN SEUL CORPS DE BOUTON SUR TOUT LE SITE, et cette règle est ce qui le

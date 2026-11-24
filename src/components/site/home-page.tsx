@@ -1,4 +1,6 @@
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
+import { Instrument_Serif } from "next/font/google";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
@@ -7,10 +9,51 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseCards } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
 import { Founders, ProblemList, ProofStrip, ServiceCards, Steps } from "@/components/site/home-sections";
-import { renderLines } from "@/lib/lines";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
+
+/* Met un passage d'un texte en gras (le nom de l'agence dans la
+   description du hero). Sans le passage, le texte reste tel quel. */
+function emphasize(text: string, phrase: string): ReactNode {
+  const at = phrase ? text.indexOf(phrase) : -1;
+  if (at === -1) return text;
+  return (
+    <>
+      {text.slice(0, at)}
+      <strong>{phrase}</strong>
+      {text.slice(at + phrase.length)}
+    </>
+  );
+}
+
+/* LES MOTS EN COULEUR DU TITRE DE L'ACCUEIL (24/11/2026) : en italique,
+   dans une autre police que Manrope, Instrument Serif. Chargée ici et non
+   dans le gabarit commun : seul l'accueil s'en sert. Licence libre (OFL). */
+const accentFont = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-accent",
+  display: "swap",
+});
+
+/* Une ligne du titre, avec ses mots en couleur (`.title-accent`). */
+function titleLine(line: string, accents: readonly string[]): ReactNode[] {
+  const motif = new RegExp(`(${accents.map((a) => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`);
+  return line
+    .split(motif)
+    .filter(Boolean)
+    .map((part, i) =>
+      accents.includes(part) ? (
+        <span key={i} className="title-accent">
+          {part}
+        </span>
+      ) : (
+        <Fragment key={i}>{part}</Fragment>
+      ),
+    );
+}
 
 /**
  * L'ACCUEIL DE LA REFONTE (brief, 6.1), réécrit le 24/11/2026.
@@ -77,19 +120,38 @@ export function HomePage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
+      {/* Le hero de l'accueil (24/11/2026) : centré (titre, phrase, l'appel
+          de 30 min, mention), sur un fond bleu nuit avec un halo bleu au
+          centre. Pas de photo. */}
       <Hero
         locale={locale}
-        layout="feature"
-        className="home-page-hero home-hero"
-        eyebrow={site.agency}
-        title={renderLines(home.hero.title, home.hero.accents, "title-accent")}
-        subtitle={home.hero.subtitle}
+        className={`home-page-hero home-hero ${accentFont.variable}`}
+        title={home.hero.title.split("\n").map((line, i) => (
+          /* Une ligne par `\n`, décalées l'une de l'autre dès 768px ; sur
+             téléphone, elles se suivent (l'espace les sépare). */
+          <Fragment key={line}>
+            {i > 0 ? " " : null}
+            <span className={`hero-title-line hero-title-line--${i + 1}`}>
+              {titleLine(line, home.hero.accents)}
+            </span>
+          </Fragment>
+        ))}
+        subtitle={emphasize(home.hero.subtitle, home.hero.emphasis)}
         primaryCta
-        secondaryLink={{ href: path(locale, ROUTES.work), label: home.hero.secondaryLink }}
-        note={site.ctaNote}
-      >
+        arrows={false}
+        note={home.hero.note}
+      />
+
+      {/* LA BANDE DES CLIENTS, juste sous le hero (24/11/2026) : blanche,
+          « Ils nous font confiance » à gauche, les logos qui défilent du
+          bord droit de l'écran jusqu'à cette phrase.
+          ⚠ Un `div` et non une `section` (ni une `Band`) : les bandes
+          alternent sombre et clair selon leur RANG parmi les sections
+          (thème « alternating »). Une section de plus ici inverserait les
+          couleurs de toute la suite de la page. */}
+      <div className={`logo-band ${accentFont.variable}`} role="region" aria-label={home.proof.logosLabel}>
         <ProofStrip proof={home.proof} />
-      </Hero>
+      </div>
 
       <Band id="probleme" className="rf-section">
         <Lede title={home.problems.title} />

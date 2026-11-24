@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import "./studio.css";
 /* Les composants de la refonte du 24/11/2026, après les deux autres. */
@@ -7,9 +8,15 @@ import { ScrollReveal } from "@/components/site/scroll-reveal";
 
 // A neutral system sans keeps the interface crisp without a font download.
 const sans = '"Helvetica Neue", Helvetica, Arial, sans-serif';
+
+/* LA POLICE DES TITRES (24/11/2026, choix d'Antonino) : Manrope, pour les
+   titres seuls (h1 à h4). `next/font` la sert depuis le site lui-même :
+   aucun appel à Google côté visiteur. Licence libre (OFL). */
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+
 const fontAliases = {
   "--font-sans": sans,
-  "--font-heading": sans,
+  "--font-heading": `var(--font-manrope), ${sans}`,
   "--font-archivo": sans,
   "--font-plex": sans,
   "--font-chapter": sans,
@@ -34,7 +41,7 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
     <html
       lang={lang}
       data-scroll-behavior="smooth"
-      className="h-full"
+      className={`h-full ${manrope.variable}`}
       style={fontAliases}
     >
       <head>

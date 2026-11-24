@@ -11,25 +11,43 @@ export const home = {
   metaTitle: "Synode · Agence de développement logiciel & IA à Bruxelles",
   metaDescription: "Nous connectons vos outils, intégrons l’IA et construisons vos logiciels sur mesure, des indépendants aux grandes entreprises. Appel gratuit de 30 min.",
 
+  /* Le hero de la maquette d'Antonino (24/11/2026) : le métier et la ville
+     dans le titre, comme Iterates ; centré, sans photo ni surtitre. */
   hero: {
-    title: "On connecte vos outils et on automatise le répétitif.",
-    accents: ["vos outils", "le répétitif"],
+    title: "Nous construisons la technologie\nqui fait avancer les entreprises.",
+    accents: ["technologie", "avancer"],
+    /* Le titre parle du bénéfice ; la description dit ce qu'est Synode, avec
+       les mots du référencement (demande d'Antonino, 24/11/2026). */
     subtitle:
-      "Synode relie vos logiciels existants, y intègre l’IA et construit les outils qui manquent. Votre équipe passe moins de temps à recopier, relancer et chercher.",
-    secondaryLink: "Voir nos réalisations",
+      "Synode, agence de développement logiciel & IA à Bruxelles, conçoit et développe des logiciels adaptés aux besoins de votre entreprise. Nous intégrons l’intelligence artificielle, connectons vos outils et automatisons vos processus pour accompagner votre croissance.",
+    /* Le passage de la description en gras (sans italique). */
+    emphasis: "agence de développement logiciel & IA à Bruxelles",
+    note: "Gratuit et sans engagement · un seul processus suffit pour commencer",
   },
 
-  /* LA BANDE DE PREUVE, juste sous le hero. Rien n'est inventé : tant que
-     ces listes sont vides, seule la ligne de repli s'affiche.
-     [À COMPLÉTER] logos autorisés, note Google ou Sortlist, citation. */
+  /* LA PREUVE, au bas du hero : le bandeau défilant des logos des clients
+     (24/11/2026 ; la ligne « Basés à Bruxelles… » a été retirée). Rien n'est inventé : un
+     logo n'apparaît que s'il est dans cette liste, avec l'accord du client.
+     [À COMPLÉTER] note Google ou Sortlist, citation d'un client. */
   proof: {
-    logos: [] as readonly { src: string; alt: string }[],
+    logosLabel: "Ils nous font confiance",
+    /* Le mot mis en avant de la phrase (Instrument Serif italique). */
+    logosAccent: "confiance",
+    /* Les logos en silhouettes blanches sur fond transparent
+       (`public/clients/`), affichés en gris foncé sur le bandeau blanc.
+       `display` est la hauteur affichée, réglée à l'œil pour que tous
+       aient le même poids visuel. */
+    logos: [
+      { src: "/clients/behybrid.png", alt: "BEHYBRID", width: 900, height: 90, display: 16 },
+      { src: "/clients/betapro.png", alt: "Betapro, construction et rénovation", width: 198, height: 160, display: 48 },
+      { src: "/clients/baert.png", alt: "Baert", width: 434, height: 88, display: 24 },
+      { src: "/clients/picarle.png", alt: "Picarle Rénovation", width: 155, height: 160, display: 48 },
+      { src: "/clients/group-cleaning.png", alt: "Group Cleaning & Services", width: 133, height: 160, display: 48 },
+      { src: "/clients/glb-coaching.png", alt: "GLB Coaching", width: 437, height: 160, display: 32 },
+      { src: "/clients/batisseurs-espoir.png", alt: "Bâtisseurs d’espoir ASBL", width: 460, height: 160, display: 36 },
+    ] as readonly { src: string; alt: string; width: number; height: number; display: number }[],
     rating: "",
     quote: { text: "", author: "" },
-    /* « Un seul interlocuteur » et non « Vous parlez directement à ceux qui
-       construisent » : c'est le titre de la section des fondateurs, plus bas
-       sur la même page. */
-    fallback: ["Basés à Bruxelles", "Deux développeurs fondateurs", "Un seul interlocuteur"],
   },
 
   problems: {

@@ -22,6 +22,19 @@ export const site = {
   footerNav,
   footerTagline: "Logiciels sur mesure, intégrations et IA. Bruxelles.",
   cta: ctaLabel.fr,
+  /* Le bouton de la barre (maquette du 24/11/2026) : « Contact », vers la
+     page Contact. Le bouton principal reste dans les pages. */
+  contactLabel: "Contact",
+  /* Le menu déroulant « Services » de la barre : les trois services, avec
+     une ligne chacun, puis un lien vers la page entière. */
+  servicesMenu: {
+    all: "Tous nos services",
+    items: [
+      { key: "connect", title: "Connecter vos outils", text: "Relier vos logiciels et automatiser le répétitif" },
+      { key: "ai", title: "Mettre l’IA au travail", text: "Des assistants IA branchés sur vos outils" },
+      { key: "software", title: "Créer votre logiciel sur mesure", text: "L’application qu’il vous faut, web ou mobile" },
+    ] as const,
+  },
   /* La mention sous le bouton du menu de téléphone. */
   ctaNote: "Gratuit, sans engagement.",
   menuOpen: "Ouvrir le menu",

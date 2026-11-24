@@ -100,6 +100,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[headers]]
+  for = "/clients/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
   for = "/demos/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"

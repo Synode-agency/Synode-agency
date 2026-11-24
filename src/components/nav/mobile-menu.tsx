@@ -3,7 +3,7 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { NavLink } from "@/components/site/nav-link";
 import { PrimaryButton } from "@/components/site/primary-button";
-import { ROUTES, path, type Locale } from "@/lib/routes";
+import { ROUTES, path, serviceHref, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
 import s from "./mobile-menu.module.css";
 
@@ -100,7 +100,7 @@ export function MobileMenu({
       <nav className={s.main} aria-label={site.menuDialog}>
         {site.nav.map(item => {
           const current = isCurrent(item.href);
-          return (
+          const row = (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -112,6 +112,23 @@ export function MobileMenu({
               <span className={s.rowLabel}>{item.label}</span>
               {current && <i className={s.dot} aria-hidden />}
             </NavLink>
+          );
+          /* Sous « Services », ses trois services, comme le menu déroulant
+             de la barre. */
+          if (item.href !== ROUTES.services) return row;
+          return (
+            <div key={item.href}>
+              {row}
+              <ul className={s.subList}>
+                {site.servicesMenu.items.map(service => (
+                  <li key={service.key}>
+                    <NavLink href={serviceHref(locale, service.key)} locale={locale} onNavigate={onClose} className={s.sub}>
+                      {service.title}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
           );
         })}
       </nav>

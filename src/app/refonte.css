@@ -7,45 +7,163 @@
    composants : les écrire ici les garde à l'abri de ce ménage.
    ===================================================================== */
 
-/* ---- LE BOUTON DE LA BARRE, À TOUTES LES TAILLES (brief, 4.2).
-   Il était masqué sous 720px et ne vivait que dans le menu ☰. Pour qu'il
-   tienne en entier, avec le même libellé que partout ailleurs :
-   - sous 720px, il perd sa flèche, et le sélecteur de langue passe dans
-     le menu ☰ ;
-   - sous 480px, la barre ne garde que le symbole du logo (le lien garde
-     son nom, « Synode, retour à l'accueil ») ;
-   - sous 360px, son libellé passe sur deux lignes. ---- */
-.site-header .site-header-cta {
-  display: inline-flex;
+/* =====================================================================
+   LA BARRE (maquette du 24/11/2026)
+   Trois entrées, dont « Services » qui se déroule ; à droite, la langue en
+   « FR / EN » et le bouton blanc « Contact ». Le bouton principal
+   (« Réserver un appel de 30 min ») reste dans les pages.
+   ===================================================================== */
+.site-header .site-nav-link {
+  font-size: 0.9375rem;
+  color: #c9d3e3;
 }
+.site-header-contact {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding-inline: 1.125rem;
+  border-radius: var(--r-pill);
+  background: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0b1220;
+  white-space: nowrap;
+  transition: background-color 0.18s var(--anim-ease);
+}
+.site-header-contact:hover {
+  background: #e8eefb;
+}
+
+/* La langue : « FR / EN » en texte, la langue courante en blanc. */
+.site-header .lang {
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.site-header .lang-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #9aa9c0;
+}
+.site-header .lang-item.is-current {
+  background: none;
+  font-weight: 700;
+  color: #ffffff;
+}
+.site-header .lang-item + .lang-item::before {
+  content: "/";
+  margin-right: 0.4rem;
+  font-weight: 400;
+  color: rgb(255 255 255 / 35%);
+}
+
+/* Sous 720px, la langue passe dans le menu ☰ ; sous 370px, la barre ne
+   garde que le symbole du logo, pour que « Contact » et ☰ tiennent. */
 @media (max-width: 719px) {
-  .site-header .site-header-cta {
-    min-height: 2.5rem;
-    padding-inline: 0.85rem;
-    font-size: var(--fs-small);
-    white-space: nowrap;
-  }
-  .site-header .site-header-cta svg {
-    display: none;
-  }
   .site-header-end > .lang {
     display: none;
   }
+  /* Plus compact sur téléphone, pour laisser le logo entier. */
+  .site-header-contact {
+    min-height: 2.25rem;
+    padding-inline: 0.875rem;
+    font-size: var(--fs-small);
+  }
 }
-@media (max-width: 479px) {
+@media (max-width: 369px) {
   .site-header .site-header-brand .wordmark-type {
     display: none;
   }
 }
-@media (max-width: 359px) {
-  .site-header .site-header-cta {
-    max-width: 9.5rem;
-    padding-block: 0.3rem;
-    font-size: var(--fs-label);
-    line-height: 1.15;
-    text-align: center;
-    white-space: normal;
-    text-wrap: balance;
+
+/* Le menu déroulant « Services ». */
+.services-menu {
+  position: relative;
+}
+.services-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+.services-menu-trigger svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 160ms var(--anim-ease);
+}
+.services-menu-trigger[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+.services-menu-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  width: min(360px, 90vw);
+  padding: 0.5rem;
+  transform: translateX(-50%);
+  border: 1px solid #243753;
+  border-radius: 14px;
+  background: #0e1830;
+  box-shadow: 0 24px 60px -22px #000;
+}
+.services-menu-panel[hidden] {
+  display: none;
+}
+.services-menu-panel ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+.services-menu-panel li a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 9px;
+  color: #ffffff;
+}
+.services-menu-panel li a:hover,
+.services-menu-panel li a:focus-visible {
+  background: #16274a;
+}
+.services-menu-panel strong {
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+.services-menu-panel small {
+  font-size: var(--fs-micro);
+  line-height: 1.45;
+  color: #a8b8d0;
+}
+.services-menu-all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  padding: 0.75rem 0.85rem;
+  border-top: 1px solid #243753;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: #8fc0ff;
+}
+.services-menu-all svg {
+  width: 16px;
+  height: 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .services-menu-trigger svg,
+  .site-header-contact {
+    transition: none;
   }
 }
 
@@ -102,47 +220,118 @@ main > .band.rf-section {
   --brand-hover: #b3d4ff;
 }
 
-/* ---- La bande de preuve, sous les actions du hero. Sa ligne de repli :
-   trois constats sur une ligne, séparés par un point médian ; sur
-   téléphone, l'un sous l'autre, sans point (un point en début de ligne
-   ne veut rien dire). ---- */
-/* Séparée des actions par un filet : c'est un autre registre, des faits
-   et non une invitation. Le sélecteur est long pour passer devant les
-   marges des heros de téléphone (`studio.css`). */
-main > section.home-hero .proof-strip {
-  margin-top: 2.25rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--hairline);
+/* ---- LA BANDE DES CLIENTS, sous le hero (24/11/2026) : blanche, basse,
+   tranchée net sur le bleu nuit du hero, un filet la sépare de la section
+   blanche qui suit. « Ils nous font confiance » à gauche, aligné sur la
+   colonne (le bord du logo), en Manrope, « confiance » en Instrument
+   Serif italique bleu, comme les mots importants du titre ; les logos
+   défilent du bord
+   droit de l'écran jusqu'à cette phrase, où ils s'effacent. Les logos sont
+   des silhouettes blanches : un filtre les passe en gris foncé. ---- */
+.logo-band {
+  padding-block: clamp(1.25rem, 2vw, 1.75rem);
+  padding-right: 0;
+  /* La colonne du site : le même bord gauche que le logo et le titre. */
+  padding-left: max(var(--band-pad-x), calc((100% - var(--container-max)) / 2 + var(--band-pad-x)));
+  border-bottom: 1px solid rgb(7 12 24 / 8%);
+  background: #ffffff;
 }
-main > section.home-hero p.proof-strip--fallback {
+.logo-marquee {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.logo-band p.logo-marquee-label {
+  flex: none;
+  margin: 0;
   max-width: none;
-  font-size: var(--fs-small);
-  line-height: 1.5;
-  color: var(--text-mono);
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: left;
+  white-space: nowrap;
+  color: #4a5468;
 }
-@media (min-width: 760px) {
-  main > section.home-hero p.proof-strip--fallback {
-    flex-direction: row;
-    justify-content: center;
-    gap: 0;
-    white-space: nowrap;
-  }
-  .proof-strip--fallback > span + span::before {
-    content: "·";
-    margin-inline: 0.75rem;
-  }
+/* Le bleu de la marque et non le bleu clair du titre : sur le blanc, le
+   bleu clair serait illisible (1,9:1). #2563EB sur blanc : 5,2:1. */
+.logo-band .logo-marquee-accent {
+  padding-right: 0.04em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.25em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #2563eb;
 }
-.proof-logos {
+.logo-marquee-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  /* Les logos s'effacent juste avant la phrase, et à l'entrée, au bord de
+     l'écran. */
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 96%, transparent);
+}
+.logo-marquee-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem 2.5rem;
+  align-items: center;
+  width: max-content;
   padding: 0;
   list-style: none;
+  animation: logo-marquee 60s linear infinite;
+}
+.logo-marquee-track > li {
+  display: flex;
+  align-items: center;
+  flex: none;
+  /* Le même écart entre tous les logos : deux fois cette marge, de 4,5rem
+     sur téléphone à 8rem sur grand écran. (Une marge de chaque côté et
+     non un `gap` : la boucle du défilement reste parfaite.) */
+  padding-inline: clamp(2.25rem, 4.2vw, 4rem);
+  opacity: 0.62;
+  transition: opacity 0.2s var(--anim-ease);
+}
+.logo-marquee-track > li:hover {
+  opacity: 0.95;
+}
+.logo-marquee-track img {
+  display: block;
+  max-width: none;
+  /* Silhouette blanche → gris foncé (le noir, adouci par l'opacité). */
+  filter: brightness(0);
+}
+@keyframes logo-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* Sur téléphone, la phrase au-dessus, les logos sur toute la largeur. */
+@media (max-width: 640px) {
+  .logo-band {
+    padding-right: var(--band-pad-x);
+  }
+  .logo-marquee {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+  .logo-marquee-viewport {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-viewport {
+    mask-image: none;
+  }
+  .logo-marquee-track {
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    width: auto;
+    animation: none;
+  }
+  .logo-marquee-track > li[aria-hidden="true"] {
+    display: none;
+  }
 }
 
 /* ---- Le problème : trois situations, une icône chacune. ---- */
@@ -770,4 +959,276 @@ main > section.case-hero p.case-note {
 }
 .studio-hero .badge--demo {
   color: #8fc0ff;
+}
+
+/* =====================================================================
+   LE HERO DE L'ACCUEIL (24/11/2026, maquette d'Antonino)
+   Tout est centré, au milieu : le titre sur deux lignes (en Manrope, les
+   mots importants en Instrument Serif italique), décalées l'une de
+   l'autre autour du centre ; puis la description, le bouton, sa mention. Fond
+   bleu nuit et halo bleu décalé à droite ; la barre reste transparente
+   au-dessus tant qu'on n'a pas fait défiler.
+   ===================================================================== */
+/* `.site-page` et `.studio-hero` en plus : le thème « alternating » peint
+   tous les heros en `--surface-dark` avec une priorité supérieure. */
+.site-page main > section.studio-hero.home-hero {
+  --hero-bg: #070c18;
+  /* Le décalage entre les deux lignes du titre, en multiple de sa
+     taille : la 1re part de la moitié vers la gauche, la 2e de l'autre
+     moitié vers la droite. */
+  --hero-indent: 1.64;
+  display: flex;
+  flex-direction: column;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
+    var(--hero-bg);
+}
+/* La barre est transparente au-dessus de ce hero, et retrouve le bleu nuit
+   du hero dès qu'on fait défiler. */
+.site-page:has(main > section.home-hero) .site-header:not(.is-scrolled) {
+  background: transparent;
+}
+.site-page:has(main > section.home-hero) .site-header.is-scrolled {
+  background: #070c18;
+}
+
+main > section.home-hero > .studio-hero-inner {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+/* La taille du titre : sa plus longue ligne avec son décalage (13,82 +
+   1,64 fois la taille en français, 13,8 + 1,64 en anglais) tient dans la
+   colonne ; 4rem au plus, comme la maquette. `cqi` = la
+   largeur de cette grille, déclarée conteneur. */
+main > section.home-hero .studio-hero-grid {
+  --hero-title-size: clamp(2rem, 100cqi / 15.6, 4rem);
+  container-type: inline-size;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: stretch;
+}
+main > section.home-hero .studio-hero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr auto auto auto auto 1fr;
+  justify-items: center;
+  gap: 0;
+  max-width: none;
+  height: 100%;
+  text-align: center;
+}
+
+main > section.home-hero h1 {
+  grid-row: 2;
+  max-width: none;
+  margin: 0;
+  font-size: var(--hero-title-size);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  text-align: center;
+  text-wrap: balance;
+}
+/* « technologie » et « avancer » : en italique, en Instrument Serif. Un
+   peu plus grands, car l'œil de ce caractère est plus petit que celui de
+   Manrope ; un léger retrait à droite pour que l'italique ne touche pas
+   le mot suivant. */
+main > section.home-hero h1 .title-accent {
+  padding-right: 0.06em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+/* Les deux lignes du titre, en blanc : deux règles de `studio.css`
+   peignent en bleu tout `span` enfant direct d'un titre de hero ; seuls
+   « technologie » et « avancer » (`.title-accent`) restent bleus. Dès
+   768px, une ligne chacune, centrées puis décalées : la première vers la
+   gauche, la seconde vers la droite (`left`, pour ne pas gêner le
+   glissement d'arrivée, qui passe par `translate`). */
+main > section.home-hero h1 .hero-title-line {
+  color: inherit;
+}
+@media (min-width: 768px) {
+  main > section.home-hero h1 .hero-title-line {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+  }
+  main > section.home-hero h1 .hero-title-line--1 {
+    left: calc(var(--hero-indent) * -0.5em);
+  }
+  main > section.home-hero h1 .hero-title-line--2 {
+    left: calc(var(--hero-indent) * 0.5em);
+  }
+}
+
+/* La description, le bouton, la mention : centrés. */
+main > section.home-hero .studio-hero-copy > p {
+  grid-row: 3;
+  max-width: 36em;
+  font-size: clamp(1rem, 0.92rem + 0.2vw, 1.125rem);
+  line-height: 1.6;
+  text-align: center;
+  color: #b9c5d8;
+}
+/* Le nom de l'agence, dans la description : en gras, en blanc, dans la
+   police du texte (ni italique, ni Instrument Serif : choix d'Antonino). */
+main > section.home-hero .studio-hero-copy > p strong {
+  font-weight: 700;
+  color: #ffffff;
+}
+main > section.home-hero .studio-hero-copy > .hero-actions {
+  grid-row: 4;
+  justify-content: center;
+  gap: 0.9rem;
+  width: auto;
+}
+main > section.home-hero .studio-hero-copy > .hero-reassurance {
+  grid-row: 5;
+  font-size: 0.9375rem;
+  text-align: center;
+  color: #a3b0c6;
+}
+/* Les écarts. (Sélecteurs longs : une règle des heros centrés de
+   `studio.css` remet les marges des paragraphes à zéro.) */
+.site-page main > section.studio-hero.home-hero .studio-hero-copy > :is(p, .hero-actions, .hero-reassurance) {
+  margin-inline: auto;
+}
+.site-page main > section.studio-hero.home-hero .studio-hero-copy > p {
+  margin-top: clamp(1.75rem, 1rem + 2vw, 3.25rem);
+}
+.site-page main > section.studio-hero.home-hero .studio-hero-copy > .hero-actions {
+  margin-top: clamp(1.75rem, 1.25rem + 1vw, 2.5rem);
+}
+.site-page main > section.studio-hero.home-hero .studio-hero-copy > .hero-reassurance {
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .site-page main > section.studio-hero.home-hero {
+    min-height: min(100svh, 880px);
+  }
+}
+
+/* L'ARRIVÉE DU TITRE (24/11/2026). Dès 768px, la première ligne glisse
+   depuis la gauche et la seconde depuis la droite, 200 ms après, jusqu'à
+   leur place. Sur téléphone, où les lignes se suivent dans le texte (un
+   texte en ligne ne se déplace pas), elles apparaissent en fondu, l'une
+   après l'autre ; de même si le visiteur demande moins de mouvement. CSS
+   seul : l'animation tourne même pendant le chargement de la page. */
+main > section.home-hero h1 .hero-title-line {
+  animation: hero-line-fade 1000ms var(--anim-ease) both;
+}
+main > section.home-hero h1 .hero-title-line--2 {
+  animation-delay: 200ms;
+}
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  main > section.home-hero h1 .hero-title-line--1 {
+    animation-name: hero-line-from-left;
+    animation-duration: 1600ms;
+  }
+  main > section.home-hero h1 .hero-title-line--2 {
+    animation-name: hero-line-from-right;
+    animation-duration: 1600ms;
+  }
+}
+@keyframes hero-line-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hero-line-from-left {
+  from {
+    opacity: 0;
+    translate: -2em 0;
+  }
+}
+@keyframes hero-line-from-right {
+  from {
+    opacity: 0;
+    translate: 2em 0;
+  }
+}
+/* L'ARRIVÉE DE LA SUITE (24/11/2026) : après le titre, la description,
+   puis le bouton, puis sa mention montent de 16px en fondu, quand les
+   lignes du titre finissent de glisser. Moins de mouvement demandé : le
+   fondu seul. */
+/* (Une liste et non `:is()` : `:is()` prendrait la priorité de sa classe
+   et effacerait le délai de la description, écrit plus bas.) */
+main > section.home-hero .studio-hero-copy > p,
+main > section.home-hero .studio-hero-copy > .hero-actions,
+main > section.home-hero .studio-hero-copy > .hero-reassurance {
+  animation: hero-fade-up 800ms var(--anim-ease) both;
+}
+main > section.home-hero .studio-hero-copy > p {
+  animation-delay: 600ms;
+}
+main > section.home-hero .studio-hero-copy > .hero-actions {
+  animation-delay: 750ms;
+}
+main > section.home-hero .studio-hero-copy > .hero-reassurance {
+  animation-delay: 850ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  main > section.home-hero .studio-hero-copy > p,
+  main > section.home-hero .studio-hero-copy > .hero-actions,
+  main > section.home-hero .studio-hero-copy > .hero-reassurance {
+    animation-name: hero-line-fade;
+  }
+}
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+/* Les petits téléphones : le titre tient en trois lignes. */
+@media (max-width: 359px) {
+  main > section.home-hero .studio-hero-grid {
+    --hero-title-size: 1.5rem;
+  }
+}
+
+/* Le bouton principal dans le bleu clair des mots en couleur du titre
+   (`--dark-accent`, demande d'Antonino du 24/11/2026), texte bleu nuit :
+   le blanc n'y serait pas lisible. Bleu nuit sur #8FC0FF : 10,6:1. */
+/* (Sélecteur long : sur téléphone, une règle des bandes sombres de
+   `studio.css` repeint le bouton principal en bleu clair.) */
+.site-page main > section.studio-hero.home-hero .hero-actions .btn--primary {
+  min-height: 3.125rem;
+  padding-inline: 1.625rem;
+  border-radius: var(--r-pill);
+  background: var(--dark-accent, #8fc0ff);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #070c18;
+}
+.site-page main > section.studio-hero.home-hero .hero-actions .btn--primary:hover {
+  background: color-mix(in srgb, var(--dark-accent, #8fc0ff) 80%, #ffffff);
+}
+main > section.home-hero .hero-reassurance {
+  font-size: var(--fs-small);
+  color: #8794aa;
+}
+/* Côte à côte dès 561px (la règle des boutons de téléphone de
+   `studio.css` les empilait jusqu'à 900px), l'une sous l'autre en pleine
+   largeur en dessous. */
+@media (min-width: 561px) {
+  .site-page main > section.studio-hero.home-hero .hero-actions {
+    flex-direction: row;
+  }
+  .site-page main > section.studio-hero.home-hero .hero-actions .btn {
+    width: auto;
+  }
+}
+@media (max-width: 560px) {
+  main > section.home-hero .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
 }

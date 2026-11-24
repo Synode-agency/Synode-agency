@@ -60,7 +60,7 @@
    les réécrire : la barre du site porte déjà le logo, la langue et le
    bouton qui ferme. ---- */
 
-/* ---- Les six entrées ---- */
+/* ---- Les entrées ---- */
 .main {
   padding: 12px 20px 0;
 }
@@ -85,9 +85,6 @@
   letter-spacing: -0.4px;
   line-height: 1.2;
 }
-.rowToggle {
-  cursor: pointer;
-}
 /* Le point de la page en cours. 7px, à droite du mot et non au bord : il
    appartient au libellé, pas à la ligne. */
 .dot {
@@ -97,127 +94,27 @@
   border-radius: 999px;
   background: #0a6cf0;
 }
-.block {
-  display: contents;
-}
-
-.chevron {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  flex: none;
-  margin-left: auto;
-  border: 1px solid #2a4a78;
-  border-radius: 12px;
-  color: #ffffff;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-}
-.chevron svg {
-  width: 18px;
-  height: 18px;
-}
-.rowOpen .rowLabel {
-  color: #8ec1ff;
-}
-.rowOpen .chevron {
-  border-color: #4e8ff0;
-  background: #16335a;
-  transform: rotate(180deg);
-}
-@media (prefers-reduced-motion: reduce) {
-  .chevron {
-    transition: none;
-  }
-  .rowOpen .chevron {
-    transform: none;
-  }
-}
-
-/* ---- Le sous-menu ----
-   La hauteur est écrite par le composant, qui la mesure. Ici, seulement
-   l'état fermé et la transition. */
-.subWrap {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.3s ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  .subWrap {
-    transition: none;
-  }
+/* ---- Les trois services, sous « Services » (24/11/2026) ---- */
+.subList {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 0 12px;
+  border-bottom: 1px solid #1e3352;
+  list-style: none;
 }
 .sub {
-  margin-top: 14px;
-  margin-bottom: 18px;
-  overflow: hidden;
-  border: 1px solid #24406a;
-  border-radius: 18px;
-  background: #0f1d33;
-}
-.subAll {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 60px;
-  padding: 0 18px;
-  border-bottom: 1px solid #24406a;
+  min-height: 44px;
+  padding-left: 14px;
+  border-left: 1px solid #2a4366;
   font-size: 17px;
-  font-weight: 500;
-  color: #8ec1ff;
-}
-.subAll svg {
-  width: 20px;
-  height: 20px;
-  flex: none;
-}
-
-.subList {
-  padding: 8px;
-}
-.solution {
-  display: grid;
-  grid-template-columns: 44px minmax(0, 1fr);
-  align-items: start;
-  gap: 14px;
-  padding: 14px 12px;
-  border-radius: 12px;
-}
-.solution:active,
-.solutionCurrent {
-  background: #13294a;
-}
-.solutionIcon {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid #2f5fa8;
-  border-radius: 12px;
-  background: #16335a;
-  color: #4e8ff0;
-}
-.solutionIcon svg {
-  width: 22px;
-  height: 22px;
-}
-.solutionText {
-  min-width: 0;
-}
-.solutionText strong {
-  display: block;
-  font-size: 17px;
-  font-weight: 500;
   line-height: 1.3;
-  color: #ffffff;
+  color: #c2d3e9;
 }
-.solutionText small {
-  display: block;
-  margin-top: 4px;
-  font-size: 15px;
-  line-height: 1.45;
-  color: #b6c2d4;
+.sub:active,
+.sub[aria-current="page"] {
+  color: #ffffff;
 }
 
 /* ---- L'action ---- */
@@ -287,12 +184,6 @@
   .panel {
     display: none;
   }
-}
-
-/* ---- L'anneau de focus de « Toutes nos solutions » se dessine à
-   l'intérieur du lien : le sous-menu masque ce qui dépasse (23/11/2026). */
-.subAll:focus-visible {
-  outline-offset: -2px;
 }
 
 /* Le sélecteur de langue, repris de la barre où il ne tient plus sous

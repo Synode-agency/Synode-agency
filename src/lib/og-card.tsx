@@ -32,18 +32,18 @@ export const ogContentType = "image/png";
 
 const COPY = {
   fr: {
-    kicker: "AGENCE DE DÉVELOPPEMENT LOGICIEL & IA · BRUXELLES",
-    title: "On connecte vos outils et on automatise le répétitif.",
-    text: "Synode relie vos logiciels existants, y intègre l’IA et construit les outils qui manquent.",
+    kicker: "SYNODE · BRUXELLES",
+    title: "Agence de développement logiciel & IA à Bruxelles",
+    text: "Logiciels sur mesure, outils connectés et processus automatisés avec l’IA.",
     foot: "synode-agency.com",
-    alt: "Synode, agence de développement logiciel et d’IA à Bruxelles : on connecte vos outils et on automatise le répétitif.",
+    alt: "Synode, agence de développement logiciel et d’IA à Bruxelles",
   },
   en: {
-    kicker: "SOFTWARE DEVELOPMENT & AI AGENCY · BRUSSELS",
-    title: "We connect your tools and automate the repetitive work.",
-    text: "Synode links your existing software, adds AI where it helps and builds the tools you’re missing.",
+    kicker: "SYNODE · BRUSSELS",
+    title: "Software development & AI agency in Brussels",
+    text: "Custom software, connected tools and processes automated with AI.",
     foot: "synode-agency.com",
-    alt: "Synode, software development and AI agency in Brussels: we connect your tools and automate the repetitive work.",
+    alt: "Synode, software development and AI agency in Brussels",
   },
 } as const;
 
