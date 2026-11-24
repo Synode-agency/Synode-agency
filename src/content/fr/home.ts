@@ -65,8 +65,10 @@ export const home = {
     label: "Notre approche",
     lead: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps.",
     rest: "Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
-    /* Les seuls mots en Instrument Serif italique bleu ; dans « l'IA »,
-       seul « IA » change de style. */
+    /* Les seuls mots en valeur : en gras et en bleu, dans la police du
+       paragraphe (Manrope ; ni Instrument Serif ni italique depuis le
+       25/11/2026).
+       Dans « l'IA », seul « IA » change de style. */
     accents: ["logiciel", "IA"],
     /* Décorative : pas de texte alternatif. */
     image: "/images/approche-bureau.png",
@@ -74,7 +76,7 @@ export const home = {
 
   services: {
     title: "Ce que nous faisons",
-    /* « faisons » en Instrument Serif italique bleu (24/11/2026). */
+    /* « faisons » en bleu, droit, interlettrage plus large (25/11/2026). */
     accents: ["faisons"],
     /* Pour tout le monde, dit une fois (décision d'Antonino du 24/11/2026). */
     audience: "Pour les indépendants, les PME et les grandes entreprises.",
@@ -115,6 +117,8 @@ export const home = {
 
   work: {
     title: "Ce que nous avons construit",
+    /* « construit » en Syne bleu (25/11/2026). */
+    accents: ["construit"],
     link: "Toutes nos réalisations",
   },
 

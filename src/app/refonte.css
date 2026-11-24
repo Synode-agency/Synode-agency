@@ -368,11 +368,12 @@ main > .band.rf-section {
 .approach-word[data-suite] {
   color: transparent;
 }
+/* « logiciel » et « IA » : en Syne gras (vraie graisse 700) et en bleu
+   (25/11/2026 : ni Instrument Serif ni italique). Le bleu est réglé par le
+   script, mot par mot. */
 .approach-accent {
-  font-family: var(--font-accent), Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  font-weight: 700;
   transition: color 0.18s linear;
 }
 @media (max-width: 799px) {
@@ -424,16 +425,29 @@ main > .band.rf-section {
   }
 }
 
-/* ---- « faisons » dans le titre « Ce que nous faisons » (24/11/2026) :
-   Instrument Serif italique, comme les mots en couleur du hero, dans le
-   bleu de la bande (`--brand`, déjà porté par `.title-accent`). ---- */
+/* ---- « faisons » dans « Ce que nous faisons » (25/11/2026) : en Syne,
+   droit, avec un interlettrage plus large que le reste du titre, et dans
+   le bleu de la bande (`--brand`, déjà porté par `.title-accent`). ---- */
 main > .band#services .lede-title .title-accent {
-  padding-right: 0.06em;
-  font-family: var(--font-accent), Georgia, serif;
-  font-size: 1.1em;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* ---- CE QUE NOUS AVONS CONSTRUIT : le fond du hero (25/11/2026,
+   demande d'Antonino), bleu nuit avec le même halo bleu décalé à droite,
+   derrière les noms des produits (`CaseShowcase`). ---- */
+.site-page main > section.band#realisations {
+  background:
+    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
+    #070c18;
+}
+/* « construit » : en Syne 700 (`--font-accent`, posée sur la section),
+   dans le bleu clair de la bande (`--brand`, déjà porté par
+   `.title-accent`). */
+main > .band#realisations .lede-title .title-accent {
+  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  font-weight: 700;
 }
 
 /* ---- CE QUE NOUS FAISONS : L'ACCORDÉON DES QUATRE SERVICES
@@ -1328,23 +1342,15 @@ main > section.home-hero h1 {
   text-align: center;
   text-wrap: balance;
 }
-/* « technologie » et « avancer » : en italique, en Instrument Serif. Un
-   peu plus grands, car l'œil de ce caractère est plus petit que celui de
-   Manrope ; un léger retrait à droite pour que l'italique ne touche pas
-   le mot suivant. */
+/* « logiciel » et « IA » : en Syne 700 (25/11/2026, à la place
+   d'Instrument Serif italique), une autre police sans serif, droite, plus
+   large et plus grasse que le titre : c'est à cette graisse qu'elle se
+   distingue vraiment de Manrope. */
 main > section.home-hero h1 .title-accent {
-  padding-right: 0.06em;
-  font-family: var(--font-accent), Georgia, serif;
-  font-size: 1.1em;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-/* Suivi d'une ponctuation (« logiciel, ») : pas de marge, la virgule
-   reste collée au mot. */
-main > section.home-hero h1 .title-accent--colle {
-  padding-right: 0;
-  margin-right: -0.02em;
+  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 /* Les deux lignes du titre, en blanc : deux règles de `studio.css`
    peignent en bleu tout `span` enfant direct d'un titre de hero ; seuls

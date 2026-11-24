@@ -125,3 +125,76 @@
     padding-inline: 24px;
   }
 }
+
+/* =====================================================================
+   LES RÉALISATIONS DE L'ACCUEIL (`CaseShowcase`, 25/11/2026)
+   Les deux produits côte à côte ; sous chaque visuel, son nom et sa
+   phrase. Sous 800px, l'un sous l'autre. Sur le fond du hero
+   (`refonte.css`).
+   ===================================================================== */
+.showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.showRow {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* Le visuel, arrondi, sans le filet du bas de la carte. */
+.showVisual {
+  border: 1px solid rgb(188 215 255 / 14%);
+  border-radius: 16px;
+}
+
+.showText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Le nom : en capitales, dans la deuxième police de l'accueil (Syne,
+   `--font-accent`, posée sur la section), sans interlettrage. */
+.showName {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  /* Un peu plus petit (25/11/2026) : 26px au plus, au lieu de 34. */
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.showName a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.showName a:hover {
+  color: #8ec1ff;
+}
+
+.showSummary {
+  max-width: 42ch;
+  margin: 0;
+  color: #c2d3e9;
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* Écran étroit : un projet sous l'autre. */
+@media (max-width: 799px) {
+  .showcase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .showRow {
+    gap: 20px;
+  }
+}

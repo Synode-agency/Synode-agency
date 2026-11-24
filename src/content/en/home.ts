@@ -71,6 +71,7 @@ export const home = {
 
   work: {
     title: "What we’ve built",
+    accents: ["built"],
     link: "All our work",
   },
 

@@ -62,3 +62,43 @@ export function CaseCards({ locale, heading: Heading = "h3" }: { locale: Locale;
     </div>
   );
 }
+
+/**
+ * LES RÉALISATIONS DE L'ACCUEIL (25/11/2026, demande d'Antonino), à la
+ * place des cartes : le visuel de chaque produit à gauche, l'un sous
+ * l'autre, et à droite son nom (en capitales très espacées) et sa phrase.
+ * Ni pastille d'état, ni mention, ni « Découvrir le projet » : le nom et
+ * le visuel mènent à la fiche. La page Réalisations garde les cartes
+ * (`CaseCards`).
+ */
+export function CaseShowcase({ locale }: { locale: Locale }) {
+  return (
+    <div className={styles.showcase}>
+      {CASES[locale].map((item: CaseCard) => {
+        const href = `${path(locale, ROUTES.work)}/${item.slug}`;
+        const visual = visualFor(item.slug, locale);
+        const id = `vitrine-${item.slug}`;
+        return (
+          <article key={item.slug} className={styles.showRow} aria-labelledby={id}>
+            {visual && (
+              <div
+                className={[styles.visual, visual.stage ? styles.visualStage : null, styles.showVisual]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                {visual.node}
+                <Link className={styles.visualLink} href={href} tabIndex={-1} aria-hidden="true" />
+              </div>
+            )}
+            <div className={styles.showText}>
+              <h3 id={id} className={styles.showName}>
+                <Link href={href}>{item.name}</Link>
+              </h3>
+              <p className={styles.showSummary}>{item.summary}</p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}

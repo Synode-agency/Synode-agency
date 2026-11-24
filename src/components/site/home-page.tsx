@@ -1,12 +1,12 @@
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
-import { Instrument_Serif } from "next/font/google";
+import { Syne } from "next/font/google";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { Hero } from "@/components/site/hero";
 import { FaqAccordion } from "@/components/site/faq-accordion";
-import { CaseCards } from "@/components/site/case-cards";
+import { CaseShowcase } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
 import { Founders, ProofStrip, Steps } from "@/components/site/home-sections";
 import { ServiceAccordion } from "@/components/site/service-accordion";
@@ -29,32 +29,34 @@ function emphasize(text: string, phrase: string): ReactNode {
   );
 }
 
-/* LES MOTS EN COULEUR DU TITRE DE L'ACCUEIL (24/11/2026) : en italique,
-   dans une autre police que Manrope, Instrument Serif. Chargée ici et non
-   dans le gabarit commun : seul l'accueil s'en sert. Licence libre (OFL). */
-const accentFont = Instrument_Serif({
+/* LES MOTS EN COULEUR DE L'ACCUEIL (25/11/2026) : dans une autre police
+   sans serif que Manrope, Syne, large et affirmée, pour leur donner du
+   style (elle remplace Instrument Serif italique, demande d'Antonino).
+   Titre du hero, « Notre approche » et « Ce que nous faisons ». Chargée
+   ici et non dans le gabarit commun : seul l'accueil s'en sert. `next/font`
+   la sert depuis le site lui-même. Licence libre (OFL). */
+const accentFont = Syne({
   subsets: ["latin"],
-  weight: "400",
-  style: "italic",
+  weight: "700",
   variable: "--font-accent",
   display: "swap",
 });
 
-/* Une ligne du titre, avec ses mots en couleur (`.title-accent`). Un mot
-   en couleur suivi d'une ponctuation (« logiciel, ») la garde collée
-   (`.title-accent--colle`), sans la marge prévue pour l'italique. */
+/* Une ligne du titre, avec ses mots en couleur (`.title-accent`). */
 function titleLine(line: string, accents: readonly string[]): ReactNode[] {
   const motif = new RegExp(`(${accents.map((a) => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`);
-  const parts = line.split(motif).filter(Boolean);
-  return parts.map((part, i) =>
-    accents.includes(part) ? (
-      <span key={i} className={/^[,.;:!?]/.test(parts[i + 1] ?? "") ? "title-accent title-accent--colle" : "title-accent"}>
-        {part}
-      </span>
-    ) : (
-      <Fragment key={i}>{part}</Fragment>
-    ),
-  );
+  return line
+    .split(motif)
+    .filter(Boolean)
+    .map((part, i) =>
+      accents.includes(part) ? (
+        <span key={i} className="title-accent">
+          {part}
+        </span>
+      ) : (
+        <Fragment key={i}>{part}</Fragment>
+      ),
+    );
 }
 
 /**
@@ -162,8 +164,8 @@ export function HomePage({ locale }: { locale: Locale }) {
       {/* NOTRE APPROCHE (24/11/2026), à la place exacte de « Ça vous
           parle ? » : le paragraphe s'écrit, la photo du bureau monte du bas
           et remplit l'écran, la suite du texte s'écrit par-dessus
-          (`ApproachScroll`). Instrument Serif (`--font-accent`) pour
-          « logiciel » et « IA ».
+          (`ApproachScroll`). En Manrope ; « logiciel » et « IA » en Syne
+          gras bleu (25/11/2026).
           ⚠ Un `div` et non une `section`, comme le bandeau des logos : il
           ne compte pas dans l'alternance sombre/clair, donc « Ce que nous
           faisons » est blanche, sous la photo sombre, et la suite alterne
@@ -177,7 +179,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         image={home.approach.image}
       />
 
-      {/* `--font-accent` : « faisons » en Instrument Serif italique. */}
+      {/* `--font-accent` : « faisons » en Syne. */}
       <Band id="services" className={`rf-section ${accentFont.variable}`}>
         <Lede title={home.services.title} accents={[...home.services.accents]} text={home.services.audience} />
         {/* Les quatre services en accordéon (24/11/2026), à 56px sous la
@@ -185,16 +187,17 @@ export function HomePage({ locale }: { locale: Locale }) {
         <ServiceAccordion locale={locale} services={home.services} />
       </Band>
 
-      <Band id="realisations" className="rf-section">
+      {/* `--font-accent` : les noms des produits en Syne. */}
+      <Band id="realisations" className={`rf-section ${accentFont.variable}`}>
         <div className="section-heading home-section-heading">
-          <Lede title={home.work.title} />
+          <Lede title={home.work.title} accents={[...home.work.accents]} />
           <Link className="go" href={path(locale, ROUTES.work)}>
             {home.work.link}
             <ArrowRight aria-hidden />
           </Link>
         </div>
         <div className="section-gap-sm">
-          <CaseCards locale={locale} />
+          <CaseShowcase locale={locale} />
         </div>
       </Band>
 
