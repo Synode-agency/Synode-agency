@@ -14,8 +14,14 @@ export const home = {
   /* Le hero de la maquette d'Antonino (24/11/2026) : le métier et la ville
      dans le titre, comme Iterates ; centré, sans photo ni surtitre. */
   hero: {
-    title: "Nous construisons la technologie\nqui fait avancer les entreprises.",
-    accents: ["technologie", "avancer"],
+    /* Titre du 24/11/2026 (Antonino) : les métiers de Synode. Une ligne
+       par `\n` ; « logiciel » et « IA » en Instrument Serif italique bleu
+       (« systèmes » essayé puis remis en Manrope le 24/11/2026).
+       Espaces insécables dans « IA & » et « systèmes connectés » : sur
+       téléphone, le titre tient en trois lignes équilibrées
+       (« Développement / logiciel, IA & / systèmes connectés. »). */
+    title: "Développement logiciel,\nIA & systèmes connectés.",
+    accents: ["logiciel", "IA"],
     /* Le titre parle du bénéfice ; la description dit ce qu'est Synode, avec
        les mots du référencement (demande d'Antonino, 24/11/2026). */
     subtitle:
@@ -68,24 +74,41 @@ export const home = {
 
   services: {
     title: "Ce que nous faisons",
+    /* « faisons » en Instrument Serif italique bleu (24/11/2026). */
+    accents: ["faisons"],
     /* Pour tout le monde, dit une fois (décision d'Antonino du 24/11/2026). */
     audience: "Pour les indépendants, les PME et les grandes entreprises.",
     more: "En savoir plus",
+    /* L'ACCORDÉON DES QUATRE SERVICES (24/11/2026, textes d'Antonino mot
+       pour mot). `key` mène au bloc du service sur la page Services ;
+       « web » n'en a pas encore : son panneau pointe vers « # ».
+       `image` : une photo pour le panneau ouvert, dans
+       `public/images/services/`. Vide : le fond bleu nuit, avec sa lueur
+       et sa trame de points, la remplace. */
     items: [
       {
-        key: "connect",
-        title: "Connecter vos outils",
-        text: "Gestion clients, facturation, site, e-mails : on les relie pour que l’information circule toute seule.",
+        key: "software",
+        title: "Développement logiciel",
+        text: "Nous concevons et développons des logiciels métier, des plateformes et des outils internes adaptés aux besoins spécifiques de votre entreprise.",
+        image: "",
       },
       {
         key: "ai",
-        title: "Mettre l’IA au travail",
-        text: "L’IA prépare les devis, trie les demandes, répond aux questions fréquentes. Vous choisissez ce qu’elle fait seule et ce qu’elle vous soumet.",
+        title: "Intelligence artificielle & automatisation",
+        text: "Nous développons des agents IA et automatisons vos processus métier pour simplifier vos opérations et améliorer la productivité de vos équipes.",
+        image: "",
       },
       {
-        key: "software",
-        title: "Créer votre logiciel sur mesure",
-        text: "Application web ou mobile, outil interne, portail client : quand aucun outil du marché ne convient, on construit celui qui correspond à votre façon de travailler.",
+        key: "connect",
+        title: "Intégration & systèmes connectés",
+        text: "Nous connectons vos logiciels, synchronisons vos données et intégrons vos systèmes pour construire un environnement technologique cohérent et évolutif.",
+        image: "",
+      },
+      {
+        key: "web",
+        title: "Sites web & applications mobiles",
+        text: "Nous concevons et développons des sites web et des applications mobiles modernes, performants et centrés sur l'expérience utilisateur.",
+        image: "",
       },
     ] as const,
   },

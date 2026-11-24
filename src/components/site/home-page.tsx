@@ -8,7 +8,8 @@ import { Hero } from "@/components/site/hero";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseCards } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
-import { Founders, ProofStrip, ServiceCards, Steps } from "@/components/site/home-sections";
+import { Founders, ProofStrip, Steps } from "@/components/site/home-sections";
+import { ServiceAccordion } from "@/components/site/service-accordion";
 import { ApproachScroll } from "@/components/site/approach-scroll";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
@@ -39,21 +40,21 @@ const accentFont = Instrument_Serif({
   display: "swap",
 });
 
-/* Une ligne du titre, avec ses mots en couleur (`.title-accent`). */
+/* Une ligne du titre, avec ses mots en couleur (`.title-accent`). Un mot
+   en couleur suivi d'une ponctuation (« logiciel, ») la garde collée
+   (`.title-accent--colle`), sans la marge prévue pour l'italique. */
 function titleLine(line: string, accents: readonly string[]): ReactNode[] {
   const motif = new RegExp(`(${accents.map((a) => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`);
-  return line
-    .split(motif)
-    .filter(Boolean)
-    .map((part, i) =>
-      accents.includes(part) ? (
-        <span key={i} className="title-accent">
-          {part}
-        </span>
-      ) : (
-        <Fragment key={i}>{part}</Fragment>
-      ),
-    );
+  const parts = line.split(motif).filter(Boolean);
+  return parts.map((part, i) =>
+    accents.includes(part) ? (
+      <span key={i} className={/^[,.;:!?]/.test(parts[i + 1] ?? "") ? "title-accent title-accent--colle" : "title-accent"}>
+        {part}
+      </span>
+    ) : (
+      <Fragment key={i}>{part}</Fragment>
+    ),
+  );
 }
 
 /**
@@ -176,11 +177,12 @@ export function HomePage({ locale }: { locale: Locale }) {
         image={home.approach.image}
       />
 
-      <Band id="services" className="rf-section">
-        <Lede title={home.services.title} text={home.services.audience} />
-        <div className="section-gap-sm">
-          <ServiceCards locale={locale} services={home.services} />
-        </div>
+      {/* `--font-accent` : « faisons » en Instrument Serif italique. */}
+      <Band id="services" className={`rf-section ${accentFont.variable}`}>
+        <Lede title={home.services.title} accents={[...home.services.accents]} text={home.services.audience} />
+        {/* Les quatre services en accordéon (24/11/2026), à 56px sous la
+            phrase ; le titre et la phrase ne changent pas. */}
+        <ServiceAccordion locale={locale} services={home.services} />
       </Band>
 
       <Band id="realisations" className="rf-section">

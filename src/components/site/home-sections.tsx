@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { serviceHref, type Locale, type SiteContent } from "@/content";
+import type { SiteContent } from "@/content";
 
 /*
  * LES PETITS COMPOSANTS DES PAGES DE LA REFONTE (brief, section 5).
@@ -71,30 +69,6 @@ function LogoMarquee({ logos }: { logos: Home["proof"]["logos"] }) {
           )}
         </ul>
       </div>
-    </div>
-  );
-}
-
-/**
- * LES TROIS SERVICES (`ServiceCards`) : un titre, une phrase, un lien vers
- * leur bloc de la page Services.
- */
-export function ServiceCards({ locale, services }: { locale: Locale; services: Home["services"] }) {
-  return (
-    <div className="tile-grid tile-grid--3 service-cards">
-      {services.items.map((item) => (
-        <div key={item.key} className="tile">
-          <h3 className="tile-title">{item.title}</h3>
-          <p className="tile-text">{item.text}</p>
-          <Link className="go" href={serviceHref(locale, item.key)}>
-            {services.more}
-            {/* Trois « En savoir plus » à la suite ne disent rien à un
-                lecteur d'écran : il entend aussi le service. */}
-            <span className="sr-only"> : {item.title}</span>
-            <ArrowRight aria-hidden />
-          </Link>
-        </div>
-      ))}
     </div>
   );
 }

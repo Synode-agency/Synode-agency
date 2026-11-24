@@ -424,18 +424,196 @@ main > .band.rf-section {
   }
 }
 
-/* ---- Les trois services : le lien « En savoir plus » se cale en bas de
-   chaque carte, à la même hauteur dans les trois. ---- */
-.service-cards .tile {
-  gap: 0.75rem;
+/* ---- « faisons » dans le titre « Ce que nous faisons » (24/11/2026) :
+   Instrument Serif italique, comme les mots en couleur du hero, dans le
+   bleu de la bande (`--brand`, déjà porté par `.title-accent`). ---- */
+main > .band#services .lede-title .title-accent {
+  padding-right: 0.06em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
-/* Le texte courant du brief (17-18px), et non le corps réduit des tuiles. */
-.service-cards .tile-text {
-  font-size: var(--fs-body);
+
+/* ---- CE QUE NOUS FAISONS : L'ACCORDÉON DES QUATRE SERVICES
+   (24/11/2026, `ServiceAccordion`). Le panneau ouvert (`.is-active`)
+   s'élargit, montre son fond, sa description et son lien ; les autres se
+   resserrent. Les fonds sont ceux des cartes essayées le 24/11/2026
+   (demande d'Antonino) : blanc au repos ; bleu nuit avec une lueur bleue
+   en haut à droite et une trame de points en bas à droite sur le panneau
+   ouvert (ou une photo et son voile, si `image` est rempli). La rangée occupe
+   la largeur de la colonne de la section, à 56px sous la phrase. Sous
+   1000px de large (requête sur la largeur de la rangée, pas de l'écran),
+   les panneaux s'empilent. Police : Manrope, celle du site. ---- */
+.svc-acc {
+  container-type: inline-size;
+  margin-top: 56px;
 }
-.service-cards .tile .go {
-  margin-top: auto;
-  padding-top: 0.75rem;
+.svc-acc-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 420px;
+}
+.svc-acc .svc-acc-panel {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid #e3e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #0b1424;
+  text-decoration: none;
+  transition: flex-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.svc-acc .svc-acc-panel.is-active {
+  flex-grow: 3.2;
+}
+/* La photo (ou son remplaçant bleu nuit), sous le texte. */
+.svc-acc .svc-acc-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 0.6s ease,
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* Sans photo : le fond des cartes (bleu nuit, lueur, trame de points). */
+.svc-acc .svc-acc-fond {
+  overflow: hidden;
+  background: #0b1424;
+}
+.svc-acc .svc-acc-fond-nuit,
+.svc-acc .svc-acc-fond-lueur {
+  position: absolute;
+  inset: 0;
+}
+.svc-acc .svc-acc-fond-lueur {
+  background: radial-gradient(90% 80% at 100% 0%, rgba(10, 108, 240, 0.55) 0%, rgba(10, 108, 240, 0) 60%);
+}
+.svc-acc .svc-acc-fond-points {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 55%;
+  height: 70%;
+  background-image: radial-gradient(rgba(142, 193, 255, 0.22) 1px, transparent 1.2px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(100% 100% at 100% 100%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(100% 100% at 100% 100%, #000 0%, transparent 70%);
+}
+.svc-acc .svc-acc-veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 20, 36, 0) 25%,
+    rgba(11, 20, 36, 0.6) 55%,
+    rgba(11, 20, 36, 0.92) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.svc-acc .is-active .svc-acc-media {
+  opacity: 1;
+  transform: scale(1);
+}
+.svc-acc .is-active .svc-acc-veil {
+  opacity: 1;
+}
+/* Le texte, en bas du panneau. */
+.svc-acc .svc-acc-body {
+  display: flex;
+  flex-direction: column;
+  max-width: 520px;
+}
+.svc-acc .svc-acc-title {
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #0b1424;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  transition:
+    color 0.4s,
+    font-size 0.5s;
+}
+.svc-acc .is-active .svc-acc-title {
+  font-size: clamp(24px, 2.2vw, 32px);
+  color: #ffffff;
+}
+/* La description et le lien : repliés (0fr) sauf sur le panneau ouvert. */
+.svc-acc .svc-acc-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin-top 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.5s;
+}
+.svc-acc .is-active .svc-acc-more {
+  grid-template-rows: 1fr;
+  margin-top: 12px;
+  opacity: 1;
+}
+.svc-acc .svc-acc-more-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow: hidden;
+}
+.svc-acc .svc-acc-text {
+  max-width: none;
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: #ffffff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+.svc-acc .svc-acc-link {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+/* Rangée étroite : les panneaux s'empilent, l'ouvert prend plus de
+   hauteur. */
+@container (max-width: 999px) {
+  .svc-acc-row {
+    flex-direction: column;
+    height: 760px;
+  }
+}
+/* Sans mouvement : le changement de panneau est instantané. */
+@media (prefers-reduced-motion: reduce) {
+  .svc-acc .svc-acc-panel,
+  .svc-acc .svc-acc-media,
+  .svc-acc .svc-acc-veil,
+  .svc-acc .svc-acc-title,
+  .svc-acc .svc-acc-more {
+    transition: none;
+  }
 }
 
 /* ---- Les trois étapes, numérotées. ---- */
@@ -1162,6 +1340,12 @@ main > section.home-hero h1 .title-accent {
   font-weight: 400;
   letter-spacing: -0.01em;
 }
+/* Suivi d'une ponctuation (« logiciel, ») : pas de marge, la virgule
+   reste collée au mot. */
+main > section.home-hero h1 .title-accent--colle {
+  padding-right: 0;
+  margin-right: -0.02em;
+}
 /* Les deux lignes du titre, en blanc : deux règles de `studio.css`
    peignent en bleu tout `span` enfant direct d'un titre de hero ; seuls
    « technologie » et « avancer » (`.title-accent`) restent bleus. Dès
@@ -1313,7 +1497,9 @@ main > section.home-hero .studio-hero-copy > .hero-reassurance {
     min-height: 100svh;
   }
   main > section.home-hero .studio-hero-grid {
-    --hero-title-size: clamp(2rem, 12.5cqi, 3.25rem);
+    /* 32px sur un écran de 375px (au lieu de 42), trois lignes (demande
+       d'Antonino du 24/11/2026 : le titre était trop grand). */
+    --hero-title-size: clamp(1.75rem, 9.6cqi, 3.25rem);
   }
 }
 

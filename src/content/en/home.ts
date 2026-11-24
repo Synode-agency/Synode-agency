@@ -5,8 +5,8 @@ export const home = {
   metaDescription: "We connect your tools, add AI and build custom software, from freelancers to large companies. Free 30-min call.",
 
   hero: {
-    title: "We build the technology\nthat moves businesses forward.",
-    accents: ["technology", "forward"],
+    title: "Software development,\nAI & connected systems.",
+    accents: ["Software", "AI"],
     subtitle:
       "Synode, a software development & AI agency in Brussels, designs and builds software tailored to your company’s needs. We integrate artificial intelligence, connect your tools and automate your processes to support your growth.",
     emphasis: "software development & AI agency in Brussels",
@@ -38,23 +38,33 @@ export const home = {
 
   services: {
     title: "What we do",
+    accents: ["do"],
     audience: "For freelancers, SMEs and large companies.",
     more: "Learn more",
     items: [
       {
-        key: "connect",
-        title: "Connect your tools",
-        text: "Customer management, invoicing, website, email: we link them so information flows on its own.",
+        key: "software",
+        title: "Software development",
+        text: "We design and build business software, platforms and internal tools tailored to your company’s specific needs.",
+        image: "",
       },
       {
         key: "ai",
-        title: "Put AI to work",
-        text: "AI drafts quotes, sorts requests and answers common questions. You choose what it handles on its own and what it runs past you.",
+        title: "Artificial intelligence & automation",
+        text: "We build AI agents and automate your business processes to simplify your operations and boost your teams’ productivity.",
+        image: "",
       },
       {
-        key: "software",
-        title: "Build your custom software",
-        text: "Web or mobile app, internal tool, customer portal: when no off-the-shelf tool fits, we build the one that matches how you work.",
+        key: "connect",
+        title: "Integration & connected systems",
+        text: "We connect your software, sync your data and integrate your systems into a coherent, scalable technology environment.",
+        image: "",
+      },
+      {
+        key: "web",
+        title: "Websites & mobile apps",
+        text: "We design and build modern, high-performance websites and mobile apps focused on user experience.",
+        image: "",
       },
     ] as const,
   },
