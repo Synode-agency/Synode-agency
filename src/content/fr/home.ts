@@ -31,8 +31,6 @@ export const home = {
      [À COMPLÉTER] note Google ou Sortlist, citation d'un client. */
   proof: {
     logosLabel: "Ils nous font confiance",
-    /* Le mot mis en avant de la phrase (Instrument Serif italique). */
-    logosAccent: "confiance",
     /* Les logos en silhouettes blanches sur fond transparent
        (`public/clients/`), affichés en gris foncé sur le bandeau blanc.
        `display` est la hauteur affichée, réglée à l'œil pour que tous
@@ -53,13 +51,15 @@ export const home = {
   /* NOTRE APPROCHE (24/11/2026), à la place de « Ça vous parle ? ». Le
      texte est celui d'Antonino, mot pour mot ; seule l'espace avant « : »
      est insécable, pour que le deux-points ne parte pas seul à la ligne.
-     `accents` : les mots en Instrument Serif, en bleu. `label` n'est pas
-     affiché (étiquette retirée le 24/11/2026) : il nomme la section pour
-     les lecteurs d'écran. */
+     La photo du bureau se révèle dans le texte au défilement
+     (`ApproachScroll`). */
   approach: {
+    /* Pas affiché (étiquette retirée le 24/11/2026) : nomme la section
+       pour les lecteurs d'écran. */
     label: "Notre approche",
     text: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps. Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
-    accents: ["outils", "habitudes", "tâches", "logiciel", "gagner", "IA"] as readonly string[],
+    image: "/images/bureau-nuit.png",
+    alt: "Deux développeurs au travail, de nuit, dans un bureau vitré",
   },
 
   services: {

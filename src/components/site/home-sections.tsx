@@ -22,7 +22,7 @@ export function ProofStrip({ proof }: { proof: Home["proof"] }) {
   const hasQuote = proof.quote.text.trim() !== "";
   return (
     <div className="proof-strip">
-      {proof.logos.length > 0 && <LogoMarquee label={proof.logosLabel} accent={proof.logosAccent} logos={proof.logos} />}
+      {proof.logos.length > 0 && <LogoMarquee logos={proof.logos} />}
       {proof.rating.trim() !== "" && <p className="proof-rating">{proof.rating}</p>}
       {hasQuote && (
         <figure className="proof-quote">
@@ -47,23 +47,13 @@ const MARQUEE_REPEAT = 2;
  * (choix d'Antonino) ; il n'a pas lieu sous `prefers-reduced-motion` :
  * les logos sont alors posés une seule fois.
  */
-function LogoMarquee({ label, accent, logos }: { label: string; accent: string; logos: Home["proof"]["logos"] }) {
+function LogoMarquee({ logos }: { logos: Home["proof"]["logos"] }) {
   const copies = MARQUEE_REPEAT * 2;
-  /* Le mot mis en avant (« confiance ») dans sa propre police. */
-  const at = accent ? label.indexOf(accent) : -1;
+  /* Plus de phrase au-dessus (retirée le 24/11/2026) : seulement les
+     logos. Le bandeau garde son nom pour les lecteurs d'écran
+     (`aria-label` de la bande, dans `home-page.tsx`). */
   return (
     <div className="logo-marquee">
-      <p className="logo-marquee-label">
-        {at === -1 ? (
-          label
-        ) : (
-          <>
-            {label.slice(0, at)}
-            <span className="logo-marquee-accent">{accent}</span>
-            {label.slice(at + accent.length)}
-          </>
-        )}
-      </p>
       <div className="logo-marquee-viewport">
         <ul className="logo-marquee-track">
           {Array.from({ length: copies }).flatMap((_, copy) =>

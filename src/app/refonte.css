@@ -220,56 +220,21 @@ main > .band.rf-section {
   --brand-hover: #b3d4ff;
 }
 
-/* ---- LA BANDE DES CLIENTS, sous le hero (24/11/2026) : blanche, basse,
+/* ---- LA BANDE DES CLIENTS, sous le hero (24/11/2026) : blanche,
    tranchée net sur le bleu nuit du hero, d'un seul tenant avec la section
-   blanche qui suit (sans filet, choix d'Antonino). « Ils nous font confiance » à gauche, aligné sur la
-   colonne (le bord du logo), en Manrope, « confiance » en Instrument
-   Serif italique bleu, comme les mots importants du titre ; les logos
-   défilent du bord
-   droit de l'écran jusqu'à cette phrase, où ils s'effacent. Les logos sont
+   blanche qui suit (sans filet, choix d'Antonino). Seulement les logos
+   (la phrase « Ils nous font confiance » est retirée), qui défilent sur
+   toute la largeur de l'écran, en fondu aux deux bords. Les logos sont
    des silhouettes blanches : un filtre les passe en gris foncé. ---- */
 .logo-band {
-  padding-block: clamp(1.25rem, 2vw, 1.75rem);
-  padding-right: 0;
-  /* La colonne du site : le même bord gauche que le logo et le titre. */
-  padding-left: max(var(--band-pad-x), calc((100% - var(--container-max)) / 2 + var(--band-pad-x)));
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
   background: #ffffff;
 }
-.logo-marquee {
-  display: flex;
-  align-items: center;
-  gap: clamp(1.5rem, 3vw, 3rem);
-}
-.logo-band p.logo-marquee-label {
-  flex: none;
-  margin: 0;
-  max-width: none;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-align: left;
-  white-space: nowrap;
-  color: #4a5468;
-}
-/* Le bleu de la marque et non le bleu clair du titre : sur le blanc, le
-   bleu clair serait illisible (1,9:1). #2563EB sur blanc : 5,2:1. */
-.logo-band .logo-marquee-accent {
-  padding-right: 0.04em;
-  font-family: var(--font-accent), Georgia, serif;
-  font-size: 1.25em;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: #2563eb;
-}
 .logo-marquee-viewport {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
   overflow: hidden;
-  /* Les logos s'effacent juste avant la phrase, et à l'entrée, au bord de
-     l'écran. */
-  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 96%, transparent);
+  /* Les logos entrent et sortent en fondu, aux deux bords de l'écran. */
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .logo-marquee-track {
   display: flex;
@@ -304,20 +269,6 @@ main > .band.rf-section {
     transform: translateX(-50%);
   }
 }
-/* Sur téléphone, la phrase au-dessus, les logos sur toute la largeur. */
-@media (max-width: 640px) {
-  .logo-band {
-    padding-right: var(--band-pad-x);
-  }
-  .logo-marquee {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.875rem;
-  }
-  .logo-marquee-viewport {
-    width: 100%;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .logo-marquee-viewport {
     mask-image: none;
@@ -333,59 +284,193 @@ main > .band.rf-section {
   }
 }
 
-/* ---- NOTRE APPROCHE (24/11/2026), à la place de « Ça vous parle ? » :
-   fond blanc, une grande phrase sur toute la largeur, en Manrope
-   (la police des titres). Ses mots passent du gris au noir au défilement
-   (`ApproachReveal`) ; les mots mis en avant, en Instrument Serif
-   italique, passent au bleu. Le HTML servi porte les couleurs finales. ---- */
+/* ---- NOTRE APPROCHE (24/11/2026), avec la photo du bureau
+   (`ApproachScroll`). Sur ordinateur, une scène fixe de 100vh dans une
+   section de 287vh : la photo se révèle dans les lettres (calque blanc en
+   `mix-blend-mode: screen`), puis le calque se dissout pendant que la
+   photo se réduit en carte à gauche et que le texte se réduit à droite.
+   Sous 800px ou sans mouvement : la version simple. Pas d'étiquette.
+   Police : Manrope, celle des titres du site. ---- */
 .approach {
+  position: relative;
   background: #ffffff;
 }
-.approach-inner {
-  max-width: 1280px;
-  margin-inline: auto;
-  padding: 180px 24px 160px;
+
+/* La scène fixe. */
+.approach-sticky {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background: #ffffff;
 }
-.approach-text {
+@media (min-width: 800px) and (prefers-reduced-motion: no-preference) {
+  /* 287vh : la scène se libère dès que la photo est en place (calendrier
+     dans `ApproachScroll`). */
+  .approach {
+    height: 287vh;
+  }
+  .approach-sticky {
+    position: sticky;
+    top: 0;
+  }
+}
+/* La photo des lettres, en plein écran (elle s'efface avec elles). */
+.approach-photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+/* La carte : sa taille et sa course sont réglées à chaque image par
+   `ApproachScroll`. */
+.approach-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 20px;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+}
+.approach-mask {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  mix-blend-mode: screen;
+}
+.approach-grid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 40px;
+  align-content: center;
+  box-sizing: border-box;
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.approach-big {
+  grid-column: 2;
   max-width: none;
   margin: 0;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 56px;
+  font-size: min(56px, 4.2vw, 6.2vh);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.032em;
+  text-wrap: pretty;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.approach-big [data-mot] {
+  transition: color 0.35s;
+}
+@media (max-width: 899px) {
+  .approach-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .approach-grid > div:empty {
+    display: none;
+  }
+  .approach-big {
+    grid-column: 1;
+  }
+}
+/* Le texte final : sa place et sa hauteur sont réglées à chaque image. */
+.approach-final {
+  position: absolute;
+  top: 50%;
+  opacity: 0;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+.approach-final-text {
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: clamp(22px, 2.5vw, 38px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.028em;
+  text-wrap: pretty;
+  color: #0b1424;
+}
+
+/* La version simple : téléphone, ou moins de mouvement. */
+.approach-simple {
+  display: none;
+}
+@media (max-width: 799px), (prefers-reduced-motion: reduce) {
+  .approach {
+    height: auto;
+  }
+  .approach-sticky {
+    display: none;
+  }
+  .approach-simple {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    box-sizing: border-box;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 96px 20px;
+  }
+}
+.approach-simple .approach-text {
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 30px;
   font-weight: 500;
   line-height: 1.14;
-  letter-spacing: -1.8px;
+  letter-spacing: -1px;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
   color: #0b1424;
 }
-.approach-word {
+.approach-simple .approach-word {
   color: #0b1424;
 }
-.approach-accent {
-  padding-right: 0.04em;
-  font-family: var(--font-accent), Georgia, serif;
-  font-size: 1.08em;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: #2563eb;
-}
-/* Les transitions s'allument après le premier calcul (`data-reveal`). */
-.approach-text[data-reveal] .approach-word {
+.approach-simple .approach-text[data-reveal] .approach-word {
   transition: color 0.3s;
 }
-@media (max-width: 799px) {
-  .approach-inner {
-    padding: 96px 20px;
+/* La carte aux proportions de la photo (1205 × 1305) : elle la montre en
+   entier, sans zoom. */
+.approach-simple-card {
+  position: relative;
+  aspect-ratio: 1205 / 1305;
+  overflow: hidden;
+  border-radius: 18px;
+}
+/* Sans mouvement, sur ordinateur : directement la disposition finale,
+   la photo en carte à gauche, le texte à droite. */
+@media (min-width: 800px) and (prefers-reduced-motion: reduce) {
+  .approach-simple {
+    display: grid;
+    grid-template-columns: minmax(0, 47fr) minmax(0, 53fr);
+    gap: 72px;
+    align-items: center;
+    padding: 120px 24px;
   }
-  .approach-text {
-    font-size: 32px;
-    letter-spacing: -1px;
+  .approach-simple-card {
+    order: -1;
+    justify-self: end;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 20px;
+  }
+  .approach-simple .approach-text {
+    font-size: clamp(22px, 2.5vw, 38px);
+    line-height: 1.22;
+    letter-spacing: -0.028em;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .approach-text[data-reveal] .approach-word {
+  .approach-simple .approach-text[data-reveal] .approach-word {
     transition: none;
   }
 }
@@ -997,13 +1082,85 @@ main > section.case-hero p.case-note {
     radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
     var(--hero-bg);
 }
-/* La barre est transparente au-dessus de ce hero, et retrouve le bleu nuit
-   du hero dès qu'on fait défiler. */
-.site-page:has(main > section.home-hero) .site-header:not(.is-scrolled) {
+/* LA BARRE DE L'ACCUEIL (24/11/2026).
+   Toujours transparente. Dès qu'on fait défiler (`.is-scrolled`), ce qui
+   passe dessous se floute ; le logo, le menu et les boutons restent nets.
+   Le flou est un calque (`::before`) qui déborde sous la barre et
+   s'efface en dégradé vers le bas : aucune ligne de coupe.
+   Sur une section claire (`.is-on-light`, mesuré dans `SiteHeader`), la
+   barre passe en négatif, aux couleurs du site : menu et langue en bleu
+   nuit, logo en version sombre, Contact en bleu nuit. Tout s'anime en
+   0,35 s, dans un sens comme dans l'autre. */
+.site-page:has(main > section.home-hero) .site-header,
+.site-page:has(main > section.home-hero) .site-header.is-scrolled {
+  border-bottom-color: transparent;
   background: transparent;
 }
-.site-page:has(main > section.home-hero) .site-header.is-scrolled {
-  background: #070c18;
+.site-page:has(main > section.home-hero) .site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -40px;
+  z-index: -1;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--anim-ease);
+}
+.site-page:has(main > section.home-hero) .site-header.is-scrolled::before {
+  opacity: 1;
+}
+
+/* Les transitions du négatif. */
+.site-page:has(main > section.home-hero) .site-header :is(.site-nav-link, .lang-item, .site-burger),
+.site-page:has(main > section.home-hero) .site-header .lang-item + .lang-item::before {
+  transition: color 0.35s var(--anim-ease);
+}
+.site-page:has(main > section.home-hero) .site-header .wordmark-type {
+  transition: filter 0.35s var(--anim-ease);
+}
+.site-page:has(main > section.home-hero) .site-header .site-header-contact {
+  transition:
+    background-color 0.35s var(--anim-ease),
+    color 0.35s var(--anim-ease);
+}
+/* Le négatif, sur une section claire. */
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link {
+  color: #4a5468;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link:hover,
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link.is-current {
+  color: #0b1424;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item {
+  color: #6b7488;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item.is-current {
+  color: #0b1424;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item + .lang-item::before {
+  color: rgb(11 20 36 / 30%);
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .wordmark-type {
+  filter: invert(1);
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-burger {
+  color: #0b1424;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-header-contact {
+  background: #0b1424;
+  color: #ffffff;
+}
+.site-page:has(main > section.home-hero) .site-header.is-on-light .site-header-contact:hover {
+  background: #1c2a44;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-page:has(main > section.home-hero) .site-header::before,
+  .site-page:has(main > section.home-hero) .site-header :is(.site-nav-link, .lang-item, .site-burger, .wordmark-type, .site-header-contact) {
+    transition: none;
+  }
 }
 
 main > section.home-hero > .studio-hero-inner {
@@ -1199,10 +1356,15 @@ main > section.home-hero .studio-hero-copy > .hero-reassurance {
     translate: 0 16px;
   }
 }
-/* Les petits téléphones : le titre tient en trois lignes. */
-@media (max-width: 359px) {
+/* Sur téléphone (24/11/2026, demande d'Antonino) : le hero prend tout
+   l'écran, et le titre est nettement plus grand, pour dominer le
+   paragraphe : 12,5 % de la largeur de la colonne, de 32 à 52px. */
+@media (max-width: 767px) {
+  .site-page main > section.studio-hero.home-hero {
+    min-height: 100svh;
+  }
   main > section.home-hero .studio-hero-grid {
-    --hero-title-size: 1.5rem;
+    --hero-title-size: clamp(2rem, 12.5cqi, 3.25rem);
   }
 }
 

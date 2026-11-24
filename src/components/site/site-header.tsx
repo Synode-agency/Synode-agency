@@ -26,6 +26,37 @@ import { cx } from "@/lib/cx";
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  */
+/**
+ * LE FOND SOUS LA BARRE EST-IL CLAIR ? (24/11/2026)
+ *
+ * On regarde ce qui se trouve sous le milieu de la barre, au centre de
+ * l'écran, en ignorant la barre elle-même et les calques presque effacés
+ * (opacité sous 50 %), puis on remonte ses parents jusqu'au premier fond
+ * vraiment peint. Clair si sa luminance dépasse la moitié. Un élément peut
+ * le dire lui-même avec `data-tone="dark"` ou `"light"` (une photo n'a pas
+ * de couleur de fond). Ainsi la barre suit n'importe quelle section, carte
+ * ou pied de page, sans liste à tenir à jour.
+ */
+function lightUnder(header: HTMLElement | null): boolean {
+  if (!header) return false;
+  const y = header.getBoundingClientRect().height / 2;
+  for (const el of document.elementsFromPoint(window.innerWidth / 2, y)) {
+    if (header.contains(el)) continue;
+    if (parseFloat(getComputedStyle(el).opacity) < 0.5) continue;
+    for (let node: Element | null = el; node; node = node.parentElement) {
+      const tone = node.getAttribute("data-tone");
+      if (tone) return tone === "light";
+      if (parseFloat(getComputedStyle(node).opacity) < 0.5) break;
+      const rgba = getComputedStyle(node).backgroundColor.match(/[\d.]+/g);
+      if (!rgba) continue;
+      const [r, g, b, a = 1] = rgba.map(Number);
+      if (a >= 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 140;
+    }
+    return false;
+  }
+  return false;
+}
+
 export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy }) {
   const { site } = copy;
   const pathname = usePathname();
@@ -38,12 +69,31 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   const setOpen = (value: boolean) => setOpenedAt(value ? pathname : null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  /* Une section claire passe sous la barre : ses couleurs s'inversent
+     (`.is-on-light`, accueil seulement dans la feuille de style). */
+  const [onLight, setOnLight] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      setScrolled(window.scrollY > 12);
+      setOnLight(lightUnder(headerRef.current));
+    };
+    /* Une mesure par image au plus, au défilement comme au
+       redimensionnement. */
+    const request = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request);
+    return () => {
+      window.removeEventListener("scroll", request);
+      window.removeEventListener("resize", request);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   /* Le menu ouvert verrouille le défilement de la page derrière lui. */
@@ -98,7 +148,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   };
 
   return (
-    <header className={cx("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+    <header ref={headerRef} className={cx("site-header", scrolled && "is-scrolled", onLight && "is-on-light")} onKeyDown={e => {
       /* Le piège de focus vit DANS le panneau, qui s'en occupe lui-même.
          Il reste ici de quoi fermer au clavier si le focus n'était pas
          encore entré dans le panneau, le bouton ☰ par exemple. */

@@ -9,7 +9,7 @@ import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseCards } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
 import { Founders, ProofStrip, ServiceCards, Steps } from "@/components/site/home-sections";
-import { ApproachReveal } from "@/components/site/approach-reveal";
+import { ApproachScroll } from "@/components/site/approach-scroll";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
@@ -144,27 +144,28 @@ export function HomePage({ locale }: { locale: Locale }) {
       />
 
       {/* LA BANDE DES CLIENTS, juste sous le hero (24/11/2026) : blanche,
-          « Ils nous font confiance » à gauche, les logos qui défilent du
-          bord droit de l'écran jusqu'à cette phrase.
+          seulement les logos qui défilent sur toute la largeur de l'écran
+          (« Ils nous font confiance » ne sert plus qu'aux lecteurs d'écran).
           ⚠ Un `div` et non une `section` (ni une `Band`) : les bandes
           alternent sombre et clair selon leur RANG parmi les sections
           (thème « alternating »). Une section de plus ici inverserait les
           couleurs de toute la suite de la page. */}
-      <div className={`logo-band ${accentFont.variable}`} role="region" aria-label={home.proof.logosLabel}>
+      <div className="logo-band" role="region" aria-label={home.proof.logosLabel}>
         <ProofStrip proof={home.proof} />
       </div>
 
       {/* NOTRE APPROCHE (24/11/2026), à la place exacte de « Ça vous
-          parle ? » : une grande phrase, sur toute la largeur, qui passe du
-          gris au noir mot par mot au défilement (`ApproachReveal`).
+          parle ? » : la photo du bureau se révèle dans le texte, sort en
+          carte vers la gauche, puis le texte arrive à sa droite
+          (`ApproachScroll`).
           ⚠ Une `section`, comme l'ancienne : les bandes alternent sombre et
-          clair selon leur rang parmi les sections ; elle garde le sien (une
-          bande claire, ici en blanc). */}
-      <section id="approche" className={`approach ${accentFont.variable}`} aria-label={home.approach.label}>
-        <div className="approach-inner">
-          <ApproachReveal text={home.approach.text} accents={home.approach.accents} />
-        </div>
-      </section>
+          clair selon leur rang parmi les sections ; elle garde le sien. */}
+      <ApproachScroll
+        label={home.approach.label}
+        text={home.approach.text}
+        image={home.approach.image}
+        alt={home.approach.alt}
+      />
 
       <Band id="services" className="rf-section">
         <Lede title={home.services.title} text={home.services.audience} />

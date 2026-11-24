@@ -15,7 +15,6 @@ export const home = {
 
   proof: {
     logosLabel: "They trust us",
-    logosAccent: "trust",
     logos: [
       { src: "/clients/behybrid.png", alt: "BEHYBRID", width: 900, height: 90, display: 16 },
       { src: "/clients/betapro.png", alt: "Betapro, construction and renovation", width: 198, height: 160, display: 48 },
@@ -32,7 +31,8 @@ export const home = {
   approach: {
     label: "Our approach",
     text: "Every company has its own tools, habits and tasks that take too much time. We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
-    accents: ["tools", "habits", "tasks", "software", "saves", "AI"] as readonly string[],
+    image: "/images/bureau-nuit.png",
+    alt: "Two developers working at night in a glass-walled office",
   },
 
   services: {
