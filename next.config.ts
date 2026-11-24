@@ -55,9 +55,17 @@ const nextConfig: NextConfig = {
      `public/` et les fichiers de `/_next/static` partent du CDN sans
      passer par Next : leurs en-têtes sont dans `netlify.toml`. ---- */
   async headers() {
+    /* LES APERÇUS NE SONT PAS INDEXÉS (24/11/2026). Netlify indique le
+       contexte du build dans `CONTEXT` : « production » pour le site en
+       ligne, « branch-deploy » ou « deploy-preview » pour un aperçu
+       (refonte-simple--synode-agency.netlify.app…). Un aperçu ne doit pas
+       entrer dans Google à côté du vrai site. En local, `CONTEXT` n'existe
+       pas : rien ne change. */
+    const preview = Boolean(process.env.CONTEXT) && process.env.CONTEXT !== "production";
     return [{
       source: "/:path*",
       headers: [
+        ...(preview ? [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] : []),
         { key: "X-Frame-Options", value: "SAMEORIGIN" },
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
