@@ -15,7 +15,7 @@ export const legal = {
  * Voir `../legal-shared.ts` pour les règles d'écriture.
  */
 export const legalTexts: LegalTexts = {
-  updated: "23 November 2026",
+  updated: "24 November 2026",
 
   /* ------------------------------------------------------- Legal notice */
   notice: [
@@ -88,7 +88,7 @@ export const legalTexts: LegalTexts = {
       blocks: [
         {
           list: [
-            "**Contact form**: name, email and description of your needs (required); company, phone, website, timeline and budget (optional). The date of the request and the language of the page are added.",
+            "**Contact form**: name, email and message (required). The date of the request and the language of the page are added.",
             "**Booking a call (Cal.com)**: at least your name, email and the slot you choose.",
             "**Emails** you exchange with us.",
             "**Technical data**: our host Netlify processes connection data, including the IP address. Our server uses the IP address temporarily, in memory, to limit repeated form submissions, without recording it. It keeps the email address in the same way, so that only one acknowledgement is sent per day.",

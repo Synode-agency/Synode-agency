@@ -1,8 +1,8 @@
 import type { SiteContent } from "../types";
 
 export const home = {
-  metaTitle: "Integration, software and AI in Brussels",
-  metaDescription: "Synode, a technology agency in Brussels: connected systems (CRM, ERP, API), intelligent business software and automated processes, with built-in AI.",
+  metaTitle: "Synode · Software development & AI agency in Brussels",
+  metaDescription: "We connect your tools, add AI and build custom software, from freelancers to large companies. Free 30-min call.",
 
   hero: {
     title: "We connect your tools and automate the repetitive work.",
@@ -73,9 +73,8 @@ export const home = {
         a: "The first call is free. Scoping is paid, then deducted from the project price. The quote separates development, running costs and future changes.",
       },
       {
-        /* [TO COMPLETE] a realistic range. */
         q: "How long does it take?",
-        a: "",
+        a: "It depends on the scope, the number of tools to connect, how available your data is and the testing needed. The schedule is agreed in writing before work starts.",
       },
       {
         q: "Do you build solutions without AI?",

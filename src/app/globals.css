@@ -923,30 +923,15 @@
   /* =====================================================================
      LE FLUX D'UN CAS D'USAGE — les trois temps, dessinés
      ===================================================================== */
-  .flow {
-    display: grid;
-    gap: 0.5rem;
-    margin: clamp(1.25rem, 2vw, 1.75rem) 0 0;
-    padding: 0;
-    list-style: none;
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 780px) {
-    .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; }
-  }
+  
+  
 
   /* =====================================================================
      LE CTA FINAL — la seconde et dernière carte de la page
      ===================================================================== */
   .cta-panel { text-align: center; }
   .cta-actions { justify-content: center; margin-top: clamp(2rem, 3vw, 3rem); }
-  .cta-note {
-    max-width: 52ch;
-    margin: clamp(1.5rem, 2.5vw, 2rem) auto 0;
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    color: var(--text-mono);
-  }
+  
 
   /* =====================================================================
      LISTE À COCHES
@@ -975,7 +960,7 @@
   /* =====================================================================
      LES ANCRES DE TERRITOIRE
      ===================================================================== */
-  .anchors { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  
 
   /* =====================================================================
      UN CAS D'USAGE
@@ -1162,17 +1147,7 @@
   /* L'élément à confirmer, entre crochets, au fil du texte : même famille
      visuelle que l'encadré « Brouillon » (`.todo`), pour qu'on ne le
      prenne jamais pour une information vérifiée. */
-  .legal-todo {
-    padding: 0.05em 0.35em;
-    border: 1px dashed color-mix(in oklab, var(--brand) 45%, transparent);
-    border-radius: 4px;
-    background: color-mix(in oklab, var(--brand) 6%, transparent);
-    color: var(--brand);
-    font-size: 0.92em;
-    font-weight: 600;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
+  
   .legal-updated { font-size: var(--fs-micro); color: var(--text-mono); }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1411,67 +1386,30 @@
 
   .site-footer { display: flex; flex-direction: column; gap: clamp(2.5rem, 4vw, 4rem); }
 
-  .site-footer-grid {
-    display: grid;
-    gap: clamp(2rem, 4vw, 4rem);
-    grid-template-columns: 1fr;
-  }
-  @media (min-width: 760px) {
-    .site-footer-grid { grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr)); }
-  }
+  
+  
 
-  .site-footer-brand { display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+  
   /* Le lettrage est un PNG blanc, dessiné pour un fond sombre. Sur le
      panneau d'encre il est déjà à l'endroit ; ailleurs il faut l'inverser,
      sinon il disparaît sur le blanc. Remplacer l'image par une version
      encre-sur-transparent et ces deux règles peuvent partir. */
-  .site-footer-brand .wordmark-type { filter: none; }
-  .site-footer-tagline {
-    max-width: 34ch;
-    font-size: var(--fs-small);
-    line-height: var(--lh-body);
-    color: var(--muted-foreground);
-  }
+  
+  
 
-  .site-footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
-  .site-footer-title {
-    margin-bottom: 0.35rem;
-    font-size: var(--fs-micro);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--text-mono);
-  }
-  .site-footer-link {
-    /* 24px de cible au moins (C53 de l'audit, WCAG 2.5.8) : le texte seul
-       faisait 20px de haut. */
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    font-size: var(--fs-small);
-    color: var(--muted-foreground);
-    transition: color 0.18s var(--anim-ease);
-  }
-  .site-footer-link:hover { color: var(--foreground); }
-  .site-footer-place { font-size: var(--fs-small); color: var(--text-mono); }
+  
+  
+  
+  
+  
 
-  .site-footer-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-top: clamp(1.25rem, 2vw, 1.75rem);
-    border-top: 1px solid var(--hairline);
-    font-size: var(--fs-micro);
-    color: var(--text-mono);
-  }
-  .site-footer-legal { display: flex; flex-wrap: wrap; gap: 1.25rem; }
-  .site-footer-legal .site-footer-link { font-size: var(--fs-micro); }
+  
+  
+  
 
   @media (prefers-reduced-motion: reduce) {
     .site-header-bar,
-    .site-nav-link,
-    .site-footer-link { transition: none; }
+.site-nav-link { transition: none; }
   }
 }
 

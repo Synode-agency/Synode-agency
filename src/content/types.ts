@@ -1,6 +1,5 @@
 import type { Locale } from "@/lib/routes";
 import type { fr } from "./fr";
-import type { work } from "./fr/work";
 
 /**
  * LA FORME COMMUNE DES DEUX LANGUES.
@@ -33,36 +32,6 @@ export type Widen<T> = T extends string
 
 export type SiteContent = Omit<Widen<typeof fr>, "locale"> & { locale: Locale };
 
-export type WorkKind = "internal" | "beta" | "demo" | "client" | "software";
-
-export type WorkItem = {
-  slug: string;
-  /** Real project capture, when supplied. Otherwise show an explicit placeholder. */
-  image?: { src: string; alt: string };
-  kind: WorkKind;
-  title: string;
-  /** La partie du titre peinte en bleu. Doit figurer telle quelle dans `title`. */
-  accent?: string;
-  /** L'état réel, affiché tel quel. Jamais « bientôt disponible ». */
-  status: string;
-  /** Le problème métier, en une phrase. */
-  problem: string;
-  /** Parcours fonctionnel présenté sans le confondre avec un résultat livré. */
-  journey: readonly string[];
-  /** Le contexte, sur la fiche détaillée. */
-  context: string;
-  /** Ce que la solution fait réellement aujourd'hui. */
-  does: readonly string[];
-  /** Le rôle de l'IA, dit explicitement. */
-  aiRole: string;
-  /** Ce qu'on vise, PAS ce qu'on a mesuré. */
-  goals: readonly string[];
-  /** Les limites, et ce qui reste validé par un humain. */
-  limits: readonly string[];
-  /** `true` tant que la fiche attend captures, vidéo ou contenu réel. */
-  todo: boolean;
-};
-
 /** L'état d'une réalisation, affiché en pastille sur sa carte (brief, 5). */
 export type CaseStatus = "live" | "beta" | "demo";
 
@@ -77,5 +46,21 @@ export type CaseCard = {
   note: string;
 };
 
-/** La forme de la page Réalisations, la même dans les deux langues. */
-export type WorkContent = typeof work;
+/**
+ * Une réalisation avec sa fiche détaillée, dans l'ordre du modèle du brief
+ * (6.3) : en-tête, problème, ce qu'on a construit, résultat, citation,
+ * technologies.
+ */
+export type CaseStudy = CaseCard & {
+  metaTitle: string;
+  metaDescription: string;
+  sector: string;
+  year: string;
+  problem: string;
+  built: string;
+  /** 1 à 3 chiffres ou constats. Jamais un chiffre inventé. */
+  results: readonly string[];
+  /** Vide = pas de citation. */
+  quote: { text: string; author: string };
+  tech: string;
+};

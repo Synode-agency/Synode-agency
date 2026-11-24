@@ -85,15 +85,18 @@ main > section.home-hero .studio-hero-kicker {
 
 /* ---- L'espace entre les sections : 96 à 128px sur ordinateur, 64px sur
    téléphone (brief, 11). ---- */
-main > .band.home-section {
+main > .band.rf-section {
   padding-block: clamp(4rem, 2.6rem + 5vw, 7.5rem);
 }
+
+/* Une liste n'a pas de marge à elle : l'espace sous un titre vient de
+   `section-gap-sm` (`globals.css`), qu'un `margin: 0` écrasait. */
 
 /* ---- Les bandes sombres de l'accueil (une sur deux, thème
    `alternating`) : le bleu de marque n'y tient que 2,9:1. Liens, icônes,
    numéros et chevrons y prennent le bleu clair des heros, #8FC0FF (9,37:1),
    comme le bouton principal sur bleu nuit (règle du 23/11/2026). ---- */
-.site-theme-alternating main > .band.home-section:nth-of-type(odd) {
+.site-theme-alternating main > .band.rf-section:nth-of-type(odd) {
   --brand: #8fc0ff;
   --brand-foreground: #0b192c;
   --brand-hover: #b3d4ff;
@@ -138,7 +141,6 @@ main > section.home-hero p.proof-strip--fallback {
   flex-wrap: wrap;
   justify-content: center;
   gap: 1.5rem 2.5rem;
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -147,7 +149,6 @@ main > section.home-hero p.proof-strip--fallback {
 .problem-list {
   display: grid;
   gap: 1.75rem;
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -205,7 +206,6 @@ main > section.home-hero p.proof-strip--fallback {
 .steps-list {
   display: grid;
   gap: 1.75rem;
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -246,7 +246,6 @@ main > section.home-hero p.proof-strip--fallback {
 .founders-list {
   display: grid;
   gap: 1.5rem;
-  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -291,6 +290,484 @@ main > section.home-hero p.proof-strip--fallback {
 
 /* ---- La FAQ de l'accueil s'aligne sur son titre, à gauche, au lieu d'être
    centrée sous lui (`mx-auto` du composant). ---- */
-main > .band.home-section .faq-list {
+main > .band.rf-section .faq-list {
   margin-inline: 0;
+}
+
+/* =====================================================================
+   LES BRIQUES COMMUNES DES PAGES DE LA REFONTE
+   ===================================================================== */
+
+/* Le petit libellé au-dessus d'un contenu (« Le problème », « Ce qu'on
+   fait »…). En capitales espacées, dans le bleu de la bande. */
+.rf-label {
+  display: block;
+  margin-bottom: 0.65rem;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+/* Deux colonnes sur ordinateur, une sur téléphone. */
+.rf-split {
+  display: grid;
+  gap: 3rem;
+}
+@media (min-width: 900px) {
+  .rf-split {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+.rf-note {
+  margin-top: 1.5rem;
+  max-width: 52ch;
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+
+.rf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline);
+  color: var(--brand);
+}
+.rf-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* La liste à coches : exemples, inclus, résultats. */
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.check-list > li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+.check-list > li > svg {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.3em;
+  color: var(--brand);
+}
+.check-list p {
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.check-list strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* La liste numérotée : tarification. */
+.rf-numbered {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: rf;
+}
+.rf-numbered > li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  counter-increment: rf;
+}
+.rf-numbered > li::before {
+  content: counter(rf, decimal-leading-zero);
+  flex: none;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--brand);
+}
+.rf-numbered p {
+  max-width: 50ch;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.rf-numbered strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* =====================================================================
+   SERVICES (brief, 6.2)
+   ===================================================================== */
+
+/* Le sommaire du hero : trois liens vers les trois blocs. */
+.services-index {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.services-index a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--foreground);
+  transition: border-color 0.2s var(--anim-ease), background-color 0.2s var(--anim-ease);
+}
+.services-index a:hover {
+  border-color: var(--brand);
+}
+.services-index a > span {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--brand);
+}
+.services-index svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--muted-foreground);
+}
+
+/* Un service : le titre et le problème à gauche, le reste à droite. */
+.service-block {
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 960px) {
+  .service-block {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 7vw, 7rem);
+  }
+  .service-block-head {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+    align-self: start;
+  }
+}
+.service-block-index {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+}
+.service-block-title {
+  max-width: 14ch;
+  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+  text-wrap: balance;
+}
+.service-block-problem {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.service-block-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+.service-block-does {
+  max-width: 52ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--foreground);
+}
+.service-block-result {
+  max-width: 52ch;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--brand);
+  border-radius: 0 var(--r-xs) var(--r-xs) 0;
+  background: var(--surface-2);
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  color: var(--foreground);
+}
+
+/* La sécurité : quatre garanties, une icône chacune. */
+.security-grid {
+  display: grid;
+  gap: 2rem;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 700px) {
+  .security-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .security-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.security-grid > li {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.security-grid p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.security-grid strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* =====================================================================
+   À PROPOS (brief, 6.4)
+   ===================================================================== */
+
+/* Trois valeurs, trois phrases courtes, en grand. */
+.values-list {
+  display: grid;
+  gap: 2rem;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .values-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+.values-list > li {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+}
+.values-list p {
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--muted-foreground);
+}
+.values-list strong {
+  display: block;
+  font-weight: 500;
+  color: var(--foreground);
+}
+.steps-list--detailed p {
+  max-width: 40ch;
+}
+
+/* =====================================================================
+   RÉALISATIONS (brief, 6.3)
+   ===================================================================== */
+
+/* La pastille d'état tient lieu de surtitre : visible à toutes les
+   tailles, sans les capitales des surtitres. */
+main > section.case-hero .studio-hero-kicker {
+  display: block;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem 3rem;
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+}
+.case-meta dt {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mono);
+}
+.case-meta dd {
+  margin-top: 0.3rem;
+  font-size: var(--fs-small);
+  color: var(--foreground);
+}
+main > section.case-hero p.case-note {
+  margin-top: 1.25rem;
+  font-size: var(--fs-small);
+  color: var(--text-mono);
+}
+
+/* L'écran principal, large et posé comme une capture. */
+.case-screen {
+  position: relative;
+  max-width: 1080px;
+  margin-inline: auto;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid #dde3eb;
+  border-radius: 16px;
+  background: #eef2f8;
+}
+/* Coory porte son propre fond pointillé : on le prolonge (voir
+   `case-cards.module.css`). */
+.case-screen--stage {
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f2f5f9;
+}
+.case-screen--stage::before {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(#dde3eb 1px, transparent 1px);
+  background-position: 0 calc(50cqh - 31.25cqw);
+  background-size: 22px 22px;
+  content: "";
+}
+.case-more {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .case-more {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.case-screen--small {
+  max-width: none;
+  margin-inline: 0;
+}
+.case-text {
+  max-width: 48ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+.case-results p {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+}
+.case-quote {
+  margin-top: 2rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--brand);
+}
+.case-quote blockquote {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--foreground);
+}
+.case-quote figcaption {
+  margin-top: 0.75rem;
+  font-size: var(--fs-small);
+  color: var(--muted-foreground);
+}
+.case-tech {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.case-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-sm);
+}
+.case-demo-title {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--foreground);
+}
+.case-demo p {
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.case-demo-access {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+}
+.case-demo-access dt {
+  font-size: var(--fs-micro);
+  color: var(--text-mono);
+}
+.case-demo-access dd {
+  font-size: var(--fs-small);
+  color: var(--foreground);
+  user-select: all;
+}
+.case-back {
+  margin-top: 3.5rem;
+}
+.case-back svg {
+  order: -1;
+}
+
+/* =====================================================================
+   CONTACT (brief, 6.5)
+   ===================================================================== */
+.contact-write-text {
+  margin-top: 1.25rem;
+  max-width: 40ch;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+.contact-mail {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-word;
+}
+@media (min-width: 900px) {
+  .contact-write {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+/* ---- Les pastilles d'état sur le hero bleu nuit : leurs couleurs de fond
+   clair (vert, ambre, bleu foncés) ne s'y lisaient plus. Mêmes teintes,
+   éclaircies. ---- */
+.studio-hero .badge {
+  border-color: rgb(255 255 255 / 18%);
+  background: rgb(255 255 255 / 6%);
+  font-size: var(--fs-small);
+}
+.studio-hero .badge--live {
+  color: #8fe3b0;
+}
+.studio-hero .badge--wip {
+  color: #ffcf8a;
+}
+.studio-hero .badge--demo {
+  color: #8fc0ff;
 }

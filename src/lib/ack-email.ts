@@ -23,6 +23,8 @@
  * Netlify.
  */
 
+import { ctaLabel } from "@/content/cta";
+
 const SITE = "https://synode-agency.com";
 
 const BLUE = "#2F69DE";
@@ -48,8 +50,8 @@ const COPY: Record<"fr" | "en", Copy> = {
     subject: "Nous avons bien reçu votre demande",
     hello: "Bonjour,",
     received: "Merci pour votre message. Il nous est bien parvenu et nous revenons vers vous.",
-    urgent: "Si votre demande est urgente, vous pouvez réserver directement un échange de 30 minutes :",
-    button: "Réserver un échange gratuit",
+    urgent: "Si votre demande est urgente, vous pouvez réserver directement un appel de 30 minutes :",
+    button: ctaLabel.fr,
     bookingUrl: `${SITE}/contact#reserver`,
     reply: "Pour compléter votre demande, répondez simplement à cet e-mail.",
     closing: "Cordialement,",
@@ -61,7 +63,7 @@ const COPY: Record<"fr" | "en", Copy> = {
     hello: "Hello,",
     received: "Thank you for your message. It has reached us and we will get back to you.",
     urgent: "If your request is urgent, you can book a 30-minute call directly:",
-    button: "Book a free call",
+    button: ctaLabel.en,
     bookingUrl: `${SITE}/en/contact#book`,
     reply: "To add anything to your request, simply reply to this email.",
     closing: "Best regards,",

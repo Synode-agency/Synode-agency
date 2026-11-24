@@ -1,8 +1,9 @@
 import type { Locale } from "@/lib/routes";
 import { site } from "./common";
 import { home } from "./home";
-import { solutions } from "./solutions";
-import { team } from "./team";
+import { services } from "./services";
+import { work } from "./work";
+import { about } from "./about";
 import { contact } from "./contact";
 import { thanks } from "./thanks";
 import { notFound } from "./not-found";
@@ -13,8 +14,9 @@ export const fr = {
   locale: "fr" as Locale,
   site,
   home,
-  solutions,
-  team,
+  services,
+  work,
+  about,
   contact,
   thanks,
   notFound,

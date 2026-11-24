@@ -188,7 +188,7 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           </p>
           <div className="btn-row">
             <span className="btn btn--primary">
-              {fr ? "Réserver un échange" : "Book a call"}
+              {fr ? "Réserver un appel de 30 min" : "Book a 30-min call"}
               <ArrowRight aria-hidden />
             </span>
             <span className="btn btn--ghost">{fr ? "Voir les cas d'usage" : "See the use cases"}</span>

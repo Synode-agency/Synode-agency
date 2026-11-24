@@ -14,35 +14,61 @@ export type Locale = (typeof locales)[number];
 /** Le français est la langue par défaut et vit à la racine. */
 export const localePrefix = (locale: Locale) => (locale === "fr" ? "" : "/en");
 
-/** path("en", "/contact") -> "/en/contact" */
-export const path = (locale: Locale, sub = "/") => {
-  const prefix = localePrefix(locale);
-  if (sub === "/") return prefix || "/";
-  return `${prefix}${sub}`;
-};
-
-export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");
-
 /**
- * Les adresses sont les mêmes dans les deux langues : le sélecteur ne fait
- * que remplacer le préfixe `/en`. Traduire les URL casserait ce mécanisme et
- * obligerait à maintenir deux tables de correspondance.
+ * LES PAGES DU SITE, par leur adresse française (brief de la refonte, 4.1).
+ * Tout le code écrit ces adresses-là ; `path()` donne celle de la langue.
  */
 export const ROUTES = {
   home: "/",
-  /* La page Services de la refonte. Tant qu'elle n'existe pas (étape 5),
-     `next.config.ts` redirige cette adresse vers `/solutions`, ancre
-     comprise : les liens qui y mènent déjà marchent. */
   services: "/services",
-  solutions: "/solutions",
-  useCases: "/cas-usage",
   work: "/realisations",
-  team: "/equipe",
+  about: "/a-propos",
   contact: "/contact",
   thanks: "/merci",
   legalNotice: "/mentions-legales",
   privacy: "/confidentialite",
 } as const;
+
+/**
+ * LES ADRESSES ANGLAISES TRADUITES (24/11/2026). Les autres pages gardent
+ * la même adresse, préfixée de `/en` : `/en/services`, `/en/contact`. Une
+ * sous-page suit sa page : `/realisations/nexus` devient `/en/work/nexus`.
+ */
+const EN_ROUTES: Record<string, string> = {
+  [ROUTES.work]: "/work",
+  [ROUTES.about]: "/about",
+  [ROUTES.thanks]: "/thanks",
+  [ROUTES.legalNotice]: "/legal-notice",
+  [ROUTES.privacy]: "/privacy",
+};
+
+/* Remplace le début d'une adresse selon une table : `/realisations/nexus`
+   avec `/realisations` → `/work` donne `/work/nexus`. */
+function swapBase(sub: string, table: Record<string, string>) {
+  for (const [from, to] of Object.entries(table)) {
+    if (sub === from || sub.startsWith(`${from}/`) || sub.startsWith(`${from}#`)) return to + sub.slice(from.length);
+  }
+  return sub;
+}
+
+/** path("en", "/realisations/nexus") -> "/en/work/nexus" */
+export const path = (locale: Locale, sub = "/") => {
+  if (sub === "/") return locale === "fr" ? "/" : "/en";
+  return locale === "fr" ? sub : `/en${swapBase(sub, EN_ROUTES)}`;
+};
+
+export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");
+
+/**
+ * La même page dans l'autre langue, pour le sélecteur. On retrouve d'abord
+ * l'adresse française de la page affichée, puis on la traduit.
+ */
+export function switchLocalePath(pathname: string, target: Locale) {
+  const isEn = pathname === "/en" || pathname.startsWith("/en/");
+  const bare = isEn ? pathname.slice(3) || "/" : pathname;
+  const frRoute = isEn ? swapBase(bare, Object.fromEntries(Object.entries(EN_ROUTES).map(([fr, en]) => [en, fr]))) : bare;
+  return path(target, frRoute);
+}
 
 /** Les ancres de la page Contact, citées depuis toute la navigation. */
 export const ANCHORS = {
@@ -77,6 +103,11 @@ const SERVICE_ANCHORS = {
 
 export type ServiceKey = keyof typeof SERVICE_ANCHORS;
 
+/** Le bloc « Inclus dans chaque projet » de la page Services, où mène
+ *  l'ancienne offre « Formation & adoption IA ». */
+const INCLUDED_ANCHOR = { fr: "inclus", en: "included" } as const satisfies Record<Locale, string>;
+export const includedAnchor = (locale: Locale) => INCLUDED_ANCHOR[locale];
+
 export const serviceAnchor = (locale: Locale, key: ServiceKey) => SERVICE_ANCHORS[key][locale];
 
 /** serviceHref("fr", "ai") -> "/services#ia" */
@@ -87,7 +118,7 @@ export const serviceHref = (locale: Locale, key: ServiceKey) => `${path(locale, 
  * sélecteur de langue garde la section où l'on se trouve : il passe par
  * cette table pour que `/contact#reserver` mène à `/en/contact#book`.
  */
-const ANCHOR_PAIRS: readonly Record<Locale, string>[] = [BOOKING_ANCHOR, ...Object.values(SERVICE_ANCHORS)];
+const ANCHOR_PAIRS: readonly Record<Locale, string>[] = [BOOKING_ANCHOR, INCLUDED_ANCHOR, ...Object.values(SERVICE_ANCHORS)];
 
 /** translateHash("#reserver", "en") -> "#book" ; une ancre commune ne change pas. */
 export function translateHash(hash: string, target: Locale) {

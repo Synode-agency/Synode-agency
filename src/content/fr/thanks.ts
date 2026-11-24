@@ -1,3 +1,5 @@
+import { ctaLabel } from "../cta";
+
 /** La page affichée après l'envoi du formulaire (`/merci`, hors index). */
 export const thanks = {
   metaTitle: "Message bien reçu",
@@ -6,6 +8,6 @@ export const thanks = {
   /* On ne promet pas de délai : la référence l'interdit tant qu'il n'est
      pas tenable. */
   notBooked: "Ce message n’est pas un rendez-vous. Pour en fixer un, passez par le calendrier.",
-  bookCta: "Réserver un échange gratuit",
+  bookCta: ctaLabel.fr,
   homeCta: "Revenir à l’accueil",
 } as const;

@@ -126,7 +126,7 @@ export function Steps({ steps }: { steps: SiteContent["site"]["steps"] }) {
  * LES FONDATEURS EN BREF (`Founders`, version de l'accueil) : la photo, le
  * nom, le rôle. Le portrait complet est sur À propos.
  */
-export function Founders({ people }: { people: SiteContent["team"]["people"] }) {
+export function Founders({ people }: { people: SiteContent["about"]["founders"]["people"] }) {
   return (
     <ul className="founders-list">
       {people.map((person) => (

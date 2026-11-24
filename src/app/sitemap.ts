@@ -1,61 +1,44 @@
 import type { MetadataRoute } from "next";
-import { solutionFamilies } from "@/lib/solution-details";
-import { ROUTES } from "@/content";
+import { CASES, ROUTES, path } from "@/content";
 import { siteUrl } from "@/lib/site-url";
-import { assertBusinessUseCases } from "@/lib/business-use-cases";
-import { workItems } from "@/lib/work";
-import { assertDiagnosticParity } from "@/lib/ai-diagnostic-questions";
 
 /**
  * Le plan du site, chaque page appariée à sa traduction.
  *
- * Deux pages n'y figurent pas, et c'est délibéré : `/merci`, qui n'a de sens
- * qu'après un envoi et que l'architecture demande d'exclure, et
- * `/design-system`, qui est un outil d'équipe. Toutes deux portent en plus
- * un `robots: noindex` dans leur propre fichier de route.
+ * Depuis la refonte du 24/11/2026 : cinq pages, les fiches des réalisations
+ * et les deux pages légales, en français et en anglais. Les adresses
+ * anglaises viennent de `path()`, qui connaît leurs traductions
+ * (`/en/work`, `/en/about`…).
  *
- * C'est aussi le seul endroit qui connaît le catalogue en entier, donc c'est
- * ici qu'on vérifie son intégrité : un cas d'usage ajouté dans une seule
- * langue casse le build au lieu de produire une page anglaise vide.
+ * Deux pages n'y figurent pas, et c'est délibéré : `/merci` (`/en/thanks`),
+ * qui n'a de sens qu'après un envoi, et `/design-system`, qui n'existe
+ * qu'en développement. La première porte en plus un `robots: noindex`.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  assertBusinessUseCases();
-  assertDiagnosticParity();
-
-  const pages: { path: string; priority: number }[] = [
-    { path: ROUTES.home === "/" ? "" : ROUTES.home, priority: 1 },
-    { path: ROUTES.solutions, priority: 0.9 },
-    ...solutionFamilies("fr").map(f => ({ path: `${ROUTES.solutions}/${f.slug}`, priority: 0.8 })),
-    { path: ROUTES.useCases, priority: 0.8 },
-    { path: ROUTES.work, priority: 0.8 },
-    ...workItems("fr").map((w) => ({ path: `${ROUTES.work}/${w.slug}`, priority: 0.6 })),
-    { path: ROUTES.contact, priority: 0.8 },
-    { path: ROUTES.team, priority: 0.6 },
-    { path: ROUTES.legalNotice, priority: 0.2 },
-    { path: ROUTES.privacy, priority: 0.2 },
+  const pages: { route: string; priority: number }[] = [
+    { route: ROUTES.home, priority: 1 },
+    { route: ROUTES.services, priority: 0.9 },
+    { route: ROUTES.work, priority: 0.8 },
+    ...CASES.fr.map((c) => ({ route: `${ROUTES.work}/${c.slug}`, priority: 0.6 })),
+    { route: ROUTES.about, priority: 0.7 },
+    { route: ROUTES.contact, priority: 0.8 },
+    { route: ROUTES.legalNotice, priority: 0.2 },
+    { route: ROUTES.privacy, priority: 0.2 },
   ];
 
   /* ---- LA DATE DE DERNIÈRE MODIFICATION.
 
-     C'était `new Date()` : la date du BUILD. Chaque déploiement annonçait
-     donc que les trente pages du site venaient de changer, même celles dont
-     pas une ligne n'avait bougé. Un moteur de recherche qui le constate deux
-     ou trois fois cesse d'accorder du crédit au champ, et on perd le signal
-     le jour où une page change vraiment.
+     La DATE DU CONTENU, écrite à la main, et non celle du build : sinon
+     chaque déploiement annoncerait que toutes les pages ont changé, et un
+     moteur de recherche cesserait de croire ce champ. La changer fait
+     partie d'une vraie mise à jour de contenu. ---- */
+  const lastModified = new Date("2026-11-24");
 
-     Elle vient maintenant de la DATE DU CONTENU, écrite ci-dessous à la
-     main. Une date de commit aurait été automatique, mais `git` n'est pas
-     disponible à la compilation sur un hébergeur, et un fichier retouché
-     pour une virgule n'est pas une page modifiée. Changer cette constante
-     fait partie d'une vraie mise à jour de contenu, au même titre que le
-     texte. ---- */
-  const lastModified = new Date("2026-11-23");
-
-  return pages.flatMap(({ path: p, priority }) => {
-    const fr = `${siteUrl}${p}`;
-    const en = `${siteUrl}/en${p}`;
+  return pages.flatMap(({ route, priority }) => {
+    const fr = `${siteUrl}${path("fr", route) === "/" ? "" : path("fr", route)}`;
+    const en = `${siteUrl}${path("en", route)}`;
     /* `x-default` comme sur les pages : le français est la version par défaut. */
-    const alternates = { languages: { fr, en, "x-default": fr } };
+    const alternates = { languages: { "fr-BE": fr || siteUrl, en, "x-default": fr || siteUrl } };
     return [
       { url: fr || siteUrl, lastModified, priority, alternates },
       /* La version anglaise est servie, mais le français est la langue

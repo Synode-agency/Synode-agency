@@ -1,16 +1,14 @@
 /**
  * L'identité de Synode pour les moteurs de recherche.
  *
- * Décision du 23/11/2026 : « Synode » est la MARQUE (le logo), « Synode
- * Agency » le NOM COMPLET. C'est le nom du domaine, de LinkedIn, de la fiche
- * Google et des titres de pages, et celui que les gens tapent : sans lui,
- * Google ne relie pas cette recherche au site, d'autant que « synode »
- * désigne d'abord une assemblée d'Église et d'autres sociétés (synode.ai,
- * synode-it.com, une plateforme 3D canadienne). Le nom complet est donc le
- * nom principal des données structurées, et la marque son autre nom.
+ * Décision du 24/11/2026 : le nom de l'agence est « Synode », comme on dit
+ * « Iterates ». « Synode agency » est gardé comme AUTRE nom : c'est celui du
+ * domaine, de la page LinkedIn et de la fiche Google, et ce que certains
+ * tapent. Il aide Google à relier ces recherches au site, d'autant que
+ * « synode » désigne d'abord une assemblée d'Église et d'autres sociétés.
  */
-export const organizationName = "Synode agency";
-export const organizationAlternateName = "Synode";
+export const organizationName = "Synode";
+export const organizationAlternateName = "Synode agency";
 
 /**
  * Les profils officiels de Synode ailleurs sur le Web (`sameAs`).

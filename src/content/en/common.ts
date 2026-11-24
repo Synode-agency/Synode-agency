@@ -3,9 +3,9 @@ import { ctaLabel } from "../cta";
 import type { SiteContent } from "../types";
 
 const nav = [
-  { href: ROUTES.solutions, label: "Services" },
+  { href: ROUTES.services, label: "Services" },
   { href: ROUTES.work, label: "Work" },
-  { href: ROUTES.team, label: "About" },
+  { href: ROUTES.about, label: "About" },
 ] as const;
 
 const footerNav = [...nav, { href: ROUTES.contact, label: "Contact" }] as const;
@@ -15,8 +15,6 @@ export const site = {
   name: "Synode",
   email: "contact@synode-agency.com",
   agency: "Software development & AI agency in Brussels",
-  tagline:
-    "Custom solutions, with built-in AI: connected systems and business software, built around how you work.",
   nav,
   footerNav,
   footerTagline: "Custom software, integrations and AI. Brussels.",

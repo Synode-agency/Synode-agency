@@ -25,8 +25,12 @@ import { organizationAlternateName, organizationName, sameAsField } from "@/lib/
  * `alternating`) : aucune ne force sa couleur.
  */
 export function HomePage({ locale }: { locale: Locale }) {
-  const { site, home, team } = getContent(locale);
+  const { site, home, about } = getContent(locale);
   const fr = locale === "fr";
+  /* LES DONNÉES STRUCTURÉES (brief, section 10) : le site, et l'agence en
+     `ProfessionalService`, avec sa ville et son pays mais sans adresse de
+     rue (Synode n'en a pas de publique), son e-mail, ses langues et sa page
+     LinkedIn. Les deux langues ont les leurs. */
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -36,27 +40,32 @@ export function HomePage({ locale }: { locale: Locale }) {
         url: `${siteUrl}/`,
         name: organizationName,
         alternateName: organizationAlternateName,
-        inLanguage: ["fr-BE", "en-BE"],
+        inLanguage: ["fr-BE", "en"],
+        publisher: { "@id": `${siteUrl}/#organization` },
       },
       {
-        "@type": "Organization",
+        "@type": "ProfessionalService",
         "@id": `${siteUrl}/#organization`,
         name: organizationName,
         alternateName: organizationAlternateName,
         url: `${siteUrl}/`,
         logo: `${siteUrl}/synode-logo.png`,
+        image: `${siteUrl}/synode-logo.png`,
         email: site.email,
         ...sameAsField,
-        description: fr
-          ? "Agence technologique basée à Bruxelles, spécialisée en intelligence artificielle, en intégration de systèmes et en développement de logiciels sur mesure : agents IA, intégrations, automatisations, logiciels métier, data et formation."
-          : "Brussels-based technology agency specialising in artificial intelligence, systems integration and custom software development: AI agents, integrations, automations, business software, data and training.",
+        description: home.metaDescription,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: fr ? "Bruxelles" : "Brussels",
+          addressCountry: "BE",
+        },
         areaServed: [
           { "@type": "City", name: fr ? "Bruxelles" : "Brussels" },
           { "@type": "Country", name: fr ? "Belgique" : "Belgium" },
         ],
-        knowsAbout: fr
-          ? ["Intelligence artificielle", "Agents IA", "Intégration de systèmes", "Intégration de logiciels et API", "Automatisation des processus", "Logiciels métier sur mesure", "Data et tableaux de bord", "Formation à l’IA"]
-          : ["Artificial intelligence", "AI agents", "Systems integration", "Software and API integration", "Process automation", "Custom business software", "Data and dashboards", "AI training"],
+        availableLanguage: ["fr", "en"],
+        knowsAbout: home.services.items.map((item) => item.title),
+        founder: about.founders.people.map((p) => ({ "@type": "Person", name: `${p.first} ${p.last}` })),
       },
     ],
   };
@@ -66,8 +75,6 @@ export function HomePage({ locale }: { locale: Locale }) {
 
   return (
     <Shell locale={locale}>
-      {/* Les données structurées, dans les deux langues. Revues à l'étape 12
-          de la refonte (SEO). */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
       <Hero
@@ -84,21 +91,21 @@ export function HomePage({ locale }: { locale: Locale }) {
         <ProofStrip proof={home.proof} />
       </Hero>
 
-      <Band id="probleme" className="home-section">
+      <Band id="probleme" className="rf-section">
         <Lede title={home.problems.title} />
         <div className="section-gap-sm">
           <ProblemList items={home.problems.items} />
         </div>
       </Band>
 
-      <Band id="services" className="home-section">
+      <Band id="services" className="rf-section">
         <Lede title={home.services.title} text={home.services.audience} />
         <div className="section-gap-sm">
           <ServiceCards locale={locale} services={home.services} />
         </div>
       </Band>
 
-      <Band id="realisations" className="home-section">
+      <Band id="realisations" className="rf-section">
         <div className="section-heading home-section-heading">
           <Lede title={home.work.title} />
           <Link className="go" href={path(locale, ROUTES.work)}>
@@ -111,29 +118,28 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </Band>
 
-      <Band id="etapes" className="home-section">
+      <Band id="etapes" className="rf-section">
         <Lede title={site.steps.title} />
         <div className="section-gap-sm">
           <Steps steps={site.steps} />
         </div>
       </Band>
 
-      <Band id="fondateurs" className="home-section">
+      <Band id="fondateurs" className="rf-section">
         <div className="section-heading home-section-heading">
           <Lede title={home.founders.title} />
-          {/* À propos n'existe pas encore (étape 7) : le lien mène à Équipe. */}
-          <Link className="go" href={path(locale, ROUTES.team)}>
+          <Link className="go" href={path(locale, ROUTES.about)}>
             {home.founders.link}
             <ArrowRight aria-hidden />
           </Link>
         </div>
         <div className="section-gap-sm">
-          <Founders people={team.people} />
+          <Founders people={about.founders.people} />
         </div>
       </Band>
 
       {faq.length > 0 && (
-        <Band id="faq" className="home-section">
+        <Band id="faq" className="rf-section">
           <Lede title={home.faq.title} />
           <div className="section-gap-sm">
             <FaqAccordion items={faq} />

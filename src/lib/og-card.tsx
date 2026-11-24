@@ -32,18 +32,18 @@ export const ogContentType = "image/png";
 
 const COPY = {
   fr: {
-    kicker: "AGENCE TECHNOLOGIQUE · BRUXELLES",
-    title: "Des systèmes connectés, intelligents et automatisés",
-    text: "Intégration de systèmes, logiciels métier sur mesure et intelligence artificielle, autour de vos outils et de vos données.",
+    kicker: "AGENCE DE DÉVELOPPEMENT LOGICIEL & IA · BRUXELLES",
+    title: "On connecte vos outils et on automatise le répétitif.",
+    text: "Synode relie vos logiciels existants, y intègre l’IA et construit les outils qui manquent.",
     foot: "synode-agency.com",
-    alt: "Synode, agence technologique à Bruxelles : des systèmes connectés, intelligents et automatisés",
+    alt: "Synode, agence de développement logiciel et d’IA à Bruxelles : on connecte vos outils et on automatise le répétitif.",
   },
   en: {
-    kicker: "TECHNOLOGY AGENCY · BRUSSELS",
-    title: "Connected, intelligent and automated systems",
-    text: "Systems integration, custom business software and artificial intelligence, built around your tools and your data.",
+    kicker: "SOFTWARE DEVELOPMENT & AI AGENCY · BRUSSELS",
+    title: "We connect your tools and automate the repetitive work.",
+    text: "Synode links your existing software, adds AI where it helps and builds the tools you’re missing.",
     foot: "synode-agency.com",
-    alt: "Synode, technology agency in Brussels: connected, intelligent and automated systems",
+    alt: "Synode, software development and AI agency in Brussels: we connect your tools and automate the repetitive work.",
   },
 } as const;
 

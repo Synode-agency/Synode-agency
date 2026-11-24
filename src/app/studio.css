@@ -91,14 +91,7 @@ body {
   gap: 0.55rem;
   color: var(--muted-foreground);
 }
-.status-dot {
-  width: 6px;
-  height: 6px;
-  display: inline-block;
-  flex: none;
-  background: var(--brand);
-  border-radius: 50%;
-}
+
 .go {
   font-size: 0.875rem;
   font-weight: 500;
@@ -144,24 +137,13 @@ main > .band#top .lede-title {
 /* La fiche Nexus reprend exactement l'échelle du H1 des heroes internes,
    notamment celui de la page Équipe. Son mot-clé peint utilise également
    le même bleu clair, lisible sur le fond bleu nuit. */
-main > .band#top.work-detail-hero .lede-title {
-  max-width: 100%;
-  font-size: clamp(2.1rem, 3.2vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-}
-main > .band#top.work-detail-hero .title-accent {
-  color: #8fc0ff;
-}
+
+
 /* ⚠ La règle qui forçait les retours du hero de Nexus sur téléphone a été
    retirée : le titre s'y repliait sur trois lignes alors qu'il en demande
    moins. Il suit désormais la règle commune du site — coupes de bureau
    masquées sur téléphone, repli naturel. */
-@media (max-width: 760px) {
-  main > .band#top.work-detail-hero .lede-title {
-    font-size: clamp(2rem, 7.5vw, 2.6rem);
-  }
-}
+
 /* ---- La pastille du hero (« Logiciel métier ») disparaît tant que la
    barre du haut est celle du téléphone : sous 1080px, la barre (logo,
    langues, ☰) est fixe et la recouvrait en partie, sur Nexus comme sur
@@ -172,11 +154,7 @@ main > .band#top.work-detail-hero .title-accent {
    que 56px en haut, sous une barre de 72px. La pastille garde donc sa
    place, sinon le titre remonterait et passerait à son tour sous la
    barre. ---- */
-@media (max-width: 1079px) {
-  main > .band#top.work-detail-hero .badge {
-    visibility: hidden;
-  }
-}
+
 .studio-hero h1 > span {
   display: inline;
   color: var(--brand);
@@ -231,55 +209,8 @@ main > .band#top.work-detail-hero .title-accent {
   margin-top: -0.6rem;
 }
 /* The illustration stays compact while its interface copy remains readable. */
-.capability-strip {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  overflow: hidden;
-  padding-block: 1.6rem;
-  border-block: 1px solid var(--hairline);
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
-}
-.capability-strip-label,
-.capability-marquee-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  white-space: nowrap;
-}
-.capability-strip-label {
-  color: var(--foreground);
-  font-weight: 500;
-}
-.capability-marquee {
-  min-width: 0;
-  overflow: hidden;
-}
-.capability-marquee-track {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: capability-marquee 34s linear infinite;
-}
-.capability-marquee-group {
-  display: flex;
-  align-items: center;
-  gap: clamp(2rem, 4vw, 4rem);
-  padding-right: clamp(2rem, 4vw, 4rem);
-}
-.capability-marquee-item {
-  flex: none;
-}
-.capability-marquee:is(:hover, :focus, :focus-within, :active) .capability-marquee-track {
-  animation-play-state: paused;
-}
-.capability-strip svg {
-  width: 13px;
-  height: 13px;
-  color: var(--brand);
-}
+
+
 @keyframes capability-marquee {
   to {
     transform: translateX(-50%);
@@ -295,12 +226,7 @@ main > .band#top.work-detail-hero .title-accent {
 .section-heading > .go {
   flex: none;
 }
-.section-side-text {
-  max-width: 32ch;
-  color: var(--muted-foreground);
-  line-height: 1.7;
-  font-size: 0.9375rem;
-}
+
 /* Un titre de section occupe environ 3/5 de la colonne.
    Il était enfermé dans un bloc à 2/3 dont il héritait, et des plafonds en
    `ch` le resserraient encore : une phrase de dix mots partait sur trois
@@ -332,104 +258,7 @@ main > .band#top.work-detail-hero .title-accent {
     max-width: 78%;
   }
 }
-.daily-section-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
-  align-items: end;
-  gap: clamp(3rem, 7vw, 7rem);
-}
-.daily-section-heading .lede {
-  min-width: 0;
-  max-width: none;
-}
-.daily-section-heading .lede-title {
-  max-width: 100%;
-}
-.daily-section-heading .lede-text {
-  max-width: 72ch;
-  font-size: 1rem;
-  line-height: 1.65;
-}
-.daily-section-heading .section-side-text {
-  position: relative;
-  max-width: 48ch;
-  padding: 1.25rem 1.35rem 1.25rem 1.55rem;
-  border-left: 2px solid var(--brand);
-  border-radius: 0 8px 8px 0;
-  background: linear-gradient(
-    90deg,
-    #f1f6fd 0%,
-    rgb(241 246 253 / 32%) 72%,
-    transparent 100%
-  );
-}
-.daily-section-heading .section-side-text::before {
-  content: '';
-  position: absolute;
-  left: -5px;
-  top: 1.65rem;
-  width: 8px;
-  height: 8px;
-  border: 2px solid white;
-  border-radius: 50%;
-  background: var(--brand);
-}
-.daily-section-aside {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-.daily-section-aside .go {
-  color: var(--brand-deep);
-}
-.daily-open-callout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-top: 1rem;
-  padding: clamp(1.4rem, 2.8vw, 2rem);
-  border: 1px solid #cfe0f6;
-  border-radius: 10px;
-  background: #eff5fd;
-}
-.daily-open-callout > div {
-  max-width: 720px;
-}
-.daily-open-callout h3 {
-  margin-top: 0.75rem;
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
-.daily-open-callout p {
-  margin-top: 0.5rem;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-.daily-open-callout .btn {
-  flex: none;
-  max-width: 19rem;
-  line-height: 1.35;
-}
-.operational-impact {
-  margin: 0;
-}
-.operational-impact-heading h2 {
-  margin-top: 0.7rem;
-  font-size: var(--fs-h2);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
-}
-.operational-impact-heading p {
-  margin-top: 1rem;
-  color: var(--muted-foreground);
-  font-size: 0.9375rem;
-  line-height: 1.7;
-}
+
 
 /* Quatre impacts, sans carte.
    La page compte déjà quatre grilles de cartes : Usages, Solutions,
@@ -442,10 +271,7 @@ main > .band#top.work-detail-hero .title-accent {
   .band:not(#top):not(#faq) > .col > .section-heading .lede-title {
     max-width: 100%;
   }
-  .use-cases-catalog > .col > .lede {
-    width: 100%;
-    max-width: 100%;
-  }
+  
 }
 .card-shell {
   max-width: var(--container-max);
@@ -471,25 +297,8 @@ main > .band#top.work-detail-hero .title-accent {
 .cta-panel .lede-text {
   font-size: 0.9375rem;
 }
-.cta-note {
-  font-size: 0.75rem;
-}
-#dimensionnement .tile {
-  background: white;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-}
-#dimensionnement .tile-title {
-  font-size: 1rem;
-}
-#dimensionnement .tile-text,
-#modele .row-text {
-  font-size: 0.875rem;
-}
-#modele .row-title {
-  font-size: 1.1rem;
-  font-weight: 500;
-}
+
+
 @media (max-width: 1023px) {
   .studio-hero-inner {
     padding-block: 4rem 3rem;
@@ -529,10 +338,7 @@ main > .band#top.work-detail-hero .title-accent {
   .studio-hero-copy > p {
     max-width: 45ch;
   }
-  .capability-strip {
-    grid-template-columns: 1fr;
-    gap: 0.9rem 1.5rem;
-  }
+  
   /* Le libellé « De votre besoin à votre outil » tombe sur téléphone : en une
      colonne, il se posait au-dessus du défilé comme un second surtitre, juste
      sous le titre et les boutons du hero. Il ne reste que le défilé des
@@ -540,32 +346,17 @@ main > .band#top.work-detail-hero .title-accent {
      juste au-dessus, et non `md` : à 7px près, le libellé aurait disparu alors
      que la grille était encore en deux colonnes, et le défilé serait tombé
      dans la colonne `max-content`. */
-  .capability-strip-label {
-    display: none;
-  }
+  
   .section-heading {
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
   }
-  .section-side-text {
-    max-width: 45ch;
-  }
-  .daily-section-heading {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .daily-section-heading .lede-title {
-    max-width: 24ch;
-  }
-  .daily-section-heading .lede-text,
-  .daily-section-heading .section-side-text {
-    max-width: 62ch;
-  }
-  .daily-open-callout {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+  
+  
+  
+  
+  
   .cta-panel {
     padding-block: 3rem;
   }
@@ -622,34 +413,8 @@ footer.band--white .wordmark-type {
    d'un bord à l'autre : au-delà de 58rem, la colonne de texte devenait
    trop large pour se lire d'un trait et le calendrier partait seul à
    l'autre bout. Vaut pour les deux CTA, l'accueil et Solutions. */
-.cta-booking-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
-  width: min(100%, 58rem);
-  margin-inline: auto;
-  text-align: left;
-  padding-block: 3rem;
-}
-.cta-booking-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-.cta-booking-copy > .eyebrow {
-  color: var(--brand);
-}
-.cta-booking-copy .lede-title {
-  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
-}
-.cta-booking-copy .cta-note {
-  text-align: left;
-  margin: 0;
-  line-height: 1.8;
-}
+
+
 .cta-booking-calendar {
   min-width: 0;
   scroll-margin-top: 1rem;
@@ -691,9 +456,7 @@ footer.band--white .wordmark-type {
   .booking-closed {
     min-height: 646px;
   }
-  #calendrier-accueil .booking-closed {
-    min-height: 566px;
-  }
+  
 }
 .booking-closed-icon {
   display: grid;
@@ -746,12 +509,7 @@ footer.band--white .wordmark-type {
     padding-inline: 0.8rem;
   }
 }
-@media (max-width: 900px) {
-  .cta-booking-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-}
+
 @media (max-width: 760px) {
   #cas-usage > .col > .section-heading .lede-title {
     font-size: clamp(1.35rem, 5.1vw, 1.9rem);
@@ -762,7 +520,6 @@ footer.band--white .wordmark-type {
 }
 
 /* Dark navy is reserved for technical detail and the closing invitation. */
-.technical-band,
 .dark-cta {
   background: var(--surface-dark);
   color: #ffffff;
@@ -771,16 +528,11 @@ footer.band--white .wordmark-type {
   --text-mono: #a8c3e8;
   --hairline: rgb(188 215 255 / 18%);
 }
-.technical-band .lede-kicker,
-.dark-cta .cta-booking-copy > .eyebrow {
-  color: #9ec8ff;
-}
+
 .dark-cta {
   border-color: #173e6b;
 }
-.dark-cta .cta-note {
-  color: #c2d3e9;
-}
+
 /* ⚠ `.btn--ghost` a un FOND BLANC par défaut, et la carte sombre met le
    texte en blanc : sans cette règle, le bouton est blanc sur blanc et
    illisible. C'est arrivé en déplaçant le bouton de `.cta-booking-copy`
@@ -802,22 +554,7 @@ footer.band--white .wordmark-type {
   color: #464444;
 }
 /* Homepage section typography and the light solution family treatment. */
-.site-theme-alternating main > .studio-section .section-heading:not(.daily-section-heading) > .lede {
-  width: 100%;
-  max-width: 100%;
-}
-.site-theme-alternating main > .studio-section .daily-section-heading > .lede {
-  width: 100%;
-  max-width: none;
-}
-.site-theme-alternating main > .studio-section .section-heading .lede-title {
-  font-size: var(--fs-h2);
-}
-.site-theme-alternating main > .studio-section .section-heading .lede-text {
-  max-width: 72ch;
-  font-size: 1rem;
-  line-height: 1.65;
-}
+
 
 /* Compact calendar used inside the homepage closing CTA. */
 .dark-cta .calendar-demo {
@@ -829,10 +566,7 @@ footer.band--white .wordmark-type {
 .calendar-demo--cta .calendar-demo-body {
   grid-template-columns: 1fr;
 }
-.cta-booking-grid:has(.calendar-demo--cta) {
-  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
-  gap: clamp(2rem, 5vw, 4rem);
-}
+
 .calendar-demo--cta {
   width: 100%;
   max-width: 460px;
@@ -859,21 +593,10 @@ footer.band--white .wordmark-type {
   padding: 0.85rem 1rem;
   font-size: 0.72rem;
 }
-#calendrier-accueil .booking-frame {
-  min-height: 540px;
-}
 
-@media (max-width: 760px) {
-  .site-theme-alternating main > .studio-section .section-heading > .lede {
-    width: 100%;
-    max-width: 100%;
-  }
-}
 
 @media (max-width: 900px) {
-  .cta-booking-grid:has(.calendar-demo--cta) {
-    grid-template-columns: 1fr;
-  }
+  
   .calendar-demo--cta {
     max-width: 560px;
     margin-inline: auto;
@@ -907,118 +630,13 @@ footer.band--white .wordmark-type {
   .studio-hero-copy > p {
     line-height: 1.6;
   }
-  .capability-strip {
-    padding-block: 1.2rem;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .capability-strip {
-    align-items: start;
-  }
-  .capability-marquee {
-    overflow: visible;
-  }
-  .capability-marquee-track {
-    width: auto;
-    animation: none;
-  }
-  .capability-marquee-group {
-    flex-wrap: wrap;
-    padding-right: 0;
-  }
-  .capability-marquee-group[aria-hidden] {
-    display: none;
-  }
+  
 }
 
+
 /* Solutions disclosure, shared destinations on desktop and mobile. */
-.solutions-menu {
-  position: relative;
-}
-.solutions-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  text-align: left;
-}
-.solutions-trigger svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 160ms;
-}
-.solutions-trigger[aria-expanded='true'] svg {
-  transform: rotate(180deg);
-}
-.solutions-dropdown {
-  position: absolute;
-  top: calc(100% + 12px);
-  left: -150px;
-  width: min(680px, 90vw);
-  padding: 1rem;
-  background: white;
-  color: #464444;
-  border: 1px solid #dce2eb;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px -20px #09264d40;
-  max-height: calc(100svh - 100px);
-  overflow-y: auto;
-}
-.solutions-dropdown[hidden] {
-  display: none;
-}
-.solutions-all {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.7rem;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 0.6rem;
-  font-size: 0.85rem;
-  color: #0067ea;
-  font-weight: 500;
-}
-.solutions-all svg {
-  width: 16px;
-  height: 16px;
-}
-.solutions-dropdown ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  list-style: none;
-  gap: 0.3rem;
-  padding: 0;
-}
-.solutions-dropdown li a {
-  display: flex;
-  gap: 0.8rem;
-  padding: 0.85rem 0.7rem;
-  border-radius: 7px;
-}
-.solutions-dropdown li a:hover,
-.solutions-dropdown li a[aria-current='page'] {
-  background: #eff5ff;
-}
-.solutions-dropdown li svg {
-  width: 20px;
-  height: 20px;
-  flex: none;
-  color: #0067ea;
-  margin-top: 0.15rem;
-}
-.solutions-dropdown strong {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.solutions-dropdown small {
-  display: block;
-  font-size: 0.7rem;
-  color: #6a7483;
-  margin-top: 0.4rem;
-  line-height: 1.5;
-}
+
+
 @media (min-width: 960px) and (max-width: 1079px) {
   .site-nav {
     display: none;
@@ -1049,47 +667,7 @@ footer.band--white .wordmark-type {
   text-align: center;
   font-size: var(--fs-h2);
 }
-.home-cta-reminder {
-  padding-block: clamp(2rem, 4vw, 3rem);
-}
-.home-cta-reminder-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  border: 1px solid #cfe0f6;
-  border-radius: 12px;
-  background: #eff5fd;
-}
-.home-cta-reminder-card h2 {
-  margin-top: 0.65rem;
-  color: var(--foreground);
-  font-size: clamp(1.5rem, 2.3vw, 2.15rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-}
-.home-cta-reminder-card p {
-  max-width: 64ch;
-  margin-top: 0.65rem;
-  color: var(--muted-foreground);
-  font-size: 0.9375rem;
-  line-height: 1.7;
-}
-.home-cta-reminder-card .btn {
-  flex: none;
-  white-space: nowrap;
-}
 
-@media (max-width: 720px) {
-  .home-cta-reminder-card {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .home-cta-reminder-card .btn {
-    width: 100%;
-    white-space: normal;
-  }
-}
 
 /* Homepage rhythm: light editorial bands alternate with dark technical bands. */
 .home-dark-band {
@@ -1139,23 +717,7 @@ footer.band--white .wordmark-type {
   border-color: #6485a8;
   background: #142b45;
 }
-.home-hero-dark .capability-strip {
-  border-color: rgb(188 215 255 / 18%);
-}
-.home-hero-dark .capability-strip svg {
-  color: #8fc0ff;
-}
-.home-solutions-light {
-  background: #f2f6fc;
-}
-.home-method-dark {
-  /* Cette section se contente de 45rem là où les autres visent 48rem. Le
-     jeton est redéfini ici plutôt que modifié à la racine : la règle de
-     hauteur lit `--home-section-h` sur l'élément lui-même, donc seule
-     cette bande est concernée et les quatre autres gardent 48rem. */
-  --home-section-h: min(100svh, 45rem);
-  background: var(--surface-dark);
-}
+
 
 /* Shared navigation: both visual editions open on a dark hero. */
 .site-header,
@@ -1195,23 +757,7 @@ footer.band--white .wordmark-type {
 .site-header .site-burger {
   color: #ffffff;
 }
-.site-header .solutions-dropdown {
-  border-color: #29425f;
-  background: #10233a;
-  color: #ffffff;
-  box-shadow: 0 24px 60px -22px #000;
-}
-.site-header .solutions-all {
-  border-bottom-color: #28486f;
-  color: #9ec8ff;
-}
-.site-header .solutions-dropdown li a:hover,
-.site-header .solutions-dropdown li a[aria-current='page'] {
-  background: #142b45;
-}
-.site-header .solutions-dropdown small {
-  color: #a8c3e8;
-}
+
 
 /* Alternating edition: every page starts dark, then changes tone per band. */
 .site-theme-alternating main > .studio-hero,
@@ -1257,84 +803,22 @@ footer.band--white .wordmark-type {
   --brand: #0067ea;
   --brand-foreground: #ffffff;
 }
-.site-theme-alternating main > .band.home-solutions-light {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --brand: #0067ea;
-}
+
 /* Sur Cas d'usage la section garde son bleu très pâle : elle y est encadrée
    par deux bandes blanches, et c'est ce changement de ton qui la sépare. Sur
    l'accueil elle passe au blanc, juste en dessous. */
-.site-theme-alternating main > .band.operational-impact-band {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #edf4fc;
-  --brand: #0067ea;
-}
-.operational-impact-band .operational-impact {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
-}
+
+
 /* Résultats recherchés, sur l'accueil : fond blanc. Elle suit la section
    Solutions, et les deux sont en `tone="base"`, donc le filet de secours des
    bandes voisines se posait entre elles. Le changement de ton suffit à les
    séparer, le filet reste donc supprimé. */
-.site-theme-alternating main > .band.home-impact-light {
-  background: #ffffff;
-}
-.home-solutions-light + .operational-impact-band {
-  border-top: 0;
-}
+
 
 /* Sécurité, confidentialité et contrôle : fond bleu très pâle, celui déjà
    porté par la section Solutions. Aucune couleur nouvelle. */
-.site-theme-alternating main > .band.home-trust-light {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-  --brand-foreground: #ffffff;
-}
-.site-theme-alternating main > .band.home-method-dark {
-  background: var(--surface-dark);
-  color: #ffffff;
-  --foreground: #ffffff;
-  --muted-foreground: #c2d3e9;
-  --text-mono: #a8c3e8;
-  --hairline: rgb(188 215 255 / 18%);
-  --border: rgb(188 215 255 / 22%);
-}
-.site-theme-alternating main > .band.home-faq-light {
-  /* Même teinte claire que toutes les FAQ et bandes teintées (23/11/2026). */
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-}
+
+
 .site-theme-alternating
   main
   > .band:nth-of-type(odd)
@@ -1669,33 +1153,11 @@ footer.band--white .wordmark-type {
    un `background: var(--brand)` y lirait la nouvelle valeur et l'encart
    sortirait inversé. Le bouton suit par les jetons, sans règle propre :
    encre pleine sur fond clair, 9,37:1 de séparation. */
-.daily-open-callout {
-  border-color: rgb(255 255 255 / 24%);
-  background: #0067ea;
-  color: #ffffff;
-  --foreground: #ffffff;
-  --muted-foreground: rgb(255 255 255 / 92%);  /* 4,55:1 sur #0067EA (84 % ne donnait que 4,04:1) */
-  --text-mono: rgb(255 255 255 / 78%);
-  --hairline: rgb(255 255 255 / 24%);
-  --border: rgb(255 255 255 / 24%);
-  --brand: #ffffff;
-  --brand-foreground: #0051b7;                 /* 7,34:1 sur blanc */
-  --brand-hover: #edf3fc;
-}
-.daily-open-callout .eyebrow {
-  color: rgb(255 255 255 / 92%);
-}
-.daily-open-callout .status-dot {
-  background: #ffffff;
-}
+
+
 /* Le titre tient sur deux lignes écrites, le chapeau sur deux aussi :
    l'interligne par défaut les espaçait comme un paragraphe courant. */
-.daily-open-callout :is(h2, h3) {
-  line-height: 1.2;
-}
-.daily-open-callout p {
-  line-height: 1.45;
-}
+
 
 /* Les mots peints d'un titre. Le bleu vient du jeton de la bande, donc il se
    tient aussi bien sur un fond clair que sur un fond sombre.
@@ -1709,15 +1171,11 @@ footer.band--white .wordmark-type {
    largeur. La mesure est calculée sur le corps du titre, pas en `rem` ni en
    `ch` : `--fs-h2` est un `clamp`, donc le bloc suit la taille réelle du
    titre à toutes les largeurs de fenêtre, et le chapeau suit avec lui. */
-.operational-impact-heading h2 {
-  max-width: calc(var(--fs-h2) * 22);
-}
+
 /* Le paragraphe a sa propre mesure, environ 65 caractères par ligne : celle
    du titre lui laissait plus de 85 caractères (outil de contrôle du design,
    14/11/2026). */
-.operational-impact-heading p {
-  max-width: 62ch;
-}
+
 
 /* =====================================================================
    LE DÉROULÉ D'UN PROJET, EN REGISTRE
@@ -1770,130 +1228,10 @@ footer.band--white .wordmark-type {
    changement de ton suffit à ouvrir une respiration entre deux bandes
    blanches, sans poser un bloc de couleur.
    ===================================================================== */
-.site-theme-alternating main > .band.home-tools-light {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-  --brand-foreground: #ffffff;
-}
+
 /* Cinq barres plates : ces valeurs comparent des familles, elles ne
    mesurent pas une performance. */
-.diag-profile dl {
-  display: grid;
-  gap: 0.55rem;
-  margin: 0;
-}
-.diag-profile dl > div {
-  display: grid;
-  grid-template-columns: 8.5rem minmax(0, 1fr);
-  align-items: center;
-  gap: 0.75rem;
-}
-.diag-profile dt {
-  color: #a8c3e8;
-  font-size: 0.75rem;
-}
-.diag-profile dd {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 2rem;
-  align-items: center;
-  gap: 0.6rem;
-  margin: 0;
-}
-.diag-bar {
-  display: block;
-  height: 3px;
-  overflow: hidden;
-  border-radius: 2px;
-  background: #223a56;
-}
-.diag-bar i {
-  display: block;
-  height: 100%;
-  background: #8fc0ff;
-}
-.diag-bar--human i {
-  background: #8ce2bd;
-}
-.diag-profile dd b {
-  color: #dce9f8;
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  text-align: right;
-}
-.diag-profile-human {
-  margin-top: 0.3rem;
-}
-.diag-profile-note {
-  margin-top: 0.8rem;
-  color: #6683a6;
-  font-size: 0.625rem;
-  line-height: 1.55;
-}
-.diag-approaches {
-  padding-top: 1.1rem;
-  border-top: 1px solid #243d59;
-}
-.diag-approaches ul {
-  display: grid;
-  gap: 0.6rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.diag-approaches li {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.75rem;
-  padding: 0.85rem;
-  border: 1px solid #2f4c6b;
-  border-radius: 9px;
-  background: #0e2036;
-}
-.diag-approach-icon {
-  width: 17px;
-  height: 17px;
-  margin-top: 0.15rem;
-  color: #8fc0ff;
-  stroke-width: 1.5;
-}
-.diag-approaches strong {
-  display: block;
-  color: #ffffff;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-.diag-approaches p {
-  margin-top: 0.3rem;
-  color: #a8c3e8;
-  font-size: 0.75rem;
-  line-height: 1.55;
-}
-.diag-approaches .go {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.5rem;
-  color: #8fc0ff;
-  font-size: 0.6875rem;
-}
-.diag-approaches .go svg {
-  width: 13px;
-  height: 13px;
-}
-@media (max-width: 760px) {
-  .diag-profile dl > div {
-    grid-template-columns: 7rem minmax(0, 1fr);
-  }
-}
+
 
 /* =====================================================================
    LE RYTHME VERTICAL DES SECTIONS DE L'ACCUEIL
@@ -1949,12 +1287,7 @@ main > .band:is(
   ) .section-heading {
   margin-bottom: var(--home-heading-gap);
 }
-main > .band.home-faq-light .section-gap {
-  margin-top: var(--home-heading-gap);
-}
-main > .band.home-impact-light .isp {
-  margin-top: var(--home-heading-gap);
-}
+
 
 /* La hauteur d'écran est réservée à cinq sections, celles dont la
    composition tient dans une vue. Réalisations en est exclue : son aperçu
@@ -1993,459 +1326,53 @@ main > .band.home-impact-light .isp {
    sont des aplats dont on anime la largeur, ce qui évite d'embarquer une
    bibliothèque de graphiques pour dessiner quatre traits.
    ===================================================================== */
-.tools-zone {
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-}
+
 
 /* ---- Les trois étapes du parcours d'autodiagnostic ---- */
-.tools-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.5vw, 1rem);
-}
-.tools-tab {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.35rem;
-  padding: clamp(1rem, 1.8vw, 1.35rem);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-  cursor: pointer;
-  text-align: left;
-  transition: border-color 180ms, background-color 180ms;
-}
-.tools-tab:hover {
-  border-color: var(--brand);
-}
-.tools-tab:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}
+
+
 /* L'onglet actif se marque par un filet bleu épais à gauche ET par son
    fond : l'état ne doit pas reposer sur la seule couleur. */
-.tools-tab[aria-selected="true"] {
-  border-color: var(--brand);
-  box-shadow: inset 3px 0 0 0 var(--brand);
-  background: #f3f7fe;
-}
-.tools-tab-kind {
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.tools-tab-title {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-.tools-tab-text {
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-  line-height: 1.55;
-}
+
 
 /* ---- Le panneau : réglages à gauche, lecture à droite ---- */
-.tool-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 0;
-  margin-top: clamp(1rem, 2vw, 1.5rem);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--surface);
-}
-.tool-params,
-.tool-readout {
-  min-width: 0;
-  padding: clamp(1.25rem, 2.2vw, 1.85rem);
-}
-.tool-params {
-  display: grid;
-  align-content: start;
-  gap: clamp(1rem, 1.8vw, 1.35rem);
-  border-right: 1px solid var(--hairline);
-}
-.tool-params-title,
-.tool-readout-label {
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.tool-panel-intro {
-  max-width: 58ch;
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-  line-height: 1.6;
-}
+
 
 /* Le premier outil part de difficultés concrètes. Les choix restent des
    boutons plutôt qu'un formulaire séquentiel : plusieurs situations peuvent
    décrire le même processus et le résultat se recalcule immédiatement. */
-.tool-choice-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-}
-.tool-choice-grid button {
-  display: grid;
-  grid-template-columns: 1.2rem minmax(0, 1fr);
-  align-items: start;
-  gap: 0.55rem;
-  min-height: 3.5rem;
-  padding: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--muted-foreground);
-  cursor: pointer;
-  font-size: 0.75rem;
-  line-height: 1.45;
-  text-align: left;
-  transition: border-color 160ms, background-color 160ms, color 160ms;
-}
-.tool-choice-grid button:hover,
-.tool-choice-grid button:focus-visible {
-  border-color: var(--brand);
-}
-.tool-choice-grid button:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}
-.tool-choice-grid button[aria-pressed="true"] {
-  border-color: var(--brand);
-  background: #f3f7fe;
-  color: var(--foreground);
-}
-.tool-choice-grid button > span {
-  display: grid;
-  width: 1.1rem;
-  height: 1.1rem;
-  place-items: center;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-}
-.tool-choice-grid button[aria-pressed="true"] > span {
-  border-color: var(--brand);
-  background: var(--brand);
-  color: var(--brand-foreground);
-}
-.tool-choice-grid svg {
-  width: 11px;
-  height: 11px;
-}
+
 
 /* ---- Les contrôles ---- */
-.tool-field {
-  min-width: 0;
-}
-.tool-field-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.45rem;
-}
-.tool-field-head label,
-.tool-field-label {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.tool-field-head output {
-  flex: none;
-  color: var(--brand);
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-}
-.tool-field-head output span {
-  color: var(--text-mono);
-}
-.tool-field-help {
-  margin-top: 0.35rem;
-  color: var(--text-mono);
-  font-size: 0.6875rem;
-  line-height: 1.5;
-}
 
-.tool-segmented {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-.tool-segmented button {
-  padding: 0.45rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--surface);
-  color: var(--muted-foreground);
-  cursor: pointer;
-  font-size: 0.75rem;
-  line-height: 1.3;
-  text-align: left;
-  transition: border-color 160ms, background-color 160ms, color 160ms;
-}
-.tool-segmented button:hover {
-  border-color: var(--brand);
-}
-.tool-segmented button[aria-pressed="true"] {
-  border-color: var(--brand);
-  background: var(--brand);
-  color: var(--brand-foreground);
-}
-.tool-segmented button:focus-visible {
-  outline: 2px solid var(--brand);
-  outline-offset: 2px;
-}
+
 /* ---- La colonne de lecture ---- */
-.tool-readout {
-  display: grid;
-  align-content: start;
-  gap: clamp(1.25rem, 2.2vw, 1.75rem);
-  background: #fbfcfe;
-}
+
 /* L'état d'attente de la colonne de droite. Une ligne qui dit quoi faire
    plutôt qu'une colonne blanche : un panneau vide sans explication se lit
    comme un outil cassé. Le compteur donne le reste à parcourir. */
-.tool-readout-empty {
-  display: grid;
-  align-content: start;
-  justify-items: start;
-  gap: 0.6rem;
-}
-.tool-readout-empty p {
-  max-width: 34ch;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-.tool-readout-progress {
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  letter-spacing: 0.04em;
-}
-.tool-readout-head > * + * {
-  margin-top: 0.4rem;
-}
-.tool-readout-level {
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-.tool-readout-level[data-level="low"],
-.tool-readout-level[data-level="limited"] {
-  color: #5c6672;
-}
-.tool-readout-level[data-level="moderate"] {
-  color: #8a6418;
-}
-.tool-readout-level[data-level="high"],
-.tool-readout-level[data-level="veryHigh"] {
-  color: var(--brand);
-}
-.tool-readout-summary {
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
-.tool-opportunities {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--hairline);
-  list-style: none;
-}
-.tool-opportunities li {
-  display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
-  gap: 0.75rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.tool-opportunities li > span {
-  color: var(--brand);
-  font-family: var(--font-sans);
-  font-size: 0.6875rem;
-}
-.tool-opportunities strong {
-  display: block;
-  font-size: 0.875rem;
-  line-height: 1.4;
-}
-.tool-opportunities p {
-  margin-top: 0.3rem;
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-  line-height: 1.55;
-}
-.tool-readout-note {
-  max-width: 62ch;
-  color: var(--text-mono);
-  font-size: 0.6875rem;
-  line-height: 1.6;
-}
+
 
 /* Le générateur de brief utilise des champs libres : Synode ne prétend pas
    connaître l'entreprise à partir de curseurs. La synthèse reprend donc les
    mots du visiteur, sans notation ni recommandation automatique. */
-.tool-brief-field {
-  display: grid;
-  gap: 0.45rem;
-}
-.tool-brief-field > span {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-.tool-brief-field textarea {
-  width: 100%;
-  min-height: 4.5rem;
-  resize: vertical;
-  padding: 0.7rem 0.75rem;
-  border: 1px solid var(--input);
-  border-radius: 8px;
-  background: var(--surface);
-  color: var(--foreground);
-  font: inherit;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-}
-.tool-brief-field textarea::placeholder {
-  color: var(--text-mono);
-}
-.tool-brief-field textarea:focus-visible {
-  border-color: var(--brand);
-  outline: 2px solid var(--brand);
-  outline-offset: 1px;
-}
-.tool-brief-output {
-  display: grid;
-  margin: 0;
-  border-top: 1px solid var(--hairline);
-}
-.tool-brief-output > div {
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.tool-brief-output dt {
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 0.5625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.tool-brief-output dd {
-  margin: 0.3rem 0 0;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  white-space: pre-wrap;
-}
-.tool-brief-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
 
-.tool-observations h4 {
-  margin-bottom: 0.6rem;
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.tool-observations ul {
-  display: grid;
-  gap: 0.4rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.tool-observations li {
-  display: grid;
-  grid-template-columns: 14px minmax(0, 1fr);
-  gap: 0.5rem;
-  align-items: start;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-}
-.tool-observations svg {
-  width: 14px;
-  height: 14px;
-  margin-top: 0.15rem;
-  color: var(--brand);
-}
 
 /* ---- Le pied commun aux deux outils ---- */
 /* Le texte d'appel et son bouton sur une seule ligne. Le bouton ne se
    comprime pas et passe sous le texte quand la place manque. */
-.tools-foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem clamp(1.5rem, 3vw, 2.5rem);
-  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
-}
-.tools-foot .btn {
-  flex: none;
-}
+
+
 /* Sur téléphone, le bouton est passé seul sur sa ligne : il s'y centre.
    `margin-inline: auto` et non `justify-content` sur la rangée — la rangée
    porte aussi le paragraphe d'appel, qui ne doit pas bouger. */
-@media (max-width: 760px) {
-  .tools-foot .btn {
-    margin-inline: auto;
-  }
-}
-.tools-cta-text {
-  max-width: 62ch;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.65;
-}
+
+
 /* Sous la rangée d'onglets, sur toute la largeur de la section. */
-.tools-disclaimer {
-  margin-top: 0.9rem;
-  color: var(--text-mono);
-  font-size: 0.6875rem;
-  font-style: italic;
-  line-height: 1.6;
-}
+
 
 /* ---- Repli ---- */
-@media (max-width: 1024px) {
-  .tool-panel {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  /* Les réglages passent au-dessus de la lecture : on règle, puis on lit.
-     Le filet vertical devient horizontal. */
-  .tool-params {
-    border-right: 0;
-    border-bottom: 1px solid var(--hairline);
-  }
-}
-@media (max-width: 900px) {
-  .tools-tabs {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-@media (max-width: 640px) {
-  .tool-choice-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+
 
 /* ---------------------------------------------------------------------
    LE PROFIL ET LES APPROCHES DANS LE PANNEAU CLAIR
@@ -2456,51 +1383,16 @@ main > .band.home-impact-light .isp {
    illisibles. Les couleurs sont donc reprises en jetons du thème clair,
    sans toucher aux règles d'origine, qui servent encore ailleurs.
    --------------------------------------------------------------------- */
-.tool-readout .diag-profile dt,
-.tool-readout .diag-approaches p {
-  color: var(--muted-foreground);
-}
-.tool-readout .diag-profile dd b {
-  color: var(--text-mono);
-}
-.tool-readout .diag-bar {
-  background: var(--hairline);
-}
-.tool-readout .diag-bar i {
-  background: var(--brand);
-}
+
+
 /* Le contrôle humain n'est pas un score à faire monter : il se distingue
    des quatre familles, ici comme dans le simulateur. */
-.tool-readout .diag-bar--human i {
-  background: #2fa36b;
-}
-.tool-readout .diag-profile-note {
-  color: var(--text-mono);
-}
-.tool-readout .diag-approaches li {
-  border-color: var(--border);
-  background: var(--surface);
-}
-.tool-readout .diag-approaches strong {
-  color: var(--foreground);
-}
-.tool-readout .diag-approach-icon {
-  color: var(--brand);
-}
+
 
 /* Les trois intitulés de la colonne de droite partagent la même voix : le
    mono capitales de « Votre processus présente ». Ils étaient auparavant
    des `h3` sans style, donc en gras noir et collés à leur contenu. */
-.tool-readout .diag-profile h3,
-.tool-readout .diag-approaches h3 {
-  margin-bottom: 1rem;
-  color: var(--text-mono);
-  font-family: var(--font-sans);
-  font-size: 0.625rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+
 
 /* La mention sous les six familles. Une note de bas de section, pas un
    paragraphe de corps : petite, en italique, sur toute la largeur, et
@@ -2700,66 +1592,7 @@ main > .band.home-impact-light .isp {
 
    Les filets tombent dès que la grille se replie : un `border-left` sur
    une colonne unique ne sépare plus rien, il décale. ---- */
-.need-tiles {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--hairline);
-}
-.need-tile {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-  padding: clamp(1.5rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.2vw, 2rem);
-}
-.need-tile-heading {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-}
-.need-tile:not(:nth-child(4n + 1)) {
-  border-left: 1px solid var(--hairline);
-}
-.need-tile:nth-child(4n + 1) {
-  padding-left: 0;
-}
-.need-tile:nth-child(4n) {
-  padding-right: 0;
-}
-.need-tile:nth-child(n + 5) {
-  border-top: 1px solid var(--hairline);
-}
-.need-tile-icon {
-  display: flex;
-  color: var(--brand);
-}
-.need-tile-icon svg {
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.25;
-  /* Une vague qui traverse les huit tuiles dans l'ordre de lecture, puis
-     une longue pause. L'amplitude est de 3px : assez pour qu'un mouvement
-     attire l'œil de loin, pas assez pour qu'on le suive. Les deux tiers de
-     la boucle sont immobiles, sinon la section grouillerait.
 
-     `transform` seul : c'est la seule propriété qui s'anime sans
-     recalculer la mise en page, et huit boucles permanentes ne doivent
-     rien coûter. */
-  animation: need-icon-wave 4.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-.need-tile:nth-child(2) .need-tile-icon svg { animation-delay: 0.16s; }
-.need-tile:nth-child(3) .need-tile-icon svg { animation-delay: 0.32s; }
-.need-tile:nth-child(4) .need-tile-icon svg { animation-delay: 0.48s; }
-.need-tile:nth-child(5) .need-tile-icon svg { animation-delay: 0.64s; }
-.need-tile:nth-child(6) .need-tile-icon svg { animation-delay: 0.8s; }
-.need-tile:nth-child(7) .need-tile-icon svg { animation-delay: 0.96s; }
-.need-tile:nth-child(8) .need-tile-icon svg { animation-delay: 1.12s; }
 
 @keyframes need-icon-wave {
   0%, 100% { transform: none; }
@@ -2771,35 +1604,12 @@ main > .band.home-impact-light .isp {
 
 /* La vague est décorative et se répète sans fin : c'est exactement ce que
    ce réglage demande de supprimer, pas de raccourcir. */
-@media (prefers-reduced-motion: reduce) {
-  .need-tile-icon svg {
-    animation: none;
-  }
-}
-.need-tile strong {
-  font-size: 1.0625rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  text-wrap: balance;
-}
-.need-tile p {
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: var(--muted-foreground);
-}
 
 
 /* La mention sous les six solutions. Elle a sa propre respiration : collée
    aux cartes, elle se lisait comme une sixième ligne de contenu alors que
    c'est un aparté. Plus petite, en italique, et nettement décollée. */
-.families-note {
-  margin-top: clamp(2.5rem, 4vw, 3.5rem);
-  color: var(--text-mono);
-  font-size: 0.75rem;
-  font-style: italic;
-  line-height: 1.7;
-}
+
 /* =====================================================================
    LA SCÈNE DU ROBOT — carte 01 des tranches
 
@@ -2815,129 +1625,24 @@ main > .band.home-impact-light .isp {
    ci-dessous ne portent que sur ce qui change rarement — l'état d'un mot,
    la coche, le halo du robot.
    ===================================================================== */
-.rbs {
-  position: relative;
-  container-type: inline-size;
-  width: min(100%, 300px);
-  aspect-ratio: 300 / 260;
-  margin-inline: auto;
-  /* Le corps des mots suit la largeur de la scène, borné entre 10 et 13px.
-     Dans une colonne de 260px, un corps fixe de 13px faisait sortir
-     « Rechercher » du cadre, qui le rognait. */
-  font-size: clamp(10px, 4.33cqw, 13px);
-}
-.rbs-wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
+
 
 /* ---- Le robot ---- */
-.rbs-bot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  border: 1.5px solid #0b6be6;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow:
-    0 0 0 4px rgb(11 107 230 / 6%),
-    0 8px 18px rgb(20 40 80 / 6%);
-  transition: box-shadow 300ms ease;
-}
-.rbs-bot.is-searching {
-  box-shadow:
-    0 0 0 6px rgb(11 107 230 / 10%),
-    0 10px 24px rgb(11 107 230 / 12%);
-}
+
+
 /* La tête, et ses deux yeux. */
-.rbs-head {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 30px;
-  height: 22px;
-  border: 2px solid #0b6be6;
-  border-radius: 6px;
-}
-.rbs-head i {
-  width: 3px;
-  height: 5px;
-  border-radius: 2px;
-  background: #0b6be6;
-}
+
+
 /* L'antenne : une tige et son voyant. */
-.rbs-ant {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateX(-50%);
-}
-.rbs-ant span {
-  order: -1;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #0b6be6;
-}
-.rbs-ant i {
-  width: 2px;
-  height: 6px;
-  background: #0b6be6;
-}
+
+
 /* Les deux oreilles. */
-.rbs-ear {
-  position: absolute;
-  top: 50%;
-  width: 3px;
-  height: 6px;
-  border-radius: 2px;
-  background: #0b6be6;
-  transform: translateY(-50%);
-}
-.rbs-ear--l { left: 14px; }
-.rbs-ear--r { right: 14px; }
+
 
 /* ---- Les trois mots ----
    Trois états : inactif, visé par le robot, atteint. */
-.rbs-word {
-  position: absolute;
-  display: inline-flex;
-  align-items: center;
-  max-width: 46%;
-  padding: 0.54em 0.92em;
-  border: 1px solid #e3e8f0;
-  border-radius: 7px;
-  background: #ffffff;
-  font-size: 1em;
-  line-height: 1.2;
-  white-space: nowrap;
-  color: #70757f;
-  box-shadow: 0 2px 6px rgb(20 40 80 / 4%);
-  transition: border-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
-}
-.rbs-word.is-aiming {
-  border-color: #c9d8f5;
-  color: #3a3a3a;
-}
-.rbs-word.is-on {
-  border-color: #9db8f2;
-  color: #1f3a5f;
-  box-shadow: 0 6px 16px rgb(11 107 230 / 10%);
-  animation: rbs-pop 300ms ease-out 1;
-}
+
+
 @keyframes rbs-pop {
   0% { scale: 1; }
   45% { scale: 1.08; }
@@ -2945,38 +1650,11 @@ main > .band.home-impact-light .isp {
 }
 /* La coche glisse en élargissant son logement : une apparition par
    `opacity` seule aurait fait sauter le mot d'un cran. */
-.rbs-check {
-  display: inline-flex;
-  align-items: center;
-  overflow: hidden;
-  width: 0;
-  margin-right: 0;
-  color: #0b6be6;
-  transition: width 300ms ease, margin-right 300ms ease;
-}
-.rbs-word.is-on .rbs-check {
-  width: 11px;
-  margin-right: 5px;
-}
-.rbs-check svg {
-  flex: none;
-  width: 11px;
-  height: 11px;
-  stroke-width: 3;
-}
+
 
 /* Aucune boucle n'est armée sous ce réglage, et le composant pose
    directement l'état final. Ici c'est le rebond qui tombe. */
-@media (prefers-reduced-motion: reduce) {
-  .rbs-word,
-  .rbs-check,
-  .rbs-bot {
-    transition: none;
-  }
-  .rbs-word.is-on {
-    animation: none;
-  }
-}
+
 
 /* =====================================================================
    LES SIX SOLUTIONS, EN TRANCHES
@@ -2990,445 +1668,53 @@ main > .band.home-impact-light .isp {
    de la fenêtre : les deux sections n'ont pas la même colonne, et une
    requête média se serait trompée sur l'une des deux.
    ===================================================================== */
-.slc {
-  margin-top: 64px;
-  display: flex;
-  gap: 10px;
-  height: 560px;
-}
-.slc-card {
-  position: relative;
-  flex: 0 0 72px;
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid #dde3ee;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 6px 16px rgb(20 40 80 / 4%);
-  cursor: pointer;
-  transition:
-    flex 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 300ms ease,
-    box-shadow 300ms ease;
-}
-.slc-card.is-on {
-  flex: 1 1 0;
-  border-color: #9db8f2;
-  box-shadow: 0 24px 50px rgb(11 107 230 / 10%);
-}
+
+
 /* Le focus est sur la bande, qui devient transparente à l'ouverture : c'est
    donc la carte qui porte l'anneau, pour qu'il reste visible. */
-.slc-card:has(> .slc-rail:focus-visible) {
-  outline: 2px solid #0b6be6;
-  outline-offset: 2px;
-}
+
 
 /* ---- La bande fermée ----
    Un vrai `<button>` : on lui retire les styles par défaut du navigateur. */
-.slc-rail {
-  position: absolute;
-  inset: 0;
-  width: 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  margin: 0;
-  padding-block: 22px;
-  padding-inline: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-align: inherit;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity 300ms ease;
-}
-.slc-rail:focus-visible {
-  outline: none;
-}
-.slc-card.is-on .slc-rail {
-  opacity: 0;
-  pointer-events: none;
-}
-.slc-rail-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid #d6e2fa;
-  border-radius: 9px;
-  background: #eef3fd;
-  color: #0b6be6;
-}
-.slc-rail-icon svg {
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.7;
-}
-.slc-rail em {
-  flex: none;
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  color: #70757f;
-}
+
+
 /* Le titre à la verticale. `flex: 1 1 auto` avec `min-height: 0` le laisse
    se rogner plutôt que déborder de la bande sur les petites hauteurs. */
-.slc-rail b {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 16px;
-  font-weight: 500;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: #1f3a5f;
-}
+
 
 /* ---- Le contenu ouvert ----
    `min-width` est posée en ligne par le composant, à la largeur finale
    mesurée : sans elle, le texte se recompose à chaque image pendant les
    0,65s d'ouverture et la carte tremble. */
-.slc-open {
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 28px 36px;
-  padding: 34px 36px;
-  opacity: 0;
-  transition: opacity 450ms ease 0ms;
-}
-.slc-card.is-on .slc-open {
-  opacity: 1;
-  transition-delay: 120ms;
-}
-.slc-copy {
-  flex: 1 1 300px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-.slc-copy-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.slc-copy-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: #0b6be6;
-  color: #ffffff;
-}
-.slc-copy-icon svg {
-  width: 19px;
-  height: 19px;
-  stroke-width: 1.7;
-}
-.slc-copy-top em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #70757f;
-}
-.slc-copy h3 {
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.6px;
-  line-height: 1.2;
-  color: #1f3a5f;
-  text-wrap: balance;
-}
-.slc-text {
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: #5a5a5a;
-}
-.slc-benefit {
-  font-size: 15.5px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: #0b6be6;
-}
-.slc-example {
-  margin-top: auto;
-  padding-top: 18px;
-  border-top: 1px solid #e8ecf4;
-}
-.slc-example > span {
-  display: block;
-  margin-bottom: 7px;
-  font-size: 11.5px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  color: #6b6f76;
-}
-.slc-example p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
-.slc-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 4px;
-  padding-top: 16px;
-  border-top: 1px solid #e8ecf4;
-  font-size: 14.5px;
-  color: #0b6be6;
-}
-.slc-link svg {
-  flex: none;
-  width: 17px;
-  height: 17px;
-}
+
 
 /* ---- La colonne visuelle ----
    Elle disparaît quand la tranche ouverte descend sous 680px : à deux
    colonnes dans moins que ça, le texte passait à trois mots par ligne. */
-.slc-visual {
-  container-type: inline-size;
-  flex: 1 1 260px;
-  min-width: 0;
-  min-height: 200px;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  border: 1px solid #e8ecf4;
-  border-radius: 12px;
-  background: #f7f9fd;
-}
-.slc-art {
-  width: 100%;
-  max-width: 280px;
-}
+
 
 /* 02 — trois carrés reliés */
-.slc-art--flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.slc-flow-part { display: contents; }
-.slc-flow-link {
-  width: 26px;
-  height: 2px;
-  background: #e3e6ea;
-  transition: background-color 400ms ease;
-}
-.slc-flow-link.is-on { background: #9db8f2; }
-.slc-art--flow b {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid #e3e6ea;
-  border-radius: 10px;
-  background: #ffffff;
-  color: #70757f;
-  transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease;
-}
-.slc-art--flow b svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 1.7;
-}
-.slc-art--flow b.is-on {
-  border-color: #9db8f2;
-  background: #eef3fd;
-  color: #0b6be6;
-}
-.slc-art--flow b.is-full {
-  border-color: #0b6be6;
-  background: #0b6be6;
-  color: #ffffff;
-}
+
 
 /* 03 — une mini-interface */
-.slc-art--app {
-  overflow: hidden;
-  border: 1px solid #e3e6ea;
-  border-radius: 10px;
-  background: #ffffff;
-}
-.slc-app-bar {
-  display: block;
-  height: 14px;
-  background: #eef3fd;
-}
-.slc-app-body { display: flex; }
-.slc-app-side {
-  flex: none;
-  width: 34px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px 8px;
-  border-right: 1px solid #e8ecf4;
-}
-.slc-app-side i { height: 4px; border-radius: 2px; background: #e3e6ea; }
-.slc-app-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding: 12px;
-}
-.slc-app-tiles { display: flex; gap: 6px; margin-bottom: 4px; }
-.slc-app-tiles i { flex: 1; height: 22px; border-radius: 5px; background: #eef3fd; }
-.slc-app-line {
-  height: 5px;
-  border-radius: 3px;
-  background: #d6e2fa;
-  transition: width 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+
 
 /* 04 — quatre outils autour d'un cœur */
-.slc-art--grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-.slc-art--grid span {
-  padding: 13px 10px;
-  border: 1px solid #e3e6ea;
-  border-radius: 9px;
-  background: #ffffff;
-  font-size: 12.5px;
-  text-align: center;
-  color: #71757c;
-  transition: border-color 400ms ease, color 400ms ease;
-}
-.slc-art--grid span.is-on {
-  border-color: #9db8f2;
-  color: #0b6be6;
-}
-.slc-grid-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 42px;
-  height: 42px;
-  transform: translate(-50%, -50%);
-  border: 3px solid #f7f9fd;
-  border-radius: 10px;
-  background: #0b6be6;
-}
+
 
 /* 05 — sept barres */
-.slc-art--data {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.slc-data-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 7px;
-  height: 92px;
-}
-.slc-data-bars i {
-  flex: 1;
-  border-radius: 4px 4px 0 0;
-  background: linear-gradient(#5b9bf5, #0b6be6);
-  transition: height 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.slc-art--data > span {
-  font-size: 11.5px;
-  color: #6b6f76;
-}
+
 
 /* 06 — trois temps d'une formation */
-.slc-art--learn {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-.slc-learn-box {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px;
-  border-radius: 10px;
-  background: #eef3fd;
-}
-.slc-learn-box svg {
-  flex: none;
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.7;
-  color: #0b6be6;
-}
-.slc-learn-box p {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #71757c;
-}
-.slc-learn-box p span { transition: color 400ms ease, font-weight 400ms ease; }
-.slc-learn-box p span.is-on { color: #1f3a5f; }
-.slc-learn-box p span.is-now { color: #1f3a5f; font-weight: 600; }
-.slc-learn-box p em { font-style: normal; color: #70757f; }
-.slc-learn-go {
-  font-size: 12.5px;
-  color: #0b6be6;
-  opacity: 0;
-  transition: opacity 400ms ease;
-}
-.slc-learn-go.is-on { opacity: 1; }
+
 
 /* =====================================================================
    DISPOSITION EMPILÉE — sous 930px de conteneur
    ===================================================================== */
-.slc--stacked {
-  flex-direction: column;
-  height: auto;
-}
-.slc--stacked .slc-card {
-  flex: 0 0 72px;
-  transition:
-    flex 550ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 300ms ease,
-    box-shadow 300ms ease;
-}
-.slc--stacked .slc-card.is-on {
-  flex: 0 0 580px;
-}
+
+
 /* La bande redevient une ligne : icône, numéro et titre à l'horizontale. */
-.slc--stacked .slc-rail {
-  width: auto;
-  flex-direction: row;
-  justify-content: flex-start;
-  height: 72px;
-  inset: 0 0 auto 0;
-  padding: 0 22px;
-}
-.slc--stacked .slc-rail b {
-  flex: 1 1 auto;
-  min-height: 0;
-  writing-mode: horizontal-tb;
-  transform: none;
-  text-align: left;
-}
-.slc--stacked .slc-open {
-  min-width: 0 !important;
-}
+
 
 /* ---- La bande des téléphones en paysage et des petites tablettes garde une
    hauteur ÉCRITE : c'est la seule où la colonne visuelle passe sur une
@@ -3437,33 +1723,12 @@ main > .band.home-impact-light .isp {
    reste un calcul : 715px suffisent au contenu le plus long des six, dans
    les deux langues, au plus étroit de la bande ; 770 lui laissent la réserve
    d'un écart de composition. L'ancienne valeur, 820, en laissait cent. ---- */
-@media (max-width: 700px) {
-  .slc--stacked .slc-card.is-on { flex: 0 0 770px; }
-}
-@media (max-width: 520px) {
-  .slc--stacked .slc-card.is-on { flex: 0 0 600px; }
-  .slc--stacked .slc-visual { display: none; }
-  .slc-open { padding: 24px 20px; }
-  .slc-copy h3 { font-size: 22px; }
-}
+
 
 /* Les visuels tournent sans fin et les tranches changent de largeur : les
    deux sont décoratifs, et c'est ce que ce réglage demande de supprimer.
    Le composant coupe aussi les deux minuteurs. */
-@media (prefers-reduced-motion: reduce) {
-  .slc-card,
-  .slc-rail,
-  .slc-open,
-  .slc-flow-link,
-  .slc-art--flow b,
-  .slc-app-line,
-  .slc-art--grid span,
-  .slc-data-bars i,
-  .slc-learn-box p span,
-  .slc-learn-go {
-    transition: none;
-  }
-}
+
 
 /* =====================================================================
    LES CAS D'USAGE, EN ACCORDÉONS
@@ -3477,237 +1742,48 @@ main > .band.home-impact-light .isp {
    JavaScript : la transition s'ajuste d'elle-même à la longueur du texte,
    et une traduction plus longue ne la casse pas.
    ===================================================================== */
-.uca {
-  margin-top: 56px;
-  overflow: hidden;
-  border: 1px solid #dde3ee;
-  border-radius: 12px;
-  background: #ffffff;
-}
-.uca-item + .uca-item {
-  border-top: 1px solid #e8ecf4;
-}
-.uca-item {
-  scroll-margin-top: calc(110px - var(--header-h));
-  border-radius: 10px;
-  transition: background-color 250ms ease, box-shadow 250ms ease;
-}
+
+
 /* L'élément ouvert se lit comme une carte encadrée, posée dans la liste.
    Le cadre est un `box-shadow` INSET, pas une bordure : une bordure
    élargirait la boîte d'un pixel et ferait sauter toute la liste à
    l'ouverture. Le bloc passe au-dessus de ses voisins (`z-index`) et les
    deux filets de séparation qui le touchent s'effacent, sinon ils
    traverseraient le cadre à ses deux extrémités. */
-.uca-item.is-on {
-  position: relative;
-  z-index: 1;
-  background: #eff5fd;
-  box-shadow:
-    inset 0 0 0 1px #c3d4ee,
-    0 1px 3px rgb(16 35 58 / 5%);
-}
-.uca-item + .uca-item.is-on,
-.uca-item.is-on + .uca-item {
-  border-top-color: transparent;
-}
+
 
 /* ---- L'en-tête, seul endroit où le titre est écrit ---- */
-.uca-head {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-}
-.uca-head button {
-  position: relative;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-.uca--rich .uca-head button {
-  padding: 18px 24px;
-}
-.uca-head button:focus-visible {
-  outline: 2px solid #0b6be6;
-  outline-offset: -2px;
-}
+
+
 /* Le repère de l'élément ouvert : un filet de 2px au bord gauche, qui ne
    déplace rien quand il apparaît. */
-.uca-item.is-on .uca-head button::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 10px;
-  bottom: 10px;
-  width: 2px;
-  border-radius: 0 2px 2px 0;
-  background: #0b6be6;
-}
-.uca-head em {
-  flex: none;
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  color: #70757f;
-  transition: color 250ms ease;
-}
-.uca-item.is-on .uca-head em {
-  color: #0b6be6;
-}
-.uca-titles {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.uca-titles small {
-  font-size: 11.5px;
-  line-height: 1.3;
-  color: #71757c;
-}
+
 
 /* Le titre est écrit en entier, sur plusieurs lignes si besoin : une liste
    qu'on parcourt ne peut pas se permettre de couper ses intitulés. */
-.uca-titles strong {
-  font-size: 15.5px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #5a5a5a;
-  text-wrap: balance;
-  transition: color 250ms ease;
-}
-.uca--rich .uca-titles strong {
-  font-size: 16.5px;
-}
-.uca-item.is-on .uca-titles strong {
-  color: #1f3a5f;
-}
-.uca-chevron {
-  flex: none;
-  margin-left: auto;
-  width: 17px;
-  height: 17px;
-  stroke-width: 1.8;
-  color: #70757f;
-  transition: transform 250ms ease, color 250ms ease;
-}
-.uca-item.is-on .uca-chevron {
-  transform: rotate(180deg);
-  color: #0b6be6;
-}
+
 
 /* ---- Le panneau ---- */
-.uca-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 250ms ease;
-}
-.uca-item.is-on .uca-panel {
-  grid-template-rows: 1fr;
-}
-.uca-panel-in {
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 250ms ease, transform 250ms ease;
-}
-.uca-item.is-on .uca-panel-in {
-  opacity: 1;
-  transform: none;
-}
+
+
 /* Une ligne d'environ 65 caractères (relevé par l'outil de contrôle
    du design, 14/11/2026 : ouvert, le texte courait sur toute la largeur de
    l'accordéon, environ 150 caractères par ligne). Le rembourrage est compté
    dans la largeur maximale, d'où le calcul. */
-.uca-text {
-  max-width: calc(74px + 62ch);
-  padding: 0 20px 18px 54px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #5a5a5a;
-}
-.uca--rich .uca-text {
-  max-width: calc(82px + 62ch);
-  padding: 0 24px 20px 58px;
-  font-size: 15px;
-}
+
+
 /* L'exemple : un filet au-dessus, pas un encadré. */
-.uca-example {
-  margin: 0 20px 18px 54px;
-  padding-top: 14px;
-  border-top: 1px solid #d5e2f4;
-}
-.uca--rich .uca-example {
-  margin: 0 24px 22px 58px;
-  padding-top: 16px;
-}
-.uca-example > span {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: #0a4fb0;
-}
-.uca-example p {
-  max-width: 62ch;
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #5a5a5a;
-}
-.uca--rich .uca-example p {
-  font-size: 14.5px;
-}
+
 
 /* L'encart « Votre situation est unique » suit l'accordéon sur l'accueil.
    Son `margin-top: 1rem` global le collait au dernier bloc ; il respire ici
    autant que l'accordéon respire sous son chapeau. */
-.uca + .daily-open-callout {
-  margin-top: 56px;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .uca-item,
-  .uca-head em,
-  .uca-titles strong,
-  .uca-chevron,
-  .uca-panel,
-  .uca-panel-in {
-    transition: none;
-  }
-}
 
 /* Sur une colonne étroite, le numéro quitte la ligne du titre et le
    contenu s'aligne sur le bord : un retrait de 54px y mangeait un tiers de
    la largeur utile. */
-@media (max-width: 560px) {
-  .uca {
-    margin-top: 40px;
-  }
-  .uca + .daily-open-callout {
-    margin-top: 40px;
-  }
-  .uca-head button,
-  .uca--rich .uca-head button {
-    gap: 10px;
-    padding: 14px 16px;
-  }
-  .uca-text,
-  .uca--rich .uca-text {
-    padding: 0 16px 16px;
-  }
-  .uca-example,
-  .uca--rich .uca-example {
-    margin: 0 16px 16px;
-  }
-}
+
 
 /* =====================================================================
    SÉCURITÉ, CONFIDENTIALITÉ ET CONTRÔLE — QUATRE CONTRÔLES FRANCHIS
@@ -3718,183 +1794,32 @@ main > .band.home-impact-light .isp {
    1,4s, la même durée que le pas du composant — les deux valeurs doivent
    rester égales, aucune des deux ne lit l'autre.
    ===================================================================== */
-.tst {
-  margin-top: 64px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
-  gap: 12px;
-}
+
 /* Deux groupes de deux : c'est ce qui interdit la rangée de trois plus un
    à la largeur intermédiaire. */
-.tst-group {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.tst-card {
-  position: relative;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  overflow: hidden;
-  padding: 24px 22px 22px;
-  border: 1px solid #dde3ee;
-  border-radius: 12px;
-  background: #ffffff;
-  cursor: default;
-  transition: background-color 350ms ease, border-color 350ms ease, box-shadow 350ms ease;
-}
-.tst-card:focus-visible {
-  outline: 2px solid #0b6be6;
-  outline-offset: 2px;
-}
-.tst-card.is-now {
-  border-color: #b9d1f7;
-  background: #f7faff;
-  box-shadow: 0 14px 34px rgb(11 107 230 / 10%);
-}
-.tst-card.is-done {
-  border-color: #d6e2fa;
-}
+
 
 /* ---- La barre de progression ---- */
-.tst-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: #e8ecf4;
-}
-.tst-bar::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 100%;
-  background: #0b6be6;
-}
-.tst-card.is-done .tst-bar::after {
-  width: 100%;
-}
-.tst-card.is-now .tst-bar::after {
-  animation: tst-fill 1400ms linear 1 both;
-}
+
+
 /* Au survol, la carte visée est pleine tout de suite : elle ne rejoue pas
    les 1,4s, et la remise à zéro du cycle ne joue aucune animation inverse
    — une étape « à venir » est simplement à 0, sans transition. */
-.tst[data-auto="false"] .tst-card.is-now .tst-bar::after {
-  width: 100%;
-  animation: none;
-}
+
 @keyframes tst-fill {
   from { width: 0; }
   to { width: 100%; }
 }
 
 /* ---- Le haut de carte ---- */
-.tst-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.tst-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #d6e2fa;
-  border-radius: 9px;
-  background: #eef3fd;
-  color: #0b6be6;
-  transition: background-color 350ms ease, border-color 350ms ease, color 350ms ease;
-}
-.tst-card:is(.is-now, .is-done) .tst-icon {
-  border-color: #0b6be6;
-  background: #0b6be6;
-  color: #ffffff;
-}
-.tst-icon svg {
-  width: 17px;
-  height: 17px;
-  stroke-width: 1.7;
-}
-.tst-top em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  color: #70757f;
-}
 
-.tst-card h3 {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #1f3a5f;
-  text-wrap: balance;
-}
-.tst-card p {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: #5a5a5a;
-}
 
 /* ---- La pastille de contrôle ---- */
-.tst-pill {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  padding: 4px 10px;
-  border: 1px solid #e3e6ea;
-  border-radius: var(--r-pill);
-  background: #ffffff;
-  font-family: var(--font-sans);
-  font-size: 10.5px;
-  white-space: nowrap;
-  color: #70757f;
-  transition: background-color 300ms ease, border-color 300ms ease, color 300ms ease;
-}
-.tst-pill svg {
-  flex: none;
-  width: 9px;
-  height: 9px;
-  stroke-width: 3;
-}
-.tst-card.is-done .tst-pill {
-  border-color: #bfe5d0;
-  background: #e7f6ee;
-  color: #116a33; /* 6,0:1 (le vert #22a06b ne faisait que 2,98:1) */
-}
+
 
 /* Le cycle est coupé côté composant, qui affiche les quatre étapes
    franchies. Ici ce sont les transitions et le remplissage qui tombent. */
-@media (prefers-reduced-motion: reduce) {
-  .tst-card,
-  .tst-icon,
-  .tst-pill {
-    transition: none;
-  }
-  .tst-card.is-now .tst-bar::after {
-    width: 100%;
-    animation: none;
-  }
-}
 
-@media (max-width: 560px) {
-  .tst {
-    margin-top: 44px;
-  }
-  .tst-group {
-    grid-template-columns: 1fr;
-  }
-  .tst-card {
-    padding: 20px 18px 18px;
-  }
-}
 
 /* =====================================================================
    RÉSULTATS RECHERCHÉS — LA LISTE ET SON APERÇU
@@ -3906,316 +1831,34 @@ main > .band.home-impact-light .isp {
    Les couleurs sont écrites en littéraux : ce bloc a sa propre échelle de
    gris, et la bande qui le porte est blanche.
    ===================================================================== */
-.isp {
-  margin-top: 64px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid #e3e6ea;
-  border-radius: 14px;
-  background: #eceef1;
-}
+
 
 /* ---- La liste ---- */
-.isp-list {
-  flex: 1 1 340px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: #eceef1;
-}
-.isp-row {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 24px;
-  border: 0;
-  background: #ffffff;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 300ms ease;
-}
-.isp-row.is-on {
-  background: #f4f8fe;
-}
-.isp-row:focus-visible {
-  outline: 2px solid #0b6be6;
-  outline-offset: -2px;
-}
+
+
 /* Le repère, collé au bord : il marque la ligne active sans déplacer son
    contenu d'un pixel. */
-.isp-row-mark {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: transparent;
-  transition: background-color 300ms ease;
-}
-.isp-row.is-on .isp-row-mark {
-  background: #0b6be6;
-}
-.isp-row-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: #eef4fe;
-  color: #0b6be6;
-  transition: background-color 300ms ease, color 300ms ease;
-}
-.isp-row.is-on .isp-row-icon {
-  background: #0b6be6;
-  color: #ffffff;
-}
-.isp-row-icon svg {
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.7;
-}
-.isp-row-copy {
-  min-width: 0;
-}
-.isp-row-copy em {
-  display: block;
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 10.5px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.isp-row-copy strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #6b6f76;
-  transition: color 300ms ease;
-}
-.isp-row.is-on .isp-row-copy strong {
-  color: #2e2e2e;
-}
+
 
 /* ---- L'aperçu ---- */
-.isp-view {
-  flex: 1.3 1 420px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  padding: 32px;
-  background: #ffffff;
-}
-.isp-stage {
-  display: grid;
-  place-items: center;
-  height: 150px;
-  padding: 20px;
-  border: 1px solid #eceef1;
-  border-radius: 10px;
-  background: #f7f8fa;
-}
-.isp-view-label {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.isp-view h3 {
-  margin-top: 10px;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.6px;
-  line-height: 1.2;
-  color: #3a3a3a;
-  text-wrap: balance;
-}
-.isp-view p {
-  max-width: 560px;
-  margin-top: 12px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #5a5a5a;
-}
+
 
 /* ---- 01 · les maillons qui se relient ---- */
-.isp-chain {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 380px;
-}
-.isp-chain-part {
-  display: contents;
-}
-.isp-chain-link {
-  flex: 1;
-  height: 2px;
-  background: #d5dae1;
-  transition: background-color 400ms ease;
-}
-.isp-chain-link.is-on {
-  background: #0b6be6;
-}
-.isp-chain b {
-  flex: none;
-  padding: 6px 11px;
-  border: 1px solid #d5dae1;
-  border-radius: 6px;
-  background: #ffffff;
-  font-size: 12px;
-  font-weight: 400;
-  white-space: nowrap;
-  color: #3a3a3a;
-}
+
 
 /* ---- 02 · les contrôles qui se cochent ---- */
-.isp-rules {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-  max-width: 320px;
-}
-.isp-rule {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border: 1px solid #eceef1;
-  border-radius: 6px;
-  background: #ffffff;
-  font-size: 12.5px;
-  white-space: nowrap;
-  color: #3a3a3a;
-}
-.isp-rule i {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #d5dae1;
-  color: #ffffff;
-  transition: background-color 400ms ease;
-}
-.isp-rule.is-on i {
-  background: #22a06b;
-}
-.isp-rule i svg {
-  width: 9px;
-  height: 9px;
-}
+
 
 /* ---- 03 · les barres qui bougent ---- */
-.isp-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  width: 100%;
-  max-width: 320px;
-  height: 100%;
-}
-.isp-bars i {
-  flex: 1;
-  border-radius: 4px 4px 0 0;
-  background: #c9daf5;
-  transition: height 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.isp-bars i:nth-child(4) {
-  background: #0b6be6;
-}
+
 
 /* ---- 04 · le partage automatisé / humain ---- */
-.isp-split {
-  width: 100%;
-  max-width: 340px;
-}
-.isp-split-bar {
-  display: flex;
-  overflow: hidden;
-  height: 30px;
-  border-radius: 6px;
-}
-.isp-split-auto,
-.isp-split-human {
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  white-space: nowrap;
-}
-.isp-split-auto {
-  flex: 3;
-  background: #dce8fb;
-  color: #0b6be6;
-}
-.isp-split-human {
-  flex: 1;
-  background: #0b6be6;
-  color: #ffffff;
-}
-.isp-split-foot {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 8px;
-  font-family: var(--font-sans);
-  font-size: 10px;
-  color: #71757c;
-}
-.isp-split-foot em {
-  font-style: normal;
-  white-space: nowrap;
-}
+
 
 /* Les mini-visuels sont décoratifs et tournent sans fin : c'est ce que ce
    réglage demande de supprimer, pas de ralentir. Le composant arrête aussi
    les deux minuteurs côté JavaScript. */
-@media (prefers-reduced-motion: reduce) {
-  .isp-row,
-  .isp-row-mark,
-  .isp-row-icon,
-  .isp-row-copy strong,
-  .isp-chain-link,
-  .isp-rule i,
-  .isp-bars i {
-    transition: none;
-  }
-}
 
-@media (max-width: 560px) {
-  .isp {
-    margin-top: 44px;
-  }
-  .isp-row {
-    padding: 16px 18px;
-  }
-  .isp-view {
-    padding: 24px 20px;
-  }
-  .isp-view h3 {
-    font-size: 22px;
-  }
-  .isp-view p {
-    font-size: 15px;
-  }
-}
 
 /* =====================================================================
    LA TARIFICATION, PRÉSENTÉE COMME UN DEVIS
@@ -4228,176 +1871,31 @@ main > .band.home-impact-light .isp {
    gris, plus fine que celle du site, et la bande qui le porte est forcée
    en blanc quoi qu'il arrive au rythme des sections.
    ===================================================================== */
-.pdoc {
-  margin-top: 72px;
-  overflow: hidden;
-  border: 1px solid #e3e6ea;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 24px 60px rgb(20 40 80 / 6%);
-}
+
 
 /* ---- En-tête et pied du devis ---- */
-.pdoc-head,
-.pdoc-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px 20px;
-  padding: 16px 24px;
-  background: #f7f8fa;
-}
-.pdoc-head {
-  border-bottom: 1px solid #eceef1;
-}
-.pdoc-foot {
-  border-top: 1px solid #eceef1;
-}
-.pdoc-head span {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: #6b6f76;
-}
-.pdoc-head em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.pdoc-foot span {
-  font-size: 14px;
-  color: #5a5a5a;
-}
-.pdoc-foot em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #71757c;
-}
+
 
 /* ---- Les trois postes ----
    `gap: 1px` sur un fond de filet : les séparateurs verticaux sont
    dessinés par la grille, donc ils deviennent horizontaux tout seuls
    quand les colonnes se replient l'une sous l'autre. */
-.pdoc-cols {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: 1px;
-  background: #eceef1;
-}
-.pdoc-col {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 26px 26px 28px;
-  background: #ffffff;
-  transition: background-color 300ms ease;
-}
-.pdoc-col.is-on {
-  background: #f4f8fe;
-}
-.pdoc-col-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.pdoc-col-top > em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 12px;
-  color: #6e7177;
-  transition: color 300ms ease;
-}
-.pdoc-col.is-on .pdoc-col-top > em {
-  color: #0b6be6;
-}
-.pdoc-pill {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border: 1px solid #e3e6ea;
-  border-radius: var(--r-pill);
-  background: #ffffff;
-  font-size: 12.5px;
-  white-space: nowrap;
-  color: #0b6be6;
-  transition: background-color 300ms ease, border-color 300ms ease;
-}
-.pdoc-pill i {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.pdoc-col.is-on .pdoc-pill {
-  border-color: #b9d1f7;
-  background: #eaf2fe;
-}
-.pdoc-col h3 {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: -0.3px;
-  line-height: 1.25;
-  color: #2e2e2e;
-  text-wrap: balance;
-}
-.pdoc-col p {
-  font-size: 15px;
-  line-height: 1.65;
-  color: #5a5a5a;
-}
+
 
 /* ---- Les trois formes de coût ----
    Un paiement ponctuel, un paiement continu, des paliers. Le `--pdoc-ink`
    de la colonne porte l'état : une seule propriété à basculer, et les
    trois formes suivent sans règle en double. */
-.pdoc-shape {
-  --pdoc-ink: #c9d3e2;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  height: 14px;
-}
-.pdoc-col.is-on .pdoc-shape {
-  --pdoc-ink: #0b6be6;
-}
-.pdoc-shape i {
-  border-radius: 2px;
-  transition: background-color 300ms ease;
-}
-/* 01 — un bloc, puis plus rien : le coût est payé une fois. */
-.pdoc-shape--once i:nth-child(1) { width: 44px; height: 14px; background: var(--pdoc-ink); }
-.pdoc-shape--once i:nth-child(2) { flex: 1; height: 2px; background: #eceef1; }
-/* 02 — une bande qui ne s'arrête plus : le coût court tant que ça tourne. */
-.pdoc-shape--loop i:nth-child(1) { width: 44px; height: 2px; background: #eceef1; }
-.pdoc-shape--loop i:nth-child(2) { flex: 1; height: 6px; background: var(--pdoc-ink); }
-/* 03 — des paliers espacés : un chiffrage par évolution. */
-.pdoc-shape--steps i:nth-child(1) { width: 44px; height: 2px; background: #eceef1; }
-.pdoc-shape--steps i:nth-child(2),
-.pdoc-shape--steps i:nth-child(4),
-.pdoc-shape--steps i:nth-child(6) { width: 10px; height: 10px; background: var(--pdoc-ink); }
-.pdoc-shape--steps i:nth-child(3),
-.pdoc-shape--steps i:nth-child(5) { flex: 1; height: 2px; background: #eceef1; }
 
-@media (prefers-reduced-motion: reduce) {
-  .pdoc-col,
-  .pdoc-col-top > em,
-  .pdoc-pill,
-  .pdoc-shape i {
-    transition: none;
-  }
-}
+
+/* 01 — un bloc, puis plus rien : le coût est payé une fois. */
+
+
+/* 02 — une bande qui ne s'arrête plus : le coût court tant que ça tourne. */
+
+
+/* 03 — des paliers espacés : un chiffrage par évolution. */
+
 
 /* ---- Les trois postes, simplifiés sur téléphone ----
 
@@ -4412,31 +1910,7 @@ main > .band.home-impact-light .isp {
 
    L'état actif reste lisible sans lui : le fond de la carte et le numéro
    passent au bleu, et la pastille garde son cadre. ---- */
-@media (max-width: 560px) {
-  .pdoc {
-    margin-top: 44px;
-  }
-  .pdoc-col {
-    gap: 12px;
-    padding: 22px 20px 24px;
-  }
-  /* Le diagramme de coût : trois traits et des paliers, qui disaient
-     « ponctuel / continu / par paliers » en regard des deux autres
-     colonnes. Seul sous un titre, il ne dit plus rien que le texte ne
-     dise. */
-  .pdoc-shape {
-    display: none;
-  }
-  /* Le numéro contre son libellé. `space-between` les renvoyait aux deux
-     bords de la carte, avec 200px de vide entre eux. */
-  .pdoc-col-top {
-    justify-content: flex-start;
-    gap: 10px;
-  }
-  .pdoc-col h3 {
-    font-size: 18px;
-  }
-}
+
 
 /* ---- Sécurité & contrôle : quatre réglages et le panneau qu'ils
    commandent.
@@ -4449,183 +1923,24 @@ main > .band.home-impact-light .isp {
    gris, plus fine que celle du site, et la bande qui le porte garde son
    bleu très pâle quoi qu'il arrive.
    ---- */
-.sec-layout {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 20px;
-}
+
 
 /* ---- Les quatre blocs ---- */
-.sec-grid {
-  flex: 2 1 520px;
-  min-width: 0;
-  display: grid;
-  /* Deux colonnes fixes, jamais `auto-fit` : à la largeur intermédiaire,
-     une répartition automatique donnait une rangée de trois puis un bloc
-     seul. */
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid #dde3ee;
-  border-radius: 12px;
-  background: #e8ecf4;
-}
-.sec-cell {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 22px 24px;
-  background: #ffffff;
-  transition: background-color 300ms ease;
-}
-.sec-cell.is-on {
-  background: #f7f9ff;
-}
-.sec-cell-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.sec-cell-icon {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  background: #eef3fd;
-  color: #2b6be8;
-  transition: background-color 300ms ease, color 300ms ease;
-}
-.sec-cell.is-on .sec-cell-icon {
-  background: #2b6be8;
-  color: #ffffff;
-}
-.sec-cell-icon svg {
-  width: 15px;
-  height: 15px;
-  stroke-width: 1.8;
-}
-.sec-cell-top em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  color: #70757f;
-}
-.sec-cell h3 {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #2b6be8;
-}
-.sec-cell p {
-  font-size: 12.5px;
-  line-height: 1.65;
-  color: #5a5a5a;
-}
+
 
 /* ---- Le panneau d'état ---- */
-.sec-state {
-  flex: 1 1 280px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 24px 26px;
-  border: 1px solid #dde3ee;
-  border-radius: 12px;
-  background: #fbfcff;
-}
-.sec-state > strong {
-  margin-bottom: 10px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: #3a3a3a;
-}
-.sec-state ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.sec-state li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-block: 10px;
-  border-bottom: 1px solid #eef1f6;
-}
-.sec-state li svg {
-  flex: none;
-  width: 13px;
-  height: 13px;
-  stroke-width: 2.6;
-  color: #2b6be8;
-}
+
+
 /* Une seule ligne, coupée au besoin : la hauteur de la liste ne doit pas
    changer quand le bloc actif change. */
-.sec-state li > span {
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 13px;
-  color: #3a3a3a;
-}
+
 
 /* Décoratif et verrouillé : rien ici ne règle la sécurité d'un projet. */
-.sec-switch {
-  flex: none;
-  position: relative;
-  margin-left: auto;
-  width: 28px;
-  height: 16px;
-  border-radius: var(--r-pill);
-  background: #9db8f2;
-  transition: background-color 300ms ease;
-}
-.sec-state li.is-lit .sec-switch {
-  background: #2b6be8;
-}
-.sec-switch::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-}
 
-.sec-state > p {
-  margin-top: 12px;
-  font-size: 11.5px;
-  line-height: 1.6;
-  color: #6b7280;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sec-cell,
-  .sec-cell-icon,
-  .sec-switch {
-    transition: none;
-  }
-}
 
 /* Sous 560px les quatre blocs passent sur une colonne : à deux, chaque
    bloc tombait sous 140px et la description s'y hachait. */
-@media (max-width: 560px) {
-  .sec-grid {
-    grid-template-columns: 1fr;
-  }
-  .sec-cell {
-    padding: 18px 20px;
-  }
-}
+
 
 /* ---- La FAQ ferme la page, après le CTA. Elle force un fond clair : la
    carte du CTA est en bleu nuit, et une bande sombre juste dessous
@@ -4644,19 +1959,7 @@ main > .band.home-impact-light .isp {
 
    Spécificité égale au filet impair/pair du thème : ces deux blocs doivent
    rester APRÈS lui dans la feuille. ---- */
-.site-theme-alternating main > .band.solutions-tint-band {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-  --brand-foreground: #ffffff;
-}
+
 
 /* ---- Le rythme de l'accueil, appliqué à la page Solutions.
 
@@ -4666,15 +1969,7 @@ main > .band.home-impact-light .isp {
    Ici les deux valeurs sont alignées, et l'écart entre le bloc de titres
    et le contenu reprend `--home-heading-gap`, quelle que soit la façon
    dont la section compose son en-tête. ---- */
-main > .band.solutions-rhythm {
-  padding-block: var(--home-section-pad-y);
-}
-main > .band.solutions-rhythm .section-heading {
-  margin-bottom: var(--home-heading-gap);
-}
-main > .band.solutions-rhythm > .col > .lede + .section-gap {
-  margin-top: var(--home-heading-gap);
-}
+
 
 /* ---- Six sections de la page Solutions prennent la hauteur d'écran.
 
@@ -4693,24 +1988,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 
    Sous 1024px le flux naturel reprend : forcer une hauteur d'écran sur une
    composition repliée en colonne ne produit que du blanc. ---- */
-@media (min-width: 1024px) {
-  main > .band.solutions-full {
-    display: grid;
-    min-height: min(100svh, 45rem);
-  }
-  main > .band.solutions-full > .col {
-    display: grid;
-    grid-template-rows: auto minmax(min-content, 1fr);
-    row-gap: var(--home-heading-gap);
-  }
-  main > .band.solutions-full > .col > .section-heading {
-    margin-bottom: 0;
-  }
-  main > .band.solutions-full > .col > :nth-child(2) {
-    align-self: center;
-    margin-block: 0;
-  }
-}
+
 
 /* ---- Tarification et FAQ sont forcées en blanc.
 
@@ -4721,67 +1999,7 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
 
    Spécificité égale au filet impair/pair : ces blocs doivent rester APRÈS
    lui dans la feuille. ---- */
-.site-theme-alternating main > .band.solutions-white-band {
-  background: #ffffff;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-  --brand-foreground: #ffffff;
-}
 
-.site-theme-alternating main > .band.solutions-faq-light {
-  background: #f2f6fc;
-  color: #464444;
-  --foreground: #464444;
-  --muted-foreground: #605d5d;
-  --text-mono: #6b6868;
-  --hairline: rgb(70 68 68 / 12%);
-  --border: rgb(70 68 68 / 12%);
-  --surface: #ffffff;
-  --surface-2: #f2f6fc;
-  --brand: #0067ea;
-}
-
-@media (max-width: 1100px) {
-  /* Deux colonnes : les filets se recalent sur un rythme de deux. */
-  .need-tiles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .need-tile:nth-child(odd) {
-    border-left: 0;
-    padding-left: 0;
-    padding-right: clamp(1.25rem, 2.2vw, 2rem);
-  }
-  .need-tile:nth-child(even) {
-    border-left: 1px solid var(--hairline);
-    padding-left: clamp(1.25rem, 2.2vw, 2rem);
-    padding-right: 0;
-  }
-  .need-tile:nth-child(n + 3) {
-    border-top: 1px solid var(--hairline);
-  }
-  /* Six cellules de 150px seraient illisibles : la grille passe à trois,
-     et le `gap` de 1px redessine les séparateurs sans une règle de plus. */
-}
-
-@media (max-width: 680px) {
-  .need-tiles {
-    grid-template-columns: 1fr;
-  }
-  .need-tile:nth-child(n) {
-    border-left: 0;
-    padding-inline: 0;
-  }
-  .need-tile + .need-tile {
-    border-top: 1px solid var(--hairline);
-  }
-}
 
 /* =====================================================================
    LES SIX PAGES SERVICES — UN SEUL SYSTÈME
@@ -4837,43 +2055,18 @@ main > .band.solutions-rhythm > .col > .lede + .section-gap {
   --brand: #0067ea;
   --brand-foreground: #ffffff;
 }
-.site-theme-alternating main > .band.svc-ink {
-  background: var(--surface-dark);
-  color: #ffffff;
-  /* ⚠ `--dark-accent` n'est défini que par `.home-dark-band`, et cette bande
-     ne porte pas cette classe. Sans ce jeton ici, la règle des mots peints
-     sur bande sombre lit une variable vide : la déclaration devient invalide
-     et le mot reste BLANC au lieu d'être bleu. 8,79:1 sur le bleu nuit. */
-  --dark-accent: #8fc0ff;
-  --foreground: #ffffff;
-  --muted-foreground: #c2d3e9;
-  --text-mono: #a8c3e8;
-  --hairline: rgb(188 215 255 / 18%);
-  --border: rgb(188 215 255 / 22%);
-  --surface: #10233a;
-  --surface-2: #142b45;
-}
+
 /* Le chapeau, repeint à la main pour la même raison : le filet du thème le
    met en bleu pâle sur tout rang impair, y compris sur mes bandes claires. */
 .site-theme-alternating main > .band:is(.svc-white, .svc-tint, .tint-band) .lede-kicker {
   color: var(--brand);
 }
-.site-theme-alternating main > .band.svc-ink .lede-kicker {
-  color: #9ec8ff;
-}
+
 
 /* ---- Le rythme vertical, celui de l'accueil et de la page Solutions ----
    Les trois pages respirent donc sur la même mesure, et le chapeau tombe
    à la même hauteur quand on passe de l'une à l'autre. */
-main > .band.svc-rhythm {
-  padding-block: var(--home-section-pad-y);
-}
-main > .band.svc-rhythm .section-heading {
-  margin-bottom: var(--home-heading-gap);
-}
-main > .band.svc-rhythm > .col > .lede + .section-gap {
-  margin-top: var(--home-heading-gap);
-}
+
 
 /* ---- Le surtitre du hero, au-dessus du h1 et hors de lui ---- */
 .studio-hero-kicker {
@@ -4953,26 +2146,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     text-align: left;
   }
 }
-.svc-hero .studio-hero-copy {
-  gap: 1.1rem;
-}
-.svc-hero .studio-hero-copy > .btn-row {
-  margin-top: 0.5rem;
-}
+
 
 /* ---- Les sections en deux colonnes : texte à gauche, visuel à droite ----
    Trois sections s'en servent (définition, fonctionnement, intégration).
    Sous 1024px tout s'empile, texte d'abord : forcer deux colonnes sur une
    tablette étroite écrase le schéma sans rien apporter. */
-.svc-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(2rem, 4vw, 3.75rem);
-}
-.svc-split--core {
-  align-items: stretch;
-}
+
+
 /* ---- Le surtitre reste en HAUT ; le titre, le paragraphe et la ligne au
    bouclier se centrent sur le visuel d'en face.
 
@@ -4998,159 +2179,19 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    emportant le surtitre. La colonne s'étire désormais sur toute la hauteur
    de la rangée, et deux marges automatiques — au-dessus du titre et sous le
    paragraphe — recentrent le groupe sous le surtitre. ---- */
-.svc-split > .svc-what {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-}
-.svc-what > .lede {
-  flex: 1;
-}
-.svc-what > .lede > .lede-title {
-  margin-top: auto;
-}
-.svc-what > .lede > .lede-text {
-  margin-bottom: auto;
-}
 
-.svc-split--core > .svc-split-copy {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.875rem, 0.6rem + 0.9vw, 1.5rem);
-}
-.svc-split--core > .svc-split-copy > .lede {
-  display: contents;
-}
-.svc-split--core > .svc-split-copy > .lede > .lede-title {
-  margin-top: auto;
-}
-.svc-split--core > .svc-split-copy > .svc-core-note {
-  margin-top: 0;
-  margin-bottom: auto;
-}
-.svc-split-copy .lede-text {
-  max-width: 54ch;
-}
-@media (max-width: 1023px) {
-  .svc-split {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2.25rem;
-  }
-}
 
 /* ---- 3 · Les usages : huit encadrés, un filet entre eux ----
    `gap: 1px` sur un fond de filet dessine les séparations, et elles
    deviennent horizontales d'elles-mêmes quand la grille se replie. */
-.svc-uses {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 1px solid var(--hairline);
-  border-radius: 12px;
-  background: var(--hairline);
-}
-.svc-uses > li {
-  display: grid;
-  gap: 8px;
-  padding: 20px 18px 22px;
-  background: #ffffff;
-}
-.svc-use-icon {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid #d7e4f7;
-  border-radius: 9px;
-  background: #eff5fd;
-}
-.svc-use-icon svg {
-  width: 16px;
-  height: 16px;
-  stroke-width: 1.7;
-  color: #0a4fb0;
-}
-.svc-uses strong {
-  font-size: 14.5px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: #1f3a5f;
-}
-.svc-uses p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
+
 
 /* ---- 4 · Les formes : la même grille, sans encadré ---- */
-.svc-forms {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  background: var(--hairline);
-  border-block: 1px solid var(--hairline);
-}
-.svc-forms > li {
-  display: grid;
-  gap: 6px;
-  padding: 18px 16px 20px;
-  background: #ffffff;
-}
-.svc-forms em {
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--brand);
-}
-.svc-forms strong {
-  font-size: 14.5px;
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.svc-forms p {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #5a5a5a;
-}
+
+
 /* Les deux familles voisines, en fin de section : du maillage interne, pas
    une nouvelle section. */
-.svc-related {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 22px;
-  margin-top: 26px;
-}
-.svc-related > span {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-mono);
-}
 
-.svc-core-note {
-  display: flex;
-  gap: 9px;
-  margin-top: 1.25rem;
-  font-size: 13px;
-  line-height: 1.6;
-  color: #a8c3e8;
-}
-.svc-core-note svg {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  margin-top: 2px;
-  color: #4e8ff0;
-}
 
 /* ---- 8 · Après la mise en service : le panneau de suivi ----
 
@@ -5166,195 +2207,36 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ⚠ La hauteur du panneau ne bouge pas pendant la boucle : seules la teinte
    du volet actif, sa barre et son statut changent. Ne pas y mettre de
    contenu qui n'existe que sur le volet actif. ---- */
-.afp {
-  margin-top: 56px;
-  overflow: hidden;
-  border: 1px solid #dde3eb;
-  border-radius: 14px;
-  background: #ffffff;
-}
+
 
 /* ---- Le bandeau d'état ---- */
-.afp-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 24px;
-  padding: 14px 22px;
-  border-bottom: 1px solid #dde3eb;
-  background: #fafbfc;
-}
-.afp-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-}
-.afp-dot {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: #2db37a;
-  box-shadow: 0 0 0 2px rgb(45 179 122 / 12%);
-}
+
+
 /* Le suivi est actif : le point respire. Deux temps de 0,9s, donc 1,8s de
    cycle complet. */
-.afp-dot.is-live {
-  animation: afp-pulse 1.8s ease-in-out infinite;
-}
+
 @keyframes afp-pulse {
   0%, 100% { box-shadow: 0 0 0 2px rgb(45 179 122 / 12%); }
   50% { box-shadow: 0 0 0 5px rgb(45 179 122 / 18%); }
 }
-.afp-live strong {
-  font-size: 13.5px;
-  font-weight: 500;
-  color: #2e2e2e;
-}
-.afp-live em {
-  font-style: normal;
-  font-size: 11px;
-  color: #71757c;
-}
-.afp-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 11px;
-  border: 1px solid #d6e2fa;
-  border-radius: 6px;
-  background: #f4f8fe;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.afp-pill svg {
-  flex: none;
-  width: 12px;
-  height: 12px;
-}
+
 
 /* ---- Les quatre volets ---- */
-.afp-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr));
-  gap: 1px;
-  background: #dde3eb;
-}
-.afp-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-  gap: 1px;
-  background: #dde3eb;
-}
-.afp-cell {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 220px;
-  min-width: 0;
-  overflow: hidden;
-  padding: 26px 22px 24px;
-  background: #ffffff;
-  transition: background-color 0.4s ease;
-}
-.afp-cell.is-on {
-  background: #fafcff;
-}
+
+
 /* La barre du volet actif. La durée doit rester celle de `STEP_MS` dans le
    composant. Sans la classe, elle est pleine et immobile : c'est l'état du
    survol et celui du mouvement réduit. */
-.afp-bar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 2px;
-  width: 100%;
-  background: #0b6be6;
-}
-.afp-bar.is-filling {
-  animation: afp-fill 2.6s linear forwards;
-}
+
+
 @keyframes afp-fill {
   from { width: 0; }
   to { width: 100%; }
 }
-.afp-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-.afp-top em {
-  font-style: normal;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #0b6be6;
-}
-.afp-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  white-space: nowrap;
-  color: #15803d; /* 5,02:1 sur blanc (#2db37a : 2,68:1) */
-  transition: color 0.3s ease;
-}
-.afp-state i {
-  flex: none;
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: currentColor;
-}
-.afp-state.is-on {
-  color: #0b6be6;
-}
-.afp-cell h3 {
-  margin-top: 6px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: #1f3a5f;
-}
-.afp-cell p {
-  max-width: 300px;
-  font-size: 14.5px;
-  line-height: 1.55;
-  color: #5a5a5a;
-}
+
 
 /* ---- La note contractuelle ---- */
-.afp-foot {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 22px;
-  border-top: 1px solid #dde3eb;
-  background: #fafbfc;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: #6b6f76;
-}
-.afp-foot svg {
-  flex: none;
-  width: 14px;
-  height: 14px;
-  color: #0b6be6;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .afp-cell,
-  .afp-state {
-    transition: none;
-  }
-  .afp-dot.is-live,
-  .afp-bar.is-filling {
-    animation: none;
-  }
-}
 
 /* ---- 9 · Le petit visuel du CTA ----
    Mêmes couleurs que la carte de projet qu'il remplace : la carte du CTA
@@ -5371,36 +2253,12 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    Ces règles sont scopées à `.svc-cta` : la grille commune sert aussi le CTA
    de l'accueil et celui de la page Solutions, qui gardent leur composition.
    ---- */
-.svc-cta .cta-booking-grid {
-  grid-template-columns: minmax(0, auto) minmax(0, auto);
-  justify-content: space-evenly;
-  gap: 2.5rem;
-  width: 100%;
-}
-.svc-cta .cta-booking-copy {
-  max-width: 34rem;
-}
+
 
 /* Les deux actions, l'une au-dessus de l'autre, et la mention sous elles.
    La colonne est plafonnée : étirés sur toute la largeur du panneau, deux
    boutons empilés se liraient comme deux bandeaux. */
-.svc-cta-actions {
-  display: grid;
-  justify-items: stretch;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 20rem;
-  min-width: 0;
-}
-.svc-cta-actions .cta-note {
-  margin-top: 0.5rem;
-}
-@media (max-width: 900px) {
-  /* Repliées en une colonne, les actions se centrent sous le texte. */
-  .svc-cta .svc-cta-actions {
-    justify-self: center;
-  }
-}
+
 
 /* ---- 10 · La FAQ ferme la page. Rien après elle, le CTA est au-dessus. ---- */
 /* Le titre de la FAQ est centré sur le MÊME AXE que les questions : le bloc
@@ -5411,31 +2269,11 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    Le filet qui élargit les blocs de titres saute cette bande, son identifiant
    étant `#faq` : la largeur doit donc être posée ici. */
-.svc-faq > .col > .lede {
-  width: min(100%, 48rem);
-  max-width: none;
-  margin-inline: auto;
-  text-align: center;
-}
-.svc-faq > .col > .lede > .lede-title {
-  max-width: none;
-  margin-inline: auto;
-}
+
 
 /* ---- Le repli. Quatre colonnes, puis deux, puis une. Aucun diagramme
    n'est forcé sur un écran étroit : ils se replient en colonne. ---- */
-@media (max-width: 1100px) {
-  .svc-uses,
-  .svc-forms {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 640px) {
-  .svc-uses,
-  .svc-forms {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+
 
 /* =====================================================================
    PAGES SERVICES · LA HAUTEUR D'ÉCRAN ET LE TITRE DE DÉFINITION
@@ -5444,9 +2282,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 /* ---- Un mot peint dans un titre, sur la bande bleu nuit des pages
    services. Elle ne porte pas `home-dark-band`, donc `--brand` y tomberait
    à 3,25:1 sur le bleu nuit. Même bleu clair que le hero. ---- */
-.svc-ink :is(h1, h2, h3) .title-accent {
-  color: var(--dark-accent);
-}
+
 
 /* ---- Le titre de « Qu'est-ce que… » sur une seule ligne.
    Ce qui le coupait n'était pas la largeur de la colonne mais la mesure
@@ -5459,13 +2295,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    cinq autres questions font quarante caractères et plus : elles gardent
    le corps commun et passent à la ligne. Un titre qui déborde serait pire
    qu'un titre sur deux lignes. ---- */
-@media (min-width: 1024px) {
-  .svc-what--line .lede-title {
-    max-width: none;
-    font-size: min(var(--fs-h2), 2.15rem);
-    white-space: nowrap;
-  }
-}
+
 
 /* ---- Les sections suivent la hauteur de leur CONTENU.
 
@@ -5494,413 +2324,53 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
       section se disputeraient l'attention du titre.
    ────────────────────────────────────────────────────────────────────────
    ===================================================================== */
-.auc {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-.auc-card {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-  padding: 14px 14px 20px;
-  border: 1px solid #e3e8f0;
-  border-radius: 14px;
-  background: #ffffff;
-}
+
+
 /* Le bloc de texte occupe toute la hauteur restante de la carte, et
    l'étiquette de forme est poussée en bas par une marge automatique. Les
    cartes d'une même rangée faisant la même hauteur, leurs étiquettes
    tombent donc sur la même ligne, quelle que soit la longueur des
    descriptions. En colonne, chacune reste à la même distance du bas. */
-.auc-copy {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-inline: 6px;
-}
-.auc-copy h3 {
-  font-size: 17px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
-  line-height: 1.3;
-  color: #1f3a5f;
-}
-.auc-copy p {
-  font-size: 14px;
-  line-height: 1.55;
-  color: #5a5a5a;
-}
+
 
 /* ---- Le cadre commun aux huit aperçus ---- */
-.auc-art {
-  display: flex;
-  min-height: 104px;
-  padding: 12px;
-  border: 1px solid #e8ecf4;
-  border-radius: 10px;
-  background: #f7f9fd;
-}
+
 /* Les pièces partagées : lignes de texte factices, étiquettes, avatar. */
-.auc-line {
-  flex: none;
-  height: 4px;
-  border-radius: 999px;
-  background: #e3e8f0;
-}
-.auc-tag {
-  flex: none;
-  padding: 3px 7px;
-  border-radius: 999px;
-  font-style: normal;
-  font-size: 10.5px;
-  white-space: nowrap;
-}
-.auc-tag--blue {
-  background: #eaf2fe;
-  color: #0a5bc4; /* 5,6:1 ; #0b6be6 sur ce fond : 4,4:1 */
-}
-.auc-tag--warm {
-  background: #fdf1e4;
-  color: #8a5226; /* 5,6:1 ; #a0632e : 4,4:1 */
-}
-.auc-tag--grey {
-  background: #f1f3f6;
-  color: #6b6f76;
-}
-.auc-tag--plain {
-  border: 1px solid #e3e8f0;
-  background: #ffffff;
-  color: #6b6f76;
-}
-.auc-avatar {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: #e3e8f0;
-}
+
 
 /* ---- 1 · Répondre aux demandes courantes ---- */
-.auc-chat {
-  flex-direction: column;
-  justify-content: center;
-  gap: 7px;
-}
-.auc-bubble {
-  max-width: 100%;
-  padding: 6px 9px;
-  font-size: 11px;
-  line-height: 1.35;
-  white-space: nowrap;
-}
-.auc-bubble--ask {
-  align-self: flex-start;
-  border: 1px solid #e3e8f0;
-  border-radius: 4px 10px 10px 10px;
-  background: #ffffff;
-  color: #5a5a5a;
-}
-.auc-bubble--reply {
-  align-self: flex-end;
-  border-radius: 10px 4px 10px 10px;
-  background: #0b6be6;
-  color: #ffffff;
-}
-.auc-source {
-  align-self: flex-end;
-  font-family: var(--font-sans);
-  font-size: 9.5px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
+
 
 /* ---- 2 · Rechercher dans vos documents ---- */
-.auc-search {
-  flex-direction: column;
-  justify-content: center;
-  gap: 7px;
-}
-.auc-field {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 8px;
-  border: 1px solid #b9d1f7;
-  border-radius: 7px;
-  background: #ffffff;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #5a5a5a;
-}
-.auc-field svg {
-  flex: none;
-  width: 11px;
-  height: 11px;
-  stroke-width: 2.2;
-  color: #0b6be6;
-}
+
+
 /* La ligne trouvée : plus haute, surlignée, et marquée au bord gauche. */
-.auc-hit {
-  width: 70%;
-  height: 9px;
-  border-left: 2px solid #0b6be6;
-  border-radius: 0 3px 3px 0;
-  background: #d6e4fb;
-}
+
 
 /* ---- 3 · Qualifier une demande entrante ---- */
-.auc-triage {
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-.auc-from {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.auc-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
+
 
 /* ---- 4 · Mettre à jour votre CRM ---- */
-.auc-crm {
-  flex-direction: column;
-  justify-content: center;
-  gap: 7px;
-}
-.auc-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 10.5px;
-  white-space: nowrap;
-}
-.auc-row em {
-  font-style: normal;
-  color: #71757c;
-}
-.auc-row b {
-  display: inline-flex;
-  align-items: center;
-  font-weight: 400;
-  color: #2e2e2e;
-}
+
+
 /* Le champ en cours de saisie. */
-.auc-row--edit {
-  padding: 4px 7px;
-  border: 1px solid #0b6be6;
-  border-radius: 6px;
-  background: #ffffff;
-}
-.auc-row--edit em {
-  color: #0b6be6;
-}
-.auc-caret {
-  width: 1.5px;
-  height: 10px;
-  margin-left: 2px;
-  background: #0b6be6;
-}
+
 
 /* ---- 5 · Préparer un devis ou un dossier ---- */
-.auc-doc {
-  align-items: center;
-  gap: 12px;
-}
-.auc-sheet {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  width: 60px;
-  height: 76px;
-  padding: 8px 7px;
-  border: 1px solid #e3e8f0;
-  border-radius: 4px;
-  background: #ffffff;
-}
-.auc-sheet-title {
-  width: 70%;
-  height: 4px;
-  border-radius: 999px;
-  background: #0b6be6;
-}
-.auc-checks {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-}
-.auc-checks em {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-style: normal;
-  font-size: 10.5px;
-  white-space: nowrap;
-  color: #2e2e2e;
-}
-.auc-checks em svg {
-  flex: none;
-  width: 10px;
-  height: 10px;
-  stroke-width: 2.6;
-  color: #0b6be6;
-}
-.auc-pill {
-  align-self: flex-start;
-  margin-top: 2px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: #eaf2fe;
-  font-size: 10.5px;
-  font-weight: 400;
-  white-space: nowrap;
-  color: #0b6be6;
-}
+
 
 /* ---- 6 · Analyser les emails reçus ---- */
-.auc-inbox {
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-}
-.auc-mail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.auc-mail .auc-line {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.auc-mail .auc-tag {
-  margin-left: auto;
-  font-size: 9.5px;
-}
+
 
 /* ---- 7 · Produire un compte rendu ---- */
-.auc-notes {
-  align-items: center;
-  gap: 10px;
-}
-.auc-scraps {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  min-width: 0;
-}
-.auc-scraps i {
-  height: 3px;
-  border-radius: 999px;
-  background: #d5dbe5;
-}
-.auc-arrow {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  stroke-width: 2;
-  color: #0b6be6;
-}
-.auc-synth {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  min-width: 0;
-  padding: 8px 8px 9px;
-  border: 1px solid #b9d1f7;
-  border-radius: 6px;
-  background: #ffffff;
-}
-.auc-synth em {
-  font-style: normal;
-  font-size: 9.5px;
-  white-space: nowrap;
-  color: #0b6be6;
-}
-.auc-synth i {
-  height: 3px;
-  border-radius: 999px;
-  background: #c9d8f5;
-}
-.auc-synth i:first-of-type {
-  background: #9db8f2;
-}
+
 
 /* ---- 8 · Enchaîner plusieurs actions ---- */
-.auc-chain {
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-}
-.auc-step {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 999px;
-  background: #0b6be6;
-}
-.auc-step svg {
-  width: 11px;
-  height: 11px;
-  stroke-width: 3;
-  color: #ffffff;
-}
-.auc-link {
-  flex: 1 1 auto;
-  min-width: 8px;
-  max-width: 18px;
-  height: 2px;
-  background: #0b6be6;
-}
+
+
 /* Le dernier pas n'est pas franchi tout seul : le trait devient pointillé
    et mène au contrôle. */
-.auc-link--dashed {
-  height: 0;
-  max-width: 22px;
-  border-top: 2px dashed #b9d1f7;
-  background: none;
-}
-.auc-gate {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border: 1.5px solid #0b6be6;
-  border-radius: 8px;
-  background: #ffffff;
-}
-.auc-gate svg {
-  width: 13px;
-  height: 13px;
-  stroke-width: 2;
-  color: #0b6be6;
-}
 
-.auc-form {
-  align-self: flex-start;
-  margin-top: auto;
-  padding-top: 0;
-  padding: 4px 10px;
-  border: 1px solid #d6e2fa;
-  border-radius: 999px;
-  background: #eaf2fe;
-  font-size: 11.5px;
-  line-height: 1.3;
-  color: #0b6be6;
-}
 
 /* =====================================================================
    « VOS OUTILS RESTENT AU CENTRE » — LE VISUEL DE LA COLONNE DE DROITE
@@ -5921,147 +2391,19 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    pas les recréer pour « faire tenir » un titre : c'est sa taille qui
    compte, pas son nombre de lignes. */
 
-.ant {
-  justify-self: center;
-  width: 100%;
-  max-width: 540px;
-  min-width: 0;
-}
-.ant-scroll {
-  overflow-x: auto;
-}
-.ant-scene {
-  position: relative;
-  min-width: 460px;
-  aspect-ratio: 520 / 380;
-}
 
 /* ---- L'anneau, les rayons, le point ---- */
-.ant-wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  fill: none;
-}
-.ant-ring,
-.ant-ray {
-  stroke: #1e3352;
-  stroke-width: 1;
-  /* Le trait reste à 1px quel que soit l'étirement du repère. */
-  vector-effect: non-scaling-stroke;
-}
-.ant-ray {
-  stroke-linecap: round;
-  transition: stroke 0.35s ease;
-}
-.ant-ray.is-on.ant-ray--read {
-  stroke: #4e8ff0;
-}
-.ant-ray.is-on.ant-ray--write {
-  stroke: #34d399;
-}
-.ant-ray.is-on.ant-ray--approve {
-  stroke: #f5b454;
-}
-.ant-dot {
-  fill: #ffffff;
-}
+
+
 /* L'onde part de l'anneau à chaque changement d'outil. Son rayon et son
    opacité sont écrits par le composant : pas de transition ici. */
-.ant-wave {
-  fill: none;
-  stroke: #4e8ff0;
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
+
 
 /* ---- Les huit outils ---- */
-.ant-tool {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px 9px 9px;
-  border: 1px solid #1e3352;
-  border-radius: 12px;
-  background: #13223a;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.35s ease, border-color 0.35s ease;
-}
-.ant-tool.is-on {
-  background: #16263d;
-}
-.ant-tool.is-on.ant-tool--read {
-  border-color: #4e8ff0;
-}
-.ant-tool.is-on.ant-tool--write {
-  border-color: #34d399;
-}
-.ant-tool.is-on.ant-tool--approve {
-  border-color: #f5b454;
-}
-.ant-code {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #24406a;
-  border-radius: 8px;
-  font-family: var(--font-sans);
-  font-size: 9.5px;
-  color: #8fa0b8;
-  transition: color 0.35s ease;
-}
-.ant-tool.is-on.ant-tool--read .ant-code {
-  color: #4e8ff0;
-}
-.ant-tool.is-on.ant-tool--write .ant-code {
-  color: #34d399;
-}
-.ant-tool.is-on.ant-tool--approve .ant-code {
-  color: #f5b454;
-}
-.ant-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.ant-meta strong {
-  font-size: 13.5px;
-  font-weight: 400;
-  white-space: nowrap;
-  color: #ffffff;
-}
-.ant-meta em {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 10px;
-  white-space: nowrap;
-  color: #5f7393;
-  transition: color 0.35s ease;
-}
+
+
 /* Le point reprend la couleur du texte : une seule valeur à changer. */
-.ant-meta em i {
-  flex: none;
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: currentColor;
-}
-.ant-tool.is-on.ant-tool--read .ant-meta em {
-  color: #4e8ff0;
-}
-.ant-tool.is-on.ant-tool--write .ant-meta em {
-  color: #34d399;
-}
-.ant-tool.is-on.ant-tool--approve .ant-meta em {
-  color: #f5b454;
-}
+
 
 /* ---- L'agent, au centre ----
    Le positionnement et l'échelle sont sur l'enveloppe, le flottement sur
@@ -6078,58 +2420,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    114px — antenne 18, tête 82, ombre au sol 14 — et son centre tombe donc à
    57px, alors que le centre de la TÊTE est à 59. Sans eux, c'est le bloc qui
    serait centré, et la tête descendrait de deux pixels sous l'anneau. ---- */
-.ant-bot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 120px;
-  transform: translate(-50%, calc(-50% - 2px)) scale(0.88);
-}
-.ant-bot-in {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.ant-antenna {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.ant-ball {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: #4e8ff0;
-}
-.ant-stem {
-  width: 2px;
-  height: 9px;
-  background: #4e8ff0;
-}
-.ant-head {
-  position: relative;
-  width: 96px;
-  height: 82px;
-  padding: 8px;
-  border: 1.5px solid #4e8ff0;
-  border-radius: 26px;
-  background: #2a3a52;
-  box-shadow: 0 12px 30px rgb(0 0 0 / 25%);
-}
-.ant-ear {
-  position: absolute;
-  top: 24px;
-  width: 6px;
-  height: 26px;
-  border-radius: 3px;
-  background: #4e8ff0;
-}
-.ant-ear--l {
-  left: -8px;
-}
-.ant-ear--r {
-  right: -8px;
-}
+
+
 /* ---- Le visage se lit comme un ÉCRAN : une surface sombre dans une coque
    plus claire, et les traits en blanc par-dessus.
 
@@ -6148,50 +2440,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    Contrastes : traits blancs sur l'écran, 16,9:1. Écran sur la coque,
    1,49:1, un palier d'aplat comme ceux du reste du site, appuyé par le
    filet. ---- */
-.ant-face {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  height: 100%;
-  border: 1px solid #1e3352;
-  border-radius: 18px;
-  background: #0f1d33;
-}
-.ant-eyes {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-.ant-eye {
-  width: 9px;
-  height: 13px;
-  border-radius: 5px;
-  background: #ffffff;
-}
-.ant-mouth {
-  width: 12px;
-  height: 2px;
-  border-radius: 999px;
-  background: #ffffff;
-}
-.ant-floor {
-  width: 64px;
-  height: 6px;
-  margin-top: 8px;
-  border-radius: 999px;
-  background: rgb(0 0 0 / 28%);
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .ant-ray,
-  .ant-tool,
-  .ant-code,
-  .ant-meta em {
-    transition: none;
-  }
-}
 
 /* ---- SUR TÉLÉPHONE, LA SCÈNE ENTIÈRE AU LIEU D'UN BOUT DE SCÈNE.
 
@@ -6221,39 +2470,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    cette échelle, donc à 0,88 il le débordait. Son flottement et son ombre
    au sol sont écrits par l'horloge en pixels, dans ce sous-arbre mis à
    l'échelle : ils suivent sans rien à changer. ---- */
-@media (max-width: 520px) {
-  .ant-scene {
-    min-width: 0;
-  }
-  .ant-tool {
-    gap: 6px;
-    padding: 6px 10px 6px 6px;
-    border-radius: 10px;
-  }
-  .ant-code {
-    width: 19px;
-    height: 19px;
-    border-radius: 6px;
-    font-size: 7.5px;
-  }
-  .ant-meta {
-    gap: 2px;
-  }
-  .ant-meta strong {
-    font-size: 11px;
-  }
-  .ant-meta em {
-    gap: 4px;
-    font-size: 9px;
-  }
-  .ant-meta em i {
-    width: 4px;
-    height: 4px;
-  }
-  .ant-bot {
-    transform: translate(-50%, calc(-50% - 2px)) scale(0.5);
-  }
-}
 
 
 /* =====================================================================
@@ -6264,30 +2480,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    sections : à côté d'une carte de 440px, une ligne de 54 caractères
    déséquilibrait la composition.
    ===================================================================== */
-.svc-what .lede-text {
-  max-width: 44ch;
-}
-.abr {
-  /* Caler sur le HAUT de la colonne de texte : le surtitre et la carte
-     partent de la même ligne. `.svc-split` centre ses colonnes l'une sur
-     l'autre, ce qui faisait descendre la carte de la moitié de l'écart de
-     hauteur entre les deux. */
-  align-self: start;
-  width: 100%;
-  max-width: 440px;
-  margin-inline: auto;
-  min-width: 0;
-}
+
+
 /* Pas de cadre autour : ni fond, ni bordure, ni arrondi, ni ombre. Les
    éléments sont posés à même la bande, et le rembourrage tombe avec le
    cadre qu'il servait à décoller. Les encadrés INTÉRIEURS — les puces, la
    carte de réponse, le filet du pied — gardent les leurs : ce sont eux qui
    portent l'état de l'animation. */
-.abr-card {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+
 
 /* ---- La scène : les cinq mots en cercle, la tête au centre ----
 
@@ -6300,80 +2500,17 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    élément HTML de taille fixe, donc son rayon en unités SVG change avec la
    largeur de la carte. C'est son fond blanc, dessiné par-dessus, qui masque
    la portion inutile de chaque trait. ---- */
-.abr-orbit {
-  position: relative;
-  aspect-ratio: 560 / 360;
-  width: 100%;
-}
-.abr-wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  fill: none;
-}
-.abr-wire {
-  stroke: #e3e6ea;
-  stroke-width: 1;
-  /* Le trait reste à 1px quel que soit l'étirement du repère. */
-  vector-effect: non-scaling-stroke;
-  transition: stroke 0.3s ease;
-}
-.abr-wire.is-done {
-  stroke: #b9d1f7;
-}
-.abr-wire.is-on {
-  stroke: #0b6be6;
-  stroke-width: 1.5;
-}
+
 
 /* ---- Les cinq mots ---- */
-.abr-word {
-  position: absolute;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  padding: 7px 13px;
-  border: 1px solid #e3e6ea;
-  border-radius: 999px;
-  background: #ffffff;
-  font-size: 12.5px;
-  line-height: 1.2;
-  white-space: nowrap;
-  color: #6b6f76;
-  transform: translate(-50%, -50%);
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-.abr-word.is-done {
-  border-color: #b9d1f7;
-  color: #2e2e2e;
-}
-.abr-word.is-on {
-  border-color: #0b6be6;
-  background: #f4f8fe;
-  font-weight: 500;
-  color: #0b6be6;
-  box-shadow: 0 0 0 3px rgb(11 107 230 / 10%);
-}
+
+
 /* « humain » : la validation du dernier temps, dite sous le mot pour ne pas
    élargir la pastille au point de sortir de la scène. */
-.abr-word em {
-  font-style: normal;
-  font-size: 10px;
-  color: #0b6be6;
-}
+
 
 /* ---- L'agent, au centre de la scène ---- */
-.abr-bot {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translate(-50%, -50%);
-}
+
 
 /* =====================================================================
    LE ROBOT DE LA CARTE
@@ -6382,135 +2519,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    avec une transition, `.abr-eye` le clignement écrit à chaque image. Mettre
    les deux sur le même élément ferait que l'un écraserait l'autre.
    ===================================================================== */
-.abr-antenna {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.abr-ball {
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #0b6be6;
-}
-.abr-antenna i {
-  width: 2px;
-  height: 8px;
-  background: #0b6be6;
-}
-.abr-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.abr-head {
-  position: relative;
-  width: 80px;
-  height: 68px;
-  padding: 7px;
-  border: 2px solid #0b6be6;
-  border-radius: 22px;
-  background: #ffffff;
-  box-shadow: 0 6px 16px rgb(20 40 80 / 7%);
-  /* L'inclinaison change à l'étape, pas à l'image : la transition est donc
-     ici et non dans le composant. */
-  transition: transform 0.45s ease, box-shadow 0.3s ease;
-}
-.abr-head.is-working {
-  box-shadow:
-    0 0 0 5px rgb(11 107 230 / 8%),
-    0 10px 22px rgb(11 107 230 / 14%);
-}
-.abr-ear {
-  position: absolute;
-  top: 23px;
-  width: 4px;
-  height: 17px;
-  border-radius: 2px;
-  background: #0b6be6;
-}
-.abr-ear--l {
-  left: -6px;
-}
-.abr-ear--r {
-  right: -6px;
-}
-.abr-face {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  height: 100%;
-  border-radius: 15px;
-  background: #eaf2fe;
-}
-.abr-eyes {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: transform 0.35s ease;
-}
-.abr-eye {
-  width: 8px;
-  height: 11px;
-  border-radius: 4px;
-  background: #0b2a55;
-}
-.abr-arc {
-  width: 10px;
-  height: 6px;
-  overflow: visible;
-  fill: none;
-  stroke: #0b2a55;
-  stroke-width: 2.6;
-  stroke-linecap: round;
-}
-.abr-mouth {
-  width: 24px;
-  height: 10px;
-  overflow: visible;
-  fill: none;
-  stroke: #0b2a55;
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.abr-cheek {
-  position: absolute;
-  top: 33px;
-  width: 8px;
-  height: 4px;
-  border-radius: 999px;
-  background: #9dc0f5;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.abr-cheek.is-on {
-  opacity: 1;
-}
-.abr-cheek--l {
-  left: 9px;
-}
-.abr-cheek--r {
-  right: 9px;
-}
-.abr-floor {
-  height: 5px;
-  margin-top: 7px;
-  border-radius: 999px;
-  background: rgb(20 40 80 / 8%);
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .abr-wire,
-  .abr-word,
-  .abr-head,
-  .abr-eyes,
-  .abr-cheek {
-    transition: none;
-  }
-}
 
 /* =====================================================================
    LE DÉROULÉ D'UN PROJET — LE TEXTE ET LE CADRE DES SIX ÉTAPES
@@ -6534,12 +2543,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ni corps, ni interligne, ni graisse, ni couleur, ni marge. Ils gardent
    exactement le style du reste du site.
    ===================================================================== */
-.mfr-layout {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
-  align-items: stretch;
-  gap: 48px 64px;
-}
+
 /* Le surtitre reste EN HAUT, à la même hauteur que dans les autres
    sections ; seuls le titre et le paragraphe se centrent sur le cadre d'en
    face.
@@ -6554,25 +2558,11 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    Ne pas remettre de `justify-content` ici : il déplacerait le surtitre
    avec le reste, ce qui est exactement ce qu'on évite. */
-.mfr-copy {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-.mfr-copy > .lede {
-  flex: 1;
-}
-.mfr-copy .lede-title {
-  margin-top: auto;
-}
-.mfr-copy .lede-text {
-  margin-bottom: auto;
-}
+
+
 /* La seule mesure levée : le plafond de largeur du titre, qui vaut 60 % de
    la colonne ailleurs et n'a pas de sens dans une demi-colonne. */
-.mfr-copy .lede-title {
-  max-width: none;
-}
+
 
 /* =====================================================================
    LE CADRE DES SIX ÉTAPES
@@ -6584,130 +2574,17 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    l'encart de résultat a une hauteur FIXE. En retirer une seule fait
    grandir le cadre sur l'étape au texte le plus long.
    ===================================================================== */
-.mfr {
-  display: flex;
-  flex-direction: column;
-  min-height: 420px;
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid #24406a;
-  border-radius: 14px;
-  background: #0f1d33;
-}
+
 
 /* ---- L'en-tête ---- */
-.mfr-head {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 18px;
-  border-bottom: 1px solid #24406a;
-  font-family: var(--font-sans);
-  font-size: 10.5px;
-  white-space: nowrap;
-}
-.mfr-head-label {
-  letter-spacing: 1.4px;
-  color: #7f93b1; /* 5,4:1 sur le bleu nuit (#6f84a3 : 4,43:1) */
-}
-.mfr-head-step {
-  color: #8ec1ff;
-}
+
 
 /* ---- Le corps ---- */
-.mfr-body {
-  flex: 1;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
-}
-.mfr-list {
-  /* Le repère du filet de tracé, `.mfr-rail`. */
-  position: relative;
-  display: grid;
-  grid-template-rows: repeat(6, minmax(0, 1fr));
-  min-width: 0;
-  overflow: hidden;
-  border-right: 1px solid #1e3352;
-}
-.mfr-step {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-  padding: 0 14px;
-  border: 0;
-  border-bottom: 1px solid #1a2d4a;
-  background: transparent;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.mfr-step:last-child {
-  border-bottom: 0;
-}
-.mfr-step:focus-visible {
-  /* Au-dessus du filet de tracé : sans ça, il masquait le bord gauche du
-     contour au clavier. */
-  z-index: 2;
-  outline: 2px solid #0a6cf0;
-  outline-offset: -2px;
-}
-.mfr-step em {
-  flex: none;
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 11px;
-  font-weight: 700;
-  transition: color 0.3s ease;
-}
-.mfr-step > span {
-  overflow: hidden;
-  font-size: 13px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  transition: color 0.3s ease;
-}
-.mfr-step.is-on {
-  background: #10264a;
-}
-.mfr-step.is-on em {
-  color: #8ec1ff;
-}
-.mfr-step.is-on > span {
-  color: #ffffff;
-}
-.mfr-step.is-done em {
-  color: #8ec1ff;
-}
-.mfr-step.is-done > span {
-  color: #c9d3e2;
-}
-.mfr-step.is-next em {
-  color: #4f6383;
-}
-.mfr-step.is-next > span {
-  color: #8fa0b8;
-}
+
+
 /* La barre qui se remplit pendant les quatre secondes de l'étape. La durée
    doit rester celle de `STEP_MS` dans le composant. */
-.mfr-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* Au-dessus du filet de tracé (z-index 1). */
-  z-index: 2;
-  width: 2px;
-  background: #0a6cf0;
-  animation: mfr-fill 4s linear forwards;
-}
+
 @keyframes mfr-fill {
   from { height: 0; }
   to { height: 100%; }
@@ -6726,27 +2603,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    recopiés (`TRACE_DEPART`, `TRACE_DUREE`).
    ⚠ Le filet est le PREMIER enfant de la liste, pour ne pas voler le
    `:last-child` de l'étape 06. */
-.mfr-rail {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  width: 2px;
-  background: #2f5fa8;
-  opacity: 0.7;
-  transform-origin: top;
-  pointer-events: none;
-}
-.mfr-list[data-trace="wait"] .mfr-rail {
-  transform: scaleY(0);
-}
-.mfr-list[data-trace="go"] .mfr-rail {
-  transition: transform 1800ms linear 600ms;
-}
-.mfr-list[data-trace="go"] .mfr-step em {
-  animation: mfr-node 700ms ease-out;
-}
+
+
 @keyframes mfr-node {
   35% {
     color: #ffffff;
@@ -6755,89 +2613,20 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 /* ---- Le détail de l'étape ---- */
-.mfr-detail {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
-  padding: 22px 22px 18px;
-}
-.mfr-detail-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  color: #7f93b1;
-}
-.mfr-detail h3 {
-  font-size: 21px;
-  font-weight: 500;
-  line-height: 1.25;
-  color: #ffffff;
-}
+
+
 /* La description absorbe la hauteur restante. C'est elle qui encaisse la
    différence de longueur entre les six étapes, et c'est pour ça que le
    cadre ne grandit pas. */
-.mfr-desc {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: #b6c2d4;
-}
-.mfr-out {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  height: 76px;
-  box-sizing: border-box;
-  padding: 12px 14px;
-  border: 1px solid #2f5fa8;
-  border-radius: 10px;
-  background: #10264a;
-}
-.mfr-out span {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  color: #8ec1ff;
-}
-.mfr-out strong {
-  font-size: 14.5px;
-  font-weight: 400;
-  line-height: 1.3;
-  color: #ffffff;
-}
+
 
 /* Le bloc des six copies de mesure n'est rendu que sous 900px. Cette règle
    est un filet : si le média et le composant se désaccordaient, il ne
    laisserait pas six panneaux de plus dans la page. */
-.mfr-measure {
-  display: none;
-}
+
 
 /* ---- Le pied : l'avancement ---- */
-.mfr-foot {
-  flex: none;
-  display: flex;
-  gap: 4px;
-  padding: 12px 18px;
-  border-top: 1px solid #24406a;
-}
-.mfr-foot i {
-  flex: 1;
-  height: 6px;
-  border-radius: 3px;
-  background: #1e3352;
-  transition: background-color 0.3s ease;
-}
-.mfr-foot i.is-done {
-  background: #2f5fa8;
-}
-.mfr-foot i.is-on {
-  background: #0a6cf0;
-}
+
 
 /* =====================================================================
    SOUS 900px : LE CADRE DE LA MÉTHODE, EN LISTE
@@ -6858,116 +2647,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    La version de bureau garde sa hauteur écrite de 420px et sa description
    rognée, qui sont ce qui l'empêche de sauter toutes les quatre secondes.
    ===================================================================== */
-@media (max-width: 900px) {
-  .mfr {
-    min-height: auto;
-  }
-  .mfr-head {
-    padding: 12px 16px;
-  }
-  /* Le repère des six copies de mesure, qui se posent en absolu dessus. */
-  .mfr-body {
-    position: relative;
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .mfr-measure {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    visibility: hidden;
-    pointer-events: none;
-  }
 
-  /* ---- La liste, d'abord ---- */
-  .mfr-list {
-    order: 1;
-    grid-template-rows: auto;
-    grid-template-columns: minmax(0, 1fr);
-    border-right: 0;
-    border-bottom: 1px solid #1e3352;
-  }
-  .mfr-step {
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    min-height: 52px;
-    height: auto;
-    padding: 12px 16px;
-    border-bottom: 1px solid #1a2d4a;
-  }
-  .mfr-step:last-child {
-    border-bottom: 0;
-  }
-  /* Le nom tient en entier : plus de `text-overflow`, qui coupait au milieu
-     d'un mot, et deux lignes au besoin. */
-  .mfr-step > span {
-    font-size: 14.5px;
-    line-height: 1.3;
-    white-space: normal;
-    overflow-wrap: break-word;
-    text-overflow: clip;
-    overflow: visible;
-  }
-
-  /* ---- Le détail, ensuite ---- */
-  .mfr-detail {
-    order: 2;
-    padding: 18px 16px 20px;
-    border-top: 1px solid #1e3352;
-  }
-  .mfr-detail h3 {
-    font-size: 19px;
-    text-wrap: pretty;
-  }
-  /* La description n'absorbe plus rien et n'est plus rognée : c'est la
-     hauteur mesurée du panneau qui absorbe la différence entre les six
-     étapes, et elle la renvoie SOUS l'encart de résultat. */
-  .mfr-desc {
-    flex: none;
-    overflow: visible;
-    font-size: 14.5px;
-  }
-  .mfr-out {
-    margin-top: auto;
-    height: auto;
-  }
-  .mfr-out strong {
-    line-height: 1.4;
-  }
-
-  /* ---- L'avancement : la ligne allumée le dit déjà ---- */
-  .mfr-foot {
-    display: none;
-  }
-
-  /* ---- L'écart entre le texte de la section et le cadre, aligné sur celui
-     des heros : 40px partout sur le site. ---- */
-  .mfr-layout {
-    gap: 40px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mfr-step,
-  .mfr-step em,
-  .mfr-step > span,
-  .mfr-foot i {
-    transition: none;
-  }
-  .mfr-bar {
-    animation: none;
-    height: 100%;
-  }
-  .mfr-list[data-trace] .mfr-rail {
-    transform: none;
-    transition: none;
-  }
-  .mfr-list[data-trace] .mfr-step em {
-    animation: none;
-  }
-}
 
 /* =====================================================================
    ⚠ LE TON DE LA BANDE « DÉROULÉ D'UN PROJET », ÉCRIT EN DUR
@@ -6983,21 +2663,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    services. À spécificité égale avec le filet du thème, ce bloc doit rester
    APRÈS lui dans la feuille.
    ===================================================================== */
-.site-theme-alternating main > .band.solutions-ink-band {
-  background: var(--surface-dark);
-  color: #ffffff;
-  --foreground: #ffffff;
-  --muted-foreground: #c2d3e9;
-  --text-mono: #a8c3e8;
-  --hairline: rgb(188 215 255 / 18%);
-  --border: rgb(188 215 255 / 22%);
-  --surface: #10233a;
-  --surface-2: #142b45;
-  --dark-accent: #8fc0ff;
-}
-.site-theme-alternating main > .band.solutions-ink-band .lede-kicker {
-  color: #9ec8ff;
-}
+
+
 /* ---- ⚠ ET LES MOTS PEINTS DU TITRE, qui manquaient.
    La bande déclare bien `--dark-accent`, mais rien ne l'appliquait : les
    mots peints retombaient donc sur la règle générale, `var(--brand)`,
@@ -7006,9 +2673,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    Les trois autres familles de bandes sombres du site ont chacune la leur —
    `.home-dark-band`, `.svc-ink`, `.dark-cta` — celle-ci avait été oubliée. */
-.solutions-ink-band :is(h1, h2, h3) .title-accent {
-  color: var(--dark-accent);
-}
+
 
 /* =====================================================================
    « QU'EST-CE QU'UNE AUTOMATISATION ? » — LE FLUX À NŒUDS
@@ -7037,198 +2702,33 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    différente qu'il faut pour le téléphone, pas des tailles mixtes.
    ────────────────────────────────────────────────────────────────────────
    ===================================================================== */
-.aug {
-  width: 100%;
-  min-width: 0;
-}
-.aug-scene {
-  position: relative;
-  container-type: inline-size;
-  width: 100%;
-  aspect-ratio: 640 / 370;
-}
-.aug-wires {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  fill: none;
-}
+
 
 /* ---- Les liaisons, les ports, les étiquettes ---- */
-.aug-edge {
-  stroke: #d5dbe3;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  transition: stroke 0.3s ease;
-}
-.aug-edge.is-run {
-  stroke: #8fb5ee;
-}
-.aug-edge.is-done {
-  stroke: #2db37a;
-}
+
+
 /* La liaison du cas ambigu ne réussit pas : elle vire à l'orange. */
-.aug-edge--warm.is-done {
-  stroke: #f5b454;
-}
-.aug-dash {
-  stroke: #c9d0da;
-  stroke-width: 1.5;
-  transition: stroke 0.3s ease;
-}
-.aug-dash.is-on {
-  stroke: #0b6be6;
-}
-.aug-port {
-  fill: #6e7177;
-  stroke: none;
-}
-.aug-label {
-  fill: #2db37a;
-  font-size: 9.5px;
-  stroke: none;
-}
-.aug-dot {
-  fill: #0b6be6;
-  stroke: none;
-}
-.aug-dot-halo {
-  fill: rgb(11 107 230 / 16%);
-  stroke: none;
-}
+
 
 /* ---- Les nœuds ---- */
-.aug-node {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.406cqw;
-  box-sizing: border-box;
-  border: 1.5px solid #d5dbe3;
-  border-radius: 1.25cqw;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgb(20 40 80 / 5%);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
+
 /* Le déclencheur a le bord gauche arrondi, comme une entrée de flux. */
-.aug-node--trigger {
-  border-radius: 2.813cqw 1.25cqw 1.25cqw 2.813cqw;
-}
-.aug-node--round {
-  border-radius: 999px;
-}
-.aug-node--wide {
-  padding-inline: 2.188cqw;
-}
-.aug-node svg {
-  flex: none;
-  width: 3.438cqw;
-  height: 3.438cqw;
-  stroke-width: 1.8;
-  color: #5a5a5a;
-  transition: color 0.3s ease;
-}
-.aug-node--ai svg {
-  color: #0b6be6;
-}
-.aug-node--wide b {
-  font-size: 1.953cqw;
-  font-weight: 400;
-  white-space: nowrap;
-  color: #2e2e2e;
-}
+
+
 /* Le nom vit SOUS la boîte, hors de son flux : il ne doit jamais en changer
    la taille, sinon les nœuds ne tomberaient plus sur leurs liaisons. */
-.aug-name {
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.156cqw;
-  margin-top: 1.094cqw;
-  font-size: 1.797cqw;
-  line-height: 1.25;
-  white-space: nowrap;
-  color: #2e2e2e;
-  transform: translateX(-50%);
-}
-.aug-name em {
-  font-style: normal;
-  font-size: 1.484cqw;
-  color: #71757c;
-}
+
 
 /* ---- Les états ---- */
-.aug-node.is-run {
-  border-color: #0b6be6;
-  box-shadow: 0 0 0 4px rgb(11 107 230 / 14%);
-}
-.aug-node.is-done {
-  border-color: #2db37a;
-}
-.aug-node.is-alert {
-  border-color: #f5b454;
-  box-shadow: 0 0 0 4px rgb(245 180 84 / 20%);
-}
-.aug-node.is-alert svg {
-  color: #d98a1c;
-}
-.aug-badge {
-  position: absolute;
-  right: -0.781cqw;
-  bottom: -0.781cqw;
-  display: grid;
-  place-items: center;
-  background: #ffffff;
-  border-radius: 999px;
-}
-.aug-badge svg {
-  width: 1.719cqw;
-  height: 1.719cqw;
-  stroke-width: 2.2;
-}
-.aug-badge--ok svg {
-  color: #2db37a;
-}
-.aug-badge--warn svg {
-  width: 1.875cqw;
-  height: 1.875cqw;
-}
+
+
 /* ⚠ Le badge d'alerte est un triangle PLEIN : son tracé porte ses propres
    couleurs, et la règle de teinte des icônes de nœud ne doit pas les
    écraser. */
-.aug-node.is-alert .aug-badge--warn svg {
-  color: inherit;
-}
+
 
 /* ---- L'éclair du déclencheur ---- */
-.aug-bolt {
-  position: absolute;
-  display: block;
-  width: 1.875cqw;
-  height: 2.188cqw;
-  transform: translate(-50%, -50%);
-}
-.aug-bolt svg {
-  width: 100%;
-  height: 100%;
-  fill: #f5b454;
-  stroke: none;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .aug-edge,
-  .aug-dash,
-  .aug-node,
-  .aug-node svg {
-    transition: none;
-  }
-}
 
 /* =====================================================================
    LES PIÈCES DES MINI-APERÇUS, PARTAGÉES PAR LES SIX SÉRIES
@@ -7241,283 +2741,30 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ===================================================================== */
 
 /* ---- Des compositions d'ensemble ---- */
-.auc-mid {
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.auc-mid--col {
-  flex-direction: column;
-}
-.auc-list {
-  flex-direction: column;
-  gap: 7px;
-}
-.auc-list--mid {
-  justify-content: center;
-}
-.auc-pair {
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
+
 
 /* ---- Une boîte nommée, pour les schémas de connexion ---- */
-.auc-box {
-  flex: none;
-  padding: 9px 11px;
-  border: 1px solid #e3e8f0;
-  border-radius: 8px;
-  background: #ffffff;
-  font-size: 11px;
-  white-space: nowrap;
-  color: #2e2e2e;
-}
+
 /* Une pile de sources, et une mini-carte de fiche. */
-.auc-stack {
-  flex: none;
-  display: grid;
-  gap: 4px;
-}
-.auc-stack i {
-  width: 26px;
-  height: 9px;
-  border-radius: 3px;
-  background: #e3e8f0;
-}
-.auc-card-mini {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-  padding: 8px 9px;
-  border: 1px solid #e3e8f0;
-  border-radius: 8px;
-  background: #ffffff;
-}
-.auc-card-mini--wide {
-  flex: none;
-  width: 80%;
-}
-.auc-sync {
-  flex: none;
-  display: grid;
-  gap: 2px;
-}
-.auc-sync svg {
-  width: 13px;
-  height: 13px;
-  color: #0b6be6;
-}
-.auc-sync .is-back {
-  transform: rotate(180deg);
-}
+
 
 /* ---- Une rangée de barres ---- */
-.auc-bars {
-  flex: 1 1 0;
-  display: flex;
-  align-items: flex-end;
-  gap: 5px;
-  min-width: 0;
-  height: 54px;
-}
-.auc-bars i {
-  flex: 1;
-  border-radius: 3px 3px 0 0;
-  background: #c3d4ee;
-}
-.auc-bars i:last-child {
-  background: #0b6be6;
-}
+
+
 /* L'écart à vérifier, et la part estimée d'une projection. */
-.auc-bars i.is-warm {
-  background: #e2b48c;
-}
-.auc-bars i.is-soft {
-  background: #d6e4fb;
-}
-.auc-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  min-width: 0;
-}
-.auc-group em {
-  font-style: normal;
-  font-size: 9.5px;
-  color: #71757c;
-}
+
 
 /* ---- Un petit cadre d'application ---- */
-.auc-app {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid #e3e8f0;
-  border-radius: 7px;
-  background: #ffffff;
-}
-.auc-app-bar {
-  display: flex;
-  gap: 4px;
-  padding: 6px 7px;
-  border-bottom: 1px solid #eef1f6;
-  background: #f7f9fd;
-}
-.auc-app-bar b {
-  width: 5px;
-  height: 5px;
-  border-radius: 999px;
-  background: #cfd8e6;
-}
-.auc-app-body {
-  display: flex;
-  flex: 1;
-}
-.auc-app-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 7px 6px;
-  border-right: 1px solid #eef1f6;
-}
-.auc-app-nav em {
-  font-style: normal;
-  font-size: 9px;
-  white-space: nowrap;
-  color: #6b6f76;
-}
-.auc-app-nav em:first-child {
-  color: #0b6be6;
-}
-.auc-app-main {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  flex: 1;
-  min-width: 0;
-  padding: 9px 9px 10px;
-}
-.auc-app-main i {
-  height: 5px;
-  border-radius: 3px;
-  background: #eef1f6;
-}
-.auc-app-badge {
-  position: absolute;
-  right: 7px;
-  bottom: 7px;
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: #eaf2fe;
-  font-size: 9px;
-  font-weight: 400;
-  color: #0b6be6;
-}
+
 
 /* ---- Un écran de saisie, une grille de tableur ---- */
-.auc-phone {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 64px;
-  padding: 9px 8px 10px;
-  border: 1px solid #e3e8f0;
-  border-radius: 9px;
-  background: #ffffff;
-}
-.auc-field-line {
-  height: 9px;
-  border: 1px solid #e3e8f0;
-  border-radius: 4px;
-}
-.auc-phone b {
-  height: 10px;
-  border-radius: 4px;
-  background: #0b6be6;
-}
-.auc-grid {
-  flex: none;
-  display: grid;
-  grid-template-columns: repeat(3, 14px);
-  gap: 3px;
-}
-.auc-grid i {
-  height: 9px;
-  border: 1px solid #e3e8f0;
-  border-radius: 2px;
-}
+
 
 /* ---- Un rapprochement de deux listes ---- */
-.auc-map {
-  flex-direction: column;
-  justify-content: center;
-  gap: 9px;
-}
-.auc-map-row {
-  display: grid;
-  grid-template-columns: 1fr 14px 1fr;
-  align-items: center;
-  gap: 6px;
-}
-.auc-map-row b {
-  height: 1px;
-  background: #c3d4ee;
-}
+
 
 /* ---- Des rangées : état, rang, personne ---- */
-.auc-row--off {
-  opacity: 0.55;
-}
-.auc-who {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-width: 0;
-}
-.auc-ok svg,
-.auc-no svg {
-  width: 11px;
-  height: 11px;
-  stroke-width: 2.6;
-}
-.auc-ok svg {
-  color: #0b6be6;
-}
-.auc-no svg {
-  color: #a0632e;
-}
-.auc-rank {
-  display: grid;
-  place-items: center;
-  width: 15px;
-  height: 15px;
-  border-radius: 999px;
-  background: #eaf2fe;
-  font-size: 9px;
-  font-weight: 500;
-  color: #0b6be6;
-}
-.auc-team {
-  display: flex;
-  gap: 6px;
-}
-.auc-avatar--on {
-  background: #0b6be6;
-}
-.auc-step--soft {
-  background: #c3d4ee;
-}
-.auc-note {
-  font-size: 9.5px;
-  color: #71757c;
-}
+
 
 /* =====================================================================
    LES QUATRE VISUELS DE « QU'EST-CE QUE… »
@@ -7537,146 +2784,34 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    se rend différemment d'un navigateur à l'autre. Tout rétrécit donc
    ensemble, et il n'y a pas de défilement.
    ===================================================================== */
-.unv,
-.unv-wrap {
-  width: 100%;
-  min-width: 0;
-}
-.unv-scene {
-  position: relative;
-  container-type: inline-size;
-  width: 100%;
-  aspect-ratio: 520 / 340;
-}
-.unv-shapes {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
+
+
 /* Un texte posé sur la scène. Il ne se replie jamais : un libellé qui ne
    tient pas se raccourcit dans le contenu, il ne passe pas à la ligne par
    dessus un tracé. */
-.unv-t {
-  position: absolute;
-  white-space: nowrap;
-  line-height: 1.2;
-  color: #2e2e2e;
-}
+
 
 /* ---- Les pièces communes aux quatre scènes ---- */
-.unv-dot {
-  fill: #0b6be6;
-}
-.unv-dot-halo {
-  fill: rgb(11 107 230 / 16%);
-}
-.unv-hint {
-  color: #8a8f98;
-}
-.unv-num {
-  font-weight: 500;
-  color: #0b6be6;
-}
-.unv-step {
-  font-weight: 500;
-  color: #2e2e2e;
-}
-.unv-wire,
-.unv-feed {
-  fill: none;
-}
-.unv-wire {
-  stroke-width: 1.4;
-  transition: stroke 0.3s ease;
-}
+
 
 /* ---- 1 · Sur-mesure : les rôles et la fenêtre ---- */
-.unv-role {
-  transition: fill 0.3s ease, stroke 0.3s ease;
-}
-.unv-role-label {
-  color: #5a5a5a;
-  transition: color 0.3s ease;
-}
-.unv-role-label[data-on="true"] {
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.unv-screen {
-  font-weight: 500;
-  color: #2e2e2e;
-  transition: color 0.3s ease;
-}
+
+
 /* Le seul écran que l'IA sert. Un sur six, et c'est le propos. */
-.unv-screen[data-on="true"] {
-  color: #0b6be6;
-}
-.unv-pulse {
-  fill: #0b6be6;
-}
+
 
 /* ---- 2 · Intégrations : les deux systèmes et le journal ---- */
-.unv-sys {
-  font-weight: 500;
-  color: #1f3a5f;
-}
-.unv-chip {
-  color: #0b6be6;
-}
-.unv-pill {
-  fill: #0b6be6;
-}
-.unv-pill-label {
-  font-weight: 500;
-  color: #ffffff;
-}
-.unv-log {
-  color: #2e2e2e;
-}
+
 
 /* ---- 3 · Donnée : les sources et le graphique ---- */
-.unv-src {
-  color: #5a5a5a;
-}
-.unv-grain {
-  fill: #a0a5ad;
-}
+
+
 /* L'estimation porte sa propre légende, en bleu : elle ne se lit pas comme
    un chiffre constaté. */
-.unv-est {
-  color: #0b6be6;
-}
+
 
 /* ---- 4 · Adoption : la piste et les repères ---- */
-.unv-ini {
-  font-weight: 600;
-  color: #ffffff;
-}
-.unv-num[data-state="rest"] {
-  color: #a0a5ad;
-}
-.unv-num[data-state="done"] {
-  color: #2db37a;
-}
-.unv-mark {
-  color: #5a5a5a;
-  transition: color 0.3s ease;
-}
-.unv-mark[data-on="true"] {
-  color: #2e2e2e;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .unv-wire,
-  .unv-role,
-  .unv-role-label,
-  .unv-screen,
-  .unv-mark {
-    transition: none;
-  }
-}
 
 /* =====================================================================
    PAGES SERVICES · LES CINQ VISUELS DE LA BANDE BLEU NUIT
@@ -7705,303 +2840,44 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ne serait plus à la même hauteur que celui des autres sections. Le
    mécanisme qui tient ce surtitre en place est juste au-dessus dans ce
    fichier, il a besoin de l'étirement. */
-.svc-split--core {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-  gap: 40px 48px;
-}
-.svc-split--core > .cv {
-  align-self: center;
-}
 
-.cv {
-  width: 100%;
-}
-.cv-scene {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 480 / 320;
-  container-type: inline-size;
-  overflow: visible;
-  font-family: var(--font-sans);
-  line-height: 1;
-}
-.cv-shapes {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  fill: none;
-}
 
 /* ---- Les blocs et les textes posés sur la scène ---- */
-.cv-box,
-.cv-t {
-  position: absolute;
-  box-sizing: border-box;
-  white-space: nowrap;
-}
-.cv-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-.cv-t {
-  color: #8fa0b8;
-  transition: color 0.3s ease;
-}
-.cv-strong {
-  font-weight: 600;
-  color: #ffffff;
-}
-.cv-muted {
-  color: #6f84a3;
-}
-.cv-ok {
-  color: #34d399;
-}
-.cv-warn {
-  color: #f5b454;
-}
-.cv-note {
-  color: #6f84a3;
-}
-.cv-note.is-done {
-  color: #34d399;
-}
-.cv-note.is-said {
-  color: #8ec1ff;
-}
+
 
 /* ---- Les pastilles ---- */
-.cv-pill {
-  padding: 0 6px;
-  border: 1px solid #24406a;
-  border-radius: 999px;
-  background: #13223a;
-  color: #c9d3e2;
-}
-.cv-pill.is-on {
-  border-color: #4e8ff0;
-  background: #16335a;
-  color: #ffffff;
-  box-shadow: 0 0 0 3px rgb(78 143 240 / 16%);
-}
-.cv-pill.is-set {
-  border-color: #2f5fa8;
-  color: #ffffff;
-}
-.cv-pill.is-done {
-  border-color: #34d399;
-  background: #123a2a;
-  color: #ffffff;
-}
-.cv-pill.is-warn {
-  border-color: #f5b454;
-  background: #3a2e17;
-  color: #ffffff;
-}
+
 
 /* ---- Les encadrés ---- */
-.cv-frame {
-  border: 1px solid #4e8ff0;
-  border-radius: 12px;
-  background: transparent;
-}
-.cv-flow.is-hot,
-.cv-layer.is-hot {
-  box-shadow: 0 0 0 5px rgb(78 143 240 / 16%);
-}
-.cv-layer {
-  border-radius: 10px;
-}
+
 
 /* ---- Les liaisons, les rails et les tracés ---- */
-.cv-link,
-.cv-rail,
-.cv-trace,
-.cv-dash,
-.cv-base {
-  fill: none;
-  stroke-linecap: round;
-  transition: stroke 0.3s ease;
-}
-.cv-link {
-  stroke: #24406a;
-  stroke-width: 1;
-}
-.cv-link.is-on {
-  stroke: #4e8ff0;
-}
-.cv-link.is-set {
-  stroke: #2f5fa8;
-}
-.cv-link.is-done {
-  stroke: #34d399;
-}
-.cv-link.is-warn {
-  stroke: #f5b454;
-}
-.cv-rail {
-  stroke: #1e3352;
-  stroke-width: 1;
-}
-.cv-trace {
-  stroke: #4e8ff0;
-  stroke-width: 2;
-}
-.cv-dash {
-  stroke: #24406a;
-  stroke-width: 1;
-  stroke-dasharray: 3 4;
-}
-.cv-base {
-  stroke: #24406a;
-  stroke-width: 1;
-}
-.cv-win {
-  fill: #0b1a2e;
-  stroke: #2a4a78;
-  stroke-width: 1;
-}
-.cv-rule {
-  stroke: #2a4a78;
-  stroke-width: 1;
-}
-.cv-win-dot {
-  fill: #2a4a78;
-}
+
 
 /* ---- Le point qui circule ---- */
-.cv-dot {
-  fill: #4e8ff0;
-}
-.cv-dot-halo {
-  fill: #4e8ff0;
-  opacity: 0.2;
-}
-.cv-dot--grey .cv-dot,
-.cv-dot--grey .cv-dot-halo {
-  fill: #6f84a3;
-}
-.cv-dot--green .cv-dot,
-.cv-dot--green .cv-dot-halo {
-  fill: #34d399;
-}
+
 
 /* ---- 1 · Flux automatisé : les trois jauges du centre ---- */
-.cv-gauge {
-  border-radius: 999px;
-  background: #24406a;
-}
-.cv-gauge.is-on {
-  background: #4e8ff0;
-}
+
 
 /* ---- 2 · Votre application : les modules ----
    ⚠ Aucune transition sur `left` et `top` : l'horloge écrit ces deux
    valeurs à chaque image, une transition se battrait avec elle. */
-.cv-module {
-  padding: 0 8px;
-  border: 1px solid #24406a;
-  border-radius: 9px;
-  background: #13223a;
-  color: #c9d3e2;
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-.cv-module.is-set {
-  border-color: #2f5fa8;
-  color: #ffffff;
-}
-.cv-module.is-lit {
-  border-color: #4e8ff0;
-  background: #16335a;
-  box-shadow: 0 0 0 3px rgb(78 143 240 / 16%);
-}
+
 
 /* ---- 3 · Couche d'intégration : l'étiquette qui suit le point ---- */
-.cv-tag {
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: #0a6cf0;
-  color: #ffffff;
-  transition: opacity 0.2s ease;
-}
+
 
 /* ---- 4 · Vos indicateurs : les barres ---- */
-.cv-check {
-  stroke: #2f5fa8;
-}
-.cv-bar {
-  border-radius: 3px 3px 0 0;
-  background: #2f5fa8;
-}
-.cv-bar.is-lead {
-  background: #4e8ff0;
-}
+
 
 /* ---- 5 · Vos équipes : le parcours et les jauges ---- */
-.cv-num {
-  border: 1px solid #24406a;
-  border-radius: 999px;
-  background: #13223a;
-  color: #8fa0b8;
-}
-.cv-num.is-on {
-  border-color: #4e8ff0;
-  background: #16335a;
-  color: #ffffff;
-}
-.cv-num.is-done {
-  border-color: #34d399;
-  background: #123a2a;
-  color: #34d399;
-}
-.cv-step {
-  justify-content: flex-start;
-  padding: 0 10px;
-  border-radius: 999px;
-}
-.cv-avatar {
-  border: 1px solid #24406a;
-  border-radius: 999px;
-  background: #13223a;
-  color: #c9d3e2;
-}
-.cv-avatar.is-done {
-  border-color: #34d399;
-  background: #123a2a;
-  color: #ffffff;
-}
-.cv-track {
-  border-radius: 999px;
-  background: #1e3352;
-}
-.cv-fill {
-  border-radius: 999px;
-  background: #4e8ff0;
-}
-.cv-fill.is-done {
-  background: #34d399;
-}
+
 
 /* ⚠ Sous `prefers-reduced-motion`, l'horloge n'est pas armée du tout : les
    visuels rendent leur état final. Il ne reste donc que les transitions de
    couleur à couper. */
-@media (prefers-reduced-motion: reduce) {
-  .cv-box,
-  .cv-t,
-  .cv-module,
-  .cv-tag,
-  .cv-link,
-  .cv-rail,
-  .cv-trace,
-  .cv-dash,
-  .cv-base {
-    transition: none;
-  }
-}
+
 
 /* =====================================================================
    LES MOTS ET LES LIBELLÉS PEINTS EN BLEU
@@ -8009,16 +2885,12 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
 /* ---- Les deux titres de colonne du pied de page, sur tout le site.
    Le pied est sur fond blanc : `--brand` y tient à 5,09:1. ---- */
-.site-footer-title {
-  color: var(--brand);
-}
+
 
 /* ---- Le surtitre de la carte de rappel du bas de l'accueil. C'est le seul
    surtitre peint du site : il tient lieu de titre à cette carte, le `h2` en
    dessous étant une question. Fond blanc, donc `--brand`. ---- */
-.eyebrow--accent {
-  color: var(--brand);
-}
+
 
 /* ---- Un mot peint dans le titre d'une carte de CTA.
    ⚠ `.dark-cta` posait son fond sombre sans redéfinir `--dark-accent` :
@@ -8090,9 +2962,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    ⚠ Scopé à `team-cta` : les autres CTA du site gardent la mesure commune,
    leurs titres sont écrits pour elle. ---- */
-.team-cta .cta-booking-copy .lede-title {
-  max-width: none;
-}
+
 
 /* ---- LA PAGE CONTACT ---- */
 /* Le formulaire dans une carte, sur TOUTE la largeur de la section : la
@@ -8185,9 +3055,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   }
   /* Ce titre avait une réduction mobile historique. Il reprend désormais
      exactement le corps des autres H2 de l'accueil, notamment Solutions. */
-  main > .band#cas-usage.home-usecases-light > .col > .section-heading .lede-title {
-    font-size: var(--fs-h2);
-  }
+  
   main > .band:is(
     .home-usecases-light,
     .home-solutions-light,
@@ -8209,94 +3077,42 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   ) > .col > .section-heading > .go {
     align-self: flex-start;
   }
-  .home-usecases-light .daily-section-aside {
-    align-items: flex-start;
-    text-align: left;
-  }
-  .home-usecases-light .daily-section-aside .section-side-text {
-    margin-inline: 0;
-    text-align: left;
-  }
+  
+  
 
   /* Résultats recherchés et méthode : uniquement leur bloc éditorial. */
-  .home-impact-light .operational-impact-heading,
-  .home-method-dark .mfr-copy > .lede {
-    text-align: left;
-  }
-  .home-method-dark .mfr-copy > .lede {
-    align-items: flex-start;
-  }
-  .home-method-dark .mfr-copy .lede-title {
-    width: 100%;
-  }
-  .home-impact-light .operational-impact-heading :is(h2, p),
-  .home-method-dark .mfr-copy :is(.lede-title, .lede-text) {
-    margin-inline: 0;
-    text-align: left;
-  }
+  
+  
+  
+  
 
   /* FAQ : l'accordéon situé dessous conserve son alignement initial. */
-  .home-faq-light > .col > .lede {
-    align-items: flex-start;
-    text-align: left;
-  }
-  .home-faq-light > .col > .lede :is(.lede-title, .lede-text) {
-    margin-inline: 0;
-    text-align: left;
-  }
+  
+  
 
   /* ---- L'encadré « Votre situation est unique » du bloc Cas d'usage.
 
      C'est un appel à l'action, pas un bloc de lecture : il suit donc la
      règle des CTA et se centre, surtitre, titre, paragraphe et bouton.
      Il ne porte pas `.dark-cta`, d'où ces règles à part. ---- */
-  .home-usecases-light .daily-open-callout {
-    align-items: center;
-    text-align: center;
-  }
-  .home-usecases-light .daily-open-callout > div {
-    margin-inline: auto;
-  }
-  .home-usecases-light .daily-open-callout .eyebrow {
-    justify-content: center;
-  }
-  .home-usecases-light .daily-open-callout .btn {
-    align-self: center;
-  }
+  
+  
+  
+  
 
   /* CTA principal : seule la colonne de texte est centrée. Le calendrier
      garde intégralement son dessin et ses alignements internes. */
-  .home-booking-cta .cta-booking-copy,
-  .home-booking-cta .cta-booking-copy > .lede,
-  .home-booking-cta .cta-booking-copy .cta-note {
-    text-align: left;
-  }
-  .home-booking-cta .cta-booking-copy {
-    align-items: flex-start;
-  }
-  .home-booking-cta .cta-booking-copy > .lede {
-    width: 100%;
-    align-items: flex-start;
-  }
-  .home-booking-cta .cta-booking-copy :is(.lede-title, .lede-text),
-  .home-booking-cta .cta-booking-copy .cta-note {
-    margin-inline: 0;
-  }
+  
+  
+  
+  
 
   /* Dernier rappel : c'est un CTA, donc son contenu éditorial est centré
      même s'il est présenté dans une carte. */
-  .home-cta-reminder-card {
-    text-align: left;
-  }
-  .home-cta-reminder-card p,
-  .home-cta-reminder-card .btn {
-    margin-inline: 0;
-  }
+  
+  
 
-  .home-solutions-light .families-note {
-    margin-inline: 0;
-    text-align: left;
-  }
+  
 }
 
 /* =====================================================================
@@ -8309,37 +3125,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ===================================================================== */
 @media (max-width: 767px) {
   /* Hero : le tableau de bord animé reste inchangé. */
-  .solutions-page-hero .studio-hero-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 2rem;
-  }
-  .solutions-page-hero h1,
-  .solutions-page-hero .studio-hero-copy,
-  .solutions-page-hero .studio-hero-copy > p,
-  .solutions-page-hero .hero-reassurance {
-    text-align: left;
-  }
-  .solutions-page-hero .studio-hero-copy {
-    align-items: flex-start;
-  }
-  .solutions-page-hero .studio-hero-copy > p,
-  .solutions-page-hero .hero-reassurance {
-    margin-inline: 0;
-  }
-  .solutions-page-hero .studio-hero-copy > .btn-row {
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
+  
+  
+  
+  
+  
   /* Titres, surtitres et paragraphes des sections. */
-  main > .band.solutions-families-band > .col > .lede,
-  main > .band#cas-concrets > .col > .section-heading > .lede,
-  main > .band#methode .mfr-copy > .lede,
   main > .band#securite > .col > .section-heading > .lede,
-  main > .band#tarification > .col > .lede,
-  main > .band.solutions-faq-light > .col > .lede {
+main > .band#tarification > .col > .lede {
     width: 100%;
     max-width: 100%;
     margin-inline: 0;
@@ -8366,58 +3159,23 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      `align-items: flex-start` sous 1024px : il suffit de ne plus l'en
      sortir. La consigne de centrer les CTA ne vaut pas pour ce lien, qui
      n'est pas un bouton mais la suite de la phrase au-dessus. */
-  main > .band#cas-concrets > .col > .section-heading > .go {
-    align-self: flex-start;
-  }
-  .solutions-families-band .families-note {
-    margin-inline: 0;
-    text-align: left;
-  }
+  
+  
 
   /* Solutions concrètes : l'ensemble de chaque tuile est centré, avec son
      icône directement à côté du titre. */
-  #cas-concrets .need-tile {
-    align-items: flex-start;
-    text-align: left;
-  }
-  #cas-concrets .need-tile-heading {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 0.55rem;
-  }
-  #cas-concrets .need-tile-heading strong {
-    text-align: left;
-  }
-  #cas-concrets .need-tile p {
-    max-width: 34rem;
-    margin-inline: 0;
-    text-align: left;
-  }
+  
+  
+  
+  
 
   /* CTA : seule la colonne éditoriale est centrée. Le calendrier conserve
      tous ses alignements et son comportement. */
-  .solutions-page-cta .cta-booking-copy,
-  .solutions-page-cta .cta-booking-copy > .lede,
-  .solutions-page-cta .cta-booking-copy .cta-note {
-    text-align: left;
-  }
-  .solutions-page-cta .cta-booking-copy,
-  .solutions-page-cta .cta-booking-copy > .lede {
-    align-items: flex-start;
-  }
-  .solutions-page-cta .cta-booking-copy > .lede {
-    width: 100%;
-  }
-  .solutions-page-cta .cta-booking-copy :is(.lede-title, .lede-text),
-  .solutions-page-cta .cta-booking-copy .cta-note {
-    margin-inline: 0;
-  }
-  .solutions-page-cta .cta-booking-copy > .btn-row {
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
+  
+  
+  
+  
+  
 }
 
 /* =====================================================================
@@ -8468,14 +3226,8 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
   /* ---- Les sections en deux blocs des pages services ----
      Seule la colonne de TEXTE est visée. Le visuel d'en face garde sa
      composition. */
-  .svc-split > .svc-split-copy,
-  .svc-split > .svc-what {
-    align-items: flex-start;
-    text-align: left;
-  }
-  .svc-core-note {
-    justify-content: flex-start;
-  }
+  
+  
 
 }
 
@@ -8491,35 +3243,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    900px, et non 760 : c'est la largeur à laquelle la grille des CTA se
    replie déjà. Le calendrier de l'accueil et de Contact garde son dessin,
    seule la colonne de texte est centrée. */
-@media (max-width: 900px) {
-  /* La méthode passe réellement sur une colonne. Le `auto-fit` de la règle
-     desktop pouvait conserver deux pistes très étroites sur l'accueil et
-     réduisait le titre à environ 200px, d'où sa troisième ligne. */
-  .mfr-layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
 
-  .svc-cta .cta-booking-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .cta-booking-copy {
-    align-items: flex-start;
-    text-align: left;
-  }
-  .cta-booking-copy .cta-note,
-  .svc-cta-actions .cta-note {
-    text-align: left;
-  }
-  .cta-booking-copy > .btn-row {
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-  .svc-cta .svc-cta-actions,
-  .svc-cta-actions {
-    justify-self: flex-start;
-  }
-}
 
 /* ---- MOBILE ET TABLETTE · LE HERO EN UN SEUL BLOC ----
    L'ordre du DOM place déjà le visuel après le surtitre, le titre, le
@@ -8584,12 +3308,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    Aligné à gauche sur téléphone. L'accueil a sa propre règle, scopée à
    `.home-impact-light`. (La note de transparence de Réalisations, qui
    partageait cette règle, n'existe plus depuis le 20/11/2026.) */
-@media (max-width: 760px) {
-  .operational-impact-heading,
-  .operational-impact-heading :is(h2, p) {
-    text-align: left;
-  }
-}
+
 
 /* ---- MOBILE · DEUX ACTIONS, DEUX BOUTONS DE MÊME TAILLE ----
    Partout où une rangée porte DEUX actions — les heros, les CTA de la
@@ -8709,8 +3428,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
     line-height: 1.14;
     letter-spacing: -0.8px;
   }
-  main .lede-title,
-  .operational-impact-heading h2 {
+  main .lede-title {
     font-size: 29px;
     font-weight: 500;
     line-height: 1.14;
@@ -8719,8 +3437,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
   /* ---- Les textes courants ---- */
   main .lede-text,
-  .studio-hero-copy > p,
-  .operational-impact-heading p {
+.studio-hero-copy > p {
     font-size: 16px;
     line-height: 1.62;
   }
@@ -8800,9 +3517,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      l'accueil et de Solutions, pour qu'elles gardent le même corps d'une
      page à l'autre. Celle de Cas d'usage est plus longue encore et reste sur
      deux lignes : il lui faudrait 9,5px, et là on ne lirait plus rien. ---- */
-  .cta-note {
-    font-size: 10.5px;
-  }
+  
 }
 
 
@@ -8858,48 +3573,19 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      dans un premier jet : sur l'accueil, les numéros se collaient au filet
      de la card. Sur la page Cas d'usage, la variante `--rich` vaut (0,2,1)
      et gardait son propre rembourrage, d'où l'écart entre les deux pages. */
-  .uca-head button,
-  .uca--rich .uca-head button {
-    min-height: 64px;
-    gap: 12px;
-    padding: 14px 18px;
-  }
-  .uca-head em {
-    width: 22px;
-    font-size: 12px;
-  }
-  .uca-titles small {
-    font-size: 12px;
-  }
-  .uca-titles strong {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.35;
-  }
-  .uca-chevron {
-    width: 18px;
-    height: 18px;
-    transition: transform 0.3s ease;
-  }
-  .uca-item.is-on .uca-chevron {
-    transform: rotate(180deg);
-  }
-  .uca-text,
-  .uca-example {
-    font-size: 15px;
-    line-height: 1.6;
-  }
+  
+  
+  
+  
+  
+  
+  
   /* Le texte ouvert s'aligne sur le TITRE, pas sur le numéro : 18px de
      rembourrage, plus les 22px du numéro et les 12px d'écart. */
-  .uca-panel-in,
-  .uca--rich .uca-panel-in {
-    padding: 0 18px 18px 52px;
-  }
+  
   /* Le filet de l'élément ouvert ne décale plus rien : la ligne n'a plus de
      rembourrage latéral, le repère passe donc en soulignement du bloc. */
-  .uca-item.is-on .uca-head button::before {
-    display: none;
-  }
+  
 
   /* ---- Les questions fréquentes ---- */
   .faq-trigger {
@@ -8931,7 +3617,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .uca-chevron,
   .faq-trigger svg {
     transition: none;
   }
@@ -8957,17 +3642,10 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      « Contact », ce qui est exactement sa place. L'adresse y dispose de
      toute la largeur, donc elle tient sur une ligne à n'importe quelle
      taille d'écran, sans avoir à rapetisser. */
-  .site-footer-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px 20px;
-  }
+  
   /* Il se colle à la navigation plutôt que de flotter entre les deux. */
-  .site-footer-col--contact {
-    margin-top: -18px;
-  }
-  .site-footer-brand {
-    grid-column: 1 / -1;
-  }
+  
+  
   /* ⚠ La mesure de 34ch tombe. Elle vaut 284px à ce corps, alors que la
      colonne d'un téléphone en offre 350 à 400 : elle rétrécissait donc le
      texte et lui ajoutait une troisième ligne. Sans elle, la phrase fait
@@ -8976,45 +3654,21 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      mesure de 34ch vient d'une autre feuille, et l'ordre de chargement des
      deux n'est pas garanti par la lecture du bundle. À poids supérieur, la
      question ne se pose plus. */
-  .site-footer .site-footer-tagline {
-    max-width: none;
-    font-size: 15px;
-  }
-  .site-footer-title {
-    font-size: 13.5px;
-    font-weight: 600;
-  }
-  .site-footer-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 40px;
-    font-size: 15px;
-  }
+  
+  
+  
   /* L'adresse garde le corps des autres liens, 15px : c'est le lien le plus
      important du pied, il n'a pas à être le plus petit. C'est la colonne qui
      s'élargit pour lui, pas lui qui rétrécit. */
-  .site-footer-col a[href^="mailto"] {
-    white-space: nowrap;
-  }
+  
   /* ---- La barre du bas : les deux liens légaux prennent exactement le
      corps, la graisse et la couleur du copyright qui leur fait face. La
      règle des liens du pied, plus haut, leur donnait 15px et une hauteur de
      cible de 40px, ce qui les faisait paraître plus gros que lui. ---- */
-  .site-footer-bottom,
-  .site-footer-legal .site-footer-link {
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--text-mono);
-  }
-  .site-footer-legal .site-footer-link {
-    /* Pas 40px comme les autres liens du pied, mais 24px au moins (C53). */
-    min-height: 24px;
-  }
+  
+  
   /* La barre du bas passe à la ligne plutôt que de comprimer ses liens. */
-  .site-footer-bottom {
-    flex-wrap: wrap;
-    gap: 10px 18px;
-  }
+  
 }
 
 
@@ -9105,23 +3759,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    comme le demande le brief : sur une colonne elles mangent la moitié de
    la hauteur sans rien dire que le texte ne dise déjà.
    ===================================================================== */
-@media (max-width: 900px) {
-  /* ⚠ Ces grilles se repliaient déjà, mais chacune à son propre seuil :
-     400, 420, 540, 560, 640, 680 et 1100px. Entre ces seuils et 900px, elles
-     gardaient donc deux ou trois colonnes sur un téléphone en paysage ou
-     une petite tablette. Un seul seuil désormais, celui du brief.
-
-     Les grilles NON visées, et c'est volontaire : la semaine du calendrier,
-     la grille des six étapes de la méthode, les tuiles des visuels et le
-     pied de page. Elles sont nommées dans leurs propres blocs. */
-  .svc-uses,
-  .svc-forms,
-  .need-tiles,
-  .sec-grid,
-  .tst-group {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
 
 
 /* ---- L'ESPACE AU-DESSUS DU SURTITRE, LE MÊME SUR TOUTES LES PAGES.
@@ -9252,40 +3889,24 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
      court serait ignoré sur ces deux pages, et le centrage n'aurait eu lieu
      que sur les six pages services. Toutes les cards de CTA du site portent
      `.dark-cta`, donc le préfixe est sûr. */
-  .dark-cta .cta-booking-copy,
-  .dark-cta .cta-booking-copy > .lede,
   .dark-cta .lede,
-  .dark-cta .svc-cta-actions,
-  .home-cta-reminder-card,
-  .thanks-band .lede,
-  /* ⚠ La règle des en-têtes de section, `main > .band > .col > .lede`,
-     pèse plus lourd que `.thanks-band .lede` : sans cette ligne, le titre de
-     la page Merci restait à gauche sur téléphone, au-dessus d'un texte
-     centré. */
-  main > .band.thanks-band > .col > .lede {
+.thanks-band .lede,
+main > .band.thanks-band > .col > .lede {
     align-items: center;
     text-align: center;
   }
-  .dark-cta .cta-booking-copy .cta-note,
-  .dark-cta .svc-cta-actions .cta-note,
-  .dark-cta .cta-note,
-  .home-cta-reminder-card .btn,
   .thanks-band .lede-text {
     margin-inline: auto;
     text-align: center;
   }
   /* Les actions : la rangée se centre, et chaque bouton garde son libellé
      centré comme partout ailleurs. */
-  .dark-cta .cta-booking-copy > .btn-row,
   .dark-cta .btn-row,
-  .btn-row.cta-actions {
+.btn-row.cta-actions {
     align-items: center;
     justify-content: center;
   }
-  .dark-cta .svc-cta-actions,
-  .svc-cta .svc-cta-actions {
-    justify-self: center;
-  }
+  
 }
 
 
@@ -9303,33 +3924,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    `.tst-bar` n'y figure pas : elle est en `position: absolute`, donc elle
    ne prend aucune place dans la grille. ---- */
-@media (max-width: 900px) {
-  .tst-card {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-areas:
-      "mark title"
-      "text text"
-      "pill pill";
-    align-items: center;
-    column-gap: 12px;
-    row-gap: 10px;
-  }
-  .tst-top {
-    grid-area: mark;
-  }
-  .tst-card h3 {
-    grid-area: title;
-    font-size: 16.5px;
-  }
-  .tst-card p {
-    grid-area: text;
-  }
-  .tst-pill {
-    grid-area: pill;
-    justify-self: start;
-  }
-}
 
 
 /* ---- « RÉSULTATS RECHERCHÉS » : LE SCHÉMA TOMBE SUR TÉLÉPHONE.
@@ -9343,15 +3937,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    Il disparaît donc, et seule l'explication reste. Le reste de la section
    ne bouge pas : la liste des quatre résultats, le choix au tap et le
    défilement automatique fonctionnent comme avant. ---- */
-@media (max-width: 900px) {
-  .isp-stage {
-    display: none;
-  }
-  .isp-view {
-    gap: 0;
-    padding: 20px 18px 22px;
-  }
-}
 
 
 /* =====================================================================
@@ -9376,61 +3961,14 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ⚠ Les ordres sont posés par POSITION. Ajouter un quatrième outil demande
    d'ajouter sa paire ici.
    ===================================================================== */
-@media (max-width: 900px) {
-  .tools-zone {
-    display: flex;
-    flex-direction: column;
-  }
-  .tools-tabs {
-    display: contents;
-  }
-  .tools-tabs > :nth-child(1) {
-    order: 1;
-  }
-  .tools-tabs > :nth-child(2) {
-    order: 3;
-  }
-  .tools-tabs > :nth-child(3) {
-    order: 5;
-  }
-  /* Les trois panneaux : deuxième, troisième et quatrième `div` de la zone,
-     la première étant la rangée d'onglets. */
-  .tools-zone > div:nth-of-type(2) {
-    order: 2;
-  }
-  .tools-zone > div:nth-of-type(3) {
-    order: 4;
-  }
-  .tools-zone > div:nth-of-type(4) {
-    order: 6;
-  }
-  /* La mention et le pied passent après tout le parcours. */
-  .tools-zone > .tools-disclaimer {
-    order: 7;
-  }
-  .tools-zone > .tools-foot {
-    order: 8;
-  }
-  /* Un onglet occupe toute la largeur et devient une ligne de parcours. */
-  .tools-tab {
-    width: 100%;
-  }
-}
 
 
 /* ---- L'adresse de contact est soulignée, sur toutes les tailles d'écran :
    c'est le seul lien du pied qu'on vient y chercher, et le soulignement le
    désigne comme cliquable sans qu'on ait à le survoler. ---- */
-.site-footer-mail {
-  color: #0b6be6;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+
 /* Le survol et le focus ne la font pas changer de couleur : elle est déjà la
    seule du pied à en avoir une. */
-.site-footer-mail:hover {
-  color: #0b6be6;
-}
 
 
 /* ---- Le titre « Quand l'IA s'intègre… » tient sur DEUX lignes au bureau.
@@ -9444,11 +3982,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    La mesure est levée pour ce seul titre. Sa colonne en offre près de 780,
    donc les deux lignes écrites sont celles qui s'affichent, dans les deux
    langues. ---- */
-@media (min-width: 901px) {
-  .daily-section-heading .lede-title {
-    max-width: none;
-  }
-}
+
 
 /* ---- Le même bouton, dans le callout « Votre situation est unique ».
 
@@ -9459,32 +3993,9 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ignore donc le jeton : le bouton repassait bleu sur bleu. Il faut le
    nommer explicitement, et non reprendre `--brand`, pour le déloger.
    Le bureau n'est pas touché : la règle est sous 900px. ---- */
-@media (max-width: 900px) {
-  .daily-open-callout .btn--primary,
-  .daily-open-callout .btn--primary:hover {
-    border-color: #ffffff;
-    background: #ffffff;
-    color: #0b6be6;
-  }
-  /* ⚠ Le callout passe en colonne dès 900px, et non plus sous 760px
-     seulement. Sous 900px, le jeu de boutons met chaque bouton en pleine
-     largeur (`.btn:not(.site-header-cta)`) : entre 761 et 900px, le callout
-     restait en ligne et son bouton, large comme tout le callout, sortait de
-     l'écran à côté du texte (jusqu'à 844px de large sur 768). Corrigé le
-     17/11/2026. */
-  .daily-open-callout {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
+
 
 /* Les titres de section de l'accueil suivent tous l'échelle mobile commune. */
-@media (max-width: 900px) {
-  .site-theme-alternating main > .studio-section .section-heading .lede-title,
-  main > .band#cas-usage.home-usecases-light > .col > .section-heading .lede-title {
-    font-size: 29px;
-  }
-}
 
 
 /* =====================================================================
@@ -9511,179 +4022,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    de liste, avec un trait en pointillé : il est une sortie du flux, pas une
    étape de plus.
    ===================================================================== */
-.aug-flow {
-  display: none;
-}
-
-@media (max-width: 900px) {
-  .aug-scene {
-    display: none;
-  }
-  .aug-flow {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  /* ---- Une étape ----
-     `38px minmax(0, 1fr) 20px` : la pastille et la marque gardent leur
-     largeur, c'est le libellé qui se réduit. L'inverse écraserait une icône
-     avant de toucher au texte. */
-  .aug-step {
-    position: relative;
-    display: grid;
-    grid-template-columns: 38px minmax(0, 1fr) 20px;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border: 1.5px solid #d5dbe3;
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: 0 2px 6px rgb(20 40 80 / 5%);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  /* ---- Le trait entre deux étapes ----
-     Il vit dans l'écart de 10px, et il s'allume dès que l'étape du dessous
-     est atteinte : c'est lui qui donne le sens de circulation, que la scène
-     disait avec ses courbes et ses points. */
-  .aug-step + .aug-step::before {
-    content: "";
-    position: absolute;
-    left: 32px;
-    top: -13px;
-    width: 2px;
-    height: 13px;
-    background: #d5dbe3;
-    transition: background-color 0.3s ease;
-  }
-  .aug-step.is-run::before,
-  .aug-step.is-done::before {
-    background: #0b6be6;
-  }
-
-  /* ---- Les états, aux couleurs exactes de la scène ---- */
-  .aug-step.is-run {
-    border-color: #0b6be6;
-    box-shadow: 0 0 0 4px rgb(11 107 230 / 14%);
-  }
-  .aug-step.is-done {
-    border-color: #2db37a;
-  }
-  .aug-step.is-alert {
-    border-color: #f5b454;
-    box-shadow: 0 0 0 4px rgb(245 180 84 / 20%);
-  }
-
-  /* ---- La pastille d'icône ---- */
-  .aug-step-icon {
-    display: grid;
-    place-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: #f4f6f9;
-    transition: background-color 0.3s ease;
-  }
-  .aug-step-icon svg {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke-width: 1.8;
-    color: #5a5a5a;
-    transition: color 0.3s ease;
-  }
-  .aug-step--ai .aug-step-icon {
-    background: #eaf2fe;
-  }
-  .aug-step--ai .aug-step-icon svg {
-    color: #0b6be6;
-  }
-  .aug-step.is-alert .aug-step-icon {
-    background: #fdf3e2;
-  }
-  .aug-step.is-alert .aug-step-icon svg {
-    color: #d98a1c;
-  }
-
-  /* ---- Le libellé et son complément ---- */
-  .aug-step-text {
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .aug-step-text b {
-    overflow: hidden;
-    font-size: 14.5px;
-    font-weight: 500;
-    line-height: 1.25;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #2e2e2e;
-  }
-  .aug-step-text em {
-    overflow: hidden;
-    font-style: normal;
-    font-size: 11.5px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #71757c;
-  }
-
-  /* ---- La marque de fin d'étape ----
-     La case fait 20px qu'elle soit vide ou non : sans cela, la colonne du
-     libellé changerait de largeur à chaque étape franchie et le texte
-     sauterait de deux pixels toutes les demi-secondes. */
-  .aug-step-mark {
-    display: grid;
-    place-items: center;
-    width: 20px;
-    height: 20px;
-  }
-  .aug-step-mark svg {
-    width: 14px;
-    height: 14px;
-    fill: none;
-  }
-  .aug-step-ok {
-    stroke: #2db37a;
-    stroke-width: 2.2;
-    stroke-linecap: round;
-  }
-  .aug-step-warn {
-    width: 15px;
-    height: 15px;
-  }
-
-  /* ---- La sortie du flux ----
-     Détachée, et reliée par un trait en POINTILLÉ : le flux ne continue pas
-     par là, il s'y arrête. */
-  .aug-step--branch {
-    margin-top: 8px;
-  }
-  .aug-step + .aug-step--branch::before {
-    top: -21px;
-    height: 21px;
-    width: 0;
-    background: none;
-    border-left: 2px dashed #d5dbe3;
-    transition: border-color 0.3s ease;
-  }
-  .aug-step--branch.is-run::before,
-  .aug-step--branch.is-alert::before {
-    border-color: #f5b454;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .aug-step,
-  .aug-step::before,
-  .aug-step-icon,
-  .aug-step-icon svg {
-    transition: none;
-  }
-}
 
 
 /* =====================================================================
@@ -9703,17 +4041,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    alignaient le texte sur le bord intérieur du cadre d'aperçu. Sans cadre,
    ils ne sont plus l'alignement de rien.
    ===================================================================== */
-@media (max-width: 900px) {
-  .auc-art {
-    display: none;
-  }
-  .auc-card {
-    padding: 16px;
-  }
-  .auc-copy {
-    margin-inline: 0;
-  }
-}
 
 
 /* =====================================================================
@@ -9731,15 +4058,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    bleu nuit des pages service partagent `.cv`, et masquer `.cv` masquerait
    les quatre autres, qui n'ont pas encore leur version compacte.
    ===================================================================== */
-@media (max-width: 900px) {
-  .cv--flow,
-  .cv--app,
-  .cv--layer,
-  .cv--kpi,
-  .cv--teams {
-    display: none;
-  }
-}
 
 
 /* ---- Deux titres de « Qu'est-ce que… » tiennent sur DEUX lignes au bureau.
@@ -9765,11 +4083,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    ⚠ Réservé aux deux titres qui le portent, par `whatTitleTwoLines` dans le
    contenu. Les quatre autres pages gardent le plafond commun : il est une
    mesure de confort de lecture, pas une gêne à contourner. ---- */
-@media (min-width: 901px) {
-  .svc-what--two .lede-title {
-    max-width: none;
-  }
-}
 
 
 /* =====================================================================
@@ -9790,35 +4103,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    dans l'ordre du DOM, l'icône, le numéro puis le titre tomberaient dans cet
    ordre, et le numéro se retrouverait entre l'icône et son titre.
    ===================================================================== */
-@media (max-width: 900px) {
-  .sec-cell {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    align-items: center;
-    column-gap: 12px;
-    row-gap: 8px;
-    padding: 16px 18px;
-  }
-  .sec-cell-top {
-    display: contents;
-  }
-  .sec-cell-icon {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .sec-cell h3 {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .sec-cell-top em {
-    grid-column: 3;
-    grid-row: 1;
-  }
-  .sec-cell p {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-}
 
 
 /* =====================================================================
@@ -9842,23 +4126,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    suivi tourne, et c'est le propos de la section. Le bandeau d'état et la
    note contractuelle restent aussi, cette dernière étant un engagement.
    ===================================================================== */
-@media (max-width: 900px) {
-  .afp-cell {
-    gap: 8px;
-    min-height: 0;
-    padding: 18px;
-  }
-  .afp-top {
-    justify-content: flex-start;
-  }
-  .afp-cell h3 {
-    margin-top: 2px;
-    font-size: 17px;
-  }
-  .afp-cell p {
-    max-width: none;
-  }
-}
 
 
 /* =====================================================================
@@ -9878,14 +4145,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    `.unv` et il a sa propre liste verticale, `.aug-flow`, plus haut dans
    cette feuille.
    ===================================================================== */
-@media (max-width: 900px) {
-  .unv--software,
-  .unv--integration,
-  .unv--data,
-  .unv--adoption {
-    display: none;
-  }
-}
 
 
 /* ---- Le titre anglais de la section Solutions de l'accueil prend TOUTE la
@@ -9925,28 +4184,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
 
    Bureau seulement. Sous 900px tout est déjà à gauche, surtitre comme
    titre, et cette règle n'a rien à y faire. ---- */
-@media (min-width: 901px) {
-  /* ⚠ `text-align: left` ne suffisait PAS, et c'était mon erreur : le bloc
-     restait large de 48rem et centré dans la colonne, donc le surtitre se
-     posait au bord gauche de CE bloc, à presque deux cents pixels du bord de
-     la colonne. Il faut aussi rendre au bloc toute la largeur et lui retirer
-     son centrage, pour que le surtitre tombe sur le même axe que « Après la
-     mise en service » et tous les autres surtitres de la page, qui vivent
-     dans un `.lede` en `width: 100%`. */
-  .svc-faq > .col > .lede {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
-    text-align: left;
-  }
-  /* Le titre reste centré, et son axe ne bouge pas d'un pixel : il était
-     centré dans un bloc centré, il est maintenant centré dans la colonne.
-     Deux centrages concentriques ont le même milieu. */
-  .svc-faq > .col > .lede > .lede-title {
-    margin-inline: auto;
-    text-align: center;
-  }
-}
 
 
 /* ---- Six titres de « Usages concrets » tiennent sur DEUX lignes au bureau.
@@ -9979,20 +4216,9 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    tout seul, et c'est la mesure de 16,19 em qui le coupe au bon endroit.
    Lever la mesure pour lui le renverrait sur « …and with which » /
    « solutions? ». ---- */
-@media (min-width: 901px) {
-  .band:not(#top):not(#faq) > .col > .section-heading.svc-uses-head--two .lede .lede-title {
-    max-width: none;
-  }
-}
+
 
 /* Sur mobile, la FAQ des pages service suit l'axe gauche de ses questions. */
-@media (max-width: 900px) {
-  .svc-faq > .col > .lede,
-  .svc-faq > .col > .lede > .lede-title {
-    margin-inline: 0;
-    text-align: left;
-  }
-}
 
 
 /* =====================================================================
@@ -10013,12 +4239,6 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    réseau d'outils et `.abr` pour les cinq temps. Elles ne sont partagées
    avec rien d'autre, contrairement à `.cv` et `.unv`.
    ===================================================================== */
-@media (max-width: 900px) {
-  .ant,
-  .abr {
-    display: none;
-  }
-}
 
 
 /* ---- « Comment nous accompagnons votre projet IA » tient sur DEUX lignes
@@ -10033,12 +4253,7 @@ main > .band.svc-rhythm > .col > .lede + .section-gap {
    et `:not(#faq)` comptant comme des identifiants. Un sélecteur avec le seul
    `#facon` vaudrait (1,4,1) et perdrait. On reprend donc sa chaîne entière
    et on y ajoute l'identifiant, ce qui donne (3,4,0). ---- */
-@media (min-width: 901px) {
-  .band:not(#top):not(#faq)#facon > .col > .lede > .lede-title,
-  .band:not(#top):not(#faq)#complementarite > .col > .lede > .lede-title {
-    max-width: none;
-  }
-}
+
 /* ⚠ `#complementarite` ajouté le 17/10 pour la même raison : « A complementary
    team for your AI projects » montait à QUATRE lignes à 1440px, entre la
    coupe forcée qu'il portait et cette mesure de 60 % (322px pour une colonne
@@ -10212,29 +4427,25 @@ main > .band#top.work-detail-hero--centre > .col > [class*="demoAccess"] {
    même chaîne que le titre de l'accueil, dans le même ordre :
    au-delà de 1700px, puis 960-1700, 901-959, et 36px sous 900px
    (voir `.studio-hero h1` et ses quatre reprises plus haut). */
-main > section.page-hero--inner h1,
-main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+main > section.page-hero--inner h1 {
   font-size: clamp(2.85rem, 4.6vw, 4.4rem);
   font-weight: 500;
   line-height: 1.02;
   letter-spacing: -0.055em;
 }
 @media (max-width: 1023px) {
-  main > section.page-hero--inner h1,
-  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+  main > section.page-hero--inner h1 {
     font-size: clamp(2.8rem, 6vw, 4rem);
   }
 }
 @media (min-width: 960px) and (max-width: 1700px) {
-  main > section.page-hero--inner h1,
-  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+  main > section.page-hero--inner h1 {
     font-size: clamp(2.75rem, 4.3vw, 3.75rem);
     line-height: 1.04;
   }
 }
 @media (max-width: 900px) {
-  main > section.page-hero--inner h1,
-  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
+  main > section.page-hero--inner h1 {
     font-size: 36px;
     line-height: 1.14;
     letter-spacing: -0.8px;
@@ -10255,21 +4466,8 @@ main > .band#top.work-detail-hero.work-detail-hero--centre .lede-title {
 /* ---- Les paragraphes : la taille de celui de l'accueil ----
    Les pages en `PageHero` l'ont déjà (`.studio-hero-copy > p`) ; Nexus et
    Coory passent par `.lede-text`, aligné ici sur la même chaîne. */
-main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
-  font-size: 1rem;
-  line-height: 1.7;
-}
-@media (min-width: 960px) and (max-width: 1700px) {
-  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
-    line-height: 1.6;
-  }
-}
-@media (max-width: 900px) {
-  main > .band#top.work-detail-hero.work-detail-hero--centre .lede-text {
-    font-size: 16px;
-    line-height: 1.62;
-  }
-}
+
+
 /* Des fins de lignes équilibrées ; l'espace insécable de `sansVeuve` garde
    de toute façon au moins deux mots sur la dernière ligne. */
 main > section.studio-hero .studio-hero-copy > p,
@@ -10438,11 +4636,7 @@ main > .band#top > .col > .todo {
 
 /* ---- La page en cours, signalée aussi dans le pied de page (23/11/2026),
    comme dans la barre du haut : un souligné discret. ---- */
-.site-footer-link[aria-current="page"] {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-}
+
 
 /* ---- Les scènes à l'échelle restent invisibles tant qu'elles ne sont pas
    mesurées (K12 de l'audit) : sans ça, le HTML du serveur les montrait à

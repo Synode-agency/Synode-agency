@@ -1,68 +1,74 @@
-import Link from "next/link";
-import { ArrowDown } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
-import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
-import { renderLines } from "@/lib/lines";
+import { Hero } from "@/components/site/hero";
 import { Booking } from "@/components/site/booking";
 import { ContactForm } from "@/components/site/contact-form";
+import { renderLines } from "@/lib/lines";
 import { ANCHORS, bookingAnchor, getContent, type Locale } from "@/content";
 
 /**
- * La page Contact.
+ * LA PAGE CONTACT (brief de la refonte, 6.5).
  *
- * Les deux chemins restent INDÉPENDANTS et de même rang : réserver un
- * créneau, ou écrire. Rien n'oblige à remplir le formulaire pour accéder au
- * calendrier, et l'architecture y tient parce que c'est exactement la
- * friction qui fait partir un visiteur pressé.
+ * Le calendrier d'abord, dans le hero : c'est la seule action du site, et
+ * c'est la seule page où Cal.com existe (il n'est chargé qu'au clic). Puis,
+ * pour qui préfère écrire, l'adresse et un formulaire à trois champs. Puis
+ * ce qui se passe ensuite.
  *
- * Le calendrier est maintenant DANS le hero, à droite du texte : c'est le
- * premier chemin, et il n'a plus besoin d'une section à lui.
- *
- * ⚠ L'ancre du calendrier (`#reserver`, `#book` en anglais) est citée depuis TOUT le site — les CTA des six
- * pages services, l'accueil, Solutions, Réalisations, Équipe. Elle a suivi
- * le calendrier dans le hero : la retirer casserait une vingtaine de liens.
+ * ⚠ L'ancre du calendrier (`#reserver`, `#book` en anglais) est citée par
+ * le bouton principal de TOUTES les pages : elle reste sur le calendrier.
  */
 export function ContactPage({ locale }: { locale: Locale }) {
-  const { contact } = getContent(locale);
+  const { contact, site } = getContent(locale);
 
   return (
     <Shell locale={locale}>
-      <PageHero
-        kicker="Contact"
-        kickerMobileOnly
-        title={locale === "fr" ? <>Parlons de votre <span>projet</span></> : <>Let’s talk about your <span>project</span></>}
-        /* Le seul hero en deux colonnes : texte à gauche, calendrier à
-           droite (voir `PageHero`). */
+      <Hero
+        locale={locale}
+        className="contact-hero"
+        eyebrow={contact.hero.eyebrow}
+        title={renderLines(contact.hero.title, contact.hero.accents, "title-accent")}
+        subtitle={contact.hero.text}
         aside={
-          /* Le calendrier porte l'ancre : les liens du site arrivent donc
-             directement sur lui. `cta-booking-calendar` lui donne sa marge
-             de défilement sous l'en-tête fixe. */
           <div id={bookingAnchor(locale)} className="cta-booking-calendar">
-            <Booking locale={locale} copy={getContent(locale).contact.booking} variant="card" />
+            <Booking locale={locale} copy={contact.booking} variant="card" />
           </div>
         }
-      >
-        <p>{contact.text}</p>
-        <div className="btn-row">
-          {/* Une seule action : le calendrier est déjà à côté, un bouton qui
-              y mène ne mènerait nulle part. La flèche descend parce que le
-              formulaire est plus bas sur la même page. */}
-          <Link href={`#${ANCHORS.form}`} className="btn btn--ghost">{locale === "fr" ? "Décrire votre besoin" : "Tell us what you need"}<ArrowDown aria-hidden /></Link>
-        </div>
-      </PageHero>
+      />
 
-      {/* ⚠ Le ton est explicite : le thème peint les bandes selon leur RANG,
-          et cette bande est la deuxième, donc elle serait blanche. Une carte
-          blanche sur fond blanc ne se verrait pas. */}
-      <Band id={ANCHORS.form} tone="base" className="tint-band">
-        {/* ⚠ `Lede` ne passe pas ses paragraphes par `renderLines` — des
-            coupes dormantes se réveilleraient ailleurs sur le site. Celle-ci
-            est donc appliquée ici. */}
-        <Lede kicker={locale === "fr" ? "Formulaire de contact" : "Contact form"} title={contact.form.title} text={renderLines(contact.form.text)} />
-        <div className="section-gap contact-form-card">
-          <ContactForm locale={locale} form={contact.form} />
+      <Band id={ANCHORS.form} className="rf-section">
+        <div className="rf-split contact-write">
+          <div>
+            <Lede title={contact.write.title} />
+            <p className="contact-write-text">
+              {contact.write.text}{" "}
+              <a className="contact-mail" href={`mailto:${site.email}`}>
+                {site.email}
+              </a>{" "}
+              {contact.write.or}
+            </p>
+            {/* Vide tant que Synode n'a pas fixé un délai tenable. */}
+            {contact.write.replyDelay && <p className="rf-note">{contact.write.replyDelay}</p>}
+          </div>
+          <div className="contact-form-card">
+            <ContactForm locale={locale} form={contact.form} />
+          </div>
         </div>
+      </Band>
+
+      <Band id="ensuite" className="rf-section">
+        <Lede title={contact.next.title} />
+        <ol className="steps-list section-gap-sm">
+          {contact.next.items.map((item, i) => (
+            <li key={item}>
+              <span className="steps-rank" aria-hidden>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <p>
+                <strong>{item}</strong>
+              </p>
+            </li>
+          ))}
+        </ol>
       </Band>
     </Shell>
   );

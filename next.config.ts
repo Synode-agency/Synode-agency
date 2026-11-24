@@ -28,12 +28,6 @@ const nextConfig: NextConfig = {
     globalNotFound: true,
   },
 
-  /* Le site a changé d'architecture. Ces redirections permanentes évitent
-     qu'un lien ancien, externe ou indexé, tombe sur une 404. Elles couvrent
-     les deux langues et n'ont aucun coût tant qu'elles ne servent pas.
-
-     À garder même quand plus personne ne se souvient de ces adresses : un
-     lien externe, lui, s'en souviendra. */
   /* ---- LES EN-TÊTES DE SÉCURITÉ.
 
      Le site est statique et ne pose aucun cookie, donc l'exposition est
@@ -73,30 +67,71 @@ const nextConfig: NextConfig = {
     }];
   },
 
+  /* ---- LES REDIRECTIONS PERMANENTES (refonte du 24/11/2026, brief 4.4).
+
+     Le site est passé de 17 pages par langue à 5. Chaque ancienne adresse,
+     indexée ou citée ailleurs, mène à la page qui a repris son contenu, et
+     les six anciennes offres à l'ancre de leur service. Les adresses
+     anglaises ont été traduites (`/en/work`, `/en/about`…) : les anciennes
+     y mènent aussi.
+
+     L'ordre compte : une adresse précise avant le motif qui la couvrirait
+     (`/en/realisations/synode-prospect` avant `/en/realisations/:slug`).
+
+     À garder même quand plus personne ne se souvient de ces adresses : un
+     lien externe, lui, s'en souviendra. ---- */
   async redirects() {
-    const pairs = [
-      /* La famille « Assistants & Agents IA » s'appelle « Agents IA » depuis
-         octobre 2026 : son ancienne adresse est indexée, elle doit mener à la
-         nouvelle plutôt qu'à une 404. */
-      ["/solutions/assistants-agents-ia", "/solutions/agents-ia"],
-      /* La fiche du projet s'appelle « Nexus » depuis octobre 2026, et son
-         adresse suit. L'ancienne est indexée : elle doit mener à la nouvelle
-         plutôt qu'à une 404. */
+    const FR: [string, string][] = [
+      ["/solutions", "/services"],
+      ["/solutions/integrations-systemes-connectes", "/services#connecter"],
+      ["/solutions/automatisations-intelligentes", "/services#connecter"],
+      ["/solutions/agents-ia", "/services#ia"],
+      ["/solutions/assistants-agents-ia", "/services#ia"],
+      ["/solutions/logiciels-applications-ia", "/services#logiciel"],
+      ["/solutions/data-intelligence", "/services#logiciel"],
+      ["/solutions/formation-adoption-ia", "/services#inclus"],
+      ["/solutions/:slug", "/services"],
+      ["/cas-usage", "/services"],
+      ["/services/:slug", "/services"],
+      ["/expertise", "/services"],
+      ["/expertise/:slug", "/services"],
+      ["/faq", "/services"],
+      ["/equipe", "/a-propos"],
+      ["/methode", "/a-propos"],
       ["/realisations/synode-prospect", "/realisations/nexus"],
-      ["/services", "/solutions"],
-      ["/services/:slug", "/solutions"],
-      ["/expertise", "/solutions"],
-      ["/expertise/:slug", "/solutions"],
-      ["/a-propos", "/equipe"],
-      ["/faq", "/solutions"],
       ["/legal/mentions-legales", "/mentions-legales"],
       ["/legal/confidentialite", "/confidentialite"],
       ["/legal/:slug", "/mentions-legales"],
     ];
-    return pairs.flatMap(([source, destination]) => [
-      { source, destination, permanent: true },
-      { source: `/en${source}`, destination: `/en${destination}`, permanent: true },
-    ]);
+    const EN: [string, string][] = [
+      ["/en/solutions", "/en/services"],
+      ["/en/solutions/integrations-systemes-connectes", "/en/services#connect"],
+      ["/en/solutions/automatisations-intelligentes", "/en/services#connect"],
+      ["/en/solutions/agents-ia", "/en/services#ai"],
+      ["/en/solutions/assistants-agents-ia", "/en/services#ai"],
+      ["/en/solutions/logiciels-applications-ia", "/en/services#software"],
+      ["/en/solutions/data-intelligence", "/en/services#software"],
+      ["/en/solutions/formation-adoption-ia", "/en/services#included"],
+      ["/en/solutions/:slug", "/en/services"],
+      ["/en/cas-usage", "/en/services"],
+      ["/en/services/:slug", "/en/services"],
+      ["/en/expertise", "/en/services"],
+      ["/en/expertise/:slug", "/en/services"],
+      ["/en/faq", "/en/services"],
+      ["/en/realisations", "/en/work"],
+      ["/en/realisations/synode-prospect", "/en/work/nexus"],
+      ["/en/realisations/:slug", "/en/work/:slug"],
+      ["/en/equipe", "/en/about"],
+      ["/en/a-propos", "/en/about"],
+      ["/en/methode", "/en/about"],
+      ["/en/mentions-legales", "/en/legal-notice"],
+      ["/en/confidentialite", "/en/privacy"],
+      ["/en/merci", "/en/thanks"],
+      ["/en/legal/mentions-legales", "/en/legal-notice"],
+      ["/en/legal/confidentialite", "/en/privacy"],
+      ["/en/legal/:slug", "/en/legal-notice"],
+    ];
+    return [...FR, ...EN].map(([source, destination]) => ({ source, destination, permanent: true }));
   },
 };
 

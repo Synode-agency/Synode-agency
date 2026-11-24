@@ -8,7 +8,7 @@ import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { PrimaryButton } from "./primary-button";
 import { MobileMenu } from "@/components/nav/mobile-menu";
-import { ROUTES, homePath, path, translateHash, type Locale } from "@/lib/routes";
+import { ROUTES, homePath, path, switchLocalePath, translateHash, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
 import { cx } from "@/lib/cx";
 
@@ -166,21 +166,16 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
 }
 
 /**
- * La même page dans l'autre langue.
- *
- * On retire le préfixe courant pour retrouver la route nue, puis on pose
- * celui de la langue visée. Une seule écriture pour les DEUX sélecteurs du
- * site, celui de la barre et celui du menu de téléphone : quelqu'un qui lit
- * `/cas-usage` et bascule doit arriver sur `/en/cas-usage`, pas sur
- * l'accueil, et les deux ne doivent pas pouvoir en décider autrement.
+ * La même page dans l'autre langue. Une seule écriture pour les DEUX
+ * sélecteurs du site, celui de la barre et celui du menu de téléphone :
+ * quelqu'un qui lit `/realisations/nexus` et bascule doit arriver sur
+ * `/en/work/nexus`, pas sur l'accueil.
  */
-export function localePath(target: Locale, locale: Locale, pathname: string) {
+export function localePath(target: Locale, pathname: string) {
   /* La page 404 est générée sous `/_not-found` : la traduire mènerait à
      une autre 404. Elle renvoie à l'accueil de la langue visée (C47). */
   if (pathname.includes("_not-found")) return target === "fr" ? "/" : "/en";
-  const bare = locale === "en" ? pathname.replace(/^\/en/, "") || "/" : pathname;
-  const href = target === "fr" ? bare : `/en${bare === "/" ? "" : bare}`;
-  return href || "/";
+  return switchLocalePath(pathname, target);
 }
 
 /**
@@ -207,7 +202,7 @@ function LangSwitch({
         return (
           <Link
             key={l}
-            href={localePath(l, locale, pathname)}
+            href={localePath(l, pathname)}
             hrefLang={l}
             aria-current={current ? "true" : undefined}
             className={cx("lang-item", current && "is-current")}
@@ -220,7 +215,7 @@ function LangSwitch({
               const hash = window.location.hash;
               if (current || !hash || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               event.preventDefault();
-              router.push(`${localePath(l, locale, pathname)}${translateHash(hash, l)}`);
+              router.push(`${localePath(l, pathname)}${translateHash(hash, l)}`);
             }}
           >
             {l.toUpperCase()}

@@ -1,20 +1,11 @@
 import type { Metadata } from "next";
-import { ogBase, withBrand } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { ContactPage } from "@/components/site/contact-page";
-import { getContent } from "@/content";
+import { ROUTES, getContent } from "@/content";
 
 const c = getContent("en").contact;
-const prefix = "/en";
 
-export const metadata: Metadata = {
-  title: c.metaTitle,
-  description: c.metaDescription,
-  alternates: {
-    canonical: `${prefix}/contact`,
-    languages: { fr: "/contact", en: "/en/contact", "x-default": "/contact" },
-  },
-  openGraph: { ...ogBase("en"), title: withBrand(c.metaTitle), description: c.metaDescription, url: `${prefix}/contact`, type: "website" },
-};
+export const metadata: Metadata = pageMetadata({ locale: "en", route: ROUTES.contact, title: c.metaTitle, description: c.metaDescription });
 
 export default function Page() {
   return <ContactPage locale="en" />;

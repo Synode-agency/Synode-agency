@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
+import { pageMetadata, withBrand } from "@/lib/seo";
 import { ThanksPage } from "@/components/site/simple-pages";
-import { getContent } from "@/content";
+import { ROUTES, getContent } from "@/content";
 
-/* Hors index : cette page n'a de sens qu'après un envoi, et l'architecture
-   demande explicitement de l'exclure. */
-export const metadata: Metadata = {
-  title: getContent("fr").thanks.metaTitle,
-  robots: { index: false, follow: false },
-};
+const c = getContent("fr").thanks;
+
+/* Hors index : cette page n'a de sens qu'après un envoi. */
+export const metadata: Metadata = pageMetadata({ locale: "fr", route: ROUTES.thanks, title: withBrand(c.metaTitle), description: c.text, noindex: true });
 
 export default function Page() {
   return <ThanksPage locale="fr" />;

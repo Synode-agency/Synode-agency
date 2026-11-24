@@ -1,48 +1,69 @@
-/** La page Contact : calendrier et formulaire. */
+/**
+ * LA PAGE CONTACT (brief de la refonte, 6.5) : le calendrier d'abord, puis
+ * l'e-mail et un formulaire à trois champs, puis ce qui se passe ensuite.
+ * « Gratuit et sans engagement » n'est écrit qu'une fois, dans le hero.
+ */
 export const contact = {
-  metaTitle: "Parlons de votre projet",
-  metaDescription:
-    "Réservez un échange gratuit de 30 minutes avec Synode, agence technologique à Bruxelles, ou décrivez votre besoin par écrit. Sans engagement.",
-  kicker: "Contact",
-  title: "Parlons de\n^votre projet",
-  text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
+  metaTitle: "Contact · Réserver un appel · Synode",
+  metaDescription: "Réservez un appel gratuit de 30 minutes pour parler de votre projet.",
+
+  hero: {
+    eyebrow: "Contact",
+    title: "Parlons de votre projet",
+    accents: ["votre projet"],
+    text: "30 minutes en visio pour comprendre votre besoin et voir si nous pouvons vous aider. Gratuit et sans engagement.",
+  },
 
   booking: {
-    title: "Réserver un échange de 30 minutes",
-    text: "Un premier échange gratuit et sans engagement. Nous cherchons à comprendre votre situation et à identifier une première piste. Ce n’est pas un audit technique complet.",
+    title: "Réserver un appel de 30 minutes",
+    text: "30 minutes en visio pour comprendre votre besoin.",
     openLabel: "Ouvrir le calendrier",
     closedTitle: "Choisissez votre créneau",
-    closedText: "30 minutes en visio, gratuit et sans engagement.",
+    closedText: "30 minutes en visio.",
     /* La phrase qui fait du clic un choix éclairé : voir `Booking`. */
     closedNote: "L’agenda est fourni par Cal.com. Il n’est chargé qu’à l’ouverture et peut alors utiliser ses propres cookies.",
     closedNoteLink: "En savoir plus",
   },
 
+  write: {
+    title: "Vous préférez écrire ?",
+    text: "Écrivez-nous à",
+    or: "ou laissez-nous un message ici.",
+    /* [À COMPLÉTER] le délai de réponse, par exemple « 24 h ouvrées ».
+       Vide, la phrase ne s'affiche pas : on ne promet pas un délai qu'on
+       ne sait pas tenir. */
+    replyDelay: "",
+  },
+
+  next: {
+    title: "Ce qui se passe ensuite",
+    items: [
+      "On écoute votre besoin.",
+      "On vous dit honnêtement si on peut aider.",
+      "Si oui, on vous propose un cadrage.",
+    ],
+  },
+
+  /* Trois champs (brief, 6.5) : nom, e-mail, message. */
   form: {
-    title: "Décrire votre besoin par écrit",
-    text: "Si vous préférez écrire, ou si aucun créneau ne vous convient.",
     fields: {
       name: { label: "Nom", placeholder: "Votre nom" },
-      email: { label: "E-mail de contact", placeholder: "vous@exemple.com" },
-      company: { label: "Entreprise ou activité", placeholder: "Facultatif", optional: "Facultatif" },
-      need: { label: "Que souhaitez-vous améliorer aujourd’hui ?", placeholder: "Décrivez la tâche qui vous coûte le plus de temps, ou les logiciels que vous aimeriez relier.", hint: "Un exemple concret vaut mieux qu’une description générale." },
-      phone: { label: "Téléphone", placeholder: "Facultatif", optional: "Facultatif" },
-      website: { label: "Site internet", placeholder: "Facultatif", optional: "Facultatif" },
-      timeline: { label: "Échéance envisagée", optional: "Facultatif" },
-      budget: { label: "Budget envisagé", optional: "Facultatif" },
+      email: { label: "E-mail", placeholder: "vous@exemple.com" },
+      need: {
+        label: "Votre message",
+        placeholder: "Décrivez la tâche qui vous fait perdre du temps, ou les logiciels que vous aimeriez relier.",
+        hint: "Un exemple concret vaut mieux qu’une description générale.",
+      },
     },
-    timelineOptions: ["À définir", "Dès que possible", "Dans 1 à 3 mois", "Dans 3 à 6 mois", "Plus tard"],
-    budgetOptions: ["À définir", "Moins de 5 000 €", "5 000 à 15 000 €", "15 000 à 40 000 €", "Plus de 40 000 €"],
     submit: "Envoyer mon message",
     sending: "Envoi en cours…",
-    privacyNote: "Vos informations servent uniquement à traiter votre demande et sont conservées 12 mois après le dernier échange. Responsables : Antonino Lo Bianco et Killian Schoebben (Synode). Pas de newsletter, pas de revente.",
+    privacyNote: "Vos informations servent uniquement à traiter votre demande et sont conservées 12 mois après le dernier échange. Responsables : Antonino Lo Bianco et Killian Schoebben (Synode). Pas de newsletter, pas de revente.",
     privacyLink: "Comment nous traitons vos données",
     errors: {
       name: "Indiquez votre nom.",
       email: "Indiquez une adresse e-mail.",
-      emailInvalid: "Cette adresse email semble incorrecte.",
-      need: "Décrivez votre besoin en quelques mots (10 caractères minimum).",
-      website: "Cette adresse de site semble incorrecte.",
+      emailInvalid: "Cette adresse e-mail semble incorrecte.",
+      need: "Décrivez votre besoin en quelques mots (10 caractères minimum).",
       tooLong: "Ce champ est trop long.",
       rateLimited: "Vous venez d’envoyer une demande. Patientez un instant avant de recommencer.",
       server: "Nous n’avons pas pu enregistrer votre demande. Votre texte est conservé : réessayez dans un instant.",

@@ -5,9 +5,11 @@
  * communs à plusieurs pages : ils vivent dans `common.ts`.
  */
 export const home = {
-  /* Titre et description pour Google : revus à l'étape 12 (SEO). */
-  metaTitle: "Intégration, logiciels et IA à Bruxelles",
-  metaDescription: "Synode, agence technologique à Bruxelles : des systèmes connectés (CRM, ERP, API), des logiciels métier intelligents et des processus automatisés, avec l’IA intégrée.",
+  /* Titre et description pour Google (brief, section 10, avec les
+     décisions du 24/11/2026 : « agence de développement logiciel & IA »,
+     et pour toutes les tailles d'entreprise). */
+  metaTitle: "Synode · Agence de développement logiciel & IA à Bruxelles",
+  metaDescription: "Nous connectons vos outils, intégrons l’IA et construisons vos logiciels sur mesure, des indépendants aux grandes entreprises. Appel gratuit de 30 min.",
 
   hero: {
     title: "On connecte vos outils et on automatise le répétitif.",
@@ -83,10 +85,11 @@ export const home = {
         a: "Le premier appel est gratuit. Le cadrage est payant, puis déduit du prix du projet. Le devis sépare le développement, les frais de fonctionnement et les évolutions.",
       },
       {
-        /* [À COMPLÉTER] une fourchette réaliste, par exemple « 2 à 6 semaines
-           pour un premier projet ». */
+        /* La réponse du site actuel, sans délai inventé. [À COMPLÉTER] une
+           fourchette réaliste, par exemple « 2 à 6 semaines pour un premier
+           projet », quand Synode en aura une. */
         q: "Combien de temps faut-il ?",
-        a: "",
+        a: "La durée dépend du périmètre, du nombre d’outils à relier, de la disponibilité des données et des tests nécessaires. Le calendrier est fixé par écrit avant le démarrage.",
       },
       {
         q: "Proposez-vous des solutions sans IA ?",

@@ -14,7 +14,7 @@ export const legal = {
  * Voir `../legal-shared.ts` pour les règles d'écriture.
  */
 export const legalTexts: LegalTexts = {
-  updated: "23 novembre 2026",
+  updated: "24 novembre 2026",
 
   /* --------------------------------------------------- Mentions légales */
   notice: [
@@ -87,7 +87,7 @@ export const legalTexts: LegalTexts = {
       blocks: [
         {
           list: [
-            "**Formulaire de contact** : nom, e-mail et description du besoin (obligatoires) ; entreprise, téléphone, site, échéance et budget (facultatifs). S’y ajoutent la date de la demande et la langue de la page.",
+            "**Formulaire de contact** : nom, e-mail et message (obligatoires). S’y ajoutent la date de la demande et la langue de la page.",
             "**Réservation d’un échange (Cal.com)** : au minimum nom, e-mail et créneau choisi.",
             "**E-mails** que vous échangez avec nous.",
             "**Données techniques** : notre hébergeur Netlify traite les données de connexion, dont l’adresse IP. Notre serveur utilise l’adresse IP temporairement, en mémoire, pour limiter les envois répétés du formulaire, sans l’enregistrer. Il garde de la même façon l’adresse e-mail, pour n’envoyer qu’un accusé de réception par jour.",

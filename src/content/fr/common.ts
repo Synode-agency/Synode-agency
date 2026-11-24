@@ -2,13 +2,11 @@ import { ROUTES } from "@/lib/routes";
 import { ctaLabel } from "../cta";
 
 /* Le menu du haut : trois pages. Le logo mène à l'accueil, le bouton à
-   Contact (brief, 4.2). Les adresses pointent encore sur les pages
-   actuelles : elles passent à /services et /a-propos quand ces pages
-   existent (étapes 5 et 7 de la refonte). */
+   Contact (brief, 4.2). */
 const nav = [
-  { href: ROUTES.solutions, label: "Services" },
+  { href: ROUTES.services, label: "Services" },
   { href: ROUTES.work, label: "Réalisations" },
-  { href: ROUTES.team, label: "À propos" },
+  { href: ROUTES.about, label: "À propos" },
 ] as const;
 
 /* Le pied de page : les mêmes, plus Contact (brief, 4.3). */
@@ -20,10 +18,6 @@ export const site = {
   email: "contact@synode-agency.com",
   /* Comment Synode se présente (décision d'Antonino du 24/11/2026). */
   agency: "Agence de développement logiciel & IA à Bruxelles",
-  /* La description par défaut des pages, pour Google. Revue à l'étape 12
-     de la refonte (SEO). */
-  tagline:
-    "Solutions sur mesure, avec l’IA intégrée : systèmes connectés et logiciels métier, conçus autour de votre activité.",
   nav,
   footerNav,
   footerTagline: "Logiciels sur mesure, intégrations et IA. Bruxelles.",

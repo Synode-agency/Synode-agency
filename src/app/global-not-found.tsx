@@ -21,7 +21,7 @@ import { NotFoundPage } from "@/components/site/simple-pages";
  * layouts racine. Elle porte donc une ligne en anglais vers /en.
  */
 export const metadata: Metadata = {
-  title: "Page introuvable - Synode agency",
+  title: "Page introuvable · Synode",
   robots: { index: false, follow: false },
 };
 

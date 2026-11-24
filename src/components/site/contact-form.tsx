@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import { BRIEF_HANDOFF_KEY } from "@/lib/tools-brief";
 import { useRouter } from "next/navigation";
 import { ArrowRight, AlertCircle } from "lucide-react";
 import { ROUTES, path, type Locale } from "@/lib/routes";
 import type { ContactFormCopy } from "@/content";
-import { isValidEmail, isValidWebsite } from "@/lib/form-rules";
+import { isValidEmail } from "@/lib/form-rules";
 
-type FieldName = "name" | "email" | "need" | "website";
+type FieldName = "name" | "email" | "need";
 
 /**
- * Le formulaire de contact.
+ * Le formulaire de contact : trois champs, nom, e-mail et message (brief de
+ * la refonte, 6.5).
  *
  * Trois choses qu'il ne fait jamais :
  *
@@ -47,37 +47,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
 
   const [need, setNeed] = useState("");
 
-  /* Le brief préparé sur l'accueil, repris dans le champ de message.
-
-     Trois contraintes se croisent ici, et elles ne laissent qu'une porte.
-     `sessionStorage` n'existe pas au rendu serveur, donc le lire dans
-     l'état initial ferait diverger le HTML du serveur et du client. Il faut
-     donc un effet. Mais y appeler `setNeed` directement est refusé par la
-     règle React du projet, qui interdit un `setState` synchrone dans un
-     effet. On passe donc par une micro-tâche, comme le fait déjà la
-     vérification du dépôt juste en dessous avec sa promesse.
-
-     La garde sur le champ non vide fait que ce qui est déjà tapé n'est
-     jamais écrasé, et la clé est consommée à la lecture pour qu'un retour
-     arrière ne réinjecte pas un brief que le visiteur vient d'effacer. */
-  useEffect(() => {
-    let alive = true;
-    queueMicrotask(() => {
-      if (!alive) return;
-      let carried: string | null = null;
-      try {
-        carried = window.sessionStorage.getItem(BRIEF_HANDOFF_KEY);
-        if (carried) window.sessionStorage.removeItem(BRIEF_HANDOFF_KEY);
-      } catch {
-        carried = null;
-      }
-      if (carried) setNeed((current) => (current.trim() ? current : carried));
-    });
-    return () => {
-      alive = false;
-    };
-  }, []);
-
   useEffect(() => {
     let alive = true;
     fetch("/api/contact")
@@ -106,7 +75,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
     setEmailEmpty(!email);
     if (!email || !isValidEmail(email)) local.push("email");
     if (get("need").length < 10) local.push("need");
-    if (get("website") && !isValidWebsite(get("website"))) local.push("website");
     if (local.length) {
       setFieldErrors(local);
       setFormError(null);
@@ -129,11 +97,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
           name: get("name"),
           email,
           need: get("need"),
-          company: get("company"),
-          phone: get("phone"),
-          website: get("website"),
-          timeline: get("timeline"),
-          budget: get("budget"),
           hp_ref: get("hp_ref"),
           locale,
         }),
@@ -176,7 +139,7 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
     /* `method="post"` et le bouton désactivé tant que React n'a pas pris la
        main : sans ça, un clic avant la fin du chargement, ou sans
        JavaScript, envoyait le formulaire en GET, avec le nom, l'e-mail et
-       le téléphone dans l'adresse (historique, journaux de l'hébergeur), et
+       le message dans l'adresse (historique, journaux de l'hébergeur), et
        rien n'était enregistré. */
     <form ref={formRef} onSubmit={onSubmit} noValidate className="form" method="post">
       <noscript>
@@ -217,25 +180,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
           error={emailEmpty ? f.errors.email : f.errors.emailInvalid}
           maxLength={200}
         />
-        <Field
-          uid={uid}
-          name="company"
-          autoComplete="organization"
-          label={f.fields.company.label}
-          placeholder={f.fields.company.placeholder}
-          optional={f.fields.company.optional}
-          maxLength={160}
-        />
-        <Field
-          uid={uid}
-          name="phone"
-          autoComplete="tel"
-          type="tel"
-          label={f.fields.phone.label}
-          placeholder={f.fields.phone.placeholder}
-          optional={f.fields.phone.optional}
-          maxLength={40}
-        />
 
         <div className="form-field form-field--wide">
           <label htmlFor={`${uid}-need`} className="form-label">
@@ -265,19 +209,6 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
           )}
         </div>
 
-        <Field
-          uid={uid}
-          name="website"
-          autoComplete="url"
-          label={f.fields.website.label}
-          placeholder={f.fields.website.placeholder}
-          optional={f.fields.website.optional}
-          invalid={err("website")}
-          error={f.errors.website}
-          maxLength={300}
-        />
-        <Select uid={uid} name="timeline" label={f.fields.timeline.label} optional={f.fields.timeline.optional} options={f.timelineOptions} />
-        <Select uid={uid} name="budget" label={f.fields.budget.label} optional={f.fields.budget.optional} options={f.budgetOptions} />
       </div>
 
       {/* Le pot de miel. Masqué à l'œil ET au lecteur d'écran, hors du flux
@@ -372,37 +303,6 @@ function Field({
           {error}
         </span>
       )}
-    </div>
-  );
-}
-
-function Select({
-  uid,
-  name,
-  label,
-  optional,
-  options,
-}: {
-  uid: string;
-  name: string;
-  label: string;
-  optional?: string;
-  options: readonly string[];
-}) {
-  const id = `${uid}-${name}`;
-  return (
-    <div className="form-field">
-      <label htmlFor={id} className="form-label">
-        {label}
-        {optional && <span className="form-optional">{optional}</span>}
-      </label>
-      <select id={id} name={name} defaultValue={options[0]} className="form-input">
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }

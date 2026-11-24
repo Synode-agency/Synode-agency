@@ -3,7 +3,7 @@ import { SITE_NAME } from "@/lib/seo";
 import { SiteShell, siteUrl } from "@/app/site-shell";
 import { getContent } from "@/content";
 
-const { site } = getContent("fr");
+const { home } = getContent("fr");
 
 /**
  * La racine française.
@@ -17,16 +17,16 @@ const { site } = getContent("fr");
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${SITE_NAME} - ${getContent("fr").home.metaTitle}`,
-    template: `%s - ${SITE_NAME}`,
+    default: home.metaTitle,
+    template: `%s · ${SITE_NAME}`,
   },
-  description: site.tagline,
+  description: home.metaDescription,
   openGraph: {
     type: "website",
     locale: "fr_BE",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} - ${getContent("fr").home.metaTitle}`,
-    description: site.tagline,
+    title: home.metaTitle,
+    description: home.metaDescription,
   },
   twitter: { card: "summary_large_image" },
 };

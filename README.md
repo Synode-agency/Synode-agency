@@ -1,8 +1,9 @@
 # Synode
 
-Site de **Synode**, agence technologique basée à Bruxelles : solutions sur
-mesure, avec l'IA intégrée (agents IA, automatisations, intégrations de
-systèmes, logiciels métier, data et formation).
+Site de **Synode**, agence de développement logiciel & IA à Bruxelles : on
+connecte les outils d'une entreprise, on y met l'IA au travail et on
+construit les logiciels qui manquent, des indépendants aux grandes
+entreprises.
 
 En ligne sur **[synode-agency.com](https://synode-agency.com)**, en français à
 la racine et en anglais sous `/en`.
@@ -27,29 +28,32 @@ la racine et en anglais sous `/en`.
 
 ### Les pages
 
+Cinq pages et deux pages légales, en français et en anglais. Les adresses
+anglaises sont traduites.
+
 | Page | Adresse (FR) | Adresse (EN) |
 | --- | --- | --- |
 | Accueil | `/` | `/en` |
-| Solutions | `/solutions` | `/en/solutions` |
-| Six pages services | `/solutions/<service>` | `/en/solutions/<service>` |
-| Cas d'usage | `/cas-usage` | `/en/cas-usage` |
-| Réalisations | `/realisations` | `/en/realisations` |
-| Projets Nexus et Coory | `/realisations/nexus`, `/realisations/coory` | `/en/realisations/...` |
-| Équipe | `/equipe` | `/en/equipe` |
-| Contact (formulaire et réservation) | `/contact` | `/en/contact` |
-| Confirmation d'envoi | `/merci` | `/en/merci` |
-| Mentions légales, confidentialité | `/mentions-legales`, `/confidentialite` | `/en/...` |
+| Services (les trois services, tarification, sécurité) | `/services` | `/en/services` |
+| Réalisations | `/realisations` | `/en/work` |
+| Fiches Nexus et Coory | `/realisations/nexus`, `/realisations/coory` | `/en/work/nexus`, `/en/work/coory` |
+| À propos | `/a-propos` | `/en/about` |
+| Contact (réservation et formulaire) | `/contact` | `/en/contact` |
+| Confirmation d'envoi | `/merci` | `/en/thanks` |
+| Mentions légales, confidentialité | `/mentions-legales`, `/confidentialite` | `/en/legal-notice`, `/en/privacy` |
 
-Les six services : `agents-ia`, `automatisations-intelligentes`,
-`integrations-systemes-connectes`, `logiciels-applications-ia`,
-`data-intelligence` et `formation-adoption-ia`.
+Les trois services ont leur ancre sur la page Services : `#connecter`,
+`#ia`, `#logiciel` (`#connect`, `#ai`, `#software` en anglais).
 
 S'y ajoutent une page 404 en français (`src/app/global-not-found.tsx`) et
-en anglais (`src/app/(en)/en/not-found.tsx`),
-`/methode` qui redirige vers la section Méthode de l'accueil, et
-`/design-system`, un outil d'équipe qui n'existe qu'en développement
-(`npm run dev`) : son fichier s'appelle `page.dev.tsx`, et `next.config.ts`
-ne reconnaît cette extension qu'en dehors de la production.
+en anglais (`src/app/(en)/en/not-found.tsx`), et `/design-system`, un outil
+d'équipe qui n'existe qu'en développement (`npm run dev`) : son fichier
+s'appelle `page.dev.tsx`, et `next.config.ts` ne reconnaît cette extension
+qu'en dehors de la production.
+
+Les anciennes adresses (`/solutions` et ses six pages, `/cas-usage`,
+`/equipe`, les anciennes adresses anglaises…) redirigent en permanence vers
+les nouvelles (`next.config.ts`).
 
 ### Ce que fait le site
 
@@ -63,10 +67,9 @@ ne reconnaît cette extension qu'en dehors de la production.
   (`src/components/site/primary-button.tsx`), le même sur toutes les pages,
   mène au calendrier de la page Contact (`/contact#reserver`,
   `/en/contact#book`).
-- **Réservation d'un rendez-vous** : l'agenda Cal.com est intégré à la page
-  Contact, ainsi qu'à Solutions et Cas d'usage tant que ces pages existent.
-  Il n'est chargé **qu'au clic** : le site ne dépose aucun cookie et n'a pas
-  besoin de bandeau de consentement.
+- **Réservation d'un rendez-vous** : l'agenda Cal.com n'existe que sur la
+  page Contact, et n'est chargé **qu'au clic** : le site ne dépose aucun
+  cookie et n'a pas besoin de bandeau de consentement.
 - **Accueil** : le problème du client, les trois services, les réalisations
   (Nexus, Coory), les trois étapes, les fondateurs, une FAQ courte. Les
   blocs de preuve (logos, avis, citation) ne s'affichent que s'ils existent.
@@ -106,30 +109,29 @@ src/
 │   ├── site-shell.tsx      Squelette HTML commun (en-tête, pied, animations)
 │   ├── sitemap.ts, robots.ts, global-not-found.tsx
 │   ├── globals.css         Jetons de design, base et composants communs
-│   └── studio.css          Mise en page des sections et des pages
+│   ├── studio.css          Mise en page des sections
+│   └── refonte.css         Styles des pages de la refonte (novembre 2026)
 ├── components/
 │   ├── site/               Pages, sections et composants du site
+│   │                       (home-page, services-page, case-pages,
+│   │                       about-page, contact-page, primary-button…)
 │   ├── nav/                Menu mobile
-│   ├── illustrations/      Illustrations animées de Coory (accueil, page Coory)
-│   ├── coory/, nexus/, nexus-visual/   Pages et visuels des deux projets
-│   ├── core-visuals/, understand-visuals/, compact-panel/, hero-compact/
-│   │                       Visuels animés des pages services, et leurs
-│   │                       versions compactes pour téléphone
-│   └── equipe/             Visuels de la page Équipe
+│   ├── illustrations/      Écrans animés de Coory
+│   ├── nexus-visual/       Écran animé de Nexus
+│   └── equipe/             Cartes des fondateurs
 ├── content/
 │   ├── fr/, en/            Textes du site, un fichier par page + common.ts
-│   │                       (menu, pied de page, boutons), work.ts (projets),
-│   │                       legal.ts (mentions légales et confidentialité)
+│   │                       (menu, pied de page, étapes, appel final),
+│   │                       cases/ (Nexus, Coory), legal.ts
+│   ├── cta.ts              Le libellé du bouton principal, le même partout
 │   ├── types.ts            Forme commune : l'anglais doit suivre le français
 │   ├── legal-shared.ts     Numéro d'activité Smart et règles d'écriture du légal
 │   └── index.ts            getContent(locale) et le reste de l'accès aux textes
 └── lib/
-    ├── routes.ts           Langues, adresses et ancres
-    ├── service-pages.ts, solution-details.ts, business-use-cases.ts
-    │                       Contenu des services et des cas d'usage
-    ├── work.ts             Logique des projets (démo de Coory, recherche)
+    ├── routes.ts           Langues, adresses (et leur traduction), ancres
+    ├── seo.ts              Titres, canonical, hreflang, cartes de partage
+    ├── coory-demo.ts       Accès de démonstration de Coory
     ├── contact-store.ts, ack-email.ts   Traitement des demandes de contact
-    ├── ai-diagnostic-*.ts, tools-brief.ts   Les outils de l'accueil
     └── og-image.tsx, og-card.tsx, organization.ts, site-url.ts
                             Images de partage et référencement
 public/                     Logos, portraits de l'équipe, logos des projets
@@ -137,9 +139,7 @@ public/                     Logos, portraits de l'équipe, logos des projets
 
 Les textes vivent dans `src/content/`, un dossier par langue avec les mêmes
 fichiers. Le français fait foi : si un fichier anglais oublie ou ajoute une
-clé, la compilation échoue. Certaines pages portent encore leurs textes FR et
-EN dans leur composant ou dans `src/lib/` : ils rejoignent `src/content/` au
-fil de la refonte.
+clé, la compilation échoue.
 
 ---
 
@@ -244,3 +244,9 @@ git checkout main    # revenir à la version en cours
   prestataire est ajouté ou retiré (formulaire, réservation, hébergement), la
   politique de confidentialité change avec lui.
 - **L'accusé de réception ne reprend jamais** ce que le visiteur a écrit.
+- **Un seul bouton principal** : « Réserver un appel de 30 min » (`Book a
+  30-min call`), le même sur toutes les pages, vers le calendrier de
+  Contact. Tout autre lien est un lien texte.
+- **Rien d'inventé** : pas de faux logos, chiffres ni témoignages. Les blocs
+  de preuve, les délais et les prix ne s'affichent que s'ils sont remplis
+  dans `src/content/`.
