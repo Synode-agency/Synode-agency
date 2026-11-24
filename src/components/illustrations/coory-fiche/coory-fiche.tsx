@@ -65,7 +65,7 @@ export function CooryFiche({ debugT }: { debugT?: number }) {
               <div style={{ position: "absolute", left: "20px", top: "20px", width: "270px", height: "600px", boxSizing: "border-box", borderRadius: "22px", background: "#FFFFFF", border: "1px solid #ECECF2", padding: "28px 14px 18px", display: "flex", flexDirection: "column" }}>
                 {" "}
                 {/* eslint-disable-next-line @next/next/no-img-element -- copie exacte de l'original */}
-                <img src="/illustrations/coory-logo-light.png" alt="Coory" style={{ height: "30px", width: "auto", alignSelf: "flex-start", margin: "0 0 26px 12px", display: "block" }} />
+                <img src="/illustrations/coory-logo-light.png" alt="Coory" width={125} height={30} style={{ height: "30px", width: "auto", alignSelf: "flex-start", margin: "0 0 26px 12px", display: "block" }} />
                 {" "}
                 <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                   {" "}

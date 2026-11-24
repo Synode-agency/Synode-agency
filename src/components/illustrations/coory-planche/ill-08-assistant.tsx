@@ -33,7 +33,7 @@ export function CooryAssistant({ debugT }: { debugT?: number }) {
             <div style={{ width: "128px", flex: "none", boxSizing: "border-box", borderRadius: "16px", background: "#FFFFFF", padding: "14px 8px", display: "flex", flexDirection: "column", gap: "2px" }}>
               {" "}
               {/* eslint-disable-next-line @next/next/no-img-element -- copie exacte de l'original */}
-              <img src="/illustrations/coory-logo-light.png" alt="Coory" style={{ width: "66px", height: "auto", margin: "0 0 12px 8px", display: "block" }} />
+              <img src="/illustrations/coory-logo-light.png" alt="Coory" width={66} height={16} style={{ width: "66px", height: "auto", margin: "0 0 12px 8px", display: "block" }} />
               {" "}
               {v.i8.nav.map((n, i) => (
                 <Fragment key={i}>
