@@ -198,7 +198,9 @@
 .head span {
   font-size: 10px;
   white-space: nowrap;
-  color: #5e6e8a;
+  /* 5,14:1 sur le fond de la fenêtre (#0F1726). #5E6E8A ne tenait que
+     3,48:1 : signalé par l'audit d'accessibilité du 24/11/2026. */
+  color: #7a8aa6;
 }
 .rows {
   position: absolute;
@@ -372,7 +374,7 @@
   font-style: normal;
   white-space: nowrap;
   text-overflow: ellipsis;
-  color: #8a8f98;
+  color: #6e737c; /* 4,77:1 sur blanc (audit du 24/11/2026, était #8A8F98 : 3,25:1) */
 }
 .sheetScore {
   flex: none;
@@ -382,14 +384,14 @@
   background: #edf8f2;
   font-size: 10px;
   white-space: nowrap;
-  color: #1e8a5c;
+  color: #1a7d53; /* 5,12:1 sur blanc (audit du 24/11/2026, était #1E8A5C : 4,33:1) */
 }
 .why {
   display: block;
   padding: 12px 12px 0;
   font-size: 10.5px;
   white-space: nowrap;
-  color: #8a8f98;
+  color: #6e737c; /* 4,77:1 sur blanc (audit du 24/11/2026, était #8A8F98 : 3,25:1) */
 }
 .reasons {
   display: flex;
@@ -419,7 +421,7 @@
   height: 15px;
   border-radius: 999px;
   background: #edf8f2;
-  color: #1e8a5c;
+  color: #1a7d53; /* 5,12:1 sur blanc (audit du 24/11/2026, était #1E8A5C : 4,33:1) */
   font-size: 9px;
   font-style: normal;
   line-height: 1;
@@ -441,7 +443,7 @@
   font-size: 10.5px;
   font-style: normal;
   white-space: nowrap;
-  color: #8a8f98;
+  color: #6e737c; /* 4,77:1 sur blanc (audit du 24/11/2026, était #8A8F98 : 3,25:1) */
 }
 .draftState {
   font-size: 10px;
@@ -451,7 +453,7 @@
   transition: color 0.3s ease;
 }
 .draftReady {
-  color: #1e8a5c;
+  color: #1a7d53; /* 5,12:1 sur blanc (audit du 24/11/2026, était #1E8A5C : 4,33:1) */
 }
 /* ⚠ De VRAIES lettres, pas des lignes grises : un faux texte fait de barres
    ne dit pas qu'un message est rédigé. La hauteur minimale réserve la place
@@ -519,7 +521,7 @@
   font-size: 10.5px;
   font-style: normal;
   white-space: nowrap;
-  color: #8a8f98;
+  color: #6e737c; /* 4,77:1 sur blanc (audit du 24/11/2026, était #8A8F98 : 3,25:1) */
 }
 .kpiLine {
   display: flex;
@@ -536,7 +538,7 @@
 .kpiDelta {
   font-size: 11px;
   white-space: nowrap;
-  color: #1e8a5c;
+  color: #1a7d53; /* 5,12:1 sur blanc (audit du 24/11/2026, était #1E8A5C : 4,33:1) */
 }
 
 /* ⚠ L'horloge n'est pas armée sous `prefers-reduced-motion` : la scène rend

@@ -36,7 +36,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
 
           <div className={s.links}>
-            <nav aria-label={site.navLabel} className={s.nav}>
+            <nav aria-label={site.footerNavLabel} className={s.nav}>
               {site.footerNav.map((item) => (
                 <NavLink key={item.href} href={path(locale, item.href)} locale={locale} className={s.link} markCurrent>
                   {item.label}

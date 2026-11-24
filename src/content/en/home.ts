@@ -16,7 +16,7 @@ export const home = {
     logos: [] as readonly { src: string; alt: string }[],
     rating: "",
     quote: { text: "", author: "" },
-    fallback: ["Based in Brussels", "Two founding developers", "You talk directly to the people who build"],
+    fallback: ["Based in Brussels", "Two founding developers", "One point of contact"],
   },
 
   problems: {

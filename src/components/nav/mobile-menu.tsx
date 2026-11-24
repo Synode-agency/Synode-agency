@@ -97,7 +97,7 @@ export function MobileMenu({
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); (toggle ?? first)?.focus(); }
       }}
     >
-      <nav className={s.main} aria-label={site.navLabel}>
+      <nav className={s.main} aria-label={site.menuDialog}>
         {site.nav.map(item => {
           const current = isCurrent(item.href);
           return (

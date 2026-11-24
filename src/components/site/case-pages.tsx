@@ -91,7 +91,7 @@ export function CaseStudyPage({ locale, item }: { locale: Locale; item: CaseStud
           </div>
         </div>
         {screens && screens.more.length > 0 && (
-          <div className="case-more section-gap-sm" aria-label={d.screens}>
+          <div className="case-more section-gap-sm" role="group" aria-label={d.screens}>
             {screens.more.map((node, i) => (
               <div key={i} className="case-screen case-screen--stage case-screen--small">
                 {node}

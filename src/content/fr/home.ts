@@ -26,7 +26,10 @@ export const home = {
     logos: [] as readonly { src: string; alt: string }[],
     rating: "",
     quote: { text: "", author: "" },
-    fallback: ["Basés à Bruxelles", "Deux développeurs fondateurs", "Vous parlez directement à ceux qui construisent"],
+    /* « Un seul interlocuteur » et non « Vous parlez directement à ceux qui
+       construisent » : c'est le titre de la section des fondateurs, plus bas
+       sur la même page. */
+    fallback: ["Basés à Bruxelles", "Deux développeurs fondateurs", "Un seul interlocuteur"],
   },
 
   problems: {
