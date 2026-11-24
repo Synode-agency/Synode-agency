@@ -7,12 +7,12 @@ import { Booking } from "@/components/site/booking";
 import { UseCaseAccordion } from "@/components/site/use-case-accordion";
 import { OperationalImpact } from "@/components/site/operational-impact";
 import { businessUseCases } from "@/lib/business-use-cases";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
+import { bookingHref, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 
 export function UseCasesPage({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
-  const bookingHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const cases = businessUseCases(locale);
   const pagePath = path(locale, ROUTES.useCases);
   const structuredData = {
@@ -45,7 +45,7 @@ export function UseCasesPage({ locale }: { locale: Locale }) {
       >
         <p>{fr ? "Découvrez comment l’intelligence artificielle peut répondre plus vite à vos clients, relier vos outils, exploiter vos chiffres et assister vos équipes au quotidien. Agents IA, intégrations, automatisations et logiciels métier sont combinés sur mesure, selon vos outils, vos données et vos règles métier." : "Discover how artificial intelligence can answer your clients faster, connect your tools, use your figures and support your teams every day. AI agents, integrations, automations and business software are combined around your tools, data and business rules."}</p>
         <div className="btn-row">
-          <Link className="btn btn--primary" href={bookingHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
+          <Link className="btn btn--primary" href={bookHref}>{getContent(locale).site.cta}<ArrowRight aria-hidden /></Link>
           <Link className="btn btn--ghost" href="#exemples">{fr ? "Explorer les cas d’usage" : "Explore the use cases"}<ArrowDown aria-hidden /></Link>
         </div>
       </PageHero>

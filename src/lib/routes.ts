@@ -42,6 +42,34 @@ export const ROUTES = {
 
 /** Les ancres de la page Contact, citées depuis toute la navigation. */
 export const ANCHORS = {
-  booking: "reservation",
   form: "formulaire",
 } as const;
+
+/**
+ * L'ANCRE DU CALENDRIER, la seule traduite : `/contact#reserver` en
+ * français, `/en/contact#book` en anglais (brief de la refonte, règle 1).
+ * Le bouton principal du site y mène depuis toutes les pages.
+ *
+ * L'ancienne ancre `#reservation` (avant le 24/11/2026) ne casse rien :
+ * le calendrier est en haut de la page Contact, on le voit en arrivant.
+ */
+const BOOKING_ANCHOR = { fr: "reserver", en: "book" } as const satisfies Record<Locale, string>;
+
+export const bookingAnchor = (locale: Locale) => BOOKING_ANCHOR[locale];
+
+/** bookingHref("en") -> "/en/contact#book" */
+export const bookingHref = (locale: Locale) => `${path(locale, ROUTES.contact)}#${BOOKING_ANCHOR[locale]}`;
+
+/**
+ * Les ancres qui changent de nom d'une langue à l'autre, par paires. Le
+ * sélecteur de langue garde la section où l'on se trouve : il passe par
+ * cette table pour que `/contact#reserver` mène à `/en/contact#book`.
+ */
+const ANCHOR_PAIRS: readonly Record<Locale, string>[] = [BOOKING_ANCHOR];
+
+/** translateHash("#reserver", "en") -> "#book" ; une ancre commune ne change pas. */
+export function translateHash(hash: string, target: Locale) {
+  const id = hash.replace(/^#/, "");
+  const pair = ANCHOR_PAIRS.find((p) => Object.values(p).includes(id));
+  return pair ? `#${pair[target]}` : hash;
+}

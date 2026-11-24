@@ -1,0 +1,70 @@
+/* =====================================================================
+   LA REFONTE SIMPLE (brief du 24/11/2026)
+
+   Les règles des composants de la refonte, chargées APRÈS `globals.css`
+   et `studio.css`. Les anciennes règles des pages qui disparaissent restent
+   dans ces deux feuilles jusqu'à l'étape 11, où elles partent avec leurs
+   composants : les écrire ici les garde à l'abri de ce ménage.
+   ===================================================================== */
+
+/* ---- LE BOUTON DE LA BARRE, À TOUTES LES TAILLES (brief, 4.2).
+   Il était masqué sous 720px et ne vivait que dans le menu ☰. Pour qu'il
+   tienne en entier, avec le même libellé que partout ailleurs :
+   - sous 720px, il perd sa flèche, et le sélecteur de langue passe dans
+     le menu ☰ ;
+   - sous 480px, la barre ne garde que le symbole du logo (le lien garde
+     son nom, « Synode, retour à l'accueil ») ;
+   - sous 360px, son libellé passe sur deux lignes. ---- */
+.site-header .site-header-cta {
+  display: inline-flex;
+}
+@media (max-width: 719px) {
+  .site-header .site-header-cta {
+    min-height: 2.5rem;
+    padding-inline: 0.85rem;
+    font-size: var(--fs-small);
+    white-space: nowrap;
+  }
+  .site-header .site-header-cta svg {
+    display: none;
+  }
+  .site-header-end > .lang {
+    display: none;
+  }
+}
+@media (max-width: 479px) {
+  .site-header .site-header-brand .wordmark-type {
+    display: none;
+  }
+}
+@media (max-width: 359px) {
+  .site-header .site-header-cta {
+    max-width: 9.5rem;
+    padding-block: 0.3rem;
+    font-size: var(--fs-label);
+    line-height: 1.15;
+    text-align: center;
+    white-space: normal;
+    text-wrap: balance;
+  }
+}
+
+/* ---- L'APPEL DE FIN DE PAGE (`CtaSection`).
+   Centré : un titre, une phrase, le bouton. ---- */
+.cta-final-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+.cta-final-body .lede {
+  margin-inline: auto;
+}
+
+/* ---- LE HERO DE LA REFONTE (`Hero`) : le bouton et le lien texte sur une
+   ligne, qui passe à la ligne plutôt que de serrer. ---- */
+.hero-actions {
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 1.5rem;
+}

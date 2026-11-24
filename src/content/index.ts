@@ -31,7 +31,7 @@ import { legalTexts as legalEn } from "./en/legal";
 import { work as workFr } from "./fr/work";
 import { work as workEn } from "./en/work";
 
-export { ANCHORS, ROUTES, homePath, localePrefix, locales, path } from "@/lib/routes";
+export { ANCHORS, ROUTES, bookingAnchor, bookingHref, homePath, localePrefix, locales, path, translateHash } from "@/lib/routes";
 export type { Locale } from "@/lib/routes";
 export type { SiteContent, WorkContent, WorkItem, WorkKind } from "./types";
 export type { LegalBlock, LegalSection, LegalTexts } from "./legal-shared";
@@ -55,11 +55,7 @@ export const WORK: Record<Locale, WorkContent> = { fr: workFr, en: workEn };
  * interactifs n'importent jamais ce dossier (K9).
  */
 export function headerCopy(locale: Locale) {
-  const c = getContent(locale);
-  return {
-    site: c.site,
-    bricks: c.solutions.bricks.map(({ slug, title, benefit, visual }) => ({ slug, title, benefit, visual })),
-  };
+  return { site: getContent(locale).site };
 }
 export type HeaderCopy = ReturnType<typeof headerCopy>;
 export type BookingCopy = SiteContent["contact"]["booking"];

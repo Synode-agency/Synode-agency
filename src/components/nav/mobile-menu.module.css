@@ -294,3 +294,22 @@
 .subAll:focus-visible {
   outline-offset: -2px;
 }
+
+/* Le sélecteur de langue, repris de la barre où il ne tient plus sous
+   720px (refonte du 24/11/2026). Au-dessus, la barre le montre déjà. */
+.lang {
+  margin: 1.75rem 20px 0;
+}
+
+/* Le bouton est désormais `PrimaryButton`, donc un `.btn` : la règle des
+   boutons de téléphone (`studio.css`) le met à 100% de largeur, et ses
+   marges de 20px le faisaient déborder du panneau. Il garde la largeur
+   que lui laissent ses marges. */
+.panel a.cta {
+  width: auto;
+}
+@media (min-width: 720px) {
+  .lang {
+    display: none;
+  }
+}

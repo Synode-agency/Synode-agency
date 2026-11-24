@@ -1,6 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
+import { PrimaryButton } from "@/components/site/primary-button";
+import { CtaSection } from "@/components/site/cta-section";
 import type { Locale } from "@/content";
 
 /**
@@ -16,8 +18,10 @@ import type { Locale } from "@/content";
  * elles disent pourquoi une couleur ne peut pas bouger, pas qu'elle est
  * jolie.
  *
- * ⚠ Cette page est utile à l'équipe, pas au visiteur : elle est exclue de
- * l'indexation dans son fichier de route.
+ * ⚠ Cette page est utile à l'équipe, pas au visiteur. Depuis le 24/11/2026,
+ * elle n'existe qu'en développement (`npm run dev`) : son fichier de route
+ * s'appelle `page.dev.tsx`, une extension que `next.config.ts` ne reconnaît
+ * pas en production. En ligne, son adresse donne une 404.
  */
 export function DesignSystemPage({ locale }: { locale: Locale }) {
   const fr = locale === "fr";
@@ -244,6 +248,38 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
         </div>
       </Band>
 
+      {/* ------------------------------------------------- La refonte */}
+      <Band id="refonte" tone="base">
+        <Lede
+          kicker={fr ? "Refonte" : "Redesign"}
+          title={fr ? "Les composants\n^de la refonte" : "The redesign\n^components"}
+          text={
+            fr
+              ? "Ceux des nouvelles pages (brief du 24/11/2026) : le bouton unique, le hero et l'appel de fin de page, montré tout en bas."
+              : "The ones the new pages use (brief of 24/11/2026): the single button, the hero and the closing call, shown at the very bottom."
+          }
+        />
+        <div className="ds-demo">
+          <h3 className="ds-demo-title">PrimaryButton</h3>
+          <p className="ds-demo-note">
+            {fr
+              ? "Le seul bouton plein du site, avec le même libellé partout. Sans propriété, il mène au calendrier de la page Contact."
+              : "The site's only filled button, with the same label everywhere. With no props, it leads to the calendar on the Contact page."}
+          </p>
+          <div className="btn-row">
+            <PrimaryButton locale={locale} />
+          </div>
+        </div>
+        <div className="ds-demo">
+          <h3 className="ds-demo-title">Hero</h3>
+          <p className="ds-demo-note">
+            {fr
+              ? "Surtitre facultatif, titre, phrase, le bouton principal, un lien texte secondaire et la mention sous le bouton. Il repose sur le gabarit PageHero."
+              : "Optional eyebrow, title, one sentence, the primary button, a secondary text link and the note under the button. It sits on the PageHero template."}
+          </p>
+        </div>
+      </Band>
+
       {/* ------------------------------------------------- Accessibilité */}
       <Band id="accessibilite" tone="ink">
         <Lede
@@ -281,6 +317,8 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
           ))}
         </ul>
       </Band>
+
+      <CtaSection locale={locale} />
     </Shell>
   );
 }

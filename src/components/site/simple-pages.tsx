@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/content";
+import { bookingHref, ROUTES, getContent, homePath, path, type Locale } from "@/content";
 import { LEGAL } from "@/content";
 
 /**
@@ -19,7 +19,7 @@ import { LEGAL } from "@/content";
  */
 export function ThanksPage({ locale }: { locale: Locale }) {
   const { thanks } = getContent(locale);
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
 
   return (
     <Shell locale={locale}>

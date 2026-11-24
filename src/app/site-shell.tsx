@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactNode } from "react";
 import "./globals.css";
 import "./studio.css";
+/* Les composants de la refonte du 24/11/2026, après les deux autres. */
+import "./refonte.css";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
 
 // A neutral system sans keeps the interface crisp without a font download.

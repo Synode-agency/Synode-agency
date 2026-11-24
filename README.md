@@ -47,7 +47,9 @@ Les six services : `agents-ia`, `automatisations-intelligentes`,
 S'y ajoutent une page 404 en français (`src/app/global-not-found.tsx`) et
 en anglais (`src/app/(en)/en/not-found.tsx`),
 `/methode` qui redirige vers la section Méthode de l'accueil, et
-`/design-system`, un outil d'équipe exclu des moteurs de recherche.
+`/design-system`, un outil d'équipe qui n'existe qu'en développement
+(`npm run dev`) : son fichier s'appelle `page.dev.tsx`, et `next.config.ts`
+ne reconnaît cette extension qu'en dehors de la production.
 
 ### Ce que fait le site
 

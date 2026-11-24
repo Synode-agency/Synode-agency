@@ -14,6 +14,13 @@ const nextConfig: NextConfig = {
   // Compile and runtime errors are still surfaced.
   devIndicators: false,
 
+  /* LES PAGES RÉSERVÉES AU DÉVELOPPEMENT (24/11/2026). Un fichier de route
+     nommé `page.dev.tsx` n'est une page qu'avec `npm run dev` : en
+     production, Next ne reconnaît que les extensions par défaut, il ne
+     construit donc pas la page et son adresse donne une 404. C'est le cas
+     du design system, outil de l'équipe qui n'a rien à faire sur le site. */
+  pageExtensions: process.env.NODE_ENV === "production" ? ["tsx", "ts", "jsx", "js"] : ["dev.tsx", "tsx", "ts", "jsx", "js"],
+
   /* La 404 des adresses qui ne correspondent à aucune route. Avec deux
      layouts racine, `(fr)` et `(en)`, Next n'a pas de layout où la
      composer et sert sa page brute : voir `src/app/global-not-found.tsx`. */

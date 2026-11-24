@@ -10367,14 +10367,14 @@ main > .band#top.work-detail-hero--centre .lede-text {
      propres hauteurs en `#calendrier-accueil` (566px fermée, 540px pour
      l'agenda), qu'une classe seule ne battrait pas. Un calendrier ajouté
      plus tard devra être ajouté ici. ---- */
-  :is(#reservation, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking--card {
+  :is(#reserver, #book, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking--card {
     height: 500px;
   }
-  :is(#reservation, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking-closed {
+  :is(#reserver, #book, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking-closed {
     flex: 1;
     min-height: 0;
   }
-  :is(#reservation, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking--card .booking-frame {
+  :is(#reserver, #book, #calendrier-accueil, #calendrier-solutions, #calendrier-cas-usage) .booking--card .booking-frame {
     flex: 1;
     min-height: 0;
   }

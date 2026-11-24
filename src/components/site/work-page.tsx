@@ -11,7 +11,7 @@ import { CooryContextSection, CooryGoalsSection, cooryContent } from "@/componen
 import cooryStyles from "@/components/coory/coory-sections.module.css";
 import { HomeWorkCards } from "./home-work-cards";
 import { Lede } from "@/components/site/lede";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
+import { bookingHref, ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { COORY_DEMO, COORY_DEMO_URL, cooryCardCopy, findWork, work, type WorkItem, type WorkKind } from "@/lib/work";
 import { siteUrl } from "@/lib/site-url";
 import { sansVeuve } from "@/lib/sans-veuve";
@@ -34,7 +34,7 @@ const BADGE: Record<WorkKind, string> = {
 export function WorkPage({ locale }: { locale: Locale }) {
   const { site } = getContent(locale);
   const w = work(locale);
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const nexus = w.items[0];
   const coory = findWork(locale, "coory");
@@ -136,7 +136,7 @@ export function WorkPage({ locale }: { locale: Locale }) {
 export function WorkDetailPage({ locale, item }: { locale: Locale; item: WorkItem }) {
   const w = work(locale);
   const d = w.detail;
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const itemPath = `${path(locale, ROUTES.work)}/${item.slug}`;
   const isCoory = item.slug === "coory";

@@ -3,12 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
-import { SolutionsMenu } from "./solutions-menu";
+import { PrimaryButton } from "./primary-button";
 import { MobileMenu } from "@/components/nav/mobile-menu";
-import { ANCHORS, ROUTES, homePath, path, type Locale } from "@/lib/routes";
+import { ROUTES, homePath, path, translateHash, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
 import { cx } from "@/lib/cx";
 
@@ -19,7 +19,8 @@ import { cx } from "@/lib/cx";
  * fond teinté reste visible derrière elle, ce qui préserve le principe du
  * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
  *
- * Une seule ligne sur ordinateur, six entrées et un bouton. Une barre qui
+ * Une seule ligne sur ordinateur, trois entrées et un bouton (brief de la
+ * refonte, 4.2). Pas d'entrée « Accueil » : le logo y mène. Une barre qui
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  */
@@ -89,7 +90,6 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   }, []);
 
   const closeMenu = () => { setOpen(false); burgerRef.current?.focus(); };
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
   const isCurrent = (href: string) => {
     const full = path(locale, href);
     return pathname === full || (href !== ROUTES.home && pathname.startsWith(`${full}/`));
@@ -113,8 +113,8 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
           <Wordmark variant="mark" />
         </NavLink>
 
-        <nav aria-label="Navigation" className="site-nav">
-          {site.nav.map((item) => item.href === ROUTES.solutions ? <SolutionsMenu key={`desktop-${pathname}`} locale={locale} pathname={pathname} bricks={copy.bricks} /> : (
+        <nav aria-label={site.navLabel} className="site-nav">
+          {site.nav.map((item) => (
             <NavLink
               key={item.href}
               href={path(locale, item.href)}
@@ -129,10 +129,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
 
         <div className="site-header-end">
           <LangSwitch locale={locale} pathname={pathname} label={site.langLabel} />
-          <Link href={bookHref} className="btn btn--primary site-header-cta">
-            {site.ctaShort}
-            <ArrowRight aria-hidden />
-          </Link>
+          {/* Le bouton reste dans la barre sur téléphone, hors du menu ☰
+              (brief, 4.2) : c'est la seule action du site. */}
+          <PrimaryButton locale={locale} className="site-header-cta" />
 
           <button
             type="button"
@@ -158,6 +157,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
         pathname={pathname}
         open={open}
         onClose={closeMenu}
+        /* Sous 720px, le sélecteur quitte la barre pour laisser la place au
+           bouton principal : il est repris ici, dans le menu. */
+        lang={<LangSwitch locale={locale} pathname={pathname} label={site.langLabel} />}
       />
     </header>
   );
@@ -218,7 +220,7 @@ function LangSwitch({
               const hash = window.location.hash;
               if (current || !hash || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
               event.preventDefault();
-              router.push(`${localePath(l, locale, pathname)}${hash}`);
+              router.push(`${localePath(l, locale, pathname)}${translateHash(hash, l)}`);
             }}
           >
             {l.toUpperCase()}

@@ -14,14 +14,14 @@ import { OperationalImpact } from "@/components/site/operational-impact";
 import { ToolsSection } from "@/components/site/tools/tools-section";
 import { HomeWorkCards } from "@/components/site/home-work-cards";
 import { featuredBusinessUseCases } from "@/lib/business-use-cases";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
+import { bookingHref, ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 
 export function HomePage({ locale }: { locale: Locale }) {
   const { site, home } = getContent(locale);
   const fr = locale === "fr";
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const contactHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const structuredData = {
     "@context": "https://schema.org",

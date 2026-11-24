@@ -5,14 +5,14 @@ import { PageHero } from "@/components/site/page-hero";
 import { Lede } from "@/components/site/lede";
 import { ContactPanel, SkillsPanel, TeamCard, TeamCards } from "@/components/equipe";
 import layout from "@/components/equipe/equipe.module.css";
-import { ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
+import { bookingHref, ANCHORS, ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 
 /** Cofounder copy from the published team page; portraits supplied in public/equipe. */
 export function TeamPage({ locale }: { locale: Locale }) {
   const { team, site } = getContent(locale);
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
   const pagePath = path(locale, ROUTES.team);
   const structuredData = {

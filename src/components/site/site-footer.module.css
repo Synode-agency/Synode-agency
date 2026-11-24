@@ -1,0 +1,125 @@
+/* =====================================================================
+   LE PIED DE PAGE DE LA REFONTE (24/11/2026)
+
+   Sa propre feuille, pour ne rien hériter des anciennes règles
+   `.site-footer-*` de `globals.css` et `studio.css`, qui partent à
+   l'étape 11 de la refonte avec le reste du code mort.
+   ===================================================================== */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+
+/* Le haut : la marque à gauche, les liens à droite ; l'un sous l'autre sur
+   téléphone. */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.75rem 3rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.tagline {
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* LA ligne de liens. Elle passe à la ligne plutôt que de rapetisser. */
+.nav,
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 1.5rem;
+}
+
+/* 40px de cible : la ligne se touche au doigt sans viser. */
+.link,
+.mail {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  font-size: var(--fs-small);
+  color: var(--muted-foreground);
+  transition: color 0.18s var(--anim-ease);
+}
+.link:hover {
+  color: var(--foreground);
+}
+.link[aria-current="page"] {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* L'adresse est le seul lien qu'on vient chercher ici : soulignée et en
+   bleu, sans avoir à la survoler pour la reconnaître. Bleu de marque sur
+   blanc : 5,09:1. */
+.mail {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  padding-top: clamp(1.25rem, 2vw, 1.75rem);
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-micro);
+  color: var(--text-mono);
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.25rem;
+}
+
+/* 24px au moins (WCAG 2.5.8, constat C53 de l'audit). */
+.legalLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--text-mono);
+  transition: color 0.18s var(--anim-ease);
+}
+.legalLink:hover {
+  color: var(--foreground);
+}
+
+@media (min-width: 760px) {
+  .links {
+    align-items: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .legalLink {
+    transition: none;
+  }
+}

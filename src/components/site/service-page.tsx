@@ -21,7 +21,7 @@ import { AgentNetwork } from "./agent-network";
 import { AppVisual, FlowVisual, KpiVisual, LayerVisual, TeamsVisual } from "@/components/core-visuals";
 import { servicePage } from "@/lib/service-pages";
 import { renderLines } from "@/lib/lines";
-import { ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/content";
+import { bookingHref, ANCHORS, ROUTES, getContent, homePath, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationName } from "@/lib/organization";
 import { type solutionFamilies } from "@/lib/solution-details";
@@ -94,7 +94,7 @@ export function ServicePage({ locale, family }: { locale: Locale; family: Family
   const icons = USE_ICONS[family.slug] ?? [];
   const summaries = getContent(locale).solutions.bricks;
   const { operations } = getContent(locale).solutions;
-  const bookHref = `${path(locale, ROUTES.contact)}#${ANCHORS.booking}`;
+  const bookHref = bookingHref(locale);
   const formHref = `${path(locale, ROUTES.contact)}#${ANCHORS.form}`;
 
   /* Les données structurées de l'offre : un `Service` rattaché à
