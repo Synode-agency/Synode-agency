@@ -59,13 +59,17 @@ ne reconnaît cette extension qu'en dehors de la production.
   notification à l'équipe et un accusé de réception au visiteur
   (`src/lib/contact-store.ts`, `src/lib/ack-email.ts`). Sans configuration, le
   formulaire le dit au lieu d'afficher un faux succès.
+- **Un seul appel à l'action** : le bouton « Réserver un appel de 30 min »
+  (`src/components/site/primary-button.tsx`), le même sur toutes les pages,
+  mène au calendrier de la page Contact (`/contact#reserver`,
+  `/en/contact#book`).
 - **Réservation d'un rendez-vous** : l'agenda Cal.com est intégré à la page
-  Contact et aux appels à l'action de l'accueil, de Solutions et de Cas
-  d'usage. Il n'est chargé **qu'au clic** : le site ne dépose aucun cookie et
-  n'a pas besoin de bandeau de consentement.
-- **Outils en ligne** sur l'accueil : un diagnostic IA (questionnaire et score
-  calculés dans le navigateur) et un assistant qui prépare un brief, repris
-  ensuite dans le formulaire de contact.
+  Contact, ainsi qu'à Solutions et Cas d'usage tant que ces pages existent.
+  Il n'est chargé **qu'au clic** : le site ne dépose aucun cookie et n'a pas
+  besoin de bandeau de consentement.
+- **Accueil** : le problème du client, les trois services, les réalisations
+  (Nexus, Coory), les trois étapes, les fondateurs, une FAQ courte. Les
+  blocs de preuve (logos, avis, citation) ne s'affichent que s'ils existent.
 - **Référencement** : `sitemap.xml`, `robots.txt`, balises `canonical` et
   `hreflang` sur chaque page indexée, données structurées (Organization,
   listes de projets), image de partage générée pour chaque page.

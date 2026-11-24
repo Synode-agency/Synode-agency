@@ -32,6 +32,16 @@ export const site = {
   legalLabel: "Legal",
   legalLinks: { notice: "Legal notice", privacy: "Privacy" },
   copyright: "Synode",
+  steps: {
+    title: "How it works",
+    items: [
+      { title: "A 30-min call.", text: "Tell us about one task that wastes your time." },
+      { title: "A written scope.", text: "What we’ll build, how long it takes, what it costs." },
+      { title: "Delivery and support.", text: "We set it up, train your team and stay available." },
+    ],
+  },
+  caseStatus: { live: "Live", beta: "Beta", demo: "Demo" },
+  caseLink: "Explore the project",
   finalCta: {
     title: "Is one task eating your time?",
     text: "Let’s talk for 30 minutes. One process to improve is enough to start.",

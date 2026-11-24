@@ -30,6 +30,10 @@ export const homePath = (locale: Locale) => (locale === "fr" ? "/" : "/en");
  */
 export const ROUTES = {
   home: "/",
+  /* La page Services de la refonte. Tant qu'elle n'existe pas (étape 5),
+     `next.config.ts` redirige cette adresse vers `/solutions`, ancre
+     comprise : les liens qui y mènent déjà marchent. */
+  services: "/services",
   solutions: "/solutions",
   useCases: "/cas-usage",
   work: "/realisations",
@@ -61,11 +65,29 @@ export const bookingAnchor = (locale: Locale) => BOOKING_ANCHOR[locale];
 export const bookingHref = (locale: Locale) => `${path(locale, ROUTES.contact)}#${BOOKING_ANCHOR[locale]}`;
 
 /**
+ * LES TROIS SERVICES et leur ancre sur la page Services (brief, 4.1) :
+ * `#connecter`, `#ia`, `#logiciel` en français, `#connect`, `#ai`,
+ * `#software` en anglais.
+ */
+const SERVICE_ANCHORS = {
+  connect: { fr: "connecter", en: "connect" },
+  ai: { fr: "ia", en: "ai" },
+  software: { fr: "logiciel", en: "software" },
+} as const satisfies Record<string, Record<Locale, string>>;
+
+export type ServiceKey = keyof typeof SERVICE_ANCHORS;
+
+export const serviceAnchor = (locale: Locale, key: ServiceKey) => SERVICE_ANCHORS[key][locale];
+
+/** serviceHref("fr", "ai") -> "/services#ia" */
+export const serviceHref = (locale: Locale, key: ServiceKey) => `${path(locale, ROUTES.services)}#${SERVICE_ANCHORS[key][locale]}`;
+
+/**
  * Les ancres qui changent de nom d'une langue à l'autre, par paires. Le
  * sélecteur de langue garde la section où l'on se trouve : il passe par
  * cette table pour que `/contact#reserver` mène à `/en/contact#book`.
  */
-const ANCHOR_PAIRS: readonly Record<Locale, string>[] = [BOOKING_ANCHOR];
+const ANCHOR_PAIRS: readonly Record<Locale, string>[] = [BOOKING_ANCHOR, ...Object.values(SERVICE_ANCHORS)];
 
 /** translateHash("#reserver", "en") -> "#book" ; une ancre commune ne change pas. */
 export function translateHash(hash: string, target: Locale) {

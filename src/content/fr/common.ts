@@ -40,6 +40,20 @@ export const site = {
   legalLabel: "Informations légales",
   legalLinks: { notice: "Mentions légales", privacy: "Confidentialité" },
   copyright: "Synode",
+  /* LES TROIS ÉTAPES, les mêmes partout (brief, 6.1 et 6.4) : courtes sur
+     l'accueil, détaillées sur À propos. « Gratuit » n'est pas répété ici :
+     il est sous le bouton du hero (décision du 24/11/2026). */
+  steps: {
+    title: "Comment ça marche",
+    items: [
+      { title: "Un appel de 30 min.", text: "Vous nous décrivez une tâche qui vous fait perdre du temps." },
+      { title: "Un cadrage écrit.", text: "Ce qu’on construit, en combien de temps, pour quel prix." },
+      { title: "Livraison et suivi.", text: "On installe, on forme votre équipe, on reste disponibles." },
+    ],
+  },
+  /* Les pastilles d'état des réalisations, et le lien de leurs cartes. */
+  caseStatus: { live: "En production", beta: "Bêta", demo: "Démo" },
+  caseLink: "Découvrir le projet",
   /* L'appel de fin de page, le même partout (brief, 6.1 et 6.2). */
   finalCta: {
     title: "Une tâche vous fait perdre du temps ?",

@@ -68,3 +68,229 @@
   align-items: center;
   column-gap: 1.5rem;
 }
+
+/* =====================================================================
+   L'ACCUEIL DE LA REFONTE (brief, 6.1)
+   ===================================================================== */
+
+/* ---- Le surtitre du hero se voit aussi sur ordinateur : c'est la phrase
+   qui dit qui est Synode (« Agence de développement logiciel & IA à
+   Bruxelles », décision du 24/11/2026). Ailleurs, les heros centrés le
+   cachent au-dessus de 901px (`studio.css`). ---- */
+main > section.home-hero .studio-hero-kicker {
+  display: block;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+/* ---- L'espace entre les sections : 96 à 128px sur ordinateur, 64px sur
+   téléphone (brief, 11). ---- */
+main > .band.home-section {
+  padding-block: clamp(4rem, 2.6rem + 5vw, 7.5rem);
+}
+
+/* ---- Les bandes sombres de l'accueil (une sur deux, thème
+   `alternating`) : le bleu de marque n'y tient que 2,9:1. Liens, icônes,
+   numéros et chevrons y prennent le bleu clair des heros, #8FC0FF (9,37:1),
+   comme le bouton principal sur bleu nuit (règle du 23/11/2026). ---- */
+.site-theme-alternating main > .band.home-section:nth-of-type(odd) {
+  --brand: #8fc0ff;
+  --brand-foreground: #0b192c;
+  --brand-hover: #b3d4ff;
+}
+
+/* ---- La bande de preuve, sous les actions du hero. Sa ligne de repli :
+   trois constats sur une ligne, séparés par un point médian ; sur
+   téléphone, l'un sous l'autre, sans point (un point en début de ligne
+   ne veut rien dire). ---- */
+/* Séparée des actions par un filet : c'est un autre registre, des faits
+   et non une invitation. Le sélecteur est long pour passer devant les
+   marges des heros de téléphone (`studio.css`). */
+main > section.home-hero .proof-strip {
+  margin-top: 2.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+}
+main > section.home-hero p.proof-strip--fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: none;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--text-mono);
+}
+@media (min-width: 760px) {
+  main > section.home-hero p.proof-strip--fallback {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0;
+    white-space: nowrap;
+  }
+  .proof-strip--fallback > span + span::before {
+    content: "·";
+    margin-inline: 0.75rem;
+  }
+}
+.proof-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- Le problème : trois situations, une icône chacune. ---- */
+.problem-list {
+  display: grid;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .problem-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+.problem-list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.problem-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--r-xs);
+  border: 1px solid var(--hairline);
+  color: var(--brand);
+}
+.problem-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.problem-list p {
+  max-width: 34ch;
+  font-size: var(--fs-lead);
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+.problem-list strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* ---- Les trois services : le lien « En savoir plus » se cale en bas de
+   chaque carte, à la même hauteur dans les trois. ---- */
+.service-cards .tile {
+  gap: 0.75rem;
+}
+/* Le texte courant du brief (17-18px), et non le corps réduit des tuiles. */
+.service-cards .tile-text {
+  font-size: var(--fs-body);
+}
+.service-cards .tile .go {
+  margin-top: auto;
+  padding-top: 0.75rem;
+}
+
+/* ---- Les trois étapes, numérotées. ---- */
+.steps-list {
+  display: grid;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 900px) {
+  .steps-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+.steps-list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+}
+.steps-rank {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--brand);
+}
+.steps-list p {
+  max-width: 34ch;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--muted-foreground);
+}
+.steps-list strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* ---- Les fondateurs en bref : photo ronde, nom, rôle. ---- */
+.founders-list {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 760px) {
+  .founders-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+.founders-list > li {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.founders-photo {
+  position: relative;
+  flex: none;
+  width: 6rem;
+  height: 6rem;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--surface-2);
+}
+.founders-photo img {
+  object-fit: cover;
+}
+.founders-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.founders-text strong {
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: var(--foreground);
+}
+.founders-text > span {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--muted-foreground);
+}
+
+/* ---- La FAQ de l'accueil s'aligne sur son titre, à gauche, au lieu d'être
+   centrée sous lui (`mx-auto` du composant). ---- */
+main > .band.home-section .faq-list {
+  margin-inline: 0;
+}

@@ -22,7 +22,7 @@
  */
 
 import type { Locale } from "@/lib/routes";
-import type { SiteContent, WorkContent } from "./types";
+import type { CaseCard, SiteContent, WorkContent } from "./types";
 import type { LegalTexts } from "./legal-shared";
 import { fr } from "./fr";
 import { en } from "./en";
@@ -30,10 +30,14 @@ import { legalTexts as legalFr } from "./fr/legal";
 import { legalTexts as legalEn } from "./en/legal";
 import { work as workFr } from "./fr/work";
 import { work as workEn } from "./en/work";
+import { nexus as nexusFr } from "./fr/cases/nexus";
+import { coory as cooryFr } from "./fr/cases/coory";
+import { nexus as nexusEn } from "./en/cases/nexus";
+import { coory as cooryEn } from "./en/cases/coory";
 
-export { ANCHORS, ROUTES, bookingAnchor, bookingHref, homePath, localePrefix, locales, path, translateHash } from "@/lib/routes";
-export type { Locale } from "@/lib/routes";
-export type { SiteContent, WorkContent, WorkItem, WorkKind } from "./types";
+export { ANCHORS, ROUTES, bookingAnchor, bookingHref, homePath, localePrefix, locales, path, serviceAnchor, serviceHref, translateHash } from "@/lib/routes";
+export type { Locale, ServiceKey } from "@/lib/routes";
+export type { CaseCard, CaseStatus, SiteContent, WorkContent, WorkItem, WorkKind } from "./types";
 export type { LegalBlock, LegalSection, LegalTexts } from "./legal-shared";
 export { SMART_ACTIVITY_NUMBER } from "./legal-shared";
 
@@ -45,6 +49,15 @@ export function getContent(locale: Locale): SiteContent {
 
 /** Le texte des pages légales, par langue. */
 export const LEGAL: Record<Locale, LegalTexts> = { fr: legalFr, en: legalEn };
+
+/**
+ * Les réalisations, dans l'ordre de leurs cartes. Le premier cas client
+ * avec un résultat chiffré viendra ici, quand il existera (brief, 6.1).
+ */
+export const CASES: Record<Locale, readonly CaseCard[]> = {
+  fr: [nexusFr, cooryFr],
+  en: [nexusEn, cooryEn],
+};
 
 /** La page Réalisations et ses fiches, par langue. */
 export const WORK: Record<Locale, WorkContent> = { fr: workFr, en: workEn };

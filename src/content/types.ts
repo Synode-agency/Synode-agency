@@ -11,7 +11,14 @@ import type { work } from "./fr/work";
  * laisser une page anglaise vide ou incomplète.
  */
 
-/** Retire les valeurs littérales de `as const` pour ne garder que la forme. */
+/**
+ * Retire les valeurs littérales de `as const` pour ne garder que la forme.
+ *
+ * Sauf pour les champs nommés `key` : ce sont des identifiants que le code
+ * lit (`"connect"`, `"ai"`, `"software"` pour les trois services), pas du
+ * texte. Ils gardent leur valeur exacte, et l'anglais doit reprendre les
+ * mêmes.
+ */
 export type Widen<T> = T extends string
   ? string
   : T extends number
@@ -21,7 +28,7 @@ export type Widen<T> = T extends string
       : T extends readonly (infer U)[]
         ? readonly Widen<U>[]
         : T extends object
-          ? { [K in keyof T]: Widen<T[K]> }
+          ? { [K in keyof T]: K extends "key" ? T[K] : Widen<T[K]> }
           : T;
 
 export type SiteContent = Omit<Widen<typeof fr>, "locale"> & { locale: Locale };
@@ -54,6 +61,20 @@ export type WorkItem = {
   limits: readonly string[];
   /** `true` tant que la fiche attend captures, vidéo ou contenu réel. */
   todo: boolean;
+};
+
+/** L'état d'une réalisation, affiché en pastille sur sa carte (brief, 5). */
+export type CaseStatus = "live" | "beta" | "demo";
+
+/** Une réalisation, telle que sa carte la montre (accueil, Réalisations). */
+export type CaseCard = {
+  slug: string;
+  name: string;
+  status: CaseStatus;
+  /** Une phrase. */
+  summary: string;
+  /** La mention sous la phrase ; vide = rien. */
+  note: string;
 };
 
 /** La forme de la page Réalisations, la même dans les deux langues. */

@@ -1,30 +1,96 @@
-/** L'accueil : titre Google, description et FAQ. Le corps de la page est encore écrit dans `home-page.tsx` : il est réécrit à l'étape 4 de la refonte. */
+/**
+ * L'ACCUEIL (brief de la refonte, 6.1) : un hero, la preuve, le problème,
+ * les trois services, les réalisations, les trois étapes, les fondateurs,
+ * une FAQ courte et l'appel final. Les étapes et l'appel final sont
+ * communs à plusieurs pages : ils vivent dans `common.ts`.
+ */
 export const home = {
+  /* Titre et description pour Google : revus à l'étape 12 (SEO). */
   metaTitle: "Intégration, logiciels et IA à Bruxelles",
   metaDescription: "Synode, agence technologique à Bruxelles : des systèmes connectés (CRM, ERP, API), des logiciels métier intelligents et des processus automatisés, avec l’IA intégrée.",
-  faq: {
-    kicker: "Questions fréquentes",
-    title: "Questions fréquentes sur nos solutions sur mesure",
+
+  hero: {
+    title: "On connecte vos outils et on automatise le répétitif.",
+    accents: ["vos outils", "le répétitif"],
+    subtitle:
+      "Synode relie vos logiciels existants, y intègre l’IA et construit les outils qui manquent. Votre équipe passe moins de temps à recopier, relancer et chercher.",
+    secondaryLink: "Voir nos réalisations",
+  },
+
+  /* LA BANDE DE PREUVE, juste sous le hero. Rien n'est inventé : tant que
+     ces listes sont vides, seule la ligne de repli s'affiche.
+     [À COMPLÉTER] logos autorisés, note Google ou Sortlist, citation. */
+  proof: {
+    logos: [] as readonly { src: string; alt: string }[],
+    rating: "",
+    quote: { text: "", author: "" },
+    fallback: ["Basés à Bruxelles", "Deux développeurs fondateurs", "Vous parlez directement à ceux qui construisent"],
+  },
+
+  problems: {
+    title: "Ça vous parle ?",
+    items: [
+      { strong: "Vous recopiez les mêmes informations", rest: " dans trois logiciels différents." },
+      { strong: "Vos devis, relances et réponses clients", rest: " prennent des heures chaque semaine." },
+      { strong: "Vos chiffres sont éparpillés", rest: ", et vous les compilez à la main dans Excel." },
+    ],
+  },
+
+  services: {
+    title: "Ce que nous faisons",
+    /* Pour tout le monde, dit une fois (décision d'Antonino du 24/11/2026). */
+    audience: "Pour les indépendants, les PME et les grandes entreprises.",
+    more: "En savoir plus",
     items: [
       {
-        q: "Dois-je changer mes logiciels pour travailler avec vous ?",
-        a: "Pas nécessairement. Nous cherchons d’abord à intégrer la solution à vos logiciels existants. Selon leurs possibilités techniques et votre besoin, nous pouvons les connecter, les compléter ou développer un outil métier plus adapté.",
+        key: "connect",
+        title: "Connecter vos outils",
+        text: "Gestion clients, facturation, site, e-mails : on les relie pour que l’information circule toute seule.",
       },
       {
-        q: "Développez-vous aussi des logiciels sans IA ?",
-        a: "Oui. Une intégration ou un logiciel métier peut très bien fonctionner sans IA. Nous ne l’ajoutons que si elle apporte un gain concret, et nous vous le disons dans la proposition.",
+        key: "ai",
+        title: "Mettre l’IA au travail",
+        text: "L’IA prépare les devis, trie les demandes, répond aux questions fréquentes. Vous choisissez ce qu’elle fait seule et ce qu’elle vous soumet.",
       },
       {
-        q: "Combien coûte une solution sur mesure ?",
-        a: "Il n’y a pas de grille tarifaire publique : chaque projet est chiffré sur son périmètre réel (fonctionnalités, données, logiciels à connecter, volumes). Le premier échange est gratuit. Le cadrage est payant : il aboutit au périmètre écrit et au devis ferme, et son montant est déduit du prix du projet au démarrage du développement. Le devis distingue le développement, les coûts techniques récurrents, la maintenance si vous la choisissez et les services tiers.",
+        key: "software",
+        title: "Créer votre logiciel sur mesure",
+        text: "Application web ou mobile, outil interne, portail client : quand aucun outil du marché ne convient, on construit celui qui correspond à votre façon de travailler.",
+      },
+    ] as const,
+  },
+
+  work: {
+    title: "Ce que nous avons construit",
+    link: "Toutes nos réalisations",
+  },
+
+  founders: {
+    title: "Vous parlez directement à ceux qui construisent",
+    link: "Qui sommes-nous",
+  },
+
+  faq: {
+    title: "Questions fréquentes",
+    /* Une question sans réponse ne s'affiche pas. */
+    items: [
+      {
+        q: "Faut-il changer nos logiciels ?",
+        a: "Non. On part de vos outils actuels et on les connecte. On ne remplace que ce qui bloque vraiment.",
       },
       {
-        q: "Y a-t-il des coûts récurrents après la mise en service ?",
-        a: "Oui, dès que votre solution s’appuie sur des services payants (modèles d’IA, hébergement, plateformes d’automatisation), qui fonctionnent par abonnement tant qu’elle tourne. Ces coûts ne sont jamais absorbés par Synode. Soit vous nous confiez le suivi et la maintenance, et nous assurons l’exploitation, le monitoring et la maintenance contre un paiement récurrent défini au contrat ; soit vous souscrivez et payez ces services directement auprès des fournisseurs. Les montants sont estimés avant le démarrage.",
+        q: "Combien ça coûte ?",
+        a: "Le premier appel est gratuit. Le cadrage est payant, puis déduit du prix du projet. Le devis sépare le développement, les frais de fonctionnement et les évolutions.",
       },
       {
-        q: "Mes données restent-elles confidentielles ?",
-        a: "Oui. Les accès sont limités aux données nécessaires et définis dans la proposition. Vous les accordez au démarrage, et ils sont retirés à la fin si vous le souhaitez. C’est vous qui choisissez ce qui est validé par une personne : toutes les actions, ou seulement les actions sensibles.",
+        /* [À COMPLÉTER] une fourchette réaliste, par exemple « 2 à 6 semaines
+           pour un premier projet ». */
+        q: "Combien de temps faut-il ?",
+        a: "",
+      },
+      {
+        q: "Proposez-vous des solutions sans IA ?",
+        a: "Oui. On ajoute de l’IA uniquement quand elle apporte quelque chose.",
       },
     ],
   },

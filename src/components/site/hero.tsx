@@ -26,6 +26,7 @@ export function Hero({
   note,
   layout = "inner",
   aside,
+  className,
   children,
 }: {
   locale: Locale;
@@ -37,10 +38,11 @@ export function Hero({
   note?: string;
   layout?: "feature" | "inner";
   aside?: ReactNode;
+  className?: string;
   children?: ReactNode;
 }) {
   return (
-    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside}>
+    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside} className={className}>
       {subtitle ? <p>{subtitle}</p> : null}
       {primaryCta || secondaryLink ? (
         <div className="btn-row hero-actions">
