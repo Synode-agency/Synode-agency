@@ -51,15 +51,19 @@ export const home = {
   /* NOTRE APPROCHE (24/11/2026), à la place de « Ça vous parle ? ». Le
      texte est celui d'Antonino, mot pour mot ; seule l'espace avant « : »
      est insécable, pour que le deux-points ne parte pas seul à la ligne.
-     La photo du bureau se révèle dans le texte au défilement
-     (`ApproachScroll`). */
+     Un seul paragraphe, en deux temps (`ApproachScroll`) : la première
+     phrase (`lead`) s'écrit à l'arrivée de la section, la suite (`rest`)
+     par-dessus la photo. */
   approach: {
-    /* Pas affiché (étiquette retirée le 24/11/2026) : nomme la section
-       pour les lecteurs d'écran. */
+    /* Pas affiché : nomme la section pour les lecteurs d'écran. */
     label: "Notre approche",
-    text: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps. Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
-    image: "/images/bureau-nuit.png",
-    alt: "Deux développeurs au travail, de nuit, dans un bureau vitré",
+    lead: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps.",
+    rest: "Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
+    /* Les seuls mots en Instrument Serif italique bleu ; dans « l'IA »,
+       seul « IA » change de style. */
+    accents: ["logiciel", "IA"],
+    /* Décorative : pas de texte alternatif. */
+    image: "/images/approche-bureau.png",
   },
 
   services: {

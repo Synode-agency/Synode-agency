@@ -29,6 +29,7 @@ export function Hero({
   aside,
   strip,
   className,
+  tone,
   children,
 }: {
   locale: Locale;
@@ -45,10 +46,12 @@ export function Hero({
   /** Une bande pleine largeur sous les deux colonnes (la bande de preuve). */
   strip?: ReactNode;
   className?: string;
+  /** Le ton du fond pour la barre de navigation (voir `PageHero`). */
+  tone?: "dark" | "light";
   children?: ReactNode;
 }) {
   return (
-    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside} strip={strip} className={className}>
+    <PageHero layout={layout} kicker={eyebrow} title={title} aside={aside} strip={strip} className={className} tone={tone}>
       {subtitle ? <p>{subtitle}</p> : null}
       {primaryCta || secondaryLink ? (
         <div className="btn-row hero-actions">

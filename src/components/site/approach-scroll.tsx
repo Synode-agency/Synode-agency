@@ -1,248 +1,308 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
-import { ApproachReveal } from "@/components/site/approach-reveal";
 
 /* Les outils du calcul de l'animation. */
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const seg = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-/* Pour la sortie de la carte et du texte : une courbe douce, qui ne
-   traîne pas à la fin (la cubique passait ses derniers 14 % presque
-   immobile : du défilement « pour rien »). */
+/* Pour la descente du paragraphe : une courbe plus douce que la cubique,
+   qui n'accélère pas brutalement au milieu. */
 const easeSine = (t: number) => 0.5 - Math.cos(Math.PI * t) / 2;
 
-/* Le gris des mots pas encore remplis, et le noir qui laisse voir la photo. */
-const GRIS = "#E4E7EC";
-const NOIR = "#000000";
+/* LE LISSAGE (demande d'Antonino du 24/11/2026 : avec un défilement
+   rapide, la descente du paragraphe était trop brusque). La photo, le voile
+   et le paragraphe ne suivent pas le défilement à la lettre : ils le
+   rejoignent en douceur, par deux amortissements exponentiels en chaîne
+   (constante de temps de chacun). En chaîne, le mouvement démarre sans
+   à-coup au lieu de partir d'un coup : après un saut brusque, la descente
+   se pose en 0,35 s environ, et tout est en place en 0,65 s.
+   Le défilement de la page, lui, n'est jamais freiné. */
+const LISSAGE = 0.14;
 
-/* LE CALENDRIER DE LA SCÈNE, en part de la section (0 → 1). La section
-   fait 287vh (CSS) : la carte et le texte se posent exactement à la fin
-   (1), et la section se libère aussitôt (demande d'Antonino du 24/11/2026 :
-   plus aucun défilement une fois la photo en place). */
-const ETAPES = {
-  mots: [0.028, 0.5], // 1. les mots se remplissent avec la photo
-  sortie: [0.583, 1], // 2. la carte et le texte rejoignent leur place
-  photoLettres: [0.583, 0.722], // la photo quitte les lettres
-  voile: [0.639, 0.806], // le voile blanc s'efface
-  carte: [0.611, 0.778], // la carte apparaît
-  texteFinal: [0.722, 0.917], // le texte final apparaît
-} as const;
+/* Prévient la barre de navigation que le fond sous elle change sans
+   défilement (la photo finit de monter) : elle se mesure à nouveau. */
+const EVENEMENT_FOND = "site:fond";
 
-/* Quand la scène fixe tourne : ordinateur, mouvement accepté. */
-const SCENE = "(min-width: 800px) and (prefers-reduced-motion: no-preference)";
+/* Les couleurs des mots. */
+const GRIS = "#D5D9E0"; // première phrase, pas encore écrite
+const NOIR = "#0B1424"; // première phrase écrite, sur le fond blanc
+const BLANC = "#FFFFFF"; // mots écrits, sur la photo
+const BLANC_PALE = "rgba(255,255,255,.35)"; // première phrase pas encore écrite, sur la photo
+const BLEU = "#8EC1FF"; // « logiciel » et « IA »
+const INVISIBLE = "transparent"; // la suite, avant de s'écrire (sa place reste réservée)
 
-/* La photo, sans zoom : elle remplit son cadre, qui finit aux proportions
-   de l'image (la carte la montre alors en entier). */
-const COVER = { objectFit: "cover" } as const;
+/* Les mots s'écrivent un par un, sans défilement, en tant de temps au total. */
+const DUREE_DEBUT = 650;
+const DUREE_SUITE = 1100;
+
+const SANS_MOUVEMENT = "(prefers-reduced-motion: reduce)";
+
+/* Coupe un mot autour de son mot en valeur : « logiciel » en entier, ou
+   « IA » dans « l'IA » (seul « IA » change de style, « l' » reste normal).
+   La ponctuation collée au mot reste normale. */
+function decoupe(mot: string, accents: readonly string[]): ReactNode {
+  for (const accent of accents) {
+    const at = mot.indexOf(accent);
+    if (at === -1) continue;
+    const avant = mot.slice(0, at);
+    const apres = mot.slice(at + accent.length);
+    if (avant && !/['’]$/.test(avant)) continue;
+    if (apres && !/^[.,;:!?… »)]+$/.test(apres)) continue;
+    return (
+      <>
+        {avant}
+        <span className="approach-accent" data-accent="">
+          {accent}
+        </span>
+        {apres}
+      </>
+    );
+  }
+  return mot;
+}
 
 /**
- * LA SECTION « NOTRE APPROCHE » (24/11/2026), avec la photo du bureau.
+ * LA SECTION « NOTRE APPROCHE » (24/11/2026, d'après la fiche d'Antonino) :
+ * le paragraphe et la photo du bureau de nuit, rien d'autre.
  *
- * Sur ordinateur, la section reste fixe à l'écran pendant qu'on fait
- * défiler ses 287vh :
- *  1. le paragraphe, en gras et en gris clair, se remplit mot par mot avec
- *     la photo cachée derrière lui ;
- *  2. la sortie : la photo quitte les lettres, qui s'effacent ; une carte
- *     de la photo, déjà à sa petite taille, sort du paragraphe et glisse
- *     vers la gauche ; en même temps, le texte se réduit et part vers la
- *     droite jusqu'à sa taille finale ;
- *  3. la carte à gauche, un peu plus haute que le texte, et le paragraphe
- *     en noir à droite.
- * Tout se rejoue à l'envers en remontant.
+ * Une section de 135vh, avec une scène fixe de 100vh :
+ *  - la première phrase (`lead`) s'écrit toute seule, du gris au noir, mot
+ *    par mot en 0,65 s, quand le haut de la section passe à 55 % de
+ *    l'écran ; elle redevient grise si on remonte sous 80 % ;
+ *  - la photo monte du bas de l'écran et s'agrandit jusqu'à le remplir
+ *    (`clip-path`), avec un léger dézoom et un voile sombre qui apparaît ;
+ *    dès que le voile dépasse 0,5, la première phrase passe en blanc ;
+ *  - la suite (`rest`), déjà en place mais transparente, s'écrit toute
+ *    seule en blanc, mot par mot en 1,1 s, dès que p dépasse 0,5 ; elle
+ *    redevient transparente si p repasse sous 0,25.
+ * Tout tient en un tiers d'écran de défilement (p va de 0 à 1 sur 35vh).
+ * La photo, le voile et le paragraphe suivent une progression LISSÉE
+ * (`LISSAGE`) : même avec un défilement rapide, ils glissent en place au
+ * lieu de sauter.
  *
- * Le remplissage : la photo est dessous, et par-dessus un calque blanc en
- * `mix-blend-mode: screen` qui porte le texte. Le blanc cache la photo, le
- * noir la laisse voir : un mot passé au noir montre la photo dans ses
- * lettres. `isolation: isolate` garde ce mélange dans la scène.
+ * Chaque image ne change que `color`, `clip-path`, `transform` et
+ * `opacity`. Le texte reste du vrai texte, sélectionnable et lu en entier
+ * par les lecteurs d'écran, même quand des mots sont transparents.
  *
- * La photo des lettres reste en plein écran et s'efface avec elles. La
- * carte est une seconde image, aux proportions de la photo (elle la
- * montre en entier, sans zoom), un peu plus haute que le texte final :
- * elle part du centre du paragraphe, légèrement réduite, et finit collée
- * à gauche du texte, centrée sur lui en hauteur. Aucun calque sombre sur
- * la photo. `data-tone="dark"` dit à la barre de navigation que la photo
- * est sombre quand elle passe dessous.
+ * Sans mouvement (`prefers-reduced-motion`) : la feuille de style montre
+ * directement la photo en plein écran avec son voile, et tout le texte en
+ * blanc ; le script n'y touche pas.
  *
- * Sous 800px, ou si le visiteur demande moins de mouvement : une version
- * simple (`approach-simple`), le paragraphe qui passe du gris au noir mot
- * par mot (`ApproachReveal`, figé au noir sans mouvement) et la photo en
- * carte, entière. Sans mouvement et sur ordinateur : photo à gauche, texte
- * à droite.
- *
- * Le grand texte de la scène est décoratif (`aria-hidden`) : les lecteurs
- * d'écran lisent le texte final, une seule fois. Pas d'étiquette visible
- * (retirée le 24/11/2026) : `label` nomme la section pour eux.
+ * `data-tone="dark"` dit à la barre de navigation que la photo est sombre
+ * quand elle passe dessous.
  */
 export function ApproachScroll({
   label,
-  text,
+  lead,
+  rest,
+  accents,
   image,
-  alt,
+  className,
 }: {
   label: string;
-  text: string;
+  lead: string;
+  rest: string;
+  accents: readonly string[];
   image: string;
-  alt: string;
+  className?: string;
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const photoRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const maskRef = useRef<HTMLDivElement>(null);
-  const bigRef = useRef<HTMLParagraphElement>(null);
-  const finRef = useRef<HTMLDivElement>(null);
-  const mots = text.split(" ");
+  const zoomRef = useRef<HTMLDivElement>(null);
+  const voileRef = useRef<HTMLDivElement>(null);
+  const texteRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
     const sticky = stickyRef.current;
     const photo = photoRef.current;
-    const card = cardRef.current;
-    const cardImg = card?.querySelector("img");
-    const mask = maskRef.current;
-    const big = bigRef.current;
-    const fin = finRef.current;
-    const finText = fin?.querySelector("p");
-    if (!section || !sticky || !photo || !card || !cardImg || !mask || !big || !fin || !finText) return;
-    const motsEls = Array.from(big.querySelectorAll<HTMLElement>("[data-mot]"));
-    const scene = window.matchMedia(SCENE);
+    const zoom = zoomRef.current;
+    const voile = voileRef.current;
+    const texte = texteRef.current;
+    if (!section || !sticky || !photo || !zoom || !voile || !texte) return;
 
-    const stepScene = () => {
-      const st = sticky.getBoundingClientRect();
-      const W = st.width;
-      const H = st.height;
-      const s = section.getBoundingClientRect();
-      const p = clamp(-s.top / (s.height - H));
+    const motsDebut = Array.from(texte.querySelectorAll<HTMLElement>("[data-debut]"));
+    const motsSuite = Array.from(texte.querySelectorAll<HTMLElement>("[data-suite]"));
+    // Le mot en valeur de chaque mot de la suite (ou rien).
+    const accentsSuite = motsSuite.map((m) => m.querySelector<HTMLElement>("[data-accent]"));
+    const reduit = window.matchMedia(SANS_MOUVEMENT);
 
-      // 1. Les mots se remplissent avec la photo.
-      const n = Math.round(seg(p, ...ETAPES.mots) * motsEls.length);
-      motsEls.forEach((el, i) => (el.style.color = i < n ? NOIR : GRIS));
-
-      // Les repères : la colonne du site, la carte à gauche, le texte à droite.
-      const cw = Math.min(1280, W);
-      const cl = (W - cw) / 2 + 24;
-      const cr = (W - cw) / 2 + cw - 24;
-      const split = cl + (cr - cl) * 0.47;
-      const gap = Math.min(72, W * 0.05);
-
-      // Le texte final à sa place, et le grand texte, mesurés sans
-      // transformation.
-      fin.style.transform = "none";
-      fin.style.left = `${split + gap}px`;
-      fin.style.width = `${Math.max(200, cr - split - gap)}px`;
-      fin.style.top = `${(H - fin.offsetHeight) / 2}px`;
-      big.style.transform = "none";
-      const F = fin.getBoundingClientRect();
-      const R = big.getBoundingClientRect();
-      // Le rapport des deux tailles de texte (celle du paragraphe final,
-      // pas de son conteneur).
-      const k = parseFloat(getComputedStyle(finText).fontSize) / parseFloat(getComputedStyle(big).fontSize);
-
-      // 2. La sortie.
-      const t = easeSine(seg(p, ...ETAPES.sortie));
-
-      // La photo quitte les lettres, puis le voile blanc et ses lettres
-      // s'effacent (sur le fond blanc, sans trace).
-      photo.style.opacity = String(1 - ease(seg(p, ...ETAPES.photoLettres)));
-      mask.style.opacity = String(1 - ease(seg(p, ...ETAPES.voile)));
-
-      // La carte : un peu plus haute que le texte final, aux proportions de
-      // la photo, sans dépasser la colonne de gauche.
-      const ratio = cardImg.naturalWidth && cardImg.naturalHeight ? cardImg.naturalWidth / cardImg.naturalHeight : 1205 / 1305;
-      let ch = Math.min(F.height * 1.12, H * 0.8);
-      let cwid = ch * ratio;
-      if (cwid > split - cl) {
-        cwid = split - cl;
-        ch = cwid / ratio;
-      }
-      card.style.width = `${cwid}px`;
-      card.style.height = `${ch}px`;
-      // Elle sort du centre du paragraphe et finit collée à gauche du texte.
-      const xStart = R.left - st.left + R.width / 2 - cwid / 2;
-      const yStart = R.top - st.top + R.height / 2 - ch / 2;
-      const xEnd = split - cwid;
-      const yEnd = F.top - st.top + F.height / 2 - ch / 2;
-      card.style.opacity = String(ease(seg(p, ...ETAPES.carte)));
-      card.style.transform = `translate(${lerp(xStart, xEnd, t)}px, ${lerp(yStart, yEnd, t)}px) scale(${lerp(0.8, 1, t)})`;
-
-      // Le grand texte part vers la droite en se réduisant, vers le texte final.
-      big.style.transform = `translate(${(F.left - R.left) * t}px, ${(F.top - R.top) * t}px) scale(${lerp(1, k, t)})`;
-
-      // Le texte final part de la place du grand texte, à sa taille, et se
-      // réduit jusqu'à la sienne.
-      fin.style.opacity = String(ease(seg(p, ...ETAPES.texteFinal)));
-      fin.style.transform = `translate(${(R.left - F.left) * (1 - t)}px, ${(R.top - F.top) * (1 - t)}px) scale(${lerp(1 / k, 1, t)})`;
-    };
-
+    // L'instant où chaque partie a commencé à s'écrire (null : pas écrite).
+    let debut: number | null = null;
+    let suite: number | null = null;
     let raf = 0;
-    const step = () => {
-      raf = 0;
-      if (scene.matches) stepScene();
-    };
-    const request = () => {
-      if (!raf) raf = requestAnimationFrame(step);
+    // La progression lissée (null : pas encore mesurée) et son relais (le
+    // premier des deux amortissements), l'instant de la dernière image, et
+    // si elle court encore après le défilement.
+    let lisse: number | null = null;
+    let relais = 0;
+    let derniere = 0;
+    let enMouvement = false;
+
+    // Les mots à écrire à cet instant, d'après le temps écoulé.
+    const ecrits = (depart: number | null, duree: number, total: number, now: number) =>
+      depart === null ? 0 : Math.ceil(clamp((now - depart) / duree) * total);
+
+    const peindre = (el: HTMLElement, couleur: string) => {
+      if (el.style.color !== couleur) el.style.color = couleur;
     };
 
-    step();
+    // Sans mouvement : la feuille de style montre l'état final.
+    const effacer = () => {
+      photo.style.clipPath = "";
+      zoom.style.transform = "";
+      voile.style.opacity = "";
+      texte.style.transform = "";
+      for (const el of [...motsDebut, ...motsSuite]) el.style.color = "";
+      for (const el of accentsSuite) if (el) el.style.color = "";
+      debut = null;
+      suite = null;
+      lisse = null;
+      enMouvement = false;
+    };
+
+    const frame = (now: number) => {
+      raf = 0;
+      if (reduit.matches) {
+        effacer();
+        return;
+      }
+
+      const r = section.getBoundingClientRect();
+      const H = window.innerHeight;
+      const course = r.height - H;
+      const p = course > 0 ? clamp(-r.top / course) : 1;
+
+      // La progression lissée : elle rejoint `p` en douceur (LISSAGE).
+      // Au chargement, elle part directement de `p` ; après une pause, la
+      // première image compte pour 1/60 s (pas de saut).
+      const avant = lisse;
+      if (lisse === null) {
+        lisse = p;
+        relais = p;
+      } else {
+        const dt = enMouvement ? Math.min(0.05, (now - derniere) / 1000) : 1 / 60;
+        const k = 1 - Math.exp(-dt / LISSAGE);
+        relais += (p - relais) * k;
+        lisse += (relais - lisse) * k;
+        if (Math.abs(p - relais) < 0.0005 && Math.abs(p - lisse) < 0.0005) {
+          relais = p;
+          lisse = p;
+        }
+      }
+      derniere = now;
+      enMouvement = lisse !== p;
+      const q = lisse;
+
+      // Les déclenchements, et les remises à zéro en remontant.
+      if (debut === null && r.top < 0.55 * H) debut = now;
+      else if (debut !== null && r.top > 0.8 * H) debut = null;
+      if (suite === null && q > 0.5) suite = now;
+      else if (suite !== null && q < 0.25) suite = null;
+
+      // La photo monte du bas et remplit l'écran, en se dézoomant.
+      const e = ease(seg(q, 0, 0.7));
+      photo.style.clipPath = `inset(${100 * (1 - e)}% ${6 * (1 - e)}% 0% ${6 * (1 - e)}% round ${24 * (1 - e)}px)`;
+      zoom.style.transform = `scale(${1.18 - 0.18 * ease(q)})`;
+      const v = ease(seg(q, 0.25, 0.65));
+      voile.style.opacity = String(v);
+      const surPhoto = v > 0.5;
+
+      // Le paragraphe descend en même temps que la photo monte, jusqu'au
+      // milieu de l'image (il part de 13vh, sa place sur le fond blanc).
+      // Mesuré sans transformation : `offsetTop` et `offsetHeight` l'ignorent.
+      const haut = texte.offsetTop + (texte.parentElement?.offsetTop ?? 0);
+      const descente = Math.max(0, (sticky.clientHeight - texte.offsetHeight) / 2 - haut);
+      texte.style.transform = `translateY(${descente * easeSine(seg(q, 0, 0.7))}px)`;
+
+      // La photo a bougé sans défilement : la barre se mesure à nouveau.
+      if (avant !== null && avant !== lisse) window.dispatchEvent(new Event(EVENEMENT_FOND));
+
+      // La première phrase.
+      const nDebut = ecrits(debut, DUREE_DEBUT, motsDebut.length, now);
+      motsDebut.forEach((el, i) =>
+        peindre(el, i < nDebut ? (surPhoto ? BLANC : NOIR) : surPhoto ? BLANC_PALE : GRIS),
+      );
+
+      // La suite, et ses mots en valeur en bleu.
+      const nSuite = ecrits(suite, DUREE_SUITE, motsSuite.length, now);
+      motsSuite.forEach((el, i) => {
+        const ecrit = i < nSuite;
+        peindre(el, ecrit ? BLANC : INVISIBLE);
+        const accent = accentsSuite[i];
+        if (accent) peindre(accent, ecrit ? BLEU : INVISIBLE);
+      });
+
+      // Tant qu'une phrase s'écrit, ou que la scène rejoint le défilement,
+      // on continue image par image.
+      const enCours =
+        enMouvement ||
+        (debut !== null && now - debut < DUREE_DEBUT) ||
+        (suite !== null && now - suite < DUREE_SUITE);
+      if (enCours) raf = requestAnimationFrame(frame);
+    };
+
+    const request = () => {
+      if (!raf) raf = requestAnimationFrame(frame);
+    };
+
+    frame(performance.now());
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request);
-    window.addEventListener("load", request);
-    scene.addEventListener("change", request);
+    reduit.addEventListener("change", request);
     return () => {
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
-      window.removeEventListener("load", request);
-      scene.removeEventListener("change", request);
+      reduit.removeEventListener("change", request);
       cancelAnimationFrame(raf);
     };
   }, []);
 
+  const motsDebut = lead.split(" ");
+  const motsSuite = rest.split(" ");
+
   return (
-    <section ref={sectionRef} id="approche" className="approach" aria-label={label}>
-      {/* LA SCÈNE FIXE (ordinateur). */}
+    /* ⚠ Un `div` (région nommée) et non une `section` : les bandes de
+       l'accueil alternent sombre et clair selon leur RANG parmi les
+       sections. Sans elle dans le compte, « Ce que nous faisons » passe en
+       blanc et toute la suite s'inverse (demande d'Antonino, 24/11/2026). */
+    <div ref={sectionRef} id="approche" role="region" className={`approach ${className ?? ""}`} aria-label={label}>
       <div ref={stickyRef} className="approach-sticky">
-        {/* La photo des lettres, en plein écran ; elle s'efface avec elles. */}
+        {/* La photo, décorative : elle monte du bas et remplit l'écran. */}
         <div ref={photoRef} className="approach-photo" data-tone="dark" aria-hidden="true">
-          <Image src={image} alt="" fill sizes="100vw" style={COVER} />
-        </div>
-
-        {/* Le calque blanc en mélange « screen », qui porte le texte. */}
-        <div ref={maskRef} className="approach-mask">
-          <div className="approach-grid">
-            <div />
-            <p ref={bigRef} className="approach-big" aria-hidden="true">
-              {mots.map((m, i) => (
-                <span key={i} data-mot="" style={{ color: GRIS }}>
-                  {m}{" "}
-                </span>
-              ))}
-            </p>
+          <div ref={zoomRef} className="approach-zoom">
+            <Image src={image} alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
           </div>
+          <div ref={voileRef} className="approach-veil" />
         </div>
 
-        {/* La carte : sort du paragraphe et se pose à gauche du texte. */}
-        <div ref={cardRef} className="approach-card" data-tone="dark">
-          <Image src={image} alt={alt} fill sizes="(max-width: 1280px) 40vw, 520px" style={COVER} />
-        </div>
-
-        {/* Le texte final, à droite. */}
-        <div ref={finRef} className="approach-final">
-          <p className="approach-final-text">{text}</p>
+        {/* Le paragraphe, d'un seul tenant, au-dessus de la photo.
+            `data-tone="dark"` : il ne passe sous la barre de navigation
+            qu'en quittant l'écran, la photo déjà en plein écran derrière
+            lui (avant, il reste sous 13vh, plus bas que la barre). */}
+        <div className="approach-inner">
+          <p ref={texteRef} className="approach-text" data-tone="dark">
+            {motsDebut.map((mot, i) => (
+              <Fragment key={`d${i}`}>
+                <span className="approach-word" data-debut="">
+                  {decoupe(mot, accents)}
+                </span>{" "}
+              </Fragment>
+            ))}
+            {motsSuite.map((mot, i) => (
+              <Fragment key={`s${i}`}>
+                {i > 0 ? " " : null}
+                <span className="approach-word" data-suite="">
+                  {decoupe(mot, accents)}
+                </span>
+              </Fragment>
+            ))}
+          </p>
         </div>
       </div>
-
-      {/* LA VERSION SIMPLE (téléphone, ou moins de mouvement). */}
-      <div className="approach-simple">
-        <div className="approach-simple-text">
-          <ApproachReveal text={text} accents={[]} />
-        </div>
-        <div className="approach-simple-card">
-          <Image src={image} alt={alt} fill sizes="(max-width: 799px) 92vw, 46vw" style={COVER} />
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }

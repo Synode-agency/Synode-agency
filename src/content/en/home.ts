@@ -30,9 +30,10 @@ export const home = {
 
   approach: {
     label: "Our approach",
-    text: "Every company has its own tools, habits and tasks that take too much time. We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
-    image: "/images/bureau-nuit.png",
-    alt: "Two developers working at night in a glass-walled office",
+    lead: "Every company has its own tools, habits and tasks that take too much time.",
+    rest: "We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
+    accents: ["software", "AI"],
+    image: "/images/approche-bureau.png",
   },
 
   services: {

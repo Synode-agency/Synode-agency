@@ -124,8 +124,12 @@ export function HomePage({ locale }: { locale: Locale }) {
       {/* Le hero de l'accueil (24/11/2026) : centré (titre, phrase, l'appel
           de 30 min, mention), sur un fond bleu nuit avec un halo bleu au
           centre. Pas de photo. */}
+      {/* `tone="dark"` : la barre reste blanche sur tout le hero, même
+          quand le bouton bleu clair passe dessous (demande d'Antonino,
+          24/11/2026). */}
       <Hero
         locale={locale}
+        tone="dark"
         className={`home-page-hero home-hero ${accentFont.variable}`}
         title={home.hero.title.split("\n").map((line, i) => (
           /* Une ligne par `\n`, décalées l'une de l'autre dès 768px ; sur
@@ -155,16 +159,21 @@ export function HomePage({ locale }: { locale: Locale }) {
       </div>
 
       {/* NOTRE APPROCHE (24/11/2026), à la place exacte de « Ça vous
-          parle ? » : la photo du bureau se révèle dans le texte, sort en
-          carte vers la gauche, puis le texte arrive à sa droite
-          (`ApproachScroll`).
-          ⚠ Une `section`, comme l'ancienne : les bandes alternent sombre et
-          clair selon leur rang parmi les sections ; elle garde le sien. */}
+          parle ? » : le paragraphe s'écrit, la photo du bureau monte du bas
+          et remplit l'écran, la suite du texte s'écrit par-dessus
+          (`ApproachScroll`). Instrument Serif (`--font-accent`) pour
+          « logiciel » et « IA ».
+          ⚠ Un `div` et non une `section`, comme le bandeau des logos : il
+          ne compte pas dans l'alternance sombre/clair, donc « Ce que nous
+          faisons » est blanche, sous la photo sombre, et la suite alterne
+          à partir d'elle (demande d'Antonino, 24/11/2026). */}
       <ApproachScroll
+        className={accentFont.variable}
         label={home.approach.label}
-        text={home.approach.text}
+        lead={home.approach.lead}
+        rest={home.approach.rest}
+        accents={home.approach.accents}
         image={home.approach.image}
-        alt={home.approach.alt}
       />
 
       <Band id="services" className="rf-section">

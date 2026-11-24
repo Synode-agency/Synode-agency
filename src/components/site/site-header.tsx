@@ -34,18 +34,27 @@ import { cx } from "@/lib/cx";
  * (opacité sous 50 %), puis on remonte ses parents jusqu'au premier fond
  * vraiment peint. Clair si sa luminance dépasse la moitié. Un élément peut
  * le dire lui-même avec `data-tone="dark"` ou `"light"` (une photo n'a pas
- * de couleur de fond). Ainsi la barre suit n'importe quelle section, carte
- * ou pied de page, sans liste à tenir à jour.
+ * de couleur de fond), et il le dit alors pour tout ce qu'il contient (le
+ * hero de l'accueil et son bouton bleu clair). Ainsi la barre suit
+ * n'importe quelle section, carte ou pied de page, sans liste à tenir à
+ * jour.
+ *
+ * Seuls comptent les éléments du site (`.site-page`) : une extension du
+ * navigateur peut poser ses propres calques sur la page, et la barre les
+ * prenait pour le fond (24/11/2026).
  */
 function lightUnder(header: HTMLElement | null): boolean {
   if (!header) return false;
+  const site = header.closest(".site-page") ?? document.body;
   const y = header.getBoundingClientRect().height / 2;
   for (const el of document.elementsFromPoint(window.innerWidth / 2, y)) {
-    if (header.contains(el)) continue;
+    if (header.contains(el) || !site.contains(el)) continue;
     if (parseFloat(getComputedStyle(el).opacity) < 0.5) continue;
+    /* Un élément qui dit son ton le dit pour TOUT ce qu'il contient : le
+       hero de l'accueil reste sombre même sous son bouton bleu clair. */
+    const tone = el.closest("[data-tone]")?.getAttribute("data-tone");
+    if (tone) return tone === "light";
     for (let node: Element | null = el; node; node = node.parentElement) {
-      const tone = node.getAttribute("data-tone");
-      if (tone) return tone === "light";
       if (parseFloat(getComputedStyle(node).opacity) < 0.5) break;
       const rgba = getComputedStyle(node).backgroundColor.match(/[\d.]+/g);
       if (!rgba) continue;
@@ -82,16 +91,26 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
       setOnLight(lightUnder(headerRef.current));
     };
     /* Une mesure par image au plus, au défilement comme au
-       redimensionnement. */
+       redimensionnement. Elle attend l'image SUIVANTE : les sections
+       animées au défilement (la photo de « Notre approche ») se mettent à
+       jour dans la même image que la barre, et la barre mesurait encore
+       l'état d'avant. */
     const request = () => {
-      if (!raf) raf = requestAnimationFrame(measure);
+      if (!raf)
+        raf = requestAnimationFrame(() => {
+          raf = requestAnimationFrame(measure);
+        });
     };
     measure();
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request);
+    /* Une section dont le fond bouge encore après le défilement (la photo
+       de « Notre approche », lissée) le signale par `site:fond`. */
+    window.addEventListener("site:fond", request);
     return () => {
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
+      window.removeEventListener("site:fond", request);
       cancelAnimationFrame(raf);
     };
   }, []);

@@ -284,193 +284,142 @@ main > .band.rf-section {
   }
 }
 
-/* ---- NOTRE APPROCHE (24/11/2026), avec la photo du bureau
-   (`ApproachScroll`). Sur ordinateur, une scène fixe de 100vh dans une
-   section de 287vh : la photo se révèle dans les lettres (calque blanc en
-   `mix-blend-mode: screen`), puis le calque se dissout pendant que la
-   photo se réduit en carte à gauche et que le texte se réduit à droite.
-   Sous 800px ou sans mouvement : la version simple. Pas d'étiquette.
-   Police : Manrope, celle des titres du site. ---- */
+/* ---- NOTRE APPROCHE (24/11/2026, d'après la fiche d'Antonino) : le
+   paragraphe et la photo, rien d'autre (`ApproachScroll`). Une section de
+   135vh avec une scène fixe de 100vh : la photo monte du bas et remplit
+   l'écran, le texte s'écrit par-dessus. Les couleurs des mots, le
+   `clip-path` de la photo, son zoom et l'opacité du voile sont réglés à
+   chaque image par le script ; ici, leur état de départ. Police : celle du
+   site (Manrope), Instrument Serif pour « logiciel » et « IA ». ---- */
 .approach {
   position: relative;
+  height: 135vh;
   background: #ffffff;
 }
-
-/* La scène fixe. */
 .approach-sticky {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow: hidden;
   isolation: isolate;
-  background: #ffffff;
 }
-@media (min-width: 800px) and (prefers-reduced-motion: no-preference) {
-  /* 287vh : la scène se libère dès que la photo est en place (calendrier
-     dans `ApproachScroll`). */
-  .approach {
-    height: 287vh;
-  }
-  .approach-sticky {
-    position: sticky;
-    top: 0;
-  }
-}
-/* La photo des lettres, en plein écran (elle s'efface avec elles). */
+/* La photo et son voile : invisibles avant le défilement. */
 .approach-photo {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  clip-path: inset(100% 6% 0% 6% round 24px);
 }
-/* La carte : sa taille et sa course sont réglées à chaque image par
-   `ApproachScroll`. */
-.approach-card {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  overflow: hidden;
-  border-radius: 20px;
-  opacity: 0;
-  transform-origin: 50% 50%;
-  will-change: transform, opacity;
-}
-.approach-mask {
+.approach-zoom {
   position: absolute;
   inset: 0;
-  background: #ffffff;
-  mix-blend-mode: screen;
-}
-.approach-grid {
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 40px;
-  align-content: center;
-  box-sizing: border-box;
-  max-width: 1280px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-.approach-big {
-  grid-column: 2;
-  max-width: none;
-  margin: 0;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: min(56px, 4.2vw, 6.2vh);
-  font-weight: 700;
-  line-height: 1.14;
-  letter-spacing: -0.032em;
-  text-wrap: pretty;
-  transform-origin: 0 0;
+  transform: scale(1.18);
   will-change: transform;
 }
-.approach-big [data-mot] {
-  transition: color 0.35s;
-}
-@media (max-width: 899px) {
-  .approach-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .approach-grid > div:empty {
-    display: none;
-  }
-  .approach-big {
-    grid-column: 1;
-  }
-}
-/* Le texte final : sa place et sa hauteur sont réglées à chaque image. */
-.approach-final {
+/* Le voile : plus sombre au milieu, là où le paragraphe se pose (demande
+   d'Antonino du 24/11/2026 : le texte se lisait mal sur la photo). */
+.approach-veil {
   position: absolute;
-  top: 50%;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 9, 18, 0.9) 0%,
+    rgba(5, 9, 18, 0.78) 30%,
+    rgba(5, 9, 18, 0.76) 70%,
+    rgba(5, 9, 18, 0.88) 100%
+  );
   opacity: 0;
-  transform-origin: 0 0;
-  will-change: transform, opacity;
 }
-.approach-final-text {
-  max-width: none;
+/* Le paragraphe, au-dessus de la photo, à 13vh du haut de l'écran, aligné
+   à gauche dans la colonne du site. Son bloc laisse passer le pointeur
+   (seul le paragraphe le reçoit, pour rester sélectionnable) : sinon la
+   barre de navigation, qui regarde ce qu'il y a sous elle, verrait ce
+   bloc vide et le fond blanc de la section au lieu de la photo. */
+.approach-inner {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 13vh 40px 0;
+  pointer-events: none;
+}
+.approach-inner > * {
+  pointer-events: auto;
+}
+.approach-text {
+  max-width: 1160px;
   margin: 0;
+  will-change: transform;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: clamp(22px, 2.5vw, 38px);
+  font-size: clamp(30px, 3.4vw, 52px);
   font-weight: 500;
-  line-height: 1.22;
-  letter-spacing: -0.028em;
-  text-wrap: pretty;
-  color: #0b1424;
-}
-
-/* La version simple : téléphone, ou moins de mouvement. */
-.approach-simple {
-  display: none;
-}
-@media (max-width: 799px), (prefers-reduced-motion: reduce) {
-  .approach {
-    height: auto;
-  }
-  .approach-sticky {
-    display: none;
-  }
-  .approach-simple {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    box-sizing: border-box;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 96px 20px;
-  }
-}
-.approach-simple .approach-text {
-  max-width: none;
-  margin: 0;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1.14;
-  letter-spacing: -1px;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
-  color: #0b1424;
+  color: #d5d9e0;
 }
-.approach-simple .approach-word {
-  color: #0b1424;
+.approach-word {
+  transition: color 0.18s linear;
 }
-.approach-simple .approach-text[data-reveal] .approach-word {
-  transition: color 0.3s;
+/* La suite : déjà à sa place, mais transparente avant de s'écrire. */
+.approach-word[data-suite] {
+  color: transparent;
 }
-/* La carte aux proportions de la photo (1205 × 1305) : elle la montre en
-   entier, sans zoom. */
-.approach-simple-card {
-  position: relative;
-  aspect-ratio: 1205 / 1305;
-  overflow: hidden;
-  border-radius: 18px;
+.approach-accent {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  transition: color 0.18s linear;
 }
-/* Sans mouvement, sur ordinateur : directement la disposition finale,
-   la photo en carte à gauche, le texte à droite. */
-@media (min-width: 800px) and (prefers-reduced-motion: reduce) {
-  .approach-simple {
-    display: grid;
-    grid-template-columns: minmax(0, 47fr) minmax(0, 53fr);
-    gap: 72px;
-    align-items: center;
-    padding: 120px 24px;
+@media (max-width: 799px) {
+  .approach-inner {
+    padding-inline: 20px;
   }
-  .approach-simple-card {
-    order: -1;
-    justify-self: end;
-    width: 100%;
-    max-width: 440px;
-    border-radius: 20px;
-  }
-  .approach-simple .approach-text {
-    font-size: clamp(22px, 2.5vw, 38px);
-    line-height: 1.22;
-    letter-spacing: -0.028em;
+  .approach-text {
+    font-size: 28px;
   }
 }
+/* Sans mouvement : directement la photo en plein écran avec son voile, et
+   tout le texte en blanc (le script n'y touche pas). */
 @media (prefers-reduced-motion: reduce) {
-  .approach-simple .approach-text[data-reveal] .approach-word {
+  .approach {
+    height: auto;
+  }
+  /* Le paragraphe au milieu de la photo, comme à la fin de l'animation. */
+  .approach-sticky {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+    min-height: 100vh;
+  }
+  .approach-inner {
+    width: 100%;
+  }
+  .approach-photo {
+    clip-path: none;
+  }
+  .approach-zoom {
+    transform: none;
+  }
+  .approach-veil {
+    opacity: 1;
+  }
+  .approach-inner {
+    padding-bottom: 13vh;
+  }
+  .approach-word,
+  .approach-word[data-suite] {
+    color: #ffffff;
+    transition: none;
+  }
+  .approach-accent {
+    color: #8ec1ff;
     transition: none;
   }
 }
