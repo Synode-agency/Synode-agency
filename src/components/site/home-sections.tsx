@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Clock, Copy, FileSpreadsheet } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { serviceHref, type Locale, type SiteContent } from "@/content";
 
 /*
@@ -82,32 +82,6 @@ function LogoMarquee({ label, accent, logos }: { label: string; accent: string; 
         </ul>
       </div>
     </div>
-  );
-}
-
-/* Une icône par situation, dans l'ordre du brief : la ressaisie, le temps,
-   les chiffres dans Excel. */
-const PROBLEM_ICONS = [Copy, Clock, FileSpreadsheet];
-
-/** LES TROIS SITUATIONS (`ProblemList`) : le problème du client avant nous. */
-export function ProblemList({ items }: { items: Home["problems"]["items"] }) {
-  return (
-    <ul className="problem-list">
-      {items.map((item, i) => {
-        const Icon = PROBLEM_ICONS[i % PROBLEM_ICONS.length];
-        return (
-          <li key={item.strong}>
-            <span className="problem-icon" aria-hidden>
-              <Icon />
-            </span>
-            <p>
-              <strong>{item.strong}</strong>
-              {item.rest}
-            </p>
-          </li>
-        );
-      })}
-    </ul>
   );
 }
 

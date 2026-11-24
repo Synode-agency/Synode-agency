@@ -29,13 +29,10 @@ export const home = {
     quote: { text: "", author: "" },
   },
 
-  problems: {
-    title: "Sound familiar?",
-    items: [
-      { strong: "You re-type the same information", rest: " into three different tools." },
-      { strong: "Quotes, follow-ups and customer replies", rest: " eat hours every week." },
-      { strong: "Your numbers are scattered", rest: ", and you compile them by hand in Excel." },
-    ],
+  approach: {
+    label: "Our approach",
+    text: "Every company has its own tools, habits and tasks that take too much time. We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
+    accents: ["tools", "habits", "tasks", "software", "saves", "AI"] as readonly string[],
   },
 
   services: {

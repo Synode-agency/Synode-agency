@@ -8,7 +8,8 @@ import { Hero } from "@/components/site/hero";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseCards } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
-import { Founders, ProblemList, ProofStrip, ServiceCards, Steps } from "@/components/site/home-sections";
+import { Founders, ProofStrip, ServiceCards, Steps } from "@/components/site/home-sections";
+import { ApproachReveal } from "@/components/site/approach-reveal";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
@@ -153,12 +154,17 @@ export function HomePage({ locale }: { locale: Locale }) {
         <ProofStrip proof={home.proof} />
       </div>
 
-      <Band id="probleme" className="rf-section">
-        <Lede title={home.problems.title} />
-        <div className="section-gap-sm">
-          <ProblemList items={home.problems.items} />
+      {/* NOTRE APPROCHE (24/11/2026), à la place exacte de « Ça vous
+          parle ? » : une grande phrase, sur toute la largeur, qui passe du
+          gris au noir mot par mot au défilement (`ApproachReveal`).
+          ⚠ Une `section`, comme l'ancienne : les bandes alternent sombre et
+          clair selon leur rang parmi les sections ; elle garde le sien (une
+          bande claire, ici en blanc). */}
+      <section id="approche" className={`approach ${accentFont.variable}`} aria-label={home.approach.label}>
+        <div className="approach-inner">
+          <ApproachReveal text={home.approach.text} accents={home.approach.accents} />
         </div>
-      </Band>
+      </section>
 
       <Band id="services" className="rf-section">
         <Lede title={home.services.title} text={home.services.audience} />

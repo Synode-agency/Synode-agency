@@ -38,7 +38,13 @@ export { siteUrl } from "@/lib/site-url";
  */
 export function SiteShell({ lang, children }: { lang: string; children: ReactNode }) {
   return (
+    /* `suppressHydrationWarning` : le script ci-dessous pose `data-rv-hero`
+       sur `<html>` AVANT que React ne prenne la main, exprès. Sans cette
+       mention, React signale l'écart (la pastille « 1 issue » du serveur
+       de développement). Elle ne vaut que pour les attributs de `<html>`
+       lui-même, pas pour ses enfants. */
     <html
+      suppressHydrationWarning
       lang={lang}
       data-scroll-behavior="smooth"
       className={`h-full ${manrope.variable}`}

@@ -50,13 +50,16 @@ export const home = {
     quote: { text: "", author: "" },
   },
 
-  problems: {
-    title: "Ça vous parle ?",
-    items: [
-      { strong: "Vous recopiez les mêmes informations", rest: " dans trois logiciels différents." },
-      { strong: "Vos devis, relances et réponses clients", rest: " prennent des heures chaque semaine." },
-      { strong: "Vos chiffres sont éparpillés", rest: ", et vous les compilez à la main dans Excel." },
-    ],
+  /* NOTRE APPROCHE (24/11/2026), à la place de « Ça vous parle ? ». Le
+     texte est celui d'Antonino, mot pour mot ; seule l'espace avant « : »
+     est insécable, pour que le deux-points ne parte pas seul à la ligne.
+     `accents` : les mots en Instrument Serif, en bleu. `label` n'est pas
+     affiché (étiquette retirée le 24/11/2026) : il nomme la section pour
+     les lecteurs d'écran. */
+  approach: {
+    label: "Notre approche",
+    text: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps. Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
+    accents: ["outils", "habitudes", "tâches", "logiciel", "gagner", "IA"] as readonly string[],
   },
 
   services: {
