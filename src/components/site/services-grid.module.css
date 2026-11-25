@@ -1,0 +1,151 @@
+/* =====================================================================
+   LES QUATRE SERVICES DE L'ACCUEIL, EN PHOTOS (25/11/2026, fiche
+   d'Antonino). Isolé dans ce module.
+   ===================================================================== */
+
+/* Quatre colonnes de même largeur, au même écart sous le titre de la
+   section que l'accordéon d'avant. */
+.grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: clamp(56px, 6vw, 88px);
+}
+
+/* Une carte : un lien, sans fond, sans bordure, sans ombre. */
+.carte {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.5s ease;
+}
+/* La photo, éclaircie (25/11/2026, fiche d'Antonino) et cernée d'un liseré
+   bleu très fin : le trait extérieur sur le cadre, le trait intérieur sur
+   un calque posé par-dessus la photo (sous elle, il serait caché). */
+.photo {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #0b1424;
+  box-shadow: 0 0 0 1px rgb(142 193 255 / 12%);
+}
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(142 193 255 / 18%);
+  pointer-events: none;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.3) contrast(1.08) saturate(1.1);
+  transition:
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.6s ease;
+}
+.titre {
+  margin-top: 18px;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  text-wrap: balance;
+  transition: color 0.6s ease;
+}
+.texte {
+  margin-top: 8px;
+  /* La police de texte du site (Helvetica Neue). */
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: #a9b3c6;
+  transition: color 0.6s ease;
+}
+/* Tant que la section n'est pas encore (ou plus) en bleu nuit, elle est
+   blanche : les textes passent en bleu nuit pour rester lisibles. */
+:global(#services:not([data-nuit])) .titre {
+  color: #0b1424;
+}
+:global(#services:not([data-nuit])) .texte {
+  color: #5a6272;
+}
+
+/* Le survol : la photo visée s'éclaire et s'agrandit, les autres
+   s'atténuent. À la souris seulement (au doigt, rien ne change). */
+@media (hover: hover) and (pointer: fine) {
+  .grille:hover .carte {
+    opacity: 0.4;
+  }
+  .grille .carte:hover {
+    opacity: 1;
+  }
+  .carte:hover .photo img {
+    filter: brightness(1.45) contrast(1.08) saturate(1.1);
+    transform: scale(1.06);
+  }
+}
+/* Le même effet au clavier. La carte visée doit peser plus lourd que la
+   règle d'atténuation (son `:has()` compte comme deux classes). */
+.grille:has(.carte:focus-visible) .carte {
+  opacity: 0.4;
+}
+.grille:has(.carte:focus-visible) .carte:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+.carte:focus-visible .photo {
+  outline: 2px solid #8ec1ff;
+  outline-offset: 4px;
+}
+.carte:focus-visible .photo img {
+  filter: brightness(1.45) contrast(1.08) saturate(1.1);
+  transform: scale(1.06);
+}
+
+/* Tablette : deux colonnes. */
+@media (max-width: 1023px) {
+  .grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+/* Téléphone : une grille 2 × 2 (choix 4 d'Antonino sur maquettes,
+   25/11/2026). Les quatre services d'un coup d'œil, photos verticales et
+   titres seuls ; la description reste sur ordinateur et sur la page
+   Services. */
+@media (max-width: 639px) {
+  .grille {
+    gap: 24px 12px;
+  }
+  .photo {
+    border-radius: 14px;
+  }
+  .titre {
+    margin-top: 10px;
+    font-size: 15.5px;
+  }
+  .texte {
+    display: none;
+  }
+}
+
+/* Sans mouvement : pas d'agrandissement ; l'atténuation des autres cartes
+   et l'éclairage de la photo visée restent. */
+@media (prefers-reduced-motion: reduce) {
+  .photo img,
+  .carte:hover .photo img,
+  .carte:focus-visible .photo img {
+    transform: none;
+    transition: filter 0.6s ease;
+  }
+}

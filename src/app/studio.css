@@ -4294,8 +4294,10 @@ main > .band.thanks-band > .col > .lede {
   transform: translateX(44px) !important;
 }
 /* Une seconde, et une courbe qui freine longuement : demandé le 17/10 pour
-   qu'on VOIE les blocs arriver. Plus court, l'œil ne retient qu'un clic. */
-[data-rv="in"] {
+   qu'on VOIE les blocs arriver. Plus court, l'œil ne retient qu'un clic.
+   Deux attributs : un bloc qui porte sa propre transition dans une classe
+   (les cartes de services de l'accueil) arrive quand même avec celle-ci. */
+[data-rv="in"][data-rv-from] {
   transition:
     opacity 1000ms cubic-bezier(0.16, 0.8, 0.24, 1),
     transform 1000ms cubic-bezier(0.16, 0.8, 0.24, 1);

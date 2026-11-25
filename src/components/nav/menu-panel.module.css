@@ -1,0 +1,299 @@
+/* =====================================================================
+   LE MENU DU BOUTON ☰ SUR ORDINATEUR ET TABLETTE, SYSTÈME « GROUPE B »
+   (25/11/2026, fiche d'Antonino), à partir de 768px. Isolé dans ce module.
+   ===================================================================== */
+.racine {
+  display: none;
+}
+@media (min-width: 768px) {
+  .racine {
+    display: block;
+  }
+}
+
+/* Le voile : la page derrière, assombrie et floutée. */
+.voile {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  background: rgb(5 8 15 / 60%);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.ouvert .voile {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Le panneau : blanc, 60 % de l'écran, glissé depuis la droite ; le
+   bouton ☰ (50) reste par-dessus, en haut à droite. */
+.panneau {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 49;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 60vw;
+  padding: 88px var(--band-pad-x) 32px 64px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #ffffff;
+  color: #0b1424;
+  transform: translateX(100%);
+  visibility: hidden;
+  /* La barre repliée laisse passer les clics (`pointer-events: none` dans
+     `refonte.css`) : sans ceci, le panneau en héritait et chaque clic
+     tombait sur le voile, qui refermait le menu. Fermé, il est caché. */
+  pointer-events: auto;
+  container-type: inline-size;
+  transition:
+    transform 0.7s cubic-bezier(0.7, 0, 0.2, 1),
+    visibility 0s linear 0.7s;
+}
+.ouvert .panneau {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.7s cubic-bezier(0.7, 0, 0.2, 1),
+    visibility 0s linear 0s;
+}
+.panneau:focus {
+  outline: none;
+}
+
+/* ---- Les grands liens ---- */
+.liens {
+  display: flex;
+  flex-direction: column;
+  /* Centrés en hauteur entre le haut du panneau et le pied (demande
+     d'Antonino, 25/11). S'ils débordent, les marges tombent à 0 et le
+     panneau défile. */
+  margin-block: auto;
+  /* La taille des grands liens (« vraiment assez grand pour que ça
+     prenne vraiment de la place », 25/11) : selon la largeur du panneau
+     et la hauteur de l'écran, 113px environ sur un écran de 1440 × 900 ;
+     le bloc occupe alors presque toute la hauteur libre. */
+  --taille-liens: clamp(44px, min(15cqi, 12.6vh), 150px);
+}
+.ligne {
+  display: block;
+  overflow: hidden;
+}
+.grandLien {
+  display: block;
+  font-size: var(--taille-liens);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  color: #0b1424;
+  text-decoration: none;
+  transform: translateY(110%);
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s ease,
+    font-size 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ouvert .grandLien {
+  transform: none;
+  transition-delay: calc(0.12s + var(--i) * 0.07s), 0s, 0s;
+}
+/* « Services » déplié : les liens réduisent pendant que les cartes
+   s'ouvrent, pour que tout tienne sans faire défiler le panneau (jamais
+   plus grands que repliés). */
+.liens:has(.servicesOuverts) .grandLien {
+  font-size: min(var(--taille-liens), clamp(36px, 6vh, 64px));
+}
+.grandLien:hover,
+.grandLien:focus-visible {
+  color: #0a6cf0;
+}
+/* « Services » : un bouton qui déplie les quatre cartes, à l'allure d'un
+   grand lien, avec son chevron. */
+.deplier {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+/* À la taille du mot (em) : il suit les liens quand ils réduisent. */
+.chevron {
+  width: 0.4em;
+  height: 0.4em;
+  stroke-width: 2.25;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.deplier[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Les quatre services, dépliés au clic sur « Services » ----
+   Repliés à l'ouverture du menu : la hauteur s'ouvre par la grille
+   (0fr → 1fr), puis les cartes montent en cascade. Repliés, `inert`. */
+.services {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.servicesOuverts {
+  grid-template-rows: 1fr;
+}
+.servicesInterieur {
+  min-height: 0;
+  overflow: hidden;
+  /* De la place pour le contour du focus, sans décaler les cartes. */
+  margin-inline: -6px;
+  padding-inline: 6px;
+}
+/* Le filet qui sépare les cartes de Réalisations, À propos et Contact se
+   replie avec elles : replié, les cinq liens se suivent sans coupure. */
+.servicesGrille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 28px;
+  margin-bottom: 16px;
+  padding: 18px 0 24px;
+  border-bottom: 1px solid #eceef2;
+}
+/* Panneau étroit : une colonne, pour qu'aucun titre ne se serre. */
+@container (max-width: 600px) {
+  .servicesGrille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.service {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  color: #0b1424;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s ease;
+}
+.servicesOuverts .service {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.12s + var(--j) * 0.06s), calc(0.12s + var(--j) * 0.06s), 0s;
+}
+.service:hover,
+.service:focus-visible {
+  color: #0a6cf0;
+}
+/* Plus grandes qu'avant (60 × 80px) : sa demande du 25/11. */
+.serviceVisuel {
+  width: 96px;
+  height: 128px;
+  border-radius: 16px;
+}
+.serviceTexte {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.serviceTitre {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+.serviceDescription {
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #5a5f6a;
+}
+
+/* ---- Le pied ---- */
+.pied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid #eceef2;
+}
+.langue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1424;
+}
+.langue a {
+  color: inherit;
+  text-decoration: none;
+}
+.langue a.langueAutre {
+  color: #b4b9c2;
+}
+.reserver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #0a6cf0;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.reserver:hover {
+  background: #0058c8;
+}
+:is(.grandLien, .service, .reserver, .langue a):focus-visible {
+  outline: 2px solid #0a6cf0;
+  outline-offset: 3px;
+}
+
+/* Sans mouvement : pas de glissement ni de décalage ; des fondus de 0,2s. */
+@media (prefers-reduced-motion: reduce) {
+  .voile {
+    transition-duration: 0.2s;
+  }
+  .panneau,
+  .ouvert .panneau {
+    transform: none;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      visibility 0s linear 0.2s;
+  }
+  .ouvert .panneau {
+    opacity: 1;
+    transition:
+      opacity 0.2s ease,
+      visibility 0s linear 0s;
+  }
+  .grandLien,
+  .ouvert .grandLien {
+    transform: none;
+    transition: color 0.2s ease;
+  }
+  .services,
+  .chevron {
+    transition: none;
+  }
+  .service,
+  .servicesOuverts .service {
+    transform: none;
+    transition: opacity 0.2s ease;
+    transition-delay: 0s;
+  }
+}

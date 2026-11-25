@@ -22,15 +22,12 @@ export const site = {
   location: "Brussels, Belgium",
   cta: ctaLabel.en,
   contactLabel: "Contact",
-  servicesMenu: {
-    all: "All our services",
-    items: [
-      { key: "connect", title: "Connect your tools", text: "Link your software and automate the repetitive work" },
-      { key: "ai", title: "Put AI to work", text: "AI assistants connected to your tools" },
-      { key: "software", title: "Build your custom software", text: "The app you need, web or mobile" },
-    ] as const,
-  },
-  ctaNote: "Free, no commitment.",
+  menuServices: [
+    { key: "software", title: "Software development", text: "Business software, platforms and internal tools, made to measure.", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
+    { key: "ai", title: "Artificial intelligence & automation", text: "AI agents and automation of your business processes.", image: "/images/services/service-ia.webp", focus: "55% 38%" },
+    { key: "connect", title: "Integration & connected systems", text: "Your software connected, your data in sync.", image: "/images/services/service-integration.webp", focus: "62% 52%" },
+    { key: "web", title: "Websites & mobile apps", text: "Modern sites and apps, built around the user.", image: "/images/services/service-web.webp", focus: "45% 42%" },
+  ] as const,
   menuOpen: "Open menu",
   menuClose: "Close menu",
   menuDialog: "Menu",

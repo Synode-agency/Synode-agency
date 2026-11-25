@@ -52,9 +52,20 @@ import { usePathname } from "next/navigation";
 
 /* ---- Les sections ---- */
 const RACINES = "main > section.band:not(#top):not(#faq) > .col, main > .card-shell > .card-panel > .col";
-const FIXE = "h1, h2, h3, h4, .lede-kicker, .eyebrow, .studio-hero-kicker, .badge";
+/* L'étiquette et les traits des titres animés (`TitreAnime`) font partie
+   du titre : ils restent fixes (demande d'Antonino du 25/11/2026). */
+const FIXE = "h1, h2, h3, h4, .lede-kicker, .eyebrow, .studio-hero-kicker, .badge, .titre-anime-etiquette, .titre-anime-traits";
 const BOUTON = ".btn, .btn-row, a.go";
 const ENTETE = "h1, h2, .lede-kicker, .eyebrow, .studio-hero-kicker";
+/* Un GROUPE : ses enfants apparaissent un par un, en cascade, au lieu de
+   partir d'un bloc. Sa valeur impose leur côté (« bottom » : les cartes de
+   services) ; vide, le côté suit leur position (les deux réalisations :
+   celle de gauche par la gauche, celle de droite par la droite). */
+const GROUPE = "[data-rv-groupe]";
+/* Un BLOC marqué, hors des sections habituelles, qui apparaît depuis le
+   côté donné (« left », « right » ou « bottom ») : le texte de « Notre
+   approche », par la gauche. */
+const BLOC = "[data-rv-bloc]";
 
 /* ---- Le héros ---- */
 const HEROS = "main > section#top:not(.home-page-hero)";
@@ -76,10 +87,15 @@ function unites(racine: Element, out: HTMLElement[]) {
     if (!(enfant instanceof HTMLElement)) continue;
     if (enfant.matches(FIXE)) continue;
     if (enfant.matches(BOUTON)) { enfant.dataset.rvLate = ""; out.push(enfant); continue; }
-    /* On ouvre un bloc s'il contient un titre ou un surtitre, ou s'il porte
-       des boutons au premier niveau. Un bouton enfoui dans un visuel — le
-       calendrier, un outil — ne l'ouvre pas : le visuel part entier. */
-    if (enfant.querySelector(ENTETE) || Array.from(enfant.children).some(c => c.matches(".btn, .btn-row"))) {
+    if (enfant.matches(GROUPE)) {
+      for (const membre of Array.from(enfant.children)) if (membre instanceof HTMLElement) out.push(membre);
+      continue;
+    }
+    /* On ouvre un bloc s'il contient un titre ou un surtitre, un groupe, ou
+       s'il porte des boutons au premier niveau. Un bouton enfoui dans un
+       visuel — le calendrier, un outil — ne l'ouvre pas : le visuel part
+       entier. */
+    if (enfant.querySelector(ENTETE) || enfant.querySelector(GROUPE) || Array.from(enfant.children).some(c => c.matches(".btn, .btn-row"))) {
       unites(enfant, out); continue;
     }
     out.push(enfant);
@@ -90,6 +106,9 @@ const visible = (el: HTMLElement) => el.getBoundingClientRect().height > 0;
 
 function sensDe(el: HTMLElement, etroit: boolean): string {
   if (etroit || el.hasAttribute("data-rv-late")) return "bottom";
+  /* Un côté imposé, par le bloc lui-même ou par son groupe. */
+  const impose = el.dataset.rvBloc || el.parentElement?.closest<HTMLElement>(GROUPE)?.dataset.rvGroupe;
+  if (impose) return impose;
   const col = el.closest(".col");
   if (!col) return "bottom";
   const c = col.getBoundingClientRect();
@@ -170,6 +189,9 @@ export function ScrollReveal() {
     /* ---- 2 · Les sections, seulement ce qui est sous l'écran ---- */
     const unitesSections: HTMLElement[] = [];
     document.querySelectorAll(RACINES).forEach(r => unites(r, unitesSections));
+    document.querySelectorAll<HTMLElement>(BLOC).forEach(el => {
+      if (!unitesSections.includes(el)) unitesSections.push(el);
+    });
     for (const el of unitesSections) {
       if (!visible(el) || el.getBoundingClientRect().top <= pli) { delete el.dataset.rvLate; continue; }
       el.dataset.rvFrom = sensDe(el, etroit);

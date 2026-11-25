@@ -33,18 +33,16 @@ export const site = {
   /* Le bouton de la barre (maquette du 24/11/2026) : « Contact », vers la
      page Contact. Le bouton principal reste dans les pages. */
   contactLabel: "Contact",
-  /* Le menu déroulant « Services » de la barre : les trois services, avec
-     une ligne chacun, puis un lien vers la page entière. */
-  servicesMenu: {
-    all: "Tous nos services",
-    items: [
-      { key: "connect", title: "Connecter vos outils", text: "Relier vos logiciels et automatiser le répétitif" },
-      { key: "ai", title: "Mettre l’IA au travail", text: "Des assistants IA branchés sur vos outils" },
-      { key: "software", title: "Créer votre logiciel sur mesure", text: "L’application qu’il vous faut, web ou mobile" },
-    ] as const,
-  },
-  /* La mention sous le bouton du menu de téléphone. */
-  ctaNote: "Gratuit, sans engagement.",
+  /* LES MENUS (25/11/2026, fiche d'Antonino) : le méga-menu « Services » de
+     la barre et les deux menus plein écran du bouton ☰ (ordinateur et
+     téléphone). Les quatre services y sont les mêmes, avec leur photo (celle
+     des cartes de l'accueil) et son cadrage (`focus`). */
+  menuServices: [
+    { key: "software", title: "Développement logiciel", text: "Logiciels métier, plateformes et outils internes, sur mesure.", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
+    { key: "ai", title: "Intelligence artificielle & automatisation", text: "Agents IA et automatisation de vos processus métier.", image: "/images/services/service-ia.webp", focus: "55% 38%" },
+    { key: "connect", title: "Intégration & systèmes connectés", text: "Vos logiciels connectés, vos données synchronisées.", image: "/images/services/service-integration.webp", focus: "62% 52%" },
+    { key: "web", title: "Sites web & applications mobiles", text: "Sites et applications modernes, centrés sur l’utilisateur.", image: "/images/services/service-web.webp", focus: "45% 42%" },
+  ] as const,
   menuOpen: "Ouvrir le menu",
   menuClose: "Fermer le menu",
   menuDialog: "Menu",

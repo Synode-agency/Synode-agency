@@ -208,7 +208,9 @@ export function ApproachScroll({
     <div ref={sectionRef} id="approche" role="region" className={`approach ${className ?? ""}`} aria-label={label}>
       <div className="approach-scene">
         <div className="col approach-grille">
-          <p ref={texteRef} className="approach-text">
+          {/* Au défilement, le texte arrive par la gauche (`data-rv-bloc`,
+              voir `scroll-reveal.tsx`), puis se remplit mot par mot. */}
+          <p ref={texteRef} className="approach-text" data-rv-bloc="left">
             {motsTexte.map((mot, i) => (
               <Fragment key={i}>
                 {i > 0 ? " " : null}

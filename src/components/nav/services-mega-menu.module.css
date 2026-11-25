@@ -1,0 +1,192 @@
+/* =====================================================================
+   LE MÉGA-MENU « SERVICES », SYSTÈME « GROUPE B » (25/11/2026, fiche
+   d'Antonino). Isolé dans ce module ; la barre claire est dans
+   `refonte.css` (`data-mega`).
+   ===================================================================== */
+
+.racine {
+  display: flex;
+}
+
+/* « Services » : l'apparence d'un lien de la barre (`site-nav-link`), son
+   chevron ; sur la barre claire, bleu nuit et souligné. */
+.declencheur {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+}
+.declencheur svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+.declencheur[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+:global(.site-page .site-header[data-mega]) .declencheur.declencheur {
+  color: #0b1424;
+}
+.souligne {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.15rem;
+  left: 0.65rem;
+  height: 0;
+  border-bottom: 1.5px solid #0b1424;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+:global(.site-header[data-mega]) .souligne {
+  opacity: 1;
+}
+
+/* Le voile : il couvre la page derrière le panneau, SOUS la barre (à
+   partir de 76px : sinon il assombrissait aussi la barre blanche, peinte
+   avant lui) ; z-index négatif dans la barre fixe. */
+.voile {
+  position: fixed;
+  inset: 76px 0 0;
+  z-index: -1;
+  background: rgb(5 8 15 / 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.voileOuvert {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Le panneau : blanc, collé sous la barre (76px), sur toute la largeur de
+   l'écran, déroulé depuis le haut. */
+.panneau {
+  position: fixed;
+  top: 76px;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  background: #ffffff;
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+  transition: clip-path 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.panneau.ouvert {
+  clip-path: inset(0 0 0 0);
+  pointer-events: auto;
+}
+/* Le contenu, sur la colonne du site. */
+.contenu {
+  box-sizing: border-box;
+  width: min(100%, var(--container-max));
+  margin-inline: auto;
+  padding: 36px var(--band-pad-x) 40px;
+}
+.grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* Une carte : montée en cascade à l'ouverture, toutes ensemble à la
+   fermeture. */
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  color: #0b1424;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s ease;
+}
+.ouvert .carte {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.25s + var(--i) * 0.08s), calc(0.25s + var(--i) * 0.08s), 0s;
+}
+.carte:hover,
+.carte:focus-visible {
+  color: #0a6cf0;
+}
+.carte:focus-visible {
+  outline: none;
+}
+.carte:focus-visible .visuel {
+  outline: 2px solid #0a6cf0;
+  outline-offset: 3px;
+}
+/* Le survol (25/11/2026, demande d'Antonino) : la carte visée reste
+   pleine, les trois autres s'atténuent, comme les photos de « Nos
+   services » sur l'accueil, mais à 0,6 (à 0,4, sur ce fond blanc, elles
+   devenaient gris clair : il les veut plus sombres). L'atténuation porte
+   sur le contenu de la carte, pas sur la carte : l'opacité de la carte
+   sert déjà à la montée en cascade, dont les délais retarderaient
+   l'effet. À la souris seulement ; le même effet au clavier. */
+.carte > * {
+  transition: opacity 0.5s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .grille:hover .carte > * {
+    opacity: 0.6;
+  }
+  .grille .carte:hover > * {
+    opacity: 1;
+  }
+}
+.grille:has(.carte:focus-visible) .carte > * {
+  opacity: 0.6;
+}
+.grille:has(.carte:focus-visible) .carte:focus-visible > * {
+  opacity: 1;
+}
+/* Le visuel : la photo du service, verticale. */
+.visuel {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+}
+.titre {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.texte {
+  margin-top: -6px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #5a5f6a;
+}
+
+/* Sans mouvement : pas de déroulé, ni de montée, ni de cascade ; des
+   fondus de 0,2s. */
+@media (prefers-reduced-motion: reduce) {
+  .declencheur svg,
+  .souligne {
+    transition: none;
+  }
+  .voile {
+    transition-duration: 0.2s;
+  }
+  .panneau,
+  .panneau.ouvert {
+    clip-path: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .panneau.ouvert {
+    opacity: 1;
+  }
+  .carte,
+  .ouvert .carte {
+    transform: none;
+    transition: opacity 0.2s ease;
+    transition-delay: 0s;
+  }
+}

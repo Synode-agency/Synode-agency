@@ -17,15 +17,16 @@ export const home = {
     /* Titre du 24/11/2026 (Antonino) : les métiers de Synode. Une ligne
        par `\n` ; « logiciel » et « IA » en Castoro italique bleu
        (25/11/2026).
-       Espaces insécables dans « IA & » et « systèmes connectés » : sur
-       téléphone, le titre tient en trois lignes équilibrées
-       (« Développement / logiciel, IA & / systèmes connectés. »). */
-    title: "Développement logiciel,\nIA & systèmes connectés.",
+       Chaque « | » : une espace sur ordinateur, un retour à la ligne sur
+       téléphone, où le titre tient en quatre lignes alignées à gauche
+       (« Développement / logiciel, IA / & systèmes / connectés. »,
+       choix D d'Antonino sur maquettes, 25/11/2026). */
+    title: "Développement|logiciel,\nIA|& systèmes|connectés.",
     accents: ["logiciel", "IA"],
     /* Le titre parle du bénéfice ; la description dit ce qu'est Synode, avec
        les mots du référencement (demande d'Antonino, 24/11/2026). */
     subtitle:
-      "Synode, agence de développement logiciel & IA à Bruxelles, conçoit et développe des logiciels adaptés aux besoins de votre entreprise. Nous intégrons l’intelligence artificielle, connectons vos outils et automatisons vos processus pour accompagner votre croissance.",
+      "Synode, agence de développement logiciel & IA à Bruxelles, conçoit et développe des logiciels, des sites web et des applications mobiles. Nous intégrons l’intelligence artificielle, connectons vos systèmes et automatisons vos processus pour accompagner la croissance de votre entreprise.",
     /* Le passage de la description en gras (sans italique). */
     emphasis: "agence de développement logiciel & IA à Bruxelles",
     note: "Gratuit et sans engagement · un seul processus suffit pour commencer",
@@ -90,33 +91,37 @@ export const home = {
     /* L'ACCORDÉON DES QUATRE SERVICES (24/11/2026, textes d'Antonino mot
        pour mot). `key` mène au bloc du service sur la page Services ;
        « web » n'en a pas encore : son panneau pointe vers « # ».
-       `image` : une photo pour le panneau ouvert, dans
-       `public/images/services/`. Vide : le fond bleu nuit, avec sa lueur
-       et sa trame de points, la remplace. */
+       `image` : la photo posée en haut de la carte (25/11/2026, photos
+       fournies par Antonino, en version bleutée), dans `public/images/services/` ; `focus` :
+       le point de la photo gardé au milieu quand elle est recadrée. */
     items: [
       {
         key: "software",
         title: "Développement logiciel",
         text: "Nous concevons et développons des logiciels métier, des plateformes et des outils internes adaptés aux besoins spécifiques de votre entreprise.",
-        image: "",
+        image: "/images/services/service-logiciel.webp",
+        focus: "50% 55%",
       },
       {
         key: "ai",
         title: "Intelligence artificielle & automatisation",
         text: "Nous développons des agents IA et automatisons vos processus métier pour simplifier vos opérations et améliorer la productivité de vos équipes.",
-        image: "",
+        image: "/images/services/service-ia.webp",
+        focus: "55% 38%",
       },
       {
         key: "connect",
         title: "Intégration & systèmes connectés",
         text: "Nous connectons vos logiciels, synchronisons vos données et intégrons vos systèmes pour construire un environnement technologique cohérent et évolutif.",
-        image: "",
+        image: "/images/services/service-integration.webp",
+        focus: "62% 52%",
       },
       {
         key: "web",
         title: "Sites web & applications mobiles",
         text: "Nous concevons et développons des sites web et des applications mobiles modernes, performants et centrés sur l'expérience utilisateur.",
-        image: "",
+        image: "/images/services/service-web.webp",
+        focus: "45% 42%",
       },
     ] as const,
   },
@@ -135,13 +140,10 @@ export const home = {
     link: "Toutes nos réalisations",
   },
 
-  founders: {
-    title: "Vous parlez directement à ceux qui construisent",
-    link: "Qui sommes-nous",
-  },
-
   faq: {
     title: "Questions fréquentes",
+    /* Sous la FAQ, devant le bouton unique du site en lien discret. */
+    more: "Une autre question ?",
     /* Une question sans réponse ne s'affiche pas. */
     items: [
       {

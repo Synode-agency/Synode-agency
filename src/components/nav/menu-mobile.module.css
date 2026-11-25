@@ -1,0 +1,248 @@
+/* =====================================================================
+   LE MENU DU BOUTON ☰ SUR TÉLÉPHONE, SYSTÈME « GROUPE B » (25/11/2026,
+   fiche d'Antonino), sous 768px. Isolé dans ce module.
+   ===================================================================== */
+.ecran {
+  position: fixed;
+  inset: 0;
+  /* Sous le bouton ☰ (50), au-dessus de tout le reste. */
+  z-index: 49;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* En haut, la place du bouton ☰ ; en bas, celle du geste d'accueil. */
+  padding-top: 88px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: #ffffff;
+  color: #0b1424;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition:
+    transform 0.7s cubic-bezier(0.7, 0, 0.2, 1),
+    visibility 0s linear 0.7s;
+}
+@media (min-width: 768px) {
+  .ecran {
+    display: none;
+  }
+}
+.ecran.ouvert {
+  transform: none;
+  visibility: visible;
+  transition:
+    transform 0.7s cubic-bezier(0.7, 0, 0.2, 1),
+    visibility 0s linear 0s;
+}
+.ecran:focus {
+  outline: none;
+}
+
+/* ---- Les grands liens ----
+   Grands, comme sur ordinateur (demande d'Antonino, 25/11) : selon la
+   largeur et la hauteur de l'écran, 60px environ sur un iPhone de 390px.
+   Centrés en hauteur ; s'ils débordent, les marges tombent à 0 et l'écran
+   défile. */
+.liens {
+  display: flex;
+  flex-direction: column;
+  margin-block: auto;
+  padding: 0 22px;
+  --taille-liens: clamp(36px, min(15.5vw, 8.4vh), 72px);
+}
+.ligne {
+  display: block;
+  overflow: hidden;
+}
+.grandLien {
+  display: block;
+  font-size: var(--taille-liens);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  color: #0b1424;
+  text-decoration: none;
+  transform: translateY(110%);
+  transition:
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.3s ease,
+    font-size 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ouvert .grandLien {
+  transform: none;
+  transition-delay: calc(0.12s + var(--i) * 0.07s), 0s, 0s;
+}
+/* « Services » déplié : les liens réduisent pendant que les cartes
+   arrivent (jamais plus grands que repliés). */
+.liens:has(.servicesOuverts) .grandLien {
+  font-size: min(var(--taille-liens), clamp(30px, 4.6vh, 38px));
+}
+.grandLien:active,
+.grandLien:focus-visible {
+  color: #0a6cf0;
+}
+/* « Services » : un bouton qui déplie les quatre cartes, à l'allure d'un
+   grand lien, avec son chevron à la taille du mot. */
+.deplier {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.18em;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.chevron {
+  width: 0.4em;
+  height: 0.4em;
+  stroke-width: 2.25;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.deplier[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---- Les quatre services, dépliés au toucher de « Services » ----
+   Repliés à l'ouverture du menu : la hauteur s'ouvre par la grille
+   (0fr → 1fr), puis les cartes montent en cascade ; le filet qui les
+   sépare de la suite se replie avec elles. Repliés, `inert`. */
+.services {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.servicesOuverts {
+  grid-template-rows: 1fr;
+}
+.servicesInterieur {
+  min-height: 0;
+  overflow: hidden;
+  /* De la place pour le contour du focus, sans décaler les cartes. */
+  margin-inline: -6px;
+  padding-inline: 6px;
+}
+.servicesListe {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 16px 0 20px;
+  border-bottom: 1px solid #eceef2;
+}
+.service {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  color: #0b1424;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.servicesOuverts .service {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.12s + var(--j) * 0.06s);
+}
+.serviceVisuel {
+  width: 64px;
+  height: 86px;
+  border-radius: 14px;
+}
+.serviceTexte {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.serviceTitre {
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+.serviceDescription {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #5a5f6a;
+}
+
+/* ---- Le bas ---- */
+.bas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 22px 28px;
+}
+/* Le bouton principal, plus petit qu'avant (demande d'Antonino, 25/11) :
+   à sa largeur et 46px de haut, au lieu de toute la largeur sur 52px. */
+.reserver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #0a6cf0;
+  font-size: 14.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #ffffff;
+  text-decoration: none;
+}
+.langue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b1424;
+}
+.langue a {
+  color: inherit;
+  text-decoration: none;
+}
+.langue a.langueAutre {
+  color: #b4b9c2;
+}
+:is(.grandLien, .service, .reserver, .langue a):focus-visible {
+  outline: 2px solid #0a6cf0;
+  outline-offset: 3px;
+}
+
+/* Sans mouvement : pas de glissement ni de décalage ; des fondus de 0,2s. */
+@media (prefers-reduced-motion: reduce) {
+  .ecran,
+  .ecran.ouvert {
+    transform: none;
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      visibility 0s linear 0.2s;
+  }
+  .ecran.ouvert {
+    opacity: 1;
+    transition:
+      opacity 0.2s ease,
+      visibility 0s linear 0s;
+  }
+  .grandLien,
+  .ouvert .grandLien {
+    transform: none;
+    transition: color 0.2s ease;
+  }
+  .services,
+  .chevron {
+    transition: none;
+  }
+  .service,
+  .servicesOuverts .service {
+    transform: none;
+    transition: opacity 0.2s ease;
+    transition-delay: 0s;
+  }
+}

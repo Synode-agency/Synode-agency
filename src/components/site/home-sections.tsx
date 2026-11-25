@@ -93,27 +93,3 @@ export function Steps({ steps }: { steps: SiteContent["site"]["steps"] }) {
     </ol>
   );
 }
-
-/**
- * LES FONDATEURS EN BREF (`Founders`, version de l'accueil) : la photo, le
- * nom, le rôle. Le portrait complet est sur À propos.
- */
-export function Founders({ people }: { people: SiteContent["about"]["founders"]["people"] }) {
-  return (
-    <ul className="founders-list">
-      {people.map((person) => (
-        <li key={person.last}>
-          <span className="founders-photo">
-            <Image src={person.photo} alt="" fill sizes="96px" />
-          </span>
-          <span className="founders-text">
-            <strong>
-              {person.first} {person.last}
-            </strong>
-            <span>{person.role}</span>
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
-}

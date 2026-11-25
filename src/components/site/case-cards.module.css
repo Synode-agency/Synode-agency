@@ -150,6 +150,12 @@
 .showVisual {
   border: 1px solid #e3e8f0;
   border-radius: 16px;
+  /* Un contexte à part, pour que les coins arrondis découpent bien
+     l'illustration animée pendant l'agrandissement (Safari compris). */
+  isolation: isolate;
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .showText {
@@ -194,6 +200,23 @@
   text-wrap: pretty;
 }
 
+/* Le survol (25/11/2026, demande d'Antonino) : le visuel du projet visé
+   grandit très légèrement (1,02) et ses coins s'arrondissent nettement
+   (16 → 48px, « encore plus marqués ») ;
+   l'autre projet ne change pas (l'assombrissement essayé avant est retiré
+   à sa demande). À la souris seulement (au doigt, rien ne change) ; le
+   même effet au clavier. */
+@media (hover: hover) and (pointer: fine) {
+  .showRow:hover .showVisual {
+    border-radius: 48px;
+    transform: scale(1.02);
+  }
+}
+.showRow:has(:focus-visible) .showVisual {
+  border-radius: 48px;
+  transform: scale(1.02);
+}
+
 /* Écran étroit : un projet sous l'autre. */
 @media (max-width: 799px) {
   .showcase {
@@ -208,5 +231,10 @@
   .showName,
   .showSummary {
     transition: none;
+  }
+  /* Sans mouvement : pas d'agrandissement, seuls les coins s'arrondissent. */
+  .showRow:hover .showVisual,
+  .showRow:has(:focus-visible) .showVisual {
+    transform: none;
   }
 }

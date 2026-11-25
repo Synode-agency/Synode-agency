@@ -73,7 +73,10 @@ export function CaseCards({ locale, heading: Heading = "h3" }: { locale: Locale;
  */
 export function CaseShowcase({ locale }: { locale: Locale }) {
   return (
-    <div className={styles.showcase}>
+    /* Au défilement, chaque projet arrive de son côté : celui de gauche par
+       la gauche, celui de droite par la droite (`data-rv-groupe`, voir
+       `scroll-reveal.tsx`). */
+    <div className={styles.showcase} data-rv-groupe="">
       {CASES[locale].map((item: CaseCard) => {
         const href = `${path(locale, ROUTES.work)}/${item.slug}`;
         const visual = visualFor(item.slug, locale);

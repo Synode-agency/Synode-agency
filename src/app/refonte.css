@@ -8,28 +8,34 @@
    ===================================================================== */
 
 /* =====================================================================
-   LA BARRE (maquette du 24/11/2026)
-   Trois entrées, dont « Services » qui se déroule ; à droite, la langue en
-   « FR / EN » et le bouton blanc « Contact ». Le bouton principal
-   (« Réserver un appel de 30 min ») reste dans les pages.
+   LA BARRE, SYSTÈME « GROUPE B » (25/11/2026, fiche d'Antonino).
+   À partir de 1024px : 76px de haut, le logo, quatre liens espacés de 36px
+   (Accueil, Services ▾, Réalisations, À propos), puis « FR / EN » et le
+   bouton blanc « Contact ». Au survol de « Services », elle passe en CLAIR
+   le temps du méga-menu (`data-mega`, posé par `ServicesMegaMenu`) : fond
+   blanc, logo foncé (fondu entre deux logos superposés), liens gris,
+   Contact bleu nuit. Sous 768px : le logo et le bouton ☰ seulement.
    ===================================================================== */
 .site-header .site-nav-link {
-  font-size: 0.9375rem;
-  color: #c9d3e3;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #c9d3e2;
 }
 .site-header-contact {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
-  padding-inline: 1.125rem;
+  min-height: 40px;
+  padding-inline: 18px;
   border-radius: var(--r-pill);
   background: #ffffff;
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 600;
-  color: #0b1220;
+  color: #0b1424;
   white-space: nowrap;
-  transition: background-color 0.18s var(--anim-ease);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 .site-header-contact:hover {
   background: #e8eefb;
@@ -49,14 +55,15 @@
   padding: 0;
   border-radius: 0;
   background: none;
-  font-size: var(--fs-small);
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.02em;
   color: #9aa9c0;
+  transition: color 0.3s ease;
 }
 .site-header .lang-item.is-current {
   background: none;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
 }
 .site-header .lang-item + .lang-item::before {
@@ -66,17 +73,86 @@
   color: rgb(255 255 255 / 35%);
 }
 
-/* Sous 720px, la langue passe dans le menu ☰ ; sous 370px, la barre ne
-   garde que le symbole du logo, pour que « Contact » et ☰ tiennent. */
+/* Le logo, en deux versions superposées : claire au repos, foncée sur la
+   barre claire (le lettrage blanc inversé). */
+.site-header-brand {
+  position: relative;
+}
+.site-header-logo-clair,
+.site-header-logo-fonce {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+.site-header-logo-fonce {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.site-header .site-header-logo-fonce .wordmark-type {
+  filter: invert(1);
+}
+
+@media (min-width: 1024px) {
+  .site-header-bar {
+    height: 76px;
+  }
+  /* Les liens dès 1024px (au lieu de 1080), espacés de 36px d'un mot à
+     l'autre : chaque lien a déjà 0,65rem de marge de chaque côté. */
+  .site-nav {
+    display: flex;
+    gap: calc(36px - 1.3rem);
+  }
+}
+
+/* La barre claire, menu « Services » ouvert. */
+.site-header {
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.site-page .site-header.site-header[data-mega] {
+  background: #ffffff;
+  box-shadow: inset 0 -1px 0 #eceef2;
+}
+.site-page .site-header[data-mega] .site-header-logo-clair {
+  opacity: 0;
+}
+.site-page .site-header[data-mega] .site-header-logo-fonce {
+  opacity: 1;
+}
+.site-page .site-header[data-mega] .site-nav-link {
+  color: #5a5f6a;
+}
+.site-page .site-header[data-mega] .lang-item {
+  color: #8a8f98;
+}
+.site-page .site-header[data-mega] .lang-item.is-current {
+  color: #0b1424;
+}
+.site-page .site-header[data-mega] .lang-item + .lang-item::before {
+  color: #b4b9c2;
+}
+.site-page .site-header[data-mega] .site-header-contact {
+  background: #0b1424;
+  color: #ffffff;
+}
+
+/* Sous 720px, la langue passe dans le menu ☰ ; sous 768px, « Contact »
+   aussi : la barre ne garde que le logo et le bouton ☰ (fiche). Sous
+   370px, le logo ne garde que son symbole. */
 @media (max-width: 719px) {
   .site-header-end > .lang {
     display: none;
   }
-  /* Plus compact sur téléphone, pour laisser le logo entier. */
+}
+@media (max-width: 767px) {
   .site-header-contact {
-    min-height: 2.25rem;
-    padding-inline: 0.875rem;
-    font-size: var(--fs-small);
+    display: none;
+  }
+  .site-header-bar {
+    padding-right: 22px;
   }
 }
 @media (max-width: 369px) {
@@ -85,85 +161,13 @@
   }
 }
 
-/* Le menu déroulant « Services ». */
-.services-menu {
-  position: relative;
-}
-.services-menu-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-}
-.services-menu-trigger svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 160ms var(--anim-ease);
-}
-.services-menu-trigger[aria-expanded="true"] svg {
-  transform: rotate(180deg);
-}
-.services-menu-panel {
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 50%;
-  width: min(360px, 90vw);
-  padding: 0.5rem;
-  transform: translateX(-50%);
-  border: 1px solid #243753;
-  border-radius: 14px;
-  background: #0e1830;
-  box-shadow: 0 24px 60px -22px #000;
-}
-.services-menu-panel[hidden] {
-  display: none;
-}
-.services-menu-panel ul {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  list-style: none;
-}
-.services-menu-panel li a {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.75rem 0.85rem;
-  border-radius: 9px;
-  color: #ffffff;
-}
-.services-menu-panel li a:hover,
-.services-menu-panel li a:focus-visible {
-  background: #16274a;
-}
-.services-menu-panel strong {
-  font-size: var(--fs-small);
-  font-weight: 600;
-}
-.services-menu-panel small {
-  font-size: var(--fs-micro);
-  line-height: 1.45;
-  color: #a8b8d0;
-}
-.services-menu-all {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0.25rem;
-  padding: 0.75rem 0.85rem;
-  border-top: 1px solid #243753;
-  font-size: var(--fs-small);
-  font-weight: 500;
-  color: #8fc0ff;
-}
-.services-menu-all svg {
-  width: 16px;
-  height: 16px;
-}
 @media (prefers-reduced-motion: reduce) {
-  .services-menu-trigger svg,
-  .site-header-contact {
-    transition: none;
+  .site-header,
+  .site-header-contact,
+  .site-header .lang-item,
+  .site-header-logo-clair,
+  .site-header-logo-fonce {
+    transition-duration: 0.2s;
   }
 }
 
@@ -457,7 +461,7 @@ main > .band.rf-section {
    réalisations », puis « Ce que nous avons » et un mot qui change, voir
    plus bas), avec « Toutes nos réalisations » à droite. LE MÊME ÉCART
    entre l'en-tête et les cartes que dans les services (celui de
-   `.svc-acc`), à la demande d'Antonino (25/11/2026). */
+   leur grille, `services-grid.module.css`), à la demande d'Antonino (25/11/2026). */
 main > .band#realisations .section-heading {
   margin-bottom: clamp(56px, 6vw, 88px);
 }
@@ -659,242 +663,6 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
   }
 }
 
-/* ---- CE QUE NOUS FAISONS : L'ACCORDÉON DES QUATRE SERVICES
-   (24/11/2026, `ServiceAccordion`). Le panneau ouvert (`.is-active`)
-   s'élargit, montre son fond, sa description et son lien ; les autres se
-   resserrent. Les fonds sont ceux des cartes essayées le 24/11/2026
-   (demande d'Antonino) : blanc au repos ; bleu nuit avec une lueur bleue
-   en haut à droite et une trame de points en bas à droite sur le panneau
-   ouvert (ou une photo et son voile, si `image` est rempli). La rangée occupe
-   la largeur de la colonne de la section, à 56px sous la phrase. Sous
-   1000px de large (requête sur la largeur de la rangée, pas de l'écran),
-   les panneaux s'empilent. Police : Manrope, celle du site. ---- */
-/* Plus d'air sous la phrase de l'en-tête (25/11/2026) : de 56px sur
-   téléphone à 88px sur grand écran. */
-.svc-acc {
-  container-type: inline-size;
-  margin-top: clamp(56px, 6vw, 88px);
-}
-/* 420px de haut : Antonino préfère les cartes hautes (25/11/2026, après
-   un essai à 280px). */
-.svc-acc-row {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  height: 420px;
-}
-.svc-acc .svc-acc-panel {
-  position: relative;
-  display: flex;
-  flex: 1 1 0;
-  flex-direction: column;
-  justify-content: flex-end;
-  box-sizing: border-box;
-  min-width: 0;
-  min-height: 0;
-  padding: 24px;
-  overflow: hidden;
-  isolation: isolate;
-  border: 1px solid #e3e8f0;
-  border-radius: 18px;
-  background: #ffffff;
-  color: #0b1424;
-  text-decoration: none;
-  transition:
-    flex-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-    background-color 0.6s ease,
-    border-color 0.6s ease;
-}
-.svc-acc .svc-acc-panel.is-active {
-  flex-grow: 3.2;
-}
-/* La photo (ou son remplaçant bleu nuit), sous le texte. */
-.svc-acc .svc-acc-media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.08);
-  transition:
-    opacity 0.6s ease,
-    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-/* Sans photo : le fond des cartes (bleu nuit, lueur, trame de points). */
-.svc-acc .svc-acc-fond {
-  overflow: hidden;
-  background: #0b1424;
-}
-/* En bleu nuit, le fond du panneau ouvert s'inverse : un calque blanc,
-   avec une lueur bleue douce, recouvre le bleu nuit (voir plus bas). */
-.svc-acc .svc-acc-fond::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(90% 80% at 100% 0%, rgba(10, 108, 240, 0.16) 0%, rgba(10, 108, 240, 0) 60%),
-    #ffffff;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.svc-acc .svc-acc-fond-nuit,
-.svc-acc .svc-acc-fond-lueur {
-  position: absolute;
-  inset: 0;
-}
-.svc-acc .svc-acc-fond-lueur {
-  background: radial-gradient(90% 80% at 100% 0%, rgba(10, 108, 240, 0.55) 0%, rgba(10, 108, 240, 0) 60%);
-}
-.svc-acc .svc-acc-fond-points {
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-  width: 55%;
-  height: 70%;
-  background-image: radial-gradient(rgba(142, 193, 255, 0.22) 1px, transparent 1.2px);
-  background-size: 16px 16px;
-  -webkit-mask-image: radial-gradient(100% 100% at 100% 100%, #000 0%, transparent 70%);
-  mask-image: radial-gradient(100% 100% at 100% 100%, #000 0%, transparent 70%);
-}
-.svc-acc .svc-acc-veil {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    rgba(11, 20, 36, 0) 25%,
-    rgba(11, 20, 36, 0.6) 55%,
-    rgba(11, 20, 36, 0.92) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.svc-acc .is-active .svc-acc-media {
-  opacity: 1;
-  transform: scale(1);
-}
-.svc-acc .is-active .svc-acc-veil {
-  opacity: 1;
-}
-/* Le texte, aligné à gauche (25/11/2026, demandes d'Antonino) : EN BAS
-   sur les cartes fermées ; AU MILIEU de la carte ouverte, dès la première
-   visite (« Développement logiciel », ouverte par défaut, sans la
-   survoler). Quand une autre carte s'ouvre (survol, clavier, toucher), son
-   titre, sa description et « En savoir plus » MONTENT ensemble jusqu'au
-   milieu, et ceux de la carte qui se referme redescendent. Placé en absolu
-   pour que ce mouvement s'anime : de 24px du bas (`bottom`) au milieu
-   (`bottom: 50%`, recentré de la moitié de sa propre hauteur). Le milieu
-   tient pendant que la description se déplie. */
-.svc-acc .svc-acc-body {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  left: 24px;
-  display: flex;
-  flex-direction: column;
-  max-width: 520px;
-  transition:
-    bottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.svc-acc .svc-acc-panel.is-active .svc-acc-body {
-  bottom: 50%;
-  translate: 0 50%;
-}
-.svc-acc .svc-acc-title {
-  margin: 0;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #0b1424;
-  text-wrap: balance;
-  hyphens: auto;
-  overflow-wrap: break-word;
-  transition:
-    color 0.4s,
-    font-size 0.5s;
-}
-.svc-acc .is-active .svc-acc-title {
-  font-size: clamp(24px, 2.2vw, 32px);
-  color: #ffffff;
-}
-/* La description et le lien : repliés (0fr) sauf sur le panneau ouvert. */
-.svc-acc .svc-acc-more {
-  display: grid;
-  grid-template-rows: 0fr;
-  margin-top: 0;
-  opacity: 0;
-  transition:
-    grid-template-rows 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    margin-top 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 0.5s;
-}
-.svc-acc .is-active .svc-acc-more {
-  grid-template-rows: 1fr;
-  margin-top: 12px;
-  opacity: 1;
-}
-.svc-acc .svc-acc-more-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-height: 0;
-  overflow: hidden;
-}
-/* UNE PETITE BARRE FINE entre le titre et la description (25/11/2026,
-   demande d'Antonino : celle-là seulement, aucune autre). Courte, dans le
-   bleu du site, comme les traits sous les titres de section ; elle se
-   déplie avec la description, donc seulement sur la carte ouverte. */
-.svc-acc .svc-acc-more-inner::before {
-  content: "";
-  flex: none;
-  width: 40px;
-  height: 2px;
-  border-radius: 2px;
-  background: #8ec1ff;
-  transition: background-color 0.6s ease;
-}
-.svc-acc .svc-acc-text {
-  max-width: none;
-  margin: 0;
-  font-size: 15.5px;
-  line-height: 1.55;
-  color: #ffffff;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
-  transition:
-    color 0.6s ease,
-    text-shadow 0.6s ease;
-}
-.svc-acc .svc-acc-link {
-  font-size: 14.5px;
-  font-weight: 600;
-  color: #ffffff;
-  transition: color 0.6s ease;
-}
-/* Rangée étroite : les panneaux s'empilent, l'ouvert prend plus de
-   hauteur. */
-@container (max-width: 999px) {
-  .svc-acc-row {
-    flex-direction: column;
-    height: 760px;
-  }
-}
-/* Sans mouvement : le changement de panneau est instantané. */
-@media (prefers-reduced-motion: reduce) {
-  .svc-acc .svc-acc-panel,
-  .svc-acc .svc-acc-body,
-  .svc-acc .svc-acc-media,
-  .svc-acc .svc-acc-veil,
-  .svc-acc .svc-acc-title,
-  .svc-acc .svc-acc-more {
-    transition: none;
-  }
-}
-
 /* ---- « NOS SERVICES » EN BLEU NUIT AU DÉFILEMENT (25/11/2026, demande
    d'Antonino, à la manière d'In The Pocket). Dès que le haut de la section
    passe à 60 % de l'écran (`SectionNuit` pose `data-nuit`), TOUT L'ÉCRAN
@@ -944,29 +712,6 @@ main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span {
 main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.est-actif {
   background: #8ec1ff;
 }
-/* Les cartes, sur le bleu nuit : TOUTES BLANCHES, de vraies cartes
-   (demande d'Antonino du 25/11/2026 : pas d'effet de verre dépoli). Les
-   fermées restent comme de jour ; l'ouverte passe au blanc, écrite en bleu
-   nuit. Une ombre douce les détache du fond. */
-main > .band#services[data-nuit] .svc-acc .svc-acc-panel {
-  border-color: #ffffff;
-  box-shadow: 0 24px 48px -28px rgb(0 0 0 / 55%);
-}
-main > .band#services[data-nuit] .svc-acc .svc-acc-fond::after {
-  opacity: 1;
-}
-main > .band#services[data-nuit] .svc-acc .is-active .svc-acc-title,
-main > .band#services[data-nuit] .svc-acc .svc-acc-link {
-  color: #0b1424;
-}
-main > .band#services[data-nuit] .svc-acc .svc-acc-text {
-  color: #4a5468;
-  text-shadow: none;
-}
-/* La petite barre, sur la carte ouverte devenue blanche : bleu du site. */
-main > .band#services[data-nuit] .svc-acc .svc-acc-more-inner::before {
-  background: #0a6cf0;
-}
 /* Le haut des réalisations, visible sous les services tant que l'écran
    est en bleu nuit : en négatif lui aussi, sur le même fond. Dès que son
    haut passe le seuil, tout l'écran redevient clair, d'un bloc. */
@@ -988,10 +733,7 @@ main > .band#realisations .go {
   .fond-nuit,
   .site-page main > section.band#services,
   .site-page main > section.band#realisations,
-  main > .band#realisations .go,
-  .svc-acc .svc-acc-fond::after,
-  .svc-acc .svc-acc-text,
-  .svc-acc .svc-acc-link {
+  main > .band#realisations .go {
     transition: none;
   }
 }
@@ -1036,49 +778,34 @@ main > .band#realisations .go {
   color: var(--foreground);
 }
 
-/* ---- Les fondateurs en bref : photo ronde, nom, rôle. ---- */
-.founders-list {
-  display: grid;
-  gap: 1.5rem;
-  padding: 0;
-  list-style: none;
+/* ---- La FAQ de l'accueil reste BLANCHE, quel que soit son rang. Depuis le
+   départ des fondateurs vers À propos (25/11/2026), elle tombait sur un rang
+   impair : bleu nuit, juste sous la carte sombre de l'appel final. Les
+   jetons d'une bande claire, comme `.band:nth-of-type(even)`. ---- */
+.site-theme-alternating main > .band.rf-section#faq {
+  background: #ffffff;
+  color: #464444;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgb(70 68 68 / 12%);
+  --border: rgb(70 68 68 / 12%);
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+  --brand-hover: #0051b7;
 }
-@media (min-width: 760px) {
-  .founders-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.5rem;
-  }
-}
-.founders-list > li {
+
+/* ---- Sous la FAQ de l'accueil : « Une autre question ? » et le bouton
+   unique du site, en lien discret (25/11/2026). ---- */
+main > .band#faq .faq-suite {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1.25rem;
-}
-.founders-photo {
-  position: relative;
-  flex: none;
-  width: 6rem;
-  height: 6rem;
-  overflow: hidden;
-  border-radius: 50%;
-  background: var(--surface-2);
-}
-.founders-photo img {
-  object-fit: cover;
-}
-.founders-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-.founders-text strong {
-  font-size: var(--fs-h4);
-  font-weight: 600;
-  color: var(--foreground);
-}
-.founders-text > span {
-  font-size: var(--fs-small);
-  line-height: 1.45;
+  gap: 0.4rem 0.75rem;
+  margin: 2rem 0 0;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }
 
@@ -1716,11 +1443,15 @@ main > section.case-hero p.case-note {
     transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Le bouton ☰, SANS BULLE (demande d'Antonino du 25/11/2026) : ses
-   traits prennent la couleur qui se lit sur le fond qu'il survole, blancs
-   sur un fond sombre, bleu nuit (presque noir) sur un fond clair.
-   `SiteHeader` mesure ce fond sous le bouton (`data-fond`) à chaque
-   défilement. En haut de page, il est sur le hero ou la barre, sombres. */
+/* LE BOUTON ☰ (25/11/2026) : la PREMIÈRE VERSION, remise à la demande
+   d'Antonino après le rond du « Groupe B », sur téléphone comme sur
+   ordinateur. SANS CERCLE : trois traits de même épaisseur, alignés à
+   droite, long, court, moyen (22, 12 et 17px), égaux au survol. Fermé, ils
+   se lisent sur tous les fonds au défilement : blancs sur un fond sombre,
+   bleu nuit sur un fond clair (`data-fond`, mesuré par `SiteHeader`).
+   Ouvert : une simple croix bleu nuit (presque noire), sans contour ni
+   fond, faite des mêmes traits (même taille, même épaisseur), sur le
+   panneau blanc. */
 .site-header .site-burger {
   position: relative;
   display: grid;
@@ -1734,8 +1465,7 @@ main > section.case-hero p.case-note {
   color: #ffffff;
   cursor: pointer;
   transition: color 0.3s ease;
-  /* Au-dessus du menu ouvert (49) : sur ordinateur, le tiroir part du
-     haut de l'écran, et le bouton, devenu croix, reste par-dessus. */
+  /* Au-dessus du menu ouvert (49). */
   z-index: 50;
 }
 .site-header .site-burger:focus-visible {
@@ -1745,11 +1475,9 @@ main > section.case-hero p.case-note {
 .site-header.is-scrolled[data-fond="clair"] .site-burger {
   color: #0b1424;
 }
-/* Menu ouvert sur ordinateur : la croix est sur le tiroir, sombre. */
-@media (min-width: 1080px) {
-  .site-header.is-scrolled .site-burger[aria-expanded="true"] {
-    color: #ffffff;
-  }
+.site-header .site-burger[aria-expanded="true"],
+.site-header.is-scrolled[data-fond] .site-burger[aria-expanded="true"] {
+  color: #0b1424;
 }
 /* Les trois traits, alignés à droite : long, court, moyen. Égaux au
    survol ; une croix, menu ouvert. */
@@ -1764,11 +1492,10 @@ main > section.case-hero p.case-note {
   display: block;
   width: 22px;
   height: 0;
-  /* UNE BORDURE ET NON UN FOND (25/11/2026, les traits ne paraissaient pas
-     de la même épaisseur) : le navigateur arrondit l'épaisseur d'une
-     bordure au pixel de l'écran, la même pour les trois traits, quel que
-     soit le zoom. Un fond de 2px, lui, tombait sur des demi-pixels (zoom
-     à 90 %) et l'un des traits s'épaississait. */
+  /* Une bordure et non un fond : le navigateur arrondit son épaisseur au
+     pixel de l'écran, la même pour les trois traits, quel que soit le zoom
+     (à 90 %, un fond de 2px tombait sur des demi-pixels et l'un des traits
+     s'épaississait). */
   border-top: 2px solid currentColor;
   border-radius: 2px;
   transform-origin: 100% 50%;
@@ -1805,10 +1532,11 @@ main > section.case-hero p.case-note {
   translate: 0 -7px;
   rotate: -45deg;
 }
-/* Sur ordinateur, le bouton n'existe qu'au défilement : posé au bout de la
-   barre, par-dessus « Contact », il grandit quand tout s'y est replié, puis
-   ses traits se dessinent depuis la droite, l'un après l'autre. */
-@media (min-width: 1080px) {
+/* Sur ordinateur (dès 1024px), le bouton n'existe qu'au défilement : posé
+   au bout de la barre, par-dessus « Contact », il grandit quand tout s'y
+   est replié, puis ses traits se dessinent depuis la droite, l'un après
+   l'autre. */
+@media (min-width: 1024px) {
   .site-header-bar {
     position: relative;
   }
@@ -2068,10 +1796,45 @@ main > section.home-hero .studio-hero-copy > .hero-reassurance {
   .site-page main > section.studio-hero.home-hero {
     min-height: 100svh;
   }
+  /* LE HERO SUR TÉLÉPHONE, CHOIX D (25/11/2026, sur maquettes) : le titre
+     en quatre lignes choisies (« Développement / logiciel, IA / &
+     systèmes / connectés. », les « | » du texte), et tout le hero aligné
+     à gauche. La plus longue ligne remplit 97 % de la colonne : 48px sur
+     un iPhone de 390px, 72px au plus. (Avant : trois lignes coupées par
+     le navigateur, en 32px, demande du 24/11.) */
   main > section.home-hero .studio-hero-grid {
-    /* 32px sur un écran de 375px (au lieu de 42), trois lignes (demande
-       d'Antonino du 24/11/2026 : le titre était trop grand). */
-    --hero-title-size: clamp(1.75rem, 9.6cqi, 3.25rem);
+    --hero-title-size: min(13.7cqi, 4.5rem);
+  }
+  /* En anglais, la plus longue ligne est « development, AI » (7,3 fois la
+     taille, contre 7 pour « Développement ») : un peu plus petit, pour
+     qu'elle remplisse 95 % de la colonne. */
+  main > section.home-hero .studio-hero-grid:lang(en) {
+    --hero-title-size: min(13cqi, 4.3rem);
+  }
+  main > section.home-hero h1 {
+    line-height: 1.06;
+    text-align: left;
+  }
+  main > section.home-hero .studio-hero-copy {
+    justify-items: start;
+    text-align: left;
+  }
+  main > section.home-hero .studio-hero-copy > p,
+  main > section.home-hero .studio-hero-copy > .hero-reassurance {
+    text-align: left;
+  }
+  main > section.home-hero .studio-hero-copy > .hero-actions {
+    justify-content: flex-start;
+  }
+  .site-page main > section.studio-hero.home-hero .studio-hero-copy > :is(p, .hero-actions, .hero-reassurance) {
+    margin-inline: 0;
+  }
+}
+/* Les retours à la ligne du titre sur téléphone : rien dès 768px, où le
+   titre tient en ses deux lignes. */
+@media (min-width: 768px) {
+  main > section.home-hero h1 .hero-title-br {
+    display: none;
   }
 }
 

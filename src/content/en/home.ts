@@ -5,10 +5,12 @@ export const home = {
   metaDescription: "We connect your tools, add AI and build custom software, from freelancers to large companies. Free 30-min call.",
 
   hero: {
-    title: "Software development,\nAI & connected systems.",
+    /* « | » : a line break on phones only, a space on desktop (see
+       fr/home.ts). */
+    title: "Software|development,\nAI|& connected|systems.",
     accents: ["Software", "AI"],
     subtitle:
-      "Synode, a software development & AI agency in Brussels, designs and builds software tailored to your company’s needs. We integrate artificial intelligence, connect your tools and automate your processes to support your growth.",
+      "Synode, a software development & AI agency in Brussels, designs and builds software, websites and mobile apps. We integrate artificial intelligence, connect your systems and automate your processes to support your company’s growth.",
     emphasis: "software development & AI agency in Brussels",
     note: "Free, no commitment · one process is enough to start",
   },
@@ -47,25 +49,29 @@ export const home = {
         key: "software",
         title: "Software development",
         text: "We design and build business software, platforms and internal tools tailored to your company’s specific needs.",
-        image: "",
+        image: "/images/services/service-logiciel.webp",
+        focus: "50% 55%",
       },
       {
         key: "ai",
         title: "Artificial intelligence & automation",
         text: "We build AI agents and automate your business processes to simplify your operations and boost your teams’ productivity.",
-        image: "",
+        image: "/images/services/service-ia.webp",
+        focus: "55% 38%",
       },
       {
         key: "connect",
         title: "Integration & connected systems",
         text: "We connect your software, sync your data and integrate your systems into a coherent, scalable technology environment.",
-        image: "",
+        image: "/images/services/service-integration.webp",
+        focus: "62% 52%",
       },
       {
         key: "web",
         title: "Websites & mobile apps",
         text: "We design and build modern, high-performance websites and mobile apps focused on user experience.",
-        image: "",
+        image: "/images/services/service-web.webp",
+        focus: "45% 42%",
       },
     ] as const,
   },
@@ -79,13 +85,9 @@ export const home = {
     link: "All our work",
   },
 
-  founders: {
-    title: "You talk directly to the people who build",
-    link: "About us",
-  },
-
   faq: {
     title: "Common questions",
+    more: "Another question?",
     items: [
       {
         q: "Do we need to change our software?",

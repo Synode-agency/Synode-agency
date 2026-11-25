@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
-import { ServicesMenu } from "./services-menu";
-import { MobileMenu } from "@/components/nav/mobile-menu";
+import { ServicesMegaMenu } from "@/components/nav/services-mega-menu";
+import { MenuPanel } from "@/components/nav/menu-panel";
+import { MenuMobile } from "@/components/nav/menu-mobile";
 import { ROUTES, homePath, path, switchLocalePath, translateHash, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
 import { cx } from "@/lib/cx";
@@ -171,7 +172,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
     const background = Array.from(document.querySelectorAll<HTMLElement>(
       ".site-page > main, .site-page > footer, "
       + ".site-header-brand, .site-header-bar .site-nav, "
-      + ".site-header-bar .lang, .site-header-cta",
+      + ".site-header-bar .lang, .site-header-cta, .site-header-contact",
     ));
     const previousInert = background.map(element => element.inert);
     document.body.style.overflow = "hidden";
@@ -216,6 +217,8 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   }, [pathname]);
 
   const closeMenu = () => { setOpen(false); burgerRef.current?.focus(); };
+  /* La même page dans les deux langues, pour le « FR / EN » des menus. */
+  const langues = { fr: localePath("fr", pathname), en: localePath("en", pathname) };
   const isCurrent = (href: string) => {
     const full = path(locale, href);
     return pathname === full || (href !== ROUTES.home && pathname.startsWith(`${full}/`));
@@ -245,12 +248,22 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
           onNavigate={() => setOpen(false)}
           className="site-header-brand"
         >
-          <Wordmark variant="mark" />
+          {/* Deux logos superposés : le clair au repos, le foncé sur la barre
+              claire du menu « Services » (fondu de l'un à l'autre). */}
+          <span className="site-header-logo-clair">
+            <Wordmark variant="mark" />
+          </span>
+          <span className="site-header-logo-fonce" aria-hidden="true">
+            <Wordmark variant="mark" />
+          </span>
         </NavLink>
 
         <nav aria-label={site.navLabel} className="site-nav">
           {site.nav.map((item) => item.href === ROUTES.services ? (
-            <ServicesMenu key={`services-${pathname}`} locale={locale} pathname={pathname} label={item.label} menu={site.servicesMenu} />
+            /* Le méga-menu « Services » (25/11/2026) : au survol, les quatre
+               services en cartes, la page floutée derrière. Remonté à chaque
+               page, donc refermé. */
+            <ServicesMegaMenu key={`services-${pathname}`} locale={locale} pathname={pathname} label={item.label} services={site.menuServices} />
           ) : (
             <NavLink
               key={item.href}
@@ -273,7 +286,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
             <span className="btn-lib">{site.contactLabel}</span>
           </Link>
 
-          {/* Le bouton ☰ : trois traits inégaux (long, court, moyen), qui
+          {/* Le bouton ☰ (système « Groupe B ») : un rond à deux traits, qui
               deviennent une croix menu ouvert. Sur ordinateur, il n'apparaît
               qu'au défilement, quand la barre s'y replie. */}
           <button
@@ -281,7 +294,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
             ref={burgerRef}
             className="site-burger"
             aria-expanded={open}
-            aria-controls="menu-mobile"
+            aria-controls="menu-panneau menu-mobile"
             aria-label={open ? site.menuClose : site.menuOpen}
             onClick={() => setOpen(!open)}
           >
@@ -294,20 +307,12 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
         </div>
       </div>
 
-      {/* Le menu de téléphone, dans son composant. Il est remonté à chaque
-          changement de page : son accordéon Solutions repart alors de
-          l'état qui convient à la page affichée. */}
-      <MobileMenu
-        key={pathname}
-        locale={locale}
-        copy={copy}
-        pathname={pathname}
-        open={open}
-        onClose={closeMenu}
-        /* Sous 720px, le sélecteur quitte la barre pour laisser la place au
-           bouton principal : il est repris ici, dans le menu. */
-        lang={<LangSwitch locale={locale} pathname={pathname} label={site.langLabel} />}
-      />
+      {/* Les menus du bouton ☰, système « Groupe B » (25/11/2026) : un
+          panneau blanc qui glisse depuis la droite à partir de 768px, un
+          écran blanc plein écran en dessous. Chacun ne s'affiche qu'à sa
+          largeur. */}
+      <MenuPanel locale={locale} copy={copy} open={open} onClose={closeMenu} langues={langues} />
+      <MenuMobile locale={locale} copy={copy} open={open} onClose={closeMenu} langues={langues} />
     </header>
   );
 }

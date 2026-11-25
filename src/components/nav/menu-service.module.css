@@ -1,0 +1,17 @@
+/* Le visuel d'un service dans les menus : la photo, sur fond bleu nuit.
+   Sa taille et ses coins viennent de la classe du menu qui l'affiche. */
+.visuel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #0b1424;
+}
+.image {
+  object-fit: cover;
+  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+}

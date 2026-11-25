@@ -8,12 +8,14 @@ import { Hero } from "@/components/site/hero";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseShowcase } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
-import { Founders, ProofStrip, Steps } from "@/components/site/home-sections";
-import { ServiceAccordion } from "@/components/site/service-accordion";
+import { ProofStrip, Steps } from "@/components/site/home-sections";
+import { ServicesGrid } from "@/components/site/services-grid";
 import { TitreAnime } from "@/components/site/titre-anime";
 import { SectionNuit } from "@/components/site/section-nuit";
 import { ApproachScroll } from "@/components/site/approach-scroll";
 import { ROUTES, getContent, path, type Locale } from "@/content";
+import { ctaLabel } from "@/content/cta";
+import { bookingHref } from "@/lib/routes";
 import { siteUrl } from "@/lib/site-url";
 import { organizationAlternateName, organizationName, sameAsField } from "@/lib/organization";
 
@@ -137,11 +139,23 @@ export function HomePage({ locale }: { locale: Locale }) {
         className={`home-page-hero home-hero ${accentFont.variable}`}
         title={home.hero.title.split("\n").map((line, i) => (
           /* Une ligne par `\n`, décalées l'une de l'autre dès 768px ; sur
-             téléphone, elles se suivent (l'espace les sépare). */
+             téléphone, elles se suivent (l'espace les sépare) et chaque
+             « | » y devient un retour à la ligne (`.hero-title-br`, masqué
+             dès 768px) : quatre lignes choisies (choix D, 25/11/2026). */
           <Fragment key={line}>
             {i > 0 ? " " : null}
             <span className={`hero-title-line hero-title-line--${i + 1}`}>
-              {titleLine(line, home.hero.accents)}
+              {line.split("|").map((morceau, j) => (
+                <Fragment key={j}>
+                  {j > 0 ? (
+                    <>
+                      {" "}
+                      <br className="hero-title-br" />
+                    </>
+                  ) : null}
+                  {titleLine(morceau, home.hero.accents)}
+                </Fragment>
+              ))}
             </span>
           </Fragment>
         ))}
@@ -195,9 +209,9 @@ export function HomePage({ locale }: { locale: Locale }) {
           full={home.services.full}
           fullEnd={home.services.fullEnd}
         />
-        {/* Les quatre services en accordéon (24/11/2026), à 56px sous la
-            phrase ; le titre et la phrase ne changent pas. */}
-        <ServiceAccordion locale={locale} services={home.services} />
+        {/* Les quatre services en photos (25/11/2026, fiche d'Antonino) :
+            une grille, sans fond de carte ; l'en-tête ne change pas. */}
+        <ServicesGrid locale={locale} services={home.services} />
       </Band>
 
       <Band id="realisations" className={`rf-section ${accentFont.variable}`}>
@@ -229,29 +243,27 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </Band>
 
-      <Band id="fondateurs" className="rf-section">
-        <div className="section-heading home-section-heading">
-          <Lede title={home.founders.title} />
-          <Link className="go" href={path(locale, ROUTES.about)}>
-            {home.founders.link}
-            <ArrowRight aria-hidden />
-          </Link>
-        </div>
-        <div className="section-gap-sm">
-          <Founders people={about.founders.people} />
-        </div>
-      </Band>
+      {/* L'appel final AVANT la FAQ, et plus de fondateurs sur l'accueil :
+          ils sont sur À propos (demande d'Antonino, 25/11/2026). */}
+      <CtaSection locale={locale} />
 
       {faq.length > 0 && (
         <Band id="faq" className="rf-section">
           <Lede title={home.faq.title} />
           <div className="section-gap-sm">
             <FaqAccordion items={faq} />
+            {/* La page ne se termine pas sans action : le bouton unique du
+                site, en lien discret. */}
+            <p className="faq-suite">
+              {home.faq.more}
+              <Link className="go" href={bookingHref(locale)}>
+                {ctaLabel[locale]}
+                <ArrowRight aria-hidden />
+              </Link>
+            </p>
           </div>
         </Band>
       )}
-
-      <CtaSection locale={locale} />
     </Shell>
   );
 }
