@@ -1,3 +1,4 @@
+import { BoutonsAimantes } from "./boutons-aimantes";
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site/site-header";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -27,6 +28,8 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
         {site.skip}
       </a>
       <SiteHeader locale={locale} copy={headerCopy(locale)} />
+      {/* Les boutons qui suivent la souris, sur tout le site. */}
+      <BoutonsAimantes />
       <main id="contenu">{children}</main>
       <SiteFooter locale={locale} />
     </div>

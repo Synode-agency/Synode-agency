@@ -3,41 +3,36 @@
 import { Fragment, useEffect, useRef, type ReactNode } from "react";
 import Image from "next/image";
 
-/* Les outils du calcul de l'animation. */
+/* Les outils du calcul. */
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const seg = (p: number, a: number, b: number) => clamp((p - a) / (b - a));
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-/* Pour la descente du paragraphe : une courbe plus douce que la cubique,
-   qui n'accélère pas brutalement au milieu. */
-const easeSine = (t: number) => 0.5 - Math.cos(Math.PI * t) / 2;
 
-/* LE LISSAGE (demande d'Antonino du 24/11/2026 : avec un défilement
-   rapide, la descente du paragraphe était trop brusque). La photo, le voile
-   et le paragraphe ne suivent pas le défilement à la lettre : ils le
-   rejoignent en douceur, par deux amortissements exponentiels en chaîne
-   (constante de temps de chacun). En chaîne, le mouvement démarre sans
-   à-coup au lieu de partir d'un coup : après un saut brusque, la descente
-   se pose en 0,35 s environ, et tout est en place en 0,65 s.
-   Le défilement de la page, lui, n'est jamais freiné. */
+/* Le gris des mots pas encore écrits. Une fois écrits, ils prennent leurs
+   couleurs de la feuille de style (bleu nuit, et bleu pour « logiciel » et
+   « IA »). */
+const GRIS = "#D5D9E0";
+
+/* LE LISSAGE : la scène rejoint le défilement en douceur, par deux
+   amortissements en chaîne (constante de temps de chacun, en secondes).
+   Même avec un défilement rapide, rien ne saute. */
 const LISSAGE = 0.14;
 
-/* Prévient la barre de navigation que le fond sous elle change sans
-   défilement (la photo finit de monter) : elle se mesure à nouveau. */
-const EVENEMENT_FOND = "site:fond";
-
-/* Les couleurs des mots. */
-const GRIS = "#D5D9E0"; // première phrase, pas encore écrite
-const NOIR = "#0B1424"; // première phrase écrite, sur le fond blanc
-const BLANC = "#FFFFFF"; // mots écrits, sur la photo
-const BLANC_PALE = "rgba(255,255,255,.35)"; // première phrase pas encore écrite, sur la photo
-const BLEU = "#8EC1FF"; // « logiciel » et « IA »
-const INVISIBLE = "transparent"; // la suite, avant de s'écrire (sa place reste réservée)
-
-/* Les mots s'écrivent un par un, sans défilement, en tant de temps au total. */
-const DUREE_DEBUT = 650;
-const DUREE_SUITE = 1100;
+/* LE CALENDRIER DE LA SCÈNE, en part de sa progression (0 → 1). Tout finit
+   près de la fin, pour ne pas laisser de défilement « pour rien ». */
+const MOTS: [number, number] = [0.04, 0.9];
+const PHOTOS: [number, number][] = [
+  [0.08, 0.38],
+  [0.34, 0.64],
+  [0.6, 0.9],
+];
+/* La dérive de chaque photo pendant la scène (en px) : des vitesses
+   différentes donnent de la profondeur. */
+const DERIVE = [-30, 12, 40];
 
 const SANS_MOUVEMENT = "(prefers-reduced-motion: reduce)";
+/* Sur ordinateur, la scène est épinglée pendant le défilement. */
+const EPINGLE = "(min-width: 800px)";
 
 /* Coupe un mot autour de son mot en valeur : « logiciel » en entier, ou
    « IA » dans « l'IA » (seul « IA » change de style, « l' » reste normal).
@@ -64,122 +59,91 @@ function decoupe(mot: string, accents: readonly string[]): ReactNode {
 }
 
 /**
- * LA SECTION « NOTRE APPROCHE » (24/11/2026, d'après la fiche d'Antonino) :
- * le paragraphe et la photo du bureau de nuit, rien d'autre.
+ * LA SECTION « NOTRE APPROCHE » (refaite le 25/11/2026, maquette
+ * « L'escalier » validée par Antonino) : sur fond blanc, le paragraphe à
+ * gauche, les trois photos de l'équipe à droite, en escalier.
  *
- * Une section de 135vh, avec une scène fixe de 100vh :
- *  - la première phrase (`lead`) s'écrit toute seule, du gris au noir, mot
- *    par mot en 0,65 s, quand le haut de la section passe à 55 % de
- *    l'écran ; elle redevient grise si on remonte sous 80 % ;
- *  - la photo monte du bas de l'écran et s'agrandit jusqu'à le remplir
- *    (`clip-path`), avec un léger dézoom et un voile sombre qui apparaît ;
- *    dès que le voile dépasse 0,5, la première phrase passe en blanc ;
- *  - la suite (`rest`), déjà en place mais transparente, s'écrit toute
- *    seule en blanc, mot par mot en 1,1 s, dès que p dépasse 0,5 ; elle
- *    redevient transparente si p repasse sous 0,25.
- * Tout tient en un tiers d'écran de défilement (p va de 0 à 1 sur 35vh).
- * La photo, le voile et le paragraphe suivent une progression LISSÉE
- * (`LISSAGE`) : même avec un défilement rapide, ils glissent en place au
- * lieu de sauter.
+ * Sur ordinateur, la scène reste fixe à l'écran pendant que la section
+ * défile. Le paragraphe se remplit mot par mot, du gris clair au bleu nuit
+ * (« logiciel » et « IA » en bleu, en Castoro italique). En même temps, les
+ * photos montent l'une après l'autre, chacune dévoilée par le bas, puis
+ * dérivent à des vitesses différentes. Chaque carte a les proportions de
+ * sa photo : rien n'est rogné ni zoomé. La troisième se
+ * pose à côté de la deuxième, par-dessus, un peu plus haut que dans la
+ * maquette (demande d'Antonino). Tout se rejoue à l'envers en remontant.
  *
- * Chaque image ne change que `color`, `clip-path`, `transform` et
- * `opacity`. Le texte reste du vrai texte, sélectionnable et lu en entier
- * par les lecteurs d'écran, même quand des mots sont transparents.
+ * Sur téléphone, rien n'est épinglé : le texte, puis les photos, et la même
+ * animation suit la position de la section à l'écran.
  *
- * Sans mouvement (`prefers-reduced-motion`) : la feuille de style montre
- * directement la photo en plein écran avec son voile, et tout le texte en
- * blanc ; le script n'y touche pas.
- *
- * `data-tone="dark"` dit à la barre de navigation que la photo est sombre
- * quand elle passe dessous.
+ * Rendu côté serveur dans son état final (lisible sans script). Sans
+ * mouvement (`prefers-reduced-motion`), il reste ainsi. Le texte reste du
+ * vrai texte ; les photos sont décoratives.
  */
 export function ApproachScroll({
   label,
-  lead,
-  rest,
+  text,
   accents,
-  image,
+  photos,
   className,
 }: {
   label: string;
-  lead: string;
-  rest: string;
+  text: string;
   accents: readonly string[];
-  image: string;
+  photos: readonly string[];
   className?: string;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const photoRef = useRef<HTMLDivElement>(null);
-  const zoomRef = useRef<HTMLDivElement>(null);
-  const voileRef = useRef<HTMLDivElement>(null);
   const texteRef = useRef<HTMLParagraphElement>(null);
+  const trioRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    const sticky = stickyRef.current;
-    const photo = photoRef.current;
-    const zoom = zoomRef.current;
-    const voile = voileRef.current;
     const texte = texteRef.current;
-    if (!section || !sticky || !photo || !zoom || !voile || !texte) return;
-
-    const motsDebut = Array.from(texte.querySelectorAll<HTMLElement>("[data-debut]"));
-    const motsSuite = Array.from(texte.querySelectorAll<HTMLElement>("[data-suite]"));
-    // Le mot en valeur de chaque mot de la suite (ou rien).
-    const accentsSuite = motsSuite.map((m) => m.querySelector<HTMLElement>("[data-accent]"));
+    const trio = trioRef.current;
+    if (!section || !texte || !trio) return;
+    const mots = Array.from(texte.querySelectorAll<HTMLElement>("[data-mot]"));
+    const cadres = Array.from(trio.querySelectorAll<HTMLElement>("[data-photo]"));
     const reduit = window.matchMedia(SANS_MOUVEMENT);
+    const epingle = window.matchMedia(EPINGLE);
 
-    // L'instant où chaque partie a commencé à s'écrire (null : pas écrite).
-    let debut: number | null = null;
-    let suite: number | null = null;
-    let raf = 0;
-    // La progression lissée (null : pas encore mesurée) et son relais (le
-    // premier des deux amortissements), l'instant de la dernière image, et
-    // si elle court encore après le défilement.
     let lisse: number | null = null;
     let relais = 0;
     let derniere = 0;
     let enMouvement = false;
+    let raf = 0;
 
-    // Les mots à écrire à cet instant, d'après le temps écoulé.
-    const ecrits = (depart: number | null, duree: number, total: number, now: number) =>
-      depart === null ? 0 : Math.ceil(clamp((now - depart) / duree) * total);
-
-    const peindre = (el: HTMLElement, couleur: string) => {
-      if (el.style.color !== couleur) el.style.color = couleur;
-    };
-
-    // Sans mouvement : la feuille de style montre l'état final.
-    const effacer = () => {
-      photo.style.clipPath = "";
-      zoom.style.transform = "";
-      voile.style.opacity = "";
-      texte.style.transform = "";
-      for (const el of [...motsDebut, ...motsSuite]) el.style.color = "";
-      for (const el of accentsSuite) if (el) el.style.color = "";
-      debut = null;
-      suite = null;
+    // L'état final, celui du rendu serveur (et sans mouvement).
+    const finir = () => {
+      for (const m of mots) {
+        m.style.color = "";
+        const a = m.querySelector<HTMLElement>("[data-accent]");
+        if (a) a.style.color = "";
+      }
+      for (const c of cadres) {
+        c.style.clipPath = "";
+        c.style.transform = "";
+      }
       lisse = null;
       enMouvement = false;
+    };
+
+    // La progression : épinglée, du haut de la section en haut de l'écran
+    // jusqu'à sa libération ; sinon, du haut à 85 % de l'écran jusqu'au bas
+    // à 70 %.
+    const progression = () => {
+      const r = section.getBoundingClientRect();
+      const H = window.innerHeight;
+      if (epingle.matches) return clamp(-r.top / Math.max(1, r.height - H));
+      return clamp((0.85 * H - r.top) / (0.15 * H + r.height));
     };
 
     const frame = (now: number) => {
       raf = 0;
       if (reduit.matches) {
-        effacer();
+        finir();
         return;
       }
-
-      const r = section.getBoundingClientRect();
-      const H = window.innerHeight;
-      const course = r.height - H;
-      const p = course > 0 ? clamp(-r.top / course) : 1;
-
-      // La progression lissée : elle rejoint `p` en douceur (LISSAGE).
-      // Au chargement, elle part directement de `p` ; après une pause, la
-      // première image compte pour 1/60 s (pas de saut).
-      const avant = lisse;
+      const p = progression();
       if (lisse === null) {
         lisse = p;
         relais = p;
@@ -197,52 +161,24 @@ export function ApproachScroll({
       enMouvement = lisse !== p;
       const q = lisse;
 
-      // Les déclenchements, et les remises à zéro en remontant.
-      if (debut === null && r.top < 0.55 * H) debut = now;
-      else if (debut !== null && r.top > 0.8 * H) debut = null;
-      if (suite === null && q > 0.5) suite = now;
-      else if (suite !== null && q < 0.25) suite = null;
-
-      // La photo monte du bas et remplit l'écran, en se dézoomant.
-      const e = ease(seg(q, 0, 0.7));
-      photo.style.clipPath = `inset(${100 * (1 - e)}% ${6 * (1 - e)}% 0% ${6 * (1 - e)}% round ${24 * (1 - e)}px)`;
-      zoom.style.transform = `scale(${1.18 - 0.18 * ease(q)})`;
-      const v = ease(seg(q, 0.25, 0.65));
-      voile.style.opacity = String(v);
-      const surPhoto = v > 0.5;
-
-      // Le paragraphe descend en même temps que la photo monte, jusqu'au
-      // milieu de l'image (il part de 13vh, sa place sur le fond blanc).
-      // Mesuré sans transformation : `offsetTop` et `offsetHeight` l'ignorent.
-      const haut = texte.offsetTop + (texte.parentElement?.offsetTop ?? 0);
-      const descente = Math.max(0, (sticky.clientHeight - texte.offsetHeight) / 2 - haut);
-      texte.style.transform = `translateY(${descente * easeSine(seg(q, 0, 0.7))}px)`;
-
-      // La photo a bougé sans défilement : la barre se mesure à nouveau.
-      if (avant !== null && avant !== lisse) window.dispatchEvent(new Event(EVENEMENT_FOND));
-
-      // La première phrase.
-      const nDebut = ecrits(debut, DUREE_DEBUT, motsDebut.length, now);
-      motsDebut.forEach((el, i) =>
-        peindre(el, i < nDebut ? (surPhoto ? BLANC : NOIR) : surPhoto ? BLANC_PALE : GRIS),
-      );
-
-      // La suite, et ses mots en valeur en bleu.
-      const nSuite = ecrits(suite, DUREE_SUITE, motsSuite.length, now);
-      motsSuite.forEach((el, i) => {
-        const ecrit = i < nSuite;
-        peindre(el, ecrit ? BLANC : INVISIBLE);
-        const accent = accentsSuite[i];
-        if (accent) peindre(accent, ecrit ? BLEU : INVISIBLE);
+      // Les mots s'écrivent.
+      const n = Math.round(seg(q, ...MOTS) * mots.length);
+      mots.forEach((m, i) => {
+        const c = i < n ? "" : GRIS;
+        if (m.style.color !== c) m.style.color = c;
+        const a = m.querySelector<HTMLElement>("[data-accent]");
+        if (a && a.style.color !== c) a.style.color = c;
       });
 
-      // Tant qu'une phrase s'écrit, ou que la scène rejoint le défilement,
-      // on continue image par image.
-      const enCours =
-        enMouvement ||
-        (debut !== null && now - debut < DUREE_DEBUT) ||
-        (suite !== null && now - suite < DUREE_SUITE);
-      if (enCours) raf = requestAnimationFrame(frame);
+      // Les photos montent en escalier, puis dérivent. Sans zoom : elles
+      // restent à leur taille (demande d'Antonino, pour la qualité).
+      cadres.forEach((c, i) => {
+        const e = ease(seg(q, ...PHOTOS[i]));
+        c.style.clipPath = `inset(${(1 - e) * 100}% 0 0 0 round 18px)`;
+        c.style.transform = `translateY(${(1 - e) * 70 + (q - 0.5) * DERIVE[i]}px)`;
+      });
+
+      if (enMouvement) raf = requestAnimationFrame(frame);
     };
 
     const request = () => {
@@ -253,54 +189,42 @@ export function ApproachScroll({
     window.addEventListener("scroll", request, { passive: true });
     window.addEventListener("resize", request);
     reduit.addEventListener("change", request);
+    epingle.addEventListener("change", request);
     return () => {
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
       reduit.removeEventListener("change", request);
+      epingle.removeEventListener("change", request);
       cancelAnimationFrame(raf);
     };
   }, []);
 
-  const motsDebut = lead.split(" ");
-  const motsSuite = rest.split(" ");
+  const motsTexte = text.split(" ");
 
   return (
     /* ⚠ Un `div` (région nommée) et non une `section` : les bandes de
        l'accueil alternent sombre et clair selon leur RANG parmi les
-       sections. Sans elle dans le compte, « Ce que nous faisons » passe en
-       blanc et toute la suite s'inverse (demande d'Antonino, 24/11/2026). */
+       sections, et celle-ci ne doit pas compter. */
     <div ref={sectionRef} id="approche" role="region" className={`approach ${className ?? ""}`} aria-label={label}>
-      <div ref={stickyRef} className="approach-sticky">
-        {/* La photo, décorative : elle monte du bas et remplit l'écran. */}
-        <div ref={photoRef} className="approach-photo" data-tone="dark" aria-hidden="true">
-          <div ref={zoomRef} className="approach-zoom">
-            <Image src={image} alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
-          </div>
-          <div ref={voileRef} className="approach-veil" />
-        </div>
-
-        {/* Le paragraphe, d'un seul tenant, au-dessus de la photo.
-            `data-tone="dark"` : il ne passe sous la barre de navigation
-            qu'en quittant l'écran, la photo déjà en plein écran derrière
-            lui (avant, il reste sous 13vh, plus bas que la barre). */}
-        <div className="approach-inner">
-          <p ref={texteRef} className="approach-text" data-tone="dark">
-            {motsDebut.map((mot, i) => (
-              <Fragment key={`d${i}`}>
-                <span className="approach-word" data-debut="">
-                  {decoupe(mot, accents)}
-                </span>{" "}
-              </Fragment>
-            ))}
-            {motsSuite.map((mot, i) => (
-              <Fragment key={`s${i}`}>
+      <div className="approach-scene">
+        <div className="col approach-grille">
+          <p ref={texteRef} className="approach-text">
+            {motsTexte.map((mot, i) => (
+              <Fragment key={i}>
                 {i > 0 ? " " : null}
-                <span className="approach-word" data-suite="">
+                <span className="approach-word" data-mot="">
                   {decoupe(mot, accents)}
                 </span>
               </Fragment>
             ))}
           </p>
+          <div ref={trioRef} className="approach-trio" aria-hidden="true">
+            {photos.map((src, i) => (
+              <div key={src} className={`approach-ph approach-ph--${i + 1}`} data-photo="">
+                <Image src={src} alt="" fill sizes="(max-width: 799px) 70vw, 420px" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

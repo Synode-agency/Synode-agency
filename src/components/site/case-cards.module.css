@@ -129,8 +129,8 @@
 /* =====================================================================
    LES RÉALISATIONS DE L'ACCUEIL (`CaseShowcase`, 25/11/2026)
    Les deux produits côte à côte ; sous chaque visuel, son nom et sa
-   phrase. Sous 800px, l'un sous l'autre. Sur le fond du hero
-   (`refonte.css`).
+   phrase. Sous 800px, l'un sous l'autre. Sur fond blanc depuis le
+   25/11/2026 (`refonte.css`).
    ===================================================================== */
 .showcase {
   display: grid;
@@ -145,9 +145,10 @@
   min-width: 0;
 }
 
-/* Le visuel, arrondi, sans le filet du bas de la carte. */
+/* Le visuel, arrondi, sans le filet du bas de la carte. Sur fond clair
+   (25/11/2026). */
 .showVisual {
-  border: 1px solid rgb(188 215 255 / 14%);
+  border: 1px solid #e3e8f0;
   border-radius: 16px;
 }
 
@@ -158,16 +159,18 @@
   gap: 12px;
 }
 
-/* Le nom : en capitales, dans la deuxième police de l'accueil (Syne,
-   `--font-accent`, posée sur la section), sans interlettrage. */
+/* Le nom : en capitales, en gras, dans la police des titres (Manrope),
+   avec un léger interlettrage (demande d'Antonino du 25/11/2026). */
 .showName {
   margin: 0;
-  color: #ffffff;
-  font-family: var(--font-accent), var(--font-sans), sans-serif;
+  /* En bleu nuit : la section est claire depuis le 25/11/2026. En blanc
+     tant que l'écran est en bleu nuit (`--vitrine-nom`, `refonte.css`). */
+  color: var(--vitrine-nom, #0b1424);
+  transition: color 0.6s ease;
   /* Un peu plus petit (25/11/2026) : 26px au plus, au lieu de 34. */
   font-size: clamp(20px, 1.8vw, 26px);
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.05em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -177,13 +180,15 @@
   transition: color 0.3s;
 }
 .showName a:hover {
-  color: #8ec1ff;
+  /* Le bleu de la bande : bleu de marque de jour, bleu clair de nuit. */
+  color: var(--brand, #0067ea);
 }
 
 .showSummary {
   max-width: 42ch;
   margin: 0;
-  color: #c2d3e9;
+  color: var(--vitrine-texte, #5a6272);
+  transition: color 0.6s ease;
   font-size: 17px;
   line-height: 1.6;
   text-wrap: pretty;
@@ -196,5 +201,12 @@
   }
   .showRow {
     gap: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showName,
+  .showSummary {
+    transition: none;
   }
 }

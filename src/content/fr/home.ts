@@ -15,8 +15,8 @@ export const home = {
      dans le titre, comme Iterates ; centré, sans photo ni surtitre. */
   hero: {
     /* Titre du 24/11/2026 (Antonino) : les métiers de Synode. Une ligne
-       par `\n` ; « logiciel » et « IA » en Instrument Serif italique bleu
-       (« systèmes » essayé puis remis en Manrope le 24/11/2026).
+       par `\n` ; « logiciel » et « IA » en Castoro italique bleu
+       (25/11/2026).
        Espaces insécables dans « IA & » et « systèmes connectés » : sur
        téléphone, le titre tient en trois lignes équilibrées
        (« Développement / logiciel, IA & / systèmes connectés. »). */
@@ -63,23 +63,29 @@ export const home = {
   approach: {
     /* Pas affiché : nomme la section pour les lecteurs d'écran. */
     label: "Notre approche",
-    lead: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps.",
-    rest: "Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
-    /* Les seuls mots en valeur : en gras et en bleu, dans la police du
-       paragraphe (Manrope ; ni Instrument Serif ni italique depuis le
-       25/11/2026).
+    /* Un seul paragraphe, qui se remplit au défilement (25/11/2026), à
+       côté des trois photos de l'équipe en escalier (`ApproachScroll`). */
+    text: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps. Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
+    /* Les seuls mots en valeur : en Castoro italique bleu (25/11/2026).
        Dans « l'IA », seul « IA » change de style. */
     accents: ["logiciel", "IA"],
-    /* Décorative : pas de texte alternatif. */
-    image: "/images/approche-bureau.png",
+    /* Les trois photos de l'équipe, de haut en bas de l'escalier
+       (décoratives : pas de texte alternatif). */
+    photos: ["/images/approche-equipe.png", "/images/approche-tableau.png", "/images/approche-ecran.png"],
   },
 
   services: {
-    title: "Ce que nous faisons",
-    /* « faisons » en bleu, droit, interlettrage plus large (25/11/2026). */
-    accents: ["faisons"],
-    /* Pour tout le monde, dit une fois (décision d'Antonino du 24/11/2026). */
-    audience: "Pour les indépendants, les PME et les grandes entreprises.",
+    /* L'EN-TÊTE ANIMÉ (25/11/2026, fiche d'Antonino, `ServicesIntro`) :
+       l'étiquette, puis « Conçus pour les » suivi d'un mot qui change en
+       boucle (`rotating`, dans cet ordre). `full` : la phrase entière, lue
+       par les lecteurs d'écran et affichée telle quelle sans mouvement.
+       Pour tout le monde, dit une fois (décision du 24/11/2026). */
+    eyebrow: "Nos services",
+    prefix: "Conçus pour les",
+    rotating: ["indépendants.", "PME.", "grandes entreprises."],
+    full: "Conçus pour les indépendants, les PME et les grandes entreprises.",
+    /* La fin de `full`, en serif italique bleu sans mouvement. */
+    fullEnd: "indépendants, les PME et les grandes entreprises.",
     more: "En savoir plus",
     /* L'ACCORDÉON DES QUATRE SERVICES (24/11/2026, textes d'Antonino mot
        pour mot). `key` mène au bloc du service sur la page Services ;
@@ -116,9 +122,16 @@ export const home = {
   },
 
   work: {
-    title: "Ce que nous avons construit",
-    /* « construit » en Syne bleu (25/11/2026). */
-    accents: ["construit"],
+    /* L'EN-TÊTE ANIMÉ, comme celui des services (25/11/2026, demande
+       d'Antonino) : l'étiquette, puis « Ce que nous avons » suivi d'un mot
+       qui change en boucle (`rotating`, dans cet ordre). `full` : la phrase
+       entière, lue par les lecteurs d'écran et affichée telle quelle sans
+       mouvement ; `fullEnd` : sa fin, en serif italique bleu. */
+    eyebrow: "Nos réalisations",
+    prefix: "Ce que nous avons",
+    rotating: ["développé.", "connecté.", "intégré.", "automatisé."],
+    full: "Ce que nous avons développé, connecté, intégré et automatisé.",
+    fullEnd: "développé, connecté, intégré et automatisé.",
     link: "Toutes nos réalisations",
   },
 

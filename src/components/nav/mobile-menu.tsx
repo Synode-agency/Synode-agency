@@ -8,13 +8,16 @@ import type { HeaderCopy } from "@/content";
 import s from "./mobile-menu.module.css";
 
 /**
- * LE MENU DE TÉLÉPHONE.
+ * LE MENU DU BOUTON ☰.
  *
- * Le panneau qui s'ouvre avec le bouton ☰, sous 960px. Depuis la refonte
- * (24/11/2026), il porte les trois mêmes entrées que la barre d'ordinateur,
- * puis le bouton principal et sa mention, puis l'adresse de contact. Plus
- * de sous-menu : les six solutions sont devenues trois services, sur une
- * seule page.
+ * Le panneau qui s'ouvre avec le bouton ☰ : sur téléphone, l'écran entier
+ * sous la barre ; sur ordinateur, depuis le 25/11/2026, un tiroir qui
+ * glisse depuis la droite (la barre s'y replie dans le bouton au
+ * défilement). Depuis la refonte (24/11/2026), il porte les trois mêmes
+ * entrées que la barre d'ordinateur, plus « Contact » (le bouton de la
+ * barre disparaît dans le ☰ au défilement), puis le bouton principal et
+ * sa mention, puis l'adresse de contact. Plus de sous-menu : les six
+ * solutions sont devenues trois services, sur une seule page.
  *
  * ── Deux points à ne pas défaire ────────────────────────────────────────
  * 1. AUCUN TEXTE N'EST RECOPIÉ ICI. Les entrées et les mentions viennent de
@@ -62,7 +65,9 @@ export function MobileMenu({
     const barre = document.querySelector<HTMLElement>(".site-header");
     const boite = panel.current;
     if (!barre || !boite) return;
-    boite.style.top = `${Math.round(barre.getBoundingClientRect().height)}px`;
+    /* Une variable plutôt que `top` : sur ordinateur, le tiroir part du
+       haut de l'écran, sous le bouton ☰ (`mobile-menu.module.css`). */
+    boite.style.setProperty("--menu-haut", `${Math.round(barre.getBoundingClientRect().height)}px`);
   }, [open]);
 
   const isCurrent = (href: string) => {
@@ -131,6 +136,17 @@ export function MobileMenu({
             </div>
           );
         })}
+        {/* « Contact », dont le bouton quitte la barre au défilement. */}
+        <NavLink
+          href={path(locale, ROUTES.contact)}
+          locale={locale}
+          onNavigate={onClose}
+          aria-current={isCurrent(ROUTES.contact) ? "page" : undefined}
+          className={s.row}
+        >
+          <span className={s.rowLabel}>{site.contactLabel}</span>
+          {isCurrent(ROUTES.contact) && <i className={s.dot} aria-hidden />}
+        </NavLink>
       </nav>
 
       <PrimaryButton locale={locale} className={s.cta} onClick={onClose} />

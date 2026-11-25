@@ -37,9 +37,11 @@ export function ServicesPage({ locale }: { locale: Locale }) {
         <nav className="services-index" aria-label={s.hero.eyebrow}>
           {s.blocks.map((block, i) => (
             <Link key={block.key} href={`#${serviceAnchor(locale, block.key)}`}>
-              <span aria-hidden>{String(i + 1).padStart(2, "0")}</span>
-              {block.title}
-              <ArrowDown aria-hidden />
+              <span className="btn-lib">
+                <span aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+                {block.title}
+                <ArrowDown aria-hidden />
+              </span>
             </Link>
           ))}
         </nav>

@@ -190,7 +190,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
                   disabled={!time}
                   onClick={() => setStep("confirmed")}
                 >
-                  {fr ? "Tester ce créneau" : "Try this slot"}
+                  <span className="btn-lib">{fr ? "Tester ce créneau" : "Try this slot"}</span>
                 </button>
                 <p className="calendar-alt">
                   {fr ? "Aucun de ces horaires ne vous convient ?" : "None of these times work for you?"}{" "}
@@ -222,7 +222,7 @@ export function CalendarPreview({ locale, variant = "default" }: { locale: Local
 
               <div className="calendar-panel-foot">
                 <Link className="btn btn--primary" href={contactHref}>
-                  {fr ? "Confirmer ce créneau" : "Confirm this slot"}
+                  <span className="btn-lib">{fr ? "Confirmer ce créneau" : "Confirm this slot"}</span>
                 </Link>
                 <button type="button" className="calendar-back" onClick={restart}>
                   <ChevronLeft aria-hidden />{fr ? "Choisir un autre créneau" : "Choose another slot"}

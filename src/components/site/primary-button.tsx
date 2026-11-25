@@ -34,8 +34,12 @@ export function PrimaryButton({
 }) {
   return (
     <Link href={href ?? bookingHref(locale)} className={cx("btn btn--primary", className)} onClick={onClick}>
-      {children ?? ctaLabel[locale]}
-      {icon && <ArrowRight aria-hidden />}
+      {/* Le texte et la flèche dans leur enveloppe : ils suivent la souris
+          un peu plus que le bouton (`BoutonsAimantes`). */}
+      <span className="btn-lib">
+        {children ?? ctaLabel[locale]}
+        {icon && <ArrowRight aria-hidden />}
+      </span>
     </Link>
   );
 }

@@ -84,7 +84,7 @@ export function Booking({ locale, copy, variant = "default" }: { locale: Locale;
           <span className="booking-closed-icon" aria-hidden><CalendarClock /></span>
           <p className="booking-closed-title">{b.closedTitle}</p>
           <p className="booking-closed-text">{b.closedText}</p>
-          <button type="button" onClick={() => setOpen(true)} className="btn btn--primary">{b.openLabel}</button>
+          <button type="button" onClick={() => setOpen(true)} className="btn btn--primary"><span className="btn-lib">{b.openLabel}</span></button>
           <p className="booking-closed-note">
             {b.closedNote}{" "}
             <Link href={path(locale, ROUTES.privacy)}>{b.closedNoteLink}</Link>

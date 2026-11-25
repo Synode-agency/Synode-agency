@@ -30,16 +30,17 @@ export const home = {
 
   approach: {
     label: "Our approach",
-    lead: "Every company has its own tools, habits and tasks that take too much time.",
-    rest: "We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
+    text: "Every company has its own tools, habits and tasks that take too much time. We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
     accents: ["software", "AI"],
-    image: "/images/approche-bureau.png",
+    photos: ["/images/approche-equipe.png", "/images/approche-tableau.png", "/images/approche-ecran.png"],
   },
 
   services: {
-    title: "What we do",
-    accents: ["do"],
-    audience: "For freelancers, SMEs and large companies.",
+    eyebrow: "Our services",
+    prefix: "Built for",
+    rotating: ["freelancers.", "SMEs.", "large companies."],
+    full: "Built for freelancers, SMEs and large companies.",
+    fullEnd: "freelancers, SMEs and large companies.",
     more: "Learn more",
     items: [
       {
@@ -70,8 +71,11 @@ export const home = {
   },
 
   work: {
-    title: "What we’ve built",
-    accents: ["built"],
+    eyebrow: "Our work",
+    prefix: "What we’ve",
+    rotating: ["developed.", "connected.", "integrated.", "automated."],
+    full: "What we’ve developed, connected, integrated and automated.",
+    fullEnd: "developed, connected, integrated and automated.",
     link: "All our work",
   },
 

@@ -230,8 +230,10 @@ export function ContactForm({ locale, form }: { locale: Locale; form: ContactFor
 
       <div className="form-foot">
         <button type="submit" className="btn btn--primary" disabled={sending || !ready}>
-          {sending ? f.sending : f.submit}
-          {!sending && <ArrowRight aria-hidden />}
+          <span className="btn-lib">
+            {sending ? f.sending : f.submit}
+            {!sending && <ArrowRight aria-hidden />}
+          </span>
         </button>
         <p className="form-privacy">
           {f.privacyNote}{" "}

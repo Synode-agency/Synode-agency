@@ -3,6 +3,7 @@ import { ctaLabel } from "../cta";
 import type { SiteContent } from "../types";
 
 const nav = [
+  { href: ROUTES.home, label: "Home" },
   { href: ROUTES.services, label: "Services" },
   { href: ROUTES.work, label: "Work" },
   { href: ROUTES.about, label: "About" },
@@ -17,7 +18,8 @@ export const site = {
   agency: "Software development & AI agency in Brussels",
   nav,
   footerNav,
-  footerTagline: "Custom software, integrations and AI. Brussels.",
+  footerTagline: "Software · AI · Systems · Web",
+  location: "Brussels, Belgium",
   cta: ctaLabel.en,
   contactLabel: "Contact",
   servicesMenu: {
@@ -36,7 +38,7 @@ export const site = {
   skip: "Skip to content",
   langLabel: "Language",
   navLabel: "Main navigation",
-  footerNavLabel: "Site map",
+  footerNavLabel: "Navigation",
   legalLabel: "Legal",
   legalLinks: { notice: "Legal notice", privacy: "Privacy" },
   copyright: "Synode",

@@ -50,10 +50,6 @@ export function ServiceAccordion({ locale, services }: { locale: Locale; service
               key={item.key}
               href={href}
               className={ouvert ? "svc-acc-panel is-active" : "svc-acc-panel"}
-              /* Le panneau ouvert est sombre sur un fond de panneau clair :
-                 la barre de navigation doit le savoir quand il passe sous
-                 elle. */
-              data-tone={ouvert ? "dark" : undefined}
               /* Le survol : la souris (ou le stylet) seulement. Au toucher,
                  le navigateur simule aussi un survol, qui ouvrirait le
                  panneau juste avant le clic et ferait suivre le lien. */

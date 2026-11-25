@@ -1,9 +1,12 @@
 import { ROUTES } from "@/lib/routes";
 import { ctaLabel } from "../cta";
 
-/* Le menu du haut : trois pages. Le logo mène à l'accueil, le bouton à
-   Contact (brief, 4.2). */
+/* Le menu du haut : l'accueil et trois pages, le bouton mène à Contact
+   (brief, 4.2). « Accueil » ajouté le 25/11/2026 (demande d'Antonino) : au
+   défilement, le logo part dans le bouton ☰, et le menu doit permettre de
+   revenir à l'accueil. Même liste pour la barre, le menu ☰ et le pied. */
 const nav = [
+  { href: ROUTES.home, label: "Accueil" },
   { href: ROUTES.services, label: "Services" },
   { href: ROUTES.work, label: "Réalisations" },
   { href: ROUTES.about, label: "À propos" },
@@ -20,7 +23,12 @@ export const site = {
   agency: "Agence de développement logiciel & IA à Bruxelles",
   nav,
   footerNav,
-  footerTagline: "Logiciels sur mesure, intégrations et IA. Bruxelles.",
+  /* Sous le logo du pied de page (25/11/2026, demande d'Antonino) : les
+     quatre métiers, sans répéter le nom que le logo porte déjà. La ville
+     passe dans la colonne de contact (`location`), comme sur le site en
+     production. */
+  footerTagline: "Logiciel · IA · Systèmes · Web",
+  location: "Bruxelles, Belgique",
   cta: ctaLabel.fr,
   /* Le bouton de la barre (maquette du 24/11/2026) : « Contact », vers la
      page Contact. Le bouton principal reste dans les pages. */
@@ -44,7 +52,10 @@ export const site = {
   skip: "Aller au contenu",
   langLabel: "Langue",
   navLabel: "Navigation principale",
-  footerNavLabel: "Plan du site",
+  /* Le titre de la colonne des liens du pied de page, comme en
+     production ; il nomme aussi cette navigation pour les lecteurs
+     d'écran. */
+  footerNavLabel: "Navigation",
   legalLabel: "Informations légales",
   legalLinks: { notice: "Mentions légales", privacy: "Confidentialité" },
   copyright: "Synode",

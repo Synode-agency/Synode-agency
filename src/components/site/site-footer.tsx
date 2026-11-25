@@ -12,11 +12,14 @@ import s from "./site-footer.module.css";
 const linkedin = organizationProfiles.find((u) => u.includes("linkedin.com"));
 
 /**
- * LE PIED DE PAGE (brief de la refonte, 4.3).
- *
- * Court, inspiré de Craftzing : le logo et une phrase, UNE ligne de liens
- * (les trois pages du menu et Contact), l'adresse et LinkedIn, puis le
- * copyright et les deux pages légales.
+ * LE PIED DE PAGE (brief de la refonte, 4.3), disposé comme celui du site
+ * en production (25/11/2026, demande d'Antonino) : trois colonnes.
+ *  - la marque : le logo, puis les quatre métiers ;
+ *  - la navigation : un petit titre bleu et les liens l'un sous l'autre
+ *    (les trois pages du menu et Contact) ;
+ *  - le contact : l'adresse, LinkedIn et la ville.
+ * Puis le copyright et les deux pages légales. Sur téléphone, une seule
+ * colonne, le contact juste sous « Contact ».
  *
  * La mention de l'entité contractante (Productions Associées ASBL) n'y est
  * pas : le brief la laisse « à vérifier », elle reste donc dans les mentions
@@ -35,24 +38,27 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             <p className={s.tagline}>{site.footerTagline}</p>
           </div>
 
-          <div className={s.links}>
-            <nav aria-label={site.footerNavLabel} className={s.nav}>
-              {site.footerNav.map((item) => (
-                <NavLink key={item.href} href={path(locale, item.href)} locale={locale} className={s.link} markCurrent>
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
-            <div className={s.contact}>
-              <a href={`mailto:${site.email}`} className={s.mail}>
-                {site.email}
+          <nav aria-labelledby="pied-navigation" className={s.col}>
+            <h2 id="pied-navigation" className={s.title}>
+              {site.footerNavLabel}
+            </h2>
+            {site.footerNav.map((item) => (
+              <NavLink key={item.href} href={path(locale, item.href)} locale={locale} className={s.link} markCurrent>
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          <div className={`${s.col} ${s.contact}`}>
+            <a href={`mailto:${site.email}`} className={`${s.link} ${s.mail}`}>
+              {site.email}
+            </a>
+            {linkedin && (
+              <a href={linkedin} className={s.link} target="_blank" rel="noopener noreferrer">
+                LinkedIn
               </a>
-              {linkedin && (
-                <a href={linkedin} className={s.link} target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-              )}
-            </div>
+            )}
+            <span className={s.place}>{site.location}</span>
           </div>
         </div>
 

@@ -85,7 +85,6 @@ export function PageHero({
   aside,
   strip,
   className,
-  tone,
   children,
 }: {
   id?: string;
@@ -98,9 +97,6 @@ export function PageHero({
   aside?: ReactNode;
   strip?: ReactNode;
   className?: string;
-  /** Le ton du fond pour la barre de navigation (`data-tone`) : elle
-   *  suit la section entière, sans regarder ce qui est posé dessus. */
-  tone?: "dark" | "light";
   children: ReactNode;
 }) {
   const avecAside = Boolean(aside);
@@ -115,7 +111,7 @@ export function PageHero({
   const texte = Children.map(children, (c) => (estTexteDuHero(c) ? lierFin(c) : c));
 
   return (
-    <section id={id} className={shell} data-tone={tone}>
+    <section id={id} className={shell}>
       <div className="col studio-hero-inner">
         {layout === "feature" ? (
           <>

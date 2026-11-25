@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { ServicesMenu } from "./services-menu";
@@ -19,53 +18,63 @@ import { cx } from "@/lib/cx";
  * fond teinté reste visible derrière elle, ce qui préserve le principe du
  * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
  *
- * Une seule ligne sur ordinateur : trois entrées, dont « Services » qui
- * déroule ses trois services, puis la langue et le bouton blanc
- * « Contact » (maquette du 24/11/2026). Pas d'entrée « Accueil » : le logo
- * y mène. Une barre qui
+ * Une seule ligne sur ordinateur : quatre entrées, « Accueil » (ajoutée
+ * le 25/11/2026 : le logo part dans le bouton ☰ au défilement) puis
+ * « Services » qui déroule ses trois services, puis la langue et le bouton
+ * blanc « Contact » (maquette du 24/11/2026). Une barre qui
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
- */
-/**
- * LE FOND SOUS LA BARRE EST-IL CLAIR ? (24/11/2026)
  *
- * On regarde ce qui se trouve sous le milieu de la barre, au centre de
- * l'écran, en ignorant la barre elle-même et les calques presque effacés
- * (opacité sous 50 %), puis on remonte ses parents jusqu'au premier fond
- * vraiment peint. Clair si sa luminance dépasse la moitié. Un élément peut
- * le dire lui-même avec `data-tone="dark"` ou `"light"` (une photo n'a pas
- * de couleur de fond), et il le dit alors pour tout ce qu'il contient (le
- * hero de l'accueil et son bouton bleu clair). Ainsi la barre suit
- * n'importe quelle section, carte ou pied de page, sans liste à tenir à
- * jour.
- *
- * Seuls comptent les éléments du site (`.site-page`) : une extension du
- * navigateur peut poser ses propres calques sur la page, et la barre les
- * prenait pour le fond (24/11/2026).
+ * AU DÉFILEMENT, LA BARRE DEVIENT UN BOUTON ☰ (25/11/2026, demande
+ * d'Antonino, « presque du motion design ») : le logo, les liens, la
+ * langue et « Contact » partent l'un après l'autre vers la droite, en
+ * rétrécissant, et se fondent dans le bouton, un disque blanc à trois
+ * traits inégaux. Tout en haut de la page, tout en ressort et reprend sa
+ * place. Le mouvement est dans `refonte.css` ; ce composant ne fait que
+ * mesurer le chemin de chaque élément jusqu'au bouton.
  */
-function lightUnder(header: HTMLElement | null): boolean {
-  if (!header) return false;
-  const site = header.closest(".site-page") ?? document.body;
-  const y = header.getBoundingClientRect().height / 2;
-  for (const el of document.elementsFromPoint(window.innerWidth / 2, y)) {
-    if (header.contains(el) || !site.contains(el)) continue;
-    if (parseFloat(getComputedStyle(el).opacity) < 0.5) continue;
-    /* Un élément qui dit son ton le dit pour TOUT ce qu'il contient : le
-       hero de l'accueil reste sombre même sous son bouton bleu clair. */
-    const tone = el.closest("[data-tone]")?.getAttribute("data-tone");
-    if (tone) return tone === "light";
-    for (let node: Element | null = el; node; node = node.parentElement) {
-      if (parseFloat(getComputedStyle(node).opacity) < 0.5) break;
-      const rgba = getComputedStyle(node).backgroundColor.match(/[\d.]+/g);
-      if (!rgba) continue;
-      const [r, g, b, a = 1] = rgba.map(Number);
-      if (a >= 0.5) return 0.2126 * r + 0.7152 * g + 0.0722 * b > 140;
-    }
-    return false;
-  }
-  return false;
+
+/* Les éléments de la barre qui partent dans le bouton ☰, de gauche à
+   droite. Ceux qui ne sont pas affichés à la largeur courante (la
+   navigation sous 1080px, la langue sous 720px) sont ignorés. */
+const VERS_LE_BOUTON =
+  ".site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact";
+
+/* La position d'un élément dans la page, sans ses transformations (le
+   mouvement en cours ne fausse donc pas la mesure). */
+function gauche(element: HTMLElement) {
+  let x = 0;
+  for (let n: HTMLElement | null = element; n; n = n.offsetParent as HTMLElement | null) x += n.offsetLeft;
+  return x;
 }
 
+/* La luminance d'une couleur calculée (« rgb(…) » ou « rgba(…) »), ou
+   `null` si elle est transparente (moins de 50 % d'opacité). */
+function luminance(couleur: string) {
+  const valeurs = couleur.match(/[\d.]+/g)?.map(Number);
+  if (!valeurs || valeurs.length < 3) return null;
+  if ((valeurs[3] ?? 1) < 0.5) return null;
+  const [r, g, b] = valeurs.slice(0, 3).map(c => {
+    const v = c / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+/* Le fond sous un point de l'écran, hors de la barre : le premier fond
+   opaque en remontant depuis l'élément qui s'y trouve. Une section qui
+   passe en bleu nuit (`data-nuit`) devient transparente : on la saute, et
+   c'est alors le calque bleu nuit (`.fond-nuit`) qui fait le fond. */
+function luminanceSous(x: number, y: number) {
+  const dessous = document.elementsFromPoint(x, y).find(element => !element.closest(".site-header"));
+  for (let n: Element | null = dessous ?? null; n && n !== document.body && n.tagName !== "MAIN"; n = n.parentElement) {
+    if (n.hasAttribute("data-nuit")) continue;
+    const l = luminance(getComputedStyle(n).backgroundColor);
+    if (l !== null) return l;
+  }
+  if (document.querySelector(".fond-nuit[data-nuit]")) return 0;
+  return luminance(getComputedStyle(document.body).backgroundColor) ?? 1;
+}
 export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy }) {
   const { site } = copy;
   const pathname = usePathname();
@@ -77,40 +86,60 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   const open = openedAt === pathname;
   const setOpen = (value: boolean) => setOpenedAt(value ? pathname : null);
   const burgerRef = useRef<HTMLButtonElement>(null);
-  const [scrolled, setScrolled] = useState(false);
-  /* Une section claire passe sous la barre : ses couleurs s'inversent
-     (`.is-on-light`, accueil seulement dans la feuille de style). */
-  const [onLight, setOnLight] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
 
+  /* Le fond sous le bouton ☰ (`data-fond` sur la barre, « clair » ou
+     « sombre ») : ses traits sont blancs sur un fond sombre et bleu nuit
+     sur un fond clair (demande d'Antonino du 25/11/2026). Mesuré à chaque
+     image de défilement, puis une fois le défilement arrêté (une section
+     peut changer de fond juste après). Seuil : 0,18 de luminance, là où le
+     blanc et le bleu nuit se lisent aussi bien l'un que l'autre. */
+  useEffect(() => {
+    const barre = headerRef.current;
+    const bouton = burgerRef.current;
+    if (!barre || !bouton) return;
+    let raf = 0;
+    let minuteur = 0;
+    const mesure = () => {
+      raf = 0;
+      const r = bouton.getBoundingClientRect();
+      const l = luminanceSous(r.left + r.width / 2, r.top + r.height / 2);
+      barre.dataset.fond = l > 0.18 ? "clair" : "sombre";
+    };
+    const demande = () => {
+      if (!raf) raf = requestAnimationFrame(mesure);
+      window.clearTimeout(minuteur);
+      minuteur = window.setTimeout(mesure, 160);
+    };
+    mesure();
+    window.addEventListener("scroll", demande, { passive: true });
+    window.addEventListener("resize", demande);
+    return () => {
+      window.removeEventListener("scroll", demande);
+      window.removeEventListener("resize", demande);
+      cancelAnimationFrame(raf);
+      window.clearTimeout(minuteur);
+    };
+  }, [pathname]);
+
+  /* Dès qu'on fait défiler (24px), la barre le sait (`.is-scrolled`) et se
+     replie dans le bouton ☰ ; tout en haut, elle se redéploie. Une mesure
+     par image au plus. */
   useEffect(() => {
     let raf = 0;
     const measure = () => {
       raf = 0;
-      setScrolled(window.scrollY > 12);
-      setOnLight(lightUnder(headerRef.current));
+      setScrolled(window.scrollY > 24);
     };
-    /* Une mesure par image au plus, au défilement comme au
-       redimensionnement. Elle attend l'image SUIVANTE : les sections
-       animées au défilement (la photo de « Notre approche ») se mettent à
-       jour dans la même image que la barre, et la barre mesurait encore
-       l'état d'avant. */
     const request = () => {
-      if (!raf)
-        raf = requestAnimationFrame(() => {
-          raf = requestAnimationFrame(measure);
-        });
+      if (!raf) raf = requestAnimationFrame(measure);
     };
     measure();
     window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
-    /* Une section dont le fond bouge encore après le défilement (la photo
-       de « Notre approche », lissée) le signale par `site:fond`. */
-    window.addEventListener("site:fond", request);
     return () => {
       window.removeEventListener("scroll", request);
-      window.removeEventListener("resize", request);
-      window.removeEventListener("site:fond", request);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -153,12 +182,38 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
     };
   }, [open]);
 
+  /* Le chemin de chaque élément jusqu'au bouton ☰ (`--vers-burger`, du
+     centre de l'élément au centre du bouton) et son rang, à l'aller
+     (`--rang`, de gauche à droite) et au retour (`--rang-retour`, de
+     droite à gauche). Mesuré à l'arrivée, à chaque changement de taille de
+     la barre, une fois les polices chargées, et à chaque page (le menu
+     « Services » est alors remonté). */
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 1080px)");
-    const closeAtDesktop = () => { if (media.matches) setOpenedAt(null); };
-    media.addEventListener("change", closeAtDesktop);
-    return () => media.removeEventListener("change", closeAtDesktop);
-  }, []);
+    const barre = barRef.current;
+    const bouton = burgerRef.current;
+    if (!barre || !bouton) return;
+    const mesure = () => {
+      const elements = Array.from(barre.querySelectorAll<HTMLElement>(VERS_LE_BOUTON)).filter(
+        element => element.offsetWidth > 0,
+      );
+      const cible = gauche(bouton) + bouton.offsetWidth / 2;
+      elements.forEach((element, rang) => {
+        const centre = gauche(element) + element.offsetWidth / 2;
+        element.style.setProperty("--vers-burger", `${Math.round(cible - centre)}px`);
+        element.style.setProperty("--rang", String(rang));
+        element.style.setProperty("--rang-retour", String(elements.length - 1 - rang));
+      });
+    };
+    mesure();
+    const observateur = new ResizeObserver(mesure);
+    observateur.observe(barre);
+    let actif = true;
+    document.fonts?.ready.then(() => { if (actif) mesure(); });
+    return () => {
+      actif = false;
+      observateur.disconnect();
+    };
+  }, [pathname]);
 
   const closeMenu = () => { setOpen(false); burgerRef.current?.focus(); };
   const isCurrent = (href: string) => {
@@ -167,13 +222,22 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   };
 
   return (
-    <header ref={headerRef} className={cx("site-header", scrolled && "is-scrolled", onLight && "is-on-light")} onKeyDown={e => {
+    <header ref={headerRef} className={cx("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
       /* Le piège de focus vit DANS le panneau, qui s'en occupe lui-même.
          Il reste ici de quoi fermer au clavier si le focus n'était pas
          encore entré dans le panneau, le bouton ☰ par exemple. */
       if (open && e.key === "Escape") closeMenu();
     }}>
-      <div className="site-header-bar">
+      {/* Le voile du haut de l'écran au défilement : un assombrissement
+          léger et un flou progressif, sans bord visible (`refonte.css`). */}
+      <div className="site-voile" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+
+      <div className="site-header-bar" ref={barRef}>
         <NavLink
           href={homePath(locale)}
           locale={locale}
@@ -206,9 +270,12 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
               menu ☰. Le bouton principal (« Réserver un appel de 30 min »)
               reste dans les pages. */}
           <Link href={path(locale, ROUTES.contact)} className="site-header-contact">
-            {site.contactLabel}
+            <span className="btn-lib">{site.contactLabel}</span>
           </Link>
 
+          {/* Le bouton ☰ : trois traits inégaux (long, court, moyen), qui
+              deviennent une croix menu ouvert. Sur ordinateur, il n'apparaît
+              qu'au défilement, quand la barre s'y replie. */}
           <button
             type="button"
             ref={burgerRef}
@@ -218,7 +285,11 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
             aria-label={open ? site.menuClose : site.menuOpen}
             onClick={() => setOpen(!open)}
           >
-            {open ? <X aria-hidden /> : <Menu aria-hidden />}
+            <span className="burger-traits" aria-hidden="true">
+              <span className="burger-trait" />
+              <span className="burger-trait" />
+              <span className="burger-trait" />
+            </span>
           </button>
         </div>
       </div>

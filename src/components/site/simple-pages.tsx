@@ -32,11 +32,13 @@ export function ThanksPage({ locale }: { locale: Locale }) {
         <p className="thanks-note">{thanks.notBooked}</p>
         <div className="btn-row cta-actions">
           <Link href={bookHref} className="btn btn--primary">
-            {thanks.bookCta}
-            <ArrowRight aria-hidden />
+            <span className="btn-lib">
+              {thanks.bookCta}
+              <ArrowRight aria-hidden />
+            </span>
           </Link>
           <Link href={homePath(locale)} className="btn btn--ghost">
-            {thanks.homeCta}
+            <span className="btn-lib">{thanks.homeCta}</span>
           </Link>
         </div>
       </Band>

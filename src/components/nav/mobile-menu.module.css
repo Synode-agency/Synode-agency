@@ -8,15 +8,16 @@
    le menu est le seul endroit du site où le fond est entièrement sombre
    quelle que soit la page, donc ses valeurs sont écrites.
 
-   ⚠ Ce fichier ne concerne QUE le téléphone. Au-dessus de 1080px, le
-   panneau est retiré de la page par la dernière règle, et c'est la
-   navigation de bureau — `.site-nav`, `.solutions-dropdown` — qui prend le
-   relais, sans qu'une seule de ses règles soit touchée.
+   Au-dessus de 1080px (25/11/2026), le même panneau devient un tiroir qui
+   glisse depuis la droite : la barre se replie dans le bouton ☰ au
+   défilement, et c'est lui qui l'ouvre (voir la fin du fichier).
    ===================================================================== */
 
 .panel {
   position: fixed;
   inset: 0;
+  /* Sous la barre, mesurée par le composant (`--menu-haut`). */
+  top: var(--menu-haut, 0px);
   z-index: 49;
   overflow-y: auto;
   /* Garde-fou, pas correctif : les largeurs sont calculées pour tenir dès
@@ -131,7 +132,8 @@
      l'interligne serré juste en dessous : deux lignes à 1,25 font 42px et
      tiennent dans les 56 de hauteur, sans que le bouton grandisse. */
   padding: 0 16px;
-  border-radius: 14px;
+  /* En pilule, comme tous les boutons du site (24/11/2026). */
+  border-radius: var(--r-pill);
   background: #0a6cf0;
   font-size: 17px;
   font-weight: 500;
@@ -176,18 +178,45 @@
   white-space: nowrap;
 }
 
-/* ⚠ La dernière règle du fichier, et la frontière du périmètre : au-dessus
-   de 1080px le panneau n'existe pas, et c'est la navigation de bureau qui
-   s'affiche. 1080px est le seuil déjà posé pour `.site-nav` et le bouton ☰,
-   il n'y en a pas un second. */
+/* SUR ORDINATEUR (25/11/2026) : un tiroir de 440px, collé à droite, sur
+   toute la hauteur de l'écran ; le bouton ☰, devenu croix, reste par-dessus
+   en haut. Il glisse depuis la droite, dans le prolongement de la barre
+   qui s'est repliée vers la droite, et la page s'assombrit derrière lui.
+   1080px est le seuil déjà posé pour `.site-nav`. */
 @media (min-width: 1080px) {
   .panel {
-    display: none;
+    top: 0;
+    left: auto;
+    width: min(440px, 100vw);
+    padding-top: 88px;
+    box-shadow: 0 0 0 100vmax rgb(7 12 24 / 45%);
+  }
+  /* Tout le contenu sur les mêmes marges, un peu plus larges. */
+  .main {
+    padding-inline: 32px;
+  }
+  .panel .cta,
+  .panel .ctaNote,
+  .panel .lang {
+    margin-inline: 32px;
+  }
+  .panel .foot {
+    padding-inline: 32px;
   }
 }
+@media (min-width: 1080px) and (prefers-reduced-motion: no-preference) {
+  .panel {
+    animation: tiroir 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+@keyframes tiroir {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
 
-/* Le sélecteur de langue, repris de la barre où il ne tient plus sous
-   720px (refonte du 24/11/2026). Au-dessus, la barre le montre déjà. */
+/* Le sélecteur de langue, repris de la barre : sous 720px, il n'y tient
+   pas ; au-dessus, il part dans le bouton ☰ au défilement avec le reste
+   de la barre. Il est donc toujours dans le menu (25/11/2026). */
 .lang {
   margin: 1.75rem 20px 0;
 }
@@ -198,9 +227,4 @@
    que lui laissent ses marges. */
 .panel a.cta {
   width: auto;
-}
-@media (min-width: 720px) {
-  .lang {
-    display: none;
-  }
 }

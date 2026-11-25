@@ -284,170 +284,379 @@ main > .band.rf-section {
   }
 }
 
-/* ---- NOTRE APPROCHE (24/11/2026, d'après la fiche d'Antonino) : le
-   paragraphe et la photo, rien d'autre (`ApproachScroll`). Une section de
-   135vh avec une scène fixe de 100vh : la photo monte du bas et remplit
-   l'écran, le texte s'écrit par-dessus. Les couleurs des mots, le
-   `clip-path` de la photo, son zoom et l'opacité du voile sont réglés à
-   chaque image par le script ; ici, leur état de départ. Police : celle du
-   site (Manrope), Instrument Serif pour « logiciel » et « IA ». ---- */
+/* ---- NOTRE APPROCHE (refaite le 25/11/2026, maquette « L'escalier »
+   validée par Antonino, `ApproachScroll`) : sur fond blanc, le paragraphe
+   à gauche, qui se remplit au défilement (le gris clair de départ est posé
+   par le script), et les trois photos de l'équipe à droite, en escalier.
+   Sur ordinateur, la scène reste fixe pendant les 240vh de la section ; sur
+   téléphone, rien n'est épinglé. Police : Manrope ; « logiciel » et « IA »
+   en Castoro italique bleu. ---- */
 .approach {
   position: relative;
-  height: 135vh;
   background: #ffffff;
+  transition: background-color 0.6s ease;
 }
-.approach-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  isolation: isolate;
+/* Quand « Nos services » passe en bleu nuit, cette section aussi
+   (`SectionNuit`) : elle devient transparente et laisse voir le fond
+   unique de l'écran, sans ligne de séparation. Le texte passe en blanc,
+   « logiciel » et « IA » en bleu clair. */
+#approche[data-nuit] {
+  background-color: transparent;
 }
-/* La photo et son voile : invisibles avant le défilement. */
-.approach-photo {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  clip-path: inset(100% 6% 0% 6% round 24px);
+#approche[data-nuit] .approach-text {
+  color: #ffffff;
 }
-.approach-zoom {
-  position: absolute;
-  inset: 0;
-  transform: scale(1.18);
-  will-change: transform;
+#approche[data-nuit] .approach-accent {
+  color: #8ec1ff;
 }
-/* Le voile : plus sombre au milieu, là où le paragraphe se pose (demande
-   d'Antonino du 24/11/2026 : le texte se lisait mal sur la photo). */
-.approach-veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(5, 9, 18, 0.9) 0%,
-    rgba(5, 9, 18, 0.78) 30%,
-    rgba(5, 9, 18, 0.76) 70%,
-    rgba(5, 9, 18, 0.88) 100%
-  );
-  opacity: 0;
-}
-/* Le paragraphe, au-dessus de la photo, à 13vh du haut de l'écran, aligné
-   à gauche dans la colonne du site. Son bloc laisse passer le pointeur
-   (seul le paragraphe le reçoit, pour rester sélectionnable) : sinon la
-   barre de navigation, qui regarde ce qu'il y a sous elle, verrait ce
-   bloc vide et le fond blanc de la section au lieu de la photo. */
-.approach-inner {
+.approach-scene {
   position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 13vh 40px 0;
-  pointer-events: none;
 }
-.approach-inner > * {
-  pointer-events: auto;
+@media (min-width: 800px) {
+  .approach {
+    height: 240vh;
+  }
+  .approach-scene {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+.approach-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
 }
 .approach-text {
-  max-width: 1160px;
+  max-width: none;
   margin: 0;
-  will-change: transform;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: clamp(30px, 3.4vw, 52px);
+  font-size: clamp(24px, 2.6vw, 38px);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.16;
   letter-spacing: -0.035em;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
-  color: #d5d9e0;
+  color: #0b1424;
 }
 .approach-word {
-  transition: color 0.18s linear;
+  transition: color 0.25s linear;
 }
-/* La suite : déjà à sa place, mais transparente avant de s'écrire. */
-.approach-word[data-suite] {
-  color: transparent;
-}
-/* « logiciel » et « IA » : en Syne gras (vraie graisse 700) et en bleu
-   (25/11/2026 : ni Instrument Serif ni italique). Le bleu est réglé par le
-   script, mot par mot. */
+/* « logiciel » et « IA » : en Castoro italique (une serif), en bleu.
+   Castoro n'a qu'une graisse, la normale : jamais de faux gras ; un peu
+   plus grande pour tenir face à Manrope. */
 .approach-accent {
-  font-family: var(--font-accent), var(--font-sans), sans-serif;
-  font-weight: 700;
-  transition: color 0.18s linear;
+  padding-right: 0.04em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.08em;
+  font-style: italic;
+  font-weight: 400;
+  /* Plus grande et plus haute que Manrope : sans ceci, la ligne qui la
+     porte s'écartait des autres. */
+  line-height: 0;
+  letter-spacing: -0.01em;
+  color: #0067ea;
+  transition: color 0.25s linear;
 }
+/* L'escalier : la première photo en haut à gauche, la deuxième à droite,
+   la troisième par-dessus la deuxième, à côté d'elle et un peu plus haut
+   que dans la maquette (demande d'Antonino du 25/11/2026).
+   CHAQUE CARTE A LES PROPORTIONS EXACTES DE SA PHOTO (demande d'Antonino :
+   recadrées, les photos étaient agrandies et perdaient en qualité) : rien
+   n'est rogné ni zoomé. Le bloc garde lui aussi des proportions fixes, pour
+   que l'escalier soit le même à toutes les largeurs. */
+.approach-trio {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.81;
+}
+.approach-ph {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #e9edf3;
+  box-shadow: 0 28px 60px -32px rgb(11 20 36 / 45%);
+}
+.approach-ph img {
+  object-fit: cover;
+}
+.approach-ph--1 {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 80%;
+  aspect-ratio: 1144 / 444;
+}
+.approach-ph--2 {
+  top: 27%;
+  right: 0;
+  z-index: 2;
+  width: 62%;
+  aspect-ratio: 536 / 336;
+}
+.approach-ph--3 {
+  top: 58%;
+  left: 4%;
+  z-index: 3;
+  width: 70%;
+  aspect-ratio: 1132 / 546;
+}
+/* Téléphone : le texte, puis les photos, sans épinglage. */
 @media (max-width: 799px) {
-  .approach-inner {
-    padding-inline: 20px;
+  .approach {
+    padding-block: 96px;
+  }
+  .approach-grille {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
   }
   .approach-text {
     font-size: 28px;
   }
 }
-/* Sans mouvement : directement la photo en plein écran avec son voile, et
-   tout le texte en blanc (le script n'y touche pas). */
 @media (prefers-reduced-motion: reduce) {
-  .approach {
-    height: auto;
-  }
-  /* Le paragraphe au milieu de la photo, comme à la fin de l'animation. */
-  .approach-sticky {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: auto;
-    min-height: 100vh;
-  }
-  .approach-inner {
-    width: 100%;
-  }
-  .approach-photo {
-    clip-path: none;
-  }
-  .approach-zoom {
-    transform: none;
-  }
-  .approach-veil {
-    opacity: 1;
-  }
-  .approach-inner {
-    padding-bottom: 13vh;
-  }
+  .approach,
   .approach-word,
-  .approach-word[data-suite] {
-    color: #ffffff;
-    transition: none;
-  }
   .approach-accent {
-    color: #8ec1ff;
     transition: none;
   }
 }
 
-/* ---- « faisons » dans « Ce que nous faisons » (25/11/2026) : en Syne,
-   droit, avec un interlettrage plus large que le reste du titre, et dans
-   le bleu de la bande (`--brand`, déjà porté par `.title-accent`). ---- */
-main > .band#services .lede-title .title-accent {
-  font-family: var(--font-accent), var(--font-sans), sans-serif;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+/* ---- CE QUE NOUS AVONS CONSTRUIT : EN CLAIR (25/11/2026, demande
+   d'Antonino : seule la section des services est en bleu nuit ; à
+   l'arrivée de celle-ci, l'écran redevient clair). Fond blanc et couleurs
+   des bandes claires, au lieu de celles d'une bande impaire (sombre). Les
+   noms et phrases des produits (`CaseShowcase`) suivent dans
+   `case-cards.module.css`. ---- */
+.site-page main > section.band#realisations {
+  /* Sans filet au-dessus : les services, blancs eux aussi, et elle
+     forment un seul fond (pas de démarcation, demande d'Antonino). */
+  border-top: 0;
+  background: #ffffff;
+  color: #464444;
+  transition:
+    background-color 0.6s ease,
+    color 0.6s ease;
+  --foreground: #464444;
+  --muted-foreground: #605d5d;
+  --text-mono: #6b6868;
+  --hairline: rgba(70, 68, 68, 0.12);
+  --border: rgba(70, 68, 68, 0.12);
+  --surface: #ffffff;
+  --surface-2: #f8f9fb;
+  --brand: #0067ea;
+  --brand-foreground: #ffffff;
+  --brand-hover: #0052bd;
+}
+/* L'en-tête des réalisations : le même que celui des services (« Nos
+   réalisations », puis « Ce que nous avons » et un mot qui change, voir
+   plus bas), avec « Toutes nos réalisations » à droite. LE MÊME ÉCART
+   entre l'en-tête et les cartes que dans les services (celui de
+   `.svc-acc`), à la demande d'Antonino (25/11/2026). */
+main > .band#realisations .section-heading {
+  margin-bottom: clamp(56px, 6vw, 88px);
+}
+main > .band#realisations .section-gap-sm {
+  margin-top: 0;
+}
+/* « Toutes nos réalisations » : un peu plus petit (13px au lieu de 14),
+   à la même place : le bas du lien au niveau du bas du titre, au-dessus
+   des traits (14px d'écart et 3px de trait). Sous 760px, l'en-tête passe
+   en colonne et le lien sous les traits. */
+main > .band#realisations .section-heading > .go {
+  margin-bottom: 17px;
+  font-size: 13px;
+}
+@media (max-width: 760px) {
+  main > .band#realisations .section-heading > .go {
+    margin-bottom: 0;
+  }
+}
+main > .band#realisations .section-heading > .go svg {
+  width: 13px;
+  height: 13px;
 }
 
-/* ---- CE QUE NOUS AVONS CONSTRUIT : le fond du hero (25/11/2026,
-   demande d'Antonino), bleu nuit avec le même halo bleu décalé à droite,
-   derrière les noms des produits (`CaseShowcase`). ---- */
-.site-page main > section.band#realisations {
-  background:
-    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
-    #070c18;
+/* ---- L'EN-TÊTE ANIMÉ DES SECTIONS (25/11/2026, d'après la fiche
+   d'Antonino pour les services, repris pour les réalisations,
+   `TitreAnime`), aligné à gauche : l'étiquette (« Nos services », « Nos
+   réalisations »), le titre dont le dernier mot change en boucle (en
+   Castoro italique bleu, la police des mots en couleur), puis trois
+   petits traits qui suivent le mot affiché. Le titre tient sur une seule
+   ligne (`nowrap`) ; sur téléphone, il passe sur deux lignes. ---- */
+/* L'étiquette : en Manrope, en blanc sur le bleu nuit (demande d'Antonino
+   du 25/11/2026) ; en bleu nuit tant que la section est encore blanche,
+   pour rester lisible. */
+.titre-anime-etiquette {
+  margin: 0 0 18px;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #0b1424;
+  transition:
+    opacity 0.6s ease,
+    color 0.6s ease;
 }
-/* « construit » : en Syne 700 (`--font-accent`, posée sur la section),
-   dans le bleu clair de la bande (`--brand`, déjà porté par
-   `.title-accent`). */
-main > .band#realisations .lede-title .title-accent {
-  font-family: var(--font-accent), var(--font-sans), sans-serif;
-  font-weight: 700;
+/* LA TAILLE DES TITRES DE SECTION DE L'ACCUEIL (`.lede-title` : `--fs-h2`,
+   puis 29px sous 900px), celle qu'avait « Ce que nous avons construit » :
+   les deux en-têtes ont la même (demande d'Antonino du 25/11/2026). */
+main > .band:is(#services, #realisations) .titre-anime-h2 {
+  max-width: none;
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: #0b1424;
+  transition: color 0.6s ease;
+}
+.titre-anime-fixe {
+  display: inline-block;
+  transition:
+    opacity 0.7s,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+/* La fente du mot qui change : tous les mots, invisibles et superposés
+   dans la même case (grille), réservent la largeur du plus large ; les
+   mots visibles sont posés par-dessus.
+   ALIGNÉE SUR LA LIGNE DE BASE du titre (25/11/2026, les mots tombaient un
+   peu plus bas que « les ») : la fente prend la police des mots, et ce
+   sont les mots réservés qui donnent sa ligne de base (débordement
+   visible, donc `clip-path` au lieu de `overflow: hidden` pour cacher les
+   mots en mouvement). Le découpage ne se fait qu'en haut et en bas, pour
+   ne pas rogner les queues de l'italique sur les côtés (le « g » de
+   « grandes » était coupé à gauche). Mesuré : le « g » descend de 0,255em
+   sous la ligne de base et la ligne lui laisse 0,29em ; une petite marge
+   intérieure suffit, annulée par une marge négative pour ne pas écarter
+   les lignes. */
+.titre-anime-fente {
+  position: relative;
+  display: inline-grid;
+  margin-left: 0.26em;
+  padding-block: 0.04em;
+  margin-block: -0.04em;
+  vertical-align: baseline;
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  clip-path: inset(0 -0.3em);
+  transition: opacity 0.7s;
+}
+.titre-anime-reserve,
+.titre-anime-mot,
+.titre-anime-fin {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  color: #0a6cf0;
+}
+.titre-anime-reserve {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.titre-anime-mot {
+  position: absolute;
+  /* Sur le mot réservé, sous la marge intérieure de la fente. */
+  top: 0.04em;
+  left: 0;
+  opacity: 0;
+  transform: translateY(110%);
+  transition:
+    transform 0.75s cubic-bezier(0.7, 0, 0.2, 1),
+    opacity 0.5s,
+    color 0.6s;
+}
+.titre-anime-mot.est-affiche {
+  opacity: 1;
+  transform: translateY(0);
+}
+.titre-anime-mot.est-sorti {
+  opacity: 0;
+  transform: translateY(-110%);
+}
+.titre-anime-statique {
+  display: none;
+}
+/* Les trois traits, 14px sous le titre. */
+.titre-anime-traits {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  transition: opacity 0.7s;
+}
+.titre-anime-traits span {
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+  background: #d5d9e0;
+  transition:
+    width 0.5s,
+    background-color 0.5s;
+}
+.titre-anime-traits span.est-actif {
+  width: 36px;
+  background: #0a6cf0;
+}
+/* Avant l'entrée (posé par le script) : l'étiquette et le titre attendent. */
+.titre-anime[data-attente] .titre-anime-etiquette,
+.titre-anime[data-attente] .titre-anime-fente,
+.titre-anime[data-attente] .titre-anime-traits {
+  opacity: 0;
+}
+.titre-anime[data-attente] .titre-anime-fixe {
+  opacity: 0;
+  transform: translateY(20px);
+}
+/* Sous 900px : 29px, comme les autres titres de section (`studio.css`). */
+@media (max-width: 900px) {
+  main > .band:is(#services, #realisations) .titre-anime-h2 {
+    font-size: 29px;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+}
+/* Téléphone : deux lignes, le mot qui change à la ligne, à gauche. */
+@media (max-width: 639px) {
+  main > .band:is(#services, #realisations) .titre-anime-h2 {
+    white-space: normal;
+  }
+  .titre-anime-fixe {
+    display: block;
+  }
+  .titre-anime-fente {
+    margin-left: 0;
+  }
+}
+/* Sans mouvement : la phrase entière, sans boucle ni traits. */
+@media (prefers-reduced-motion: reduce) {
+  main > .band:is(#services, #realisations) .titre-anime-h2 {
+    white-space: normal;
+  }
+  .titre-anime-boucle,
+  .titre-anime-traits {
+    display: none;
+  }
+  .titre-anime-statique {
+    display: inline;
+  }
+  .titre-anime-etiquette,
+  .titre-anime-fixe,
+  .titre-anime-fente,
+  .titre-anime-mot,
+  .titre-anime-traits span {
+    transition: none;
+  }
 }
 
 /* ---- CE QUE NOUS FAISONS : L'ACCORDÉON DES QUATRE SERVICES
@@ -460,10 +669,14 @@ main > .band#realisations .lede-title .title-accent {
    la largeur de la colonne de la section, à 56px sous la phrase. Sous
    1000px de large (requête sur la largeur de la rangée, pas de l'écran),
    les panneaux s'empilent. Police : Manrope, celle du site. ---- */
+/* Plus d'air sous la phrase de l'en-tête (25/11/2026) : de 56px sur
+   téléphone à 88px sur grand écran. */
 .svc-acc {
   container-type: inline-size;
-  margin-top: 56px;
+  margin-top: clamp(56px, 6vw, 88px);
 }
+/* 420px de haut : Antonino préfère les cartes hautes (25/11/2026, après
+   un essai à 280px). */
 .svc-acc-row {
   display: flex;
   flex-direction: row;
@@ -487,7 +700,10 @@ main > .band#realisations .lede-title .title-accent {
   background: #ffffff;
   color: #0b1424;
   text-decoration: none;
-  transition: flex-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    flex-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 0.6s ease,
+    border-color 0.6s ease;
 }
 .svc-acc .svc-acc-panel.is-active {
   flex-grow: 3.2;
@@ -510,6 +726,18 @@ main > .band#realisations .lede-title .title-accent {
 .svc-acc .svc-acc-fond {
   overflow: hidden;
   background: #0b1424;
+}
+/* En bleu nuit, le fond du panneau ouvert s'inverse : un calque blanc,
+   avec une lueur bleue douce, recouvre le bleu nuit (voir plus bas). */
+.svc-acc .svc-acc-fond::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 80% at 100% 0%, rgba(10, 108, 240, 0.16) 0%, rgba(10, 108, 240, 0) 60%),
+    #ffffff;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 .svc-acc .svc-acc-fond-nuit,
 .svc-acc .svc-acc-fond-lueur {
@@ -550,11 +778,30 @@ main > .band#realisations .lede-title .title-accent {
 .svc-acc .is-active .svc-acc-veil {
   opacity: 1;
 }
-/* Le texte, en bas du panneau. */
+/* Le texte, aligné à gauche (25/11/2026, demandes d'Antonino) : EN BAS
+   sur les cartes fermées ; AU MILIEU de la carte ouverte, dès la première
+   visite (« Développement logiciel », ouverte par défaut, sans la
+   survoler). Quand une autre carte s'ouvre (survol, clavier, toucher), son
+   titre, sa description et « En savoir plus » MONTENT ensemble jusqu'au
+   milieu, et ceux de la carte qui se referme redescendent. Placé en absolu
+   pour que ce mouvement s'anime : de 24px du bas (`bottom`) au milieu
+   (`bottom: 50%`, recentré de la moitié de sa propre hauteur). Le milieu
+   tient pendant que la description se déplie. */
 .svc-acc .svc-acc-body {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  left: 24px;
   display: flex;
   flex-direction: column;
   max-width: 520px;
+  transition:
+    bottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.svc-acc .svc-acc-panel.is-active .svc-acc-body {
+  bottom: 50%;
+  translate: 0 50%;
 }
 .svc-acc .svc-acc-title {
   margin: 0;
@@ -598,6 +845,19 @@ main > .band#realisations .lede-title .title-accent {
   min-height: 0;
   overflow: hidden;
 }
+/* UNE PETITE BARRE FINE entre le titre et la description (25/11/2026,
+   demande d'Antonino : celle-là seulement, aucune autre). Courte, dans le
+   bleu du site, comme les traits sous les titres de section ; elle se
+   déplie avec la description, donc seulement sur la carte ouverte. */
+.svc-acc .svc-acc-more-inner::before {
+  content: "";
+  flex: none;
+  width: 40px;
+  height: 2px;
+  border-radius: 2px;
+  background: #8ec1ff;
+  transition: background-color 0.6s ease;
+}
 .svc-acc .svc-acc-text {
   max-width: none;
   margin: 0;
@@ -605,11 +865,15 @@ main > .band#realisations .lede-title .title-accent {
   line-height: 1.55;
   color: #ffffff;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+  transition:
+    color 0.6s ease,
+    text-shadow 0.6s ease;
 }
 .svc-acc .svc-acc-link {
   font-size: 14.5px;
   font-weight: 600;
   color: #ffffff;
+  transition: color 0.6s ease;
 }
 /* Rangée étroite : les panneaux s'empilent, l'ouvert prend plus de
    hauteur. */
@@ -622,10 +886,112 @@ main > .band#realisations .lede-title .title-accent {
 /* Sans mouvement : le changement de panneau est instantané. */
 @media (prefers-reduced-motion: reduce) {
   .svc-acc .svc-acc-panel,
+  .svc-acc .svc-acc-body,
   .svc-acc .svc-acc-media,
   .svc-acc .svc-acc-veil,
   .svc-acc .svc-acc-title,
   .svc-acc .svc-acc-more {
+    transition: none;
+  }
+}
+
+/* ---- « NOS SERVICES » EN BLEU NUIT AU DÉFILEMENT (25/11/2026, demande
+   d'Antonino, à la manière d'In The Pocket). Dès que le haut de la section
+   passe à 60 % de l'écran (`SectionNuit` pose `data-nuit`), TOUT L'ÉCRAN
+   passe au bleu nuit du hero, d'un seul fond : un calque fixe de la taille
+   de l'écran (`.fond-nuit`) porte le bleu nuit et la lueur, toujours
+   centrée sur l'écran, et les sections qui basculent (celle-ci, « Notre
+   approche » au-dessus et le haut des réalisations en dessous) deviennent
+   transparentes. Aucune ligne entre elles. Les couleurs s'inversent :
+   titre et étiquette clairs, mot qui change en bleu clair, cartes
+   blanches. Quand le haut des réalisations passe le même seuil, tout
+   l'écran redevient clair (seule cette section est en bleu nuit). En
+   remontant, tout revient. ---- */
+.fond-nuit {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
+    #070c18;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.fond-nuit[data-nuit] {
+  opacity: 1;
+}
+.site-page main > section.band#services {
+  transition: background-color 0.6s ease;
+}
+.site-page main > section.band#services[data-nuit] {
+  background-color: transparent;
+}
+/* L'en-tête, en négatif. */
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-etiquette {
+  color: #ffffff;
+}
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-h2 {
+  color: #ffffff;
+}
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-mot,
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-fin {
+  color: #8ec1ff;
+}
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span {
+  background: rgb(255 255 255 / 20%);
+}
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.est-actif {
+  background: #8ec1ff;
+}
+/* Les cartes, sur le bleu nuit : TOUTES BLANCHES, de vraies cartes
+   (demande d'Antonino du 25/11/2026 : pas d'effet de verre dépoli). Les
+   fermées restent comme de jour ; l'ouverte passe au blanc, écrite en bleu
+   nuit. Une ombre douce les détache du fond. */
+main > .band#services[data-nuit] .svc-acc .svc-acc-panel {
+  border-color: #ffffff;
+  box-shadow: 0 24px 48px -28px rgb(0 0 0 / 55%);
+}
+main > .band#services[data-nuit] .svc-acc .svc-acc-fond::after {
+  opacity: 1;
+}
+main > .band#services[data-nuit] .svc-acc .is-active .svc-acc-title,
+main > .band#services[data-nuit] .svc-acc .svc-acc-link {
+  color: #0b1424;
+}
+main > .band#services[data-nuit] .svc-acc .svc-acc-text {
+  color: #4a5468;
+  text-shadow: none;
+}
+/* La petite barre, sur la carte ouverte devenue blanche : bleu du site. */
+main > .band#services[data-nuit] .svc-acc .svc-acc-more-inner::before {
+  background: #0a6cf0;
+}
+/* Le haut des réalisations, visible sous les services tant que l'écran
+   est en bleu nuit : en négatif lui aussi, sur le même fond. Dès que son
+   haut passe le seuil, tout l'écran redevient clair, d'un bloc. */
+.site-page main > section.band#realisations[data-nuit] {
+  background-color: transparent;
+  color: #ffffff;
+  --foreground: #ffffff;
+  --muted-foreground: rgb(255 255 255 / 72%);
+  --brand: #8ec1ff;
+  --brand-hover: #b3d4ff;
+  /* Les noms et phrases des produits (`case-cards.module.css`). */
+  --vitrine-nom: #ffffff;
+  --vitrine-texte: rgb(255 255 255 / 70%);
+}
+main > .band#realisations .go {
+  transition: color 0.6s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fond-nuit,
+  .site-page main > section.band#services,
+  .site-page main > section.band#realisations,
+  main > .band#realisations .go,
+  .svc-acc .svc-acc-fond::after,
+  .svc-acc .svc-acc-text,
+  .svc-acc .svc-acc-link {
     transition: none;
   }
 }
@@ -1223,84 +1589,277 @@ main > section.case-hero p.case-note {
     radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
     var(--hero-bg);
 }
-/* LA BARRE DE L'ACCUEIL (24/11/2026).
-   Toujours transparente. Dès qu'on fait défiler (`.is-scrolled`), ce qui
-   passe dessous se floute ; le logo, le menu et les boutons restent nets.
-   Le flou est un calque (`::before`) qui déborde sous la barre et
-   s'efface en dégradé vers le bas : aucune ligne de coupe.
-   Sur une section claire (`.is-on-light`, mesuré dans `SiteHeader`), la
-   barre passe en négatif, aux couleurs du site : menu et langue en bleu
-   nuit, logo en version sombre, Contact en bleu nuit. Tout s'anime en
-   0,35 s, dans un sens comme dans l'autre. */
+/* LA BARRE DE L'ACCUEIL (24/11/2026) : sans fond ni ombre, posée sur le
+   hero. Au défilement, elle se replie dans le bouton ☰, et le haut de
+   l'écran s'assombrit et se floute (bloc suivant, sur tout le site). */
 .site-page:has(main > section.home-hero) .site-header,
 .site-page:has(main > section.home-hero) .site-header.is-scrolled {
   border-bottom-color: transparent;
   background: transparent;
 }
-.site-page:has(main > section.home-hero) .site-header::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 -40px;
-  z-index: -1;
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
-  opacity: 0;
+
+/* =====================================================================
+   LA BARRE SE REPLIE DANS LE BOUTON ☰ AU DÉFILEMENT (25/11/2026, demande
+   d'Antonino : « presque du motion design »), sur tout le site.
+   Dès qu'on fait défiler (`.is-scrolled`), le logo, les liens, la langue
+   et « Contact » partent l'un après l'autre vers la droite, en
+   rétrécissant, et se fondent dans le bouton, dont les trois traits
+   (long, court, moyen) se dessinent depuis la droite une fois tout
+   arrivé. Tout en haut de la page, les traits s'effacent, le bouton se
+   replie et tout en ressort, de droite à gauche. Le chemin de chaque
+   élément jusqu'au bouton (`--vers-burger`) et son rang (`--rang`,
+   `--rang-retour`) sont mesurés par `SiteHeader`. Le bouton ouvre le menu
+   (`mobile-menu.module.css`) : un tiroir à droite sur ordinateur.
+   ===================================================================== */
+/* Repliée, la barre n'a plus de fond et laisse passer les clics vers la
+   page : seuls le bouton et le menu les prennent. */
+.site-page .site-header.is-scrolled {
+  border-bottom-color: transparent;
+  background: transparent;
   pointer-events: none;
-  transition: opacity 0.35s var(--anim-ease);
 }
-.site-page:has(main > section.home-hero) .site-header.is-scrolled::before {
+.site-page .site-header .site-burger,
+.site-page .site-header #menu-mobile {
+  pointer-events: auto;
+}
+/* LE VOILE DU HAUT DE L'ÉCRAN (25/11/2026, gardé à la demande d'Antonino
+   après le passage au bouton ☰ : « ça devient sombre et ça devient flou »,
+   mais naturel, sans limite visible). Dès qu'on fait défiler, le haut de
+   l'écran s'assombrit légèrement et se floute, de plus en plus vers le
+   haut, sur 170px :
+    - trois couches de flou (2, 5 et 10px), chacune effacée par un masque
+      en dégradé et chacune plus courte que la précédente : le flou monte
+      doucement, sans bord ;
+    - un assombrissement bleu nuit de 55 % tout en haut, effacé en courbe
+      douce jusqu'à rien (encore environ 40 % au niveau du bouton : ses
+      traits restent bleu nuit sur une section blanche).
+   Chaque couche apparaît seule (son opacité, pas celle du voile : un
+   parent à demi transparent couperait le flou de ses enfants). */
+.site-voile {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 170px;
+  z-index: -1;
+  pointer-events: none;
+}
+.site-voile > span {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.site-voile > span:nth-child(1) {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+}
+.site-voile > span:nth-child(2) {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 65%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 20%, transparent 65%);
+}
+.site-voile > span:nth-child(3) {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 40%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 40%);
+}
+.site-voile > span:nth-child(4) {
+  background: linear-gradient(
+    to bottom,
+    rgb(7 12 24 / 55%) 0%,
+    rgb(7 12 24 / 48%) 10%,
+    rgb(7 12 24 / 40%) 20%,
+    rgb(7 12 24 / 32%) 30%,
+    rgb(7 12 24 / 25%) 40%,
+    rgb(7 12 24 / 18%) 50%,
+    rgb(7 12 24 / 12%) 60%,
+    rgb(7 12 24 / 7%) 70%,
+    rgb(7 12 24 / 3.5%) 80%,
+    rgb(7 12 24 / 1.2%) 90%,
+    rgb(7 12 24 / 0%) 100%
+  );
+}
+.site-header.is-scrolled .site-voile > span {
   opacity: 1;
 }
-
-/* Les transitions du négatif. */
-.site-page:has(main > section.home-hero) .site-header :is(.site-nav-link, .lang-item, .site-burger),
-.site-page:has(main > section.home-hero) .site-header .lang-item + .lang-item::before {
-  transition: color 0.35s var(--anim-ease);
-}
-.site-page:has(main > section.home-hero) .site-header .wordmark-type {
-  transition: filter 0.35s var(--anim-ease);
-}
-.site-page:has(main > section.home-hero) .site-header .site-header-contact {
+/* Le retour, tout en haut de la page : de droite à gauche, une fois le
+   bouton replié, chacun ressort du bouton et file à sa place. */
+.site-header :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact) {
+  --retour: calc(var(--rang-retour, 0) * 60ms + 0.16s);
   transition:
-    background-color 0.35s var(--anim-ease),
-    color 0.35s var(--anim-ease);
+    translate 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--retour),
+    scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--retour),
+    opacity 0.24s ease var(--retour),
+    visibility 0s linear var(--retour),
+    color 0.35s ease,
+    background-color 0.18s ease,
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
 }
-/* Le négatif, sur une section claire. */
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link {
-  color: #4a5468;
+/* L'aller : de gauche à droite, chacun file vers le centre du bouton en
+   rétrécissant, et s'efface en y arrivant. */
+.site-header.is-scrolled :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact) {
+  --aller: calc(var(--rang, 0) * 60ms);
+  translate: var(--vers-burger, 0px) 0;
+  scale: 0.25;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    translate 0.62s cubic-bezier(0.65, 0, 0.35, 1) var(--aller),
+    scale 0.62s cubic-bezier(0.65, 0, 0.35, 1) var(--aller),
+    opacity 0.26s ease calc(var(--aller) + 0.28s),
+    visibility 0s linear calc(var(--aller) + 0.62s),
+    color 0.35s ease,
+    background-color 0.18s ease,
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link:hover,
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-nav-link.is-current {
-  color: #0b1424;
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item {
-  color: #6b7488;
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item.is-current {
-  color: #0b1424;
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .lang-item + .lang-item::before {
-  color: rgb(11 20 36 / 30%);
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .wordmark-type {
-  filter: invert(1);
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-burger {
-  color: #0b1424;
-}
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-header-contact {
-  background: #0b1424;
+
+/* Le bouton ☰, SANS BULLE (demande d'Antonino du 25/11/2026) : ses
+   traits prennent la couleur qui se lit sur le fond qu'il survole, blancs
+   sur un fond sombre, bleu nuit (presque noir) sur un fond clair.
+   `SiteHeader` mesure ce fond sous le bouton (`data-fond`) à chaque
+   défilement. En haut de page, il est sur le hero ou la barre, sombres. */
+.site-header .site-burger {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
   color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  /* Au-dessus du menu ouvert (49) : sur ordinateur, le tiroir part du
+     haut de l'écran, et le bouton, devenu croix, reste par-dessus. */
+  z-index: 50;
 }
-.site-page:has(main > section.home-hero) .site-header.is-on-light .site-header-contact:hover {
-  background: #1c2a44;
+.site-header .site-burger:focus-visible {
+  outline: 2px solid #8ec1ff;
+  outline-offset: 3px;
 }
+.site-header.is-scrolled[data-fond="clair"] .site-burger {
+  color: #0b1424;
+}
+/* Menu ouvert sur ordinateur : la croix est sur le tiroir, sombre. */
+@media (min-width: 1080px) {
+  .site-header.is-scrolled .site-burger[aria-expanded="true"] {
+    color: #ffffff;
+  }
+}
+/* Les trois traits, alignés à droite : long, court, moyen. Égaux au
+   survol ; une croix, menu ouvert. */
+.burger-traits {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  gap: 5px;
+  width: 22px;
+}
+.burger-trait {
+  display: block;
+  width: 22px;
+  height: 0;
+  /* UNE BORDURE ET NON UN FOND (25/11/2026, les traits ne paraissaient pas
+     de la même épaisseur) : le navigateur arrondit l'épaisseur d'une
+     bordure au pixel de l'écran, la même pour les trois traits, quel que
+     soit le zoom. Un fond de 2px, lui, tombait sur des demi-pixels (zoom
+     à 90 %) et l'un des traits s'épaississait. */
+  border-top: 2px solid currentColor;
+  border-radius: 2px;
+  transform-origin: 100% 50%;
+  transition:
+    width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    rotate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.2s ease,
+    scale 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) var(--trait-delai, 0s);
+}
+.burger-trait:nth-child(2) {
+  width: 12px;
+}
+.burger-trait:nth-child(3) {
+  width: 17px;
+}
+@media (hover: hover) {
+  .site-burger:hover .burger-trait {
+    width: 22px;
+  }
+}
+.site-burger[aria-expanded="true"] .burger-trait {
+  width: 22px;
+  transform-origin: 50% 50%;
+}
+.site-burger[aria-expanded="true"] .burger-trait:nth-child(1) {
+  translate: 0 7px;
+  rotate: 45deg;
+}
+.site-burger[aria-expanded="true"] .burger-trait:nth-child(2) {
+  opacity: 0;
+}
+.site-burger[aria-expanded="true"] .burger-trait:nth-child(3) {
+  translate: 0 -7px;
+  rotate: -45deg;
+}
+/* Sur ordinateur, le bouton n'existe qu'au défilement : posé au bout de la
+   barre, par-dessus « Contact », il grandit quand tout s'y est replié, puis
+   ses traits se dessinent depuis la droite, l'un après l'autre. */
+@media (min-width: 1080px) {
+  .site-header-bar {
+    position: relative;
+  }
+  .site-header .site-burger {
+    position: absolute;
+    top: 50%;
+    right: var(--band-pad-x);
+    margin-top: -1.5rem;
+    opacity: 0;
+    scale: 0.3;
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease 0.12s,
+      scale 0.35s cubic-bezier(0.4, 0, 1, 1) 0.05s,
+      visibility 0s linear 0.4s,
+      color 0.3s ease;
+  }
+  .site-header.is-scrolled .site-burger {
+    opacity: 1;
+    scale: 1;
+    visibility: visible;
+    transition:
+      opacity 0.2s ease 0.4s,
+      scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s,
+      visibility 0s linear 0.4s,
+      color 0.3s ease;
+  }
+  .site-header .burger-trait {
+    scale: 0 1;
+  }
+  .site-header.is-scrolled .burger-trait {
+    scale: 1 1;
+  }
+  .site-header.is-scrolled .burger-trait:nth-child(1) {
+    --trait-delai: 0.66s;
+  }
+  .site-header.is-scrolled .burger-trait:nth-child(2) {
+    --trait-delai: 0.74s;
+  }
+  .site-header.is-scrolled .burger-trait:nth-child(3) {
+    --trait-delai: 0.82s;
+  }
+}
+/* Sans mouvement : la barre et le bouton changent d'un coup. */
 @media (prefers-reduced-motion: reduce) {
-  .site-page:has(main > section.home-hero) .site-header::before,
-  .site-page:has(main > section.home-hero) .site-header :is(.site-nav-link, .lang-item, .site-burger, .wordmark-type, .site-header-contact) {
-    transition: none;
+  .site-header :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact),
+  .site-header .site-burger,
+  .site-voile > span,
+  .burger-trait {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 }
 
@@ -1342,15 +1901,22 @@ main > section.home-hero h1 {
   text-align: center;
   text-wrap: balance;
 }
-/* « logiciel » et « IA » : en Syne 700 (25/11/2026, à la place
-   d'Instrument Serif italique), une autre police sans serif, droite, plus
-   large et plus grasse que le titre : c'est à cette graisse qu'elle se
-   distingue vraiment de Manrope. */
+/* « logiciel » et « IA » : en Castoro italique, une serif (25/11/2026,
+   choisie par Antonino après Instrument Serif, Syne, Bricolage Grotesque,
+   l'italique de Manrope, Bodoni Moda et Fraunces). Une seule graisse, la
+   normale ; un peu plus grande pour tenir face à Manrope ; un léger
+   retrait à droite pour que l'italique ne touche pas le mot suivant. */
 main > section.home-hero h1 .title-accent {
-  font-family: var(--font-accent), var(--font-sans), sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  padding-right: 0.04em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.08em;
+  font-style: italic;
+  font-weight: 400;
+  /* Plus grande et plus haute que Manrope : sans ceci, la ligne qui la
+     porte s'écartait des autres (66px au lieu de 58 dans « Notre
+     approche »). */
+  line-height: 0;
+  letter-spacing: -0.01em;
 }
 /* Les deux lignes du titre, en blanc : deux règles de `studio.css`
    peignent en bleu tout `span` enfant direct d'un titre de hero ; seuls
@@ -1546,5 +2112,62 @@ main > section.home-hero .hero-reassurance {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
+  }
+}
+
+/* =====================================================================
+   LES BOUTONS AIMANTÉS (25/11/2026, variante C choisie par Antonino sur
+   maquettes ; deux essais sur l'arrondi, un quart de la hauteur puis des
+   angles droits, ont été refusés : les boutons restent en pilule). Au
+   survol à la souris, le bouton suit un peu le curseur et son texte
+   (`.btn-lib`) un peu plus ; il revient en douceur quand la souris part.
+   `BoutonsAimantes` calcule les décalages (`--aimant-*`) et pose
+   `data-aimant` tant qu'il suit : le mouvement est alors plus vif (0,12s)
+   que le retour (0,45s). Les couleurs de survol restent. Rien au toucher,
+   au clavier ni quand on limite les animations.
+   ===================================================================== */
+:is(.btn, .site-header-contact, .services-index a) {
+  transform: translate(var(--aimant-x, 0px), var(--aimant-y, 0px));
+}
+.btn:active {
+  transform: translate(var(--aimant-x, 0px), calc(var(--aimant-y, 0px) + 1px));
+}
+.btn-lib {
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+  transform: translate(var(--aimant-lx, 0px), var(--aimant-ly, 0px));
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+[data-aimant] > .btn-lib {
+  transition-duration: 0.12s;
+}
+.btn {
+  transition:
+    background-color 0.2s var(--anim-ease),
+    border-color 0.2s var(--anim-ease),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.btn[data-aimant] {
+  transition-duration: 0.2s, 0.2s, 0.12s;
+}
+.services-index a {
+  transition:
+    border-color 0.2s var(--anim-ease),
+    background-color 0.2s var(--anim-ease),
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.services-index a[data-aimant] {
+  transition-duration: 0.2s, 0.2s, 0.12s;
+}
+/* « Contact » garde la liste de transitions de la barre qui se replie
+   (même ordre : translate, scale, opacity, visibility, color,
+   background-color, transform). */
+.site-header:not(.is-scrolled) .site-header-contact[data-aimant] {
+  transition-duration: 0.6s, 0.6s, 0.24s, 0s, 0.35s, 0.18s, 0.12s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-lib {
+    transition: none;
   }
 }
