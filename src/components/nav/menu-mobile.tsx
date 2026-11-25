@@ -89,17 +89,28 @@ export function MenuMobile({
     >
       <nav className={s.liens} aria-label={site.navLabel}>
         {accueil ? grandLien(homePath(locale), accueil.label, 0) : null}
+        {/* « Services » (demande d'Antonino du 25/11/2026) : le MOT mène à la
+            page Services, la petite FLÈCHE déplie les quatre cartes. */}
         {services ? (
-          <span className={s.ligne}>
+          <span className={cx(s.ligne, s.ligneServices)}>
+            <NavLink
+              href={path(locale, ROUTES.services)}
+              locale={locale}
+              onNavigate={onClose}
+              className={s.grandLien}
+              style={{ "--i": 1 } as CSSProperties}
+            >
+              {services.label}
+            </NavLink>
             <button
               type="button"
               className={cx(s.grandLien, s.deplier)}
               style={{ "--i": 1 } as CSSProperties}
               aria-expanded={servicesOuverts}
               aria-controls={idServices}
+              aria-label={site.servicesToggle}
               onClick={() => setServicesOuverts((ouverts) => !ouverts)}
             >
-              {services.label}
               <ChevronDown aria-hidden className={s.chevron} />
             </button>
           </span>

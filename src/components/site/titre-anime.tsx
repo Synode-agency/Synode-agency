@@ -44,7 +44,8 @@ export function TitreAnime({
   full,
   fullEnd,
 }: {
-  eyebrow: string;
+  /** L'étiquette au-dessus du titre ; l'accueil n'en met plus (25/11/2026). */
+  eyebrow?: string;
   prefix: string;
   rotating: readonly string[];
   full: string;
@@ -107,7 +108,7 @@ export function TitreAnime({
 
   return (
     <div ref={blocRef} className="titre-anime">
-      <p className="titre-anime-etiquette">{eyebrow}</p>
+      {eyebrow ? <p className="titre-anime-etiquette">{eyebrow}</p> : null}
       <h2 className="titre-anime-h2" aria-label={full.replace(/\.$/, "")}>
         <span className="titre-anime-boucle" aria-hidden="true">
           <span className="titre-anime-fixe">{prefix}</span>

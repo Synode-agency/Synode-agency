@@ -1,15 +1,16 @@
 /**
- * LA PAGE SERVICES (brief de la refonte, 6.2) : les trois services, ce qui
+ * LA PAGE SERVICES (brief de la refonte, 6.2) : les quatre services (le
+ * 4e ajouté le 25/11/2026, une seule page pour tous), ce qui
  * est inclus, la tarification, la sécurité et la FAQ. La tarification et la
  * sécurité ne sont écrites qu'ici sur tout le site (règle 5 du brief).
  */
 export const services = {
-  metaTitle: "Services · Intégrations, IA et logiciels sur mesure · Synode",
-  metaDescription: "Connecter vos outils, mettre l’IA au travail, créer votre logiciel sur mesure. Exemples, tarification et sécurité.",
+  metaTitle: "Services · Intégrations, IA, logiciels et sites web · Synode",
+  metaDescription: "Connecter vos outils, mettre l’IA au travail, créer votre logiciel, votre site ou votre application mobile. Exemples, tarification et sécurité.",
 
   hero: {
     eyebrow: "Services",
-    title: "Trois façons de faire gagner du temps à votre équipe",
+    title: "Quatre façons de faire gagner du temps à votre équipe",
     accents: ["gagner du temps"],
     subtitle: "Chaque projet part de vos outils, de vos données et de vos règles. On ne vend pas de solution toute faite.",
   },
@@ -52,6 +53,19 @@ export const services = {
         { strong: "Un tableau de bord", rest: " (Power BI, Excel ou web) qui se met à jour seul : ventes, marges, trésorerie." },
       ],
       result: "Un outil fait pour votre façon de travailler, pas l’inverse.",
+    },
+    /* [À VALIDER PAR ANTONINO] Le 4e service, texte proposé le 25/11/2026. */
+    {
+      key: "web",
+      title: "Créer votre site ou votre application mobile",
+      problem: "Votre site ne reflète plus votre activité, ou vos clients attendent une application que vous n’avez pas encore.",
+      does: "On conçoit et on développe des sites web et des applications mobiles rapides, clairs et faciles à utiliser, reliés à vos outils.",
+      examples: [
+        { strong: "Un site qui travaille pour vous", rest: " : vos services présentés clairement, et chaque demande de contact envoyée directement dans vos outils." },
+        { strong: "Une application mobile", rest: " sur iPhone et Android, pour vos clients ou pour vos équipes sur le terrain." },
+        { strong: "La refonte de votre site actuel", rest: " : plus rapide, plus clair, et pensé pour être bien trouvé sur Google." },
+      ],
+      result: "Une présence en ligne à votre image, et des outils que vos clients utilisent vraiment.",
     },
   ] as const,
 

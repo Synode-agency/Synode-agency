@@ -91,14 +91,16 @@ export const bookingAnchor = (locale: Locale) => BOOKING_ANCHOR[locale];
 export const bookingHref = (locale: Locale) => `${path(locale, ROUTES.contact)}#${BOOKING_ANCHOR[locale]}`;
 
 /**
- * LES TROIS SERVICES et leur ancre sur la page Services (brief, 4.1) :
- * `#connecter`, `#ia`, `#logiciel` en français, `#connect`, `#ai`,
- * `#software` en anglais.
+ * LES QUATRE SERVICES et leur ancre sur la page Services (brief, 4.1) :
+ * `#connecter`, `#ia`, `#logiciel`, `#web` en français, `#connect`, `#ai`,
+ * `#software`, `#web` en anglais.
  */
 const SERVICE_ANCHORS = {
   connect: { fr: "connecter", en: "connect" },
   ai: { fr: "ia", en: "ai" },
   software: { fr: "logiciel", en: "software" },
+  /* Le 4e service, sur la même page (25/11/2026, demande d'Antonino). */
+  web: { fr: "web", en: "web" },
 } as const satisfies Record<string, Record<Locale, string>>;
 
 export type ServiceKey = keyof typeof SERVICE_ANCHORS;

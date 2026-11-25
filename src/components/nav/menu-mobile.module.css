@@ -82,13 +82,17 @@
 .grandLien:focus-visible {
   color: #0a6cf0;
 }
-/* « Services » : un bouton qui déplie les quatre cartes, à l'allure d'un
-   grand lien, avec son chevron à la taille du mot. */
+/* « Services » : le mot (un lien vers la page) et sa petite flèche (un
+   bouton qui déplie les quatre cartes), sur une même ligne ; la flèche à la
+   taille du mot. */
+.ligneServices {
+  display: flex;
+  align-items: center;
+}
 .deplier {
   display: inline-flex;
   align-items: center;
-  gap: 0.18em;
-  padding: 0;
+  padding: 0 0 0 0.18em;
   border: 0;
   background: none;
   font-family: inherit;

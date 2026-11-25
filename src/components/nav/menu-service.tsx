@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
-import { ROUTES, path, serviceHref, type Locale, type ServiceKey } from "@/lib/routes";
+import { serviceHref, type Locale, type ServiceKey } from "@/lib/routes";
 import s from "./menu-service.module.css";
 
 /**
@@ -34,8 +34,8 @@ export function ServiceVisual({
   );
 }
 
-/** Où mène un service : son bloc de la page Services. Les sites web et
- *  applications n'en ont pas encore : ils mènent à la page entière. */
+/** Où mène un service : son bloc de la page Services (les quatre en ont un
+ *  depuis le 25/11/2026). */
 export function lienService(locale: Locale, key: string) {
-  return key === "web" ? path(locale, ROUTES.services) : serviceHref(locale, key as ServiceKey);
+  return serviceHref(locale, key as ServiceKey);
 }

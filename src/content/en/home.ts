@@ -32,13 +32,14 @@ export const home = {
 
   approach: {
     label: "Our approach",
-    text: "Every company has its own tools, habits and tasks that take too much time. We don't sell off\u2011the\u2011shelf software: we start from how you actually work to build what saves you time, with AI only where it truly helps.",
-    accents: ["software", "AI"],
+    text: "Every company has its own ambitions, needs and way of working. From custom software development to websites and mobile apps, we design tools suited to your business, integrate artificial intelligence and connect your systems to simplify your processes and support your growth.",
+    accents: ["software", "artificial", "intelligence"],
     photos: ["/images/approche-equipe.png", "/images/approche-tableau.png", "/images/approche-ecran.png"],
   },
 
   services: {
-    eyebrow: "Our services",
+    /* Le lien à droite du titre, comme « Toutes nos réalisations » (25/11/2026). */
+    link: "All our services",
     prefix: "Built for",
     rotating: ["freelancers.", "SMEs.", "large companies."],
     full: "Built for freelancers, SMEs and large companies.",
@@ -77,12 +78,26 @@ export const home = {
   },
 
   work: {
-    eyebrow: "Our work",
     prefix: "What we’ve",
     rotating: ["developed.", "connected.", "integrated.", "automated."],
     full: "What we’ve developed, connected, integrated and automated.",
     fullEnd: "developed, connected, integrated and automated.",
     link: "All our work",
+  },
+
+  methode: {
+    label: "Our method",
+    title: {
+      prefix: "Let’s build what’s next,",
+      rotating: ["together.", "for your business.", "step by step."],
+      full: "Let’s build what’s next, together, for your business and step by step.",
+      fullEnd: "together, for your business and step by step.",
+    },
+    etapes: [
+      { debut: "A", cle: "30-min call.", description: "You tell us about your business and what you’d like to improve." },
+      { debut: "A", cle: "written scope.", description: "What we build, how long it takes, what it costs." },
+      { debut: "Delivery and", cle: "support.", description: "We set it up, train your team and stay available." },
+    ],
   },
 
   faq: {

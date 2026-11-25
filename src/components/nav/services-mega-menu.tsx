@@ -32,11 +32,14 @@ export function ServicesMegaMenu({
   locale,
   pathname,
   label,
+  labelOuvrir,
   services,
 }: {
   locale: Locale;
   pathname: string;
   label: string;
+  /** Le nom de la petite flèche, pour les lecteurs d'écran. */
+  labelOuvrir: string;
   services: MenuServices;
 }) {
   const [ouvert, setOuvert] = useState(false);
@@ -94,29 +97,45 @@ export function ServicesMegaMenu({
         if (!e.currentTarget.contains(e.relatedTarget)) setOuvert(false);
       }}
     >
-      <button
-        type="button"
-        ref={declencheur}
-        className={cx("site-nav-link", s.declencheur, courant && "is-current")}
-        aria-expanded={ouvert}
-        aria-controls={id}
+      {/* « Services » (demande d'Antonino du 25/11/2026) : le MOT est un lien
+          vers la page Services ; au survol (souris), le menu s'ouvre. La
+          petite FLÈCHE est un bouton : elle ouvre et ferme le menu au clavier
+          et au doigt. */}
+      <div
+        className={s.declencheur}
         onPointerEnter={(e) => {
           if (e.pointerType === "mouse") setOuvert(true);
         }}
-        onPointerDown={(e) => {
-          dernierAppui.current = e.pointerType;
-        }}
-        onClick={() => {
-          if (dernierAppui.current === "mouse") setOuvert(true);
-          else setOuvert((o) => !o);
-          dernierAppui.current = "";
-        }}
       >
-        {label}
-        <ChevronDown aria-hidden />
+        <NavLink
+          href={path(locale, ROUTES.services)}
+          locale={locale}
+          onNavigate={() => setOuvert(false)}
+          className={cx("site-nav-link", s.lien, courant && "is-current")}
+        >
+          {label}
+        </NavLink>
+        <button
+          type="button"
+          ref={declencheur}
+          className={cx("site-nav-link", s.fleche)}
+          aria-expanded={ouvert}
+          aria-controls={id}
+          aria-label={labelOuvrir}
+          onPointerDown={(e) => {
+            dernierAppui.current = e.pointerType;
+          }}
+          onClick={() => {
+            if (dernierAppui.current === "mouse") setOuvert(true);
+            else setOuvert((o) => !o);
+            dernierAppui.current = "";
+          }}
+        >
+          <ChevronDown aria-hidden />
+        </button>
         {/* Le soulignement de la barre claire. */}
         <span className={s.souligne} aria-hidden="true" />
-      </button>
+      </div>
 
       {/* Le voile : il couvre la page derrière le panneau. La souris qui
           BOUGE dessus a quitté la barre et le panneau : on referme. (Pas à

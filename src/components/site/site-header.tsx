@@ -263,7 +263,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
             /* Le méga-menu « Services » (25/11/2026) : au survol, les quatre
                services en cartes, la page floutée derrière. Remonté à chaque
                page, donc refermé. */
-            <ServicesMegaMenu key={`services-${pathname}`} locale={locale} pathname={pathname} label={item.label} services={site.menuServices} />
+            <ServicesMegaMenu key={`services-${pathname}`} locale={locale} pathname={pathname} label={item.label} labelOuvrir={site.servicesToggle} services={site.menuServices} />
           ) : (
             <NavLink
               key={item.href}

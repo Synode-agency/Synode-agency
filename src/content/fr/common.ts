@@ -44,6 +44,9 @@ export const site = {
     { key: "web", title: "Sites web & applications mobiles", text: "Sites et applications modernes, centrés sur l’utilisateur.", image: "/images/services/service-web.webp", focus: "45% 42%" },
   ] as const,
   menuOpen: "Ouvrir le menu",
+  /* La petite flèche à côté de « Services » : ouvre la liste des services
+     (le mot, lui, mène à la page Services). */
+  servicesToggle: "Afficher les services",
   menuClose: "Fermer le menu",
   menuDialog: "Menu",
   homeLabel: "Synode, retour à l’accueil",
@@ -61,7 +64,6 @@ export const site = {
      l'accueil, détaillées sur À propos. « Gratuit » n'est pas répété ici :
      il est sous le bouton du hero (décision du 24/11/2026). */
   steps: {
-    title: "Comment ça marche",
     items: [
       { title: "Un appel de 30 min.", text: "Vous nous décrivez une tâche qui vous fait perdre du temps." },
       { title: "Un cadrage écrit.", text: "Ce qu’on construit, en combien de temps, pour quel prix." },

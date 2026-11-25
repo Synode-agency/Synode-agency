@@ -75,11 +75,11 @@
      d'Antonino, 25/11). S'ils débordent, les marges tombent à 0 et le
      panneau défile. */
   margin-block: auto;
-  /* La taille des grands liens (« vraiment assez grand pour que ça
-     prenne vraiment de la place », 25/11) : selon la largeur du panneau
-     et la hauteur de l'écran, 113px environ sur un écran de 1440 × 900 ;
-     le bloc occupe alors presque toute la hauteur libre. */
-  --taille-liens: clamp(44px, min(15cqi, 12.6vh), 150px);
+  /* La taille des grands liens : la taille réduite qu'ils prenaient quand
+     « Services » était déplié (54px environ sur un écran de 1440 × 900),
+     que les cartes soient ouvertes ou non. Sans changement de taille, rien
+     ne bouge sous le curseur (demande d'Antonino du 25/11/2026). */
+  --taille-liens: min(clamp(44px, min(15cqi, 12.6vh), 150px), clamp(36px, 6vh, 64px));
 }
 .ligne {
   display: block;
@@ -96,37 +96,33 @@
   transform: translateY(110%);
   transition:
     transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
-    color 0.3s ease,
-    font-size 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color 0.3s ease;
 }
 .ouvert .grandLien {
   transform: none;
-  transition-delay: calc(0.12s + var(--i) * 0.07s), 0s, 0s;
-}
-/* « Services » déplié : les liens réduisent pendant que les cartes
-   s'ouvrent, pour que tout tienne sans faire défiler le panneau (jamais
-   plus grands que repliés). */
-.liens:has(.servicesOuverts) .grandLien {
-  font-size: min(var(--taille-liens), clamp(36px, 6vh, 64px));
+  transition-delay: calc(0.12s + var(--i) * 0.07s), 0s;
 }
 .grandLien:hover,
 .grandLien:focus-visible {
   color: #0a6cf0;
 }
-/* « Services » : un bouton qui déplie les quatre cartes, à l'allure d'un
-   grand lien, avec son chevron. */
+/* « Services » : le mot (un lien vers la page) et sa petite flèche (un
+   bouton qui déplie les quatre cartes), sur une même ligne. */
+.ligneServices {
+  display: flex;
+  align-items: center;
+}
 .deplier {
   display: inline-flex;
   align-items: center;
-  gap: 0.18em;
-  padding: 0;
+  padding: 0 0 0 0.18em;
   border: 0;
   background: none;
   font-family: inherit;
   text-align: left;
   cursor: pointer;
 }
-/* À la taille du mot (em) : il suit les liens quand ils réduisent. */
+/* À la taille du mot (em). */
 .chevron {
   width: 0.4em;
   height: 0.4em;

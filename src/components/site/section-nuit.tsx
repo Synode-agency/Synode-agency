@@ -28,12 +28,30 @@ import { useEffect, useRef } from "react";
  * bleu nuit, son haut, déjà visible en bas de l'écran, l'est aussi, et
  * tout l'écran change de couleur d'un bloc.
  */
+/* PLUSIEURS ZONES DE NUIT (25/11/2026) : celle des services et celle de
+   « Notre méthode » visent toutes deux les réalisations (le bas de l'une,
+   le haut de l'autre). Chacune y dépose sa demande, et l'élément reste en
+   bleu nuit tant qu'au moins une le demande ; sinon, elles se
+   contredisaient à chaque défilement. */
+const demandes = new WeakMap<Element, Set<symbol>>();
+function marquer(element: Element, qui: symbol, nuit: boolean) {
+  let liste = demandes.get(element);
+  if (!liste) {
+    liste = new Set();
+    demandes.set(element, liste);
+  }
+  if (nuit) liste.add(qui);
+  else liste.delete(qui);
+  element.toggleAttribute("data-nuit", liste.size > 0);
+}
+
 export function SectionNuit({ seuil = 0.6, aussi, jusqua }: { seuil?: number; aussi?: string; jusqua?: string }) {
   const repere = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const section = repere.current?.closest("section");
     if (!section) return;
+    const qui = Symbol("nuit");
     // Le fond unique, sous tout le contenu.
     const fond = document.createElement("div");
     fond.className = "fond-nuit";
@@ -47,7 +65,7 @@ export function SectionNuit({ seuil = 0.6, aussi, jusqua }: { seuil?: number; au
       const limite = seuil * window.innerHeight;
       const nuit =
         section.getBoundingClientRect().top < limite && (!suivante || suivante.getBoundingClientRect().top >= limite);
-      for (const c of cibles) c.toggleAttribute("data-nuit", nuit);
+      for (const c of cibles) marquer(c, qui, nuit);
     };
     const request = () => {
       if (!raf) raf = requestAnimationFrame(mesure);
@@ -59,7 +77,7 @@ export function SectionNuit({ seuil = 0.6, aussi, jusqua }: { seuil?: number; au
       window.removeEventListener("scroll", request);
       window.removeEventListener("resize", request);
       cancelAnimationFrame(raf);
-      for (const c of cibles) c.removeAttribute("data-nuit");
+      for (const c of cibles) marquer(c, qui, false);
       fond.remove();
     };
   }, [seuil, aussi, jusqua]);

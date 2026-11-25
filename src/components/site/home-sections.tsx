@@ -72,24 +72,3 @@ function LogoMarquee({ logos }: { logos: Home["proof"]["logos"] }) {
     </div>
   );
 }
-
-/**
- * LES TROIS ÉTAPES (`Steps`), les mêmes partout (brief, 6.1 et 6.4).
- * Numérotées : c'est une vraie séquence.
- */
-export function Steps({ steps }: { steps: SiteContent["site"]["steps"] }) {
-  return (
-    <ol className="steps-list">
-      {steps.items.map((step, i) => (
-        <li key={step.title}>
-          <span className="steps-rank" aria-hidden>
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          <p>
-            <strong>{step.title}</strong> {step.text}
-          </p>
-        </li>
-      ))}
-    </ol>
-  );
-}

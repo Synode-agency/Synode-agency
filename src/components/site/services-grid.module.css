@@ -21,9 +21,8 @@
   text-decoration: none;
   transition: opacity 0.5s ease;
 }
-/* La photo, éclaircie (25/11/2026, fiche d'Antonino) et cernée d'un liseré
-   bleu très fin : le trait extérieur sur le cadre, le trait intérieur sur
-   un calque posé par-dessus la photo (sous elle, il serait caché). */
+/* La photo, éclaircie (25/11/2026, fiche d'Antonino). Sans contour : le
+   liseré bleu du départ est retiré à sa demande (25/11/2026). */
 .photo {
   position: relative;
   display: block;
@@ -31,15 +30,6 @@
   overflow: hidden;
   border-radius: 18px;
   background: #0b1424;
-  box-shadow: 0 0 0 1px rgb(142 193 255 / 12%);
-}
-.photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgb(142 193 255 / 18%);
-  pointer-events: none;
 }
 .photo img {
   display: block;

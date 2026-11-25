@@ -1,6 +1,6 @@
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
-import { Castoro } from "next/font/google";
+import { Castoro, Instrument_Serif } from "next/font/google";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
@@ -8,7 +8,8 @@ import { Hero } from "@/components/site/hero";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseShowcase } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
-import { ProofStrip, Steps } from "@/components/site/home-sections";
+import { ProofStrip } from "@/components/site/home-sections";
+import { MethodeScroll } from "@/components/site/methode-scroll";
 import { ServicesGrid } from "@/components/site/services-grid";
 import { TitreAnime } from "@/components/site/titre-anime";
 import { SectionNuit } from "@/components/site/section-nuit";
@@ -32,6 +33,17 @@ const accentFont = Castoro({
   weight: "400",
   style: ["italic"],
   variable: "--font-accent",
+  display: "swap",
+});
+
+/* Les mots clés de « Notre méthode » (« 30 min. », « écrit. », « suivi. ») :
+   Instrument Serif italique, demandé par la fiche « 4a » d'Antonino
+   (25/11/2026). Seule cette section s'en sert. */
+const instrumentFont = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["italic"],
+  variable: "--font-instrument",
   display: "swap",
 });
 
@@ -195,20 +207,29 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <Band id="services" className={`rf-section ${accentFont.variable}`}>
         {/* Au défilement, tout l'écran passe en bleu nuit, d'un seul fond,
-            avec « Notre approche » au-dessus et le haut des réalisations
-            en dessous (aucune coupure entre bleu nuit et blanc), et les
-            couleurs s'inversent ; tout l'écran redevient clair à l'arrivée
-            des réalisations (`SectionNuit`, `refonte.css`). */}
+            avec « Notre approche » au-dessus et le haut des réalisations en
+            dessous (aucune coupure entre bleu nuit et blanc), et les
+            couleurs s'inversent ; tout l'écran redevient blanc, d'un bloc,
+            à l'arrivée des réalisations. « Notre méthode » repasse ensuite
+            au bleu nuit de la même façon (`SectionNuit`, `refonte.css`,
+            demande d'Antonino du 25/11/2026). */}
         <SectionNuit aussi="#approche, #realisations" jusqua="#realisations" />
-        {/* L'en-tête animé : « Nos services », puis « Conçus pour les » et un
-            mot qui change en boucle (`TitreAnime`). */}
-        <TitreAnime
-          eyebrow={home.services.eyebrow}
-          prefix={home.services.prefix}
-          rotating={home.services.rotating}
-          full={home.services.full}
-          fullEnd={home.services.fullEnd}
-        />
+        {/* L'en-tête animé : « Conçus pour les » et un mot qui change en
+            boucle (`TitreAnime`), sans étiquette au-dessus ; à droite,
+            « Tous nos services », comme « Toutes nos réalisations »
+            (demande d'Antonino du 25/11/2026). */}
+        <div className="section-heading home-section-heading">
+          <TitreAnime
+            prefix={home.services.prefix}
+            rotating={home.services.rotating}
+            full={home.services.full}
+            fullEnd={home.services.fullEnd}
+          />
+          <Link className="go" href={path(locale, ROUTES.services)}>
+            {home.services.link}
+            <ArrowRight aria-hidden />
+          </Link>
+        </div>
         {/* Les quatre services en photos (25/11/2026, fiche d'Antonino) :
             une grille, sans fond de carte ; l'en-tête ne change pas. */}
         <ServicesGrid locale={locale} services={home.services} />
@@ -220,7 +241,6 @@ export function HomePage({ locale }: { locale: Locale }) {
               puis « Ce que nous avons » et un mot qui change en boucle
               (25/11/2026). Le lien reste à droite. */}
           <TitreAnime
-            eyebrow={home.work.eyebrow}
             prefix={home.work.prefix}
             rotating={home.work.rotating}
             full={home.work.full}
@@ -236,12 +256,9 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
       </Band>
 
-      <Band id="etapes" className="rf-section">
-        <Lede title={site.steps.title} />
-        <div className="section-gap-sm">
-          <Steps steps={site.steps} />
-        </div>
-      </Band>
+      {/* « Notre méthode » : les trois étapes en une seule phrase qui
+          s'éclaire au défilement (fiche « 4a » d'Antonino, 25/11/2026). */}
+      <MethodeScroll methode={home.methode} className={`${accentFont.variable} ${instrumentFont.variable}`} />
 
       {/* L'appel final AVANT la FAQ, et plus de fondateurs sur l'accueil :
           ils sont sur À propos (demande d'Antonino, 25/11/2026). */}

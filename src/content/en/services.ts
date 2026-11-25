@@ -1,12 +1,12 @@
 import type { SiteContent } from "../types";
 
 export const services = {
-  metaTitle: "Services · Integrations, AI & custom software · Synode",
-  metaDescription: "Connect your tools, put AI to work, build your custom software. Examples, pricing and security.",
+  metaTitle: "Services · Integrations, AI, software & websites · Synode",
+  metaDescription: "Connect your tools, put AI to work, build your custom software, website or mobile app. Examples, pricing and security.",
 
   hero: {
     eyebrow: "Services",
-    title: "Three ways to give your team time back",
+    title: "Four ways to give your team time back",
     accents: ["time back"],
     subtitle: "Every project starts from your tools, your data and your rules. We don’t sell off-the-shelf solutions.",
   },
@@ -49,6 +49,18 @@ export const services = {
         { strong: "A dashboard", rest: " (Power BI, Excel or web) that updates itself: sales, margins, cash." },
       ],
       result: "A tool built around how you work, not the other way round.",
+    },
+    {
+      key: "web",
+      title: "Build your website or mobile app",
+      problem: "Your website no longer reflects your business, or your customers expect an app you don’t have yet.",
+      does: "We design and build fast, clear, easy-to-use websites and mobile apps, connected to your tools.",
+      examples: [
+        { strong: "A website that works for you", rest: ": your services presented clearly, and every contact request sent straight into your tools." },
+        { strong: "A mobile app", rest: " on iPhone and Android, for your customers or your field teams." },
+        { strong: "A redesign of your current website", rest: ": faster, clearer, and built to be found on Google." },
+      ],
+      result: "An online presence that looks like you, and tools your customers actually use.",
     },
   ] as const,
 

@@ -93,6 +93,10 @@ export function MenuPanel({
   const idMenu = "menu-panneau";
   const idServices = "menu-panneau-services";
   const [servicesOuverts, setServicesOuverts] = useState(false);
+  /* Le type du dernier appui sur la flèche : à la souris, le survol a déjà
+     déplié les cartes et le clic ne doit pas les replier ; au clavier et
+     au doigt, la flèche déplie et replie. */
+  const dernierAppui = useRef<string>("");
 
   useEffect(() => {
     if (!open) return;
@@ -115,8 +119,18 @@ export function MenuPanel({
     { href: path(locale, ROUTES.contact), label: site.contactLabel },
   ];
 
-  const grandLien = (href: string, label: string, i: number) => (
-    <span key={href} className={s.ligne}>
+  /* Au survol d'« Accueil », au-dessus des services (souris), les cartes
+     se replient. Pas au survol des liens du dessous (Réalisations, À
+     propos, Contact) : ils resteraient sinon hors d'atteinte, la place des
+     cartes disparaissant sous le curseur (demande d'Antonino, 25/11/2026). */
+  const grandLien = (href: string, label: string, i: number, replie = false) => (
+    <span
+      key={href}
+      className={s.ligne}
+      onPointerEnter={(e) => {
+        if (replie && e.pointerType === "mouse") setServicesOuverts(false);
+      }}
+    >
       <NavLink href={href} locale={locale} onNavigate={onClose} className={s.grandLien} style={{ "--i": i } as CSSProperties}>
         {label}
       </NavLink>
@@ -137,18 +151,42 @@ export function MenuPanel({
         onKeyDown={(e) => piegeFocus(e, boite.current, idMenu)}
       >
         <nav className={s.liens} aria-label={site.navLabel}>
-          {accueil ? grandLien(homePath(locale), accueil.label, 0) : null}
+          {accueil ? grandLien(homePath(locale), accueil.label, 0, true) : null}
+          {/* « Services » (demande d'Antonino du 25/11/2026) : le MOT mène à
+              la page Services ; au survol de la ligne (souris), les cartes se
+              déplient. La petite FLÈCHE les déplie au clavier et au doigt. */}
           {services ? (
-            <span className={s.ligne}>
+            <span
+              className={cx(s.ligne, s.ligneServices)}
+              onPointerEnter={(e) => {
+                if (e.pointerType === "mouse") setServicesOuverts(true);
+              }}
+            >
+              <NavLink
+                href={path(locale, ROUTES.services)}
+                locale={locale}
+                onNavigate={onClose}
+                className={s.grandLien}
+                style={{ "--i": 1 } as CSSProperties}
+              >
+                {services.label}
+              </NavLink>
               <button
                 type="button"
                 className={cx(s.grandLien, s.deplier)}
                 style={{ "--i": 1 } as CSSProperties}
                 aria-expanded={servicesOuverts}
                 aria-controls={idServices}
-                onClick={() => setServicesOuverts((ouverts) => !ouverts)}
+                aria-label={site.servicesToggle}
+                onPointerDown={(e) => {
+                  dernierAppui.current = e.pointerType;
+                }}
+                onClick={() => {
+                  if (dernierAppui.current === "mouse") setServicesOuverts(true);
+                  else setServicesOuverts((ouverts) => !ouverts);
+                  dernierAppui.current = "";
+                }}
               >
-                {services.label}
                 <ChevronDown aria-hidden className={s.chevron} />
               </button>
             </span>

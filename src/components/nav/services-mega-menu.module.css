@@ -8,23 +8,38 @@
   display: flex;
 }
 
-/* « Services » : l'apparence d'un lien de la barre (`site-nav-link`), son
-   chevron ; sur la barre claire, bleu nuit et souligné. */
+/* « Services » : le mot (un lien vers la page Services) et sa petite flèche
+   (un bouton qui ouvre le menu), côte à côte, avec l'apparence d'un lien de
+   la barre (`site-nav-link`) ; sur la barre claire, bleu nuit et souligné
+   (25/11/2026). */
 .declencheur {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+}
+.lien.lien {
+  padding-right: 0;
+}
+.lien:global(.is-current)::after {
+  right: 0;
+}
+.fleche.fleche {
+  display: flex;
+  align-items: center;
+  padding-left: 0.35rem;
+  border: 0;
+  background: none;
   cursor: pointer;
 }
-.declencheur svg {
+.fleche svg {
   width: 14px;
   height: 14px;
   transition: transform 0.3s ease;
 }
-.declencheur[aria-expanded="true"] svg {
+.fleche[aria-expanded="true"] svg {
   transform: rotate(180deg);
 }
-:global(.site-page .site-header[data-mega]) .declencheur.declencheur {
+:global(.site-page .site-header[data-mega]) .declencheur > :global(.site-nav-link) {
   color: #0b1424;
 }
 .souligne {
@@ -167,7 +182,7 @@
 /* Sans mouvement : pas de déroulé, ni de montée, ni de cascade ; des
    fondus de 0,2s. */
 @media (prefers-reduced-motion: reduce) {
-  .declencheur svg,
+  .fleche svg,
   .souligne {
     transition: none;
   }

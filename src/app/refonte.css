@@ -211,6 +211,31 @@ main > .band.rf-section {
   padding-block: clamp(4rem, 2.6rem + 5vw, 7.5rem);
 }
 
+/* ---- L'ÉCART ENTRE LES SECTIONS DE L'ACCUEIL (25/11/2026, demande
+   d'Antonino) : celui qui sépare « Notre approche » des services (mesuré :
+   270 à 280px sur ordinateur, 141px sur 390), repris entre les
+   services et les réalisations, et entre les réalisations et « Notre
+   méthode » (`methode-scroll.module.css`). `--pad-section` : la marge
+   ci-dessus. `--methode-haut` : le haut du contenu dans le bloc fixé de
+   « Notre méthode » (140 à 200px), à peu près au milieu de l'écran sur
+   ordinateur, sous le voile flou de la barre sur téléphone. ---- */
+main {
+  --ecart-sections: clamp(140px, 21vw + 58px, 280px);
+  --pad-section: clamp(4rem, 2.6rem + 5vw, 7.5rem);
+  --methode-haut: clamp(140px, min(13.75vw, 22vh), 200px);
+}
+/* En bas, l'écart avec « Notre méthode », moins le haut de son contenu
+   (jamais négatif : l'écart vaut toujours au moins ce haut). Les deux
+   sections se touchent, sans se chevaucher : « Notre méthode » remontait
+   sur le bas des réalisations (marge négative), et pendant le passage au
+   bleu nuit leurs deux fonds blancs à demi transparents s'y
+   superposaient, en une bande plus claire (signalée par Antonino le
+   25/11/2026). */
+main > .band.rf-section#realisations {
+  padding-top: calc(var(--ecart-sections) - var(--pad-section));
+  padding-bottom: calc(var(--ecart-sections) - var(--methode-haut));
+}
+
 /* Une liste n'a pas de marge à elle : l'espace sous un titre vient de
    `section-gap-sm` (`globals.css`), qu'un `margin: 0` écrasait. */
 
@@ -465,6 +490,11 @@ main > .band.rf-section {
 main > .band#realisations .section-heading {
   margin-bottom: clamp(56px, 6vw, 88px);
 }
+/* Les services gardent l'écart de leur grille (`services-grid.module.css`) :
+   l'en-tête n'en ajoute pas. */
+main > .band#services .section-heading {
+  margin-bottom: 0;
+}
 main > .band#realisations .section-gap-sm {
   margin-top: 0;
 }
@@ -472,16 +502,16 @@ main > .band#realisations .section-gap-sm {
    à la même place : le bas du lien au niveau du bas du titre, au-dessus
    des traits (14px d'écart et 3px de trait). Sous 760px, l'en-tête passe
    en colonne et le lien sous les traits. */
-main > .band#realisations .section-heading > .go {
+main > .band:is(#services, #realisations) .section-heading > .go {
   margin-bottom: 17px;
   font-size: 13px;
 }
 @media (max-width: 760px) {
-  main > .band#realisations .section-heading > .go {
+  main > .band:is(#services, #realisations) .section-heading > .go {
     margin-bottom: 0;
   }
 }
-main > .band#realisations .section-heading > .go svg {
+main > .band:is(#services, #realisations) .section-heading > .go svg {
   width: 13px;
   height: 13px;
 }
@@ -510,7 +540,8 @@ main > .band#realisations .section-heading > .go svg {
 /* LA TAILLE DES TITRES DE SECTION DE L'ACCUEIL (`.lede-title` : `--fs-h2`,
    puis 29px sous 900px), celle qu'avait « Ce que nous avons construit » :
    les deux en-têtes ont la même (demande d'Antonino du 25/11/2026). */
-main > .band:is(#services, #realisations) .titre-anime-h2 {
+main > .band:is(#services, #realisations) .titre-anime-h2,
+main > #etapes .titre-anime-h2 {
   max-width: none;
   margin: 0;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
@@ -624,7 +655,8 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
 }
 /* Sous 900px : 29px, comme les autres titres de section (`studio.css`). */
 @media (max-width: 900px) {
-  main > .band:is(#services, #realisations) .titre-anime-h2 {
+  main > .band:is(#services, #realisations) .titre-anime-h2,
+  main > #etapes .titre-anime-h2 {
     font-size: 29px;
     line-height: 1.14;
     letter-spacing: -0.8px;
@@ -632,7 +664,8 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
 }
 /* Téléphone : deux lignes, le mot qui change à la ligne, à gauche. */
 @media (max-width: 639px) {
-  main > .band:is(#services, #realisations) .titre-anime-h2 {
+  main > .band:is(#services, #realisations) .titre-anime-h2,
+  main > #etapes .titre-anime-h2 {
     white-space: normal;
   }
   .titre-anime-fixe {
@@ -644,7 +677,8 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
 }
 /* Sans mouvement : la phrase entière, sans boucle ni traits. */
 @media (prefers-reduced-motion: reduce) {
-  main > .band:is(#services, #realisations) .titre-anime-h2 {
+  main > .band:is(#services, #realisations) .titre-anime-h2,
+  main > #etapes .titre-anime-h2 {
     white-space: normal;
   }
   .titre-anime-boucle,
@@ -669,12 +703,15 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
    passe au bleu nuit du hero, d'un seul fond : un calque fixe de la taille
    de l'écran (`.fond-nuit`) porte le bleu nuit et la lueur, toujours
    centrée sur l'écran, et les sections qui basculent (celle-ci, « Notre
-   approche » au-dessus et le haut des réalisations en dessous) deviennent
-   transparentes. Aucune ligne entre elles. Les couleurs s'inversent :
-   titre et étiquette clairs, mot qui change en bleu clair, cartes
-   blanches. Quand le haut des réalisations passe le même seuil, tout
-   l'écran redevient clair (seule cette section est en bleu nuit). En
-   remontant, tout revient. ---- */
+   approche » au-dessus et le haut des réalisations en dessous)
+   deviennent transparentes. Aucune ligne entre elles. Les couleurs
+   s'inversent : titre et étiquette clairs, mot qui change en bleu clair,
+   cartes blanches. Quand le haut des réalisations passe le même seuil,
+   tout l'écran redevient blanc, d'un bloc ; puis « Notre méthode » le
+   repasse au bleu nuit de la même façon, jusqu'à l'appel final (demande
+   d'Antonino du 25/11/2026 : bleu, blanc, bleu, « c'est simplement au
+   scroll que la couleur du fond se change »). En remontant, tout
+   revient. ---- */
 .fond-nuit {
   position: fixed;
   inset: 0;
@@ -694,22 +731,31 @@ main > .band:is(#services, #realisations) .titre-anime-h2 {
 }
 .site-page main > section.band#services[data-nuit] {
   background-color: transparent;
+  /* « Tous nos services » en bleu clair, lisible sur le bleu nuit. */
+  --brand: #8ec1ff;
+  --brand-hover: #b3d4ff;
 }
 /* L'en-tête, en négatif. */
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-etiquette {
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-etiquette,
+main > #etapes[data-nuit] .titre-anime-etiquette {
   color: #ffffff;
 }
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-h2 {
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-h2,
+main > #etapes[data-nuit] .titre-anime-h2 {
   color: #ffffff;
 }
 main > .band:is(#services, #realisations)[data-nuit] .titre-anime-mot,
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-fin {
+main > #etapes[data-nuit] .titre-anime-mot,
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-fin,
+main > #etapes[data-nuit] .titre-anime-fin {
   color: #8ec1ff;
 }
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span {
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span,
+main > #etapes[data-nuit] .titre-anime-traits span {
   background: rgb(255 255 255 / 20%);
 }
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.est-actif {
+main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.est-actif,
+main > #etapes[data-nuit] .titre-anime-traits span.est-actif {
   background: #8ec1ff;
 }
 /* Le haut des réalisations, visible sous les services tant que l'écran
@@ -726,14 +772,14 @@ main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.es
   --vitrine-nom: #ffffff;
   --vitrine-texte: rgb(255 255 255 / 70%);
 }
-main > .band#realisations .go {
+main > .band:is(#services, #realisations) .go {
   transition: color 0.6s ease;
 }
 @media (prefers-reduced-motion: reduce) {
   .fond-nuit,
   .site-page main > section.band#services,
   .site-page main > section.band#realisations,
-  main > .band#realisations .go {
+  main > .band:is(#services, #realisations) .go {
     transition: none;
   }
 }

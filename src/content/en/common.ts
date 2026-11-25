@@ -29,6 +29,7 @@ export const site = {
     { key: "web", title: "Websites & mobile apps", text: "Modern sites and apps, built around the user.", image: "/images/services/service-web.webp", focus: "45% 42%" },
   ] as const,
   menuOpen: "Open menu",
+  servicesToggle: "Show services",
   menuClose: "Close menu",
   menuDialog: "Menu",
   homeLabel: "Synode, back to home",
@@ -40,7 +41,6 @@ export const site = {
   legalLinks: { notice: "Legal notice", privacy: "Privacy" },
   copyright: "Synode",
   steps: {
-    title: "How it works",
     items: [
       { title: "A 30-min call.", text: "Tell us about one task that wastes your time." },
       { title: "A written scope.", text: "What we’ll build, how long it takes, what it costs." },

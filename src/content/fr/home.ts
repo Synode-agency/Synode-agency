@@ -66,10 +66,13 @@ export const home = {
     label: "Notre approche",
     /* Un seul paragraphe, qui se remplit au défilement (25/11/2026), à
        côté des trois photos de l'équipe en escalier (`ApproachScroll`). */
-    text: "Chaque entreprise a ses outils, ses habitudes et ses tâches qui prennent trop de temps. Nous ne vendons pas de logiciel standard\u00a0: nous partons de votre fonctionnement réel pour construire ce qui vous fait gagner du temps, avec de l'IA seulement là où elle sert vraiment.",
-    /* Les seuls mots en valeur : en Castoro italique bleu (25/11/2026).
-       Dans « l'IA », seul « IA » change de style. */
-    accents: ["logiciel", "IA"],
+    /* Texte d'Antonino du 25/11/2026. */
+    text: "Chaque entreprise a ses ambitions, ses besoins et sa manière de fonctionner. Du développement de logiciels sur mesure à la création de sites web et d’applications mobiles, nous concevons des outils adaptés à votre activité, intégrons l’intelligence artificielle et connectons vos systèmes pour simplifier vos processus et accompagner votre croissance.",
+    /* Les seuls mots en valeur, en Castoro italique bleu : « logiciels » et
+       « intelligence artificielle » (comme « logiciel » et « IA » dans le
+       texte d'avant). Dans « l’intelligence », seul « intelligence » change
+       de style. */
+    accents: ["logiciels", "intelligence", "artificielle"],
     /* Les trois photos de l'équipe, de haut en bas de l'escalier
        (décoratives : pas de texte alternatif). */
     photos: ["/images/approche-equipe.png", "/images/approche-tableau.png", "/images/approche-ecran.png"],
@@ -81,7 +84,8 @@ export const home = {
        boucle (`rotating`, dans cet ordre). `full` : la phrase entière, lue
        par les lecteurs d'écran et affichée telle quelle sans mouvement.
        Pour tout le monde, dit une fois (décision du 24/11/2026). */
-    eyebrow: "Nos services",
+    /* Le lien à droite du titre, comme « Toutes nos réalisations » (25/11/2026). */
+    link: "Tous nos services",
     prefix: "Conçus pour les",
     rotating: ["indépendants.", "PME.", "grandes entreprises."],
     full: "Conçus pour les indépendants, les PME et les grandes entreprises.",
@@ -132,12 +136,33 @@ export const home = {
        qui change en boucle (`rotating`, dans cet ordre). `full` : la phrase
        entière, lue par les lecteurs d'écran et affichée telle quelle sans
        mouvement ; `fullEnd` : sa fin, en serif italique bleu. */
-    eyebrow: "Nos réalisations",
     prefix: "Ce que nous avons",
     rotating: ["développé.", "connecté.", "intégré.", "automatisé."],
     full: "Ce que nous avons développé, connecté, intégré et automatisé.",
     fullEnd: "développé, connecté, intégré et automatisé.",
     link: "Toutes nos réalisations",
+  },
+
+  /* « Notre méthode », la section « Comment ça marche » (25/11/2026, fiche
+     « 4a · Une seule phrase » d'Antonino) : les trois étapes en un seul
+     paragraphe, dont les mots s'éclairent au défilement. Chaque étape : un
+     début de titre, un mot clé (en italique) et une description. */
+  methode: {
+    /* À droite du titre, comme « Tous nos services », sans lien. */
+    label: "Notre méthode",
+    /* Le titre animé, comme ceux des services et des réalisations : la fin
+       change en boucle (demande d'Antonino du 25/11/2026). */
+    title: {
+      prefix: "Construisons la suite,",
+      rotating: ["ensemble.", "pour votre entreprise.", "pas à pas."],
+      full: "Construisons la suite, ensemble, pour votre entreprise et pas à pas.",
+      fullEnd: "ensemble, pour votre entreprise et pas à pas.",
+    },
+    etapes: [
+      { debut: "Un appel de", cle: "30 min.", description: "Vous nous présentez votre activité et ce que vous aimeriez améliorer." },
+      { debut: "Un cadrage", cle: "écrit.", description: "Ce qu’on construit, en combien de temps, pour quel prix." },
+      { debut: "Livraison et", cle: "suivi.", description: "On installe, on forme votre équipe, on reste disponibles." },
+    ],
   },
 
   faq: {
