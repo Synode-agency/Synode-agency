@@ -167,7 +167,7 @@ export const home = {
 
   /* LES TÉMOIGNAGES (25/11/2026, maquette « T1 · Une grande citation »
      choisie par Antonino), sous « Notre méthode » : une grande citation à
-     la fois, qui glisse de droite à gauche toutes les 2,7 secondes, comme un
+     la fois, qui glisse de droite à gauche après 3,5 s d'arrêt, comme un
      slider (26/11/2026). Le logo de l'entreprise est à côté du nom : celui
      du bandeau des logos (`public/clients/`) ; `hauteur` est sa hauteur
      affichée, réglée à l'œil pour que les quatre aient le même poids.

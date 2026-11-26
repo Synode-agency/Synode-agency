@@ -32,10 +32,11 @@ type Temoignage = {
    (« endroit » et le point qui le suit restent collés). */
 type Mot = { texte: string; cle: boolean; espace: boolean };
 
-/* Un nouvel avis toutes les 2,7 secondes, comptées depuis le début du
-   balayage (4 s auparavant, jugées trop longues par Antonino le
-   26/11/2026). Le balayage dure 1,2 s : l'avis reste immobile 1,5 s. */
-const DUREE = 2700;
+/* Chaque avis reste immobile 3,5 secondes une fois son balayage terminé,
+   puis le suivant arrive (demandes d'Antonino du 26/11/2026 : 1,5 s puis
+   3 s d'arrêt étaient trop rapides). Le balayage dure 1,2 s : un nouvel
+   avis toutes les 4,7 s environ. */
+const PAUSE = 3500;
 /* Le balayage (maquette « 8 · Les lignes en balayage », choisie le
    26/11/2026) : chaque ligne traverse l'écran en 820 ms, 70 ms après celle
    du dessus ; les lignes du nouvel avis partent 140 ms après. Courbe des
@@ -141,7 +142,7 @@ function relacher(el: HTMLElement) {
  * l'avis, le compteur et les flèches. Sous le titre, les petits traits des
  * titres animés (`titre-anime-traits`) suivent l'avis affiché.
  *
- * Toutes les 2,7 secondes, les lignes de l'avis partent vers la gauche l'une
+ * Après 3,5 s d'arrêt, les lignes de l'avis partent vers la gauche l'une
  * après l'autre, et celles du suivant arrivent de la droite. Les flèches
  * font de même (la flèche de gauche dans l'autre sens) ; le défilement
  * continue ensuite. Pas de bouton pause (choix d'Antonino).
@@ -207,6 +208,8 @@ export function Temoignages({
   const carrouselRef = useRef<HTMLDivElement>(null);
   const diapos = useRef<(HTMLElement | null)[]>([]);
   const indexRef = useRef(0);
+  /* L'instant où le balayage en cours se termine. */
+  const finBalayage = useRef(0);
   const prise = useRef<{ x0: number; dx: number; t: number; v: number; voisin: number } | null>(null);
 
   const tourne = total > 1 && vu && !survol && !clavier && !tenu && !reduit;
@@ -223,13 +226,15 @@ export function Temoignages({
     return () => observateur.disconnect();
   }, []);
 
-  /* Le minuteur repart de zéro à chaque nouvel avis (flèches et gestes
-     compris) et à chaque reprise. */
+  /* Le minuteur : la fin du balayage en cours, puis les 3,5 s d'arrêt. Il
+     repart à chaque nouvel avis (flèches et gestes compris) et à chaque
+     reprise. */
   useEffect(() => {
     if (!tourne) return;
+    const reste = Math.max(0, finBalayage.current - performance.now());
     const minuteur = window.setTimeout(
       () => setEtat((e) => ({ index: (e.index + 1) % total, sortant: e.index, sens: 1, geste: false })),
-      DUREE,
+      reste + PAUSE,
     );
     return () => window.clearTimeout(minuteur);
   }, [tourne, index, total]);
@@ -271,6 +276,9 @@ export function Temoignages({
     const partant = pieces(diapos.current[sortant]);
     const entrant = pieces(diapos.current[index]);
     for (const el of [...partant, ...entrant]) for (const a of el.getAnimations()) a.cancel();
+    const derniere = Math.max(0, entrant.length - 1);
+    finBalayage.current =
+      performance.now() + (reduit ? 200 : geste ? derniere * 30 + GLISSE : ENTREE + derniere * DECALAGE + GLISSE);
     if (reduit) {
       for (const el of [...partant, ...entrant]) relacher(el);
       for (const el of entrant) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
