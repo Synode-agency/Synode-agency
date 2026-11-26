@@ -21,6 +21,10 @@
   transition: background-color 0.6s ease;
   /* La durée du blocage : environ un écran, puis la page reprend. */
   height: 190vh;
+  /* L'écart avec la section suivante (les témoignages, ou l'appel final
+     sans eux) : `--ecart-sections`, comme partout, moins la marge du haut
+     de celle-ci (`--pad-appel`, `refonte.css`). */
+  padding-bottom: calc(var(--ecart-sections, 280px) - var(--pad-appel, 100px));
   /* L'écart avec les réalisations, le même qu'entre « Notre approche » et
      les services (`--ecart-sections`, demande d'Antonino), se compte
      jusqu'au titre : la marge du bas des réalisations, puis le haut du
@@ -52,10 +56,12 @@
   flex-direction: column;
   justify-content: flex-start;
   box-sizing: border-box;
-  min-height: 100vh;
   width: min(100%, var(--container-max));
   margin: 0 auto;
-  padding: var(--methode-haut, 140px) var(--band-pad-x) clamp(48px, 6vw, 80px);
+  /* Pas de hauteur d'écran imposée ni de marge du bas : le bloc s'arrête à
+     son texte, et l'écart avec la suite est la marge du bas de la section,
+     quelle que soit la hauteur de l'écran. */
+  padding: var(--methode-haut, 140px) var(--band-pad-x) 0;
 }
 
 /* L'en-tête : le titre animé à gauche, l'étiquette à droite. L'écart avec
@@ -140,7 +146,6 @@
   }
   .pin {
     position: static;
-    min-height: 0;
   }
   .mot,
   .etiquette {

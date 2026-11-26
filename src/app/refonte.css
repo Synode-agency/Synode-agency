@@ -223,6 +223,10 @@ main {
   --ecart-sections: clamp(140px, 21vw + 58px, 280px);
   --pad-section: clamp(4rem, 2.6rem + 5vw, 7.5rem);
   --methode-haut: clamp(140px, min(13.75vw, 22vh), 200px);
+  /* La marge du haut de la carte de l'appel final (`.cta-shell--tall`,
+     `studio.css`), reprise en haut des témoignages : « Notre méthode » est
+     alors à la même distance de l'une ou de l'autre. */
+  --pad-appel: clamp(4rem, 7vw, 7rem);
 }
 /* En bas, l'écart avec « Notre méthode », moins le haut de son contenu
    (jamais négatif : l'écart vaut toujours au moins ce haut). Les deux
@@ -352,6 +356,35 @@ main > .band.rf-section#realisations {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+  }
+  /* LE CALAGE (26/11/2026, demande d'Antonino) : centrée dans un bloc de
+     la hauteur de l'écran, la scène laissait sous elle un vide qui
+     dépendait de cette hauteur, et l'écart avec les services aussi (223px
+     sur un écran de 784px de haut, 374px sur 1080). Le script mesure la
+     scène (`data-cale`) : elle se fixe à `--approche-haut` du haut de
+     l'écran, ce qui la centre comme avant, et ne fait plus que sa propre
+     hauteur (`--approche-h`). Le blocage dure toujours 140vh, et l'écart
+     avec les services est `--ecart-sections` à toutes les hauteurs : la
+     marge de la scène (80px, la place de la dérive des photos et de leur
+     ombre), celle du bas de la section et celle du haut des services,
+     plus le dépassement des photos sous le texte à la fin de leur dérive
+     (`--approche-depasse`, mesuré par le script). Sans script, la mise en
+     page d'avant, ci-dessus. */
+  .approach[data-cale] {
+    --approche-bas: max(
+      0px,
+      calc(var(--ecart-sections) - var(--pad-section) - 80px + var(--approche-depasse, 0px))
+    );
+    box-sizing: border-box;
+    height: calc(140vh + var(--approche-haut) + var(--approche-h) + var(--approche-bas));
+    padding-top: var(--approche-haut);
+    padding-bottom: var(--approche-bas);
+  }
+  .approach[data-cale] .approach-scene {
+    top: var(--approche-haut);
+    height: auto;
+    padding-block: 80px;
+    overflow: visible;
   }
 }
 .approach-grille {
@@ -750,11 +783,13 @@ main > .band:is(#services, #realisations)[data-nuit] .titre-anime-fin,
 main > #etapes[data-nuit] .titre-anime-fin {
   color: #8ec1ff;
 }
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span,
+/* (Les traits sous le titre des témoignages aussi, tant que leur haut est
+   en bleu nuit avec « Notre méthode ».) */
+main > .band:is(#services, #realisations, #temoignages)[data-nuit] .titre-anime-traits span,
 main > #etapes[data-nuit] .titre-anime-traits span {
   background: rgb(255 255 255 / 20%);
 }
-main > .band:is(#services, #realisations)[data-nuit] .titre-anime-traits span.est-actif,
+main > .band:is(#services, #realisations, #temoignages)[data-nuit] .titre-anime-traits span.est-actif,
 main > #etapes[data-nuit] .titre-anime-traits span.est-actif {
   background: #8ec1ff;
 }
@@ -841,6 +876,69 @@ main > .band:is(#services, #realisations) .go {
   --brand: #0067ea;
   --brand-foreground: #ffffff;
   --brand-hover: #0051b7;
+}
+
+/* ---- LES TÉMOIGNAGES DE L'ACCUEIL (25/11/2026, maquette « T1 » choisie
+   par Antonino), sous « Notre méthode » : sur fond BLANC, quel que soit
+   leur rang (le bleu très pâle de la maquette est remplacé à sa demande :
+   le passage du bleu nuit au blanc est alors le même qu'entre les services
+   et les réalisations). Tant que l'écran est en bleu nuit avec « Notre
+   méthode », leur haut l'est aussi (`SectionNuit`), puis tout l'écran
+   redevient blanc d'un bloc à leur arrivée. Le contenu est dans
+   `temoignages.module.css`. ---- */
+.site-theme-alternating main > .band.rf-section#temoignages {
+  /* L'écart avec « Notre méthode » au-dessus et avec l'appel final
+     au-dessous : `--ecart-sections`, comme entre toutes les sections
+     (demande d'Antonino du 25/11/2026). En haut, la marge de la carte de
+     l'appel (la marge du bas de « Notre méthode » fait le reste) ; en bas,
+     l'écart moins cette même marge, que la carte ajoute. */
+  padding-top: var(--pad-appel);
+  padding-bottom: calc(var(--ecart-sections) - var(--pad-appel));
+  /* Le glissement d'un avis à l'autre traverse l'écran (26/11/2026) : la
+     bande le coupe à ses bords, sans barre de défilement horizontale. */
+  overflow-x: clip;
+  background: #ffffff;
+  color: #0b1424;
+  --foreground: #0b1424;
+  --muted-foreground: #5a6272;
+  --brand: #0a6cf0;
+  --brand-foreground: #ffffff;
+  --brand-hover: #0058c8;
+  transition: background-color 0.6s ease;
+}
+.site-page main > section.band#temoignages[data-nuit] {
+  background-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-theme-alternating main > .band.rf-section#temoignages {
+    transition: none;
+  }
+}
+
+/* ---- L'APPEL FINAL DE L'ACCUEIL, SUR FOND BLANC (26/11/2026, demande
+   d'Antonino) : sa coquille prenait le gris très clair de la page, une
+   bande grise entre les témoignages et la FAQ, blancs tous les deux. Comme
+   `.cta-shell--tint` (`studio.css`) : la coquille traverse l'écran et la
+   carte reprend la largeur du conteneur. Seulement sur l'accueil (juste
+   après « Notre méthode » ou les témoignages). Tant que l'écran est en bleu
+   nuit avec « Notre méthode » (sans témoignages, son haut est visible en
+   bas de l'écran), elle l'est aussi (`SectionNuit`). ---- */
+main > :is(#etapes, #temoignages) + .card-shell {
+  max-width: none;
+  background: #ffffff;
+  transition: background-color 0.6s ease;
+}
+main > :is(#etapes, #temoignages) + .card-shell > .card-panel {
+  max-width: calc(var(--container-max) - var(--band-pad-x) * 2);
+  margin-inline: auto;
+}
+main > :is(#etapes, #temoignages) + .card-shell[data-nuit] {
+  background-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  main > :is(#etapes, #temoignages) + .card-shell {
+    transition: none;
+  }
 }
 
 /* ---- Sous la FAQ de l'accueil : « Une autre question ? » et le bouton

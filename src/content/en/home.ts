@@ -100,6 +100,68 @@ export const home = {
     ],
   },
 
+  /* ⚠ Invented texts, shown only locally while `valide` is false: see the
+     French content. */
+  temoignages: {
+    title: "What our clients say",
+    accent: "clients",
+    precedent: "Previous testimonial",
+    suivant: "Next testimonial",
+    indice: "Slide",
+    items: [
+      {
+        texte:
+          "Synode took the time to understand our trade before proposing anything. Our quotes and our job sites are finally tracked in a single place.",
+        cle: "in a single place",
+        nom: "Salvatore B.",
+        poste: "Entrepreneur",
+        entreprise: "BetaPro",
+        logo: { src: "/clients/betapro.png", width: 198, height: 160, hauteur: 36 },
+        valide: false,
+      },
+      {
+        texte:
+          "Invoicing, reminders, payment tracking: Synode automated all of it. What used to eat up our evenings now runs on its own, every single day.",
+        cle: "automated all of it",
+        nom: "Enrico P.",
+        poste: "Entrepreneur",
+        entreprise: "Picarle Rénovation",
+        logo: { src: "/clients/picarle.png", width: 155, height: 160, hauteur: 36 },
+        valide: false,
+      },
+      {
+        texte:
+          "From the website to the newsletter, everything is built for our members. Synode got the spirit of the club and turned it into tools we use every week.",
+        cle: "the spirit of the club",
+        nom: "Clara C.",
+        poste: "Manager",
+        entreprise: "BEHYBRID",
+        logo: { src: "/clients/behybrid.png", width: 900, height: 90, hauteur: 13 },
+        valide: false,
+      },
+      {
+        texte:
+          "For a non-profit like ours, every hour counts. Synode helped us automate what was eating our time, without ever making things complicated.",
+        cle: "every hour counts",
+        nom: "Paolo L.",
+        poste: "Founder",
+        entreprise: "Bâtisseurs d’espoir",
+        logo: { src: "/clients/batisseurs-espoir.png", width: 460, height: 160, hauteur: 28 },
+        valide: false,
+      },
+      {
+        texte:
+          "I came up with Coory to coach faster with AI and make it my own brand. The admin side already runs; Synode is finishing the space for my clients.",
+        cle: "my own brand",
+        nom: "Gianluca L.",
+        poste: "Sports coach",
+        entreprise: "GLB Coaching",
+        logo: { src: "/clients/glb-coaching.png", width: 437, height: 160, hauteur: 26 },
+        valide: false,
+      },
+    ],
+  },
+
   faq: {
     title: "Common questions",
     more: "Another question?",

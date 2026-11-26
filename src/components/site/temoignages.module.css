@@ -1,0 +1,464 @@
+/* =====================================================================
+   LES TÉMOIGNAGES DE L'ACCUEIL (25/11/2026, maquette « T1 » choisie par
+   Antonino ; en slider, puis dans le design « 8 · Les lignes en
+   balayage », le 26/11/2026). Isolés dans ce module ; le fond de la bande
+   (blanc, bleu nuit avec « Notre méthode »), sa découpe aux bords de
+   l'écran (le balayage) et les petits traits sous le titre
+   (`.titre-anime-traits`) sont dans `refonte.css`.
+
+   Trois blocs bien séparés (demande d'Antonino du 26/11/2026) : le titre,
+   l'avis (la citation puis le client), et en bas la petite main, le
+   compteur et les flèches.
+   ===================================================================== */
+
+/* L'en-tête : le titre, à la taille des autres titres de section, et les
+   petits traits dessous. Du bas du titre au haut des lettres de la
+   citation, le même écart que du titre aux cartes dans les services et les
+   réalisations : leurs traits (17px) puis leur marge, clamp(56px, 6vw,
+   88px). Le vide au-dessus des lettres est repris par la marge négative de
+   la citation (`.texte`). Sans traits (un seul avis), leurs 17px passent
+   dans la marge. */
+.tete {
+  margin-bottom: calc(17px + clamp(56px, 6vw, 88px));
+}
+.teteTraits {
+  margin-bottom: clamp(56px, 6vw, 88px);
+}
+.titre {
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+  color: #0b1424;
+  text-wrap: balance;
+  transition: color 0.6s ease;
+}
+/* « clients » : en Castoro italique bleu, comme les mots qui changent dans
+   les titres des autres sections. */
+.accent {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: #0a6cf0;
+  transition: color 0.6s ease;
+}
+
+/* ---- Le slider. Sa largeur sert de mesure (`container-type`). ---- */
+.grande {
+  position: relative;
+  container-type: inline-size;
+}
+/* La zone qu'on attrape : la citation et le client. */
+.attrapable {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tenue {
+  cursor: grabbing;
+}
+
+/* LA TAILLE DE LA CITATION ET LES 4 LIGNES : 33 caractères de large (33ch,
+   la largeur qui met les dix textes, français et anglais, sur 4 lignes),
+   tout à gauche. 36px au plus sur ordinateur (57px dans la maquette,
+   réduite à la demande d'Antonino du 26/11/2026 ; le logo et le nom ne
+   changent pas) ; quand la colonne devient plus étroite que ces 33ch
+   (téléphone), la taille suit sa largeur (100cqi / 18,5 : en Manrope, 33ch
+   valent 18,4 fois la taille). Le texte se coupe donc aux mêmes endroits
+   sur tous les écrans. */
+.diapos {
+  display: grid;
+  font-size: min(clamp(24px, 1.2vw + 19px, 36px), calc(100cqi / 18.5));
+}
+/* Les avis, empilés dans la même case : la zone garde la hauteur du plus
+   long. Seul l'avis affiché est visible ; pendant un balayage ou un geste,
+   le script montre aussi celui qui part ou qui arrive. */
+.diapo {
+  grid-area: 1 / 1;
+  width: min(33ch, 100%);
+  min-width: 0;
+  margin: 0;
+  visibility: hidden;
+}
+.affiche {
+  visibility: visible;
+}
+
+/* Le texte, aligné à gauche ; la marge négative reprend le vide au-dessus
+   de ses lettres (voir l'en-tête). Une fois découpé, chaque ligne est un
+   bloc qui glisse seul. */
+.texte {
+  margin: -0.3em 0 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+  color: #0b1424;
+  transition: color 0.6s ease;
+}
+.texte p {
+  margin: 0;
+}
+/* (À la largeur de son texte : le geste mesure où finit chaque ligne.) */
+.ligne {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+/* Le passage clé de chaque avis, en Castoro italique bleu, comme les mots
+   en couleur des titres (choix « B » d'Antonino sur maquettes, le
+   26/11/2026, à la place du guillemet). Un peu plus grand pour tenir face
+   à Manrope, sans écarter sa ligne des autres. */
+.cle {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: -0.01em;
+  color: #0a6cf0;
+  transition: color 0.6s ease;
+}
+
+/* Le client : le logo de son entreprise, un filet, puis son nom, sa
+   fonction et son entreprise. Les logos sont des silhouettes blanches
+   (`public/clients/`) : un filtre les passe en noir sur le blanc. */
+.qui {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 40px;
+}
+.logo {
+  display: block;
+  flex: none;
+  max-width: none;
+  filter: brightness(0);
+  transition: filter 0.6s ease;
+}
+/* Un logo d'origine, en couleur : tel quel (demande d'Antonino du
+   26/11/2026, pour les témoignages seulement). */
+.logoCouleur,
+:global(#temoignages[data-nuit]) .logoCouleur {
+  filter: none;
+}
+.filet {
+  flex: none;
+  width: 1px;
+  height: 36px;
+  background: #d5d9e0;
+  transition: background-color 0.6s ease;
+}
+.identite {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.nom {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0b1424;
+  transition: color 0.6s ease;
+}
+.poste {
+  font-size: 14px;
+  color: #5a6272;
+  transition: color 0.6s ease;
+}
+
+/* ---- En bas : la petite main à gauche, le compteur et les flèches à
+   droite, bien détachés de l'avis ---- */
+.bas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: clamp(44px, 4vw, 56px);
+}
+
+/* LA PETITE MAIN ET SON MOT (demandes d'Antonino du 26/11/2026, à la place
+   de « Faites glisser l'avis ») : la main apparaît, se ferme pour attraper,
+   glisse vers la gauche en laissant un petit trait bleu, s'ouvre pour
+   lâcher et s'efface ; puis le mot (« Glissez ») arrive de la droite, reste
+   un instant et repart vers la gauche ; puis 3 s sans rien, et tout
+   recommence (demande d'Antonino : cycle de 6,8 s, dont 3,8 s
+   d'animation).
+   Décoratifs : les flèches restent le moyen annoncé de changer d'avis. */
+.indice {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 72px;
+  height: 32px;
+  color: #5a6272;
+  transition: color 0.6s ease;
+}
+.indicePiste {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  left: 10px;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgb(10 108 240 / 0%), #0a6cf0);
+  transform: scaleX(0);
+  transform-origin: right center;
+  animation: indice-piste 6.8s infinite;
+}
+.indiceMain {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  animation: indice-main 6.8s infinite;
+}
+.mainOuverte,
+.mainFermee {
+  position: absolute;
+  inset: 0;
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.75;
+}
+.mainOuverte {
+  animation: indice-ouverte 6.8s infinite;
+}
+.mainFermee {
+  opacity: 0;
+  animation: indice-fermee 6.8s infinite;
+}
+.indiceMot {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(10px, -50%);
+  animation: indice-mot 6.8s infinite;
+}
+@keyframes indice-main {
+  0% {
+    opacity: 0;
+    transform: translateX(0) scale(1);
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  9% {
+    opacity: 1;
+    transform: translateX(0) scale(0.9);
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  24% {
+    transform: translateX(-40px) scale(0.9);
+  }
+  28% {
+    opacity: 1;
+    transform: translateX(-40px) scale(1);
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: translateX(-40px) scale(1);
+  }
+}
+@keyframes indice-ouverte {
+  0%,
+  8% {
+    opacity: 1;
+  }
+  10%,
+  26% {
+    opacity: 0;
+  }
+  28%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes indice-fermee {
+  0%,
+  8% {
+    opacity: 0;
+  }
+  10%,
+  26% {
+    opacity: 1;
+  }
+  28%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes indice-piste {
+  0%,
+  9% {
+    opacity: 1;
+    transform: scaleX(0);
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  24% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+/* Le mot, de 2,2 s à 3,8 s ; puis les 3 s de pause, jusqu'à 6,8 s. */
+@keyframes indice-mot {
+  0%,
+  32% {
+    opacity: 0;
+    transform: translate(10px, -50%);
+  }
+  37% {
+    opacity: 1;
+    transform: translate(0, -50%);
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+  56%,
+  100% {
+    opacity: 0;
+    transform: translate(-10px, -50%);
+  }
+}
+
+/* Le compteur et les deux flèches. */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.compte {
+  margin-right: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #5a6272;
+  transition: color 0.6s ease;
+}
+.fleche {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid #c9d3e3;
+  border-radius: 50%;
+  background: transparent;
+  color: #0b1424;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+.fleche svg {
+  width: 18px;
+  height: 18px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .fleche:hover {
+    border-color: #0b1424;
+    background: #0b1424;
+    color: #ffffff;
+  }
+}
+.fleche:focus-visible {
+  outline: 2px solid #0a6cf0;
+  outline-offset: 3px;
+}
+
+/* En bleu nuit, tant que l'écran l'est avec « Notre méthode » (`SectionNuit`
+   pose `data-nuit` sur la bande) : en négatif. */
+:global(#temoignages[data-nuit]) .titre,
+:global(#temoignages[data-nuit]) .texte,
+:global(#temoignages[data-nuit]) .nom {
+  color: #ffffff;
+}
+:global(#temoignages[data-nuit]) .accent,
+:global(#temoignages[data-nuit]) .cle {
+  color: #8ec1ff;
+}
+:global(#temoignages[data-nuit]) .poste,
+:global(#temoignages[data-nuit]) .compte,
+:global(#temoignages[data-nuit]) .indice {
+  color: #a9b3c6;
+}
+:global(#temoignages[data-nuit]) .logo {
+  filter: brightness(1);
+}
+:global(#temoignages[data-nuit]) .filet {
+  background: rgb(255 255 255 / 20%);
+}
+:global(#temoignages[data-nuit]) .indicePiste {
+  background: linear-gradient(90deg, rgb(142 193 255 / 0%), #8ec1ff);
+}
+:global(#temoignages[data-nuit]) .fleche {
+  border-color: rgb(255 255 255 / 30%);
+  color: #ffffff;
+}
+
+/* Sous 900px, le titre à 29px, comme les autres titres de section. */
+@media (max-width: 900px) {
+  .titre {
+    font-size: 29px;
+    line-height: 1.14;
+    letter-spacing: -0.8px;
+  }
+}
+/* Téléphone : un peu moins d'air sous la citation et avant le bas. */
+@media (max-width: 760px) {
+  .qui {
+    margin-top: 28px;
+  }
+  .bas {
+    margin-top: 36px;
+  }
+}
+
+/* Sans mouvement : ni défilement ni geste (le script), donc pas de petite
+   main ; les couleurs changent sans transition. */
+@media (prefers-reduced-motion: reduce) {
+  .indice {
+    display: none;
+  }
+  .bas {
+    justify-content: flex-end;
+  }
+  .titre,
+  .accent,
+  .texte,
+  .cle,
+  .logo,
+  .filet,
+  .nom,
+  .poste,
+  .compte,
+  .fleche {
+    transition: none;
+  }
+}

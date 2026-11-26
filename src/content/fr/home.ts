@@ -165,6 +165,99 @@ export const home = {
     ],
   },
 
+  /* LES TÉMOIGNAGES (25/11/2026, maquette « T1 · Une grande citation »
+     choisie par Antonino), sous « Notre méthode » : une grande citation à
+     la fois, qui glisse de droite à gauche toutes les 2,7 secondes, comme un
+     slider (26/11/2026). Le logo de l'entreprise est à côté du nom : celui
+     du bandeau des logos (`public/clients/`) ; `hauteur` est sa hauteur
+     affichée, réglée à l'œil pour que les quatre aient le même poids.
+     ⚠ CHAQUE TEXTE TIENT SUR 4 LIGNES (demande d'Antonino du 26/11/2026) :
+     un nouveau texte doit avoir à peu près la longueur des autres (140 à
+     155 signes), puis se vérifier à l'écran.
+     ⚠ TEXTES INVENTÉS (26/11/2026), à la demande d'Antonino, pour la mise
+     en page : ils seront remplacés par les vrais mots de chaque client.
+     Tant que `valide` est `false`, l'avis ne s'affiche qu'en local
+     (`npm run dev`), jamais en ligne : on ne publie pas un avis inventé.
+     Avec le vrai texte et l'accord écrit du client (nom, fonction,
+     entreprise, logo), passer `valide` à `true`.
+     `cle` : le passage en Castoro italique bleu, à la place du guillemet
+     (choix « B » d'Antonino sur maquettes, le 26/11/2026) ; il doit figurer
+     tel quel dans le texte. */
+  temoignages: {
+    title: "Ce qu’en disent nos clients",
+    /* En Castoro italique bleu, comme les mots en couleur des autres titres. */
+    accent: "clients",
+    precedent: "Témoignage précédent",
+    suivant: "Témoignage suivant",
+    /* Le petit mot qui apparaît après le geste de la main animée, sous
+       l'avis (demande d'Antonino du 26/11/2026). */
+    indice: "Glissez",
+    items: [
+      {
+        texte:
+          "Synode a pris le temps de comprendre notre métier avant de proposer quoi que ce soit. Nos devis et nos chantiers sont enfin suivis au même endroit.",
+        cle: "au même endroit",
+        nom: "Salvatore B.",
+        poste: "Entrepreneur",
+        entreprise: "BetaPro",
+        logo: { src: "/clients/betapro.png", width: 198, height: 160, hauteur: 36 },
+        valide: false,
+      },
+      {
+        texte:
+          "Facturation, relances, suivi des paiements\u00a0: Synode a tout automatisé. Ce qui nous prenait des soirées entières se fait maintenant tout seul.",
+        cle: "tout automatisé",
+        nom: "Enrico P.",
+        poste: "Entrepreneur",
+        entreprise: "Picarle Rénovation",
+        logo: { src: "/clients/picarle.png", width: 155, height: 160, hauteur: 36 },
+        valide: false,
+      },
+      {
+        texte:
+          "Du site à la newsletter, tout est pensé pour nos membres. Synode a compris l’esprit du club et l’a traduit en outils simples, qu’on utilise chaque semaine.",
+        cle: "l’esprit du club",
+        nom: "Clara C.",
+        poste: "Manager",
+        entreprise: "BEHYBRID",
+        logo: { src: "/clients/behybrid.png", width: 900, height: 90, hauteur: 13 },
+        valide: false,
+      },
+      {
+        texte:
+          "Pour une ASBL comme la nôtre, chaque heure compte. Synode nous a aidés à automatiser ce qui nous prenait du temps, sans jamais nous compliquer la vie.",
+        cle: "chaque heure compte",
+        nom: "Paolo L.",
+        poste: "Fondateur",
+        entreprise: "Bâtisseurs d’espoir",
+        logo: { src: "/clients/batisseurs-espoir.png", width: 460, height: 160, hauteur: 28 },
+        valide: false,
+      },
+      {
+        /* Coory, l'application de coaching que Synode développe pour lui :
+           l'idée et la marque sont les siennes, il pourra la vendre
+           (26/11/2026 : texte écrit d'après ce qu'Antonino veut lui faire
+           dire, à faire valider par Gianluca). */
+        texte:
+          "J’ai imaginé Coory pour coacher plus vite grâce à l’IA, et en faire ma propre marque. L’administratif tourne déjà ; Synode termine l’espace de mes clients.",
+        cle: "ma propre marque",
+        nom: "Gianluca L.",
+        poste: "Coach sportif",
+        entreprise: "GLB Coaching",
+        logo: { src: "/clients/glb-coaching.png", width: 437, height: 160, hauteur: 26 },
+        valide: false,
+      },
+    ] as readonly {
+      texte: string;
+      cle: string;
+      nom: string;
+      poste: string;
+      entreprise: string;
+      logo: { src: string; width: number; height: number; hauteur: number };
+      valide: boolean;
+    }[],
+  },
+
   faq: {
     title: "Questions fréquentes",
     /* Sous la FAQ, devant le bouton unique du site en lien discret. */

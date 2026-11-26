@@ -64,6 +64,7 @@ function decouper(etapes: Methode["etapes"]): Mot[][] {
 export function MethodeScroll({ methode, className }: { methode: Methode; className?: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const texteRef = useRef<HTMLParagraphElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const etapes = decouper(methode.etapes);
 
   useEffect(() => {
@@ -85,11 +86,16 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
       });
     };
 
-    // La progression du blocage, mesurée sur la section : 0 quand elle se
-    // fixe en haut de l'écran, 1 quand la page reprend son défilement.
+    // La progression du blocage, mesurée sur la section : 0 quand le bloc se
+    // fixe en haut de l'écran, 1 quand il repart avec la page. Sa course :
+    // la hauteur de la section, moins sa marge du bas (l'écart avec la
+    // section suivante) et la hauteur du bloc, qui n'occupe plus tout
+    // l'écran (25/11/2026 : l'écart avec la suite ne dépend plus de la
+    // hauteur de l'écran).
     const progression = () => {
-      const r = section.getBoundingClientRect();
-      const p = -r.top / Math.max(1, r.height - window.innerHeight);
+      const bas = parseFloat(getComputedStyle(section).paddingBottom) || 0;
+      const course = section.offsetHeight - bas - (pinRef.current?.offsetHeight ?? window.innerHeight);
+      const p = -section.getBoundingClientRect().top / Math.max(1, course);
       return Number.isFinite(p) ? clamp(p) : 0;
     };
 
@@ -153,8 +159,12 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
 
   return (
     <section ref={sectionRef} id="etapes" className={cx(s.section, className)} aria-label={methode.label}>
-      <SectionNuit aussi="#realisations" jusqua="main > .card-shell" />
-      <div className={s.pin}>
+      {/* Le bleu nuit couvre aussi le haut des témoignages, visible en bas
+          de l'écran, et prend fin à leur arrivée (sans témoignages, à
+          l'appel final, dont la coquille est blanche elle aussi) : jamais
+          d'écran coupé en deux couleurs. */}
+      <SectionNuit aussi="#realisations, #temoignages, main > .card-shell" jusqua="#temoignages, main > .card-shell" />
+      <div ref={pinRef} className={s.pin}>
         <div className={cx("section-heading home-section-heading", s.entete)}>
           <TitreAnime
             prefix={methode.title.prefix}

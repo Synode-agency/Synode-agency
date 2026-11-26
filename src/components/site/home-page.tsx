@@ -10,6 +10,7 @@ import { CaseShowcase } from "@/components/site/case-cards";
 import { CtaSection } from "@/components/site/cta-section";
 import { ProofStrip } from "@/components/site/home-sections";
 import { MethodeScroll } from "@/components/site/methode-scroll";
+import { Temoignages } from "@/components/site/temoignages";
 import { ServicesGrid } from "@/components/site/services-grid";
 import { TitreAnime } from "@/components/site/titre-anime";
 import { SectionNuit } from "@/components/site/section-nuit";
@@ -138,6 +139,11 @@ export function HomePage({ locale }: { locale: Locale }) {
 
   /* Une question sans réponse (« À compléter ») ne s'affiche pas. */
   const faq = home.faq.items.filter((item) => item.a.trim() !== "");
+  /* Les témoignages : en ligne (`next build`), seulement les avis validés
+     (le vrai texte du client, avec son accord) ; en local (`next dev`),
+     tous, pour voir la section avec les textes provisoires. Sans avis
+     validé, la section n'apparaît pas en ligne. */
+  const avis = home.temoignages.items.filter((item) => item.valide || process.env.NODE_ENV === "development");
 
   return (
     <Shell locale={locale}>
@@ -259,6 +265,22 @@ export function HomePage({ locale }: { locale: Locale }) {
       {/* « Notre méthode » : les trois étapes en une seule phrase qui
           s'éclaire au défilement (fiche « 4a » d'Antonino, 25/11/2026). */}
       <MethodeScroll methode={home.methode} className={`${accentFont.variable} ${instrumentFont.variable}`} />
+
+      {/* Les témoignages, sous « Notre méthode » (maquette « T1 » choisie par
+          Antonino, 25/11/2026), en slider (26/11/2026). En ligne, seulement
+          les avis validés ; en local, tous (textes provisoires). */}
+      {avis.length > 0 && (
+        <Band id="temoignages" className={`rf-section ${accentFont.variable}`}>
+          <Temoignages
+            titre={home.temoignages.title}
+            accent={home.temoignages.accent}
+            items={avis}
+            precedent={home.temoignages.precedent}
+            suivant={home.temoignages.suivant}
+            indice={home.temoignages.indice}
+          />
+        </Band>
+      )}
 
       {/* L'appel final AVANT la FAQ, et plus de fondateurs sur l'accueil :
           ils sont sur À propos (demande d'Antonino, 25/11/2026). */}

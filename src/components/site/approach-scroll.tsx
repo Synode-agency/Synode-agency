@@ -127,13 +127,56 @@ export function ApproachScroll({
       enMouvement = false;
     };
 
-    // La progression : épinglée, du haut de la section en haut de l'écran
-    // jusqu'à sa libération ; sinon, du haut à 85 % de l'écran jusqu'au bas
-    // à 70 %.
+    // LE CALAGE (26/11/2026) : sur ordinateur, la scène ne fait plus que sa
+    // propre hauteur, fixée à `--approche-haut` du haut de l'écran, ce qui
+    // la centre (voir `refonte.css`, `.approach[data-cale]`). L'écart avec
+    // les services ne dépend alors plus de la hauteur de l'écran.
+    const scene = section.querySelector<HTMLElement>(".approach-scene");
+    let haut = 0;
+    let hauteur = 0;
+    const caler = () => {
+      if (!scene || !epingle.matches) {
+        section.removeAttribute("data-cale");
+        section.style.removeProperty("--approche-haut");
+        section.style.removeProperty("--approche-h");
+        section.style.removeProperty("--approche-depasse");
+        haut = 0;
+        hauteur = 0;
+        return;
+      }
+      section.setAttribute("data-cale", "");
+      hauteur = scene.offsetHeight;
+      haut = Math.max(0, Math.round((window.innerHeight - hauteur) / 2));
+      // À la fin, la dérive laisse les photos un peu plus bas que leur
+      // place (la troisième, de 20px). Quand elles descendent plus bas que
+      // le texte, l'écart avec les services se compte depuis elles : leur
+      // dépassement s'ajoute à la marge du bas (`--approche-depasse`).
+      const grille = scene.querySelector<HTMLElement>(".approach-grille");
+      let depasse = 0;
+      if (grille) {
+        const basGrille = grille.getBoundingClientRect().bottom;
+        const hautTrio = trio.getBoundingClientRect().top;
+        cadres.forEach((c, i) => {
+          depasse = Math.max(depasse, hautTrio + c.offsetTop + c.offsetHeight + 0.5 * DERIVE[i] - basGrille);
+        });
+      }
+      section.style.setProperty("--approche-h", `${hauteur}px`);
+      section.style.setProperty("--approche-haut", `${haut}px`);
+      section.style.setProperty("--approche-depasse", `${Math.round(depasse)}px`);
+    };
+
+    // La progression : épinglée, du moment où la scène se fixe jusqu'à sa
+    // libération (la hauteur de la section, moins le haut de la scène, sa
+    // hauteur et la marge du bas) ; sinon, du haut à 85 % de l'écran
+    // jusqu'au bas à 70 %.
     const progression = () => {
       const r = section.getBoundingClientRect();
       const H = window.innerHeight;
-      if (epingle.matches) return clamp(-r.top / Math.max(1, r.height - H));
+      if (epingle.matches) {
+        const bas = parseFloat(getComputedStyle(section).paddingBottom) || 0;
+        const course = hauteur ? r.height - haut - hauteur - bas : r.height - H;
+        return clamp(-r.top / Math.max(1, course));
+      }
       return clamp((0.85 * H - r.top) / (0.15 * H + r.height));
     };
 
@@ -185,16 +228,27 @@ export function ApproachScroll({
       if (!raf) raf = requestAnimationFrame(frame);
     };
 
+    // Le calage suit la hauteur de l'écran et celle de la scène (le texte
+    // qui se recompose quand la largeur ou la police change).
+    const recaler = () => {
+      caler();
+      request();
+    };
+    const observateur = new ResizeObserver(recaler);
+    if (scene) observateur.observe(scene);
+
+    caler();
     frame(performance.now());
     window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
+    window.addEventListener("resize", recaler);
     reduit.addEventListener("change", request);
-    epingle.addEventListener("change", request);
+    epingle.addEventListener("change", recaler);
     return () => {
+      observateur.disconnect();
       window.removeEventListener("scroll", request);
-      window.removeEventListener("resize", request);
+      window.removeEventListener("resize", recaler);
       reduit.removeEventListener("change", request);
-      epingle.removeEventListener("change", request);
+      epingle.removeEventListener("change", recaler);
       cancelAnimationFrame(raf);
     };
   }, []);
