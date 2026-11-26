@@ -26,10 +26,11 @@ const EFFACE = 22;
 const ENTRE = 350;
 const SANS_MOUVEMENT = "(prefers-reduced-motion: reduce)";
 
-/* L'entrée au défilement : le contenu entre quand le haut de l'appel
-   passe à 85 % de l'écran (65 % avant le 26/11/2026 : on voyait un grand
-   vide sombre sous les témoignages), et se cache de nouveau, pour rejouer,
-   quand on remonte jusqu'à ne plus le voir. */
+/* L'entrée au défilement : le contenu entre quand le haut du TITRE passe à
+   85 % de l'écran, et se cache de nouveau, pour rejouer, quand on remonte
+   jusqu'à ne plus le voir. (Mesurée sur le haut de la bande avant le
+   26/11/2026 : avec sa grande marge du haut, tout s'animait encore sous
+   l'écran.) */
 const ENTREE = 0.85;
 const RETOUR = 1;
 
@@ -138,7 +139,7 @@ export function AppelProjet({
         return;
       }
       const hauteur = window.innerHeight;
-      const haut = racine.getBoundingClientRect().top;
+      const haut = (racine.querySelector("h2") ?? racine).getBoundingClientRect().top;
       if (haut < hauteur * ENTREE) delete racine.dataset.entree;
       else if (haut > hauteur * RETOUR) racine.dataset.entree = "avant";
     };

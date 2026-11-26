@@ -7,9 +7,10 @@ import Image from "next/image";
  * (`refonte.css`, « LE LOGO DE SYNODE ») : la hauteur des lettres, la
  * moitié de celle du N ; l'écart de Y au N et du N au O.
  *
- * - `deuxN` : le N blanc et le N bleu l'un sur l'autre, pour la barre du
+ * - `deuxN` : le N blanc et le N foncé (le fichier bleu, peint en noir par
+ *   `refonte.css`) l'un sur l'autre, pour la barre du
  *   haut, qui montre l'un ou l'autre selon le fond (`LogoEntete`). Sans :
- *   le N bleu seul, lettres noires (le pied de page).
+ *   le N foncé seul, lettres noires (le pied de page).
  * - `decoratif` : caché aux lecteurs d'écran, quand le lien qui l'entoure
  *   porte déjà le nom. Sinon, une image nommée « Synode ».
  */

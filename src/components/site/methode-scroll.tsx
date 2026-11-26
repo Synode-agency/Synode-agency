@@ -205,7 +205,9 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
             fullEnd={methode.title.fullEnd}
           />
         </div>
-        <p ref={texteRef} className={s.texte}>
+        {/* Le texte arrive par la gauche (`ScrollReveal`, 26/11/2026,
+            demande d'Antonino) ; le titre monte (`TitreAnime`). */}
+        <p ref={texteRef} className={s.texte} data-rv-bloc="left">
           {etapes.map((mots, k) => (
             <span key={k} className={s.etape}>
               {mots.map((mot, i) => (

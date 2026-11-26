@@ -100,7 +100,7 @@
    - un logo qui respire (même demande) : l'interlettrage (`--logo-ls`)
      et, des deux côtés du N, le même écart (`--logo-ecart`, en fraction
      de la hauteur du N ; 0,149 et 0,234 dans le fichier d'origine) ;
-   - la boîte du N : 1,2648 fois sa hauteur en largeur (le N bleu, le plus
+   - la boîte du N : 1,2648 fois sa hauteur en largeur (le N du fichier bleu, le plus
      large ; le blanc, un peu plus étroit, y est centré).
    Les marges retirent les blancs de la police à gauche du S et à droite
    du E (et l'espacement après la dernière lettre) : la boîte du logo
@@ -176,18 +176,22 @@
   left: -16.44%;
   width: 132.97%;
   height: 126.13%;
+  /* EN NOIR (26/11/2026, demande d'Antonino : plus de bleu foncé sur fond
+     blanc) : le fichier bleu, assombri jusqu'au noir ; sa transparence
+     reste. Partout : la barre sur fond clair et le pied de page. */
+  filter: brightness(0);
 }
 
 /* ---- LE LOGO DE LA BARRE (`LogoEntete`) :
    - En haut de page : tout en blanc, lettres et N.
    - Au défilement : « SY » et « ODE » s'effacent ; le N glisse à la place
      du S en FAISANT UN TOUR SUR LUI-MÊME, puis reste seul : blanc sur un
-     fond sombre, bleu sur un fond clair (`data-fond-logo`, mesuré sous le
+     fond sombre, noir sur un fond clair (`data-fond-logo`, mesuré sous le
      N par `SiteHeader`).
    - Tout en haut, après un défilement (`.a-defile`) : le N refait son tour
      en regagnant sa place, puis les lettres reviennent.
-   - Barre claire (menu « Services ») ou fond clair : lettres noires, N
-     bleu.
+   - Barre claire (menu « Services ») ou fond clair : lettres et N en
+     noir.
    - Sur téléphone : le N seul, tout le temps (plus bas). ---- */
 .site-header-brand {
   position: relative;

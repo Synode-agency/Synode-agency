@@ -18,7 +18,8 @@ import { usePathname } from "next/navigation";
  * 2. LES SECTIONS, au défilement. Illustrations, éléments graphiques et
  *    paragraphes apparaissent ; titres et surtitres restent fixes ; les
  *    boutons arrivent un temps après le texte, comme la colonne de droite.
- *    La FAQ ne bouge pas.
+ *    La FAQ ne bouge pas d'elle-même : sur l'accueil, son titre et ses
+ *    questions sont des blocs marqués (`data-rv-bloc`, plus bas).
  * ────────────────────────────────────────────────────────────────────────
  *
  * ── LA DIRECTION SUIT LA POSITION ───────────────────────────────────────
@@ -64,7 +65,10 @@ const ENTETE = "h1, h2, .lede-kicker, .eyebrow, .studio-hero-kicker";
 const GROUPE = "[data-rv-groupe]";
 /* Un BLOC marqué, hors des sections habituelles, qui apparaît depuis le
    côté donné (« left », « right » ou « bottom ») : le texte de « Notre
-   approche », par la gauche. */
+   approche » et celui de « Notre méthode », par la gauche ; le titre des
+   témoignages, par le bas ; le titre et les questions de la FAQ, par la
+   gauche ; les blocs du pied de page, par le bas. Même un titre : marqué,
+   il apparaît. */
 const BLOC = "[data-rv-bloc]";
 
 /* ---- Le héros ---- */

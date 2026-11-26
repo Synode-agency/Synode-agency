@@ -33,14 +33,16 @@ export function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="band band--white">
       <div className={`col ${s.footer}`}>
         <div className={s.top}>
-          <div className={s.brand}>
-            {/* Le logo recomposé, lettres noires et N bleu (26/11/2026,
+          {/* Chaque bloc du pied de page monte à son arrivée, l'un après
+              l'autre (`ScrollReveal`, 26/11/2026, demande d'Antonino). */}
+          <div className={s.brand} data-rv-bloc="bottom">
+            {/* Le logo recomposé, lettres et N en noir (26/11/2026,
                 demande d'Antonino), comme son fichier « bleu-noir ». */}
             <LogoSynode className={s.logo} />
             <p className={s.tagline}>{site.footerTagline}</p>
           </div>
 
-          <nav aria-labelledby="pied-navigation" className={s.col}>
+          <nav aria-labelledby="pied-navigation" className={s.col} data-rv-bloc="bottom">
             <h2 id="pied-navigation" className={s.title}>
               {site.footerNavLabel}
             </h2>
@@ -51,7 +53,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
             ))}
           </nav>
 
-          <div className={`${s.col} ${s.contact}`}>
+          <div className={`${s.col} ${s.contact}`} data-rv-bloc="bottom">
             <a href={`mailto:${site.email}`} className={`${s.link} ${s.mail}`}>
               {site.email}
             </a>
@@ -64,7 +66,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className={s.bottom}>
+        <div className={s.bottom} data-rv-bloc="bottom">
           <span>
             © <CurrentYear buildYear={year} /> {site.copyright}
           </span>

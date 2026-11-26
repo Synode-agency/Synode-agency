@@ -137,9 +137,11 @@
   white-space: nowrap;
 }
 
-/* L'entrée : le titre monte ligne à ligne, la phrase suit, le champ
-   glisse depuis la droite. Le script pose `data-entree="avant"` tant que
-   la bande n'est pas assez montée. */
+/* L'entrée (demande d'Antonino du 26/11/2026) : le titre monte ligne à
+   ligne, la phrase arrive par la gauche, le champ et son bouton par la
+   droite ; sur un écran étroit (900px ou moins), tout monte, comme
+   partout sur le site. Le script pose `data-entree="avant"` tant que le
+   titre n'est pas assez monté. */
 .ligne > span,
 .texte,
 .droite {
@@ -152,11 +154,16 @@
 }
 .appel[data-entree="avant"] .texte {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateX(-44px);
 }
 .appel[data-entree="avant"] .droite {
   opacity: 0;
-  transform: translateX(36px);
+  transform: translateX(44px);
+}
+@media (max-width: 900px) {
+  .appel[data-entree="avant"] :is(.texte, .droite) {
+    transform: translateY(28px);
+  }
 }
 .appel:not([data-entree]) .ligne + .ligne > span {
   transition-delay: 0.08s;

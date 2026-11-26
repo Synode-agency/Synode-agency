@@ -23,7 +23,14 @@ interface FaqItem {
  * The open/close animation uses `grid-template-rows: 0fr -> 1fr`, which
  * animates to the content's natural height without measuring it in JS.
  */
-export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
+export function FaqAccordion({
+  items,
+  apparition,
+}: {
+  items: readonly FaqItem[];
+  /** Chaque question apparaît au défilement, de ce côté (`ScrollReveal`). */
+  apparition?: "left" | "right" | "bottom";
+}) {
   /* Plusieurs réponses peuvent être ouvertes en même temps : sur téléphone,
      refermer celle qu'on vient de lire pour en ouvrir une autre oblige à
      retrouver sa place dans la liste. Tout part fermé. */
@@ -36,7 +43,7 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
       {items.map((item, i) => {
         const isOpen = open.includes(i);
         return (
-          <div key={item.q}>
+          <div key={item.q} data-rv-bloc={apparition}>
             <div className="faq-item" data-open={isOpen}>
               <h3>
                 <button

@@ -290,9 +290,13 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       {faq.length > 0 && (
         <Band id="faq" className="rf-section">
-          <Lede title={home.faq.title} accents={[home.faq.accent]} />
+          {/* Le titre et les questions arrivent par la gauche, l'un après
+              l'autre (`ScrollReveal`, 26/11/2026, demande d'Antonino). */}
+          <div data-rv-bloc="left">
+            <Lede title={home.faq.title} accents={[home.faq.accent]} />
+          </div>
           <div className="section-gap-sm">
-            <FaqAccordion items={faq} />
+            <FaqAccordion items={faq} apparition="left" />
             {/* La page ne se termine pas sans action : le bouton unique du
                 site, en lien discret. */}
             <p className="faq-suite">

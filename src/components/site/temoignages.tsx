@@ -351,7 +351,11 @@ export function Temoignages({
   return (
     <>
       <div className={cx(s.tete, total > 1 && s.teteTraits)}>
-        <h2 className={s.titre}>{renderLines(titre, [accent], s.accent)}</h2>
+        {/* Le titre monte à son arrivée, comme ceux des sections
+            précédentes (`ScrollReveal`, 26/11/2026). */}
+        <h2 className={s.titre} data-rv-bloc="bottom">
+          {renderLines(titre, [accent], s.accent)}
+        </h2>
         {total > 1 ? (
           <div className="titre-anime-traits" aria-hidden="true">
             {items.map((avis, j) => (
