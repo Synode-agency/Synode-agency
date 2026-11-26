@@ -5,6 +5,7 @@ import "./studio.css";
 /* Les composants de la refonte du 24/11/2026, après les deux autres. */
 import "./refonte.css";
 import { ScrollReveal } from "@/components/site/scroll-reveal";
+import { accentFont } from "@/lib/polices";
 
 // A neutral system sans keeps the interface crisp without a font download.
 const sans = '"Helvetica Neue", Helvetica, Arial, sans-serif';
@@ -47,7 +48,7 @@ export function SiteShell({ lang, children }: { lang: string; children: ReactNod
       suppressHydrationWarning
       lang={lang}
       data-scroll-behavior="smooth"
-      className={`h-full ${manrope.variable}`}
+      className={`h-full ${manrope.variable} ${accentFont.variable}`}
       style={fontAliases}
     >
       <head>

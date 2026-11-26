@@ -112,6 +112,31 @@
   display: flex;
   align-items: center;
 }
+/* « SERVICES » EN CASTORO ITALIQUE (26/11/2026, demandes d'Antonino), EN
+   NOIR comme les autres liens (bleu nuit), sa petite flèche aussi. Au
+   survol de la ligne, bleu, comme les autres liens ; le bleu reste tant
+   que les cartes sont ouvertes (au survol, elles s'ouvrent et le mot
+   remonte, hors de la souris). Un peu plus grand que les autres liens,
+   pour tenir face à Manrope. */
+.motServices.motServices {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: calc(var(--taille-liens) * 1.08);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.ligneServices .grandLien {
+  color: #0b1424;
+}
+@media (hover: hover) and (pointer: fine) {
+  .ligneServices:hover .grandLien {
+    color: #0a6cf0;
+  }
+}
+.ligneServices .grandLien:focus-visible,
+.ligneServices:has(.deplier[aria-expanded="true"]) .grandLien {
+  color: #0a6cf0;
+}
 .deplier {
   display: inline-flex;
   align-items: center;

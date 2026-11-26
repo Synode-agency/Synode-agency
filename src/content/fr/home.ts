@@ -29,7 +29,8 @@ export const home = {
       "Synode, agence de développement logiciel & IA à Bruxelles, conçoit et développe des logiciels, des sites web et des applications mobiles. Nous intégrons l’intelligence artificielle, connectons vos systèmes et automatisons vos processus pour accompagner la croissance de votre entreprise.",
     /* Le passage de la description en gras (sans italique). */
     emphasis: "agence de développement logiciel & IA à Bruxelles",
-    note: "Gratuit et sans engagement · un seul processus suffit pour commencer",
+    /* Le petit mot de la main animée, en bas du hero (26/11/2026). */
+    defiler: "Défilez",
   },
 
   /* LA PREUVE, au bas du hero : le bandeau défilant des logos des clients
@@ -84,13 +85,16 @@ export const home = {
        boucle (`rotating`, dans cet ordre). `full` : la phrase entière, lue
        par les lecteurs d'écran et affichée telle quelle sans mouvement.
        Pour tout le monde, dit une fois (décision du 24/11/2026). */
-    /* Le lien à droite du titre, comme « Toutes nos réalisations » (25/11/2026). */
-    link: "Tous nos services",
+    /* À droite du titre, un simple mot, sans lien ni flèche (demande
+       d'Antonino du 26/11/2026 : les quatre services sont déjà là). */
+    etiquette: "Nos services",
     prefix: "Conçus pour les",
-    rotating: ["indépendants.", "PME.", "grandes entreprises."],
-    full: "Conçus pour les indépendants, les PME et les grandes entreprises.",
+    /* Deux mots seulement (demande d'Antonino du 26/11/2026) : « Conçus
+       pour les entreprises » et « Conçus pour les indépendants ». */
+    rotating: ["entreprises.", "indépendants."],
+    full: "Conçus pour les entreprises et les indépendants.",
     /* La fin de `full`, en serif italique bleu sans mouvement. */
-    fullEnd: "indépendants, les PME et les grandes entreprises.",
+    fullEnd: "entreprises et les indépendants.",
     more: "En savoir plus",
     /* L'ACCORDÉON DES QUATRE SERVICES (24/11/2026, textes d'Antonino mot
        pour mot). `key` mène au bloc du service sur la page Services ;
@@ -205,16 +209,6 @@ export const home = {
       },
       {
         texte:
-          "Facturation, relances, suivi des paiements\u00a0: Synode a tout automatisé. Ce qui nous prenait des soirées entières se fait maintenant tout seul.",
-        cle: "tout automatisé",
-        nom: "Enrico P.",
-        poste: "Entrepreneur",
-        entreprise: "Picarle Rénovation",
-        logo: { src: "/clients/picarle.png", width: 155, height: 160, hauteur: 36 },
-        valide: false,
-      },
-      {
-        texte:
           "Du site à la newsletter, tout est pensé pour nos membres. Synode a compris l’esprit du club et l’a traduit en outils simples, qu’on utilise chaque semaine.",
         cle: "l’esprit du club",
         nom: "Clara C.",
@@ -233,20 +227,6 @@ export const home = {
         logo: { src: "/clients/batisseurs-espoir.png", width: 460, height: 160, hauteur: 28 },
         valide: false,
       },
-      {
-        /* Coory, l'application de coaching que Synode développe pour lui :
-           l'idée et la marque sont les siennes, il pourra la vendre
-           (26/11/2026 : texte écrit d'après ce qu'Antonino veut lui faire
-           dire, à faire valider par Gianluca). */
-        texte:
-          "J’ai imaginé Coory pour coacher plus vite grâce à l’IA, et en faire ma propre marque. L’administratif tourne déjà ; Synode termine l’espace de mes clients.",
-        cle: "ma propre marque",
-        nom: "Gianluca L.",
-        poste: "Coach sportif",
-        entreprise: "GLB Coaching",
-        logo: { src: "/clients/glb-coaching.png", width: 437, height: 160, hauteur: 26 },
-        valide: false,
-      },
     ] as readonly {
       texte: string;
       cle: string;
@@ -258,8 +238,33 @@ export const home = {
     }[],
   },
 
+  /* L'APPEL FINAL DE L'ACCUEIL (26/11/2026, maquette « 4A » choisie par
+     Antonino) : une question ouverte à tous les métiers de Synode, et un champ
+     où des exemples s'écrivent tout seuls. La phrase du visiteur suit sa
+     réservation jusqu'à Cal.com (`@/lib/projet`). Exemples courts (34 signes
+     au plus) : ils doivent tenir en entier dans le champ sur téléphone. */
+  appel: {
+    titreAvant: "Qu’aimeriez-vous",
+    accent: "construire",
+    titreApres: "\u00a0?",
+    texte:
+      "Un logiciel, un site, une application, un agent IA ou des outils enfin reliés\u00a0: décrivez votre projet en une phrase, on en parle pendant 30\u00a0minutes.",
+    label: "Votre projet en une phrase",
+    attente: "Décrivez votre projet en une phrase",
+    exemples: [
+      "Un logiciel pour gérer nos devis",
+      "Un site qui nous amène des clients",
+      "Une application pour nos membres",
+      "Un agent IA qui répond aux clients",
+      "Relier notre CRM et nos factures",
+      "Automatiser nos relances",
+    ],
+  },
+
   faq: {
     title: "Questions fréquentes",
+    /* En Castoro italique bleu (26/11/2026, demande d'Antonino). */
+    accent: "fréquentes",
     /* Sous la FAQ, devant le bouton unique du site en lien discret. */
     more: "Une autre question ?",
     /* Une question sans réponse ne s'affiche pas. */

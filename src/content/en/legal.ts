@@ -89,7 +89,7 @@ export const legalTexts: LegalTexts = {
         {
           list: [
             "**Contact form**: name, email and message (required). The date of the request and the language of the page are added.",
-            "**Booking a call (Cal.com)**: at least your name, email and the slot you choose.",
+            "**Booking a call (Cal.com)**: at least your name, email and the slot you choose, and the description of your project if you wrote one on the home page.",
             "**Emails** you exchange with us.",
             "**Technical data**: our host Netlify processes connection data, including the IP address. Our server uses the IP address temporarily, in memory, to limit repeated form submissions, without recording it. It keeps the email address in the same way, so that only one acknowledgement is sent per day.",
             "**Home page tools** (diagnostic, process finder, brief): they run in your browser. Nothing is sent to us until you submit the form.",
@@ -155,7 +155,7 @@ export const legalTexts: LegalTexts = {
         "This website sets no cookies and uses no audience measurement, no advertising and no social media plugins. It therefore shows no cookie banner.",
         {
           list: [
-            "**Session storage**: the brief prepared on the home page is kept in your browser, then deleted as soon as the contact form picks it up, or when you close the tab.",
+            "**Session storage**: the brief prepared on the home page is kept in your browser, then deleted as soon as the contact form picks it up, or when you close the tab. Likewise, the sentence describing your project, typed into the field on the home page, stays in your browser until you close the tab; it is only sent to Cal.com if you open the calendar.",
             "**Cal.com**: only loaded when you click “Open the calendar”. Cal.com then sets cookies, including a technical security cookie (“__cf_bm”, 30 minutes).",
             "**Emails**: Brevo measures opens and clicks anonymously, without any link to your address.",
           ],

@@ -23,6 +23,9 @@ export const contact = {
     /* La phrase qui fait du clic un choix éclairé : voir `Booking`. */
     closedNote: "L’agenda est fourni par Cal.com. Il n’est chargé qu’à l’ouverture et peut alors utiliser ses propres cookies.",
     closedNoteLink: "En savoir plus",
+    /* La phrase écrite dans l'appel final de l'accueil, rappelée ici et
+       transmise à Cal.com (26/11/2026). */
+    projetLabel: "Votre projet",
   },
 
   write: {

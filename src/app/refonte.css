@@ -9,17 +9,31 @@
 
 /* =====================================================================
    LA BARRE, SYSTÈME « GROUPE B » (25/11/2026, fiche d'Antonino).
-   À partir de 1024px : 76px de haut, le logo, quatre liens espacés de 36px
-   (Accueil, Services ▾, Réalisations, À propos), puis « FR / EN » et le
-   bouton blanc « Contact ». Au survol de « Services », elle passe en CLAIR
-   le temps du méga-menu (`data-mega`, posé par `ServicesMegaMenu`) : fond
-   blanc, logo foncé (fondu entre deux logos superposés), liens gris,
-   Contact bleu nuit. Sous 768px : le logo et le bouton ☰ seulement.
+   À partir de 1024px : 76px de haut, les liens espacés de 36px, puis
+   « FR / EN » et le bouton blanc « Contact », le logo à gauche (version
+   3 du 26/11/2026). Au survol de « Services », elle passe
+   en CLAIR le temps du méga-menu (`data-mega`, posé par
+   `ServicesMegaMenu`) : fond blanc, logo foncé, liens gris, Contact bleu
+   nuit. Sous 768px : le logo et le bouton ☰ seulement.
    ===================================================================== */
 .site-header .site-nav-link {
   font-size: 14.5px;
   font-weight: 500;
   color: #c9d3e2;
+}
+/* LA PAGE EN COURS (26/11/2026, demandes d'Antonino) : pas de
+   soulignement, le mot EN BLEU (grisé avant) : le bleu clair des mots en
+   couleur sur la barre sombre, le bleu de la marque sur la barre claire du
+   menu « Services ». */
+.site-header .site-nav-link.is-current {
+  font-weight: 500;
+  color: #8ec1ff;
+}
+.site-header .site-nav-link.is-current::after {
+  content: none;
+}
+.site-page .site-header[data-mega] .site-nav-link.is-current {
+  color: #0a6cf0;
 }
 .site-header-contact {
   display: inline-flex;
@@ -73,25 +87,190 @@
   color: rgb(255 255 255 / 35%);
 }
 
-/* Le logo, en deux versions superposées : claire au repos, foncée sur la
-   barre claire (le lettrage blanc inversé). */
+/* ---- LE LOGO DE SYNODE, RECOMPOSÉ (26/11/2026, demande d'Antonino,
+   `LogoSynode`) : son N (`public/logo/synode-n-*.png`) entre « SY » et
+   « ODE » en Manrope 500. Les proportions de son logo d'origine (mesurées
+   sur `synode-blanc-blanc.png`), en fonction de la hauteur du N
+   (`--logo-h`) :
+   - la taille des lettres : celle du logo d'origine (capitales à 0,49
+     fois la hauteur du N ; Manrope : 0,72 de la taille de la police, d'où
+     0,6806), puis ÉCRASÉES (`--logo-ecrase`, même largeur, moins hautes :
+     demande d'Antonino du 26/11/2026, « beaucoup trop hautes ») ; leur
+     milieu tombe sur celui du N ;
+   - un logo qui respire (même demande) : l'interlettrage (`--logo-ls`)
+     et, des deux côtés du N, le même écart (`--logo-ecart`, en fraction
+     de la hauteur du N ; 0,149 et 0,234 dans le fichier d'origine) ;
+   - la boîte du N : 1,2648 fois sa hauteur en largeur (le N bleu, le plus
+     large ; le blanc, un peu plus étroit, y est centré).
+   Les marges retirent les blancs de la police à gauche du S et à droite
+   du E (et l'espacement après la dernière lettre) : la boîte du logo
+   s'arrête à ses traits. Les lettres prennent la couleur du texte (noir,
+   comme le fichier « bleu-noir », par défaut). ---- */
+.logo-mot {
+  --logo-h: 32px;
+  --logo-ls: 0.3em;
+  --logo-ecart: 0.34;
+  --logo-ecrase: 0.78;
+  /* Du bord gauche du logo à la boîte du N : où le N se pose au
+     défilement, à la place du S. (« SY » fait 1,175em en Manrope 500,
+     moins le blanc à gauche du S, 0,035em ; plus son interlettrage et
+     l'écart avant le N.) */
+  --logo-avant-n: calc(1.14em + 2 * var(--logo-ls) + var(--logo-h) * var(--logo-ecart) - var(--logo-ls));
+  display: inline-flex;
+  align-items: center;
+  height: var(--logo-h);
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: calc(var(--logo-h) * 0.6806);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--logo-ls);
+  white-space: nowrap;
+  color: #000000;
+}
+.logo-mot-lettres {
+  display: block;
+  transform: scaleY(var(--logo-ecrase));
+}
+/* À droite du Y (sans blanc dans la police) : l'écart, moins
+   l'interlettrage déjà posé après lui. À gauche du O : l'écart, moins son
+   blanc (0,03em) ; à droite du E, on retire l'interlettrage et son blanc
+   (0,05em). */
+.logo-mot-sy {
+  margin: 0 calc(var(--logo-h) * var(--logo-ecart) - var(--logo-ls)) 0 -0.035em;
+}
+.logo-mot-ode {
+  margin: 0 calc(-1 * var(--logo-ls) - 0.05em) 0 calc(var(--logo-h) * var(--logo-ecart) - 0.03em);
+}
+.logo-mot-n {
+  position: relative;
+  display: block;
+  flex: none;
+  width: calc(var(--logo-h) * 1.2648);
+  height: var(--logo-h);
+}
+.logo-mot-tourne {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.logo-mot-image {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+/* LES N D'ANTONINO (26/11/2026, `public/logo/`, 1448 × 1086) : le blanc,
+   `synode-blanc.png`, tracé de 202 à 1251 en largeur et de 118 à 999 en
+   hauteur ; le bleu, `synode.png`, de 179 à 1268 et de 128 à 989. Chaque
+   image est placée pour que son tracé prenne toute la hauteur de la boîte
+   du N, centré en largeur. */
+.logo-mot-n-blanc {
+  top: -13.39%;
+  left: -15.2%;
+  width: 129.95%;
+  height: 123.27%;
+}
+.logo-mot-n-bleu {
+  top: -14.87%;
+  left: -16.44%;
+  width: 132.97%;
+  height: 126.13%;
+}
+
+/* ---- LE LOGO DE LA BARRE (`LogoEntete`) :
+   - En haut de page : tout en blanc, lettres et N.
+   - Au défilement : « SY » et « ODE » s'effacent ; le N glisse à la place
+     du S en FAISANT UN TOUR SUR LUI-MÊME, puis reste seul : blanc sur un
+     fond sombre, bleu sur un fond clair (`data-fond-logo`, mesuré sous le
+     N par `SiteHeader`).
+   - Tout en haut, après un défilement (`.a-defile`) : le N refait son tour
+     en regagnant sa place, puis les lettres reviennent.
+   - Barre claire (menu « Services ») ou fond clair : lettres noires, N
+     bleu.
+   - Sur téléphone : le N seul, tout le temps (plus bas). ---- */
 .site-header-brand {
   position: relative;
 }
-.site-header-logo-clair,
-.site-header-logo-fonce {
-  display: inline-flex;
-  align-items: center;
+.logo-entete {
+  display: flex;
+  color: #ffffff;
+  transition: color 0.4s ease;
+}
+.logo-entete .logo-mot-n-bleu {
+  opacity: 0;
+}
+.site-header[data-fond-logo="clair"] .logo-entete,
+.site-page .site-header[data-mega] .logo-entete {
+  color: #000000;
+}
+.site-header[data-fond-logo="clair"] .logo-entete .logo-mot-n-bleu,
+.site-page .site-header[data-mega] .logo-entete .logo-mot-n-bleu {
+  opacity: 1;
+}
+.site-header[data-fond-logo="clair"] .logo-entete .logo-mot-n-blanc,
+.site-page .site-header[data-mega] .logo-entete .logo-mot-n-blanc {
+  opacity: 0;
+}
+/* Le retour, tout en haut : le N regagne sa place en refaisant son tour
+   (0,9 s), puis les lettres reviennent. */
+.logo-entete .logo-mot-lettres {
+  transition: opacity 0.35s ease 0.85s;
+}
+.logo-entete .logo-mot-n {
+  perspective: 240px;
+  transition: translate 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* Barre repliée : les lettres s'effacent, le N glisse à gauche en
+   tournant et reste, cliquable. */
+.site-header.is-scrolled .logo-entete .logo-mot-lettres {
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
-.site-header-logo-fonce {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
+.site-header.is-scrolled .logo-entete .logo-mot-n {
+  translate: calc(-1 * var(--logo-avant-n)) 0;
 }
-.site-header .site-header-logo-fonce .wordmark-type {
-  filter: invert(1);
+.site-header.is-scrolled .logo-entete .logo-mot-tourne {
+  animation: logo-tour 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.05s;
+}
+/* LE RETOUR, TOUT EN HAUT (demande d'Antonino du 26/11/2026) : le N refait
+   son tour en regagnant sa place, comme au départ. Seulement après un
+   défilement (`.a-defile`) : pas au chargement de la page. Un autre nom
+   d'animation, pour qu'elle reparte à chaque retour. */
+.site-header.a-defile:not(.is-scrolled) .logo-entete .logo-mot-tourne {
+  animation: logo-tour-retour 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+@keyframes logo-tour {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+@keyframes logo-tour-retour {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+.site-page .site-header.is-scrolled .site-header-brand {
+  pointer-events: auto;
+}
+/* TÉLÉPHONE : le N seul, tout le temps, à gauche (le lien ne fait que sa
+   largeur) ; il tourne aussi au défilement et au retour en haut. */
+@media (max-width: 767px) {
+  .logo-entete {
+    --logo-h: 28px;
+  }
+  .logo-entete .logo-mot-lettres {
+    display: none;
+  }
+  .site-header.is-scrolled .logo-entete .logo-mot-n {
+    translate: none;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -116,12 +295,6 @@
   background: #ffffff;
   box-shadow: inset 0 -1px 0 #eceef2;
 }
-.site-page .site-header[data-mega] .site-header-logo-clair {
-  opacity: 0;
-}
-.site-page .site-header[data-mega] .site-header-logo-fonce {
-  opacity: 1;
-}
 .site-page .site-header[data-mega] .site-nav-link {
   color: #5a5f6a;
 }
@@ -140,8 +313,7 @@
 }
 
 /* Sous 720px, la langue passe dans le menu ☰ ; sous 768px, « Contact »
-   aussi : la barre ne garde que le logo et le bouton ☰ (fiche). Sous
-   370px, le logo ne garde que son symbole. */
+   aussi : la barre ne garde que le logo et le bouton ☰ (fiche). */
 @media (max-width: 719px) {
   .site-header-end > .lang {
     display: none;
@@ -152,12 +324,7 @@
     display: none;
   }
   .site-header-bar {
-    padding-right: 22px;
-  }
-}
-@media (max-width: 369px) {
-  .site-header .site-header-brand .wordmark-type {
-    display: none;
+    padding-right: calc(var(--band-pad-x) + 2px);
   }
 }
 
@@ -165,9 +332,16 @@
   .site-header,
   .site-header-contact,
   .site-header .lang-item,
-  .site-header-logo-clair,
-  .site-header-logo-fonce {
+  .logo-entete,
+  .logo-entete .logo-mot-lettres,
+  .logo-entete .logo-mot-n,
+  .logo-mot-image {
     transition-duration: 0.2s;
+  }
+  /* Sans mouvement : le N ne tourne pas. */
+  .site-header.is-scrolled .logo-entete .logo-mot-tourne,
+  .site-header.a-defile:not(.is-scrolled) .logo-entete .logo-mot-tourne {
+    animation: none;
   }
 }
 
@@ -220,12 +394,25 @@ main > .band.rf-section {
    « Notre méthode » (140 à 200px), à peu près au milieu de l'écran sur
    ordinateur, sous le voile flou de la barre sur téléphone. ---- */
 main {
+  /* LA TAILLE DES GRANDS TITRES DE SECTION (26/11/2026, maquette « C · Le
+     grand titre » choisie par Antonino) : la même pour tous (services,
+     réalisations, « Notre méthode », témoignages, appel final, FAQ ; le
+     hero a sa propre taille depuis le 26/11/2026). GRANDS, MAIS DANS LA MOITIÉ GAUCHE DE LA
+     SECTION (demande d'Antonino) : sur deux lignes, le début puis le mot
+     qui change (« Conçus pour les / indépendants. »). Réglée sur la plus
+     longue de ces lignes, « What would you like to » (l'appel, en
+     anglais, 9,35 fois la taille de la police ; « pour votre
+     entreprise. », 9,03) : la moitié de l'écran moins la marge, divisée
+     par 9,6 (3 % de marge). 69px sur un écran de 1440px, 93px sur 1920px,
+     48px sur 1024px ; 28px au moins. Sous 700px, 32px (plus bas). */
+  --titre-section: max(28px, calc((min(100vw, 1920px) / 2 - var(--band-pad-x)) / 9.6));
   --ecart-sections: clamp(140px, 21vw + 58px, 280px);
   --pad-section: clamp(4rem, 2.6rem + 5vw, 7.5rem);
   --methode-haut: clamp(140px, min(13.75vw, 22vh), 200px);
-  /* La marge du haut de la carte de l'appel final (`.cta-shell--tall`,
-     `studio.css`), reprise en haut des témoignages : « Notre méthode » est
-     alors à la même distance de l'une ou de l'autre. */
+  /* La marge du haut et du bas de l'appel final, en bleu nuit
+     (`appel-projet.module.css`, la valeur de l'ancienne carte,
+     `.cta-shell--tall`), reprise en haut des témoignages : « Notre
+     méthode » est alors à la même distance de l'un ou de l'autre. */
   --pad-appel: clamp(4rem, 7vw, 7rem);
 }
 /* En bas, l'écart avec « Notre méthode », moins le haut de son contenu
@@ -329,19 +516,6 @@ main > .band.rf-section#realisations {
   background: #ffffff;
   transition: background-color 0.6s ease;
 }
-/* Quand « Nos services » passe en bleu nuit, cette section aussi
-   (`SectionNuit`) : elle devient transparente et laisse voir le fond
-   unique de l'écran, sans ligne de séparation. Le texte passe en blanc,
-   « logiciel » et « IA » en bleu clair. */
-#approche[data-nuit] {
-  background-color: transparent;
-}
-#approche[data-nuit] .approach-text {
-  color: #ffffff;
-}
-#approche[data-nuit] .approach-accent {
-  color: #8ec1ff;
-}
 .approach-scene {
   position: relative;
 }
@@ -387,9 +561,15 @@ main > .band.rf-section#realisations {
     overflow: visible;
   }
 }
+/* LE TEXTE PLUS LARGE ET PLUS GRAND, LES PHOTOS PLUS PETITES (demande
+   d'Antonino du 26/11/2026 : le texte comme un élément graphique) : le
+   paragraphe prend 1,6 part de la largeur, les photos 1 (moitié-moitié
+   avant), même escalier et même mouvement. La taille suit aussi la
+   hauteur de l'écran : la scène reste fixe pendant le défilement et doit
+   tenir dans l'écran (45px sur 1440 × 900, 40px sur 800px de haut). */
 .approach-grille {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
@@ -397,7 +577,7 @@ main > .band.rf-section#realisations {
   max-width: none;
   margin: 0;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: clamp(24px, 2.6vw, 38px);
+  font-size: clamp(24px, min(3.1vw, 5vh), 52px);
   font-weight: 500;
   line-height: 1.16;
   letter-spacing: -0.035em;
@@ -531,17 +711,29 @@ main > .band#services .section-heading {
 main > .band#realisations .section-gap-sm {
   margin-top: 0;
 }
-/* « Toutes nos réalisations » : un peu plus petit (13px au lieu de 14),
-   à la même place : le bas du lien au niveau du bas du titre, au-dessus
-   des traits (14px d'écart et 3px de trait). Sous 760px, l'en-tête passe
-   en colonne et le lien sous les traits. */
-main > .band:is(#services, #realisations) .section-heading > .go {
-  margin-bottom: 17px;
+/* « Nos services » (un simple mot, sans lien, 26/11/2026) et « Toutes nos
+   réalisations » (un lien) : 13px, à droite, CENTRÉS SUR LA HAUTEUR DU
+   TITRE (demande d'Antonino du 26/11/2026) : le milieu de ses deux lignes
+   (taille × 1,04), puis le mot remonte de la moitié de sa propre hauteur.
+   Sous 760px, l'en-tête passe en colonne et le mot sous les traits. */
+main > .band:is(#services, #realisations) .section-heading > :is(.go, .section-etiquette) {
+  align-self: flex-start;
+  margin-top: calc(var(--titre-section) * 1.04);
+  margin-bottom: 0;
+  translate: 0 -50%;
   font-size: 13px;
 }
+main > .band#services .section-heading > .section-etiquette {
+  flex: none;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #0b1424;
+}
 @media (max-width: 760px) {
-  main > .band:is(#services, #realisations) .section-heading > .go {
-    margin-bottom: 0;
+  main > .band:is(#services, #realisations) .section-heading > :is(.go, .section-etiquette) {
+    align-self: auto;
+    margin-top: 0;
+    translate: none;
   }
 }
 main > .band:is(#services, #realisations) .section-heading > .go svg {
@@ -554,8 +746,9 @@ main > .band:is(#services, #realisations) .section-heading > .go svg {
    `TitreAnime`), aligné à gauche : l'étiquette (« Nos services », « Nos
    réalisations »), le titre dont le dernier mot change en boucle (en
    Castoro italique bleu, la police des mots en couleur), puis trois
-   petits traits qui suivent le mot affiché. Le titre tient sur une seule
-   ligne (`nowrap`) ; sur téléphone, il passe sur deux lignes. ---- */
+   petits traits qui suivent le mot affiché. Le titre tient sur une ligne
+   (grands titres, 26/11/2026) ; sous 700px, le mot qui change passe à la
+   ligne. ---- */
 /* L'étiquette : en Manrope, en blanc sur le bleu nuit (demande d'Antonino
    du 25/11/2026) ; en bleu nuit tant que la section est encore blanche,
    pour rester lisible. */
@@ -570,21 +763,62 @@ main > .band:is(#services, #realisations) .section-heading > .go svg {
     opacity 0.6s ease,
     color 0.6s ease;
 }
-/* LA TAILLE DES TITRES DE SECTION DE L'ACCUEIL (`.lede-title` : `--fs-h2`,
-   puis 29px sous 900px), celle qu'avait « Ce que nous avons construit » :
-   les deux en-têtes ont la même (demande d'Antonino du 25/11/2026). */
+/* LES GRANDS TITRES DE SECTION DE L'ACCUEIL (`--titre-section`,
+   26/11/2026) : à la même taille, sur deux lignes, le mot qui change à la
+   ligne, dans la moitié gauche. La fente réserve la largeur du mot le plus
+   long : rien ne bouge quand le mot change. */
 main > .band:is(#services, #realisations) .titre-anime-h2,
 main > #etapes .titre-anime-h2 {
   max-width: none;
   margin: 0;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: var(--fs-h2);
+  font-size: var(--titre-section);
   font-weight: 500;
-  line-height: 1.16;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
   color: #0b1424;
   transition: color 0.6s ease;
+}
+main > .band:is(#services, #realisations) .titre-anime-fixe,
+main > #etapes .titre-anime-fixe {
+  display: block;
+}
+/* La fente plus haute : à cette taille, la ligne serrée (1,04) ne laisse
+   plus assez de place sous la ligne de base pour la queue du « g » de
+   l'italique. */
+main > .band:is(#services, #realisations) .titre-anime-fente,
+main > #etapes .titre-anime-fente {
+  margin-left: 0;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+/* Sous 700px, la moitié de l'écran ferait des titres trop petits : 32px,
+   sur toute la largeur (« pour votre entreprise. » tient alors entre les
+   marges de 40px d'un téléphone de 390px). */
+@media (max-width: 699px) {
+  main {
+    --titre-section: 32px;
+  }
+}
+main > .band:is(#services, #realisations) .titre-anime-mot,
+main > #etapes .titre-anime-mot {
+  top: 0.12em;
+}
+main > .band:is(#services, #realisations) .titre-anime-traits,
+main > #etapes .titre-anime-traits {
+  margin-top: 22px;
+}
+/* Le titre de la FAQ, à la même taille ; il tient sur une ligne dans la
+   moitié gauche (sans la mesure du texte courant que `.lede` donne à son
+   bloc). */
+.site-page main > .band#faq .lede {
+  max-width: none;
+}
+.site-page main > .band#faq .lede-title {
+  max-width: none;
+  font-size: var(--titre-section);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
 }
 .titre-anime-fixe {
   display: inline-block;
@@ -686,28 +920,6 @@ main > #etapes .titre-anime-h2 {
   opacity: 0;
   transform: translateY(20px);
 }
-/* Sous 900px : 29px, comme les autres titres de section (`studio.css`). */
-@media (max-width: 900px) {
-  main > .band:is(#services, #realisations) .titre-anime-h2,
-  main > #etapes .titre-anime-h2 {
-    font-size: 29px;
-    line-height: 1.14;
-    letter-spacing: -0.8px;
-  }
-}
-/* Téléphone : deux lignes, le mot qui change à la ligne, à gauche. */
-@media (max-width: 639px) {
-  main > .band:is(#services, #realisations) .titre-anime-h2,
-  main > #etapes .titre-anime-h2 {
-    white-space: normal;
-  }
-  .titre-anime-fixe {
-    display: block;
-  }
-  .titre-anime-fente {
-    margin-left: 0;
-  }
-}
 /* Sans mouvement : la phrase entière, sans boucle ni traits. */
 @media (prefers-reduced-motion: reduce) {
   main > .band:is(#services, #realisations) .titre-anime-h2,
@@ -730,21 +942,19 @@ main > #etapes .titre-anime-h2 {
   }
 }
 
-/* ---- « NOS SERVICES » EN BLEU NUIT AU DÉFILEMENT (25/11/2026, demande
-   d'Antonino, à la manière d'In The Pocket). Dès que le haut de la section
-   passe à 60 % de l'écran (`SectionNuit` pose `data-nuit`), TOUT L'ÉCRAN
-   passe au bleu nuit du hero, d'un seul fond : un calque fixe de la taille
-   de l'écran (`.fond-nuit`) porte le bleu nuit et la lueur, toujours
-   centrée sur l'écran, et les sections qui basculent (celle-ci, « Notre
-   approche » au-dessus et le haut des réalisations en dessous)
-   deviennent transparentes. Aucune ligne entre elles. Les couleurs
-   s'inversent : titre et étiquette clairs, mot qui change en bleu clair,
-   cartes blanches. Quand le haut des réalisations passe le même seuil,
-   tout l'écran redevient blanc, d'un bloc ; puis « Notre méthode » le
-   repasse au bleu nuit de la même façon, jusqu'à l'appel final (demande
-   d'Antonino du 25/11/2026 : bleu, blanc, bleu, « c'est simplement au
-   scroll que la couleur du fond se change »). En remontant, tout
-   revient. ---- */
+/* ---- LE BLEU NUIT AU DÉFILEMENT (25/11/2026, demande d'Antonino, à la
+   manière d'In The Pocket ; un seul passage depuis le 26/11/2026). Dès
+   que le haut de « Notre méthode » passe à 60 % de l'écran
+   (`SectionNuit` pose `data-nuit`), TOUT L'ÉCRAN passe au bleu nuit du
+   hero, d'un seul fond : un calque fixe de la taille de l'écran
+   (`.fond-nuit`) porte le bleu nuit et la lueur, toujours centrée sur
+   l'écran, et les sections qui basculent (le bas des réalisations
+   au-dessus, les témoignages et l'appel final en dessous) deviennent
+   transparentes. Aucune ligne entre elles. Le bleu nuit ne s'arrête plus :
+   la FAQ, blanche, le coupe d'une ligne nette sous l'appel. « Notre
+   approche », les services et les réalisations restent blancs (demande
+   d'Antonino du 26/11/2026 : trop de changements de fond). En remontant
+   au-dessus de « Notre méthode », tout redevient blanc. ---- */
 .fond-nuit {
   position: fixed;
   inset: 0;
@@ -758,15 +968,6 @@ main > #etapes .titre-anime-h2 {
 }
 .fond-nuit[data-nuit] {
   opacity: 1;
-}
-.site-page main > section.band#services {
-  transition: background-color 0.6s ease;
-}
-.site-page main > section.band#services[data-nuit] {
-  background-color: transparent;
-  /* « Tous nos services » en bleu clair, lisible sur le bleu nuit. */
-  --brand: #8ec1ff;
-  --brand-hover: #b3d4ff;
 }
 /* L'en-tête, en négatif. */
 main > .band:is(#services, #realisations)[data-nuit] .titre-anime-etiquette,
@@ -793,9 +994,8 @@ main > .band:is(#services, #realisations, #temoignages)[data-nuit] .titre-anime-
 main > #etapes[data-nuit] .titre-anime-traits span.est-actif {
   background: #8ec1ff;
 }
-/* Le haut des réalisations, visible sous les services tant que l'écran
-   est en bleu nuit : en négatif lui aussi, sur le même fond. Dès que son
-   haut passe le seuil, tout l'écran redevient clair, d'un bloc. */
+/* Le bas des réalisations, visible au-dessus de « Notre méthode » quand
+   l'écran passe au bleu nuit : en négatif lui aussi, sur le même fond. */
 .site-page main > section.band#realisations[data-nuit] {
   background-color: transparent;
   color: #ffffff;
@@ -887,13 +1087,13 @@ main > .band:is(#services, #realisations) .go {
    redevient blanc d'un bloc à leur arrivée. Le contenu est dans
    `temoignages.module.css`. ---- */
 .site-theme-alternating main > .band.rf-section#temoignages {
-  /* L'écart avec « Notre méthode » au-dessus et avec l'appel final
-     au-dessous : `--ecart-sections`, comme entre toutes les sections
-     (demande d'Antonino du 25/11/2026). En haut, la marge de la carte de
-     l'appel (la marge du bas de « Notre méthode » fait le reste) ; en bas,
-     l'écart moins cette même marge, que la carte ajoute. */
+  /* L'écart avec « Notre méthode » au-dessus : `--ecart-sections`, comme
+     entre toutes les sections (demande d'Antonino du 25/11/2026) ; en
+     haut, la marge de l'appel (la marge du bas de « Notre méthode » fait
+     le reste). En bas, rien : l'appel final, dans le même bleu nuit, se
+     cale sur la citation (règle suivante). */
   padding-top: var(--pad-appel);
-  padding-bottom: calc(var(--ecart-sections) - var(--pad-appel));
+  padding-bottom: 0;
   /* Le glissement d'un avis à l'autre traverse l'écran (26/11/2026) : la
      bande le coupe à ses bords, sans barre de défilement horizontale. */
   overflow-x: clip;
@@ -909,34 +1109,17 @@ main > .band:is(#services, #realisations) .go {
 .site-page main > section.band#temoignages[data-nuit] {
   background-color: transparent;
 }
+/* L'APPEL FINAL APRÈS LES TÉMOIGNAGES (26/11/2026, demandes d'Antonino) :
+   d'abord « trop en dessous » (430px de la citation au titre), puis trop
+   collé à la citation (277px, les flèches à 100px du titre) : deux
+   sections bien distinctes, les flèches à 0,72 fois `--ecart-sections` du
+   titre (200px sur 1440px). Sans témoignages, l'appel garde sa marge
+   (`--pad-appel`). */
+main > #temoignages + #appel {
+  padding-top: calc(var(--ecart-sections) * 0.72);
+}
 @media (prefers-reduced-motion: reduce) {
   .site-theme-alternating main > .band.rf-section#temoignages {
-    transition: none;
-  }
-}
-
-/* ---- L'APPEL FINAL DE L'ACCUEIL, SUR FOND BLANC (26/11/2026, demande
-   d'Antonino) : sa coquille prenait le gris très clair de la page, une
-   bande grise entre les témoignages et la FAQ, blancs tous les deux. Comme
-   `.cta-shell--tint` (`studio.css`) : la coquille traverse l'écran et la
-   carte reprend la largeur du conteneur. Seulement sur l'accueil (juste
-   après « Notre méthode » ou les témoignages). Tant que l'écran est en bleu
-   nuit avec « Notre méthode » (sans témoignages, son haut est visible en
-   bas de l'écran), elle l'est aussi (`SectionNuit`). ---- */
-main > :is(#etapes, #temoignages) + .card-shell {
-  max-width: none;
-  background: #ffffff;
-  transition: background-color 0.6s ease;
-}
-main > :is(#etapes, #temoignages) + .card-shell > .card-panel {
-  max-width: calc(var(--container-max) - var(--band-pad-x) * 2);
-  margin-inline: auto;
-}
-main > :is(#etapes, #temoignages) + .card-shell[data-nuit] {
-  background-color: transparent;
-}
-@media (prefers-reduced-motion: reduce) {
-  main > :is(#etapes, #temoignages) + .card-shell {
     transition: none;
   }
 }
@@ -954,9 +1137,27 @@ main > .band#faq .faq-suite {
 }
 
 /* ---- La FAQ de l'accueil s'aligne sur son titre, à gauche, au lieu d'être
-   centrée sous lui (`mx-auto` du composant). ---- */
+   centrée sous lui (`mx-auto` du composant), SUR TOUTE LA LARGEUR, ses
+   questions plus grandes (26/11/2026, demande d'Antonino). ---- */
 main > .band.rf-section .faq-list {
   margin-inline: 0;
+}
+main > .band#faq .faq-list {
+  max-width: none;
+}
+main > .band#faq .faq-question {
+  font-size: clamp(20px, 0.9rem + 0.9vw, 28px);
+  letter-spacing: -0.02em;
+}
+/* « fréquentes » : en Castoro italique bleu, comme les mots en couleur des
+   autres titres. */
+.site-page main > .band#faq .lede-title .title-accent {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: #0a6cf0;
 }
 
 /* =====================================================================
@@ -1453,6 +1654,8 @@ main > section.case-hero p.case-note {
      taille : la 1re part de la moitié vers la gauche, la 2e de l'autre
      moitié vers la droite. */
   --hero-indent: 1.64;
+  /* La petite main « Défilez » se pose au milieu, en bas (`IndiceDefiler`). */
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: clip;
@@ -1558,7 +1761,7 @@ main > section.case-hero p.case-note {
 }
 /* Le retour, tout en haut de la page : de droite à gauche, une fois le
    bouton replié, chacun ressort du bouton et file à sa place. */
-.site-header :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact) {
+.site-header :is(.site-nav > *, .site-header-end > .lang, .site-header-contact) {
   --retour: calc(var(--rang-retour, 0) * 60ms + 0.16s);
   transition:
     translate 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--retour),
@@ -1571,7 +1774,7 @@ main > section.case-hero p.case-note {
 }
 /* L'aller : de gauche à droite, chacun file vers le centre du bouton en
    rétrécissant, et s'efface en y arrivant. */
-.site-header.is-scrolled :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact) {
+.site-header.is-scrolled :is(.site-nav > *, .site-header-end > .lang, .site-header-contact) {
   --aller: calc(var(--rang, 0) * 60ms);
   translate: var(--vers-burger, 0px) 0;
   scale: 0.25;
@@ -1726,7 +1929,7 @@ main > section.case-hero p.case-note {
 }
 /* Sans mouvement : la barre et le bouton changent d'un coup. */
 @media (prefers-reduced-motion: reduce) {
-  .site-header :is(.site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact),
+  .site-header :is(.site-nav > *, .site-header-end > .lang, .site-header-contact),
   .site-header .site-burger,
   .site-voile > span,
   .burger-trait {
@@ -1754,7 +1957,7 @@ main > section.home-hero .studio-hero-grid {
 main > section.home-hero .studio-hero-copy {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 1fr auto auto auto auto 1fr;
+  grid-template-rows: 1fr auto auto 1fr;
   justify-items: center;
   gap: 0;
   max-width: none;
@@ -1814,7 +2017,7 @@ main > section.home-hero h1 .hero-title-line {
   }
 }
 
-/* La description, le bouton, la mention : centrés. */
+/* La description : centrée. */
 main > section.home-hero .studio-hero-copy > p {
   grid-row: 3;
   max-width: 36em;
@@ -1823,37 +2026,13 @@ main > section.home-hero .studio-hero-copy > p {
   text-align: center;
   color: #b9c5d8;
 }
-/* Le nom de l'agence, dans la description : en gras, en blanc, dans la
-   police du texte (ni italique, ni Instrument Serif : choix d'Antonino). */
-main > section.home-hero .studio-hero-copy > p strong {
-  font-weight: 700;
-  color: #ffffff;
-}
-main > section.home-hero .studio-hero-copy > .hero-actions {
-  grid-row: 4;
-  justify-content: center;
-  gap: 0.9rem;
-  width: auto;
-}
-main > section.home-hero .studio-hero-copy > .hero-reassurance {
-  grid-row: 5;
-  font-size: 0.9375rem;
-  text-align: center;
-  color: #a3b0c6;
-}
 /* Les écarts. (Sélecteurs longs : une règle des heros centrés de
    `studio.css` remet les marges des paragraphes à zéro.) */
-.site-page main > section.studio-hero.home-hero .studio-hero-copy > :is(p, .hero-actions, .hero-reassurance) {
+.site-page main > section.studio-hero.home-hero .studio-hero-copy > p {
   margin-inline: auto;
 }
 .site-page main > section.studio-hero.home-hero .studio-hero-copy > p {
   margin-top: clamp(1.75rem, 1rem + 2vw, 3.25rem);
-}
-.site-page main > section.studio-hero.home-hero .studio-hero-copy > .hero-actions {
-  margin-top: clamp(1.75rem, 1.25rem + 1vw, 2.5rem);
-}
-.site-page main > section.studio-hero.home-hero .studio-hero-copy > .hero-reassurance {
-  margin-top: 1rem;
 }
 @media (min-width: 768px) {
   .site-page main > section.studio-hero.home-hero {
@@ -1900,30 +2079,14 @@ main > section.home-hero h1 .hero-title-line--2 {
     translate: 2em 0;
   }
 }
-/* L'ARRIVÉE DE LA SUITE (24/11/2026) : après le titre, la description,
-   puis le bouton, puis sa mention montent de 16px en fondu, quand les
-   lignes du titre finissent de glisser. Moins de mouvement demandé : le
-   fondu seul. */
-/* (Une liste et non `:is()` : `:is()` prendrait la priorité de sa classe
-   et effacerait le délai de la description, écrit plus bas.) */
-main > section.home-hero .studio-hero-copy > p,
-main > section.home-hero .studio-hero-copy > .hero-actions,
-main > section.home-hero .studio-hero-copy > .hero-reassurance {
-  animation: hero-fade-up 800ms var(--anim-ease) both;
-}
+/* L'ARRIVÉE DE LA DESCRIPTION (24/11/2026) : après le titre, elle monte
+   de 16px en fondu, quand les lignes du titre finissent de glisser. Moins
+   de mouvement demandé : le fondu seul. */
 main > section.home-hero .studio-hero-copy > p {
-  animation-delay: 600ms;
-}
-main > section.home-hero .studio-hero-copy > .hero-actions {
-  animation-delay: 750ms;
-}
-main > section.home-hero .studio-hero-copy > .hero-reassurance {
-  animation-delay: 850ms;
+  animation: hero-fade-up 800ms var(--anim-ease) 600ms both;
 }
 @media (prefers-reduced-motion: reduce) {
-  main > section.home-hero .studio-hero-copy > p,
-  main > section.home-hero .studio-hero-copy > .hero-actions,
-  main > section.home-hero .studio-hero-copy > .hero-reassurance {
+  main > section.home-hero .studio-hero-copy > p {
     animation-name: hero-line-fade;
   }
 }
@@ -1963,14 +2126,10 @@ main > section.home-hero .studio-hero-copy > .hero-reassurance {
     justify-items: start;
     text-align: left;
   }
-  main > section.home-hero .studio-hero-copy > p,
-  main > section.home-hero .studio-hero-copy > .hero-reassurance {
+  main > section.home-hero .studio-hero-copy > p {
     text-align: left;
   }
-  main > section.home-hero .studio-hero-copy > .hero-actions {
-    justify-content: flex-start;
-  }
-  .site-page main > section.studio-hero.home-hero .studio-hero-copy > :is(p, .hero-actions, .hero-reassurance) {
+  .site-page main > section.studio-hero.home-hero .studio-hero-copy > p {
     margin-inline: 0;
   }
 }
@@ -1982,44 +2141,86 @@ main > section.home-hero .studio-hero-copy > .hero-reassurance {
   }
 }
 
-/* Le bouton principal dans le bleu clair des mots en couleur du titre
-   (`--dark-accent`, demande d'Antonino du 24/11/2026), texte bleu nuit :
-   le blanc n'y serait pas lisible. Bleu nuit sur #8FC0FF : 10,6:1. */
-/* (Sélecteur long : sur téléphone, une règle des bandes sombres de
-   `studio.css` repeint le bouton principal en bleu clair.) */
-.site-page main > section.studio-hero.home-hero .hero-actions .btn--primary {
-  min-height: 3.125rem;
-  padding-inline: 1.625rem;
-  border-radius: var(--r-pill);
-  background: var(--dark-accent, #8fc0ff);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  color: #070c18;
-}
-.site-page main > section.studio-hero.home-hero .hero-actions .btn--primary:hover {
-  background: color-mix(in srgb, var(--dark-accent, #8fc0ff) 80%, #ffffff);
-}
-main > section.home-hero .hero-reassurance {
-  font-size: var(--fs-small);
-  color: #8794aa;
-}
-/* Côte à côte dès 561px (la règle des boutons de téléphone de
-   `studio.css` les empilait jusqu'à 900px), l'une sous l'autre en pleine
-   largeur en dessous. */
-@media (min-width: 561px) {
-  .site-page main > section.studio-hero.home-hero .hero-actions {
-    flex-direction: row;
+/* ---- LE HERO À GAUCHE, AU GRAND TITRE (26/11/2026, demandes
+   d'Antonino), dès 768px : le titre sur ses deux lignes, aligné à gauche,
+   la deuxième (« IA & systèmes connectés. ») un peu décalée vers la
+   droite (`--hero-decalage`). Sa taille : 7,2cqi, 13 % de la hauteur de
+   l'écran au plus (92px sur un écran de 1440 × 900). Le bloc a la largeur
+   du titre, décalage compris : la description en prend toute la largeur
+   (deux ou trois lignes). Le titre et la description, seuls (le bouton de
+   l'appel et sa mention sont retirés), au milieu du hero, en hauteur. Sur
+   téléphone, la mise en page du choix D (plus haut). ---- */
+@media (min-width: 768px) {
+  main > section.home-hero .studio-hero-grid {
+    --hero-title-size: max(2.5rem, min(7.2cqi, 13vh));
   }
-  .site-page main > section.studio-hero.home-hero .hero-actions .btn {
-    width: auto;
+  main > section.home-hero .studio-hero-copy {
+    --hero-decalage: 1em;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
+    justify-self: start;
+    justify-items: start;
+    width: fit-content;
+    max-width: 100%;
+    text-align: left;
+  }
+  main > section.home-hero h1 {
+    grid-column: 1;
+    grid-row: 2;
+    line-height: 1.04;
+    text-align: left;
+  }
+  main > section.home-hero h1 .hero-title-line {
+    margin-inline: 0;
+  }
+  main > section.home-hero h1 :is(.hero-title-line--1, .hero-title-line--2) {
+    left: 0;
+  }
+  /* Une marge et non `left` : le décalage compte dans la largeur du bloc,
+     donc dans celle de la description. (L'arrivée glisse par
+     `translate`, sans conflit.) La taille de la police du titre, pour que
+     l'`em` soit celui du titre. */
+  main > section.home-hero h1 .hero-title-line--2 {
+    margin-left: var(--hero-decalage);
+  }
+  /* La description : toute la largeur du bloc, sans l'élargir (`width: 0`
+     et `min-width: 100%` : c'est le titre qui la donne). (Sélecteurs
+     doublés, `.home-hero.home-hero` : la règle des marges centrées, plus
+     haut, passe sinon devant.) */
+  .site-page main > section.studio-hero.home-hero.home-hero .studio-hero-copy > p {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+    width: 0;
+    min-width: 100%;
+    max-width: none;
+    margin: clamp(2rem, 1rem + 2.5vw, 3.75rem) 0 0;
+    font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.375rem);
+    text-align: left;
   }
 }
-@media (max-width: 560px) {
-  main > section.home-hero .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-  }
+/* Dans la description, le nom de l'agence en Castoro italique, en blanc
+   (26/11/2026, en gras avant), un peu plus grand pour tenir face au texte
+   droit. */
+main > section.home-hero .hero-emphase {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.08em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+main > section.home-hero .hero-emphase {
+  /* Plus grande que le texte : sans ceci, sa ligne s'écartait des autres. */
+  line-height: 0;
+  color: #ffffff;
+}
+/* Son « & » en Manrope, droit, à la taille du texte (26/11/2026, demande
+   d'Antonino). */
+main > section.home-hero .hero-esperluette {
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: calc(1em / 1.08);
+  font-style: normal;
+  letter-spacing: 0;
 }
 
 /* =====================================================================

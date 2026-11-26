@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Wordmark } from "./wordmark";
+import { LogoEntete } from "./logo-entete";
 import { NavLink } from "./nav-link";
 import { ServicesMegaMenu } from "@/components/nav/services-mega-menu";
 import { MenuPanel } from "@/components/nav/menu-panel";
@@ -20,14 +20,14 @@ import { cx } from "@/lib/cx";
  * site, les panneaux sont posés sur une surface et rien n'est collé au bord.
  *
  * Une seule ligne sur ordinateur : quatre entrées, « Accueil » (ajoutée
- * le 25/11/2026 : le logo part dans le bouton ☰ au défilement) puis
+ * le 25/11/2026 : le logo se réduit à son N au défilement) puis
  * « Services » qui déroule ses trois services, puis la langue et le bouton
  * blanc « Contact » (maquette du 24/11/2026). Une barre qui
  * passe sur deux lignes est cassée, pas dense : s'il faut ajouter une
  * entrée, c'est une autre qui doit partir.
  *
  * AU DÉFILEMENT, LA BARRE DEVIENT UN BOUTON ☰ (25/11/2026, demande
- * d'Antonino, « presque du motion design ») : le logo, les liens, la
+ * d'Antonino, « presque du motion design ») : les liens, la
  * langue et « Contact » partent l'un après l'autre vers la droite, en
  * rétrécissant, et se fondent dans le bouton, un disque blanc à trois
  * traits inégaux. Tout en haut de la page, tout en ressort et reprend sa
@@ -36,10 +36,10 @@ import { cx } from "@/lib/cx";
  */
 
 /* Les éléments de la barre qui partent dans le bouton ☰, de gauche à
-   droite. Ceux qui ne sont pas affichés à la largeur courante (la
+   droite. Le logo n'en est pas (26/11/2026) : il reste, réduit à son N
+   (`LogoEntete`). Ceux qui ne sont pas affichés à la largeur courante (la
    navigation sous 1080px, la langue sous 720px) sont ignorés. */
-const VERS_LE_BOUTON =
-  ".site-header-brand, .site-nav > *, .site-header-end > .lang, .site-header-contact";
+const VERS_LE_BOUTON = ".site-nav > *, .site-header-end > .lang, .site-header-contact";
 
 /* La position d'un élément dans la page, sans ses transformations (le
    mouvement en cours ne fausse donc pas la mesure). */
@@ -90,6 +90,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   const barRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  /* On a déjà fait défiler (`.a-defile`) : en revenant tout en haut, le N
+     du logo refait son tour (pas au chargement de la page). */
+  const [dejaDefile, setDejaDefile] = useState(false);
 
   /* Le fond sous le bouton ☰ (`data-fond` sur la barre, « clair » ou
      « sombre ») : ses traits sont blancs sur un fond sombre et bleu nuit
@@ -108,6 +111,13 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
       const r = bouton.getBoundingClientRect();
       const l = luminanceSous(r.left + r.width / 2, r.top + r.height / 2);
       barre.dataset.fond = l > 0.18 ? "clair" : "sombre";
+      /* De même sous le logo (`data-fond-logo`) : le N y est blanc sur un
+         fond sombre, bleu marine sur un fond clair (26/11/2026). */
+      const logo = barre.querySelector(".logo-mot-tourne")?.getBoundingClientRect();
+      if (logo && logo.width) {
+        const ll = luminanceSous(logo.left + logo.width / 2, logo.top + logo.height / 2);
+        barre.dataset.fondLogo = ll > 0.18 ? "clair" : "sombre";
+      }
     };
     const demande = () => {
       if (!raf) raf = requestAnimationFrame(mesure);
@@ -132,7 +142,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
     let raf = 0;
     const measure = () => {
       raf = 0;
-      setScrolled(window.scrollY > 24);
+      const defile = window.scrollY > 24;
+      setScrolled(defile);
+      if (defile) setDejaDefile(true);
     };
     const request = () => {
       if (!raf) raf = requestAnimationFrame(measure);
@@ -225,7 +237,7 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
   };
 
   return (
-    <header ref={headerRef} className={cx("site-header", scrolled && "is-scrolled")} onKeyDown={e => {
+    <header ref={headerRef} className={cx("site-header", scrolled && "is-scrolled", dejaDefile && "a-defile")} onKeyDown={e => {
       /* Le piège de focus vit DANS le panneau, qui s'en occupe lui-même.
          Il reste ici de quoi fermer au clavier si le focus n'était pas
          encore entré dans le panneau, le bouton ☰ par exemple. */
@@ -248,14 +260,9 @@ export function SiteHeader({ locale, copy }: { locale: Locale; copy: HeaderCopy 
           onNavigate={() => setOpen(false)}
           className="site-header-brand"
         >
-          {/* Deux logos superposés : le clair au repos, le foncé sur la barre
-              claire du menu « Services » (fondu de l'un à l'autre). */}
-          <span className="site-header-logo-clair">
-            <Wordmark variant="mark" />
-          </span>
-          <span className="site-header-logo-fonce" aria-hidden="true">
-            <Wordmark variant="mark" />
-          </span>
+          {/* Le logo complet à l'arrivée, le N seul une fois la barre
+              repliée dans le ☰ (26/11/2026, `LogoEntete`). */}
+          <LogoEntete />
         </NavLink>
 
         <nav aria-label={site.navLabel} className="site-nav">

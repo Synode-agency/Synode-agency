@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
+  type CSSProperties,
   type PointerEvent as EvenementPointeur,
 } from "react";
 import Image from "next/image";
@@ -24,7 +25,7 @@ type Temoignage = {
   poste: string;
   entreprise: string;
   /** `couleur` : le logo d'origine, en couleur, affiché tel quel (sinon,
-   *  une silhouette blanche, passée en noir sur le blanc). */
+   *  une silhouette blanche, passée en noir sur un fond blanc). */
   logo: { src: string; width: number; height: number; hauteur: number; couleur?: boolean };
 };
 
@@ -32,26 +33,23 @@ type Temoignage = {
    (« endroit » et le point qui le suit restent collés). */
 type Mot = { texte: string; cle: boolean; espace: boolean };
 
-/* Chaque avis reste immobile 3,5 secondes une fois son balayage terminé,
-   puis le suivant arrive (demandes d'Antonino du 26/11/2026 : 1,5 s puis
-   3 s d'arrêt étaient trop rapides). Le balayage dure 1,2 s : un nouvel
-   avis toutes les 4,7 s environ. */
+/* Chaque avis reste 3,5 secondes une fois tout éclairé, puis le suivant
+   arrive (demandes d'Antonino du 26/11/2026). */
 const PAUSE = 3500;
-/* Le balayage (maquette « 8 · Les lignes en balayage », choisie le
-   26/11/2026) : chaque ligne traverse l'écran en 820 ms, 70 ms après celle
-   du dessus ; les lignes du nouvel avis partent 140 ms après. Courbe des
-   mouvements à l'écran (lent, rapide, lent). */
-const GLISSE = 820;
-const DECALAGE = 70;
-const ENTREE = 140;
+/* Le glissement d'un avis à l'autre, puis l'éclairage : la signature (logo,
+   nom, fonction, 120 ms d'écart), puis les mots, un toutes les 55 ms, à
+   partir de 420 ms ; chaque mot s'allume en 450 ms. Le rythme est dans
+   `temoignages.module.css`, la durée totale ici pour le minuteur. */
+const GLISSE = 900;
+const PAS_MOT = 55;
+const DEPART_MOTS = 420;
+const ALLUMAGE = 450;
 const COURBE = "cubic-bezier(0.77, 0, 0.175, 1)";
 /* Après un geste : la suite part de là où le doigt l'a laissée. */
 const SORTIE = "cubic-bezier(0.23, 1, 0.32, 1)";
-/* Le geste : au-delà de 90 px (ou d'un mouvement vif), l'avis change. Les
-   lignes suivent le doigt, chacune un peu moins que celle du dessus. */
+/* Le geste : au-delà de 90 px (ou d'un mouvement vif), l'avis change. */
 const SEUIL = 90;
 const VIF = 0.6;
-const VAGUE = 0.1;
 
 /* Sans mouvement (`prefers-reduced-motion`) : lu sans état ni effet, et
    `false` côté serveur. */
@@ -88,36 +86,18 @@ function decouper(texte: string, cle: string): Mot[] {
   return mots;
 }
 
-/* Le rang du premier mot de chaque ligne, d'après la position des mots à
-   l'écran (le Castoro et Manrope n'ont pas la même hauteur : deux mots
-   d'une même ligne restent à moins d'une demi-ligne l'un de l'autre). */
-function debutsDeLignes(figure: HTMLElement | null): number[] | null {
-  const p = figure?.querySelector("blockquote p");
-  if (!p) return null;
-  const demiLigne = parseFloat(getComputedStyle(p).fontSize) * 0.65;
-  const debuts: number[] = [];
-  let milieu: number | null = null;
-  p.querySelectorAll<HTMLElement>("[data-mot]").forEach((mot, i) => {
-    const r = mot.getBoundingClientRect();
-    const c = r.top + r.height / 2;
-    if (milieu === null || Math.abs(c - milieu) > demiLigne) {
-      debuts.push(i);
-      milieu = c;
-    }
-  });
-  return debuts;
-}
-
-/* Ce qui glisse dans un avis : ses lignes (une fois découpées, sinon la
-   citation entière), puis la légende. */
-function pieces(figure: HTMLElement | null | undefined): HTMLElement[] {
-  if (!figure) return [];
-  const lignes = Array.from(figure.querySelectorAll<HTMLElement>("[data-ligne]"));
-  const citation = figure.querySelector<HTMLElement>("blockquote");
-  const legende = figure.querySelector<HTMLElement>("figcaption");
-  return [...(lignes.length ? lignes : citation ? [citation] : []), ...(legende ? [legende] : [])];
-}
-/* La position laissée par le doigt sur une pièce, puis le ménage. */
+/* L'éclairage, posé par le script seulement (`data-eteint`) : sans lui,
+   tout est lisible. */
+const eteindre = (el: HTMLElement | null | undefined) => {
+  if (el) el.dataset.eteint = "";
+};
+const allumer = (el: HTMLElement | null | undefined) => {
+  if (el) delete el.dataset.eteint;
+};
+/* Le temps de l'éclairage d'un avis de `n` mots : la signature, puis ses
+   mots. */
+const dureeAllumage = (n: number) => DEPART_MOTS + n * PAS_MOT + ALLUMAGE;
+/* La position laissée par le doigt sur un avis, puis le ménage. */
 const lireTire = (el: HTMLElement) => parseFloat(el.dataset.tire ?? "0") || 0;
 function placer(el: HTMLElement, x: number, visible = false) {
   el.style.transform = `translateX(${x}px)`;
@@ -128,38 +108,34 @@ function relacher(el: HTMLElement) {
   el.style.transform = "";
   el.style.visibility = "";
   delete el.dataset.tire;
-  delete el.dataset.base;
 }
 
 /**
  * LES TÉMOIGNAGES DE L'ACCUEIL (25/11/2026, maquette « T1 » choisie par
- * Antonino), sous « Notre méthode ». En slider le 26/11/2026, puis dans le
- * design « 8 · Les lignes en balayage » choisi sur maquettes le même jour.
+ * Antonino), sous « Notre méthode », dans le bleu nuit. Depuis le
+ * 26/11/2026 : la maquette « 6 · La citation s'éclaire », avec la mise en
+ * page de la « 2 · La signature à gauche », alignée à gauche (choix
+ * d'Antonino, à la place de la pile de fiches).
  *
- * La citation tout à gauche, sur 4 lignes, son passage clé en Castoro bleu ;
- * dessous, le logo de l'entreprise, le nom, la fonction et l'entreprise du
- * client ; tout en bas, une petite main qui montre qu'on peut attraper
- * l'avis, le compteur et les flèches. Sous le titre, les petits traits des
- * titres animés (`titre-anime-traits`) suivent l'avis affiché.
+ * À gauche, la signature : le logo de l'entreprise, le nom, la fonction et
+ * l'entreprise du client. À droite, la citation, sur 4 lignes, son passage
+ * clé en Castoro bleu. Sous l'avis : la petite main qui montre qu'on peut
+ * l'attraper, le compteur et les flèches. Sous le titre, les petits traits
+ * des titres animés (`titre-anime-traits`) suivent l'avis.
  *
- * Après 3,5 s d'arrêt, les lignes de l'avis partent vers la gauche l'une
- * après l'autre, et celles du suivant arrivent de la droite. Les flèches
- * font de même (la flèche de gauche dans l'autre sens) ; le défilement
- * continue ensuite. Pas de bouton pause (choix d'Antonino).
+ * L'ÉCLAIRAGE, comme « Notre méthode » : l'avis arrive éteint ; la
+ * signature apparaît d'abord (le logo, puis le nom, puis la fonction),
+ * puis les mots de la citation s'éclairent un à un, le passage clé en
+ * bleu. Le premier s'éclaire quand la section arrive à l'écran.
  *
- * LE GESTE (demande d'Antonino du 26/11/2026 : « lorsque je balaye, que ce
- * soit vers la gauche ou la droite, l'un apparaît et l'autre s'en va ») :
- * on attrape l'avis à la souris ou au doigt ; ses lignes suivent en vague,
- * et l'avis voisin entre déjà par le bord opposé (le suivant par la droite,
- * le précédent par la gauche). Au lâcher, au-delà de 90 px ou d'un geste
- * vif, l'un finit de partir et l'autre d'arriver ; sinon, tout revient en
- * place. Un geste pendant un balayage le termine d'abord : rien ne reste
- * bloqué à mi-chemin.
+ * Une fois tout éclairé, 3,5 s d'arrêt, puis l'avis glisse vers la gauche
+ * et le suivant arrive de la droite. Les flèches font de même (celle de
+ * gauche dans l'autre sens). Pas de bouton pause.
  *
- * Les lignes sont découpées après l'affichage, d'après la position des
- * mots (rendu serveur : la citation d'un bloc, identique à l'œil), puis de
- * nouveau quand les polices arrivent ou que la largeur change. Les avis
- * sont empilés dans la même case : la zone garde la hauteur du plus long.
+ * LE GESTE, dans les deux sens : on attrape l'avis ; l'avis voisin entre
+ * déjà par le bord opposé (le suivant par la droite, le précédent par la
+ * gauche). Au lâcher, au-delà de 90 px ou d'un geste vif, l'un finit de
+ * partir et l'autre d'arriver ; sinon, tout revient en place.
  *
  * Le défilement attend le temps d'une lecture : la souris sur l'avis, le
  * focus du clavier sur les flèches, le geste en cours, ou l'avis hors de
@@ -168,8 +144,8 @@ function relacher(el: HTMLElement) {
  * Accessibilité : pendant le défilement, les changements ne sont pas
  * annoncés ; à l'arrêt, l'avis choisi l'est (`aria-live`). Les avis cachés
  * le sont aussi aux lecteurs d'écran ; le logo et la petite main sont
- * décoratifs. Sans mouvement : ni défilement, ni geste, ni main ; les
- * flèches changent l'avis par un simple fondu.
+ * décoratifs. Sans mouvement : ni éclairage, ni défilement, ni geste, ni
+ * main ; les flèches changent l'avis par un simple fondu.
  */
 export function Temoignages({
   titre,
@@ -199,17 +175,15 @@ export function Temoignages({
   const [tenu, setTenu] = useState(false);
   /* À l'écran, à moitié au moins. */
   const [vu, setVu] = useState(false);
-  /* Le premier mot de chaque ligne, avis par avis (null : pas encore
-     découpées). */
-  const [lignes, setLignes] = useState<(number[] | null)[] | null>(null);
   const reduit = useSyncExternalStore(suivreMouvement, lireMouvement, () => false);
 
   const motsParAvis = useMemo(() => items.map((avis) => decouper(avis.texte, avis.cle)), [items]);
   const carrouselRef = useRef<HTMLDivElement>(null);
   const diapos = useRef<(HTMLElement | null)[]>([]);
   const indexRef = useRef(0);
-  /* L'instant où le balayage en cours se termine. */
-  const finBalayage = useRef(0);
+  /* L'instant où l'avis affiché a fini d'arriver et de s'éclairer. */
+  const finMouvement = useRef(0);
+  const minuteurAllumage = useRef(0);
   const prise = useRef<{ x0: number; dx: number; t: number; v: number; voisin: number } | null>(null);
 
   const tourne = total > 1 && vu && !survol && !clavier && !tenu && !reduit;
@@ -226,12 +200,31 @@ export function Temoignages({
     return () => observateur.disconnect();
   }, []);
 
-  /* Le minuteur : la fin du balayage en cours, puis les 3,5 s d'arrêt. Il
-     repart à chaque nouvel avis (flèches et gestes compris) et à chaque
+  /* Au départ, tout est éteint (avant l'affichage) ; sans mouvement, tout
+     reste éclairé. */
+  useLayoutEffect(() => {
+    for (const el of diapos.current) {
+      if (reduit) allumer(el);
+      else eteindre(el);
+    }
+  }, [reduit]);
+
+  /* Le premier avis s'éclaire quand la section arrive à l'écran. */
+  useEffect(() => {
+    if (!vu || reduit) return;
+    const actuel = indexRef.current;
+    const el = diapos.current[actuel];
+    if (!el || el.dataset.eteint === undefined || el.getAnimations().length) return;
+    allumer(el);
+    finMouvement.current = performance.now() + dureeAllumage(motsParAvis[actuel]?.length ?? 0);
+  }, [vu, reduit, motsParAvis]);
+
+  /* Le minuteur : la fin de l'arrivée et de l'éclairage, puis les 3,5 s.
+     Il repart à chaque nouvel avis (flèches et gestes compris) et à chaque
      reprise. */
   useEffect(() => {
     if (!tourne) return;
-    const reste = Math.max(0, finBalayage.current - performance.now());
+    const reste = Math.max(0, finMouvement.current - performance.now());
     const minuteur = window.setTimeout(
       () => setEtat((e) => ({ index: (e.index + 1) % total, sortant: e.index, sens: 1, geste: false })),
       reste + PAUSE,
@@ -239,80 +232,47 @@ export function Temoignages({
     return () => window.clearTimeout(minuteur);
   }, [tourne, index, total]);
 
-  /* Le découpage en lignes : sur la citation d'un bloc (lignes à null),
-     à l'image suivante ; de nouveau quand les polices arrivent ou que la
-     largeur change. */
-  useEffect(() => {
-    if (lignes !== null) return;
-    const image = requestAnimationFrame(() => setLignes(diapos.current.map(debutsDeLignes)));
-    return () => cancelAnimationFrame(image);
-  }, [lignes]);
-  useEffect(() => {
-    const carrousel = carrouselRef.current;
-    if (!carrousel) return;
-    let largeur = carrousel.getBoundingClientRect().width;
-    const observateur = new ResizeObserver(([e]) => {
-      if (Math.abs(e.contentRect.width - largeur) < 1) return;
-      largeur = e.contentRect.width;
-      setLignes(null);
-    });
-    observateur.observe(carrousel);
-    let actif = true;
-    document.fonts?.ready.then(() => {
-      if (actif) setLignes(null);
-    });
-    return () => {
-      actif = false;
-      observateur.disconnect();
-    };
-  }, []);
-
-  /* Le balayage, lancé avant l'affichage de l'image : les lignes de l'avis
-     qui part sortent l'une après l'autre, celles du nouveau entrent de
-     l'autre côté. Après un geste, tout repart de là où le doigt l'a
-     laissé, sans attendre. */
+  /* Le glissement, lancé avant l'affichage de l'image : l'avis qui part
+     sort d'un côté, le nouveau entre de l'autre, éteint ; à la fin du
+     glissement, il s'éclaire. Après un geste, tout repart de là où le
+     doigt l'a laissé. */
   useLayoutEffect(() => {
     if (sortant < 0 || sortant === index) return;
-    const partant = pieces(diapos.current[sortant]);
-    const entrant = pieces(diapos.current[index]);
-    for (const el of [...partant, ...entrant]) for (const a of el.getAnimations()) a.cancel();
-    const derniere = Math.max(0, entrant.length - 1);
-    finBalayage.current =
-      performance.now() + (reduit ? 200 : geste ? derniere * 30 + GLISSE : ENTREE + derniere * DECALAGE + GLISSE);
+    const partant = diapos.current[sortant];
+    const entrant = diapos.current[index];
+    if (!partant || !entrant) return;
+    window.clearTimeout(minuteurAllumage.current);
+    for (const el of [partant, entrant]) for (const a of el.getAnimations()) a.cancel();
     if (reduit) {
-      for (const el of [...partant, ...entrant]) relacher(el);
-      for (const el of entrant) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
+      relacher(partant);
+      relacher(entrant);
+      allumer(entrant);
+      entrant.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: "ease" });
+      finMouvement.current = performance.now() + 200;
       return;
     }
-    const d = window.innerWidth;
-    partant.forEach((el, i) => {
-      const depart = lireTire(el);
-      relacher(el);
-      el.animate(
-        [
-          { transform: `translateX(${depart}px)`, visibility: "visible" },
-          { transform: `translateX(${-sens * d}px)`, visibility: "visible" },
-        ],
-        { duration: GLISSE, easing: geste ? SORTIE : COURBE, delay: geste ? 0 : i * DECALAGE, fill: "backwards" },
-      );
-    });
-    entrant.forEach((el, i) => {
-      const depart = geste && el.dataset.tire ? lireTire(el) : sens * d;
-      relacher(el);
-      el.animate(
-        [
-          { transform: `translateX(${depart}px)`, visibility: "visible" },
-          { transform: "translateX(0)", visibility: "visible" },
-        ],
-        {
-          duration: GLISSE,
-          easing: geste ? SORTIE : COURBE,
-          delay: geste ? i * 30 : ENTREE + i * DECALAGE,
-          fill: "backwards",
-        },
-      );
-    });
-  }, [index, sortant, sens, geste, reduit]);
+    const largeur = window.innerWidth;
+    const departPartant = lireTire(partant);
+    const departEntrant = geste && entrant.dataset.tire ? lireTire(entrant) : sens * largeur;
+    relacher(partant);
+    relacher(entrant);
+    eteindre(entrant);
+    const options = { duration: GLISSE, easing: geste ? SORTIE : COURBE };
+    const sortie = partant.animate(
+      [
+        { transform: `translateX(${departPartant}px)`, visibility: "visible" },
+        { transform: `translateX(${-sens * largeur}px)`, visibility: "visible" },
+      ],
+      options,
+    );
+    sortie.onfinish = () => eteindre(partant);
+    entrant.animate([{ transform: `translateX(${departEntrant}px)` }, { transform: "translateX(0)" }], options);
+    const avant = Math.max(0, GLISSE - 150);
+    minuteurAllumage.current = window.setTimeout(() => allumer(entrant), avant);
+    finMouvement.current = performance.now() + avant + dureeAllumage(motsParAvis[index]?.length ?? 0);
+  }, [index, sortant, sens, geste, reduit, motsParAvis]);
+
+  useEffect(() => () => window.clearTimeout(minuteurAllumage.current), []);
 
   if (total === 0) return null;
 
@@ -323,8 +283,8 @@ export function Temoignages({
   /* ---- Le geste ---- */
   const attraper = (e: EvenementPointeur<HTMLDivElement>) => {
     if (reduit || total < 2 || e.button > 0) return;
-    // Un balayage en cours se termine d'abord : on attrape un avis posé.
-    for (const figure of diapos.current) for (const el of pieces(figure)) for (const a of el.getAnimations()) a.finish();
+    // Un glissement en cours se termine d'abord : on attrape un avis posé.
+    for (const el of diapos.current) if (el) for (const a of el.getAnimations()) a.finish();
     prise.current = { x0: e.clientX, dx: 0, t: performance.now(), v: 0, voisin: -1 };
     e.currentTarget.setPointerCapture(e.pointerId);
     setTenu(true);
@@ -340,21 +300,18 @@ export function Temoignages({
     const actuel = indexRef.current;
     const voisin = dx === 0 ? -1 : dx < 0 ? (actuel + 1) % total : (actuel - 1 + total) % total;
     // Le doigt change de côté : l'ancien voisin repart d'où il venait.
-    if (p.voisin !== voisin && p.voisin >= 0) for (const el of pieces(diapos.current[p.voisin])) relacher(el);
+    if (p.voisin !== voisin && p.voisin >= 0) {
+      const ancien = diapos.current[p.voisin];
+      if (ancien) relacher(ancien);
+    }
     p.voisin = voisin;
-    const d = window.innerWidth;
-    pieces(diapos.current[actuel]).forEach((el, k) => placer(el, dx * (1 - k * VAGUE)));
-    if (voisin >= 0) {
-      pieces(diapos.current[voisin]).forEach((el, k) => {
-        // Le voisin part juste derrière le bord de l'écran, de son côté
-        // (mesuré au repos, une fois) : il apparaît dès que le doigt bouge,
-        // à droite comme à gauche, même si le texte est calé à gauche.
-        if (el.dataset.base === undefined) {
-          const r = el.getBoundingClientRect();
-          el.dataset.base = String(dx < 0 ? d - r.left : -r.right);
-        }
-        placer(el, parseFloat(el.dataset.base) + dx * (1 - k * VAGUE), true);
-      });
+    const largeur = window.innerWidth;
+    const courant = diapos.current[actuel];
+    if (courant) placer(courant, dx);
+    const entrant = voisin >= 0 ? diapos.current[voisin] : null;
+    if (entrant) {
+      eteindre(entrant);
+      placer(entrant, (dx < 0 ? largeur : -largeur) + dx, true);
     }
   };
   const lacher = () => {
@@ -365,29 +322,29 @@ export function Temoignages({
     const actuel = indexRef.current;
     const change = p.voisin >= 0 && (Math.abs(p.dx) > SEUIL || (Math.abs(p.v) > VIF && Math.abs(p.dx) > 20));
     if (change) {
-      // L'un finit de partir, l'autre d'arriver (le balayage, ci-dessus).
+      // L'un finit de partir, l'autre d'arriver (le glissement, ci-dessus).
       setEtat({ index: p.voisin, sortant: actuel, sens: p.dx < 0 ? 1 : -1, geste: true });
       return;
     }
     // Pas assez loin : tout revient en place, le voisin hors de l'écran.
-    const d = window.innerWidth;
-    for (const el of pieces(diapos.current[actuel])) {
-      const x = lireTire(el);
-      relacher(el);
-      if (x) el.animate([{ transform: `translateX(${x}px)` }, { transform: "translateX(0)" }], { duration: 450, easing: SORTIE });
+    const largeur = window.innerWidth;
+    const courant = diapos.current[actuel];
+    if (courant) {
+      const x = lireTire(courant);
+      relacher(courant);
+      if (x) courant.animate([{ transform: `translateX(${x}px)` }, { transform: "translateX(0)" }], { duration: 450, easing: SORTIE });
     }
-    if (p.voisin >= 0) {
-      for (const el of pieces(diapos.current[p.voisin])) {
-        const x = lireTire(el);
-        relacher(el);
-        el.animate(
-          [
-            { transform: `translateX(${x}px)`, visibility: "visible" },
-            { transform: `translateX(${x > 0 ? d : -d}px)`, visibility: "visible" },
-          ],
-          { duration: 450, easing: SORTIE },
-        );
-      }
+    const voisin = p.voisin >= 0 ? diapos.current[p.voisin] : null;
+    if (voisin) {
+      const x = lireTire(voisin);
+      relacher(voisin);
+      voisin.animate(
+        [
+          { transform: `translateX(${x}px)`, visibility: "visible" },
+          { transform: `translateX(${x > 0 ? largeur : -largeur}px)`, visibility: "visible" },
+        ],
+        { duration: 450, easing: SORTIE },
+      );
     }
   };
 
@@ -428,69 +385,47 @@ export function Temoignages({
           onPointerCancel={lacher}
         >
           <div className={s.diapos} aria-live={tourne ? "off" : "polite"}>
-            {items.map((avis, i) => {
-              const mots = motsParAvis[i];
-              const debuts = lignes?.[i] ?? null;
-              const mot = (m: Mot) => (
-                <span data-mot="" className={m.cle ? s.cle : undefined}>
-                  {m.texte}
-                </span>
-              );
-              return (
-                <figure
-                  key={avis.nom}
-                  ref={(el) => {
-                    diapos.current[i] = el;
-                  }}
-                  className={cx(s.diapo, i === index && s.affiche)}
-                  aria-hidden={i === index ? undefined : true}
-                >
-                  <blockquote className={s.texte}>
-                    <p>
-                      {debuts
-                        ? debuts.map((debut, k) => {
-                            const fin = debuts[k + 1] ?? mots.length;
-                            return (
-                              <span key={debut} data-ligne="" className={s.ligne}>
-                                {mots.slice(debut, fin).map((m, j) => (
-                                  <Fragment key={debut + j}>
-                                    {j > 0 && m.espace ? " " : null}
-                                    {mot(m)}
-                                  </Fragment>
-                                ))}
-                                {/* L'espace de fin de ligne, pour le copier-coller et les lecteurs d'écran. */}
-                                {fin < mots.length ? " " : null}
-                              </span>
-                            );
-                          })
-                        : mots.map((m, n) => (
-                            <Fragment key={n}>
-                              {m.espace ? " " : null}
-                              {mot(m)}
-                            </Fragment>
-                          ))}
-                    </p>
-                  </blockquote>
-                  <figcaption className={s.qui}>
-                    <Image
-                      className={cx(s.logo, avis.logo.couleur && s.logoCouleur)}
-                      src={avis.logo.src}
-                      alt=""
-                      width={avis.logo.width}
-                      height={avis.logo.height}
-                      style={{ height: avis.logo.hauteur, width: "auto" }}
-                    />
-                    <span className={s.filet} aria-hidden="true" />
-                    <span className={s.identite}>
-                      <strong className={s.nom}>{avis.nom}</strong>
-                      <span className={s.poste}>
-                        {avis.poste}, {avis.entreprise}
-                      </span>
-                    </span>
-                  </figcaption>
-                </figure>
-              );
-            })}
+            {items.map((avis, i) => (
+              <figure
+                key={avis.nom}
+                ref={(el) => {
+                  diapos.current[i] = el;
+                }}
+                className={cx(s.diapo, i === index && s.affiche)}
+                aria-hidden={i === index ? undefined : true}
+              >
+                {/* La signature : le logo, le nom, puis la fonction, qui
+                    apparaissent l'un après l'autre avant la citation. */}
+                <figcaption className={s.signature}>
+                  <Image
+                    className={cx(s.logo, s.piece, avis.logo.couleur && s.logoCouleur)}
+                    src={avis.logo.src}
+                    alt=""
+                    width={avis.logo.width}
+                    height={avis.logo.height}
+                    style={{ height: avis.logo.hauteur, width: "auto", "--j": 0 } as CSSProperties}
+                  />
+                  <strong className={cx(s.nom, s.piece)} style={{ "--j": 1 } as CSSProperties}>
+                    {avis.nom}
+                  </strong>
+                  <span className={cx(s.poste, s.piece)} style={{ "--j": 2 } as CSSProperties}>
+                    {avis.poste}, {avis.entreprise}
+                  </span>
+                </figcaption>
+                <blockquote className={s.citation}>
+                  <p className={s.texte}>
+                    {motsParAvis[i].map((m, k) => (
+                      <Fragment key={k}>
+                        {m.espace ? " " : null}
+                        <span className={cx(s.mot, m.cle && s.cle)} style={{ "--i": k } as CSSProperties}>
+                          {m.texte}
+                        </span>
+                      </Fragment>
+                    ))}
+                  </p>
+                </blockquote>
+              </figure>
+            ))}
           </div>
         </div>
 
@@ -499,8 +434,7 @@ export function Temoignages({
             {/* La petite main : elle attrape, glisse vers la gauche et lâche,
                 pour montrer qu'on peut jouer avec l'avis ; puis un petit mot
                 (« Glissez ») apparaît et repart avant qu'elle revienne
-                (demandes d'Antonino du 26/11/2026, à la place de « Faites
-                glisser l'avis »). */}
+                (demandes d'Antonino du 26/11/2026). */}
             <span className={s.indice} aria-hidden="true">
               <span className={s.indicePiste} />
               <span className={s.indiceMain}>

@@ -86,16 +86,40 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
       });
     };
 
+    // LE CALAGE AU MILIEU DE L'ÉCRAN (26/11/2026, demande d'Antonino : la
+    // dernière ligne touchait le bas de l'écran pendant le blocage). Le bloc
+    // garde sa marge du haut (l'écart avec les réalisations), mais il se
+    // fixe plus haut (`--methode-colle`, souvent négatif) : une fois fixé,
+    // le titre et les trois phrases sont centrés, autant d'air au-dessus du
+    // titre que sous la dernière ligne. S'ils sont plus hauts que l'écran,
+    // le titre reste en haut.
+    const pin = pinRef.current;
+    let colle = 0;
+    const caler = () => {
+      if (!pin) return;
+      const marge = parseFloat(getComputedStyle(pin).paddingTop) || 0;
+      const contenu = pin.offsetHeight - marge;
+      colle = Math.round(Math.max(0, (window.innerHeight - contenu) / 2) - marge);
+      section.style.setProperty("--methode-colle", `${colle}px`);
+    };
+    caler();
+    const observateur = pin ? new ResizeObserver(() => caler()) : null;
+    if (pin) observateur?.observe(pin);
+    let actif = true;
+    document.fonts?.ready.then(() => {
+      if (actif) caler();
+    });
+
     // La progression du blocage, mesurée sur la section : 0 quand le bloc se
-    // fixe en haut de l'écran, 1 quand il repart avec la page. Sa course :
-    // la hauteur de la section, moins sa marge du bas (l'écart avec la
-    // section suivante) et la hauteur du bloc, qui n'occupe plus tout
-    // l'écran (25/11/2026 : l'écart avec la suite ne dépend plus de la
-    // hauteur de l'écran).
+    // fixe, 1 quand il repart avec la page. Sa course : la hauteur de la
+    // section, moins sa marge du bas (l'écart avec la section suivante) et
+    // la hauteur du bloc, qui n'occupe plus tout l'écran (25/11/2026 :
+    // l'écart avec la suite ne dépend plus de la hauteur de l'écran). Le
+    // bloc se fixe quand le haut de la section passe à `colle`.
     const progression = () => {
       const bas = parseFloat(getComputedStyle(section).paddingBottom) || 0;
       const course = section.offsetHeight - bas - (pinRef.current?.offsetHeight ?? window.innerHeight);
-      const p = -section.getBoundingClientRect().top / Math.max(1, course);
+      const p = (colle - section.getBoundingClientRect().top) / Math.max(1, course);
       return Number.isFinite(p) ? clamp(p) : 0;
     };
 
@@ -144,14 +168,20 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
       request();
     }, 120);
 
+    const surRedimension = () => {
+      caler();
+      request();
+    };
     window.addEventListener("scroll", request, { passive: true });
-    window.addEventListener("resize", request);
+    window.addEventListener("resize", surRedimension);
     reduit.addEventListener("change", request);
     frame(performance.now());
     return () => {
+      actif = false;
+      observateur?.disconnect();
       window.clearInterval(filet);
       window.removeEventListener("scroll", request);
-      window.removeEventListener("resize", request);
+      window.removeEventListener("resize", surRedimension);
       reduit.removeEventListener("change", request);
       cancelAnimationFrame(raf);
     };
@@ -159,11 +189,13 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
 
   return (
     <section ref={sectionRef} id="etapes" className={cx(s.section, className)} aria-label={methode.label}>
-      {/* Le bleu nuit couvre aussi le haut des témoignages, visible en bas
-          de l'écran, et prend fin à leur arrivée (sans témoignages, à
-          l'appel final, dont la coquille est blanche elle aussi) : jamais
-          d'écran coupé en deux couleurs. */}
-      <SectionNuit aussi="#realisations, #temoignages, main > .card-shell" jusqua="#temoignages, main > .card-shell" />
+      {/* LE SEUL PASSAGE AU BLEU NUIT DE L'ACCUEIL (26/11/2026, demande
+          d'Antonino : trop de changements de fond). Il ne s'arrête plus :
+          les témoignages et l'appel final restent dans ce bleu nuit, d'un
+          seul fond, et la FAQ, blanche, le coupe d'une ligne nette sous
+          l'appel. Le bas des réalisations bascule avec lui (jamais d'écran
+          coupé en deux couleurs) ; en remontant, tout redevient blanc. */}
+      <SectionNuit aussi="#realisations, #temoignages, #appel" />
       <div ref={pinRef} className={s.pin}>
         <div className={cx("section-heading home-section-heading", s.entete)}>
           <TitreAnime
@@ -172,7 +204,6 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
             full={methode.title.full}
             fullEnd={methode.title.fullEnd}
           />
-          <p className={s.etiquette}>{methode.label}</p>
         </div>
         <p ref={texteRef} className={s.texte}>
           {etapes.map((mots, k) => (

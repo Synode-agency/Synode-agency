@@ -12,7 +12,7 @@ export const home = {
     subtitle:
       "Synode, a software development & AI agency in Brussels, designs and builds software, websites and mobile apps. We integrate artificial intelligence, connect your systems and automate your processes to support your company’s growth.",
     emphasis: "software development & AI agency in Brussels",
-    note: "Free, no commitment · one process is enough to start",
+    defiler: "Scroll",
   },
 
   proof: {
@@ -38,12 +38,12 @@ export const home = {
   },
 
   services: {
-    /* Le lien à droite du titre, comme « Toutes nos réalisations » (25/11/2026). */
-    link: "All our services",
+    /* À droite du titre, un simple mot, sans lien ni flèche (26/11/2026). */
+    etiquette: "Our services",
     prefix: "Built for",
-    rotating: ["freelancers.", "SMEs.", "large companies."],
-    full: "Built for freelancers, SMEs and large companies.",
-    fullEnd: "freelancers, SMEs and large companies.",
+    rotating: ["businesses.", "freelancers."],
+    full: "Built for businesses and freelancers.",
+    fullEnd: "businesses and freelancers.",
     more: "Learn more",
     items: [
       {
@@ -121,16 +121,6 @@ export const home = {
       },
       {
         texte:
-          "Invoicing, reminders, payment tracking: Synode automated all of it. What used to eat up our evenings now runs on its own, every single day.",
-        cle: "automated all of it",
-        nom: "Enrico P.",
-        poste: "Entrepreneur",
-        entreprise: "Picarle Rénovation",
-        logo: { src: "/clients/picarle.png", width: 155, height: 160, hauteur: 36 },
-        valide: false,
-      },
-      {
-        texte:
           "From the website to the newsletter, everything is built for our members. Synode got the spirit of the club and turned it into tools we use every week.",
         cle: "the spirit of the club",
         nom: "Clara C.",
@@ -149,21 +139,30 @@ export const home = {
         logo: { src: "/clients/batisseurs-espoir.png", width: 460, height: 160, hauteur: 28 },
         valide: false,
       },
-      {
-        texte:
-          "I came up with Coory to coach faster with AI and make it my own brand. The admin side already runs; Synode is finishing the space for my clients.",
-        cle: "my own brand",
-        nom: "Gianluca L.",
-        poste: "Sports coach",
-        entreprise: "GLB Coaching",
-        logo: { src: "/clients/glb-coaching.png", width: 437, height: 160, hauteur: 26 },
-        valide: false,
-      },
+    ],
+  },
+
+  appel: {
+    titreAvant: "What would you like to",
+    accent: "build",
+    titreApres: "?",
+    texte:
+      "Software, a website, an app, an AI agent or tools that finally work together: describe your project in one sentence and we’ll talk it through in 30 minutes.",
+    label: "Your project in one sentence",
+    attente: "Describe your project in one sentence",
+    exemples: [
+      "Software to manage our quotes",
+      "A website that brings in clients",
+      "An app for our members",
+      "An AI agent that answers clients",
+      "Connect our CRM and our invoices",
+      "Automate our payment reminders",
     ],
   },
 
   faq: {
     title: "Common questions",
+    accent: "Common",
     more: "Another question?",
     items: [
       {

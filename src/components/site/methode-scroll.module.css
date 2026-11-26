@@ -12,7 +12,6 @@
   --m-titre: #0b1424;
   --m-cle: #0a6cf0;
   --m-desc: #5a6272;
-  --m-etiquette: #0b1424;
   position: relative;
   /* Blanche de base, comme les réalisations : sans ce fond, on voyait le
      gris très clair de la page sous elles (une démarcation, signalée par
@@ -39,19 +38,21 @@
   --m-titre: #ffffff;
   --m-cle: #8ec1ff;
   --m-desc: #8fa0b8;
-  --m-etiquette: #ffffff;
 }
 
-/* Le bloc fixé pendant que les mots s'éclairent. Son contenu est calé à
-   `--methode-haut` du haut (et non centré comme dans la fiche) : l'écart
-   avec les réalisations est alors le même à toutes les tailles d'écran.
+/* Le bloc fixé pendant que les mots s'éclairent. Son contenu commence à
+   `--methode-haut` du haut de la section : l'écart avec les réalisations
+   est le même à toutes les tailles d'écran. UNE FOIS FIXÉ, IL EST CENTRÉ
+   (26/11/2026, demande d'Antonino) : il se fixe à `--methode-colle` (posé
+   par le script, souvent négatif), d'où autant d'air au-dessus du titre
+   que sous la dernière ligne.
    Sur la colonne du site (`.col` : `--container-max`, `--band-pad-x`) :
    le titre part du même bord gauche que ceux des services et des
    réalisations, et l'étiquette s'arrête au même bord droit que leurs
    liens. */
 .pin {
   position: sticky;
-  top: 0;
+  top: var(--methode-colle, 0px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -64,40 +65,27 @@
   padding: var(--methode-haut, 140px) var(--band-pad-x) 0;
 }
 
-/* L'en-tête : le titre animé à gauche, l'étiquette à droite. L'écart avec
-   le paragraphe est celui du paragraphe (`.texte`) : l'en-tête n'en ajoute
+/* L'en-tête : le titre animé seul (l'étiquette « Notre méthode » est
+   retirée le 26/11/2026, à la demande d'Antonino). L'écart avec le
+   paragraphe est celui du paragraphe (`.texte`) : l'en-tête n'en ajoute
    pas (`.pin >` pour passer devant la marge de `.section-heading`). */
 .pin > .entete {
   margin-bottom: 0;
 }
-/* L'étiquette « Notre méthode » : à la place et à la taille de « Tous nos
-   services » et de « Toutes nos réalisations » (13px, le bas au niveau du
-   bas du titre, au-dessus des traits ; sous 760px, l'en-tête passe en
-   colonne et l'étiquette sous les traits), mais sans lien : un simple
-   texte, en bleu nuit sur blanc, en blanc sur le bleu nuit (demande
-   d'Antonino du 25/11/2026). */
-.etiquette {
-  flex: none;
-  margin: 0 0 17px;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--m-etiquette);
-  transition: color 0.6s ease;
-}
-@media (max-width: 760px) {
-  .etiquette {
-    margin-bottom: 0;
-  }
-}
 
 /* Le paragraphe des trois étapes. */
+/* (De l'air sous le titre, demande d'Antonino du 26/11/2026 : le texte en
+   était trop près ; 86px sur un écran de 1440 × 900.) La marge et la
+   taille suivent aussi la HAUTEUR de l'écran : la section reste fixe
+   pendant qu'on fait défiler, et tout doit y tenir, jusqu'à la dernière
+   ligne, sur un portable bas (800 ou 720px de haut). */
 .texte {
   max-width: 1060px;
-  margin: 36px 0 0;
+  margin: clamp(48px, min(6vw, 9.5vh), 96px) 0 0;
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: clamp(30px, 3.8vw, 52px);
+  /* La taille du texte de « Notre approche » (26/11/2026, demande
+     d'Antonino). */
+  font-size: clamp(24px, min(3.1vw, 5vh), 52px);
   font-weight: 500;
   line-height: 1.18;
   letter-spacing: -0.03em;
@@ -147,8 +135,7 @@
   .pin {
     position: static;
   }
-  .mot,
-  .etiquette {
+  .mot {
     transition: none;
   }
 }

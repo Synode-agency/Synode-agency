@@ -1,19 +1,20 @@
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
-import { Castoro, Instrument_Serif } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
+import { accentFont } from "@/lib/polices";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { Hero } from "@/components/site/hero";
+import { IndiceDefiler } from "@/components/site/indice-defiler";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseShowcase } from "@/components/site/case-cards";
-import { CtaSection } from "@/components/site/cta-section";
+import { AppelProjet } from "@/components/site/appel-projet";
 import { ProofStrip } from "@/components/site/home-sections";
 import { MethodeScroll } from "@/components/site/methode-scroll";
 import { Temoignages } from "@/components/site/temoignages";
 import { ServicesGrid } from "@/components/site/services-grid";
 import { TitreAnime } from "@/components/site/titre-anime";
-import { SectionNuit } from "@/components/site/section-nuit";
 import { ApproachScroll } from "@/components/site/approach-scroll";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { ctaLabel } from "@/content/cta";
@@ -27,15 +28,9 @@ import { organizationAlternateName, organizationName, sameAsField } from "@/lib/
    empattements : Castoro (choisie par Antonino sur la planche de
    maquettes, après Instrument Serif, Bodoni Moda et Fraunces). Elle n'a
    qu'une graisse, la normale : jamais de faux gras. Le reste reste en
-   Manrope. Chargée ici et non dans le gabarit commun : seul l'accueil s'en
-   sert. `next/font` la sert depuis le site lui-même. Licence libre (OFL). */
-const accentFont = Castoro({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["italic"],
-  variable: "--font-accent",
-  display: "swap",
-});
+   Manrope. */
+/* (Castoro est déclarée une seule fois dans `@/lib/polices`, 26/11/2026 :
+   la barre et les menus s'en servent aussi.) */
 
 /* Les mots clés de « Notre méthode » (« 30 min. », « écrit. », « suivi. ») :
    Instrument Serif italique, demandé par la fiche « 4a » d'Antonino
@@ -53,10 +48,19 @@ const instrumentFont = Instrument_Serif({
 function emphasize(text: string, phrase: string): ReactNode {
   const at = phrase ? text.indexOf(phrase) : -1;
   if (at === -1) return text;
+  /* En Castoro italique, en blanc (26/11/2026, demande d'Antonino ; en
+     gras avant), sauf le « & », en Manrope (même demande). */
   return (
     <>
       {text.slice(0, at)}
-      <strong>{phrase}</strong>
+      <em className="hero-emphase">
+        {phrase.split("&").map((morceau, i) => (
+          <Fragment key={i}>
+            {i > 0 ? <span className="hero-esperluette">&amp;</span> : null}
+            {morceau}
+          </Fragment>
+        ))}
+      </em>
       {text.slice(at + phrase.length)}
     </>
   );
@@ -149,9 +153,10 @@ export function HomePage({ locale }: { locale: Locale }) {
     <Shell locale={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      {/* Le hero de l'accueil (24/11/2026) : centré (titre, phrase, l'appel
-          de 30 min, mention), sur un fond bleu nuit avec un halo bleu au
-          centre. Pas de photo. */}
+      {/* Le hero de l'accueil : le titre et la description seuls, sur un
+          fond bleu nuit avec un halo bleu (le bouton de l'appel et sa
+          mention retirés le 26/11/2026, demande d'Antonino), et la petite
+          main « Défilez » au milieu, en bas. Pas de photo. */}
       <Hero
         locale={locale}
         className={`home-page-hero home-hero ${accentFont.variable}`}
@@ -178,9 +183,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           </Fragment>
         ))}
         subtitle={emphasize(home.hero.subtitle, home.hero.emphasis)}
-        primaryCta
-        arrows={false}
-        note={home.hero.note}
+        strip={<IndiceDefiler mot={home.hero.defiler} />}
       />
 
       {/* LA BANDE DES CLIENTS, juste sous le hero (24/11/2026) : blanche,
@@ -212,18 +215,15 @@ export function HomePage({ locale }: { locale: Locale }) {
       />
 
       <Band id="services" className={`rf-section ${accentFont.variable}`}>
-        {/* Au défilement, tout l'écran passe en bleu nuit, d'un seul fond,
-            avec « Notre approche » au-dessus et le haut des réalisations en
-            dessous (aucune coupure entre bleu nuit et blanc), et les
-            couleurs s'inversent ; tout l'écran redevient blanc, d'un bloc,
-            à l'arrivée des réalisations. « Notre méthode » repasse ensuite
-            au bleu nuit de la même façon (`SectionNuit`, `refonte.css`,
-            demande d'Antonino du 25/11/2026). */}
-        <SectionNuit aussi="#approche, #realisations" jusqua="#realisations" />
+        {/* En blanc, comme « Notre approche » au-dessus et les réalisations
+            en dessous : le seul passage au bleu nuit de l'accueil est celui
+            de « Notre méthode » (demande d'Antonino du 26/11/2026 : trop de
+            changements de fond). */}
         {/* L'en-tête animé : « Conçus pour les » et un mot qui change en
             boucle (`TitreAnime`), sans étiquette au-dessus ; à droite,
-            « Tous nos services », comme « Toutes nos réalisations »
-            (demande d'Antonino du 25/11/2026). */}
+            « Nos services », un simple mot, sans lien ni flèche : les quatre
+            services sont juste en dessous (demande d'Antonino du
+            26/11/2026). */}
         <div className="section-heading home-section-heading">
           <TitreAnime
             prefix={home.services.prefix}
@@ -231,10 +231,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             full={home.services.full}
             fullEnd={home.services.fullEnd}
           />
-          <Link className="go" href={path(locale, ROUTES.services)}>
-            {home.services.link}
-            <ArrowRight aria-hidden />
-          </Link>
+          <p className="section-etiquette">{home.services.etiquette}</p>
         </div>
         {/* Les quatre services en photos (25/11/2026, fiche d'Antonino) :
             une grille, sans fond de carte ; l'en-tête ne change pas. */}
@@ -283,12 +280,17 @@ export function HomePage({ locale }: { locale: Locale }) {
       )}
 
       {/* L'appel final AVANT la FAQ, et plus de fondateurs sur l'accueil :
-          ils sont sur À propos (demande d'Antonino, 25/11/2026). */}
-      <CtaSection locale={locale} />
+          ils sont sur À propos (demande d'Antonino, 25/11/2026). Depuis le
+          26/11/2026, la maquette « 4A » à la place de la carte bleu nuit :
+          « Qu'aimeriez-vous construire ? » et le champ du projet, dont la
+          phrase suit la réservation jusqu'à Cal.com (`AppelProjet`) ; en
+          bleu nuit, annoncée par un fondu qui se resserre (maquette « C »,
+          adoucie). */}
+      <AppelProjet locale={locale} appel={home.appel} className={accentFont.variable} />
 
       {faq.length > 0 && (
         <Band id="faq" className="rf-section">
-          <Lede title={home.faq.title} />
+          <Lede title={home.faq.title} accents={[home.faq.accent]} />
           <div className="section-gap-sm">
             <FaqAccordion items={faq} />
             {/* La page ne se termine pas sans action : le bouton unique du

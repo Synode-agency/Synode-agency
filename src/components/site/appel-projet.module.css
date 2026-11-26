@@ -1,0 +1,202 @@
+/* =====================================================================
+   L'APPEL FINAL DE L'ACCUEIL (26/11/2026) : le contenu de la maquette
+   « 4A », dans le bleu nuit de « Notre méthode » (choix d'Antonino).
+   Isolé dans ce module ; le comportement est dans `appel-projet.tsx`.
+   ===================================================================== */
+
+/* L'appel n'a PAS de fond à lui (demande d'Antonino du 26/11/2026) : il
+   est dans le bleu nuit de « Notre méthode » et des témoignages, le calque
+   fixe `.fond-nuit`, qui continue jusqu'ici d'un seul fond. En haut, la marge de l'appel (`--pad-appel`, `refonte.css`) : la même
+   distance qu'entre « Notre méthode » et les témoignages. En bas, plus de
+   bleu avant la ligne nette de la FAQ, blanche (demande d'Antonino du
+   26/11/2026 : la section « beaucoup trop petite en hauteur »). */
+.appel {
+  --brand: #8fc0ff;
+  --brand-foreground: #070c18;
+  --brand-hover: #b3d4ff;
+  position: relative;
+  /* Le champ arrive de la droite : coupé au bord de l'écran, sans barre de
+     défilement horizontale. */
+  overflow-x: clip;
+  padding-top: var(--pad-appel, 112px);
+  padding-bottom: clamp(6rem, 4rem + 9vw, 12.5rem);
+  color: #ffffff;
+}
+
+/* Sous le titre : la phrase à gauche, le champ à droite, sur une ligne,
+   centrés l'un sur l'autre. La colonne du site sert de conteneur : les
+   deux ne se posent côte à côte que s'il y a la place pour le champ
+   entier (660px) et la phrase à côté ; sinon, l'un sous l'autre. */
+.colonne {
+  container-type: inline-size;
+}
+.grille {
+  display: grid;
+  gap: 32px;
+}
+@container (min-width: 1080px) {
+  .grille {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 660px);
+    align-items: center;
+    gap: 56px;
+  }
+}
+.gauche {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.droite {
+  min-width: 0;
+}
+
+/* La question, À LA TAILLE DES AUTRES TITRES DE SECTION
+   (`--titre-section`, demande d'Antonino du 26/11/2026 : on comprend qu'on
+   arrive dans une autre section), sur deux lignes comme eux
+   (« Qu'aimeriez-vous », puis « construire ? »), au-dessus de la phrase et
+   du champ. Chaque ligne monte depuis sous son bord. */
+.titre {
+  margin: 0 0 clamp(40px, 5vw, 72px);
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: var(--titre-section, 36px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  color: #ffffff;
+}
+.ligne {
+  display: block;
+  overflow: clip;
+  padding: 0.05em 0.12em 0.1em 0;
+  margin: -0.05em 0 -0.1em;
+}
+.ligne > span {
+  display: inline-block;
+}
+/* « construire » : en Castoro italique bleu clair, comme les mots en
+   couleur des titres sur le bleu nuit. */
+.accent {
+  font-family: var(--font-accent), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: #8ec1ff;
+}
+.texte {
+  max-width: 44ch;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+  color: #a9b3c6;
+  text-wrap: pretty;
+}
+
+/* Le champ en pilule, blanc sur le bleu nuit, le bouton du site à
+   l'intérieur. */
+.champ {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: min(100%, 660px);
+  margin: 0;
+  padding: 8px 8px 8px 26px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 60%);
+  transition: box-shadow 0.25s ease;
+}
+.champ:focus-within {
+  box-shadow:
+    0 0 0 4px rgb(143 192 255 / 35%),
+    0 30px 60px -30px rgb(0 0 0 / 60%);
+}
+.champ input {
+  flex: 1;
+  min-width: 0;
+  height: 56px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0b1424;
+  font: 500 17px/1 var(--font-manrope), var(--font-sans), sans-serif;
+  outline: none;
+}
+.champ input::placeholder {
+  color: #7d8697;
+  opacity: 1;
+}
+.champ :global(.btn) {
+  flex: none;
+}
+.cache {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* L'entrée : le titre monte ligne à ligne, la phrase suit, le champ
+   glisse depuis la droite. Le script pose `data-entree="avant"` tant que
+   la bande n'est pas assez montée. */
+.ligne > span,
+.texte,
+.droite {
+  transition:
+    transform 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 0.7s ease;
+}
+.appel[data-entree="avant"] .ligne > span {
+  transform: translateY(108%);
+}
+.appel[data-entree="avant"] .texte {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.appel[data-entree="avant"] .droite {
+  opacity: 0;
+  transform: translateX(36px);
+}
+.appel:not([data-entree]) .ligne + .ligne > span {
+  transition-delay: 0.08s;
+}
+.appel:not([data-entree]) .texte {
+  transition-delay: 0.18s;
+}
+.appel:not([data-entree]) .droite {
+  transition-delay: 0.28s;
+}
+
+/* Téléphone : le bouton sous le champ. */
+@media (max-width: 760px) {
+  .champ {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+    border-radius: 24px;
+  }
+  /* La zone où l'on écrit, plus haute (26/11/2026, demande d'Antonino :
+     sur téléphone, on ne comprenait pas qu'il fallait toucher ici) : une
+     cible franche au-dessus du bouton, et le texte du champ à 16px (sans
+     quoi Safari agrandit la page au toucher). `flex: none` : en colonne,
+     le `flex: 1` de l'ordinateur l'écrasait à 22px de haut. */
+  .champ input {
+    flex: none;
+    height: 76px;
+    padding: 0 16px;
+    font-size: 16px;
+  }
+  .champ :global(.btn) {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .champ,
+  .ligne > span,
+  .texte,
+  .droite {
+    transition: none;
+  }
+}

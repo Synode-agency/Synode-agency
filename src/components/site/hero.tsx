@@ -39,7 +39,7 @@ export function Hero({
   secondaryLink?: { href: string; label: string };
   /** Les flèches après les libellés des deux actions. */
   arrows?: boolean;
-  note?: string;
+  note?: ReactNode;
   layout?: "feature" | "inner";
   aside?: ReactNode;
   /** Une bande pleine largeur sous les deux colonnes (la bande de preuve). */

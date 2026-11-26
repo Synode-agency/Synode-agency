@@ -166,7 +166,7 @@ export function MenuPanel({
                 href={path(locale, ROUTES.services)}
                 locale={locale}
                 onNavigate={onClose}
-                className={s.grandLien}
+                className={cx(s.grandLien, s.motServices)}
                 style={{ "--i": 1 } as CSSProperties}
               >
                 {services.label}

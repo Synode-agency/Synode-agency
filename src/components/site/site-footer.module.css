@@ -33,6 +33,12 @@
   gap: 1.25rem;
 }
 
+/* Le logo recomposé (`LogoSynode`, `refonte.css`), son N à 30px de haut.
+   (Deux classes : passer devant la hauteur par défaut, `.logo-mot`.) */
+.logo:global(.logo-mot) {
+  --logo-h: 30px;
+}
+
 /* Sous le logo : les quatre métiers. */
 .tagline {
   margin: 0;

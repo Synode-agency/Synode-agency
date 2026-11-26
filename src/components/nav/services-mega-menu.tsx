@@ -113,7 +113,16 @@ export function ServicesMegaMenu({
           onNavigate={() => setOuvert(false)}
           className={cx("site-nav-link", s.lien, courant && "is-current")}
         >
-          {label}
+          {/* Le mot deux fois, l'un sur l'autre : droit, et en Castoro
+              italique, montré quand le menu est ouvert (26/11/2026). La
+              place est celle du plus large : les autres liens ne bougent
+              pas. */}
+          <span className={s.mots}>
+            <span className={s.motDroit}>{label}</span>
+            <span className={s.motCastoro} aria-hidden="true">
+              {label}
+            </span>
+          </span>
         </NavLink>
         <button
           type="button"
@@ -133,8 +142,6 @@ export function ServicesMegaMenu({
         >
           <ChevronDown aria-hidden />
         </button>
-        {/* Le soulignement de la barre claire. */}
-        <span className={s.souligne} aria-hidden="true" />
       </div>
 
       {/* Le voile : il couvre la page derrière le panneau. La souris qui

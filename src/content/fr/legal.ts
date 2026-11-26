@@ -88,7 +88,7 @@ export const legalTexts: LegalTexts = {
         {
           list: [
             "**Formulaire de contact** : nom, e-mail et message (obligatoires). S’y ajoutent la date de la demande et la langue de la page.",
-            "**Réservation d’un échange (Cal.com)** : au minimum nom, e-mail et créneau choisi.",
+            "**Réservation d’un échange (Cal.com)** : au minimum nom, e-mail et créneau choisi, et la description de votre projet si vous l’avez écrite sur la page d’accueil.",
             "**E-mails** que vous échangez avec nous.",
             "**Données techniques** : notre hébergeur Netlify traite les données de connexion, dont l’adresse IP. Notre serveur utilise l’adresse IP temporairement, en mémoire, pour limiter les envois répétés du formulaire, sans l’enregistrer. Il garde de la même façon l’adresse e-mail, pour n’envoyer qu’un accusé de réception par jour.",
             "**Outils de la page d’accueil** (diagnostic, recherche de processus, brief) : ils fonctionnent dans votre navigateur. Rien ne nous est transmis tant que vous n’envoyez pas le formulaire.",
@@ -154,7 +154,7 @@ export const legalTexts: LegalTexts = {
         "Le site ne dépose aucun cookie et n’utilise ni mesure d’audience, ni publicité, ni module de réseau social. Il n’affiche donc pas de bandeau cookies.",
         {
           list: [
-            "**Stockage de session** : le brief préparé sur la page d’accueil est conservé dans votre navigateur, puis effacé dès que le formulaire de contact le reprend, ou à la fermeture de l’onglet.",
+            "**Stockage de session** : le brief préparé sur la page d’accueil est conservé dans votre navigateur, puis effacé dès que le formulaire de contact le reprend, ou à la fermeture de l’onglet. De même, la phrase qui décrit votre projet, écrite dans le champ de la page d’accueil, reste dans votre navigateur jusqu’à la fermeture de l’onglet ; elle n’est transmise à Cal.com que si vous ouvrez l’agenda.",
             "**Cal.com** : chargé uniquement lorsque vous cliquez sur « Ouvrir le calendrier ». Cal.com dépose alors notamment un cookie technique de sécurité (« __cf_bm », 30 minutes).",
             "**E-mails** : Brevo mesure l’ouverture et les clics de manière anonymisée, sans lien avec votre adresse.",
           ],

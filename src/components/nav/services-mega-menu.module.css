@@ -20,6 +20,39 @@
 .lien.lien {
   padding-right: 0;
 }
+/* « SERVICES » COMME LES AUTRES LIENS (26/11/2026, demande d'Antonino :
+   en Manrope, plus en Castoro) : même police, même couleur, blanc au
+   survol ; sa petite flèche suit le mot. En bleu nuit sur la barre claire
+   (menu ouvert), bleu au survol. Sur la page Services, en bleu comme toute
+   page en cours. */
+:global(.site-header) .lien.lien,
+:global(.site-header) .fleche.fleche {
+  color: #c9d3e2;
+  transition: color 0.25s ease;
+}
+:global(.site-page .site-header[data-mega]) .lien.lien,
+:global(.site-page .site-header[data-mega]) .fleche.fleche {
+  color: #0b1424;
+}
+:global(.site-header) .lien.lien:global(.is-current) {
+  color: #8ec1ff;
+}
+:global(.site-page .site-header[data-mega]) .lien.lien:global(.is-current) {
+  color: #0a6cf0;
+}
+@media (hover: hover) and (pointer: fine) {
+  :global(.site-header) .declencheur:hover .lien.lien,
+  :global(.site-header) .declencheur:hover .fleche.fleche {
+    color: #ffffff;
+  }
+  :global(.site-page .site-header[data-mega]) .declencheur:hover .lien.lien,
+  :global(.site-page .site-header[data-mega]) .declencheur:hover .fleche.fleche {
+    color: #0a6cf0;
+  }
+}
+:global(.site-header) .lien.lien:focus-visible {
+  color: #ffffff;
+}
 .lien:global(.is-current)::after {
   right: 0;
 }
@@ -42,18 +75,37 @@
 :global(.site-page .site-header[data-mega]) .declencheur > :global(.site-nav-link) {
   color: #0b1424;
 }
-.souligne {
-  position: absolute;
-  right: 0.65rem;
-  bottom: 0.15rem;
-  left: 0.65rem;
-  height: 0;
-  border-bottom: 1.5px solid #0b1424;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* MENU OUVERT : « Services » passe en Castoro italique, sans soulignement,
+   et revient droit quand le menu se ferme (26/11/2026, demande
+   d'Antonino). Un fondu entre les deux mots, posés l'un sur l'autre. */
+.mots {
+  display: inline-grid;
+  align-items: baseline;
 }
-:global(.site-header[data-mega]) .souligne {
+.motDroit,
+.motCastoro {
+  grid-area: 1 / 1;
+  transition: opacity 0.25s ease;
+}
+.motCastoro {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.1em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  opacity: 0;
+}
+:global(.site-header[data-mega]) .motDroit {
+  opacity: 0;
+}
+:global(.site-header[data-mega]) .motCastoro {
   opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .motDroit,
+  .motCastoro {
+    transition: none;
+  }
 }
 
 /* Le voile : il couvre la page derrière le panneau, SOUS la barre (à
@@ -182,8 +234,7 @@
 /* Sans mouvement : pas de déroulé, ni de montée, ni de cascade ; des
    fondus de 0,2s. */
 @media (prefers-reduced-motion: reduce) {
-  .fleche svg,
-  .souligne {
+  .fleche svg {
     transition: none;
   }
   .voile {

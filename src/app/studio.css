@@ -10,8 +10,16 @@
      écrire de pile monospace en dur. */
   --background: #f8f9fb;
   --surface-dark: #171f2c;
-  --container-max: 1240px;
-  --band-pad-x: clamp(1.25rem, 4vw, 3rem);
+  /* PLEINE LARGEUR (26/11/2026, maquette « C » choisie par Antonino,
+     d'après In The Pocket, 44px de marge), puis 10, 10 et 20px de plus de
+     chaque côté pour que ça respire (ses demandes du même jour) : le
+     contenu va à 80px des bords sur un écran de 1440px (2,8vw + 40px,
+     84px au plus) ; sur téléphone, 40px (les 20 derniers ne s'appliquent
+     qu'à partir de 768px : il ne resterait que 270px de contenu). Avant :
+     une colonne de 1240px, à 148px des bords.
+     La limite de 1920px ne joue que sur les très grands écrans. */
+  --container-max: 1920px;
+  --band-pad-x: calc(clamp(1.25rem, 2.8vw, 2.75rem) + 20px);
   --band-pad-y: clamp(3.75rem, 6vw, 6rem);
   /* Hauteur de référence des grandes sections de l'accueil. Sur une
      fenêtre de portable, elles remplissent l'écran. Au-delà de 768px de
@@ -42,6 +50,12 @@
   --r-panel: 1.5rem;
   --r-sm: 0.75rem;
   --r-lg: 1rem;
+}
+/* Dès 768px, 20px de plus de chaque côté (voir `--band-pad-x` ci-dessus). */
+@media (min-width: 768px) {
+  :root {
+    --band-pad-x: calc(clamp(1.25rem, 2.8vw, 2.75rem) + 40px);
+  }
 }
 h1,
 h2,
@@ -482,6 +496,20 @@ footer.band--white .wordmark-type {
 .booking-closed-text {
   margin: 0 0 0.5rem;
   color: var(--muted-foreground);
+}
+/* La phrase du projet écrite sur l'accueil (26/11/2026), rappelée avant
+   d'ouvrir l'agenda, qui la reprend. */
+.booking-projet {
+  max-width: 40ch;
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  background: #eef4fd;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #19304f;
+  text-wrap: pretty;
 }
 .booking-closed-note {
   max-width: 36ch;
@@ -3631,7 +3659,9 @@ main > .band#tarification > .col > .lede {
   /* ---- L'en-tête : 64px, et ses marges ---- */
   .site-header-bar {
     min-height: 64px;
-    padding-inline: 20px 16px;
+    /* Sur la marge du contenu (`--band-pad-x`, 26/11/2026) : le logo
+       tombe sur son bord ; à droite, 4px de moins pour le vide du bouton. */
+    padding-inline: var(--band-pad-x) calc(var(--band-pad-x) - 4px);
   }
 
   /* ---- Le pied : la marque, puis DEUX colonnes ----

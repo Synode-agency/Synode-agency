@@ -19,6 +19,7 @@ export const contact = {
     closedText: "30 minutes by video call.",
     closedNote: "The calendar is provided by Cal.com. It only loads when you open it, and may then use its own cookies.",
     closedNoteLink: "Learn more",
+    projetLabel: "Your project",
   },
 
   write: {

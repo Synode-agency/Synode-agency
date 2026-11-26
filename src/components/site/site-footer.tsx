@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Wordmark } from "./wordmark";
 import { NavLink } from "./nav-link";
 import { CurrentYear } from "./current-year";
+import { LogoSynode } from "./logo-synode";
 import { ROUTES, getContent, path, type Locale } from "@/content";
 import { organizationProfiles } from "@/lib/organization";
 import s from "./site-footer.module.css";
@@ -34,7 +34,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
       <div className={`col ${s.footer}`}>
         <div className={s.top}>
           <div className={s.brand}>
-            <Wordmark variant="mark" />
+            {/* Le logo recomposé, lettres noires et N bleu (26/11/2026,
+                demande d'Antonino), comme son fichier « bleu-noir ». */}
+            <LogoSynode className={s.logo} />
             <p className={s.tagline}>{site.footerTagline}</p>
           </div>
 

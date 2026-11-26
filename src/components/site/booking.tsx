@@ -2,10 +2,16 @@
 
 import { CalendarPreview } from "./calendar-preview";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowUpRight, CalendarClock } from "lucide-react";
 import { path, ROUTES, type Locale } from "@/lib/routes";
 import type { BookingCopy } from "@/content";
+import { CHAMP_CAL_PROJET, lireProjet } from "@/lib/projet";
+
+/* La phrase du projet, écrite dans l'appel final de l'accueil : lue dans le
+   navigateur, sans état ni effet (rien côté serveur). */
+const suivreRien = () => () => {};
+const rienCoteServeur = () => null;
 
 /** Accept a Cal.com event path or a full public booking URL. */
 function bookingUrl(value: string | undefined) {
@@ -46,6 +52,11 @@ export function Booking({ locale, copy, variant = "default" }: { locale: Locale;
   const fr = locale === "fr";
   const url = bookingUrl(process.env.NEXT_PUBLIC_CAL_LINK);
   const [open, setOpen] = useState(false);
+  /* LA PHRASE DU PROJET (26/11/2026) : rappelée sur la carte, puis donnée à
+     Cal.com, qui pré-remplit la question « Votre projet » (identifiant
+     `projet`) ; le visiteur peut la corriger avant de confirmer. */
+  const projet = useSyncExternalStore(suivreRien, lireProjet, rienCoteServeur);
+  if (url && projet) url.searchParams.set(CHAMP_CAL_PROJET, projet);
   /* À l'ouverture, le bouton cliqué disparaît : le focus passe au calendrier
      au lieu de retomber au début de la page (23/11/2026). */
   const frame = useRef<HTMLIFrameElement>(null);
@@ -84,6 +95,14 @@ export function Booking({ locale, copy, variant = "default" }: { locale: Locale;
           <span className="booking-closed-icon" aria-hidden><CalendarClock /></span>
           <p className="booking-closed-title">{b.closedTitle}</p>
           <p className="booking-closed-text">{b.closedText}</p>
+          {projet ? (
+            <p className="booking-projet">
+              {b.projetLabel}
+              {fr ? " : « " : ": “"}
+              {projet}
+              {fr ? " »" : "”"}
+            </p>
+          ) : null}
           <button type="button" onClick={() => setOpen(true)} className="btn btn--primary"><span className="btn-lib">{b.openLabel}</span></button>
           <p className="booking-closed-note">
             {b.closedNote}{" "}
