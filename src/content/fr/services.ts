@@ -15,9 +15,11 @@ export const services = {
 
   hero: {
     /* Une ligne par `\n` sur ordinateur. Chaque « | » : une espace sur
-       ordinateur, un retour à la ligne sur téléphone (« Quatre façons / de
-       faire avancer / votre activité. »), comme le titre de l'accueil. */
-    title: "Quatre façons|de faire\navancer|votre activité.",
+       ordinateur, un retour à la ligne sur téléphone (« Quatre services /
+       pour faire avancer / votre activité. »), comme le titre de
+       l'accueil. « Quatre services » plutôt que « Quatre façons » pour le
+       référencement (27/11/2026, demande d'Antonino). */
+    title: "Quatre services|pour faire\navancer|votre activité.",
     accents: ["avancer"],
     subtitle:
       "Pour les entreprises comme pour les indépendants : on construit ce qui manque, on relie ce qui existe et on ajoute de l’IA quand elle apporte vraiment quelque chose.",

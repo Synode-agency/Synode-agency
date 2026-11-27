@@ -9,7 +9,7 @@ export const services = {
   hero: {
     /* « | » : a line break on phones only, a space on desktop (see
        fr/home.ts). */
-    title: "Four ways|to move\nyour|business forward.",
+    title: "Four services|to move\nyour|business forward.",
     accents: ["forward"],
     subtitle:
       "For companies and freelancers alike: we build what’s missing, connect what already exists and add AI when it genuinely helps.",

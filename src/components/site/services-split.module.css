@@ -66,6 +66,26 @@
   opacity: 1;
   transform: scale(1);
 }
+/* LE VOILE (27/11/2026, demande d'Antonino : on lisait mal « Intégration &
+   systèmes connectés » sur les tubes clairs) : les quatre photos un peu
+   assombries, à peine en haut (10 %), davantage en bas, là où se pose le
+   nom (jusqu'à 58 %), dans le bleu nuit du site. Seulement ici : les
+   mêmes photos de l'accueil et du menu ne changent pas. */
+.boite::after,
+.photoBloc::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgb(9 15 31 / 58%) 0%,
+    rgb(9 15 31 / 40%) 22%,
+    rgb(9 15 31 / 16%) 48%,
+    rgb(9 15 31 / 10%) 100%
+  );
+  pointer-events: none;
+}
 /* Le nom du service, en bas à gauche de la photo, sans fond : les quatre
    empilés, seul l'actif visible. 38px au plus ; moins dans une boîte plus
    étroite, pour que « Intelligence artificielle » tienne sur sa ligne. */
@@ -74,7 +94,10 @@
   right: 36px;
   bottom: 34px;
   left: 36px;
+  z-index: 2;
   display: grid;
+  /* Une ombre douce sous les lettres, pour les reflets les plus clairs. */
+  text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
 }
 .nom {
   grid-area: 1 / 1;
@@ -285,12 +308,25 @@
   .photoBloc img {
     object-fit: cover;
   }
+  /* La photo est moins haute : le nom en couvre une plus grande part, le
+     voile du bas monte d'autant. */
+  .photoBloc::after {
+    background: linear-gradient(
+      to top,
+      rgb(9 15 31 / 62%) 0%,
+      rgb(9 15 31 / 46%) 32%,
+      rgb(9 15 31 / 16%) 62%,
+      rgb(9 15 31 / 10%) 100%
+    );
+  }
   .nomBloc {
     position: absolute;
     right: 24px;
     bottom: 22px;
     left: 24px;
+    z-index: 2;
     margin: 0;
+    text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
     font-size: min(38px, 7.6cqi);
     font-weight: 500;
     line-height: 1.08;
