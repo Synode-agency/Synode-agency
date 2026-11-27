@@ -67,11 +67,13 @@
 }
 
 /* ---- Les quatre cartes ---- */
+/* Un peu plus loin du titre (27/11/2026, demande d'Antonino : « que ça
+   respire ») : 88px sur ordinateur (64 avant), 56 sur téléphone (48). */
 .cartes {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-  margin: 64px 0 0;
+  margin: clamp(56px, 6.1vw, 88px) 0 0;
   padding: 0;
   list-style: none;
 }
@@ -84,7 +86,9 @@
   gap: 24px;
   padding: 24px 24px 56px;
   border: 1px solid var(--in-bord);
-  border-radius: 18px;
+  /* Plus arrondie (27/11/2026, demande d'Antonino) : 24px (18 avant) ; la
+     photo suit, 16px (12 avant). */
+  border-radius: 24px;
   background: var(--in-carte);
   transition:
     transform 0.5s var(--in-courbe),
@@ -98,12 +102,14 @@
     background: var(--in-carte-survol);
   }
 }
-/* La photo, ou, tant qu'elle n'existe pas, un bloc bleu nuit à sa place. */
+/* La photo, ou, tant qu'elle n'existe pas, un bloc bleu nuit à sa place.
+   EN RECTANGLE HORIZONTAL, 3:2 (27/11/2026, demande d'Antonino : carrée
+   avant, 260px de haut) ; la photo est recadrée au besoin. */
 .photo {
   position: relative;
-  height: 260px;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
   background: #141c30;
 }
 .photo img {
@@ -173,17 +179,11 @@
   .texte {
     max-width: 34rem;
   }
-  .cartes {
-    margin-top: 48px;
-  }
 }
 @media (max-width: 640px) {
   .cartes {
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
-  }
-  .photo {
-    height: 220px;
   }
   .recurrent {
     margin-top: 44px;

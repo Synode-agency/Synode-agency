@@ -57,21 +57,24 @@ export const services = {
      sur la photo) ; `heading` : le titre du bloc, sa 2e partie en
      Instrument Serif.
      ⚠ Le logiciel n'est pas seulement « métier » (demande d'Antonino) :
-     outil interne, portail, SaaS ouvert à tout un marché ; sur un ton
-     d'agence professionnelle (pas de « loisirs »). Et rien de ce qu'on ne
+     logiciel de bureau, application web, outil interne, portail, SaaS
+     ouvert à tout un marché ; sur un ton d'agence professionnelle (pas de
+     « loisirs »). L'IA parle d'abord d'AUTOMATISATION, en mots simples
+     (« assistants IA » plutôt qu'« agents IA », que peu de gens
+     comprennent). Et rien de ce qu'on ne
      garantit pas (pas de « bien référencé » : le référencement est un
      travail à part). Un `\n` dans une phrase : un retour à la ligne. */
   items: [
     {
       key: "software",
       name: ["Développement", "logiciel"],
-      line: "SaaS, plateformes, outils internes",
+      line: "Logiciels de bureau, web et SaaS",
       image: "/images/services/service-logiciel.webp",
       heading: ["Des logiciels pensés pour ", "ceux qui les utilisent."],
       sentence:
-        "Pour votre équipe, vos clients ou tout un marché\u00a0: outil interne, portail ou plateforme SaaS, on développe le logiciel que vous imaginez, solide et sécurisé.",
+        "Pour votre équipe, vos clients ou tout un marché : logiciel de bureau, application web ou plateforme SaaS, on développe le logiciel que vous imaginez, solide et sécurisé.",
       deliverables: [
-        "Plateformes SaaS et applications web",
+        "Logiciels de bureau, applications web, plateformes SaaS",
         "Outils internes, portails clients, MVP",
         "Comptes, droits par rôle, sauvegardes, historique",
       ],
@@ -79,15 +82,15 @@ export const services = {
     {
       key: "ai",
       name: ["Intelligence artificielle", "& automatisation"],
-      line: "Agents IA, automatisations",
+      line: "Automatisations, assistants IA",
       image: "/images/services/service-ia.webp",
       heading: ["L’IA au travail sur ", "vos vrais dossiers."],
       sentence:
-        "Des agents IA branchés sur vos outils et vos documents, qui font gagner du temps sans exposer vos données ni vos clients.",
+        "On automatise les tâches répétitives et on met l’IA au travail sur vos outils et vos documents : du temps gagné, sans exposer vos données ni vos clients.",
       deliverables: [
-        "Agents IA et automatisations sur mesure",
-        "Accès limités et validation humaine",
-        "Tests sur vos cas réels, qualité suivie",
+        "Tâches répétitives automatisées : relances, devis, saisies",
+        "Assistants IA qui lisent vos documents et répondent",
+        "Accès limités, validation humaine, tests sur vos cas réels",
       ],
     },
     {
@@ -128,26 +131,30 @@ export const services = {
   included: {
     title: "Inclus dans",
     accent: "chaque projet.",
-    text: "Quel que soit le service, on ne s’arrête pas à la mise en ligne : votre équipe repart avec un outil qu’elle sait utiliser.",
+    /* Valable pour LES QUATRE SERVICES, site web compris (27/11/2026,
+       demande d'Antonino : « outil » partout faisait penser au seul
+       logiciel). La formation, « selon le projet » : un site ne demande pas
+       toujours de formation. */
+    text: "Logiciel, IA, intégration, site ou application : on ne s’arrête pas à la livraison. Vous repartez avec un projet en service, compris et documenté.",
     items: [
       {
         title: "Installation",
-        text: "On met l’outil en service dans votre environnement, avec vos données.",
+        text: "Site mis en ligne, application publiée, logiciel ou assistant IA mis en service, avec vos données.",
         image: "/images/services/inclus-installation.webp",
       },
       {
         title: "Formation",
-        text: "Votre équipe apprend à utiliser l’outil livré, sur ses propres cas.",
+        text: "Selon le projet, votre équipe apprend à s’en servir : application, logiciel ou assistant IA.",
         image: "/images/services/inclus-formation.webp",
       },
       {
         title: "Documentation",
-        text: "Un guide clair, pour retrouver chaque réglage et chaque procédure.",
+        text: "Un guide clair de ce qui a été livré : accès, réglages, procédures.",
         image: "/images/services/inclus-documentation.webp",
       },
       {
         title: "Accompagnement",
-        text: "On reste disponibles jusqu’à la prise en main complète.",
+        text: "Après le lancement, on reste disponibles jusqu’à ce que tout soit pris en main.",
         image: "/images/services/inclus-accompagnement.webp",
       },
     ],

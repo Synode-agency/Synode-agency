@@ -35,13 +35,13 @@ export const services = {
     {
       key: "software",
       name: ["Software", "development"],
-      line: "SaaS, platforms, internal tools",
+      line: "Desktop, web and SaaS software",
       image: "/images/services/service-logiciel.webp",
       heading: ["Software built for ", "the people who use it."],
       sentence:
-        "For your team, your clients or an entire market: an internal tool, a portal or a SaaS platform, we build the software you have in mind, solid and secure.",
+        "For your team, your clients or an entire market: desktop software, web app or SaaS platform, we build the software you have in mind, solid and secure.",
       deliverables: [
-        "SaaS platforms and web applications",
+        "Desktop software, web apps, SaaS platforms",
         "Internal tools, client portals, MVPs",
         "Accounts, role-based access, backups, change history",
       ],
@@ -49,14 +49,15 @@ export const services = {
     {
       key: "ai",
       name: ["Artificial intelligence", "& automation"],
-      line: "AI agents, automations",
+      line: "Automations, AI assistants",
       image: "/images/services/service-ia.webp",
       heading: ["AI at work on ", "your real files."],
-      sentence: "AI agents connected to your tools and documents, saving you time without exposing your data or your clients.",
+      sentence:
+        "We automate repetitive tasks and put AI to work on your tools and documents: time saved, without exposing your data or your clients.",
       deliverables: [
-        "Custom AI agents and automations",
-        "Limited access and human approval",
-        "Tested on your real cases, quality monitored",
+        "Repetitive tasks automated: follow-ups, quotes, data entry",
+        "AI assistants that read your documents and answer",
+        "Limited access, human approval, tested on your real cases",
       ],
     },
     {
@@ -91,26 +92,26 @@ export const services = {
   included: {
     title: "Included in",
     accent: "every project.",
-    text: "Whatever the service, we don’t stop at launch: your team walks away with a tool it knows how to use.",
+    text: "Software, AI, integrations, website or app: we don’t stop at delivery. You walk away with a project that is live, understood and documented.",
     items: [
       {
         title: "Installation",
-        text: "We put the tool into service in your environment, with your data.",
+        text: "Website launched, app published, software or AI assistant up and running, with your data.",
         image: "/images/services/inclus-installation.webp",
       },
       {
         title: "Training",
-        text: "Your team learns to use the delivered tool, on its own cases.",
+        text: "Depending on the project, your team learns to use it: app, software or AI assistant.",
         image: "/images/services/inclus-formation.webp",
       },
       {
         title: "Documentation",
-        text: "A clear guide to find every setting and every procedure.",
+        text: "A clear guide to what was delivered: access, settings, procedures.",
         image: "/images/services/inclus-documentation.webp",
       },
       {
         title: "Support",
-        text: "We stay available until your team is fully up to speed.",
+        text: "After launch, we stay available until everything is fully in hand.",
         image: "/images/services/inclus-accompagnement.webp",
       },
     ],
