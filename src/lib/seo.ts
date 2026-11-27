@@ -34,6 +34,24 @@ export const ogBase = (locale: Locale) => ({
  * (`hreflang` fr-BE, en, et x-default vers le français) et la carte de
  * partage. `route` est l'adresse française de la page (`ROUTES`).
  */
+/**
+ * LE FAVICON (27/11/2026, demande d'Antonino) : le N du logo, NOIR quand le
+ * navigateur est en thème clair, BLANC en thème sombre (`public/icon.svg`,
+ * qui suit `prefers-color-scheme`). Le PNG (le N noir) sert aux navigateurs
+ * sans favicon SVG ; déclaré avant le SVG, avec sa taille, pour que Chrome
+ * prenne le SVG. Remplace l'ancien « S » bleu (`app/favicon.ico`,
+ * `app/icon.png`).
+ */
+export const ICONES: Metadata["icons"] = {
+  icon: [
+    { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    { url: "/icon.svg", type: "image/svg+xml" },
+  ],
+  /* Déclarer `icons` ici masque l'icône d'écran d'accueil du fichier
+     `app/apple-icon.png` : on la redonne. */
+  apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+};
+
 export function pageMetadata({
   locale,
   route,

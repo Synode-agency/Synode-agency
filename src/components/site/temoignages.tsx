@@ -12,7 +12,7 @@ import {
   type PointerEvent as EvenementPointeur,
 } from "react";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, Hand, HandGrab } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cx } from "@/lib/cx";
 import { renderLines } from "@/lib/lines";
 import s from "./temoignages.module.css";
@@ -119,8 +119,9 @@ function relacher(el: HTMLElement) {
  *
  * À gauche, la signature : le logo de l'entreprise, le nom, la fonction et
  * l'entreprise du client. À droite, la citation, sur 4 lignes, son passage
- * clé en Castoro bleu. Sous l'avis : la petite main qui montre qu'on peut
- * l'attraper, le compteur et les flèches. Sous le titre, les petits traits
+ * clé en Castoro bleu. Sous l'avis, à droite : le compteur et les flèches
+ * (la petite main « Glissez » est retirée le 27/11/2026, demande
+ * d'Antonino : le curseur sur l'avis suffit). Sous le titre, les petits traits
  * des titres animés (`titre-anime-traits`) suivent l'avis.
  *
  * L'ÉCLAIRAGE, comme « Notre méthode » : l'avis arrive éteint ; la
@@ -143,9 +144,9 @@ function relacher(el: HTMLElement) {
  *
  * Accessibilité : pendant le défilement, les changements ne sont pas
  * annoncés ; à l'arrêt, l'avis choisi l'est (`aria-live`). Les avis cachés
- * le sont aussi aux lecteurs d'écran ; le logo et la petite main sont
- * décoratifs. Sans mouvement : ni éclairage, ni défilement, ni geste, ni
- * main ; les flèches changent l'avis par un simple fondu.
+ * le sont aussi aux lecteurs d'écran ; le logo est décoratif. Sans
+ * mouvement : ni éclairage, ni défilement, ni geste ; les flèches changent
+ * l'avis par un simple fondu.
  */
 export function Temoignages({
   titre,
@@ -153,7 +154,6 @@ export function Temoignages({
   items,
   precedent,
   suivant,
-  indice,
 }: {
   titre: string;
   /** Le mot du titre en Castoro italique bleu. */
@@ -161,8 +161,6 @@ export function Temoignages({
   items: readonly Temoignage[];
   precedent: string;
   suivant: string;
-  /** Le petit mot qui suit le geste de la main animée (« Glissez »). */
-  indice: string;
 }) {
   const total = items.length;
   /* L'avis affiché, celui qui vient de partir, le sens (1 : vers la
@@ -435,18 +433,6 @@ export function Temoignages({
 
         {total > 1 ? (
           <div className={s.bas}>
-            {/* La petite main : elle attrape, glisse vers la gauche et lâche,
-                pour montrer qu'on peut jouer avec l'avis ; puis un petit mot
-                (« Glissez ») apparaît et repart avant qu'elle revienne
-                (demandes d'Antonino du 26/11/2026). */}
-            <span className={s.indice} aria-hidden="true">
-              <span className={s.indicePiste} />
-              <span className={s.indiceMain}>
-                <Hand className={s.mainOuverte} />
-                <HandGrab className={s.mainFermee} />
-              </span>
-              <span className={s.indiceMot}>{indice}</span>
-            </span>
             <div className={s.nav}>
               <span className={s.compte} aria-hidden="true">
                 {index + 1} / {total}

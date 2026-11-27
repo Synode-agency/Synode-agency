@@ -10,7 +10,7 @@
 .section {
   --m-eteint: #d5d9e0;
   --m-titre: #0b1424;
-  --m-cle: #0a6cf0;
+  --m-cle: #4a78c8;
   --m-desc: #5a6272;
   position: relative;
   /* Blanche de base, comme les réalisations : sans ce fond, on voyait le
@@ -36,8 +36,11 @@
   background-color: transparent;
   --m-eteint: #1e2a40;
   --m-titre: #ffffff;
-  --m-cle: #8ec1ff;
-  --m-desc: #8fa0b8;
+  --m-cle: #4a78c8;
+  /* La deuxième phrase de chaque étape, en BLANC comme le début
+     (27/11/2026, demande d'Antonino : trois couleurs, c'était trop ; en
+     bleu-gris #8FA0B8 avant). Restent le blanc et le bleu des mots clés. */
+  --m-desc: #ffffff;
 }
 
 /* Le bloc fixé pendant que les mots s'éclairent. Son contenu commence à
@@ -116,8 +119,10 @@
   color: var(--m-titre);
   transition: color 0.35s;
 }
+/* Les mots clés : la police des mots en couleur, Instrument Serif
+   italique (`--font-accent`, 27/11/2026). */
 .cle {
-  font-family: var(--font-instrument), serif;
+  font-family: var(--font-accent), Georgia, serif;
   font-style: italic;
   font-weight: 400;
   color: var(--m-cle);

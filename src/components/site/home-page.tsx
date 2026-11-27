@@ -1,12 +1,10 @@
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
-import { Instrument_Serif } from "next/font/google";
 import { accentFont } from "@/lib/polices";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
 import { Hero } from "@/components/site/hero";
-import { IndiceDefiler } from "@/components/site/indice-defiler";
 import { FaqAccordion } from "@/components/site/faq-accordion";
 import { CaseShowcase } from "@/components/site/case-cards";
 import { AppelProjet } from "@/components/site/appel-projet";
@@ -32,16 +30,6 @@ import { organizationAlternateName, organizationName, sameAsField } from "@/lib/
 /* (Castoro est déclarée une seule fois dans `@/lib/polices`, 26/11/2026 :
    la barre et les menus s'en servent aussi.) */
 
-/* Les mots clés de « Notre méthode » (« 30 min. », « écrit. », « suivi. ») :
-   Instrument Serif italique, demandé par la fiche « 4a » d'Antonino
-   (25/11/2026). Seule cette section s'en sert. */
-const instrumentFont = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["italic"],
-  variable: "--font-instrument",
-  display: "swap",
-});
 
 /* Met un passage d'un texte en gras (le nom de l'agence dans la
    description du hero). Sans le passage, le texte reste tel quel. */
@@ -64,6 +52,24 @@ function emphasize(text: string, phrase: string): ReactNode {
       {text.slice(at + phrase.length)}
     </>
   );
+}
+
+/* Le surtitre du hero : chaque « | » du texte est une espace sur
+   ordinateur et un retour à la ligne sur téléphone (`.hero-surtitre-br`,
+   masqué dès 768px dans `refonte.css`) : deux lignes équilibrées, jamais
+   un mot seul sur la seconde. */
+function surtitreHero(texte: string): ReactNode {
+  return texte.split("|").map((morceau, i) => (
+    <Fragment key={i}>
+      {i > 0 ? (
+        <>
+          {" "}
+          <br className="hero-surtitre-br" />
+        </>
+      ) : null}
+      {morceau}
+    </Fragment>
+  ));
 }
 
 /* Une ligne du titre, avec ses mots en couleur (`.title-accent`). */
@@ -160,6 +166,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <Hero
         locale={locale}
         className={`home-page-hero home-hero ${accentFont.variable}`}
+        eyebrow={surtitreHero(home.hero.eyebrow)}
         title={home.hero.title.split("\n").map((line, i) => (
           /* Une ligne par `\n`, décalées l'une de l'autre dès 768px ; sur
              téléphone, elles se suivent (l'espace les sépare) et chaque
@@ -183,19 +190,17 @@ export function HomePage({ locale }: { locale: Locale }) {
           </Fragment>
         ))}
         subtitle={emphasize(home.hero.subtitle, home.hero.emphasis)}
-        strip={<IndiceDefiler mot={home.hero.defiler} />}
+        strip={
+          /* LES LOGOS DES CLIENTS, DANS LE HERO (27/11/2026, demande
+             d'Antonino : sur son fond, et plus dans une bande blanche en
+             dessous) : en blanc, plus petits, ils défilent sur toute la
+             largeur, en bas du hero. (« Ils nous font confiance » ne sert
+             qu'aux lecteurs d'écran.) */
+          <div className="hero-logos" role="region" aria-label={home.proof.logosLabel}>
+            <ProofStrip proof={home.proof} />
+          </div>
+        }
       />
-
-      {/* LA BANDE DES CLIENTS, juste sous le hero (24/11/2026) : blanche,
-          seulement les logos qui défilent sur toute la largeur de l'écran
-          (« Ils nous font confiance » ne sert plus qu'aux lecteurs d'écran).
-          ⚠ Un `div` et non une `section` (ni une `Band`) : les bandes
-          alternent sombre et clair selon leur RANG parmi les sections
-          (thème « alternating »). Une section de plus ici inverserait les
-          couleurs de toute la suite de la page. */}
-      <div className="logo-band" role="region" aria-label={home.proof.logosLabel}>
-        <ProofStrip proof={home.proof} />
-      </div>
 
       {/* NOTRE APPROCHE (refaite le 25/11/2026, maquette « L'escalier »
           validée par Antonino) : sur fond blanc, le paragraphe se remplit
@@ -261,7 +266,7 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       {/* « Notre méthode » : les trois étapes en une seule phrase qui
           s'éclaire au défilement (fiche « 4a » d'Antonino, 25/11/2026). */}
-      <MethodeScroll methode={home.methode} className={`${accentFont.variable} ${instrumentFont.variable}`} />
+      <MethodeScroll methode={home.methode} className={`${accentFont.variable}`} />
 
       {/* Les témoignages, sous « Notre méthode » (maquette « T1 » choisie par
           Antonino, 25/11/2026), en slider (26/11/2026). En ligne, seulement
@@ -274,7 +279,6 @@ export function HomePage({ locale }: { locale: Locale }) {
             items={avis}
             precedent={home.temoignages.precedent}
             suivant={home.temoignages.suivant}
-            indice={home.temoignages.indice}
           />
         </Band>
       )}

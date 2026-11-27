@@ -8,8 +8,8 @@
    `refonte.css`.
 
    Trois blocs bien séparés : le titre, l'avis (la signature à gauche, la
-   citation à droite), et en bas la petite main, le compteur et les
-   flèches.
+   citation à droite), et en bas, à droite, le compteur et les flèches
+   (la petite main « Glissez » est retirée le 27/11/2026).
    ===================================================================== */
 
 /* L'en-tête : le titre, à la taille des autres titres de section, et les
@@ -40,12 +40,6 @@
   text-wrap: balance;
   transition: color 0.6s ease;
 }
-/* Dans la moitié gauche, comme les autres titres : sur deux lignes. */
-@media (min-width: 700px) {
-  .titre {
-    max-width: 50%;
-  }
-}
 /* « clients » : en Castoro italique bleu, comme les mots qui changent dans
    les titres des autres sections. */
 .accent {
@@ -53,7 +47,7 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
-  color: #0a6cf0;
+  color: #4a78c8;
   transition: color 0.6s ease;
 }
 
@@ -78,7 +72,7 @@
 .diapos {
   --eteint: #d5d9e0;
   --allume: #0b1424;
-  --cle-allume: #0a6cf0;
+  --cle-allume: #4a78c8;
   --doux: #5a6272;
   --filet: #d5d9e0;
   display: grid;
@@ -86,7 +80,7 @@
 :global(#temoignages[data-nuit]) .diapos {
   --eteint: #1e2a40;
   --allume: #ffffff;
-  --cle-allume: #8ec1ff;
+  --cle-allume: #4a78c8;
   --doux: #a9b3c6;
   --filet: rgb(255 255 255 / 18%);
 }
@@ -223,178 +217,16 @@
   color: var(--cle-allume);
 }
 
-/* ---- En bas : la petite main à gauche, le compteur et les flèches à
-   droite, bien détachés de l'avis ---- */
+/* ---- En bas : le compteur et les flèches à droite, bien détachés de
+   l'avis ---- */
 .bas {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 24px;
-  /* De l'air entre l'avis et la main, le compteur et les flèches (demandes
+  /* De l'air entre l'avis, le compteur et les flèches (demandes
      d'Antonino du 26/11/2026 : trop proches ; 130px sur 1440px). */
   margin-top: clamp(72px, 9vw, 136px);
-}
-
-/* LA PETITE MAIN ET SON MOT (demandes d'Antonino du 26/11/2026, à la place
-   de « Faites glisser l'avis ») : la main apparaît, se ferme pour attraper,
-   glisse vers la gauche en laissant un petit trait bleu, s'ouvre pour
-   lâcher et s'efface ; puis le mot (« Glissez ») arrive de la droite, reste
-   un instant et repart vers la gauche ; puis 3 s sans rien, et tout
-   recommence (demande d'Antonino : cycle de 6,8 s, dont 3,8 s
-   d'animation).
-   Décoratifs : les flèches restent le moyen annoncé de changer d'avis. */
-.indice {
-  position: relative;
-  display: block;
-  flex: none;
-  width: 72px;
-  height: 32px;
-  color: #5a6272;
-  transition: color 0.6s ease;
-}
-.indicePiste {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  left: 10px;
-  height: 2px;
-  margin-top: -1px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgb(10 108 240 / 0%), #0a6cf0);
-  transform: scaleX(0);
-  transform-origin: right center;
-  animation: indice-piste 6.8s infinite;
-}
-.indiceMain {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 22px;
-  height: 22px;
-  margin-top: -11px;
-  animation: indice-main 6.8s infinite;
-}
-.mainOuverte,
-.mainFermee {
-  position: absolute;
-  inset: 0;
-  width: 22px;
-  height: 22px;
-  stroke-width: 1.75;
-}
-.mainOuverte {
-  animation: indice-ouverte 6.8s infinite;
-}
-.mainFermee {
-  opacity: 0;
-  animation: indice-fermee 6.8s infinite;
-}
-.indiceMot {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(10px, -50%);
-  animation: indice-mot 6.8s infinite;
-}
-@keyframes indice-main {
-  0% {
-    opacity: 0;
-    transform: translateX(0) scale(1);
-  }
-  5% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-  9% {
-    opacity: 1;
-    transform: translateX(0) scale(0.9);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  24% {
-    transform: translateX(-40px) scale(0.9);
-  }
-  28% {
-    opacity: 1;
-    transform: translateX(-40px) scale(1);
-  }
-  33%,
-  100% {
-    opacity: 0;
-    transform: translateX(-40px) scale(1);
-  }
-}
-@keyframes indice-ouverte {
-  0%,
-  8% {
-    opacity: 1;
-  }
-  10%,
-  26% {
-    opacity: 0;
-  }
-  28%,
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes indice-fermee {
-  0%,
-  8% {
-    opacity: 0;
-  }
-  10%,
-  26% {
-    opacity: 1;
-  }
-  28%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes indice-piste {
-  0%,
-  9% {
-    opacity: 1;
-    transform: scaleX(0);
-    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-  }
-  24% {
-    opacity: 1;
-    transform: scaleX(1);
-  }
-  33%,
-  100% {
-    opacity: 0;
-    transform: scaleX(1);
-  }
-}
-/* Le mot, de 2,2 s à 3,8 s ; puis les 3 s de pause, jusqu'à 6,8 s. */
-@keyframes indice-mot {
-  0%,
-  32% {
-    opacity: 0;
-    transform: translate(10px, -50%);
-  }
-  37% {
-    opacity: 1;
-    transform: translate(0, -50%);
-    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(0, -50%);
-  }
-  56%,
-  100% {
-    opacity: 0;
-    transform: translate(-10px, -50%);
-  }
 }
 
 /* Le compteur et les deux flèches. */
@@ -439,7 +271,7 @@
   }
 }
 .fleche:focus-visible {
-  outline: 2px solid #0a6cf0;
+  outline: 2px solid #4a78c8;
   outline-offset: 3px;
 }
 
@@ -449,14 +281,10 @@
   color: #ffffff;
 }
 :global(#temoignages[data-nuit]) .accent {
-  color: #8ec1ff;
+  color: #4a78c8;
 }
-:global(#temoignages[data-nuit]) .compte,
-:global(#temoignages[data-nuit]) .indice {
+:global(#temoignages[data-nuit]) .compte {
   color: #a9b3c6;
-}
-:global(#temoignages[data-nuit]) .indicePiste {
-  background: linear-gradient(90deg, rgb(142 193 255 / 0%), #8ec1ff);
 }
 :global(#temoignages[data-nuit]) .fleche {
   border-color: rgb(255 255 255 / 30%);
@@ -465,15 +293,9 @@
 
 /* Téléphone : un peu moins d'air sous la citation et avant le bas. */
 
-/* Sans mouvement : ni défilement ni geste (le script), donc pas de petite
-   main ; les couleurs changent sans transition. */
+/* Sans mouvement : ni défilement ni geste (le script) ; les couleurs
+   changent sans transition. */
 @media (prefers-reduced-motion: reduce) {
-  .indice {
-    display: none;
-  }
-  .bas {
-    justify-content: flex-end;
-  }
   .titre,
   .accent,
   .piece,

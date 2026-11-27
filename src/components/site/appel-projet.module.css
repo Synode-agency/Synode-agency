@@ -11,15 +11,16 @@
    bleu avant la ligne nette de la FAQ, blanche (demande d'Antonino du
    26/11/2026 : la section « beaucoup trop petite en hauteur »). */
 .appel {
-  --brand: #8fc0ff;
-  --brand-foreground: #070c18;
-  --brand-hover: #b3d4ff;
+  --brand: #4a78c8;
+  --brand-foreground: #ffffff;
+  --brand-hover: #325ca4;
   position: relative;
   /* Le champ arrive de la droite : coupé au bord de l'écran, sans barre de
      défilement horizontale. */
   overflow-x: clip;
   padding-top: var(--pad-appel, 112px);
-  padding-bottom: clamp(6rem, 4rem + 9vw, 12.5rem);
+  /* 6/7 de ce qu'elle était (27/11/2026, sections plus proches). */
+  padding-bottom: calc(clamp(6rem, 4rem + 9vw, 12.5rem) * 6 / 7);
   color: #ffffff;
 }
 
@@ -52,9 +53,10 @@
 
 /* La question, À LA TAILLE DES AUTRES TITRES DE SECTION
    (`--titre-section`, demande d'Antonino du 26/11/2026 : on comprend qu'on
-   arrive dans une autre section), sur deux lignes comme eux
-   (« Qu'aimeriez-vous », puis « construire ? »), au-dessus de la phrase et
-   du champ. Chaque ligne monte depuis sous son bord. */
+   arrive dans une autre section), SUR UNE LIGNE comme eux dès 700px
+   (27/11/2026) ; en dessous, « Qu'aimeriez-vous », puis « construire ? ».
+   Au-dessus de la phrase et du champ. Chaque morceau monte depuis sous son
+   bord. */
 .titre {
   margin: 0 0 clamp(40px, 5vw, 72px);
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
@@ -73,6 +75,14 @@
 .ligne > span {
   display: inline-block;
 }
+/* Sur une ligne : les deux morceaux côte à côte, séparés par la seule
+   espace (la marge de droite reprend celle qui protège l'italique). */
+@media (min-width: 700px) {
+  .ligne {
+    display: inline-block;
+    margin-right: -0.12em;
+  }
+}
 /* « construire » : en Castoro italique bleu clair, comme les mots en
    couleur des titres sur le bleu nuit. */
 .accent {
@@ -80,7 +90,7 @@
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
-  color: #8ec1ff;
+  color: #4a78c8;
 }
 .texte {
   max-width: 44ch;
@@ -107,7 +117,7 @@
 }
 .champ:focus-within {
   box-shadow:
-    0 0 0 4px rgb(143 192 255 / 35%),
+    0 0 0 4px rgb(74 120 200 / 35%),
     0 30px 60px -30px rgb(0 0 0 / 60%);
 }
 .champ input {

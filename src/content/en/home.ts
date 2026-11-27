@@ -7,12 +7,12 @@ export const home = {
   hero: {
     /* « | » : a line break on phones only, a space on desktop (see
        fr/home.ts). */
-    title: "Software|development,\nAI|& connected|systems.",
-    accents: ["Software", "AI"],
+    eyebrow: "Software development|& AI agency · Brussels",
+    title: "We build your|software.\nAI makes|it intelligent.",
+    accents: ["software", "AI"],
     subtitle:
       "Synode, a software development & AI agency in Brussels, designs and builds software, websites and mobile apps. We integrate artificial intelligence, connect your systems and automate your processes to support your company’s growth.",
     emphasis: "software development & AI agency in Brussels",
-    defiler: "Scroll",
   },
 
   proof: {
@@ -107,7 +107,6 @@ export const home = {
     accent: "clients",
     precedent: "Previous testimonial",
     suivant: "Next testimonial",
-    indice: "Slide",
     items: [
       {
         texte:

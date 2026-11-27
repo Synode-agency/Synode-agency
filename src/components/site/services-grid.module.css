@@ -92,7 +92,7 @@
   outline: none;
 }
 .carte:focus-visible .photo {
-  outline: 2px solid #8ec1ff;
+  outline: 2px solid #4a78c8;
   outline-offset: 4px;
 }
 .carte:focus-visible .photo img {

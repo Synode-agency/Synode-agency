@@ -68,7 +68,7 @@ export function AppelProjet({
 }: {
   locale: Locale;
   appel: Appel;
-  /** La variable de la police Castoro (`--font-accent`), posée par l'accueil. */
+  /** La variable de la police des mots en couleur, Instrument Serif (`--font-accent`). */
   className?: string;
 }) {
   const router = useRouter();

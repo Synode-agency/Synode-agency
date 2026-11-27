@@ -92,7 +92,7 @@
   /* -------------------------------------------------------------------
      COULEUR — trois valeurs, et tout le reste en dérive.
 
-     Blanc, encre chaude #464444, bleu #0067EA. Chaque paire texte sur fond
+     Blanc, encre chaude #464444, bleu #4a78c8. Chaque paire texte sur fond
      a été mesurée avant d'être écrite ; les ratios sont en commentaire et
      ne sont pas décoratifs, ce sont les valeurs limites du système.
      ------------------------------------------------------------------- */
@@ -125,45 +125,50 @@
   --text-mono: #6B6868;
   --label-muted: #605D5D;
 
-  --brand: #0067EA;                   /* 5,09:1 sur blanc · blanc dessus 5,09:1 */
-  --brand-hover: #0051B7;             /* 7,34:1 */
-  --brand-deep: #004398;
-  --brand-bright: #2887FF;
-  --brand-dim: #B7D7FF;
-  --brand-foreground: #FFFFFF;
+  /* LE BLEU DE MARQUE, « COBALT DOUX » #4A78C8 (27/11/2026, choix « A »
+     d'Antonino sur la planche des bleus : un seul bleu qui tienne sur le
+     bleu nuit des photos ET sur le blanc ; essayés le même jour : #8E9DB8,
+     #4C69A1, #0167EA). 4,4:1 sur blanc comme sur le bleu nuit #090F1F ;
+     texte blanc sur lui, 4,4:1. */
+  --brand: #4a78c8;
+  --brand-hover: #325ca4;
+  --brand-deep: #26467d;
+  --brand-bright: #4a78c8;
+  --brand-dim: #b1c5e7;
+  --brand-foreground: #ffffff;
 
-  --accent: #E4EDFB;
-  --accent-foreground: #004398;       /* 7,89:1 sur `--accent` */
+  --accent: #e4edfb;
+  --accent-foreground: #26467d;       /* 7,89:1 sur `--accent` */
   --destructive: #C42E48;             /* 5,48:1 sur blanc */
   --success: #15803D;
 
-  --primary: #0067EA;
-  --primary-foreground: #FFFFFF;
+  --primary: #4a78c8;
+  --primary-foreground: #ffffff;
   --border: rgba(70, 68, 68, 0.12);
   /* Bordure des champs : 3,25:1 sur blanc (WCAG 1.4.11). L'ancienne valeur
      transparente ne faisait que 1,36:1, le champ ne se voyait presque pas. */
   --input: #8b8f96;
-  --ring: #0067EA;
-  --border-active: rgba(0, 103, 234, 0.45);
+  --ring: #4a78c8;
+  --border-active: rgba(74, 120, 200, 0.45);
 
   /* Aliases hérités, encore lus par des composants shadcn. */
-  --offer-accent-2: #0051B7;
-  --title-gradient-end: #2887FF;
+  --offer-accent-2: #325ca4;
+  --title-gradient-end: #4a78c8;
   --glass-card: rgba(255, 255, 255, 0.86);
   --method-pill: #FFFFFF;
-  --chart-1: #0067EA;
-  --chart-2: #2887FF;
-  --chart-3: #7AB4FF;
-  --chart-4: #0051B7;
-  --chart-5: #004398;
+  --chart-1: #4a78c8;
+  --chart-2: #4a78c8;
+  --chart-3: #4a78c8;
+  --chart-4: #325ca4;
+  --chart-5: #26467d;
   --sidebar: #FFFFFF;
   --sidebar-foreground: #464444;
-  --sidebar-primary: #0067EA;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #E4EDFB;
-  --sidebar-accent-foreground: #004398;
+  --sidebar-primary: #4a78c8;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e4edfb;
+  --sidebar-accent-foreground: #26467d;
   --sidebar-border: rgba(70, 68, 68, 0.12);
-  --sidebar-ring: #0067EA;
+  --sidebar-ring: #4a78c8;
 
   /* -------------------------------------------------------------------
      L'OMBRE — deux valeurs, et pas une troisième.
@@ -417,17 +422,20 @@
        du blanc. La bande sortait entièrement inversée : fond blanc, texte
        bleu, numéros invisibles.
        Même raison pour l'encre juste en dessous. */
-    background: #0067EA;
-    color: #FFFFFF;                      /* 5,09:1 sur #0067EA */
-    --foreground: #FFFFFF;
-    --muted-foreground: rgb(255 255 255 / 0.84);   /* 4,6:1 sur #0067EA */
+    /* Bleu-gris depuis le 27/11/2026 (demande d'Antonino : tous les bleus
+       du site en #4a78c8), le texte en bleu nuit : le blanc n'y ferait que
+       2,7:1 ; le bleu nuit, 6,9:1. */
+    background: #4a78c8;
+    color: #ffffff;
+    --foreground: #ffffff;
+    --muted-foreground: rgb(255 255 255 / 0.86);
     --hairline: rgb(255 255 255 / 0.24);
     --border: rgb(255 255 255 / 0.24);
     --surface: rgb(255 255 255 / 0.10);
     --surface-2: rgb(255 255 255 / 0.16);
-    --text-mono: rgb(255 255 255 / 0.78);
-    --brand: #FFFFFF;
-    --brand-foreground: #0051B7;
+    --text-mono: rgb(255 255 255 / 0.8);
+    --brand: #ffffff;
+    --brand-foreground: #325ca4;
   }
 
   .band--ink {
@@ -443,8 +451,8 @@
     --text-mono: rgb(255 255 255 / 0.66);
     /* Le bleu de marque ne tient que 1,9:1 sur cette encre. Relevé à
        7,4:1, sinon tout ce qui est bleu disparaît de la bande. */
-    --brand: #8FC0FF;
-    --brand-foreground: #2A2828;
+    --brand: #4a78c8;
+    --brand-foreground: #ffffff;
   }
 
   /* Deux bandes de même fond qui se suivent ont besoin d'un filet, sinon
@@ -479,17 +487,18 @@
   }
   .card-panel--blue {
     /* Littéral, même raison que `.band--blue`. */
-    background: #0067EA;
-    color: #FFFFFF;                      /* 5,09:1 sur #0067EA */
-    --foreground: #FFFFFF;
-    --muted-foreground: rgb(255 255 255 / 0.84);
+    /* Le bleu du site et texte blanc, comme `.band--blue` (27/11/2026). */
+    background: #4a78c8;
+    color: #ffffff;
+    --foreground: #ffffff;
+    --muted-foreground: rgb(255 255 255 / 0.86);
     --hairline: rgb(255 255 255 / 0.24);
     --border: rgb(255 255 255 / 0.24);
     --surface: rgb(255 255 255 / 0.10);
     --surface-2: rgb(255 255 255 / 0.16);
-    --text-mono: rgb(255 255 255 / 0.78);
-    --brand: #FFFFFF;
-    --brand-foreground: #0051B7;
+    --text-mono: rgb(255 255 255 / 0.8);
+    --brand: #ffffff;
+    --brand-foreground: #325ca4;
   }
   .card-body { padding-block: var(--band-pad-y); }
 

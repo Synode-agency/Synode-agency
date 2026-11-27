@@ -62,7 +62,10 @@ function LogoMarquee({ logos }: { logos: Home["proof"]["logos"] }) {
                   alt={copy > 0 ? "" : logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  style={{ height: logo.display, width: "auto" }}
+                  /* La hauteur de chaque logo (équilibrée à l'œil), réduite
+                     d'un même facteur par la feuille de style
+                     (`--logo-echelle`, 0,7 dans le hero). */
+                  style={{ height: `calc(${logo.display}px * var(--logo-echelle, 1))`, width: "auto" }}
                 />
               </li>
             )),

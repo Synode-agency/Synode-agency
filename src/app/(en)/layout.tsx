@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME } from "@/lib/seo";
+import { ICONES, SITE_NAME } from "@/lib/seo";
 import { SiteShell, siteUrl } from "@/app/site-shell";
 import { getContent } from "@/content";
 
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     description: home.metaDescription,
   },
   twitter: { card: "summary_large_image" },
+  icons: ICONES,
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {

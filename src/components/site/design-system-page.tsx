@@ -73,9 +73,9 @@ export function DesignSystemPage({ locale }: { locale: Locale }) {
             { name: "foreground", hex: "#464444", note: "8,58:1 / 9,67:1" },
             { name: "muted-foreground", hex: "#605D5D", note: "5,78:1 / 6,52:1" },
             { name: "text-mono", hex: "#6B6868", note: fr ? "4,90:1 — la plus claire qui passe partout." : "4.90:1 — the lightest that passes everywhere." },
-            { name: "brand", hex: "#0067EA", note: "5,09:1" },
-            { name: "brand-hover", hex: "#0051B7", note: "7,34:1" },
-            { name: "accent", hex: "#E4EDFB", note: fr ? "Fond de pastille. 7,89:1 avec accent-foreground." : "Chip background. 7.89:1 with accent-foreground." },
+            { name: "brand", hex: "#4a78c8", note: "5,09:1" },
+            { name: "brand-hover", hex: "#325ca4", note: "7,34:1" },
+            { name: "accent", hex: "#e4edfb", note: fr ? "Fond de pastille. 7,89:1 avec accent-foreground." : "Chip background. 7.89:1 with accent-foreground." },
           ].map((s) => (
             <div key={s.name} className="ds-swatch">
               <span className="ds-swatch-chip" style={{ background: s.hex }} aria-hidden />

@@ -27,13 +27,13 @@
    menu « Services ». */
 .site-header .site-nav-link.is-current {
   font-weight: 500;
-  color: #8ec1ff;
+  color: #4a78c8;
 }
 .site-header .site-nav-link.is-current::after {
   content: none;
 }
 .site-page .site-header[data-mega] .site-nav-link.is-current {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 .site-header-contact {
   display: inline-flex;
@@ -161,15 +161,15 @@
   transition: opacity 0.4s ease;
 }
 /* LES N D'ANTONINO (26/11/2026, `public/logo/`, 1448 × 1086) : le blanc,
-   `synode-blanc.png`, tracé de 202 à 1251 en largeur et de 118 à 999 en
-   hauteur ; le bleu, `synode.png`, de 179 à 1268 et de 128 à 989. Chaque
+   `synode-blanc.png` (remplacé le 27/11/2026), tracé de 200 à 1254 en
+   largeur et de 117 à 1002 en hauteur ; le bleu, `synode.png`, de 179 à 1268 et de 128 à 989. Chaque
    image est placée pour que son tracé prenne toute la hauteur de la boîte
    du N, centré en largeur. */
 .logo-mot-n-blanc {
-  top: -13.39%;
-  left: -15.2%;
-  width: 129.95%;
-  height: 123.27%;
+  top: -13.22%;
+  left: -14.95%;
+  width: 129.36%;
+  height: 122.71%;
 }
 .logo-mot-n-bleu {
   top: -14.87%;
@@ -379,8 +379,32 @@
    cachent au-dessus de 901px (`studio.css`). ---- */
 main > section.home-hero .studio-hero-kicker {
   display: block;
-  margin-bottom: 1.25rem;
+  grid-row: 2;
+  margin-bottom: clamp(1.25rem, 0.75rem + 1.2vw, 2rem);
+  /* LE SURTITRE DU HERO (27/11/2026, demande d'Antonino : « Agence de
+     développement logiciel & IA · Bruxelles ») : en Manrope, tel qu'il est
+     écrit (pas en capitales), discret au-dessus du titre ; centré sur
+     ordinateur, à gauche sur téléphone, comme le titre. */
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1.0625rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: #b7c3d6;
   text-align: center;
+}
+@media (max-width: 767px) {
+  main > section.home-hero .studio-hero-kicker {
+    justify-self: start;
+    text-align: left;
+  }
+}
+/* Le retour à la ligne du surtitre (le « | » du texte), sur téléphone
+   seulement : « Agence de développement / logiciel & IA · Bruxelles ». */
+@media (min-width: 768px) {
+  main > section.home-hero .hero-surtitre-br {
+    display: none;
+  }
 }
 
 /* ---- L'espace entre les sections : 96 à 128px sur ordinateur, 64px sur
@@ -398,19 +422,22 @@ main > .band.rf-section {
    « Notre méthode » (140 à 200px), à peu près au milieu de l'écran sur
    ordinateur, sous le voile flou de la barre sur téléphone. ---- */
 main {
-  /* LA TAILLE DES GRANDS TITRES DE SECTION (26/11/2026, maquette « C · Le
-     grand titre » choisie par Antonino) : la même pour tous (services,
+  /* LA TAILLE DES TITRES DE SECTION : la même pour tous (services,
      réalisations, « Notre méthode », témoignages, appel final, FAQ ; le
-     hero a sa propre taille depuis le 26/11/2026). GRANDS, MAIS DANS LA MOITIÉ GAUCHE DE LA
-     SECTION (demande d'Antonino) : sur deux lignes, le début puis le mot
-     qui change (« Conçus pour les / indépendants. »). Réglée sur la plus
-     longue de ces lignes, « What would you like to » (l'appel, en
-     anglais, 9,35 fois la taille de la police ; « pour votre
-     entreprise. », 9,03) : la moitié de l'écran moins la marge, divisée
-     par 9,6 (3 % de marge). 69px sur un écran de 1440px, 93px sur 1920px,
-     48px sur 1024px ; 28px au moins. Sous 700px, 32px (plus bas). */
-  --titre-section: max(28px, calc((min(100vw, 1920px) / 2 - var(--band-pad-x)) / 9.6));
-  --ecart-sections: clamp(140px, 21vw + 58px, 280px);
+     hero a sa propre taille). PLUS PETITS ET SUR UNE LIGNE (27/11/2026,
+     demande d'Antonino ; sur deux lignes dans la moitié gauche avant, 67px
+     sur 1440px) : 3,6 % de la largeur de l'écran, de 32 à 64px (52px sur
+     1440px, 37px sur 1024px). Le plus long, « Construisons la suite, pour
+     votre entreprise. » (18,2 fois la taille), tient sur une ligne entre
+     les marges dès 700px. Sous 700px, 32px, et le mot qui change passe à
+     la ligne (plus bas). */
+  --titre-section: clamp(32px, 3.6vw, 64px);
+  /* L'ÉCART ENTRE LES SECTIONS (27/11/2026, demande d'Antonino : des
+     sections un peu plus proches, partout) : 6/7 de l'écart d'avant, de
+     120 à 240px (240px sur un écran de 1440px, 280 avant). Les écarts qui
+     n'en dépendent pas (appel final → FAQ, FAQ → pied de page) sont
+     réduits de même, plus bas. */
+  --ecart-sections: clamp(120px, 18vw + 49.71px, 240px);
   --pad-section: clamp(4rem, 2.6rem + 5vw, 7.5rem);
   --methode-haut: clamp(140px, min(13.75vw, 22vh), 200px);
   /* La marge du haut et du bas de l'appel final, en bleu nuit
@@ -436,23 +463,41 @@ main > .band.rf-section#realisations {
 
 /* ---- Les bandes sombres de l'accueil (une sur deux, thème
    `alternating`) : le bleu de marque n'y tient que 2,9:1. Liens, icônes,
-   numéros et chevrons y prennent le bleu clair des heros, #8FC0FF (9,37:1),
+   numéros et chevrons y prennent le bleu clair des heros, #4a78c8 (9,37:1),
    comme le bouton principal sur bleu nuit (règle du 23/11/2026). ---- */
 .site-theme-alternating main > .band.rf-section:nth-of-type(odd) {
-  --brand: #8fc0ff;
-  --brand-foreground: #0b192c;
-  --brand-hover: #b3d4ff;
+  --brand: #4a78c8;
+  --brand-foreground: #ffffff;
+  --brand-hover: #325ca4;
 }
 
-/* ---- LA BANDE DES CLIENTS, sous le hero (24/11/2026) : blanche,
-   tranchée net sur le bleu nuit du hero, d'un seul tenant avec la section
-   blanche qui suit (sans filet, choix d'Antonino). Seulement les logos
-   (la phrase « Ils nous font confiance » est retirée), qui défilent sur
-   toute la largeur de l'écran, en fondu aux deux bords. Les logos sont
-   des silhouettes blanches : un filtre les passe en gris foncé. ---- */
-.logo-band {
-  padding-block: clamp(1.75rem, 3vw, 2.5rem);
-  background: #ffffff;
+/* ---- MANROPE PARTOUT SUR L'ACCUEIL (27/11/2026, demande d'Antonino :
+   « tout ce qui n'est pas en Manrope redevient en Manrope ») : tout le
+   texte de l'accueil, et la barre, ses menus et le pied de page sur
+   toutes les pages, passent de la police de base du site (Helvetica Neue)
+   à Manrope. Les autres pages gardent pour l'instant leur police de base.
+   Les mots en couleur restent en Instrument Serif (`--font-accent`). ---- */
+body:has(main > section.home-hero),
+.site-header,
+footer {
+  --font-sans: var(--font-manrope), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* ---- LES LOGOS DES CLIENTS, DANS LE HERO (27/11/2026, demande
+   d'Antonino ; dans une bande blanche sous le hero avant) : sur l'image du
+   hero, en BLANC (les fichiers sont des silhouettes blanches), 70 % de
+   leur taille d'avant (`--logo-echelle`). Ils défilent sur toute la
+   largeur de l'écran, en fondu aux deux bords, tout en bas du hero. Le
+   contenu du hero se centre dans ce qui reste au-dessus (la petite main
+   « Défilez » est retirée le 27/11/2026, demande d'Antonino). ---- */
+main > section.home-hero > .col:not(.studio-hero-inner) {
+  max-width: none;
+  padding-inline: 0;
+}
+.hero-logos {
+  --logo-echelle: 0.7;
+  padding-bottom: clamp(28px, 5vh, 48px);
 }
 .logo-marquee-viewport {
   width: 100%;
@@ -475,18 +520,17 @@ main > .band.rf-section#realisations {
   /* Le même écart entre tous les logos : deux fois cette marge, de 4,5rem
      sur téléphone à 8rem sur grand écran. (Une marge de chaque côté et
      non un `gap` : la boucle du défilement reste parfaite.) */
-  padding-inline: clamp(2.25rem, 4.2vw, 4rem);
-  opacity: 0.62;
+  padding-inline: clamp(1.75rem, 3.2vw, 3rem);
+  opacity: 0.72;
   transition: opacity 0.2s var(--anim-ease);
 }
 .logo-marquee-track > li:hover {
-  opacity: 0.95;
+  opacity: 1;
 }
+/* Les silhouettes blanches, telles quelles, sur le bleu nuit du hero. */
 .logo-marquee-track img {
   display: block;
   max-width: none;
-  /* Silhouette blanche → gris foncé (le noir, adouci par l'opacité). */
-  filter: brightness(0);
 }
 @keyframes logo-marquee {
   to {
@@ -606,7 +650,7 @@ main > .band.rf-section#realisations {
      porte s'écartait des autres. */
   line-height: 0;
   letter-spacing: -0.01em;
-  color: #0067ea;
+  color: #4a78c8;
   transition: color 0.25s linear;
 }
 /* L'escalier : la première photo en haut à gauche, la deuxième à droite,
@@ -654,8 +698,10 @@ main > .band.rf-section#realisations {
 }
 /* Téléphone : le texte, puis les photos, sans épinglage. */
 @media (max-width: 799px) {
+  /* En bas, 20px de moins (27/11/2026, sections plus proches : 120px
+     jusqu'au titre des services, comme les autres écarts). */
   .approach {
-    padding-block: 96px;
+    padding-block: 96px 76px;
   }
   .approach-grille {
     grid-template-columns: minmax(0, 1fr);
@@ -695,9 +741,9 @@ main > .band.rf-section#realisations {
   --border: rgba(70, 68, 68, 0.12);
   --surface: #ffffff;
   --surface-2: #f8f9fb;
-  --brand: #0067ea;
+  --brand: #4a78c8;
   --brand-foreground: #ffffff;
-  --brand-hover: #0052bd;
+  --brand-hover: #325ca4;
 }
 /* L'en-tête des réalisations : le même que celui des services (« Nos
    réalisations », puis « Ce que nous avons » et un mot qui change, voir
@@ -717,12 +763,12 @@ main > .band#realisations .section-gap-sm {
 }
 /* « Nos services » (un simple mot, sans lien, 26/11/2026) et « Toutes nos
    réalisations » (un lien) : 13px, à droite, CENTRÉS SUR LA HAUTEUR DU
-   TITRE (demande d'Antonino du 26/11/2026) : le milieu de ses deux lignes
-   (taille × 1,04), puis le mot remonte de la moitié de sa propre hauteur.
+   TITRE (demande d'Antonino du 26/11/2026) : le milieu de sa ligne
+   (taille × 0,52), puis le mot remonte de la moitié de sa propre hauteur.
    Sous 760px, l'en-tête passe en colonne et le mot sous les traits. */
 main > .band:is(#services, #realisations) .section-heading > :is(.go, .section-etiquette) {
   align-self: flex-start;
-  margin-top: calc(var(--titre-section) * 1.04);
+  margin-top: calc(var(--titre-section) * 0.52);
   margin-bottom: 0;
   translate: 0 -50%;
   font-size: 13px;
@@ -767,10 +813,10 @@ main > .band:is(#services, #realisations) .section-heading > .go svg {
     opacity 0.6s ease,
     color 0.6s ease;
 }
-/* LES GRANDS TITRES DE SECTION DE L'ACCUEIL (`--titre-section`,
-   26/11/2026) : à la même taille, sur deux lignes, le mot qui change à la
-   ligne, dans la moitié gauche. La fente réserve la largeur du mot le plus
-   long : rien ne bouge quand le mot change. */
+/* LES TITRES DE SECTION DE L'ACCUEIL (`--titre-section`) : à la même
+   taille, sur une ligne (27/11/2026) ; sous 700px, le mot qui change passe
+   à la ligne. La fente réserve la largeur du mot le plus long : rien ne
+   bouge quand le mot change. */
 main > .band:is(#services, #realisations) .titre-anime-h2,
 main > #etapes .titre-anime-h2 {
   max-width: none;
@@ -783,22 +829,27 @@ main > #etapes .titre-anime-h2 {
   color: #0b1424;
   transition: color 0.6s ease;
 }
-main > .band:is(#services, #realisations) .titre-anime-fixe,
-main > #etapes .titre-anime-fixe {
-  display: block;
+@media (max-width: 699px) {
+  main > .band:is(#services, #realisations) .titre-anime-fixe,
+  main > #etapes .titre-anime-fixe {
+    display: block;
+  }
+  main > .band:is(#services, #realisations) .titre-anime-fente,
+  main > #etapes .titre-anime-fente {
+    margin-left: 0;
+  }
 }
 /* La fente plus haute : à cette taille, la ligne serrée (1,04) ne laisse
    plus assez de place sous la ligne de base pour la queue du « g » de
    l'italique. */
 main > .band:is(#services, #realisations) .titre-anime-fente,
 main > #etapes .titre-anime-fente {
-  margin-left: 0;
   padding-block: 0.12em;
   margin-block: -0.12em;
 }
-/* Sous 700px, la moitié de l'écran ferait des titres trop petits : 32px,
-   sur toute la largeur (« pour votre entreprise. » tient alors entre les
-   marges de 40px d'un téléphone de 390px). */
+/* Sous 700px : 32px, sur toute la largeur, le mot qui change à la ligne
+   (« pour votre entreprise. » tient alors entre les marges de 40px d'un
+   téléphone de 390px). */
 @media (max-width: 699px) {
   main {
     --titre-section: 32px;
@@ -812,9 +863,8 @@ main > .band:is(#services, #realisations) .titre-anime-traits,
 main > #etapes .titre-anime-traits {
   margin-top: 22px;
 }
-/* Le titre de la FAQ, à la même taille ; il tient sur une ligne dans la
-   moitié gauche (sans la mesure du texte courant que `.lede` donne à son
-   bloc). */
+/* Le titre de la FAQ, à la même taille, sur une ligne (sans la mesure du
+   texte courant que `.lede` donne à son bloc). */
 .site-page main > .band#faq .lede {
   max-width: none;
 }
@@ -865,7 +915,7 @@ main > #etapes .titre-anime-traits {
   font-weight: 400;
   letter-spacing: -0.015em;
   white-space: nowrap;
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 .titre-anime-reserve {
   grid-area: 1 / 1;
@@ -912,7 +962,7 @@ main > #etapes .titre-anime-traits {
 }
 .titre-anime-traits span.est-actif {
   width: 36px;
-  background: #0a6cf0;
+  background: #4a78c8;
 }
 /* Avant l'entrée (posé par le script) : l'étiquette et le titre attendent. */
 .titre-anime[data-attente] .titre-anime-etiquette,
@@ -959,13 +1009,28 @@ main > #etapes .titre-anime-traits {
    approche », les services et les réalisations restent blancs (demande
    d'Antonino du 26/11/2026 : trop de changements de fond). En remontant
    au-dessus de « Notre méthode », tout redevient blanc. ---- */
+/* LE GRAIN ET LA LUEUR DU BLEU NUIT, communs au hero et à ce calque
+   (27/11/2026, demandes d'Antonino) :
+   - le grain : un bruit fin répété (`feTurbulence`, en SVG dans la
+     feuille de style : rien à télécharger), en points clairs à 20 %
+     (« un tout petit peu plus » visible que les 15 % d'avant) ;
+   - la lueur : le halo d'origine (sa taille et sa place, un peu à droite
+     du milieu), mais DANS LA PALETTE DES PHOTOS DES SERVICES (27/11/2026,
+     demande d'Antonino : « pas dans le même ton ») : un bleu acier peu
+     saturé (#4A5977 puis #26324E, les lumières des photos) au lieu du bleu
+     électrique (#2563EB), sur le bleu nuit de leurs ombres (#090F1F,
+     `--fond-nuit`, au lieu de #070C18).
+   Sur `:root` : le calque `.fond-nuit` n'est pas dans `.site-page`. */
+:root {
+  --grain-nuit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.18 -0.07'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E") 0 0 / 220px 220px repeat;
+  --lueur-nuit: radial-gradient(ellipse 60% 70% at 68% 42%, rgb(74 89 119 / 46%) 0%, rgb(38 50 78 / 30%) 45%, transparent 75%);
+  --fond-nuit: #090f1f;
+}
 .fond-nuit {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
-    #070c18;
+  background: var(--grain-nuit), var(--lueur-nuit), var(--fond-nuit);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
@@ -986,7 +1051,7 @@ main > .band:is(#services, #realisations)[data-nuit] .titre-anime-mot,
 main > #etapes[data-nuit] .titre-anime-mot,
 main > .band:is(#services, #realisations)[data-nuit] .titre-anime-fin,
 main > #etapes[data-nuit] .titre-anime-fin {
-  color: #8ec1ff;
+  color: #4a78c8;
 }
 /* (Les traits sous le titre des témoignages aussi, tant que leur haut est
    en bleu nuit avec « Notre méthode ».) */
@@ -996,7 +1061,7 @@ main > #etapes[data-nuit] .titre-anime-traits span {
 }
 main > .band:is(#services, #realisations, #temoignages)[data-nuit] .titre-anime-traits span.est-actif,
 main > #etapes[data-nuit] .titre-anime-traits span.est-actif {
-  background: #8ec1ff;
+  background: #4a78c8;
 }
 /* Le bas des réalisations, visible au-dessus de « Notre méthode » quand
    l'écran passe au bleu nuit : en négatif lui aussi, sur le même fond. */
@@ -1005,8 +1070,8 @@ main > #etapes[data-nuit] .titre-anime-traits span.est-actif {
   color: #ffffff;
   --foreground: #ffffff;
   --muted-foreground: rgb(255 255 255 / 72%);
-  --brand: #8ec1ff;
-  --brand-hover: #b3d4ff;
+  --brand: #4a78c8;
+  --brand-hover: #325ca4;
   /* Les noms et phrases des produits (`case-cards.module.css`). */
   --vitrine-nom: #ffffff;
   --vitrine-texte: rgb(255 255 255 / 70%);
@@ -1077,9 +1142,9 @@ main > .band:is(#services, #realisations) .go {
   --border: rgb(70 68 68 / 12%);
   --surface: #ffffff;
   --surface-2: #f8f9fb;
-  --brand: #0067ea;
+  --brand: #4a78c8;
   --brand-foreground: #ffffff;
-  --brand-hover: #0051b7;
+  --brand-hover: #325ca4;
 }
 
 /* ---- LES TÉMOIGNAGES DE L'ACCUEIL (25/11/2026, maquette « T1 » choisie
@@ -1105,13 +1170,20 @@ main > .band:is(#services, #realisations) .go {
   color: #0b1424;
   --foreground: #0b1424;
   --muted-foreground: #5a6272;
-  --brand: #0a6cf0;
+  --brand: #4a78c8;
   --brand-foreground: #ffffff;
-  --brand-hover: #0058c8;
+  --brand-hover: #325ca4;
   transition: background-color 0.6s ease;
 }
 .site-page main > section.band#temoignages[data-nuit] {
   background-color: transparent;
+}
+/* LA FAQ (27/11/2026, sections plus proches) : l'écart avec l'appel final
+   au-dessus et avec le pied de page en dessous, 6/7 de ce qu'il était
+   (l'appel réduit sa marge du bas de même, `appel-projet.module.css`). */
+.site-page main > .band.rf-section#faq {
+  padding-top: calc(var(--pad-section) * 6 / 7);
+  padding-bottom: calc((var(--pad-section) + var(--band-pad-y)) * 6 / 7 - var(--band-pad-y));
 }
 /* L'APPEL FINAL APRÈS LES TÉMOIGNAGES (26/11/2026, demandes d'Antonino) :
    d'abord « trop en dessous » (430px de la citation au titre), puis trop
@@ -1161,7 +1233,7 @@ main > .band#faq .faq-question {
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.015em;
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 
 /* =====================================================================
@@ -1639,33 +1711,34 @@ main > section.case-hero p.case-note {
   color: #ffcf8a;
 }
 .studio-hero .badge--demo {
-  color: #8fc0ff;
+  color: #4a78c8;
 }
 
 /* =====================================================================
-   LE HERO DE L'ACCUEIL (24/11/2026, maquette d'Antonino)
-   Tout est centré, au milieu : le titre sur deux lignes (en Manrope, les
-   mots importants en Instrument Serif italique), décalées l'une de
-   l'autre autour du centre ; puis la description, le bouton, sa mention. Fond
-   bleu nuit et halo bleu décalé à droite ; la barre reste transparente
-   au-dessus tant qu'on n'a pas fait défiler.
+   LE HERO DE L'ACCUEIL (24/11/2026, maquette d'Antonino ; revu les 26 et
+   27/11/2026) : le titre sur deux lignes (en Manrope, « logiciel » et « IA »
+   en Instrument Serif italique) et la description, centrés, au milieu du
+   hero ; la petite main à droite ; les logos des clients en bas. Fond : le
+   dégradé bleu nuit texturé de « Notre méthode ». La barre reste
+   transparente au-dessus tant qu'on n'a pas fait défiler.
    ===================================================================== */
 /* `.site-page` et `.studio-hero` en plus : le thème « alternating » peint
    tous les heros en `--surface-dark` avec une priorité supérieure. */
 .site-page main > section.studio-hero.home-hero {
-  --hero-bg: #070c18;
+  --hero-bg: var(--fond-nuit);
   /* Le décalage entre les deux lignes du titre, en multiple de sa
      taille : la 1re part de la moitié vers la gauche, la 2e de l'autre
      moitié vers la droite. */
   --hero-indent: 1.64;
-  /* La petite main « Défilez » se pose au milieu, en bas (`IndiceDefiler`). */
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: clip;
-  background:
-    radial-gradient(ellipse 60% 70% at 68% 42%, rgb(37 99 235 / 32%) 0%, rgb(30 64 175 / 12%) 45%, transparent 75%),
-    var(--hero-bg);
+  /* LE FOND (27/11/2026, demande d'Antonino : « le même fond que celui de
+     Construisons la suite, texturé », à la place de ses images) : le grain
+     et la lueur du bleu nuit, communs aux deux (`--grain-nuit`,
+     `--lueur-nuit`, sur `:root`, plus bas). */
+  background: var(--grain-nuit), var(--lueur-nuit), var(--hero-bg);
 }
 /* LA BARRE DE L'ACCUEIL (24/11/2026) : sans fond ni ombre, posée sur le
    hero. Au défilement, elle se replie dans le bouton ☰, et le haut de
@@ -1820,7 +1893,7 @@ main > section.case-hero p.case-note {
   z-index: 50;
 }
 .site-header .site-burger:focus-visible {
-  outline: 2px solid #8ec1ff;
+  outline: 2px solid #4a78c8;
   outline-offset: 3px;
 }
 .site-header.is-scrolled[data-fond="clair"] .site-burger {
@@ -1961,7 +2034,9 @@ main > section.home-hero .studio-hero-grid {
 main > section.home-hero .studio-hero-copy {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 1fr auto auto 1fr;
+  /* Le surtitre, le titre, la description (27/11/2026 : le surtitre
+     ajouté, rangée 2). */
+  grid-template-rows: 1fr auto auto auto 1fr;
   justify-items: center;
   gap: 0;
   max-width: none;
@@ -1969,8 +2044,14 @@ main > section.home-hero .studio-hero-copy {
   text-align: center;
 }
 
+/* Le titre et la description du hero en MANROPE (27/11/2026, demande
+   d'Antonino, après un essai en Inter) : « logiciel » et « IA » restent en
+   Instrument Serif, comme le nom de l'agence (leurs propres règles). */
+main > section.home-hero :is(h1, .studio-hero-copy > p) {
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+}
 main > section.home-hero h1 {
-  grid-row: 2;
+  grid-row: 3;
   max-width: none;
   margin: 0;
   font-size: var(--hero-title-size);
@@ -1980,10 +2061,10 @@ main > section.home-hero h1 {
   text-align: center;
   text-wrap: balance;
 }
-/* « logiciel » et « IA » : en Castoro italique, une serif (25/11/2026,
-   choisie par Antonino après Instrument Serif, Syne, Bricolage Grotesque,
-   l'italique de Manrope, Bodoni Moda et Fraunces). Une seule graisse, la
-   normale ; un peu plus grande pour tenir face à Manrope ; un léger
+/* « logiciel » et « IA » : en INSTRUMENT SERIF italique, la police des
+   mots en couleur (27/11/2026, demandes d'Antonino : « qu'on voie la
+   différence entre développement et logiciel » ; Castoro puis Playfair
+   avant), le trait fin face au Manrope plein du reste du titre. Un peu plus grande pour tenir face à Manrope ; un léger
    retrait à droite pour que l'italique ne touche pas le mot suivant. */
 main > section.home-hero h1 .title-accent {
   padding-right: 0.04em;
@@ -1996,6 +2077,10 @@ main > section.home-hero h1 .title-accent {
      approche »). */
   line-height: 0;
   letter-spacing: -0.01em;
+  /* LE BLEU DU SITE, « COBALT DOUX » #4A78C8 (27/11/2026, choix « A »
+     d'Antonino ; essayés avant le même jour : le champagne #C9BBAA,
+     #8E9DB8, #4C69A1, #0167EA ; à l'origine, le bleu clair #8EC1FF). */
+  color: #4a78c8;
 }
 /* Les deux lignes du titre, en blanc : deux règles de `studio.css`
    peignent en bleu tout `span` enfant direct d'un titre de hero ; seuls
@@ -2023,7 +2108,7 @@ main > section.home-hero h1 .hero-title-line {
 
 /* La description : centrée. */
 main > section.home-hero .studio-hero-copy > p {
-  grid-row: 3;
+  grid-row: 4;
   max-width: 36em;
   font-size: clamp(1rem, 0.92rem + 0.2vw, 1.125rem);
   line-height: 1.6;
@@ -2108,20 +2193,22 @@ main > section.home-hero .studio-hero-copy > p {
     min-height: 100svh;
   }
   /* LE HERO SUR TÉLÉPHONE, CHOIX D (25/11/2026, sur maquettes) : le titre
-     en quatre lignes choisies (« Développement / logiciel, IA / &
-     systèmes / connectés. », les « | » du texte), et tout le hero aligné
-     à gauche. La plus longue ligne remplit 97 % de la colonne : 48px sur
-     un iPhone de 390px, 72px au plus. (Avant : trois lignes coupées par
-     le navigateur, en 32px, demande du 24/11.) */
+     en lignes choisies (les « | » du texte ; depuis le 27/11/2026, trois
+     lignes : « On développe vos / logiciels. L’IA les / rend
+     intelligents. »), et tout le hero aligné à gauche. Un peu plus petit depuis le 27/11/2026 (demande
+     d'Antonino) : la plus longue ligne remplit 89 % de la colonne (97 %
+     avant), 39px sur un iPhone de 390px (42 avant), 66px au plus. (Avant
+     le choix D : trois lignes coupées par le navigateur, en 32px.) */
   main > section.home-hero .studio-hero-grid {
-    --hero-title-size: min(13.7cqi, 4.5rem);
+    --hero-title-size: min(11cqi, 3.6rem);
   }
   /* En anglais, la plus longue ligne est « development, AI » (7,3 fois la
-     taille, contre 7 pour « Développement ») : un peu plus petit, pour
-     qu'elle remplisse 95 % de la colonne. */
+     taille, contre 7 pour « Développement ») : un peu plus petit. */
   main > section.home-hero .studio-hero-grid:lang(en) {
-    --hero-title-size: min(13cqi, 4.3rem);
+    --hero-title-size: min(10.5cqi, 3.45rem);
   }
+  /* Sur téléphone, le titre et la description ALIGNÉS À GAUCHE
+     (27/11/2026, demande d'Antonino ; centrés sur ordinateur). */
   main > section.home-hero h1 {
     line-height: 1.06;
     text-align: left;
@@ -2145,62 +2232,68 @@ main > section.home-hero .studio-hero-copy > p {
   }
 }
 
-/* ---- LE HERO À GAUCHE, AU GRAND TITRE (26/11/2026, demandes
-   d'Antonino), dès 768px : le titre sur ses deux lignes, aligné à gauche,
-   la deuxième (« IA & systèmes connectés. ») un peu décalée vers la
-   droite (`--hero-decalage`). Sa taille : 7,2cqi, 13 % de la hauteur de
-   l'écran au plus (92px sur un écran de 1440 × 900). Le bloc a la largeur
-   du titre, décalage compris : la description en prend toute la largeur
-   (deux ou trois lignes). Le titre et la description, seuls (le bouton de
-   l'appel et sa mention sont retirés), au milieu du hero, en hauteur. Sur
-   téléphone, la mise en page du choix D (plus haut). ---- */
+/* ---- LE HERO CENTRÉ (27/11/2026, demande d'Antonino, après un essai
+   calé à gauche sur le logo de la barre), dès 768px : le titre sur ses
+   deux lignes et la description, CENTRÉS sur la page et en texte centré,
+   au milieu du hero en hauteur, entre la barre et les logos (8px plus
+   haut, demande d'Antonino). La description a la largeur du titre. LA
+   PETITE MAIN « DÉFILEZ » TOUT À DROITE, au bord du contenu, à
+   mi-hauteur du titre et de la description : le titre est dans une
+   colonne à sa taille, entre deux colonnes égales, ce qui le garde au
+   milieu de la page. Taille du titre : 70px (demande
+   d'Antonino du 27/11/2026), moins sur les écrans plus petits (5,6cqi,
+   10 % de la hauteur de l'écran au plus). La description
+   garde sa taille de texte et suit la largeur du titre. Sur téléphone, plus
+   bas. ---- */
 @media (min-width: 768px) {
   main > section.home-hero .studio-hero-grid {
-    --hero-title-size: max(2.5rem, min(7.2cqi, 13vh));
+    --hero-title-size: max(2.5rem, min(70px, 5.6cqi, 10vh));
   }
   main > section.home-hero .studio-hero-copy {
-    --hero-decalage: 1em;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
-    justify-self: start;
-    justify-items: start;
-    width: fit-content;
-    max-width: 100%;
-    text-align: left;
+    grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
+    /* Moins d'air au-dessus qu'en dessous : le bloc tombe au milieu, entre
+       la barre et les logos. */
+    grid-template-rows: minmax(0, 0.7fr) auto auto auto minmax(0, 1fr);
+    column-gap: clamp(24px, 3vw, 56px);
+    justify-self: stretch;
+    justify-items: center;
+    width: auto;
+    max-width: none;
+    /* (Sans marges automatiques : sinon le bloc se réduirait à son contenu
+       au lieu de prendre toute la largeur.) */
+    margin-inline: 0;
+    text-align: center;
+    translate: 0 -8px;
+  }
+  main > section.home-hero .studio-hero-kicker {
+    grid-column: 2;
   }
   main > section.home-hero h1 {
-    grid-column: 1;
-    grid-row: 2;
+    grid-column: 2;
+    grid-row: 3;
     line-height: 1.04;
-    text-align: left;
+    text-align: center;
   }
   main > section.home-hero h1 .hero-title-line {
-    margin-inline: 0;
+    margin-inline: auto;
   }
   main > section.home-hero h1 :is(.hero-title-line--1, .hero-title-line--2) {
     left: 0;
   }
-  /* Une marge et non `left` : le décalage compte dans la largeur du bloc,
-     donc dans celle de la description. (L'arrivée glisse par
-     `translate`, sans conflit.) La taille de la police du titre, pour que
-     l'`em` soit celui du titre. */
-  main > section.home-hero h1 .hero-title-line--2 {
-    margin-left: var(--hero-decalage);
-  }
-  /* La description : toute la largeur du bloc, sans l'élargir (`width: 0`
-     et `min-width: 100%` : c'est le titre qui la donne). (Sélecteurs
-     doublés, `.home-hero.home-hero` : la règle des marges centrées, plus
-     haut, passe sinon devant.) */
+  /* La description : centrée, de la largeur du titre (`width: 0` et
+     `min-width: 100%` : elle prend sa colonne sans l'élargir ; c'est le
+     titre qui la donne). (Sélecteurs doublés, `.home-hero.home-hero` :
+     une règle des heros, plus haut, passe sinon devant.) */
   .site-page main > section.studio-hero.home-hero.home-hero .studio-hero-copy > p {
-    grid-column: 1;
-    grid-row: 3;
+    grid-column: 2;
+    grid-row: 4;
     align-self: start;
     width: 0;
     min-width: 100%;
     max-width: none;
-    margin: clamp(2rem, 1rem + 2.5vw, 3.75rem) 0 0;
-    font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.375rem);
-    text-align: left;
+    margin: clamp(2rem, 1rem + 2.5vw, 3.75rem) auto 0;
+    font-size: clamp(1rem, 0.85rem + 0.4vw, 1.25rem);
+    text-align: center;
   }
 }
 /* Dans la description, le nom de l'agence en Castoro italique, en blanc
@@ -2218,8 +2311,8 @@ main > section.home-hero .hero-emphase {
   line-height: 0;
   color: #ffffff;
 }
-/* Son « & » en Manrope, droit, à la taille du texte (26/11/2026, demande
-   d'Antonino). */
+/* Son « & » droit, à la taille du texte, en Manrope comme la
+   description. */
 main > section.home-hero .hero-esperluette {
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
   font-size: calc(1em / 1.08);

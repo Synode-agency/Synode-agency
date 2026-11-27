@@ -11,26 +11,30 @@ export const home = {
   metaTitle: "Synode · Agence de développement logiciel & IA à Bruxelles",
   metaDescription: "Nous connectons vos outils, intégrons l’IA et construisons vos logiciels sur mesure, des indépendants aux grandes entreprises. Appel gratuit de 30 min.",
 
-  /* Le hero de la maquette d'Antonino (24/11/2026) : le métier et la ville
-     dans le titre, comme Iterates ; centré, sans photo ni surtitre. */
+  /* Le hero : un surtitre (le métier et la ville), le titre, la
+     description ; sans photo. */
   hero: {
-    /* Titre du 24/11/2026 (Antonino) : les métiers de Synode. Une ligne
-       par `\n` ; « logiciel » et « IA » en Castoro italique bleu
-       (25/11/2026).
-       Chaque « | » : une espace sur ordinateur, un retour à la ligne sur
-       téléphone, où le titre tient en quatre lignes alignées à gauche
-       (« Développement / logiciel, IA / & systèmes / connectés. »,
-       choix D d'Antonino sur maquettes, 25/11/2026). */
-    title: "Développement|logiciel,\nIA|& systèmes|connectés.",
-    accents: ["logiciel", "IA"],
+    /* Le surtitre (27/11/2026, Antonino). Le « | » : une espace sur
+       ordinateur (une ligne), un retour à la ligne sur téléphone, en deux
+       lignes équilibrées (« Agence de développement / logiciel & IA ·
+       Bruxelles ») plutôt que « Bruxelles » seul (demande d'Antonino). */
+    eyebrow: "Agence de développement|logiciel & IA · Bruxelles",
+    /* Le titre du 27/11/2026 (Antonino ; « Développement logiciel, IA &
+       systèmes connectés. » avant). Une ligne par `\n` ; « logiciels » et
+       « IA » dans la police des mots en couleur. Chaque « | » : une espace
+       sur ordinateur, un retour à la ligne sur téléphone, où le titre tient
+       en trois lignes alignées à gauche, la seconde phrase à la suite de la
+       première, sans mot seul en dernière ligne (« On développe vos /
+       logiciels. L’IA les / rend intelligents. », demande d'Antonino du
+       27/11/2026 ; quatre lignes avant). */
+    title: "On développe vos|logiciels.\nL’IA les|rend intelligents.",
+    accents: ["logiciels", "IA"],
     /* Le titre parle du bénéfice ; la description dit ce qu'est Synode, avec
        les mots du référencement (demande d'Antonino, 24/11/2026). */
     subtitle:
       "Synode, agence de développement logiciel & IA à Bruxelles, conçoit et développe des logiciels, des sites web et des applications mobiles. Nous intégrons l’intelligence artificielle, connectons vos systèmes et automatisons vos processus pour accompagner la croissance de votre entreprise.",
     /* Le passage de la description en gras (sans italique). */
     emphasis: "agence de développement logiciel & IA à Bruxelles",
-    /* Le petit mot de la main animée, en bas du hero (26/11/2026). */
-    defiler: "Défilez",
   },
 
   /* LA PREUVE, au bas du hero : le bandeau défilant des logos des clients
@@ -193,9 +197,6 @@ export const home = {
     accent: "clients",
     precedent: "Témoignage précédent",
     suivant: "Témoignage suivant",
-    /* Le petit mot qui apparaît après le geste de la main animée, sous
-       l'avis (demande d'Antonino du 26/11/2026). */
-    indice: "Glissez",
     items: [
       {
         texte:

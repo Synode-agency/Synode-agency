@@ -75,7 +75,7 @@ const KPI_TO = 15;
 type Tone = "ok" | "wait" | "off";
 
 const ROWS: { initials: string; colour: string; score: number; tone: Tone }[] = [
-  { initials: "AB", colour: "#0B6BE6", score: 92, tone: "ok" },
+  { initials: "AB", colour: "#4a78c8", score: 92, tone: "ok" },
   { initials: "DS", colour: "#7B5CF0", score: 84, tone: "ok" },
   { initials: "LS", colour: "#E0567A", score: 61, tone: "wait" },
   { initials: "VF", colour: "#E09A2D", score: 74, tone: "ok" },
@@ -83,7 +83,7 @@ const ROWS: { initials: string; colour: string; score: number; tone: Tone }[] = 
 ];
 
 /** Le fil du score : vert au-dessus de 70, bleu au-dessus de 50, gris sinon. */
-const gaugeColour = (score: number) => (score > 70 ? "#34D399" : score > 50 ? "#4E8FF0" : "#5E6E8A");
+const gaugeColour = (score: number) => (score > 70 ? "#34D399" : score > 50 ? "#4a78c8" : "#5E6E8A");
 
 const COPY = {
   fr: {

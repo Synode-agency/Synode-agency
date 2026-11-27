@@ -35,10 +35,10 @@
   color: #0b1424;
 }
 :global(.site-header) .lien.lien:global(.is-current) {
-  color: #8ec1ff;
+  color: #4a78c8;
 }
 :global(.site-page .site-header[data-mega]) .lien.lien:global(.is-current) {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 @media (hover: hover) and (pointer: fine) {
   :global(.site-header) .declencheur:hover .lien.lien,
@@ -47,7 +47,7 @@
   }
   :global(.site-page .site-header[data-mega]) .declencheur:hover .lien.lien,
   :global(.site-page .site-header[data-mega]) .declencheur:hover .fleche.fleche {
-    color: #0a6cf0;
+    color: #4a78c8;
   }
 }
 :global(.site-header) .lien.lien:focus-visible {
@@ -178,13 +178,13 @@
 }
 .carte:hover,
 .carte:focus-visible {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 .carte:focus-visible {
   outline: none;
 }
 .carte:focus-visible .visuel {
-  outline: 2px solid #0a6cf0;
+  outline: 2px solid #4a78c8;
   outline-offset: 3px;
 }
 /* Le survol (25/11/2026, demande d'Antonino) : la carte visée reste

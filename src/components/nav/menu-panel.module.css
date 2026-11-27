@@ -104,7 +104,7 @@
 }
 .grandLien:hover,
 .grandLien:focus-visible {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 /* « Services » : le mot (un lien vers la page) et sa petite flèche (un
    bouton qui déplie les quatre cartes), sur une même ligne. */
@@ -130,12 +130,12 @@
 }
 @media (hover: hover) and (pointer: fine) {
   .ligneServices:hover .grandLien {
-    color: #0a6cf0;
+    color: #4a78c8;
   }
 }
 .ligneServices .grandLien:focus-visible,
 .ligneServices:has(.deplier[aria-expanded="true"]) .grandLien {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 .deplier {
   display: inline-flex;
@@ -213,7 +213,7 @@
 }
 .service:hover,
 .service:focus-visible {
-  color: #0a6cf0;
+  color: #4a78c8;
 }
 /* Plus grandes qu'avant (60 × 80px) : sa demande du 25/11. */
 .serviceVisuel {
@@ -267,7 +267,7 @@
   height: 48px;
   padding: 0 22px;
   border-radius: 999px;
-  background: #0a6cf0;
+  background: #4a78c8;
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
@@ -276,10 +276,10 @@
   transition: background-color 0.3s ease;
 }
 .reserver:hover {
-  background: #0058c8;
+  background: #325ca4;
 }
 :is(.grandLien, .service, .reserver, .langue a):focus-visible {
-  outline: 2px solid #0a6cf0;
+  outline: 2px solid #4a78c8;
   outline-offset: 3px;
 }
 
