@@ -151,10 +151,10 @@ export function ServicesPage({ locale }: { locale: Locale }) {
         <ul className={m.cartes} data-rv-groupe="bottom">
           {s.included.items.map((item) => (
             <li key={item.title} className={m.carte}>
-              {/* TODO(photos) : les quatre photos « Inclus », dans le style
-                  de celles des services, à déposer dans
-                  `public/images/services/` sous ces noms. D'ici là, un bloc
-                  bleu nuit tient leur place. */}
+              {/* Les quatre photos « Inclus » (27/11/2026, fournies par
+                  Antonino et passées au ton bleu nuit de celles des
+                  services), dans `public/images/services/`. Si un fichier
+                  manque, un bloc bleu nuit tient sa place. */}
               <div className={m.photo} aria-hidden="true">
                 {existsSync(join(process.cwd(), "public", item.image)) ? (
                   <Image src={item.image} alt="" fill sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 24vw" />
