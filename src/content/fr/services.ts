@@ -89,7 +89,7 @@ export const services = {
         "On automatise les tâches répétitives et on met l’IA au travail sur vos outils et vos documents : du temps gagné, sans exposer vos données ni vos clients.",
       deliverables: [
         "Tâches répétitives automatisées : relances, devis, saisies",
-        "Assistants IA qui lisent vos documents et répondent",
+        "Assistants IA qui trient, rédigent, répondent et agissent dans vos outils",
         "Accès limités, validation humaine, tests sur vos cas réels",
       ],
     },
@@ -117,8 +117,9 @@ export const services = {
          d'Antonino du 27/11/2026). */
       sentence: "Des sites et des applications iPhone et Android rapides,\nsoignés et reliés à vos outils.",
       deliverables: [
-        "Sites, espaces clients, réservations, paiements",
-        "Applications iPhone et Android, publication sur les stores",
+        "Sites vitrines, boutiques en ligne, réservation et paiement en ligne",
+        "Espaces clients et espace d’administration",
+        "Applications iPhone et Android, publiées sur les stores",
         "Performance, accessibilité, RGPD",
       ],
     },

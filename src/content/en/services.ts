@@ -56,7 +56,7 @@ export const services = {
         "We automate repetitive tasks and put AI to work on your tools and documents: time saved, without exposing your data or your clients.",
       deliverables: [
         "Repetitive tasks automated: follow-ups, quotes, data entry",
-        "AI assistants that read your documents and answer",
+        "AI assistants that sort, draft, reply and act in your tools",
         "Limited access, human approval, tested on your real cases",
       ],
     },
@@ -82,8 +82,9 @@ export const services = {
       heading: ["An online presence ", "that reflects you."],
       sentence: "Fast websites and iPhone and Android apps,\npolished and connected to your tools.",
       deliverables: [
-        "Websites, client areas, bookings, payments",
-        "iPhone and Android apps, app store publishing",
+        "Showcase sites, online shops, online booking and payments",
+        "Client areas and admin dashboards",
+        "iPhone and Android apps, published on the stores",
         "Performance, accessibility, GDPR",
       ],
     },
