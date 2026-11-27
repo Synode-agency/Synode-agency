@@ -126,8 +126,10 @@ export function HomePage({ locale }: { locale: Locale }) {
         name: organizationName,
         alternateName: organizationAlternateName,
         url: `${siteUrl}/`,
-        logo: `${siteUrl}/synode-logo.png`,
-        image: `${siteUrl}/synode-logo.png`,
+        /* Le N du logo (27/11/2026 ; `synode-logo.png`, l'ancien « S »,
+           n'existe plus). */
+        logo: `${siteUrl}/logo/synode.png`,
+        image: `${siteUrl}/logo/synode.png`,
         email: site.email,
         ...sameAsField,
         description: home.metaDescription,

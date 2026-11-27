@@ -24,7 +24,11 @@ import { ogCard, ogSize } from "@/lib/og-card";
 let mark: string | null = null;
 
 export function ogImage(locale: "fr" | "en") {
-  /* Lu une seule fois par processus, au premier rendu. */
-  mark ??= `data:image/png;base64,${readFileSync(join(process.cwd(), "public/synode-mark.png")).toString("base64")}`;
+  /* Lu une seule fois par processus, au premier rendu. Le N du logo, en
+     blanc, dans une version légère faite pour cette image (96px de haut) :
+     `public/logo/synode-og.png` (27/11/2026 ; l'ancien « S »,
+     `public/synode-mark.png`, a été retiré avec la refonte, et son absence
+     faisait échouer la construction du site). */
+  mark ??= `data:image/png;base64,${readFileSync(join(process.cwd(), "public/logo/synode-og.png")).toString("base64")}`;
   return new ImageResponse(ogCard(locale, mark), ogSize);
 }
