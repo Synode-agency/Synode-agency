@@ -3566,8 +3566,9 @@ main > .band#tarification > .col > .lede {
    ===================================================================== */
 @media (max-width: 900px) {
   /* ---- Sur fond clair ---- */
+  /* (Le jeton du bouton, #325CA4 depuis le 27/11/2026 : `refonte.css`.) */
   .btn--primary {
-    background: #4a78c8;
+    background: var(--brand);
     color: #ffffff;
   }
   .btn--ghost {
@@ -3578,8 +3579,8 @@ main > .band#tarification > .col > .lede {
 
   /* ---- Sur fond sombre : hero, bandes sombres, CTA sombres, menu ---- */
   :is(.home-dark-band, .home-hero-dark, .dark-cta, .site-theme-alternating main > .band:nth-of-type(odd)) .btn--primary {
-    background: #4a78c8;
-    color: #0f1d33;
+    background: var(--brand);
+    color: #ffffff;
   }
   :is(.home-dark-band, .home-hero-dark, .dark-cta, .site-theme-alternating main > .band:nth-of-type(odd)) .btn--ghost {
     border-color: #2a4a78;

@@ -61,7 +61,19 @@ function decouper(etapes: Methode["etapes"]): Mot[][] {
  * éclairés (lisible sans script). Sans mouvement (`prefers-reduced-motion`),
  * pas de blocage et tout est éclairé. Le paragraphe reste du vrai texte.
  */
-export function MethodeScroll({ methode, className }: { methode: Methode; className?: string }) {
+export function MethodeScroll({
+  methode,
+  nuit = "#realisations, #temoignages, #appel",
+  className,
+}: {
+  methode: Methode;
+  /** Les éléments qui passent au bleu nuit avec la section (`SectionNuit`,
+   *  `aussi`) ; `false` : la section ne pose pas le bleu nuit elle-même,
+   *  une section au-dessus s'en charge (page Services, 27/11/2026, où il
+   *  commence à « Inclus dans chaque projet »). */
+  nuit?: string | false;
+  className?: string;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const texteRef = useRef<HTMLParagraphElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -195,7 +207,7 @@ export function MethodeScroll({ methode, className }: { methode: Methode; classN
           seul fond, et la FAQ, blanche, le coupe d'une ligne nette sous
           l'appel. Le bas des réalisations bascule avec lui (jamais d'écran
           coupé en deux couleurs) ; en remontant, tout redevient blanc. */}
-      <SectionNuit aussi="#realisations, #temoignages, #appel" />
+      {nuit !== false ? <SectionNuit aussi={nuit} /> : null}
       <div ref={pinRef} className={s.pin}>
         <div className={cx("section-heading home-section-heading", s.entete)}>
           <TitreAnime

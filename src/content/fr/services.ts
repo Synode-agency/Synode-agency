@@ -1,115 +1,192 @@
 /**
- * LA PAGE SERVICES (brief de la refonte, 6.2) : les quatre services (le
- * 4e ajouté le 25/11/2026, une seule page pour tous), ce qui
- * est inclus, la tarification, la sécurité et la FAQ. La tarification et la
- * sécurité ne sont écrites qu'ici sur tout le site (règle 5 du brief).
+ * LA PAGE SERVICES, REFAITE LE 27/11/2026 (fiche d'Antonino) sur le design
+ * system de l'accueil : le hero et ses quatre tuiles, « Notre approche »
+ * centrée, les quatre services à côté d'une photo qui reste à l'écran, puis
+ * d'un seul fond bleu nuit « Inclus dans chaque projet », le chiffrage
+ * (le composant de « Notre méthode ») et l'appel final de l'accueil, enfin
+ * la FAQ. La tarification et la sécurité ne sont écrites qu'ici sur tout
+ * le site (règle 5 du brief) ; la sécurité est dans la FAQ (« Que
+ * deviennent nos données ? »).
  */
 export const services = {
-  metaTitle: "Services · Intégrations, IA, logiciels et sites web · Synode",
-  metaDescription: "Connecter vos outils, mettre l’IA au travail, créer votre logiciel, votre site ou votre application mobile. Exemples, tarification et sécurité.",
+  metaTitle: "Services · Logiciels, IA, intégrations, sites et applications · Synode",
+  metaDescription:
+    "Logiciels sur mesure, IA et automatisation, intégrations, sites web et applications mobiles : quatre services, des indépendants aux grandes entreprises.",
 
   hero: {
-    eyebrow: "Services",
-    title: "Quatre façons de faire gagner du temps à votre équipe",
-    accents: ["gagner du temps"],
-    subtitle: "Chaque projet part de vos outils, de vos données et de vos règles. On ne vend pas de solution toute faite.",
+    /* Une ligne par `\n` sur ordinateur. Chaque « | » : une espace sur
+       ordinateur, un retour à la ligne sur téléphone (« Quatre façons / de
+       faire avancer / votre activité. »), comme le titre de l'accueil. */
+    title: "Quatre façons|de faire\navancer|votre activité.",
+    accents: ["avancer"],
+    subtitle:
+      "Pour les entreprises comme pour les indépendants : on construit ce qui manque, on relie ce qui existe et on ajoute de l’IA quand elle apporte vraiment quelque chose.",
+    /* Le nom des quatre tuiles pour les lecteurs d'écran. */
+    tilesLabel: "Les quatre services",
   },
 
-  labels: { problem: "Le problème", does: "Ce qu’on fait", examples: "Par exemple", result: "Le résultat" },
+  /* « NOTRE APPROCHE », centrée, sans photos : le texte se remplit au
+     défilement, comme celui de l'accueil. Les mots en valeur suivent ceux de
+     l'accueil : « logiciels » et « intelligence artificielle ». */
+  approach: {
+    label: "Notre approche",
+    text: "Entreprise ou indépendant, chacun a ses outils, ses données et ses règles. On ne vend pas de solution toute faite : on développe des logiciels sur mesure, on connecte ce qui existe déjà et on ajoute de l’intelligence artificielle seulement quand elle apporte quelque chose.",
+    accents: ["logiciels", "intelligence", "artificielle"],
+  },
 
-  blocks: [
+  /* L'EN-TÊTE DES QUATRE SERVICES : celui de l'accueil (`TitreAnime`),
+     « Quatre services pour » et un mot qui change en boucle ; à droite,
+     « Nos services ». */
+  list: {
+    etiquette: "Nos services",
+    prefix: "Quatre services pour",
+    rotating: ["développer.", "automatiser.", "connecter.", "se lancer."],
+    full: "Quatre services pour développer, automatiser, connecter et se lancer.",
+    fullEnd: "développer, automatiser, connecter et se lancer.",
+    labels: { problem: "Le problème", does: "Ce qu’on fait", result: "Le résultat" },
+    button: "Découvrir ce service",
+  },
+
+  /* LES QUATRE SERVICES, dans l'ordre de la page. `key` donne l'ancre
+     (`#logiciel`, `#ia`, `#connecter`, `#web`, celles du menu « Services ») ;
+     `name` : le nom sur deux lignes (tuiles du hero et titre sur la photo) ;
+     `heading` : le titre du bloc, sa 2e partie en Instrument Serif. */
+  items: [
     {
-      key: "connect",
-      title: "Connecter vos outils",
-      problem: "Vos logiciels ne se parlent pas. Votre équipe recopie, exporte et vérifie à la main.",
-      does: "On relie vos outils existants (CRM, ERP, facturation, site, e-mail, bases de données) et on automatise les étapes répétitives entre eux.",
-      examples: [
-        { strong: "Une demande qui circule seule", rest: " : du formulaire du site au CRM, puis à l’équipe concernée, sans ressaisie." },
-        { strong: "Un nouveau client accueilli sans oubli", rest: " : documents demandés, dossier créé, équipe prévenue." },
-        { strong: "Des factures relancées au bon moment", rest: ", avec lien de paiement, et une alerte quand un appel est nécessaire." },
-      ],
-      result: "Moins de ressaisie, moins d’erreurs, une information à jour partout.",
+      key: "software",
+      name: ["Développement", "logiciel"],
+      line: "Outils métier, portails, plateformes",
+      image: "/images/services/service-logiciel.webp",
+      heading: ["Un logiciel fait pour ", "votre métier."],
+      problem:
+        "Votre activité tient sur un fichier Excel devenu critique : partagé entre plusieurs personnes, rempli de données clients et de calculs que plus personne n’ose toucher. Le jour où il casse ou fuit, tout s’arrête.",
+      does: "On transforme ce processus en un vrai logiciel : base de données fiable, comptes et droits par rôle, sauvegardes, historique des modifications, et une architecture qui tient quand votre équipe ou votre clientèle grandit.",
+      result: "Un outil solide et sécurisé, qui grandit avec votre activité.",
     },
     {
       key: "ai",
-      title: "Mettre l’IA au travail",
-      problem: "Devis, e-mails, documents, questions répétitives : votre équipe passe ses journées à préparer au lieu de décider.",
-      does: "On met en place des assistants IA branchés sur vos outils et vos documents. Ils agissent seuls ou vous soumettent chaque action : c’est vous qui fixez la règle.",
-      examples: [
-        { strong: "Devis et relances", rest: " : la demande est résumée, un brouillon de devis est prêt à relire, les relances partent automatiquement." },
-        { strong: "Service client en FR, NL et EN", rest: " : les questions fréquentes reçoivent une réponse, les cas complexes passent à votre équipe." },
-        { strong: "Votre documentation interrogeable", rest: " : un assistant répond à partir de vos documents, cite ses sources et respecte les droits d’accès." },
-      ],
-      result: "Des réponses plus rapides, une équipe qui se concentre sur ce qui demande du jugement.",
+      name: ["Intelligence artificielle", "& automatisation"],
+      line: "Agents IA, automatisations",
+      image: "/images/services/service-ia.webp",
+      heading: ["L’IA au travail sur ", "vos vrais dossiers."],
+      problem:
+        "Un chatbot se monte en une soirée. Un assistant qui lit vos vrais documents, respecte qui a le droit de voir quoi, ne divulgue aucune donnée client et ne répond pas n’importe quoi à vos clients, c’est un autre métier.",
+      does: "On conçoit des agents IA branchés sur vos outils et vos données, avec des limites d’accès, des règles de validation humaine, des tests sur vos cas réels et un suivi de la qualité des réponses dans le temps.",
+      result: "Une IA à qui confier du travail réel, sans risque pour vos clients.",
     },
     {
-      key: "software",
-      title: "Créer votre logiciel sur mesure",
-      problem: "Vous jonglez entre Excel, e-mails et outils qui ne correspondent pas à votre métier.",
-      does: "On construit l’application qu’il vous faut, quelle qu’elle soit : application web ou mobile, outil interne, portail pour vos clients, plateforme métier. Avec de l’IA là où elle est utile.",
-      examples: [
-        { strong: "Un outil métier", rest: " qui centralise vos interventions et leur historique, et dont l’IA rédige les rapports." },
-        { strong: "Une application pour vos clients", rest: ", sur le web ou sur mobile : réservation, suivi de dossier, espace personnel." },
-        { strong: "Un tableau de bord", rest: " (Power BI, Excel ou web) qui se met à jour seul : ventes, marges, trésorerie." },
-      ],
-      result: "Un outil fait pour votre façon de travailler, pas l’inverse.",
+      key: "connect",
+      name: ["Intégration &", "systèmes connectés"],
+      line: "CRM, ERP, facturation, API",
+      image: "/images/services/service-integration.webp",
+      heading: ["Des outils qui ", "se parlent enfin."],
+      problem:
+        "Votre CRM, votre comptabilité, votre boutique et votre agenda échangent des données par des connexions fragiles. Un doublon, une mise à jour chez un éditeur, une synchronisation qui échoue en silence, et vos chiffres ne sont plus fiables.",
+      does: "On construit des intégrations robustes : une source de vérité claire, la gestion des erreurs et des doublons, des alertes quand un flux bloque, et une documentation pour savoir ce qui circule où.",
+      result: "Des données justes partout, et des flux qui ne cassent pas sans prévenir.",
     },
-    /* [À VALIDER PAR ANTONINO] Le 4e service, texte proposé le 25/11/2026. */
     {
       key: "web",
-      title: "Créer votre site ou votre application mobile",
-      problem: "Votre site ne reflète plus votre activité, ou vos clients attendent une application que vous n’avez pas encore.",
-      does: "On conçoit et on développe des sites web et des applications mobiles rapides, clairs et faciles à utiliser, reliés à vos outils.",
-      examples: [
-        { strong: "Un site qui travaille pour vous", rest: " : vos services présentés clairement, et chaque demande de contact envoyée directement dans vos outils." },
-        { strong: "Une application mobile", rest: " sur iPhone et Android, pour vos clients ou pour vos équipes sur le terrain." },
-        { strong: "La refonte de votre site actuel", rest: " : plus rapide, plus clair, et pensé pour être bien trouvé sur Google." },
-      ],
-      result: "Une présence en ligne à votre image, et des outils que vos clients utilisent vraiment.",
+      name: ["Sites web &", "applications mobiles"],
+      line: "Sites, iPhone et Android",
+      image: "/images/services/service-web.webp",
+      heading: ["Une présence en ligne ", "à votre image."],
+      problem:
+        "Une jolie vitrine se fait en un week-end. Un site ou une application qui gère réservations, paiements, comptes clients et plusieurs langues, rapide, bien référencé, conforme au RGPD et sans faille, demande une vraie équipe.",
+      does: "On conçoit et on développe des sites et des applications iPhone et Android reliés à vos outils : paiements, espaces clients, publication sur les stores, performance, accessibilité et sécurité.",
+      result: "Un site ou une application fiable, que vos clients utilisent vraiment.",
     },
   ] as const,
 
-  /* Remplace l'ancienne offre « Formation & adoption IA » : la formation
-     vient après la livraison, et la formation à l'IA s'ajoute à un projet
-     (décision du 24/11/2026). */
+  /* INCLUS DANS CHAQUE PROJET : le titre, la phrase à droite, quatre cartes
+     et la phrase sur l'abonnement. `image` : la photo de la carte, dans le
+     style de celles des services ; tant que le fichier n'existe pas dans
+     `public/`, un bloc bleu nuit tient sa place. */
   included: {
-    title: "Inclus dans chaque projet",
-    items: ["Installation", "Formation de votre équipe à l’outil livré", "Documentation", "Accompagnement jusqu’à la prise en main"],
-    option: "En option, à ajouter au projet : une formation de vos équipes à l’IA, et le suivi, la maintenance et les évolutions par contrat récurrent.",
+    title: "Inclus dans",
+    accent: "chaque projet.",
+    text: "Quel que soit le service, on ne s’arrête pas à la mise en ligne : votre équipe repart avec un outil qu’elle sait utiliser.",
+    items: [
+      {
+        title: "Installation",
+        text: "On met l’outil en service dans votre environnement, avec vos données.",
+        image: "/images/services/inclus-installation.webp",
+      },
+      {
+        title: "Formation",
+        text: "Votre équipe apprend à utiliser l’outil livré, sur ses propres cas.",
+        image: "/images/services/inclus-formation.webp",
+      },
+      {
+        title: "Documentation",
+        text: "Un guide clair, pour retrouver chaque réglage et chaque procédure.",
+        image: "/images/services/inclus-documentation.webp",
+      },
+      {
+        title: "Accompagnement",
+        text: "On reste disponibles jusqu’à la prise en main complète.",
+        image: "/images/services/inclus-accompagnement.webp",
+      },
+    ],
+    recurring: {
+      before:
+        "Certains projets vivent au-delà de la livraison : mises à jour de sécurité, hébergement, évolution des modèles d’IA, nouvelles fonctionnalités. Pour ceux-là, on vous propose un ",
+      accent: "abonnement mensuel",
+      after: " de maintenance et de suivi, chiffré dès le devis.",
+    },
   },
 
+  /* COMMENT NOUS CHIFFRONS VOTRE PROJET : le composant de « Notre méthode »
+     de l'accueil (`MethodeScroll`), même forme de texte. Pas de prix publiés
+     (décision D1 du 23/11/2026). */
   pricing: {
-    title: "Comment nous chiffrons votre projet",
-    items: [
-      { strong: "Premier appel gratuit", rest: " (30 min)." },
-      { strong: "Cadrage payant, déduit du projet", rest: " : vous recevez un périmètre écrit et validé." },
-      { strong: "Un devis en trois lignes", rest: " : développement, frais de fonctionnement (hébergement, IA, maintenance), évolutions." },
+    label: "Comment nous chiffrons votre projet",
+    title: {
+      prefix: "Comment nous chiffrons",
+      rotating: ["votre projet.", "chaque étape.", "sans surprise."],
+      full: "Comment nous chiffrons votre projet, chaque étape, sans surprise.",
+      fullEnd: "votre projet, chaque étape, sans surprise.",
+    },
+    etapes: [
+      {
+        debut: "Un premier appel",
+        cle: "gratuit.",
+        description: "30 minutes pour comprendre votre activité et ce que vous aimeriez améliorer.",
+      },
+      {
+        debut: "Un cadrage",
+        cle: "écrit.",
+        description: "Payant puis déduit du projet : ce qu’on construit, en combien de temps, pour quel prix.",
+      },
+      {
+        debut: "Un devis en",
+        cle: "trois lignes.",
+        description: "Développement, frais de fonctionnement et évolutions, clairement séparés.",
+      },
     ],
-    /* [À COMPLÉTER] « Projets à partir de … € » : vide, donc masqué. Pas de
-       prix publiés (décision D1 du 23/11/2026). */
-    from: "",
-    /* [À VÉRIFIER] aides régionales à la digitalisation : à ne publier
-       qu'après vérification. Vide, donc masqué. */
-    aids: "",
   },
 
-  security: {
-    title: "Vos données restent sous contrôle",
-    items: [
-      { strong: "Accès limités", rest: " : chaque outil n’accède qu’aux données nécessaires." },
-      { strong: "Validation humaine", rest: " : vous choisissez quelles actions demandent votre accord." },
-      { strong: "Traçabilité", rest: " : chaque action est enregistrée." },
-      { strong: "Vos données restent les vôtres", rest: " : hébergement en Europe quand c’est requis." },
-    ],
+  /* L'APPEL FINAL : la question et la phrase propres à cette page
+     (27/11/2026, demande d'Antonino : en lien avec les services) ; le
+     champ, ses exemples et le bouton restent ceux de l'accueil
+     (`home.appel`). « commencer » en Instrument Serif. */
+  appel: {
+    titreAvant: "Par quel service",
+    accent: "commencer",
+    titreApres: "\u00a0?",
+    texte:
+      "Un logiciel, de l’IA, des outils à relier, un site ou une application\u00a0: décrivez votre projet en une phrase, on vous aide à choisir pendant un appel de 30\u00a0minutes.",
   },
 
   faq: {
     title: "Questions fréquentes",
+    accent: "fréquentes",
+    more: "Une autre question ?",
     items: [
       {
         q: "Combien de temps dure un projet ?",
-        /* La réponse du site actuel, sans délai inventé. [À COMPLÉTER] une
-           fourchette réaliste quand Synode en aura une. */
+        /* Sans délai inventé. [À COMPLÉTER] une fourchette réaliste quand
+           Synode en aura une. */
         a: "La durée dépend du périmètre, du nombre d’outils à relier, de la disponibilité des données et des tests nécessaires. Le calendrier est fixé par écrit avant le démarrage.",
       },
       {
@@ -117,12 +194,16 @@ export const services = {
         a: "Vous choisissez : on les gère pour vous, ou vous souscrivez directement auprès des fournisseurs.",
       },
       {
-        q: "La solution peut-elle évoluer ?",
-        a: "Oui. Chaque évolution est cadrée et validée par écrit avant d’être développée.",
+        q: "Que deviennent nos données ?",
+        a: "Chaque outil n’accède qu’aux données nécessaires, chaque action est enregistrée, et vous choisissez quelles actions demandent votre accord. Vos données restent les vôtres, hébergées en Europe quand c’est requis.",
       },
       {
         q: "Et si l’IA se trompe ?",
         a: "Vous choisissez le niveau de contrôle : valider chaque action, seulement les actions sensibles, ou laisser l’IA gérer.",
+      },
+      {
+        q: "La solution peut-elle évoluer ?",
+        a: "Oui. Chaque évolution est cadrée et validée par écrit avant d’être développée.",
       },
       {
         q: "Avec qui signons-nous ?",

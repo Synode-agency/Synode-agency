@@ -1,7 +1,5 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { ImageResponse } from "next/og";
-import { ogCard, ogSize } from "@/lib/og-card";
 
 /**
  * L'image de partage d'une langue, prête à servir.
@@ -19,16 +17,20 @@ import { ogCard, ogSize } from "@/lib/og-card";
  * les pages légales). Partagées sur LinkedIn ou WhatsApp, Solutions, Équipe
  * ou Contact sortaient sans aperçu. Un fichier image dans le dossier de la
  * page passe, lui, AVANT ses métadonnées : il rétablit l'image.
+ *
+ * L'IMAGE ELLE-MÊME (27/11/2026, écart du design system) : le titre du
+ * hero, sur son fond bleu nuit texturé, avec le logo recomposé, en Manrope
+ * et Instrument Serif (`public/og/synode-fr.jpg`, `synode-en.jpg`). Le
+ * moteur de dessin de Next (`next/og`) ne sait ni lire ces polices ni
+ * faire le grain : elle est dessinée par le navigateur, à partir de la page
+ * du site (`docs/design-system/generer-apercus.mjs`, à relancer quand le
+ * titre change), et servie telle quelle.
  */
 
-let mark: string | null = null;
+const images: Partial<Record<"fr" | "en", Buffer>> = {};
 
 export function ogImage(locale: "fr" | "en") {
-  /* Lu une seule fois par processus, au premier rendu. Le N du logo, en
-     blanc, dans une version légère faite pour cette image (96px de haut) :
-     `public/logo/synode-og.png` (27/11/2026 ; l'ancien « S »,
-     `public/synode-mark.png`, a été retiré avec la refonte, et son absence
-     faisait échouer la construction du site). */
-  mark ??= `data:image/png;base64,${readFileSync(join(process.cwd(), "public/logo/synode-og.png")).toString("base64")}`;
-  return new ImageResponse(ogCard(locale, mark), ogSize);
+  /* Lue une seule fois par processus, au premier rendu. */
+  const image = (images[locale] ??= readFileSync(join(process.cwd(), `public/og/synode-${locale}.jpg`)));
+  return new Response(new Uint8Array(image), { headers: { "Content-Type": "image/jpeg" } });
 }

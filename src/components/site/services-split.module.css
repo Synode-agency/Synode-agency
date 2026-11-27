@@ -1,0 +1,351 @@
+/* =====================================================================
+   LES QUATRE SERVICES DE LA PAGE SERVICES (27/11/2026, fiche
+   d'Antonino). Le comportement est dans `services-split.tsx`.
+
+   Les couleurs passent par des variables : sur blanc, l'encre et
+   l'ardoise du site ; quand l'écran passe au bleu nuit (« Inclus dans
+   chaque projet » pose `data-nuit` sur `#services`), le bas de la section,
+   encore visible, passe en négatif, comme les réalisations de l'accueil.
+   ===================================================================== */
+
+.split {
+  /* LE HAUT DE LA ZONE NETTE : sous le voile flou et assombri du haut de
+     l'écran (`.site-voile`, 170px), où se fixent la boîte photo et le
+     haut d'un service atteint par une ancre (27/11/2026, demande
+     d'Antonino : ils touchaient le voile). */
+  --sv-haut: 182px;
+  /* La hauteur de la boîte photo : 480px, moins sur un écran bas, pour
+     qu'elle et ses traits tiennent sous le voile. */
+  --sv-boite-h: min(480px, calc(100svh - var(--sv-haut) - 64px));
+  --sv-encre: #0b1424;
+  --sv-gris: #5a6272;
+  --sv-filet: #e3e7ee;
+  --sv-courbe: cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+  /* L'écart entre l'en-tête et les services (l'en-tête n'en pose pas,
+     comme sur l'accueil). */
+  margin-top: 64px;
+}
+:global(#services[data-nuit]) .split {
+  --sv-encre: #ffffff;
+  --sv-gris: #a9b3c6;
+  --sv-filet: rgb(201 209 222 / 16%);
+}
+
+/* ---- La boîte photo, à gauche, qui reste à l'écran, SOUS LE VOILE.
+   PLUS PETITE (27/11/2026, deux demandes d'Antonino : « que ça
+   respire ») : 420 × 480px au plus, au lieu de toute la largeur de ses
+   5 colonnes × 600px. ---- */
+.visuel {
+  grid-column: 1 / span 5;
+  position: sticky;
+  top: var(--sv-haut);
+  width: min(100%, 420px);
+}
+.boite {
+  position: relative;
+  height: var(--sv-boite-h);
+  overflow: hidden;
+  border-radius: 18px;
+  background: #090f1f;
+  /* La largeur de la boîte, pour la taille des noms. */
+  container-type: inline-size;
+}
+.photo {
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 0.9s var(--sv-courbe),
+    transform 1.4s var(--sv-courbe);
+}
+.photo[data-actif] {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Le nom du service, en bas à gauche de la photo, sans fond : les quatre
+   empilés, seul l'actif visible. 38px au plus ; moins dans une boîte plus
+   étroite, pour que « Intelligence artificielle » tienne sur sa ligne. */
+.noms {
+  position: absolute;
+  right: 36px;
+  bottom: 34px;
+  left: 36px;
+  display: grid;
+}
+.nom {
+  grid-area: 1 / 1;
+  align-self: end;
+  margin: 0;
+  font-size: min(38px, 7.6cqi);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.037em;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s var(--sv-courbe),
+    transform 0.7s var(--sv-courbe);
+}
+.nom[data-actif] {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Les quatre traits sous la boîte : ceux des en-têtes animés. */
+.traits {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+.traits span {
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+  background: #d5d9e0;
+  transition:
+    width 0.5s var(--sv-courbe),
+    background-color 0.5s var(--sv-courbe);
+}
+.traits span[data-actif] {
+  width: 36px;
+  background: #4a78c8;
+}
+:global(#services[data-nuit]) .traits span:not([data-actif]) {
+  background: rgb(201 209 222 / 25%);
+}
+
+/* ---- Les quatre blocs, à droite ---- */
+.blocs {
+  grid-column: 7 / span 6;
+}
+.bloc {
+  /* La hauteur de la boîte photo : chaque service la garde le temps de
+     son bloc. */
+  min-height: var(--sv-boite-h);
+  padding-bottom: 96px;
+  /* Quand on arrive par une ancre : le haut du bloc à la hauteur de la
+     boîte photo, sous le voile (la page réserve déjà la hauteur de la
+     barre, `scroll-padding-top` de `globals.css`). */
+  scroll-margin-top: calc(var(--sv-haut) - var(--header-h, 72px));
+  transition: opacity 0.6s var(--sv-courbe);
+}
+/* Le dernier s'arrête à sa hauteur : l'écart avec la section suivante est
+   celui de l'accueil (`refonte.css`). */
+.bloc:last-child {
+  padding-bottom: 0;
+}
+.split[data-pret] .bloc:not([data-actif]) {
+  opacity: 0.45;
+}
+.photoBloc {
+  display: none;
+}
+.titre {
+  margin: 0;
+  padding-top: 26px;
+  border-top: 1px solid var(--sv-filet);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.041em;
+  color: var(--sv-encre);
+  text-wrap: balance;
+  transition:
+    color 0.6s ease,
+    border-color 0.6s ease;
+}
+.titre em {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.014em;
+  color: #4a78c8;
+}
+.liste {
+  margin: 32px 0 0;
+}
+.ligne {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--sv-filet);
+  transition: border-color 0.6s ease;
+}
+.ligne:last-child {
+  border-bottom: 1px solid var(--sv-filet);
+}
+.ligne dt {
+  padding-top: 0.3em;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sv-gris);
+  transition: color 0.6s ease;
+}
+/* Les textes PLUS PETITS (27/11/2026, deux demandes d'Antonino) : 15px
+   (18 puis 16 avant), le résultat 21px (27 puis 23 avant). Le bloc entier
+   tient alors à côté de la photo, sous le voile. */
+.ligne dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--sv-encre);
+  text-wrap: pretty;
+  transition: color 0.6s ease;
+}
+.ligne dd.resultat {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 21px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #4a78c8;
+}
+
+/* Le bouton à contour, en pilule (aimanté comme tous les boutons du site,
+   `.btn`). Au survol, il se remplit d'encre et la flèche avance. */
+.bouton.bouton {
+  gap: 10px;
+  min-height: 48px;
+  height: 48px;
+  margin-top: 26px;
+  padding: 0 22px;
+  border: 1px solid var(--sv-encre);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sv-encre);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.bouton.bouton[data-aimant] {
+  transition-duration: 0.3s, 0.3s, 0.3s, 0.12s;
+}
+.bouton svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s var(--sv-courbe);
+}
+@media (hover: hover) and (pointer: fine) {
+  .bouton.bouton:hover {
+    background: var(--sv-encre);
+    color: #ffffff;
+  }
+  :global(#services[data-nuit]) .bouton.bouton:hover {
+    color: #0b1424;
+  }
+  .bouton:hover svg {
+    transform: translateX(5px);
+  }
+}
+.bouton.bouton:focus-visible {
+  outline: 2px solid #4a78c8;
+  outline-offset: 3px;
+}
+
+/* ---- Téléphone et tablette (jusqu'à 1024px) : une colonne, chaque bloc
+   avec sa photo, sans boîte fixe ni bloc éteint. ---- */
+@media (max-width: 1024px) {
+  .visuel {
+    display: none;
+  }
+  .blocs {
+    grid-column: 1 / -1;
+  }
+  .bloc {
+    min-height: 0;
+    padding-bottom: 72px;
+  }
+  .split[data-pret] .bloc:not([data-actif]) {
+    opacity: 1;
+  }
+  .photoBloc {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    margin-bottom: 28px;
+    border-radius: 18px;
+    background: #090f1f;
+    container-type: inline-size;
+  }
+  .photoBloc img {
+    object-fit: cover;
+  }
+  .nomBloc {
+    position: absolute;
+    right: 24px;
+    bottom: 22px;
+    left: 24px;
+    margin: 0;
+    font-size: min(38px, 7.6cqi);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.037em;
+    color: #ffffff;
+  }
+  .titre {
+    padding-top: 0;
+    border-top: 0;
+    font-size: clamp(30px, 5.4vw, 44px);
+  }
+}
+@media (max-width: 640px) {
+  .liste {
+    margin-top: 28px;
+  }
+  .ligne {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 18px 0;
+  }
+  .ligne dt {
+    padding-top: 0;
+  }
+  .ligne dd {
+    font-size: 15px;
+  }
+  .ligne dd.resultat {
+    font-size: 20px;
+  }
+  .nomBloc {
+    right: 20px;
+    bottom: 18px;
+    left: 20px;
+    font-size: min(30px, 8.4cqi);
+  }
+}
+
+/* Sans mouvement : rien ne glisse ni ne s'éteint ; la photo et le nom
+   changent d'un coup. */
+@media (prefers-reduced-motion: reduce) {
+  .photo,
+  .nom,
+  .traits span,
+  .bloc,
+  .bouton svg {
+    transition: none;
+  }
+  .photo {
+    transform: none;
+  }
+  .nom {
+    transform: none;
+  }
+  .split[data-pret] .bloc:not([data-actif]) {
+    opacity: 1;
+  }
+}

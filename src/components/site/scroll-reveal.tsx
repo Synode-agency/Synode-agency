@@ -54,8 +54,11 @@ import { usePathname } from "next/navigation";
 /* ---- Les sections ---- */
 const RACINES = "main > section.band:not(#top):not(#faq) > .col, main > .card-shell > .card-panel > .col";
 /* L'étiquette et les traits des titres animés (`TitreAnime`) font partie
-   du titre : ils restent fixes (demande d'Antonino du 25/11/2026). */
-const FIXE = "h1, h2, h3, h4, .lede-kicker, .eyebrow, .studio-hero-kicker, .badge, .titre-anime-etiquette, .titre-anime-traits";
+   du titre : ils restent fixes (demande d'Antonino du 25/11/2026).
+   `data-rv-fixe` : un bloc qui a sa propre animation et ne doit pas
+   glisser à son arrivée (les quatre services de la page Services, dont la
+   photo reste à l'écran, 27/11/2026). */
+const FIXE = "h1, h2, h3, h4, .lede-kicker, .eyebrow, .studio-hero-kicker, .badge, .titre-anime-etiquette, .titre-anime-traits, [data-rv-fixe]";
 const BOUTON = ".btn, .btn-row, a.go";
 const ENTETE = "h1, h2, .lede-kicker, .eyebrow, .studio-hero-kicker";
 /* Un GROUPE : ses enfants apparaissent un par un, en cascade, au lieu de

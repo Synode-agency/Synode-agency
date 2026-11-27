@@ -198,7 +198,7 @@
 .serviceDescription {
   font-size: 13px;
   line-height: 1.45;
-  color: #5a5f6a;
+  color: #5a6272;
 }
 
 /* ---- Le bas ---- */
@@ -219,7 +219,9 @@
   height: 46px;
   padding: 0 22px;
   border-radius: 999px;
-  background: #4a78c8;
+  /* Le bleu du bouton du site (27/11/2026, choix « D ») : texte blanc
+     6,6:1. */
+  background: #325ca4;
   font-size: 14.5px;
   font-weight: 600;
   white-space: nowrap;

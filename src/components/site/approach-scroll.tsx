@@ -78,18 +78,24 @@ function decoupe(mot: string, accents: readonly string[]): ReactNode {
  * Rendu côté serveur dans son état final (lisible sans script). Sans
  * mouvement (`prefers-reduced-motion`), il reste ainsi. Le texte reste du
  * vrai texte ; les photos sont décoratives.
+ *
+ * `centre` (page Services, 27/11/2026) : le paragraphe seul, centré et
+ * plus étroit, sans photos, sous trois petits traits ; même remplissage au
+ * défilement, même scène fixée sur ordinateur. L'accueil ne s'en sert pas.
  */
 export function ApproachScroll({
   label,
   text,
   accents,
-  photos,
+  photos = [],
+  centre = false,
   className,
 }: {
   label: string;
   text: string;
   accents: readonly string[];
-  photos: readonly string[];
+  photos?: readonly string[];
+  centre?: boolean;
   className?: string;
 }) {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -100,9 +106,10 @@ export function ApproachScroll({
     const section = sectionRef.current;
     const texte = texteRef.current;
     const trio = trioRef.current;
-    if (!section || !texte || !trio) return;
+    if (!section || !texte) return;
     const mots = Array.from(texte.querySelectorAll<HTMLElement>("[data-mot]"));
-    const cadres = Array.from(trio.querySelectorAll<HTMLElement>("[data-photo]"));
+    /* (Sans photos, `centre` : pas de trio.) */
+    const cadres = trio ? Array.from(trio.querySelectorAll<HTMLElement>("[data-photo]")) : [];
     const reduit = window.matchMedia(SANS_MOUVEMENT);
     const epingle = window.matchMedia(EPINGLE);
 
@@ -153,7 +160,7 @@ export function ApproachScroll({
       // dépassement s'ajoute à la marge du bas (`--approche-depasse`).
       const grille = scene.querySelector<HTMLElement>(".approach-grille");
       let depasse = 0;
-      if (grille) {
+      if (grille && trio) {
         const basGrille = grille.getBoundingClientRect().bottom;
         const hautTrio = trio.getBoundingClientRect().top;
         cadres.forEach((c, i) => {
@@ -259,12 +266,28 @@ export function ApproachScroll({
     /* ⚠ Un `div` (région nommée) et non une `section` : les bandes de
        l'accueil alternent sombre et clair selon leur RANG parmi les
        sections, et celle-ci ne doit pas compter. */
-    <div ref={sectionRef} id="approche" role="region" className={`approach ${className ?? ""}`} aria-label={label}>
+    <div
+      ref={sectionRef}
+      id="approche"
+      role="region"
+      className={`approach${centre ? " approach--centre" : ""} ${className ?? ""}`}
+      aria-label={label}
+    >
       <div className="approach-scene">
         <div className="col approach-grille">
+          {/* Centré : trois petits traits au-dessus du texte, ceux des
+              en-têtes animés (décoratifs). */}
+          {centre ? (
+            <div className="approach-traits" aria-hidden="true">
+              <span />
+              <span className="est-actif" />
+              <span />
+            </div>
+          ) : null}
           {/* Au défilement, le texte arrive par la gauche (`data-rv-bloc`,
-              voir `scroll-reveal.tsx`), puis se remplit mot par mot. */}
-          <p ref={texteRef} className="approach-text" data-rv-bloc="left">
+              voir `scroll-reveal.tsx`), ou par le bas quand il est centré,
+              puis se remplit mot par mot. */}
+          <p ref={texteRef} className="approach-text" data-rv-bloc={centre ? "bottom" : "left"}>
             {motsTexte.map((mot, i) => (
               <Fragment key={i}>
                 {i > 0 ? " " : null}
@@ -274,13 +297,15 @@ export function ApproachScroll({
               </Fragment>
             ))}
           </p>
-          <div ref={trioRef} className="approach-trio" aria-hidden="true">
-            {photos.map((src, i) => (
-              <div key={src} className={`approach-ph approach-ph--${i + 1}`} data-photo="">
-                <Image src={src} alt="" fill sizes="(max-width: 799px) 70vw, 420px" />
-              </div>
-            ))}
-          </div>
+          {photos.length > 0 ? (
+            <div ref={trioRef} className="approach-trio" aria-hidden="true">
+              {photos.map((src, i) => (
+                <div key={src} className={`approach-ph approach-ph--${i + 1}`} data-photo="">
+                  <Image src={src} alt="" fill sizes="(max-width: 799px) 70vw, 420px" />
+                </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

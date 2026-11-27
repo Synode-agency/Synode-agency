@@ -1,114 +1,165 @@
 import type { SiteContent } from "../types";
 
+/* The Services page, redone on 27/11/2026 (see fr/services.ts). */
 export const services = {
-  metaTitle: "Services · Integrations, AI, software & websites · Synode",
-  metaDescription: "Connect your tools, put AI to work, build your custom software, website or mobile app. Examples, pricing and security.",
+  metaTitle: "Services · Software, AI, integrations, websites & apps · Synode",
+  metaDescription:
+    "Custom software, AI and automation, integrations, websites and mobile apps: four services, from freelancers to large companies.",
 
   hero: {
-    eyebrow: "Services",
-    title: "Four ways to give your team time back",
-    accents: ["time back"],
-    subtitle: "Every project starts from your tools, your data and your rules. We don’t sell off-the-shelf solutions.",
+    /* « | » : a line break on phones only, a space on desktop (see
+       fr/home.ts). */
+    title: "Four ways|to move\nyour|business forward.",
+    accents: ["forward"],
+    subtitle:
+      "For companies and freelancers alike: we build what’s missing, connect what already exists and add AI when it genuinely helps.",
+    tilesLabel: "The four services",
   },
 
-  labels: { problem: "The problem", does: "What we do", examples: "For example", result: "The result" },
+  approach: {
+    label: "Our approach",
+    text: "Company or freelancer, everyone has their own tools, data and rules. We don’t sell off-the-shelf solutions: we build custom software, connect what already exists and add artificial intelligence only when it genuinely helps.",
+    accents: ["software", "artificial", "intelligence"],
+  },
 
-  blocks: [
+  list: {
+    etiquette: "Our services",
+    prefix: "Four services to",
+    rotating: ["build.", "automate.", "connect.", "launch."],
+    full: "Four services to build, automate, connect and launch.",
+    fullEnd: "build, automate, connect and launch.",
+    labels: { problem: "The problem", does: "What we do", result: "The result" },
+    button: "Explore this service",
+  },
+
+  items: [
     {
-      key: "connect",
-      title: "Connect your tools",
-      problem: "Your tools don’t talk to each other. Your team re-types, exports and checks by hand.",
-      does: "We link your existing tools (CRM, ERP, invoicing, website, email, databases) and automate the repetitive steps between them.",
-      examples: [
-        { strong: "A request that moves on its own", rest: ": from the website form to the CRM to the right team, with no re-typing." },
-        { strong: "New clients onboarded without gaps", rest: ": documents requested, file created, team notified." },
-        { strong: "Invoices chased at the right time", rest: ", with a payment link, and an alert when a call is needed." },
-      ],
-      result: "Less re-typing, fewer errors, up-to-date information everywhere.",
+      key: "software",
+      name: ["Software", "development"],
+      line: "Business tools, portals, platforms",
+      image: "/images/services/service-logiciel.webp",
+      heading: ["Software built for ", "the way you work."],
+      problem:
+        "Your business runs on an Excel file that has become critical: shared by several people, full of client data and formulas nobody dares to touch anymore. The day it breaks or leaks, everything stops.",
+      does: "We turn that process into real software: a reliable database, accounts and role-based permissions, backups, a change history, and an architecture that holds up as your team or your client base grows.",
+      result: "A solid, secure tool that grows with your business.",
     },
     {
       key: "ai",
-      title: "Put AI to work",
-      problem: "Quotes, emails, documents, repeat questions: your team spends its days preparing instead of deciding.",
-      does: "We set up AI assistants connected to your tools and documents. They act on their own or run each action past you: you set the rule.",
-      examples: [
-        { strong: "Quotes and follow-ups", rest: ": the request is summarised, a draft quote is ready to review, follow-ups go out automatically." },
-        { strong: "Customer service in FR, NL and EN", rest: ": common questions get answered, complex cases go to your team." },
-        { strong: "Searchable internal knowledge", rest: ": an assistant answers from your documents, cites its sources and respects access rights." },
-      ],
-      result: "Faster answers, and a team focused on work that needs judgement.",
+      name: ["Artificial intelligence", "& automation"],
+      line: "AI agents, automations",
+      image: "/images/services/service-ia.webp",
+      heading: ["AI at work on ", "your real files."],
+      problem:
+        "A chatbot takes an evening to set up. An assistant that reads your real documents, respects who may see what, never leaks client data and never tells your clients just anything is a different job.",
+      does: "We design AI agents plugged into your tools and your data, with access limits, human approval rules, tests on your real cases and ongoing monitoring of answer quality.",
+      result: "AI you can hand real work to, with no risk to your clients.",
     },
     {
-      key: "software",
-      title: "Build your custom software",
-      problem: "You juggle Excel, email and tools that don’t fit your business.",
-      does: "We build the application you need, whatever it is: web or mobile app, internal tool, customer portal, business platform. With AI where it’s useful.",
-      examples: [
-        { strong: "A business tool", rest: " that centralises your jobs and their history, and whose AI drafts the reports." },
-        { strong: "An app for your customers", rest: ", on the web or on mobile: bookings, case tracking, a personal space." },
-        { strong: "A dashboard", rest: " (Power BI, Excel or web) that updates itself: sales, margins, cash." },
-      ],
-      result: "A tool built around how you work, not the other way round.",
+      key: "connect",
+      name: ["Integrations &", "connected systems"],
+      line: "CRM, ERP, invoicing, APIs",
+      image: "/images/services/service-integration.webp",
+      heading: ["Tools that finally ", "talk to each other."],
+      problem:
+        "Your CRM, your accounting, your online shop and your calendar exchange data through fragile connections. A duplicate, a vendor update, a sync that fails silently, and your numbers can no longer be trusted.",
+      does: "We build robust integrations: a clear source of truth, error and duplicate handling, alerts when a flow gets stuck, and documentation so you know what goes where.",
+      result: "Accurate data everywhere, and flows that never break without warning.",
     },
     {
       key: "web",
-      title: "Build your website or mobile app",
-      problem: "Your website no longer reflects your business, or your customers expect an app you don’t have yet.",
-      does: "We design and build fast, clear, easy-to-use websites and mobile apps, connected to your tools.",
-      examples: [
-        { strong: "A website that works for you", rest: ": your services presented clearly, and every contact request sent straight into your tools." },
-        { strong: "A mobile app", rest: " on iPhone and Android, for your customers or your field teams." },
-        { strong: "A redesign of your current website", rest: ": faster, clearer, and built to be found on Google." },
-      ],
-      result: "An online presence that looks like you, and tools your customers actually use.",
+      name: ["Websites &", "mobile apps"],
+      line: "Websites, iPhone and Android",
+      image: "/images/services/service-web.webp",
+      heading: ["An online presence ", "that reflects you."],
+      problem:
+        "A pretty storefront takes a weekend. A website or an app that handles bookings, payments, client accounts and several languages, fast, well ranked, GDPR-compliant and secure, takes a real team.",
+      does: "We design and build websites and iPhone and Android apps connected to your tools: payments, client areas, app store publishing, performance, accessibility and security.",
+      result: "A reliable website or app your clients actually use.",
     },
-  ] as const,
+  ],
 
   included: {
-    title: "Included in every project",
-    items: ["Setup", "Team training on the delivered tool", "Documentation", "Support until your team is up and running"],
-    option: "Optional, added to the project: AI training for your teams, plus monitoring, maintenance and improvements on a recurring contract.",
+    title: "Included in",
+    accent: "every project.",
+    text: "Whatever the service, we don’t stop at launch: your team walks away with a tool it knows how to use.",
+    items: [
+      {
+        title: "Installation",
+        text: "We put the tool into service in your environment, with your data.",
+        image: "/images/services/inclus-installation.webp",
+      },
+      {
+        title: "Training",
+        text: "Your team learns to use the delivered tool, on its own cases.",
+        image: "/images/services/inclus-formation.webp",
+      },
+      {
+        title: "Documentation",
+        text: "A clear guide to find every setting and every procedure.",
+        image: "/images/services/inclus-documentation.webp",
+      },
+      {
+        title: "Support",
+        text: "We stay available until your team is fully up to speed.",
+        image: "/images/services/inclus-accompagnement.webp",
+      },
+    ],
+    recurring: {
+      before:
+        "Some projects live on after delivery: security updates, hosting, evolving AI models, new features. For those, we offer a ",
+      accent: "monthly subscription",
+      after: " for maintenance and follow-up, priced from the quote.",
+    },
   },
 
   pricing: {
-    title: "How we price your project",
-    items: [
-      { strong: "Free first call", rest: " (30 min)." },
-      { strong: "Paid scoping, deducted from the project", rest: ": you get a written, agreed scope." },
-      { strong: "A three-line quote", rest: ": development, running costs (hosting, AI, maintenance), future changes." },
+    label: "How we price your project",
+    title: {
+      prefix: "How we price",
+      rotating: ["your project.", "every step.", "with no surprises."],
+      full: "How we price your project, every step, with no surprises.",
+      fullEnd: "your project, every step, with no surprises.",
+    },
+    etapes: [
+      { debut: "A first", cle: "free call.", description: "30 minutes to understand your business and what you’d like to improve." },
+      { debut: "A written", cle: "scope.", description: "Paid, then deducted from the project: what we build, how long it takes, what it costs." },
+      { debut: "A quote in", cle: "three lines.", description: "Development, running costs and future changes, clearly separated." },
     ],
-    from: "",
-    aids: "",
   },
 
-  security: {
-    title: "Your data stays under control",
-    items: [
-      { strong: "Limited access", rest: ": each tool only reaches the data it needs." },
-      { strong: "Human approval", rest: ": you choose which actions need your sign-off." },
-      { strong: "Traceability", rest: ": every action is logged." },
-      { strong: "Your data stays yours", rest: ": EU hosting when required." },
-    ],
+  appel: {
+    titreAvant: "Which service to",
+    accent: "start with",
+    titreApres: "?",
+    texte:
+      "Software, AI, tools to connect, a website or an app: describe your project in one sentence and we’ll help you choose during a 30-minute call.",
   },
 
   faq: {
     title: "Common questions",
+    accent: "Common",
+    more: "Another question?",
     items: [
       {
         q: "How long does a project take?",
-        a: "It depends on the scope, the number of tools to connect, how available your data is and the testing needed. The schedule is agreed in writing before work starts.",
+        a: "It depends on the scope, the number of tools to connect, the availability of your data and the testing required. The schedule is set in writing before we start.",
       },
       {
-        q: "Who pays for AI and hosting?",
-        a: "You choose: we manage them for you, or you subscribe to the providers directly.",
+        q: "Who pays for AI and hosting costs?",
+        a: "Your choice: we manage them for you, or you subscribe directly with the providers.",
       },
       {
-        q: "Can the solution evolve?",
-        a: "Yes. Every change is scoped and agreed in writing before we build it.",
+        q: "What happens to our data?",
+        a: "Each tool only accesses the data it needs, every action is logged, and you choose which actions need your approval. Your data stays yours, hosted in Europe when required.",
       },
       {
         q: "What if the AI gets it wrong?",
         a: "You choose the level of control: approve every action, only sensitive ones, or let the AI handle it.",
+      },
+      {
+        q: "Can the solution evolve?",
+        a: "Yes. Every change is scoped and approved in writing before it’s built.",
       },
       {
         q: "Who do we sign with?",

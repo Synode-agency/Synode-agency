@@ -1,0 +1,195 @@
+/* =====================================================================
+   « INCLUS DANS CHAQUE PROJET », PAGE SERVICES (27/11/2026, fiche
+   d'Antonino). La bande elle-même (fond, marges) est dans `refonte.css`
+   (`.svp-inclus`).
+
+   Deux jeux de couleurs : sur blanc tant que l'écran ne l'est pas encore
+   passé au bleu nuit (le haut de la section, au bas de l'écran), puis en
+   négatif dès que `SectionNuit` pose `data-nuit` sur la section. Comme
+   « Notre méthode » sur l'accueil.
+   ===================================================================== */
+
+.inclus {
+  --in-encre: #0b1424;
+  --in-texte: #5a6272;
+  --in-recurrent: #0b1424;
+  --in-carte: #f8f9fb;
+  --in-carte-survol: #f2f5f9;
+  --in-bord: #e3e7ee;
+  --in-courbe: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.inclus[data-nuit] {
+  --in-encre: #ffffff;
+  --in-texte: #b9c5d8;
+  --in-recurrent: #c9d3e2;
+  --in-carte: rgb(255 255 255 / 3.5%);
+  --in-carte-survol: rgb(255 255 255 / 6%);
+  --in-bord: rgb(201 209 222 / 14%);
+}
+
+/* ---- L'en-tête : le titre à gauche (7 colonnes), la phrase à droite
+   (4 colonnes), alignés sur leur bas. ---- */
+.entete {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 24px;
+  align-items: end;
+}
+.titre {
+  grid-column: 1 / span 7;
+  margin: 0;
+  font-family: var(--font-manrope), var(--font-sans), sans-serif;
+  font-size: var(--titre-section);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  color: var(--in-encre);
+  transition: color 0.6s ease;
+}
+/* « chaque projet. » : la police et le bleu des mots en couleur. */
+.titre em {
+  padding-right: 0.04em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 1.04em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: #4a78c8;
+}
+.texte {
+  grid-column: 9 / span 4;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--in-texte);
+  transition: color 0.6s ease;
+}
+
+/* ---- Les quatre cartes ---- */
+.cartes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin: 64px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px 12px 28px;
+  border: 1px solid var(--in-bord);
+  border-radius: 18px;
+  background: var(--in-carte);
+  transition:
+    transform 0.5s var(--in-courbe),
+    border-color 0.5s var(--in-courbe),
+    background-color 0.5s var(--in-courbe);
+}
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover {
+    transform: translateY(-6px);
+    border-color: rgb(143 174 230 / 45%);
+    background: var(--in-carte-survol);
+  }
+}
+/* La photo, ou, tant qu'elle n'existe pas, un bloc bleu nuit à sa place. */
+.photo {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #141c30;
+}
+.photo img {
+  object-fit: cover;
+}
+.carteTexte {
+  padding: 0 16px;
+}
+.carteTexte h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--in-encre);
+  transition: color 0.6s ease;
+}
+.carteTexte p {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--in-texte);
+  transition: color 0.6s ease;
+}
+
+/* ---- La phrase sur l'abonnement, sans encadré ---- */
+.recurrent {
+  max-width: 860px;
+  margin: 56px 0 0;
+  font-size: 22px;
+  line-height: 1.5;
+  letter-spacing: -0.014em;
+  color: var(--in-recurrent);
+  text-wrap: pretty;
+  transition: color 0.6s ease;
+}
+.recurrent em {
+  padding-right: 0.04em;
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 400;
+  /* Plus grande que le texte : sans ceci, sa ligne s'écartait des autres. */
+  line-height: 0;
+  color: #4a78c8;
+}
+
+/* ---- Tablette : le titre et la phrase l'un sous l'autre, les cartes en
+   2 × 2. Téléphone : une colonne. ---- */
+@media (max-width: 1024px) {
+  .titre,
+  .texte {
+    grid-column: 1 / -1;
+  }
+  .texte {
+    max-width: 34rem;
+  }
+  .cartes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 48px;
+  }
+}
+@media (max-width: 640px) {
+  .cartes {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .photo {
+    height: 220px;
+  }
+  .recurrent {
+    margin-top: 44px;
+    font-size: 19px;
+  }
+  .recurrent em {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carte,
+  .titre,
+  .texte,
+  .carteTexte h3,
+  .carteTexte p,
+  .recurrent {
+    transition: none;
+  }
+  .carte:hover {
+    transform: none;
+  }
+}

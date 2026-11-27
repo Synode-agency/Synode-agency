@@ -236,7 +236,7 @@
 .serviceDescription {
   font-size: 14.5px;
   line-height: 1.45;
-  color: #5a5f6a;
+  color: #5a6272;
 }
 
 /* ---- Le pied ---- */
@@ -267,7 +267,9 @@
   height: 48px;
   padding: 0 22px;
   border-radius: 999px;
-  background: #4a78c8;
+  /* Le bleu du bouton du site (27/11/2026, choix « D ») : texte blanc
+     6,6:1. */
+  background: #325ca4;
   font-size: 15px;
   font-weight: 600;
   white-space: nowrap;
@@ -276,7 +278,7 @@
   transition: background-color 0.3s ease;
 }
 .reserver:hover {
-  background: #325ca4;
+  background: #26467d;
 }
 :is(.grandLien, .service, .reserver, .langue a):focus-visible {
   outline: 2px solid #4a78c8;

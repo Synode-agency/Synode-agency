@@ -100,7 +100,10 @@ const nextConfig: NextConfig = {
       ["/solutions/formation-adoption-ia", "/services#inclus"],
       ["/solutions/:slug", "/services"],
       ["/cas-usage", "/services"],
-      ["/services/:slug", "/services"],
+      /* Sauf l'image d'aperçu de la page (`opengraph-image-…`), servie
+         sous cette adresse : redirigée, la page Services sortait sans
+         aperçu une fois partagée (constaté le 27/11/2026). */
+      ["/services/:slug((?!opengraph-image).*)", "/services"],
       ["/expertise", "/services"],
       ["/expertise/:slug", "/services"],
       ["/faq", "/services"],
@@ -122,7 +125,7 @@ const nextConfig: NextConfig = {
       ["/en/solutions/formation-adoption-ia", "/en/services#included"],
       ["/en/solutions/:slug", "/en/services"],
       ["/en/cas-usage", "/en/services"],
-      ["/en/services/:slug", "/en/services"],
+      ["/en/services/:slug((?!opengraph-image).*)", "/en/services"],
       ["/en/expertise", "/en/services"],
       ["/en/expertise/:slug", "/en/services"],
       ["/en/faq", "/en/services"],

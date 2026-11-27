@@ -131,8 +131,11 @@
   font: 500 17px/1 var(--font-manrope), var(--font-sans), sans-serif;
   outline: none;
 }
+/* Le texte d'exemple : l'ardoise du site, #5A6272 (6,1:1 ; #7D8697 et
+   3,7:1 avant, écart du design system du 27/11/2026). Il se distingue du
+   texte tapé (#0B1424) par sa couleur et parce qu'il s'écrit seul. */
 .champ input::placeholder {
-  color: #7d8697;
+  color: #5a6272;
   opacity: 1;
 }
 .champ :global(.btn) {
