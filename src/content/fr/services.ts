@@ -45,25 +45,36 @@ export const services = {
     rotating: ["développer.", "automatiser.", "connecter.", "se lancer."],
     full: "Quatre services pour développer, automatiser, connecter et se lancer.",
     fullEnd: "développer, automatiser, connecter et se lancer.",
-    labels: { problem: "Le problème", does: "Ce qu’on fait", result: "Le résultat" },
     button: "Découvrir ce service",
   },
 
-  /* LES QUATRE SERVICES, dans l'ordre de la page. `key` donne l'ancre
-     (`#logiciel`, `#ia`, `#connecter`, `#web`, celles du menu « Services ») ;
-     `name` : le nom sur deux lignes (tuiles du hero et titre sur la photo) ;
-     `heading` : le titre du bloc, sa 2e partie en Instrument Serif. */
+  /* LES QUATRE SERVICES, dans l'ordre de la page (format « A », choisi par
+     Antonino le 27/11/2026 sur maquette, d'après Kern-IT et In The
+     Pocket : une phrase, trois livrables, le bouton ; plus de rubriques
+     « Le problème / Ce qu'on fait / Le résultat »). `key` donne l'ancre
+     (`#logiciel`, `#ia`, `#connecter`, `#web`, celles du menu
+     « Services ») ; `name` : le nom sur deux lignes (barre du hero et titre
+     sur la photo) ; `heading` : le titre du bloc, sa 2e partie en
+     Instrument Serif.
+     ⚠ Le logiciel n'est pas seulement « métier » (demande d'Antonino) :
+     outil interne, portail, SaaS ouvert à tout un marché ; sur un ton
+     d'agence professionnelle (pas de « loisirs »). Et rien de ce qu'on ne
+     garantit pas (pas de « bien référencé » : le référencement est un
+     travail à part). Un `\n` dans une phrase : un retour à la ligne. */
   items: [
     {
       key: "software",
       name: ["Développement", "logiciel"],
-      line: "Outils métier, portails, plateformes",
+      line: "SaaS, plateformes, outils internes",
       image: "/images/services/service-logiciel.webp",
-      heading: ["Un logiciel fait pour ", "votre métier."],
-      problem:
-        "Votre activité tient sur un fichier Excel devenu critique : partagé entre plusieurs personnes, rempli de données clients et de calculs que plus personne n’ose toucher. Le jour où il casse ou fuit, tout s’arrête.",
-      does: "On transforme ce processus en un vrai logiciel : base de données fiable, comptes et droits par rôle, sauvegardes, historique des modifications, et une architecture qui tient quand votre équipe ou votre clientèle grandit.",
-      result: "Un outil solide et sécurisé, qui grandit avec votre activité.",
+      heading: ["Des logiciels pensés pour ", "ceux qui les utilisent."],
+      sentence:
+        "Pour votre équipe, vos clients ou tout un marché\u00a0: outil interne, portail ou plateforme SaaS, on développe le logiciel que vous imaginez, solide et sécurisé.",
+      deliverables: [
+        "Plateformes SaaS et applications web",
+        "Outils internes, portails clients, MVP",
+        "Comptes, droits par rôle, sauvegardes, historique",
+      ],
     },
     {
       key: "ai",
@@ -71,10 +82,13 @@ export const services = {
       line: "Agents IA, automatisations",
       image: "/images/services/service-ia.webp",
       heading: ["L’IA au travail sur ", "vos vrais dossiers."],
-      problem:
-        "Un chatbot se monte en une soirée. Un assistant qui lit vos vrais documents, respecte qui a le droit de voir quoi, ne divulgue aucune donnée client et ne répond pas n’importe quoi à vos clients, c’est un autre métier.",
-      does: "On conçoit des agents IA branchés sur vos outils et vos données, avec des limites d’accès, des règles de validation humaine, des tests sur vos cas réels et un suivi de la qualité des réponses dans le temps.",
-      result: "Une IA à qui confier du travail réel, sans risque pour vos clients.",
+      sentence:
+        "Des agents IA branchés sur vos outils et vos documents, qui font gagner du temps sans exposer vos données ni vos clients.",
+      deliverables: [
+        "Agents IA et automatisations sur mesure",
+        "Accès limités et validation humaine",
+        "Tests sur vos cas réels, qualité suivie",
+      ],
     },
     {
       key: "connect",
@@ -82,10 +96,13 @@ export const services = {
       line: "CRM, ERP, facturation, API",
       image: "/images/services/service-integration.webp",
       heading: ["Des outils qui ", "se parlent enfin."],
-      problem:
-        "Votre CRM, votre comptabilité, votre boutique et votre agenda échangent des données par des connexions fragiles. Un doublon, une mise à jour chez un éditeur, une synchronisation qui échoue en silence, et vos chiffres ne sont plus fiables.",
-      does: "On construit des intégrations robustes : une source de vérité claire, la gestion des erreurs et des doublons, des alertes quand un flux bloque, et une documentation pour savoir ce qui circule où.",
-      result: "Des données justes partout, et des flux qui ne cassent pas sans prévenir.",
+      sentence:
+        "CRM, comptabilité, boutique, agenda\u00a0: on relie vos outils pour que vos données soient justes partout, sans ressaisie.",
+      deliverables: [
+        "Connexions API, CRM, ERP, facturation",
+        "Doublons et erreurs gérés, alerte si un flux bloque",
+        "Chaque flux documenté",
+      ],
     },
     {
       key: "web",
@@ -93,10 +110,14 @@ export const services = {
       line: "Sites, iPhone et Android",
       image: "/images/services/service-web.webp",
       heading: ["Une présence en ligne ", "à votre image."],
-      problem:
-        "Une jolie vitrine se fait en un week-end. Un site ou une application qui gère réservations, paiements, comptes clients et plusieurs langues, rapide, bien référencé, conforme au RGPD et sans faille, demande une vraie équipe.",
-      does: "On conçoit et on développe des sites et des applications iPhone et Android reliés à vos outils : paiements, espaces clients, publication sur les stores, performance, accessibilité et sécurité.",
-      result: "Un site ou une application fiable, que vos clients utilisent vraiment.",
+      /* Le `\n` : un retour à la ligne après « rapides, » (demande
+         d'Antonino du 27/11/2026). */
+      sentence: "Des sites et des applications iPhone et Android rapides,\nsoignés et reliés à vos outils.",
+      deliverables: [
+        "Sites, espaces clients, réservations, paiements",
+        "Applications iPhone et Android, publication sur les stores",
+        "Performance, accessibilité, RGPD",
+      ],
     },
   ] as const,
 

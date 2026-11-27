@@ -135,7 +135,7 @@ export function ServicesPage({ locale }: { locale: Locale }) {
           <TitreAnime prefix={s.list.prefix} rotating={s.list.rotating} full={s.list.full} fullEnd={s.list.fullEnd} />
           <p className="section-etiquette">{s.list.etiquette}</p>
         </div>
-        <ServicesSplit items={items} labels={s.list.labels} button={s.list.button} />
+        <ServicesSplit items={items} button={s.list.button} />
       </Band>
 
       {/* 4a. INCLUS DANS CHAQUE PROJET : ici commence le bleu nuit, qui va

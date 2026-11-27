@@ -75,11 +75,14 @@
   padding: 0;
   list-style: none;
 }
+/* PLUS DE MARGE INTÉRIEURE (27/11/2026, demande d'Antonino : « au moins
+   le double ») : 24px autour de la photo (12 avant), 56px sous le texte
+   (28 avant), le texte à 42px des bords (28 avant). */
 .carte {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 12px 12px 28px;
+  padding: 24px 24px 56px;
   border: 1px solid var(--in-bord);
   border-radius: 18px;
   background: var(--in-carte);
@@ -107,11 +110,13 @@
   object-fit: cover;
 }
 .carteTexte {
-  padding: 0 16px;
+  padding: 0 18px;
 }
+/* Sur quatre colonnes, le titre se réduit un peu quand la carte rétrécit :
+   « Accompagnement » tient toujours sur sa ligne. */
 .carteTexte h3 {
   margin: 0;
-  font-size: 24px;
+  font-size: min(24px, 1.68vw);
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.025em;
@@ -150,6 +155,16 @@
 
 /* ---- Tablette : le titre et la phrase l'un sous l'autre, les cartes en
    2 × 2. Téléphone : une colonne. ---- */
+/* Les cartes en 2 × 2 dès que quatre ne tiennent plus avec leur marge
+   (sous 1280px ; sous 1024px avant, où « Accompagnement » débordait). */
+@media (max-width: 1279px) {
+  .cartes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .carteTexte h3 {
+    font-size: 24px;
+  }
+}
 @media (max-width: 1024px) {
   .titre,
   .texte {
@@ -159,7 +174,6 @@
     max-width: 34rem;
   }
   .cartes {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 48px;
   }
 }

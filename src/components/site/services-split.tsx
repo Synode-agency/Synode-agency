@@ -14,9 +14,10 @@ export type ServiceBloc = {
   image: string;
   /** Le titre du bloc : le début, puis la fin en Instrument Serif. */
   heading: readonly string[];
-  problem: string;
-  does: string;
-  result: string;
+  /** Une phrase : pour qui, ce qu'on fait. */
+  sentence: string;
+  /** Trois livrables, courts. */
+  deliverables: readonly string[];
 };
 
 /* Un service devient actif quand le haut de son bloc passe au-dessus de
@@ -36,19 +37,14 @@ const SEUIL = 0.55;
  * Sous 1025px, une colonne : chaque bloc porte sa propre photo, au-dessus
  * de son titre, sans boîte fixe ni bloc éteint.
  *
+ * Chaque bloc (format « A », choisi par Antonino le 27/11/2026) : le titre,
+ * une phrase, trois livrables entre de fins filets, le bouton.
+ *
  * Sans script, tout est lisible : le premier service est actif, les blocs
  * restent pleins (`data-pret` n'est posé que par le script). Sans
  * mouvement (`prefers-reduced-motion`), rien ne glisse ni ne s'éteint.
  */
-export function ServicesSplit({
-  items,
-  labels,
-  button,
-}: {
-  items: readonly ServiceBloc[];
-  labels: { problem: string; does: string; result: string };
-  button: string;
-}) {
+export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]; button: string }) {
   const racineRef = useRef<HTMLDivElement>(null);
   const [actif, setActif] = useState(0);
 
@@ -151,20 +147,26 @@ export function ServicesSplit({
               {item.heading[0]}
               <em>{item.heading[1]}</em>
             </h3>
-            <dl className={s.liste}>
-              <div className={s.ligne}>
-                <dt>{labels.problem}</dt>
-                <dd>{item.problem}</dd>
-              </div>
-              <div className={s.ligne}>
-                <dt>{labels.does}</dt>
-                <dd>{item.does}</dd>
-              </div>
-              <div className={s.ligne}>
-                <dt>{labels.result}</dt>
-                <dd className={s.resultat}>{item.result}</dd>
-              </div>
-            </dl>
+            {/* Un `\n` dans la phrase : un retour à la ligne voulu, dès
+                641px ; sur téléphone, la phrase s'enchaîne (une espace). */}
+            <p className={s.phrase}>
+              {item.sentence.split("\n").map((morceau, i) => (
+                <Fragment key={i}>
+                  {i > 0 ? (
+                    <>
+                      {" "}
+                      <br className={s.retour} />
+                    </>
+                  ) : null}
+                  {morceau}
+                </Fragment>
+              ))}
+            </p>
+            <ul className={s.livrables}>
+              {item.deliverables.map((livrable) => (
+                <li key={livrable}>{livrable}</li>
+              ))}
+            </ul>
             {/* TODO(pages des services) : mener à la page du service quand
                 elle existera (/services/developpement-logiciel,
                 /services/ia-automatisation,

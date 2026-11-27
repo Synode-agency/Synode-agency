@@ -189,49 +189,35 @@
   letter-spacing: -0.014em;
   color: #4a78c8;
 }
-.liste {
-  margin: 32px 0 0;
-}
-.ligne {
-  display: grid;
-  grid-template-columns: 130px minmax(0, 1fr);
-  gap: 24px;
-  padding: 16px 0;
-  border-top: 1px solid var(--sv-filet);
-  transition: border-color 0.6s ease;
-}
-.ligne:last-child {
-  border-bottom: 1px solid var(--sv-filet);
-}
-.ligne dt {
-  padding-top: 0.3em;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--sv-gris);
-  transition: color 0.6s ease;
-}
-/* Les textes PLUS PETITS (27/11/2026, deux demandes d'Antonino) : 15px
-   (18 puis 16 avant), le résultat 21px (27 puis 23 avant). Le bloc entier
-   tient alors à côté de la photo, sous le voile. */
-.ligne dd {
-  margin: 0;
-  font-size: 15px;
+/* LA PHRASE ET LES TROIS LIVRABLES (format « A », 27/11/2026) : la phrase
+   en ardoise, les livrables en encre, entre de fins filets. */
+.phrase {
+  max-width: 34em;
+  margin: 22px 0 0;
+  font-size: 16px;
   line-height: 1.6;
-  color: var(--sv-encre);
+  color: var(--sv-gris);
   text-wrap: pretty;
   transition: color 0.6s ease;
 }
-.ligne dd.resultat {
-  font-family: var(--font-accent), Georgia, serif;
-  font-size: 21px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
-  color: #4a78c8;
+.livrables {
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.livrables li {
+  padding: 13px 0;
+  border-top: 1px solid var(--sv-filet);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--sv-encre);
+  transition:
+    color 0.6s ease,
+    border-color 0.6s ease;
+}
+.livrables li:last-child {
+  border-bottom: 1px solid var(--sv-filet);
 }
 
 /* Le bouton à contour, en pilule (aimanté comme tous les boutons du site,
@@ -340,22 +326,14 @@
   }
 }
 @media (max-width: 640px) {
-  .liste {
-    margin-top: 28px;
+  .phrase {
+    margin-top: 18px;
   }
-  .ligne {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
-    padding: 18px 0;
+  .retour {
+    display: none;
   }
-  .ligne dt {
-    padding-top: 0;
-  }
-  .ligne dd {
-    font-size: 15px;
-  }
-  .ligne dd.resultat {
-    font-size: 20px;
+  .livrables {
+    margin-top: 20px;
   }
   .nomBloc {
     right: 20px;

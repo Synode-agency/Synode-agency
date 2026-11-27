@@ -28,7 +28,6 @@ export const services = {
     rotating: ["build.", "automate.", "connect.", "launch."],
     full: "Four services to build, automate, connect and launch.",
     fullEnd: "build, automate, connect and launch.",
-    labels: { problem: "The problem", does: "What we do", result: "The result" },
     button: "Explore this service",
   },
 
@@ -36,13 +35,16 @@ export const services = {
     {
       key: "software",
       name: ["Software", "development"],
-      line: "Business tools, portals, platforms",
+      line: "SaaS, platforms, internal tools",
       image: "/images/services/service-logiciel.webp",
-      heading: ["Software built for ", "the way you work."],
-      problem:
-        "Your business runs on an Excel file that has become critical: shared by several people, full of client data and formulas nobody dares to touch anymore. The day it breaks or leaks, everything stops.",
-      does: "We turn that process into real software: a reliable database, accounts and role-based permissions, backups, a change history, and an architecture that holds up as your team or your client base grows.",
-      result: "A solid, secure tool that grows with your business.",
+      heading: ["Software built for ", "the people who use it."],
+      sentence:
+        "For your team, your clients or an entire market: an internal tool, a portal or a SaaS platform, we build the software you have in mind, solid and secure.",
+      deliverables: [
+        "SaaS platforms and web applications",
+        "Internal tools, client portals, MVPs",
+        "Accounts, role-based access, backups, change history",
+      ],
     },
     {
       key: "ai",
@@ -50,10 +52,12 @@ export const services = {
       line: "AI agents, automations",
       image: "/images/services/service-ia.webp",
       heading: ["AI at work on ", "your real files."],
-      problem:
-        "A chatbot takes an evening to set up. An assistant that reads your real documents, respects who may see what, never leaks client data and never tells your clients just anything is a different job.",
-      does: "We design AI agents plugged into your tools and your data, with access limits, human approval rules, tests on your real cases and ongoing monitoring of answer quality.",
-      result: "AI you can hand real work to, with no risk to your clients.",
+      sentence: "AI agents connected to your tools and documents, saving you time without exposing your data or your clients.",
+      deliverables: [
+        "Custom AI agents and automations",
+        "Limited access and human approval",
+        "Tested on your real cases, quality monitored",
+      ],
     },
     {
       key: "connect",
@@ -61,10 +65,13 @@ export const services = {
       line: "CRM, ERP, invoicing, APIs",
       image: "/images/services/service-integration.webp",
       heading: ["Tools that finally ", "talk to each other."],
-      problem:
-        "Your CRM, your accounting, your online shop and your calendar exchange data through fragile connections. A duplicate, a vendor update, a sync that fails silently, and your numbers can no longer be trusted.",
-      does: "We build robust integrations: a clear source of truth, error and duplicate handling, alerts when a flow gets stuck, and documentation so you know what goes where.",
-      result: "Accurate data everywhere, and flows that never break without warning.",
+      sentence:
+        "CRM, accounting, online shop, calendar: we connect your tools so your data is accurate everywhere, with no re-typing.",
+      deliverables: [
+        "API, CRM, ERP and invoicing connections",
+        "Duplicates and errors handled, alerts when a flow gets stuck",
+        "Every flow documented",
+      ],
     },
     {
       key: "web",
@@ -72,10 +79,12 @@ export const services = {
       line: "Websites, iPhone and Android",
       image: "/images/services/service-web.webp",
       heading: ["An online presence ", "that reflects you."],
-      problem:
-        "A pretty storefront takes a weekend. A website or an app that handles bookings, payments, client accounts and several languages, fast, well ranked, GDPR-compliant and secure, takes a real team.",
-      does: "We design and build websites and iPhone and Android apps connected to your tools: payments, client areas, app store publishing, performance, accessibility and security.",
-      result: "A reliable website or app your clients actually use.",
+      sentence: "Fast websites and iPhone and Android apps,\npolished and connected to your tools.",
+      deliverables: [
+        "Websites, client areas, bookings, payments",
+        "iPhone and Android apps, app store publishing",
+        "Performance, accessibility, GDPR",
+      ],
     },
   ],
 
