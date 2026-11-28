@@ -2,7 +2,8 @@ import Link from "next/link";
 import { NavLink } from "./nav-link";
 import { CurrentYear } from "./current-year";
 import { LogoSynode } from "./logo-synode";
-import { ROUTES, getContent, path, type Locale } from "@/content";
+import { ROUTES, path, type Locale } from "@/lib/routes";
+import type { SiteContent } from "@/content/types";
 import { organizationProfiles } from "@/lib/organization";
 import s from "./site-footer.module.css";
 
@@ -24,9 +25,13 @@ const linkedin = organizationProfiles.find((u) => u.includes("linkedin.com"));
  * La mention de l'entité contractante (Productions Associées ASBL) n'y est
  * pas : le brief la laisse « à vérifier », elle reste donc dans les mentions
  * légales tant qu'Antonino n'a pas tranché.
+ *
+ * `site` est passé par la page (`Shell`) au lieu d'être lu ici dans tout le
+ * contenu (28/11/2026) : la page d'erreur, un composant client, affiche
+ * aussi ce pied de page, et lire l'index des contenus y aurait tiré tout le
+ * texte du site dans le JavaScript de chaque page.
  */
-export function SiteFooter({ locale }: { locale: Locale }) {
-  const { site } = getContent(locale);
+export function SiteFooter({ locale, site }: { locale: Locale; site: SiteContent["site"] }) {
   const year = new Date().getFullYear();
 
   return (

@@ -1,6 +1,9 @@
-/** La page 404. */
+/** La page 404 (maquette « A », choisie par Antonino le 28/11/2026). */
 export const notFound = {
-  title: "Cette page\n^n’existe pas",
-  text: "Le lien est peut-être ancien, ou l’adresse comporte une faute. Voici les pages principales du site.",
+  eyebrow: "Erreur 404",
+  title: "Cette page n’existe pas.",
+  /* Le mot en couleur du titre, en Instrument Serif. */
+  accents: ["n’existe"],
+  text: "Le lien est peut-être ancien, ou l’adresse comporte une faute.",
   homeCta: "Revenir à l’accueil",
 } as const;

@@ -31,7 +31,7 @@ export function Shell({ locale, children }: { locale: Locale; children: ReactNod
       {/* Les boutons qui suivent la souris, sur tout le site. */}
       <BoutonsAimantes />
       <main id="contenu">{children}</main>
-      <SiteFooter locale={locale} />
+      <SiteFooter locale={locale} site={site} />
     </div>
   );
 }

@@ -18,7 +18,9 @@ import { NotFoundPage } from "@/components/site/simple-pages";
  * Depuis le 23/11/2026, elle sert AUSSI les adresses inconnues sous /en et
  * les offres ou réalisations qui n'existent pas (`dynamicParams = false`
  * sur les pages [slug]) : `notFound()` donnait une page vide avec deux
- * layouts racine. Elle porte donc une ligne en anglais vers /en.
+ * layouts racine. Sa ligne en anglais vers /en est retirée depuis le
+ * 28/11/2026 : la 404 n'a plus que son titre, sa phrase et son bouton
+ * (maquette « A », demande d'Antonino).
  */
 export const metadata: Metadata = {
   title: "Page introuvable · Synode",
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
 export default function GlobalNotFound() {
   return (
     <SiteShell lang="fr">
-      <NotFoundPage locale="fr" withEnglish />
+      <NotFoundPage locale="fr" />
     </SiteShell>
   );
 }

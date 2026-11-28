@@ -3,15 +3,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Band, Shell } from "@/components/site/shell";
 import { Lede } from "@/components/site/lede";
+import { PageSysteme } from "@/components/site/page-systeme";
+import { renderLines } from "@/lib/lines";
 import { bookingHref, ROUTES, getContent, homePath, path, type Locale } from "@/content";
 import { LEGAL } from "@/content";
 
 /**
- * La confirmation d'envoi.
+ * La confirmation d'envoi (maquette « B, la suite », choisie par Antonino
+ * le 28/11/2026) : le message à gauche, les trois étapes qui suivent à
+ * droite, la dernière avec le bouton de l'appel.
  *
  * Elle n'est atteinte qu'APRÈS un enregistrement réussi : le formulaire n'y
  * redirige que sur une réponse `ok` du serveur. Elle dit aussi, explicitement,
- * qu'un message n'est pas un rendez-vous — c'est la confusion la plus
+ * qu'un message n'est pas un rendez-vous : c'est la confusion la plus
  * fréquente sur ce genre de page.
  *
  * Aucun délai de réponse n'est promis : la référence l'interdit tant qu'il
@@ -19,29 +23,37 @@ import { LEGAL } from "@/content";
  */
 export function ThanksPage({ locale }: { locale: Locale }) {
   const { thanks } = getContent(locale);
-  const bookHref = bookingHref(locale);
+  const derniere = thanks.steps.length - 1;
 
   return (
     <Shell locale={locale}>
-      {/* ⚠ La bande est bleu nuit parce qu'elle est la PREMIÈRE section de la
-          page, pas à cause de son `tone` : le thème peint par rang. D'où
-          `thanks-band`, qui lui donne le bleu clair des mots peints des
-          heros — le bleu de marque n'y tiendrait que 2,9:1. */}
-      <Band id="top" tone="blue" className="thanks-band">
-        <Lede as="h1" title={thanks.title} accents={["message"]} text={thanks.text} align="center" />
-        <p className="thanks-note">{thanks.notBooked}</p>
-        <div className="btn-row cta-actions">
-          <Link href={bookHref} className="btn btn--primary">
-            <span className="btn-lib">
-              {thanks.bookCta}
-              <ArrowRight aria-hidden />
-            </span>
-          </Link>
+      <PageSysteme variante="deux">
+        <h1>{renderLines(thanks.title, thanks.accents, "title-accent")}</h1>
+        <p className="page-systeme-texte">{thanks.text}</p>
+        <ol className="page-systeme-etapes">
+          {thanks.steps.map((etape, i) => (
+            <li key={etape.title}>
+              <h2>{etape.title}</h2>
+              <p>{etape.text}</p>
+              {i === derniere ? (
+                <div className="btn-row">
+                  <Link href={bookingHref(locale)} className="btn btn--primary">
+                    <span className="btn-lib">
+                      {thanks.bookCta}
+                      <ArrowRight aria-hidden />
+                    </span>
+                  </Link>
+                </div>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+        <div className="btn-row page-systeme-retour">
           <Link href={homePath(locale)} className="btn btn--ghost">
             <span className="btn-lib">{thanks.homeCta}</span>
           </Link>
         </div>
-      </Band>
+      </PageSysteme>
     </Shell>
   );
 }
@@ -127,43 +139,33 @@ function LegalText({ text, locale, email }: { text: string; locale: Locale; emai
   );
 }
 
-/** La page 404. Elle propose une sortie plutôt que de constater l'échec. */
 /**
- * La page 404.
+ * La page 404 (maquette « A », choisie par Antonino le 28/11/2026) : le
+ * surtitre, le titre, la phrase et le seul bouton de retour, en plein
+ * écran, sans autre lien (sa demande).
  *
- * `withEnglish` : la 404 globale sert TOUTES les adresses inconnues, celles
- * sous /en comprises (une faute de frappe dans une offre, une page qui
- * n'existe pas), et elle ne sait pas quelle adresse a été demandée. Elle
- * reste en français, la langue par défaut, et donne au visiteur
- * anglophone une ligne dans sa langue, avec le chemin du site anglais.
+ * La 404 globale (`global-not-found.tsx`) sert TOUTES les adresses
+ * inconnues, celles sous /en comprises, et ne sait pas laquelle a été
+ * demandée : elle reste en français, la langue par défaut.
  */
-export function NotFoundPage({ locale, withEnglish = false }: { locale: Locale; withEnglish?: boolean }) {
-  const { notFound, site } = getContent(locale);
+export function NotFoundPage({ locale }: { locale: Locale }) {
+  const { notFound } = getContent(locale);
 
   return (
     <Shell locale={locale}>
-      <Band id="top" tone="base">
-        <Lede as="h1" title={notFound.title} text={notFound.text} align="center" />
-        <ul className="rows section-gap">
-          {site.nav.map((item) => (
-            <li key={item.href}>
-              <Link href={path(locale, item.href)} className="row">
-                <span className="row-title">{item.label}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <Link href={homePath(locale)} className="go section-gap-sm">
-          {notFound.homeCta}
-          <ArrowRight aria-hidden />
-        </Link>
-        {withEnglish ? (
-          <Link href={homePath("en")} hrefLang="en" lang="en" className="go section-gap-sm">
-            This page does not exist. Go to the English site
-            <ArrowRight aria-hidden />
+      <PageSysteme>
+        <p className="page-systeme-surtitre">{notFound.eyebrow}</p>
+        <h1>{renderLines(notFound.title, notFound.accents, "title-accent")}</h1>
+        <p className="page-systeme-texte">{notFound.text}</p>
+        <div className="btn-row page-systeme-actions">
+          <Link href={homePath(locale)} className="btn btn--primary">
+            <span className="btn-lib">
+              {notFound.homeCta}
+              <ArrowRight aria-hidden />
+            </span>
           </Link>
-        ) : null}
-      </Band>
+        </div>
+      </PageSysteme>
     </Shell>
   );
 }
