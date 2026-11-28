@@ -132,6 +132,9 @@ export const services = {
   included: {
     title: "Inclus dans",
     accent: "chaque projet.",
+    /* Le petit bouton des cartes (28/11/2026) : il ouvre l'explication. */
+    more: "Voir plus",
+    less: "Voir moins",
     /* Valable pour LES QUATRE SERVICES, site web compris (27/11/2026,
        demande d'Antonino : « outil » partout faisait penser au seul
        logiciel). La formation, « selon le projet » : un site ne demande pas
@@ -142,21 +145,31 @@ export const services = {
         title: "Installation",
         text: "Site mis en ligne, application publiée, logiciel ou assistant IA mis en service, avec vos données.",
         image: "/images/services/inclus-installation.webp",
+        /* L'explication qui remplace la photo au survol (28/11/2026,
+           demande d'Antonino) : deux phrases, pour les quatre services. */
+        detail:
+          "On s’occupe du lancement : hébergement et nom de domaine, publication sur l’App Store et Google Play, mise en service sur vos serveurs ou dans le cloud. Tout est testé avant d’ouvrir.",
       },
       {
         title: "Formation",
         text: "Selon le projet, votre équipe apprend à s’en servir : application, logiciel ou assistant IA.",
         image: "/images/services/inclus-formation.webp",
+        detail:
+          "On montre à votre équipe comment s’en servir au quotidien : modifier les contenus du site, utiliser l’application, le logiciel ou l’assistant IA. Sur vos propres cas, pour que chacun soit autonome.",
       },
       {
         title: "Documentation",
         text: "Un guide clair de ce qui a été livré : accès, réglages, procédures.",
         image: "/images/services/inclus-documentation.webp",
+        detail:
+          "Vous recevez un guide clair : accès, réglages, procédures et, pour une intégration, ce qui circule entre vos outils. Votre équipe, ou un autre prestataire, peut tout reprendre.",
       },
       {
         title: "Accompagnement",
         text: "Après le lancement, on reste disponibles jusqu’à ce que tout soit pris en main.",
         image: "/images/services/inclus-accompagnement.webp",
+        detail:
+          "Après le lancement, on répond à vos questions, on corrige ce qui doit l’être et on ajuste les réglages. Vous n’êtes pas seuls tant que tout n’est pas pris en main.",
       },
     ],
     recurring: {

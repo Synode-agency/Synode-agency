@@ -12,6 +12,7 @@ import { ApproachScroll } from "@/components/site/approach-scroll";
 import { MethodeScroll } from "@/components/site/methode-scroll";
 import { SectionNuit } from "@/components/site/section-nuit";
 import { ServicesSplit } from "@/components/site/services-split";
+import { InclusCarte } from "@/components/site/inclus-carte";
 import { TitreAnime } from "@/components/site/titre-anime";
 import { getContent, includedAnchor, serviceAnchor, type Locale } from "@/content";
 import { ctaLabel } from "@/content/cta";
@@ -36,11 +37,18 @@ function ligneTitre(ligne: string, accents: readonly string[]): ReactNode[] {
     );
 }
 
-/* Un texte sur deux lignes (le nom d'un service). */
+/* Un texte sur deux lignes (le nom d'un service). L'espace avant le
+   retour à la ligne garde les mots séparés quand celui-ci est masqué (la
+   liste des services du hero, sur ordinateur). */
 function deuxLignes(lignes: readonly string[]): ReactNode {
   return lignes.map((ligne, i) => (
     <Fragment key={i}>
-      {i > 0 ? <br /> : null}
+      {i > 0 ? (
+        <>
+          {" "}
+          <br />
+        </>
+      ) : null}
       {ligne}
     </Fragment>
   ));
@@ -150,21 +158,24 @@ export function ServicesPage({ locale }: { locale: Locale }) {
         </div>
         <ul className={m.cartes} data-rv-groupe="bottom">
           {s.included.items.map((item) => (
-            <li key={item.title} className={m.carte}>
-              {/* Les quatre photos « Inclus » (27/11/2026, fournies par
-                  Antonino et passées au ton bleu nuit de celles des
-                  services), dans `public/images/services/`. Si un fichier
-                  manque, un bloc bleu nuit tient sa place. */}
-              <div className={m.photo} aria-hidden="true">
-                {existsSync(join(process.cwd(), "public", item.image)) ? (
+            /* Les quatre photos « Inclus » (27/11/2026, fournies par
+               Antonino et passées au ton bleu nuit de celles des services),
+               dans `public/images/services/` ; si un fichier manque, un bloc
+               bleu nuit tient sa place. Au survol ou au toucher, la carte
+               devient texte (`InclusCarte`). */
+            <InclusCarte
+              key={item.title}
+              title={item.title}
+              text={item.text}
+              detail={item.detail}
+              more={s.included.more}
+              less={s.included.less}
+              photo={
+                existsSync(join(process.cwd(), "public", item.image)) ? (
                   <Image src={item.image} alt="" fill sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 24vw" />
-                ) : null}
-              </div>
-              <div className={m.carteTexte}>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </li>
+                ) : null
+              }
+            />
           ))}
         </ul>
         <p className={m.recurrent}>

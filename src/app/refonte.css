@@ -35,6 +35,18 @@
 .site-page .site-header[data-mega] .site-nav-link.is-current {
   color: #4a78c8;
 }
+/* LA PAGE EN COURS EN INSTRUMENT SERIF ITALIQUE (28/11/2026, demande
+   d'Antonino) : la police des mots en couleur, un peu plus grande pour
+   tenir face à Manrope ; les autres liens restent en Manrope. (Les liens
+   directs de la barre ; « Services » a sa propre règle, dans
+   `services-mega-menu.module.css`.) */
+.site-header .site-nav > .site-nav-link.is-current {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: calc(14.5px * 1.1);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
 .site-header-contact {
   display: inline-flex;
   align-items: center;
@@ -2674,6 +2686,77 @@ main > section.services-hero h1 .hero-title-line--2 {
   }
   .services-barre a {
     transition: none;
+  }
+}
+
+/* ---- ORDINATEUR (dès 1025px) : DEUX COLONNES (28/11/2026, demande
+   d'Antonino : un hero différent de celui de l'accueil, centré). À
+   gauche, le titre et la phrase, alignés à gauche sur le logo ; à droite,
+   les quatre services l'un sous l'autre, entre de fins filets : le nom, la
+   ligne courte dessous, la flèche dans son cercle à droite. Le tout au
+   milieu du hero en hauteur. Tablette et téléphone : inchangés. ---- */
+@media (min-width: 1025px) {
+  .services-hero-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 400px);
+    column-gap: clamp(48px, 5vw, 96px);
+    align-items: center;
+    padding-block: clamp(40px, 6vh, 72px);
+  }
+  .services-hero-copie {
+    /* Sa largeur donne la taille du titre (`cqi`). */
+    container-type: inline-size;
+    align-items: flex-start;
+    padding: 0;
+    text-align: left;
+  }
+  /* « Quatre services pour faire », la plus longue ligne, fait 12 fois la
+     taille du titre : elle tient toujours dans la colonne (70px au plus,
+     comme l'accueil). */
+  main > section.services-hero h1 {
+    font-size: max(2.5rem, min(70px, 100cqi / 12, 10vh));
+  }
+  main > section.services-hero h1 .hero-title-line {
+    margin-inline: 0;
+  }
+  .services-hero-texte {
+    margin: 32px 0 0;
+  }
+  .services-barre {
+    border-bottom: 1px solid rgb(201 209 222 / 16%);
+  }
+  .services-barre > ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .services-barre li + li {
+    border-top: 1px solid rgb(201 209 222 / 16%);
+    border-left: 0;
+  }
+  .services-barre a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "nom fleche"
+      "ligne fleche";
+    align-items: center;
+    gap: 6px 16px;
+    min-height: 0;
+    padding: 20px 16px;
+  }
+  .services-barre-nom {
+    grid-area: nom;
+  }
+  .services-barre-nom br {
+    display: none;
+  }
+  .services-barre-bas {
+    display: contents;
+  }
+  .services-barre-ligne {
+    grid-area: ligne;
+  }
+  .services-barre-fleche {
+    grid-area: fleche;
   }
 }
 

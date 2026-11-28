@@ -82,9 +82,8 @@
 .grandLien:focus-visible {
   color: #4a78c8;
 }
-/* « Services » : le mot (un lien vers la page) et sa petite flèche (un
-   bouton qui déplie les quatre cartes), sur une même ligne ; la flèche à la
-   taille du mot. */
+/* « Services » : le mot et sa petite flèche, UN SEUL BOUTON qui déplie
+   les quatre cartes (28/11/2026) ; la flèche à la taille du mot. */
 .ligneServices {
   display: flex;
   align-items: center;
@@ -111,16 +110,16 @@
   }
 }
 .ligneServices .grandLien:focus-visible,
-.ligneServices:has(.deplier[aria-expanded="true"]) .grandLien {
+.ligneServices:has([aria-expanded="true"]) .grandLien {
   color: #4a78c8;
 }
-.deplier {
+.boutonServices {
   display: inline-flex;
   align-items: center;
-  padding: 0 0 0 0.18em;
+  gap: 0.18em;
+  padding: 0;
   border: 0;
   background: none;
-  font-family: inherit;
   text-align: left;
   cursor: pointer;
 }
@@ -130,7 +129,7 @@
   stroke-width: 2.25;
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.deplier[aria-expanded="true"] .chevron {
+[aria-expanded="true"] > .chevron {
   transform: rotate(180deg);
 }
 
@@ -178,6 +177,30 @@
   opacity: 1;
   transform: none;
   transition-delay: calc(0.12s + var(--j) * 0.06s);
+}
+/* « Voir tous nos services » : sous les cartes, le lien vers la page,
+   dans le bleu des petits liens ; il arrive après la dernière carte. */
+.tousServices {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #3a64ae;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.servicesOuverts .tousServices {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(0.12s + var(--j) * 0.06s);
+}
+.tousServices:focus-visible {
+  outline: 2px solid #4a78c8;
+  outline-offset: 3px;
 }
 .serviceVisuel {
   width: 64px;
@@ -271,7 +294,9 @@
     transition: none;
   }
   .service,
-  .servicesOuverts .service {
+  .servicesOuverts .service,
+  .tousServices,
+  .servicesOuverts .tousServices {
     transform: none;
     transition: opacity 0.2s ease;
     transition-delay: 0s;

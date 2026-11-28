@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/site/nav-link";
 import { ROUTES, bookingHref, homePath, path, type Locale } from "@/lib/routes";
 import { ctaLabel } from "@/content/cta";
@@ -203,7 +203,10 @@ export function MenuPanel({
                     className={s.service}
                     style={{ "--j": j } as CSSProperties}
                   >
-                    <ServiceVisual image={service.image} focus={service.focus} sizes="96px" className={s.serviceVisuel} />
+                    <ServiceVisual image={service.image} focus={service.focus} sizes="(min-width: 1024px) 200px, 96px" className={s.serviceVisuel} />
+                    <span className={s.serviceRond} aria-hidden="true">
+                      <ArrowRight />
+                    </span>
                     <span className={s.serviceTexte}>
                       <span className={s.serviceTitre}>{service.title}</span>
                       <span className={s.serviceDescription}>{service.text}</span>

@@ -75,9 +75,11 @@
 :global(.site-page .site-header[data-mega]) .declencheur > :global(.site-nav-link) {
   color: #0b1424;
 }
-/* MENU OUVERT : « Services » passe en Castoro italique, sans soulignement,
-   et revient droit quand le menu se ferme (26/11/2026, demande
-   d'Antonino). Un fondu entre les deux mots, posés l'un sur l'autre. */
+/* « SERVICES » EN INSTRUMENT SERIF ITALIQUE SEULEMENT SUR LA PAGE
+   SERVICES (28/11/2026, demande d'Antonino : comme la page en cours de
+   chaque lien de la barre) ; au survol, menu ouvert, il reste en Manrope
+   (il passait en italique à l'ouverture du menu avant). Les deux mots
+   posés l'un sur l'autre réservent la place du plus large. */
 .mots {
   display: inline-grid;
   align-items: baseline;
@@ -95,10 +97,10 @@
   letter-spacing: -0.01em;
   opacity: 0;
 }
-:global(.site-header[data-mega]) .motDroit {
+.lien:global(.is-current) .motDroit {
   opacity: 0;
 }
-:global(.site-header[data-mega]) .motCastoro {
+.lien:global(.is-current) .motCastoro {
   opacity: 1;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -158,11 +160,11 @@
 /* Une carte : montée en cascade à l'ouverture, toutes ensemble à la
    fermeture. */
 .carte {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
   min-width: 0;
-  color: #0b1424;
+  color: #ffffff;
   text-decoration: none;
   opacity: 0;
   transform: translateY(18px);
@@ -175,10 +177,6 @@
   opacity: 1;
   transform: none;
   transition-delay: calc(0.25s + var(--i) * 0.08s), calc(0.25s + var(--i) * 0.08s), 0s;
-}
-.carte:hover,
-.carte:focus-visible {
-  color: #4a78c8;
 }
 .carte:focus-visible {
   outline: none;
@@ -211,24 +209,84 @@
 .grille:has(.carte:focus-visible) .carte:focus-visible > * {
   opacity: 1;
 }
-/* Le visuel : la photo du service, verticale. */
+/* Le visuel : la photo du service, verticale, avec un voile bleu nuit
+   qui monte du bas, sous le titre (le même que sur l'accueil). */
 .visuel {
   width: 100%;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.5s ease;
+}
+.visuel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgb(9 15 31 / 70%) 0%,
+    rgb(9 15 31 / 40%) 35%,
+    rgb(9 15 31 / 10%) 70%
+  );
+  pointer-events: none;
+}
+/* LE TITRE ET LA LIGNE COURTE, SUR LA PHOTO (28/11/2026, maquette « C ») :
+   en bas à gauche, en blanc, avec une ombre douce sous les lettres. */
+.legende {
+  position: absolute;
+  right: 22px;
+  bottom: 20px;
+  left: 22px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
 }
 .titre {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 .texte {
-  margin-top: -6px;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: #5a6272;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #c9d3e2;
+}
+/* La flèche dans un cercle, en haut à droite ; pleine au survol. */
+.rond {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  color: #ffffff;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    opacity 0.5s ease;
+}
+.rond svg {
+  width: 14px;
+  height: 14px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover .rond {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #0b1424;
+  }
 }
 
 /* Sans mouvement : pas de déroulé, ni de montée, ni de cascade ; des
@@ -254,5 +312,27 @@
     transform: none;
     transition: opacity 0.2s ease;
     transition-delay: 0s;
+  }
+}
+
+/* L'ARRONDI AU SURVOL (28/11/2026, demande d'Antonino : « le même effet
+   que les réalisations de l'accueil », sur toutes les cartes) : les coins
+   s'arrondissent nettement et la carte grandit à peine (1,02), en 0,5s.
+   À la souris ; le même effet au clavier ; sans mouvement, seuls les coins
+   s'arrondissent. */
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover .visuel {
+    border-radius: 48px;
+    transform: scale(1.02);
+  }
+}
+.carte:focus-visible .visuel {
+  border-radius: 48px;
+  transform: scale(1.02);
+}
+@media (prefers-reduced-motion: reduce) {
+  .carte:hover .visuel,
+  .carte:focus-visible .visuel {
+    transform: none;
   }
 }

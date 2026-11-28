@@ -5,8 +5,12 @@
   display: block;
   overflow: hidden;
   background: #0b1424;
+  /* Ses couches à part (la photo, le voile) : Safari peint sinon la photo
+     arrondie par-dessus ce qui est posé dessus. */
+  isolation: isolate;
 }
 .image {
+  z-index: 0;
   object-fit: cover;
   transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
 }

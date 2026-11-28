@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { NavLink } from "@/components/site/nav-link";
 import { ROUTES, path, type Locale } from "@/lib/routes";
 import type { HeaderCopy } from "@/content";
@@ -18,10 +18,11 @@ type MenuServices = HeaderCopy["site"]["menuServices"];
  * Au survol de « Services » (ou au clavier : focus, puis Entrée), la barre
  * passe en clair (`data-mega` sur la barre, voir `refonte.css`) et un
  * panneau BLANC se déroule dessous, sur toute la largeur de l'écran : les
- * quatre services en cartes verticales (leur photo, sans flèche depuis le
- * 25/11, le titre et la description), qui montent en cascade ; au survol
- * d'une carte, les trois autres s'atténuent. Un voile sombre couvre la
- * page derrière.
+ * quatre services en cartes verticales, qui montent en cascade : leur
+ * photo avec, POSÉS DESSUS (28/11/2026, maquette « C » choisie par
+ * Antonino, comme sur l'accueil), le titre et la ligne courte du service
+ * et une flèche dans un cercle ; au survol d'une carte, les trois autres
+ * s'atténuent. Un voile sombre couvre la page derrière.
  *
  * Il se ferme quand la souris quitte la barre et le panneau (elle bouge
  * alors sur le voile, ou sort de la fenêtre), au survol d'un autre lien de
@@ -113,10 +114,10 @@ export function ServicesMegaMenu({
           onNavigate={() => setOuvert(false)}
           className={cx("site-nav-link", s.lien, courant && "is-current")}
         >
-          {/* Le mot deux fois, l'un sur l'autre : droit, et en Castoro
-              italique, montré quand le menu est ouvert (26/11/2026). La
-              place est celle du plus large : les autres liens ne bougent
-              pas. */}
+          {/* Le mot deux fois, l'un sur l'autre : droit, et en Instrument
+              Serif italique, montré sur la page Services, la page en cours
+              (28/11/2026 ; à l'ouverture du menu avant). La place est celle
+              du plus large : les autres liens ne bougent pas. */}
           <span className={s.mots}>
             <span className={s.motDroit}>{label}</span>
             <span className={s.motCastoro} aria-hidden="true">
@@ -175,8 +176,15 @@ export function ServicesMegaMenu({
                   sizes="(max-width: 1440px) 25vw, 320px"
                   className={s.visuel}
                 />
-                <span className={s.titre}>{service.title}</span>
-                <span className={s.texte}>{service.text}</span>
+                {/* Posés sur la photo, mais hors d'elle dans le code : la
+                    photo est cachée aux lecteurs d'écran, pas le titre. */}
+                <span className={s.rond} aria-hidden="true">
+                  <ArrowRight />
+                </span>
+                <span className={s.legende}>
+                  <span className={s.titre}>{service.title}</span>
+                  <span className={s.texte}>{service.text}</span>
+                </span>
               </NavLink>
             ))}
           </div>

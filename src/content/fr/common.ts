@@ -38,15 +38,18 @@ export const site = {
      téléphone). Les quatre services y sont les mêmes, avec leur photo (celle
      des cartes de l'accueil) et son cadrage (`focus`). */
   menuServices: [
-    { key: "software", title: "Développement logiciel", text: "Logiciels métier, plateformes et outils internes, sur mesure.", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
-    { key: "ai", title: "Intelligence artificielle & automatisation", text: "Agents IA et automatisation de vos processus métier.", image: "/images/services/service-ia.webp", focus: "55% 38%" },
-    { key: "connect", title: "Intégration & systèmes connectés", text: "Vos logiciels connectés, vos données synchronisées.", image: "/images/services/service-integration.webp", focus: "62% 52%" },
-    { key: "web", title: "Sites web & applications mobiles", text: "Sites et applications modernes, centrés sur l’utilisateur.", image: "/images/services/service-web.webp", focus: "45% 42%" },
+    { key: "software", title: "Développement logiciel", text: "Logiciels de bureau, web et SaaS", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
+    { key: "ai", title: "Intelligence artificielle & automatisation", text: "Automatisations, assistants IA", image: "/images/services/service-ia.webp", focus: "55% 38%" },
+    { key: "connect", title: "Intégration & systèmes connectés", text: "CRM, ERP, facturation, API", image: "/images/services/service-integration.webp", focus: "62% 52%" },
+    { key: "web", title: "Sites web & applications mobiles", text: "Sites, iPhone et Android", image: "/images/services/service-web.webp", focus: "45% 42%" },
   ] as const,
   menuOpen: "Ouvrir le menu",
   /* La petite flèche à côté de « Services » : ouvre la liste des services
      (le mot, lui, mène à la page Services). */
   servicesToggle: "Afficher les services",
+  /* Le lien vers la page Services, sous les quatre cartes du menu ☰ de
+     téléphone, où toucher « Services » déplie les cartes (28/11/2026). */
+  servicesAll: "Voir tous nos services",
   menuClose: "Fermer le menu",
   menuDialog: "Menu",
   homeLabel: "Synode, retour à l’accueil",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { lienService } from "@/components/nav/menu-service";
 import type { Locale, SiteContent } from "@/content";
 import s from "./services-grid.module.css";
@@ -9,8 +10,11 @@ type Services = SiteContent["home"]["services"];
 /**
  * LES QUATRE SERVICES DE L'ACCUEIL, EN PHOTOS (25/11/2026, fiche
  * d'Antonino) : remplacent l'accordéon. Une grille de quatre liens, chacun
- * une photo (3:4) puis son titre et sa description, sans fond de carte,
- * sans bordure ni ombre.
+ * une photo (3:4 ; 4:3 en une colonne sur téléphone) avec, POSÉS DESSUS
+ * (28/11/2026, maquette « C » choisie par Antonino, sur ordinateur comme
+ * sur téléphone), le titre et la ligne courte du service, sur un voile
+ * bleu nuit qui monte du bas, et une flèche dans un cercle en haut à
+ * droite.
  *
  * Au survol, la photo visée s'agrandit doucement et les trois autres
  * s'atténuent ; tout revient quand la souris quitte la grille. Même chose
@@ -32,13 +36,18 @@ export function ServicesGrid({ locale, services }: { locale: Locale; services: S
               src={item.image}
               alt=""
               fill
-              sizes="(max-width: 1023px) 50vw, 320px"
+              sizes="(max-width: 639px) 92vw, (max-width: 1023px) 50vw, 320px"
               loading={i === 0 ? "eager" : "lazy"}
               style={{ objectPosition: item.focus }}
             />
+            <span className={s.rond} aria-hidden="true">
+              <ArrowRight />
+            </span>
+            <span className={s.legende}>
+              <span className={s.titre}>{item.title}</span>
+              <span className={s.texte}>{item.text}</span>
+            </span>
           </span>
-          <span className={s.titre}>{item.title}</span>
-          <span className={s.texte}>{item.text}</span>
         </Link>
       ))}
     </div>

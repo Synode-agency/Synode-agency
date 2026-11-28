@@ -10,20 +10,26 @@
    ===================================================================== */
 
 .inclus {
+  --in-detail: #0b1424;
+  --in-bord-survol: #c9d6ee;
+  --in-bord-bouton: #c9d0dc;
   --in-encre: #0b1424;
   --in-texte: #5a6272;
   --in-recurrent: #0b1424;
   --in-carte: #f8f9fb;
-  --in-carte-survol: #f2f5f9;
+  --in-carte-survol: #eef3fb;
   --in-bord: #e3e7ee;
   --in-courbe: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .inclus[data-nuit] {
+  --in-detail: #e6ecf5;
+  --in-bord-survol: rgb(143 174 230 / 30%);
+  --in-bord-bouton: rgb(201 209 222 / 35%);
   --in-encre: #ffffff;
   --in-texte: #b9c5d8;
   --in-recurrent: #c9d3e2;
   --in-carte: rgb(255 255 255 / 3.5%);
-  --in-carte-survol: rgb(255 255 255 / 6%);
+  --in-carte-survol: rgb(74 120 200 / 14%);
   --in-bord: rgb(201 209 222 / 14%);
 }
 
@@ -91,17 +97,147 @@
   border-radius: 24px;
   background: var(--in-carte);
   transition:
-    transform 0.5s var(--in-courbe),
-    border-color 0.5s var(--in-courbe),
-    background-color 0.5s var(--in-courbe);
+    border-color 0.6s ease,
+    background-color 0.6s ease,
+    border-radius 0.5s var(--in-courbe);
+}
+/* LA CARTE DEVIENT TEXTE (28/11/2026, proposition « A » choisie par
+   Antonino sur maquette, `InclusCarte`) : au survol de la souris, ou au
+   toucher (`data-ouvert`), la photo, le titre et la phrase s'effacent d'un
+   fondu doux ; le titre et deux phrases d'explication apparaissent en haut
+   de la carte, qui prend une teinte bleutée et dont les coins
+   s'arrondissent (24 → 48px, comme les cartes cliquables). Un petit
+   bouton « Voir plus » (« Voir moins » une fois ouverte) dit qu'on peut
+   l'ouvrir, sur ordinateur comme sur téléphone. */
+.carte {
+  position: relative;
+  cursor: pointer;
+}
+.photo,
+.carteTexte {
+  transition: opacity 0.45s ease;
+}
+.face {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 42px 42px 72px;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s var(--in-courbe);
+}
+.faceTitre {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--in-encre);
+  transition: color 0.6s ease;
+}
+.detail {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--in-detail);
+  text-wrap: pretty;
+}
+/* Ouverte. */
+.carte[data-ouvert] {
+  border-color: var(--in-bord-survol);
+  border-radius: 48px;
+  background: var(--in-carte-survol);
+}
+.carte[data-ouvert] :is(.photo, .carteTexte) {
+  opacity: 0;
+}
+.carte[data-ouvert] .face {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.12s;
 }
 @media (hover: hover) and (pointer: fine) {
   .carte:hover {
-    transform: translateY(-6px);
-    border-color: rgb(143 174 230 / 45%);
+    border-color: var(--in-bord-survol);
+    border-radius: 48px;
     background: var(--in-carte-survol);
   }
+  .carte:hover :is(.photo, .carteTexte) {
+    opacity: 0;
+  }
+  .carte:hover .face {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.12s;
+  }
 }
+/* « Voir plus » : en bas à gauche, aligné sur le texte. */
+.voirPlus {
+  position: absolute;
+  bottom: 18px;
+  left: 42px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px 0 14px;
+  border: 1px solid var(--in-bord-bouton);
+  border-radius: 999px;
+  background: transparent;
+  font: 500 12.5px/1 var(--font-manrope), var(--font-sans), sans-serif;
+  color: var(--in-encre);
+  cursor: pointer;
+  transition:
+    border-color 0.4s ease,
+    background-color 0.4s ease,
+    color 0.6s ease;
+}
+.voirPlus svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.45s var(--in-courbe);
+}
+.voirMoinsLib {
+  display: none;
+}
+.carte[data-ouvert] .voirPlus {
+  border-color: var(--in-encre);
+}
+.carte[data-ouvert] .voirPlus svg {
+  transform: rotate(45deg);
+}
+.carte[data-ouvert] .voirPlusLib {
+  display: none;
+}
+.carte[data-ouvert] .voirMoinsLib {
+  display: inline;
+}
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover .voirPlus {
+    border-color: var(--in-encre);
+  }
+  .carte:hover .voirPlus svg {
+    transform: rotate(45deg);
+  }
+  .carte:hover .voirPlusLib {
+    display: none;
+  }
+  .carte:hover .voirMoinsLib {
+    display: inline;
+  }
+}
+.voirPlus:focus-visible {
+  outline: 2px solid #4a78c8;
+  outline-offset: 3px;
+}
+
 /* La photo, ou, tant qu'elle n'existe pas, un bloc bleu nuit à sa place.
    EN RECTANGLE HORIZONTAL, 3:2 (27/11/2026, demande d'Antonino : carrée
    avant, 260px de haut) ; la photo est recadrée au besoin. */
@@ -203,7 +339,12 @@
   .recurrent {
     transition: none;
   }
-  .carte:hover {
+  /* Sans mouvement : la carte s'ouvre en fondu, sans monter. */
+  .face {
+    transform: none;
+    transition: opacity 0.3s ease;
+  }
+  .carte[data-ouvert] .face {
     transform: none;
   }
 }

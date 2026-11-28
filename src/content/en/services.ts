@@ -93,27 +93,37 @@ export const services = {
   included: {
     title: "Included in",
     accent: "every project.",
+    more: "See more",
+    less: "See less",
     text: "Software, AI, integrations, website or app: we don’t stop at delivery. You walk away with a project that is live, understood and documented.",
     items: [
       {
         title: "Installation",
         text: "Website launched, app published, software or AI assistant up and running, with your data.",
         image: "/images/services/inclus-installation.webp",
+        detail:
+          "We handle the launch: hosting and domain name, publishing on the App Store and Google Play, setup on your servers or in the cloud. Everything is tested before going live.",
       },
       {
         title: "Training",
         text: "Depending on the project, your team learns to use it: app, software or AI assistant.",
         image: "/images/services/inclus-formation.webp",
+        detail:
+          "We show your team how to use it day to day: editing the website’s content, using the app, the software or the AI assistant. On your own cases, so everyone can work independently.",
       },
       {
         title: "Documentation",
         text: "A clear guide to what was delivered: access, settings, procedures.",
         image: "/images/services/inclus-documentation.webp",
+        detail:
+          "You get a clear guide: access, settings, procedures and, for an integration, what flows between your tools. Your team, or another provider, can pick everything up.",
       },
       {
         title: "Support",
         text: "After launch, we stay available until everything is fully in hand.",
         image: "/images/services/inclus-accompagnement.webp",
+        detail:
+          "After launch, we answer your questions, fix what needs fixing and fine-tune the settings. You’re not on your own until everything is fully in hand.",
       },
     ],
     recurring: {

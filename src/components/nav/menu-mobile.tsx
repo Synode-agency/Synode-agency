@@ -21,7 +21,10 @@ import s from "./menu-mobile.module.css";
  * Contact ; en bas, le bouton principal et la langue. « Services » est un
  * bouton : il déplie ses quatre cartes (repliées à chaque ouverture) et
  * les liens réduisent pour leur faire de la place (demande d'Antonino du
- * 25/11, comme sur ordinateur).
+ * 25/11, comme sur ordinateur). Depuis le 28/11/2026 (demande d'Antonino),
+ * le MOT comme la flèche déplient les cartes : au doigt, on ouvrait la
+ * page Services en voulant voir la liste ; un lien « Voir tous nos
+ * services » mène à la page, sous les cartes.
  *
  * Accessibilité : `dialog` modal, focus piégé (avec le bouton ☰ dans le
  * cycle) ; Échap, le retour du focus et le blocage du défilement sont gérés
@@ -89,28 +92,20 @@ export function MenuMobile({
     >
       <nav className={s.liens} aria-label={site.navLabel}>
         {accueil ? grandLien(homePath(locale), accueil.label, 0) : null}
-        {/* « Services » (demande d'Antonino du 25/11/2026) : le MOT mène à la
-            page Services, la petite FLÈCHE déplie les quatre cartes. */}
+        {/* « Services » (28/11/2026, demande d'Antonino) : UN SEUL BOUTON, le
+            mot et sa flèche, qui déplie les quatre cartes ; la page Services
+            est au bout de la liste (« Voir tous nos services »). */}
         {services ? (
           <span className={cx(s.ligne, s.ligneServices)}>
-            <NavLink
-              href={path(locale, ROUTES.services)}
-              locale={locale}
-              onNavigate={onClose}
-              className={cx(s.grandLien, s.motServices)}
-              style={{ "--i": 1 } as CSSProperties}
-            >
-              {services.label}
-            </NavLink>
             <button
               type="button"
-              className={cx(s.grandLien, s.deplier)}
+              className={cx(s.grandLien, s.motServices, s.boutonServices)}
               style={{ "--i": 1 } as CSSProperties}
               aria-expanded={servicesOuverts}
               aria-controls={idServices}
-              aria-label={site.servicesToggle}
               onClick={() => setServicesOuverts((ouverts) => !ouverts)}
             >
+              {services.label}
               <ChevronDown aria-hidden className={s.chevron} />
             </button>
           </span>
@@ -134,6 +129,15 @@ export function MenuMobile({
                   </span>
                 </NavLink>
               ))}
+              <NavLink
+                href={path(locale, ROUTES.services)}
+                locale={locale}
+                onNavigate={onClose}
+                className={s.tousServices}
+                style={{ "--j": site.menuServices.length } as CSSProperties}
+              >
+                {site.servicesAll} <span aria-hidden="true">→</span>
+              </NavLink>
             </div>
           </div>
         </div>

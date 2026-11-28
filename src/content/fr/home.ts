@@ -100,38 +100,40 @@ export const home = {
     /* La fin de `full`, en serif italique bleu sans mouvement. */
     fullEnd: "entreprises et les indépendants.",
     more: "En savoir plus",
-    /* L'ACCORDÉON DES QUATRE SERVICES (24/11/2026, textes d'Antonino mot
-       pour mot). `key` mène au bloc du service sur la page Services ;
-       « web » n'en a pas encore : son panneau pointe vers « # ».
-       `image` : la photo posée en haut de la carte (25/11/2026, photos
-       fournies par Antonino, en version bleutée), dans `public/images/services/` ; `focus` :
-       le point de la photo gardé au milieu quand elle est recadrée. */
+    /* LES QUATRE SERVICES : `key` mène au bloc du service sur la page
+       Services ; `image` : la photo de la carte (25/11/2026, photos
+       fournies par Antonino, en version bleutée), dans
+       `public/images/services/` ; `focus` : le point de la photo gardé au
+       milieu quand elle est recadrée. `text` : la LIGNE COURTE posée sur la
+       photo avec le titre (28/11/2026, maquette « C » choisie par
+       Antonino ; une phrase sous la photo avant), la même que sur la page
+       Services et dans le menu « Services ». */
     items: [
       {
         key: "software",
         title: "Développement logiciel",
-        text: "Nous concevons et développons des logiciels métier, des plateformes et des outils internes adaptés aux besoins spécifiques de votre entreprise.",
+        text: "Logiciels de bureau, web et SaaS",
         image: "/images/services/service-logiciel.webp",
         focus: "50% 55%",
       },
       {
         key: "ai",
         title: "Intelligence artificielle & automatisation",
-        text: "Nous développons des agents IA et automatisons vos processus métier pour simplifier vos opérations et améliorer la productivité de vos équipes.",
+        text: "Automatisations, assistants IA",
         image: "/images/services/service-ia.webp",
         focus: "55% 38%",
       },
       {
         key: "connect",
         title: "Intégration & systèmes connectés",
-        text: "Nous connectons vos logiciels, synchronisons vos données et intégrons vos systèmes pour construire un environnement technologique cohérent et évolutif.",
+        text: "CRM, ERP, facturation, API",
         image: "/images/services/service-integration.webp",
         focus: "62% 52%",
       },
       {
         key: "web",
         title: "Sites web & applications mobiles",
-        text: "Nous concevons et développons des sites web et des applications mobiles modernes, performants et centrés sur l'expérience utilisateur.",
+        text: "Sites, iPhone et Android",
         image: "/images/services/service-web.webp",
         focus: "45% 42%",
       },
