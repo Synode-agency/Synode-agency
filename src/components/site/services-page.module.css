@@ -12,7 +12,6 @@
 .inclus {
   --in-detail: #0b1424;
   --in-bord-survol: #c9d6ee;
-  --in-bord-bouton: #c9d0dc;
   --in-encre: #0b1424;
   --in-texte: #5a6272;
   --in-recurrent: #0b1424;
@@ -24,7 +23,6 @@
 .inclus[data-nuit] {
   --in-detail: #e6ecf5;
   --in-bord-survol: rgb(143 174 230 / 30%);
-  --in-bord-bouton: rgb(201 209 222 / 35%);
   --in-encre: #ffffff;
   --in-texte: #b9c5d8;
   --in-recurrent: #c9d3e2;
@@ -106,9 +104,9 @@
    toucher (`data-ouvert`), la photo, le titre et la phrase s'effacent d'un
    fondu doux ; le titre et deux phrases d'explication apparaissent en haut
    de la carte, qui prend une teinte bleutée et dont les coins
-   s'arrondissent (24 → 48px, comme les cartes cliquables). Un petit
-   bouton « Voir plus » (« Voir moins » une fois ouverte) dit qu'on peut
-   l'ouvrir, sur ordinateur comme sur téléphone. */
+   s'arrondissent (24 → 48px, comme les cartes cliquables). Un petit « + »
+   en haut à droite dit qu'on peut l'ouvrir, sur ordinateur comme sur
+   téléphone ; une seule carte ouverte à la fois. */
 .carte {
   position: relative;
   cursor: pointer;
@@ -124,7 +122,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 42px 42px 72px;
+  padding: 80px 42px 40px;
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none;
@@ -177,63 +175,50 @@
     transition-delay: 0.12s;
   }
 }
-/* « Voir plus » : en bas à gauche, aligné sur le texte. */
-.voirPlus {
+/* LE PETIT « + » EN HAUT À DROITE (28/11/2026, demande d'Antonino, à la
+   place d'un bouton « Voir plus ») : il dit qu'on peut ouvrir la carte
+   (toute la carte s'ouvre au toucher) ; ouverte, il tourne en croix, qui
+   la referme. Sur la photo : blanc ; carte ouverte : la couleur du texte. */
+.plus {
   position: absolute;
-  bottom: 18px;
-  left: 42px;
+  top: 34px;
+  right: 34px;
   z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: grid;
+  place-items: center;
+  width: 30px;
   height: 30px;
-  padding: 0 12px 0 14px;
-  border: 1px solid var(--in-bord-bouton);
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 60%);
   border-radius: 999px;
-  background: transparent;
-  font: 500 12.5px/1 var(--font-manrope), var(--font-sans), sans-serif;
-  color: var(--in-encre);
+  background: rgb(9 15 31 / 35%);
+  color: #ffffff;
   cursor: pointer;
   transition:
+    transform 0.45s var(--in-courbe),
     border-color 0.4s ease,
     background-color 0.4s ease,
-    color 0.6s ease;
+    color 0.4s ease;
 }
-.voirPlus svg {
-  width: 13px;
-  height: 13px;
-  transition: transform 0.45s var(--in-courbe);
+.plus svg {
+  width: 14px;
+  height: 14px;
 }
-.voirMoinsLib {
-  display: none;
-}
-.carte[data-ouvert] .voirPlus {
-  border-color: var(--in-encre);
-}
-.carte[data-ouvert] .voirPlus svg {
+.carte[data-ouvert] .plus {
   transform: rotate(45deg);
-}
-.carte[data-ouvert] .voirPlusLib {
-  display: none;
-}
-.carte[data-ouvert] .voirMoinsLib {
-  display: inline;
+  border-color: var(--in-encre);
+  background: transparent;
+  color: var(--in-encre);
 }
 @media (hover: hover) and (pointer: fine) {
-  .carte:hover .voirPlus {
-    border-color: var(--in-encre);
-  }
-  .carte:hover .voirPlus svg {
+  .carte:hover .plus {
     transform: rotate(45deg);
-  }
-  .carte:hover .voirPlusLib {
-    display: none;
-  }
-  .carte:hover .voirMoinsLib {
-    display: inline;
+    border-color: var(--in-encre);
+    background: transparent;
+    color: var(--in-encre);
   }
 }
-.voirPlus:focus-visible {
+.plus:focus-visible {
   outline: 2px solid #4a78c8;
   outline-offset: 3px;
 }

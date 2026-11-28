@@ -12,7 +12,7 @@ import { ApproachScroll } from "@/components/site/approach-scroll";
 import { MethodeScroll } from "@/components/site/methode-scroll";
 import { SectionNuit } from "@/components/site/section-nuit";
 import { ServicesSplit } from "@/components/site/services-split";
-import { InclusCarte } from "@/components/site/inclus-carte";
+import { InclusCartes } from "@/components/site/inclus-carte";
 import { TitreAnime } from "@/components/site/titre-anime";
 import { getContent, includedAnchor, serviceAnchor, type Locale } from "@/content";
 import { ctaLabel } from "@/content/cta";
@@ -156,28 +156,23 @@ export function ServicesPage({ locale }: { locale: Locale }) {
           </h2>
           <p className={m.texte}>{sansVeuve(s.included.text)}</p>
         </div>
-        <ul className={m.cartes} data-rv-groupe="bottom">
-          {s.included.items.map((item) => (
-            /* Les quatre photos « Inclus » (27/11/2026, fournies par
-               Antonino et passées au ton bleu nuit de celles des services),
-               dans `public/images/services/` ; si un fichier manque, un bloc
-               bleu nuit tient sa place. Au survol ou au toucher, la carte
-               devient texte (`InclusCarte`). */
-            <InclusCarte
-              key={item.title}
-              title={item.title}
-              text={item.text}
-              detail={item.detail}
-              more={s.included.more}
-              less={s.included.less}
-              photo={
-                existsSync(join(process.cwd(), "public", item.image)) ? (
-                  <Image src={item.image} alt="" fill sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 24vw" />
-                ) : null
-              }
-            />
-          ))}
-        </ul>
+        {/* Les quatre photos « Inclus » (27/11/2026, fournies par Antonino
+            et passées au ton bleu nuit de celles des services), dans
+            `public/images/services/` ; si un fichier manque, un bloc bleu
+            nuit tient sa place. Au survol ou au toucher, une carte devient
+            texte (`InclusCartes`). */}
+        <InclusCartes
+          more={s.included.more}
+          less={s.included.less}
+          items={s.included.items.map((item) => ({
+            title: item.title,
+            text: item.text,
+            detail: item.detail,
+            photo: existsSync(join(process.cwd(), "public", item.image)) ? (
+              <Image src={item.image} alt="" fill sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 24vw" />
+            ) : null,
+          }))}
+        />
         <p className={m.recurrent}>
           {s.included.recurring.before}
           <em>{s.included.recurring.accent}</em>

@@ -132,9 +132,10 @@ export const services = {
   included: {
     title: "Inclus dans",
     accent: "chaque projet.",
-    /* Le petit bouton des cartes (28/11/2026) : il ouvre l'explication. */
-    more: "Voir plus",
-    less: "Voir moins",
+    /* Le nom du petit « + » des cartes, pour les lecteurs d'écran
+       (28/11/2026) : il ouvre l'explication, puis la referme. */
+    more: "Voir l’explication",
+    less: "Fermer l’explication",
     /* Valable pour LES QUATRE SERVICES, site web compris (27/11/2026,
        demande d'Antonino : « outil » partout faisait penser au seul
        logiciel). La formation, « selon le projet » : un site ne demande pas

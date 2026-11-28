@@ -4,41 +4,57 @@ import { useId, useState, type ReactNode } from "react";
 import { Plus } from "lucide-react";
 import m from "./services-page.module.css";
 
-/**
- * UNE CARTE « INCLUS DANS CHAQUE PROJET » (page Services, 28/11/2026,
- * proposition « A » choisie par Antonino sur maquette,
- * `docs/maquettes/inclus-survol.html`).
- *
- * Fermée : la photo, le titre, la phrase courte, et un petit bouton « Voir
- * plus ». Ouverte, au survol de la souris ou au toucher (téléphone) : la
- * carte devient texte, d'un fondu doux (la photo, le titre et la phrase
- * s'effacent ; le titre et deux phrases d'explication apparaissent), prend
- * une teinte bleutée et ses coins s'arrondissent. Le bouton dit alors
- * « Voir moins ». Toucher la carte (ou le bouton) l'ouvre et la referme ;
- * au clavier, le bouton.
- */
-export function InclusCarte({
-  title,
-  text,
-  detail,
-  photo,
-  more,
-  less,
-}: {
+type Carte = {
   title: string;
   text: string;
   detail: string;
   /** La photo (rendue côté serveur), ou rien : un bloc bleu nuit. */
   photo: ReactNode;
-  more: string;
-  less: string;
-}) {
-  const [ouvert, setOuvert] = useState(false);
-  const id = useId();
-  const basculer = () => setOuvert((o) => !o);
+};
+
+/**
+ * LES CARTES « INCLUS DANS CHAQUE PROJET » (page Services, 28/11/2026,
+ * proposition « A » choisie par Antonino sur maquette,
+ * `docs/maquettes/inclus-survol.html`).
+ *
+ * Fermée : la photo, le titre, la phrase courte, et un petit « + » dans
+ * un cercle, en haut à droite. Ouverte, au survol de la souris ou au
+ * toucher (toute la carte est cliquable) : la carte devient texte, d'un
+ * fondu doux (la photo, le titre et la phrase s'effacent ; le titre et
+ * deux phrases d'explication apparaissent), prend une teinte bleutée et
+ * ses coins s'arrondissent ; le « + » tourne en croix, qui la referme.
+ * UNE SEULE CARTE OUVERTE À LA FOIS : en ouvrir une referme l'autre.
+ * Au clavier, le bouton « + ».
+ */
+export function InclusCartes({ items, more, less }: { items: readonly Carte[]; more: string; less: string }) {
+  const [ouverte, setOuverte] = useState<number | null>(null);
+  const basculer = (i: number) => setOuverte((o) => (o === i ? null : i));
 
   return (
-    <li className={m.carte} data-ouvert={ouvert ? "" : undefined} onClick={basculer}>
+    /* Au défilement, les cartes montent l'une après l'autre
+       (`data-rv-groupe`, voir `scroll-reveal.tsx`). */
+    <ul className={m.cartes} data-rv-groupe="bottom">
+      {items.map((item, i) => (
+        <InclusCarte key={item.title} {...item} ouvert={ouverte === i} onBasculer={() => basculer(i)} more={more} less={less} />
+      ))}
+    </ul>
+  );
+}
+
+function InclusCarte({
+  title,
+  text,
+  detail,
+  photo,
+  ouvert,
+  onBasculer,
+  more,
+  less,
+}: Carte & { ouvert: boolean; onBasculer: () => void; more: string; less: string }) {
+  const id = useId();
+
+  return (
+    <li className={m.carte} data-ouvert={ouvert ? "" : undefined} onClick={onBasculer}>
       <div className={m.photo} aria-hidden="true">
         {photo}
       </div>
@@ -54,16 +70,15 @@ export function InclusCarte({
       </div>
       <button
         type="button"
-        className={m.voirPlus}
+        className={m.plus}
         aria-expanded={ouvert}
         aria-controls={id}
+        aria-label={ouvert ? less : more}
         onClick={(e) => {
           e.stopPropagation();
-          basculer();
+          onBasculer();
         }}
       >
-        <span className={m.voirPlusLib}>{more}</span>
-        <span className={m.voirMoinsLib}>{less}</span>
         <Plus aria-hidden />
       </button>
     </li>

@@ -93,8 +93,8 @@ export const services = {
   included: {
     title: "Included in",
     accent: "every project.",
-    more: "See more",
-    less: "See less",
+    more: "Show the explanation",
+    less: "Close the explanation",
     text: "Software, AI, integrations, website or app: we don’t stop at delivery. You walk away with a project that is live, understood and documented.",
     items: [
       {
