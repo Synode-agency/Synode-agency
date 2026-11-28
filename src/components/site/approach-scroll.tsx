@@ -287,7 +287,7 @@ export function ApproachScroll({
           {/* Au défilement, le texte arrive par la gauche (`data-rv-bloc`,
               voir `scroll-reveal.tsx`), ou par le bas quand il est centré,
               puis se remplit mot par mot. */}
-          <p ref={texteRef} className="approach-text" data-rv-bloc={centre ? "bottom" : "left"}>
+          <p ref={texteRef} className="approach-text" data-rv-bloc={centre ? "bottom" : "left"} data-rv-vue={centre ? "" : undefined}>
             {motsTexte.map((mot, i) => (
               <Fragment key={i}>
                 {i > 0 ? " " : null}

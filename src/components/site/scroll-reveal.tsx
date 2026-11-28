@@ -56,8 +56,9 @@ const RACINES = "main > section.band:not(#top):not(#faq) > .col, main > .card-sh
 /* L'étiquette et les traits des titres animés (`TitreAnime`) font partie
    du titre : ils restent fixes (demande d'Antonino du 25/11/2026).
    `data-rv-fixe` : un bloc qui a sa propre animation et ne doit pas
-   glisser à son arrivée (les quatre services de la page Services, dont la
-   photo reste à l'écran, 27/11/2026). */
+   glisser à son arrivée. (Les quatre services de la page Services l'ont
+   porté du 27 au 28/11/2026 ; ils montent désormais par le bas, l'arrivée
+   par une ancre étant protégée plus bas.) */
 const FIXE = "h1, h2, h3, h4, .lede-kicker, .eyebrow, .studio-hero-kicker, .badge, .titre-anime-etiquette, .titre-anime-traits, [data-rv-fixe]";
 const BOUTON = ".btn, .btn-row, a.go";
 const ENTETE = "h1, h2, .lede-kicker, .eyebrow, .studio-hero-kicker";
@@ -73,6 +74,14 @@ const GROUPE = "[data-rv-groupe]";
    gauche ; les blocs du pied de page, par le bas. Même un titre : marqué,
    il apparaît. */
 const BLOC = "[data-rv-bloc]";
+/* Un bloc « À VOIR » (`data-rv-vue`, posé sur lui ou sur son groupe) :
+   il n'apparaît que lorsque son haut a dépassé les 80 % de la hauteur de
+   l'écran, et non dès qu'il en touche le bas, pour qu'on le VOIE arriver
+   (page Services, 28/11/2026, demande d'Antonino : le texte de « Notre
+   approche », « Nos services », les cartes « Inclus »). Partout ailleurs,
+   rien ne change. */
+const VUE = "[data-rv-vue]";
+const MARGE_VUE = "0px 0px -20% 0px";
 
 /* ---- Le héros ---- */
 const HEROS = "main > section#top:not(.home-page-hero)";
@@ -92,6 +101,8 @@ let premierPassage = true;
 function unites(racine: Element, out: HTMLElement[]) {
   for (const enfant of Array.from(racine.children)) {
     if (!(enfant instanceof HTMLElement)) continue;
+    /* Un bloc marqué part entier, titre compris : on n'y entre pas. */
+    if (enfant.matches(BLOC)) { out.push(enfant); continue; }
     if (enfant.matches(FIXE)) continue;
     if (enfant.matches(BOUTON)) { enfant.dataset.rvLate = ""; out.push(enfant); continue; }
     if (enfant.matches(GROUPE)) {
@@ -122,6 +133,16 @@ function sensDe(el: HTMLElement, etroit: boolean): string {
   const r = el.getBoundingClientRect();
   if (r.width >= c.width * 0.66) return "bottom";
   return r.left + r.width / 2 < c.left + c.width / 2 ? "left" : "right";
+}
+
+/* La cible d'une ancre (`#ia`), ou rien. */
+function cibleDe(hash: string): HTMLElement | null {
+  if (!hash || hash === "#") return null;
+  try {
+    return document.getElementById(decodeURIComponent(hash.slice(1)));
+  } catch {
+    return null;
+  }
 }
 
 function nettoyer(el: HTMLElement) {
@@ -194,13 +215,20 @@ export function ScrollReveal() {
     delete html.dataset.rvHero;
 
     /* ---- 2 · Les sections, seulement ce qui est sous l'écran ---- */
+    /* L'ARRIVÉE PAR UNE ANCRE (`/services#ia`) : le bloc qui contient la
+       cible n'est pas masqué. Glissé de 28px au moment où le navigateur s'y
+       place, il remontait ensuite et l'ancre tombait à côté. */
+    const cibleInitiale = cibleDe(window.location.hash);
     const unitesSections: HTMLElement[] = [];
     document.querySelectorAll(RACINES).forEach(r => unites(r, unitesSections));
     document.querySelectorAll<HTMLElement>(BLOC).forEach(el => {
       if (!unitesSections.includes(el)) unitesSections.push(el);
     });
     for (const el of unitesSections) {
-      if (!visible(el) || el.getBoundingClientRect().top <= pli) { delete el.dataset.rvLate; continue; }
+      if (!visible(el) || el.getBoundingClientRect().top <= pli || (cibleInitiale && el.contains(cibleInitiale))) {
+        delete el.dataset.rvLate;
+        continue;
+      }
       el.dataset.rvFrom = sensDe(el, etroit);
       el.dataset.rv = "pending";
       tous.push(el);
@@ -213,15 +241,43 @@ export function ScrollReveal() {
       sequence.forEach(([el, delai]) => lancer(el, delai));
     }));
 
-    const io = new IntersectionObserver(entries => {
+    /* Les blocs qui arrivent ensemble se suivent de `PAS` ; un groupe peut
+       imposer le sien (`data-rv-pas`, en millisecondes : les cartes
+       « Inclus », une par une mais vite). */
+    const arrivee = (entries: IntersectionObserverEntry[], observateur: IntersectionObserver) => {
       const arrivants = entries.filter(e => e.isIntersecting).map(e => e.target as HTMLElement);
       arrivants.forEach((el, i) => {
-        io.unobserve(el);
+        observateur.unobserve(el);
         const tard = el.hasAttribute("data-rv-late") || el.dataset.rvFrom === "right" ? RETARD : 0;
-        lancer(el, Math.min(i * PAS, PLAFOND) + tard);
+        const pas = Number(el.parentElement?.closest<HTMLElement>(GROUPE)?.dataset.rvPas) || PAS;
+        lancer(el, Math.min(i * pas, Math.max(PLAFOND, 3 * pas)) + tard);
       });
-    }, { threshold: 0 });
-    surveilles.forEach(el => io.observe(el));
+    };
+    const io = new IntersectionObserver(arrivee, { threshold: 0 });
+    const ioVue = new IntersectionObserver(arrivee, { threshold: 0, rootMargin: MARGE_VUE });
+    surveilles.forEach(el => (el.closest(VUE) ? ioVue : io).observe(el));
+
+    /* Un clic sur une ancre de la page (la barre des services du hero) :
+       le bloc masqué qui contient la cible apparaît sur-le-champ, AVANT que
+       le navigateur ne s'y place (écoute en capture). */
+    const devoiler = (cible: HTMLElement | null) => {
+      if (!cible) return;
+      for (const el of tous) {
+        if (el.dataset.rv !== "pending" || !el.contains(cible)) continue;
+        io.unobserve(el);
+        ioVue.unobserve(el);
+        nettoyer(el);
+      }
+    };
+    const surClic = (ev: MouseEvent) => {
+      const lien = (ev.target as Element | null)?.closest?.("a[href*='#']");
+      if (!(lien instanceof HTMLAnchorElement)) return;
+      const url = new URL(lien.href, window.location.href);
+      if (url.pathname === window.location.pathname) devoiler(cibleDe(url.hash));
+    };
+    const surHash = () => devoiler(cibleDe(window.location.hash));
+    document.addEventListener("click", surClic, true);
+    window.addEventListener("hashchange", surHash);
 
     /* Filet : à l'impression et en quittant la page, tout redevient visible. */
     const toutMontrer = () => tous.forEach(nettoyer);
@@ -229,6 +285,9 @@ export function ScrollReveal() {
     return () => {
       cancelAnimationFrame(image);
       io.disconnect();
+      ioVue.disconnect();
+      document.removeEventListener("click", surClic, true);
+      window.removeEventListener("hashchange", surHash);
       window.removeEventListener("beforeprint", toutMontrer);
       toutMontrer();
     };

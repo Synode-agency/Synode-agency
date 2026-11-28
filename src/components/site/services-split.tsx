@@ -100,10 +100,12 @@ export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]
     ));
 
   return (
-    /* `data-rv-fixe` : pas d'apparition au défilement (`ScrollReveal`) ;
-       le bloc a la sienne (la photo, les blocs qui s'éclairent), et un
-       glissement décalait l'arrivée par une ancre. */
-    <div ref={racineRef} className={s.split} data-rv-fixe="">
+    /* À l'arrivée, le bloc entier monte par le bas quand on le voit
+       (`ScrollReveal`, 28/11/2026, demande d'Antonino), puis garde sa propre
+       animation (la photo, les blocs qui s'éclairent). L'arrivée par une
+       ancre (`#ia`) ne glisse pas : `ScrollReveal` montre d'emblée le bloc
+       qui contient la cible. */
+    <div ref={racineRef} className={s.split} data-rv-bloc="bottom" data-rv-vue="">
       {/* La boîte qui reste à l'écran (ordinateur), décorative : chaque
           bloc porte déjà son titre. */}
       <div className={s.visuel} aria-hidden="true">

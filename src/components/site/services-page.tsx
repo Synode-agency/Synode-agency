@@ -139,7 +139,10 @@ export function ServicesPage({ locale }: { locale: Locale }) {
       {/* 3. LES QUATRE SERVICES. L'identifiant `services` est celui de la
           section des services de l'accueil : même en-tête, mêmes règles. */}
       <Band id="services" className="rf-section svp-clair">
-        <div className="section-heading home-section-heading">
+        {/* L'en-tête puis les services montent par le bas, quand on les
+            voit (`data-rv-vue`, 28/11/2026, demande d'Antonino) ; le titre
+            animé et la photo qui suit continuent leur propre animation. */}
+        <div className="section-heading home-section-heading" data-rv-bloc="bottom" data-rv-vue="">
           <TitreAnime prefix={s.list.prefix} rotating={s.list.rotating} full={s.list.full} fullEnd={s.list.fullEnd} />
           <p className="section-etiquette">{s.list.etiquette}</p>
         </div>

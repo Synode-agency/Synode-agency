@@ -31,9 +31,11 @@ export function InclusCartes({ items, more, less }: { items: readonly Carte[]; m
   const basculer = (i: number) => setOuverte((o) => (o === i ? null : i));
 
   return (
-    /* Au défilement, les cartes montent l'une après l'autre
-       (`data-rv-groupe`, voir `scroll-reveal.tsx`). */
-    <ul className={m.cartes} data-rv-groupe="bottom">
+    /* Au défilement, les cartes montent l'une après l'autre, dans l'ordre,
+       quand on les voit, à 150 ms d'écart (`data-rv-groupe`, `data-rv-vue`,
+       `data-rv-pas`, voir `scroll-reveal.tsx` ; 28/11/2026, demande
+       d'Antonino : « une par une, mais assez rapidement »). */
+    <ul className={m.cartes} data-rv-groupe="bottom" data-rv-vue="" data-rv-pas="150">
       {items.map((item, i) => (
         <InclusCarte key={item.title} {...item} ouvert={ouverte === i} onBasculer={() => basculer(i)} more={more} less={less} />
       ))}
