@@ -1,5 +1,6 @@
 import { ROUTES } from "@/lib/routes";
 import { ctaLabel } from "../cta";
+import { services } from "./services";
 import type { SiteContent } from "../types";
 
 const nav = [
@@ -12,6 +13,11 @@ const nav = [
 const footerNav = [...nav, { href: ROUTES.contact, label: "Contact" }] as const;
 
 /** Le socle commun : nom, contact, menu, bouton, pied de page et appel final. */
+/* La phrase d'un service (celle de la page Services), pour le menu
+   « Services » de la barre, où elle apparaît au survol (28/11/2026). Le
+   retour à la ligne voulu pour la page Services n'y a pas sa place. */
+const phraseDe = (key: string) => services.items.find((item) => item.key === key)?.sentence.replace(/\n/g, " ") ?? "";
+
 export const site = {
   name: "Synode",
   email: "contact@synode-agency.com",
@@ -23,10 +29,10 @@ export const site = {
   cta: ctaLabel.en,
   contactLabel: "Contact",
   menuServices: [
-    { key: "software", title: "Software development", text: "Desktop, web and SaaS software", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
-    { key: "ai", title: "Artificial intelligence & automation", text: "Automations, AI assistants", image: "/images/services/service-ia.webp", focus: "55% 38%" },
-    { key: "connect", title: "Integration & connected systems", text: "CRM, ERP, invoicing, APIs", image: "/images/services/service-integration.webp", focus: "62% 52%" },
-    { key: "web", title: "Websites & mobile apps", text: "Websites, iPhone and Android", image: "/images/services/service-web.webp", focus: "45% 42%" },
+    { key: "software", title: "Software development", text: "Desktop, web and SaaS software", image: "/images/services/service-logiciel.webp", focus: "50% 55%", phrase: phraseDe("software") },
+    { key: "ai", title: "Artificial intelligence & automation", text: "Automations, AI assistants", image: "/images/services/service-ia.webp", focus: "55% 38%", phrase: phraseDe("ai") },
+    { key: "connect", title: "Integration & connected systems", text: "CRM, ERP, invoicing, APIs", image: "/images/services/service-integration.webp", focus: "62% 52%", phrase: phraseDe("connect") },
+    { key: "web", title: "Websites & mobile apps", text: "Websites, iPhone and Android", image: "/images/services/service-web.webp", focus: "45% 42%", phrase: phraseDe("web") },
   ] as const,
   menuOpen: "Open menu",
   servicesToggle: "Show services",

@@ -1,6 +1,8 @@
 /* =====================================================================
-   LES QUATRE SERVICES DE LA PAGE SERVICES (27/11/2026, fiche
-   d'Antonino). Le comportement est dans `services-split.tsx`.
+   LES QUATRE SERVICES DE LA PAGE SERVICES, EN RANGÉES ALTERNÉES
+   (28/11/2026, maquette « Page Services 2 » choisie par Antonino ; une
+   photo fixe à gauche et des textes qui défilaient avant). La structure
+   est dans `services-split.tsx`.
 
    Les couleurs passent par des variables : sur blanc, l'encre et
    l'ardoise du site ; quand l'écran passe au bleu nuit (« Inclus dans
@@ -8,178 +10,109 @@
    encore visible, passe en négatif, comme les réalisations de l'accueil.
    ===================================================================== */
 
-.split {
-  /* LE HAUT DE LA ZONE NETTE : sous le voile flou et assombri du haut de
-     l'écran (`.site-voile`, 170px), où se fixent la boîte photo et le
-     haut d'un service atteint par une ancre (27/11/2026, demande
-     d'Antonino : ils touchaient le voile). */
-  --sv-haut: 182px;
-  /* La hauteur de la boîte photo : 480px, moins sur un écran bas, pour
-     qu'elle et ses traits tiennent sous le voile. */
-  --sv-boite-h: min(480px, calc(100svh - var(--sv-haut) - 64px));
+.rangees {
   --sv-encre: #0b1424;
   --sv-gris: #5a6272;
   --sv-filet: #e3e7ee;
   --sv-courbe: cubic-bezier(0.2, 0.8, 0.2, 1);
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: 24px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(96px, 9vw, 140px);
   /* L'écart entre l'en-tête et les services (l'en-tête n'en pose pas,
      comme sur l'accueil). */
-  margin-top: 64px;
+  margin-top: 72px;
 }
-:global(#services[data-nuit]) .split {
+:global(#services[data-nuit]) .rangees {
   --sv-encre: #ffffff;
   --sv-gris: #a9b3c6;
   --sv-filet: rgb(201 209 222 / 16%);
 }
 
-/* ---- La boîte photo, à gauche, qui reste à l'écran, SOUS LE VOILE.
-   PLUS PETITE (27/11/2026, deux demandes d'Antonino : « que ça
-   respire ») : 420 × 480px au plus, au lieu de toute la largeur de ses
-   5 colonnes × 600px. ---- */
-.visuel {
-  grid-column: 1 / span 5;
-  position: sticky;
-  top: var(--sv-haut);
-  width: min(100%, 420px);
+/* ---- Une rangée : la photo d'un côté, les textes de l'autre, centrés
+   en hauteur face à elle ; un service sur deux, la photo passe à droite.
+   Quand on arrive par une ancre, le haut de la rangée sous la barre, un
+   peu d'air au-dessus (la page réserve déjà la hauteur de la barre,
+   `scroll-padding-top` de `globals.css`). ---- */
+.rangee {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  column-gap: clamp(48px, 6.6vw, 96px);
+  align-items: center;
+  scroll-margin-top: 40px;
 }
-.boite {
+.rangee[data-inverse] {
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+}
+.rangee[data-inverse] .photoBloc {
+  order: 2;
+}
+
+/* La photo, avec le nom du service posé dessus, en bas à gauche, sur un
+   voile bleu nuit qui monte du bas. */
+.photoBloc {
   position: relative;
-  height: var(--sv-boite-h);
+  aspect-ratio: 4 / 4.2;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 22px;
   background: #090f1f;
-  /* La largeur de la boîte, pour la taille des noms. */
   container-type: inline-size;
+  /* Ses couches à part : Safari peint sinon la photo arrondie par-dessus
+     le nom. */
+  isolation: isolate;
+  clip-path: inset(0 round 22px);
+  transition: clip-path 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.photo {
+.photoBloc img {
+  z-index: 0;
   object-fit: cover;
-  opacity: 0;
-  transform: scale(1.06);
-  transition:
-    opacity 0.9s var(--sv-courbe),
-    transform 1.4s var(--sv-courbe);
+  transition: transform 1s var(--sv-courbe);
 }
-.photo[data-actif] {
-  opacity: 1;
-  transform: scale(1);
-}
-/* LE VOILE (27/11/2026, demande d'Antonino : on lisait mal « Intégration &
-   systèmes connectés » sur les tubes clairs) : les quatre photos un peu
-   assombries, à peine en haut (10 %), davantage en bas, là où se pose le
-   nom (jusqu'à 58 %), dans le bleu nuit du site. Seulement ici : les
-   mêmes photos de l'accueil et du menu ne changent pas. */
-.boite::after,
 .photoBloc::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgb(9 15 31 / 58%) 0%,
-    rgb(9 15 31 / 40%) 22%,
-    rgb(9 15 31 / 16%) 48%,
-    rgb(9 15 31 / 10%) 100%
-  );
+  background: linear-gradient(to top, rgb(9 15 31 / 72%) 0%, rgb(9 15 31 / 38%) 36%, rgb(9 15 31 / 6%) 70%);
   pointer-events: none;
 }
-/* Le nom du service, en bas à gauche de la photo, sans fond : les quatre
-   empilés, seul l'actif visible. 38px au plus ; moins dans une boîte plus
-   étroite, pour que « Intelligence artificielle » tienne sur sa ligne. */
-.noms {
+.nomBloc {
   position: absolute;
-  right: 36px;
-  bottom: 34px;
-  left: 36px;
+  right: 32px;
+  bottom: 28px;
+  left: 32px;
   z-index: 2;
-  display: grid;
-  /* Une ombre douce sous les lettres, pour les reflets les plus clairs. */
-  text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
-}
-.nom {
-  grid-area: 1 / 1;
-  align-self: end;
   margin: 0;
+  text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
   font-size: min(38px, 7.6cqi);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.037em;
   color: #ffffff;
-  opacity: 0;
-  transform: translateY(14px);
-  transition:
-    opacity 0.7s var(--sv-courbe),
-    transform 0.7s var(--sv-courbe);
 }
-.nom[data-actif] {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Les quatre traits sous la boîte : ceux des en-têtes animés. */
-.traits {
-  display: flex;
-  gap: 8px;
-  margin-top: 18px;
-}
-.traits span {
-  width: 12px;
-  height: 3px;
-  border-radius: 2px;
-  background: #d5d9e0;
-  transition:
-    width 0.5s var(--sv-courbe),
-    background-color 0.5s var(--sv-courbe);
-}
-.traits span[data-actif] {
-  width: 36px;
-  background: #4a78c8;
-}
-:global(#services[data-nuit]) .traits span:not([data-actif]) {
-  background: rgb(201 209 222 / 25%);
+/* LE PASSE-PARTOUT AU SURVOL (28/11/2026, demande d'Antonino : plus de
+   coins qui s'arrondissent, trop proche d'In The Pocket) : la photo se
+   retire de quelques pixels dans un fin cadre, comme une image qu'on
+   encadre, et s'approche à peine. Les coins de la carte ne bougent pas.
+   À la souris ; le même effet au clavier ; sans mouvement, rien ne bouge. */
+@media (hover: hover) and (pointer: fine) {
+  .rangee:hover .photoBloc {
+    clip-path: inset(12px round 14px);
+  }
+  .rangee:hover .photoBloc img {
+    transform: scale(1.03);
+  }
 }
 
-/* ---- Les quatre blocs, à droite ---- */
-.blocs {
-  grid-column: 7 / span 6;
-}
-.bloc {
-  /* La hauteur de la boîte photo : chaque service la garde le temps de
-     son bloc. */
-  min-height: var(--sv-boite-h);
-  padding-bottom: 96px;
-  /* Quand on arrive par une ancre : le haut du bloc à la hauteur de la
-     boîte photo, sous le voile (la page réserve déjà la hauteur de la
-     barre, `scroll-padding-top` de `globals.css`). */
-  scroll-margin-top: calc(var(--sv-haut) - var(--header-h, 72px));
-  transition: opacity 0.6s var(--sv-courbe);
-}
-/* Le dernier s'arrête à sa hauteur : l'écart avec la section suivante est
-   celui de l'accueil (`refonte.css`). */
-.bloc:last-child {
-  padding-bottom: 0;
-}
-.split[data-pret] .bloc:not([data-actif]) {
-  opacity: 0.45;
-}
-.photoBloc {
-  display: none;
-}
+/* ---- Les textes du service ---- */
 .titre {
   margin: 0;
-  padding-top: 26px;
-  border-top: 1px solid var(--sv-filet);
   font-size: 44px;
   font-weight: 500;
   line-height: 1.06;
   letter-spacing: -0.041em;
   color: var(--sv-encre);
   text-wrap: balance;
-  transition:
-    color 0.6s ease,
-    border-color 0.6s ease;
+  transition: color 0.6s ease;
 }
 .titre em {
   font-family: var(--font-accent), Georgia, serif;
@@ -265,34 +198,25 @@
   outline-offset: 3px;
 }
 
-/* ---- Téléphone et tablette (jusqu'à 1024px) : une colonne, chaque bloc
-   avec sa photo, sans boîte fixe ni bloc éteint. ---- */
+/* ---- Téléphone et tablette (jusqu'à 1024px) : une colonne, la photo
+   au-dessus des textes, comme avant. ---- */
 @media (max-width: 1024px) {
-  .visuel {
-    display: none;
+  .rangees {
+    gap: 72px;
+    margin-top: 64px;
   }
-  .blocs {
-    grid-column: 1 / -1;
+  .rangee,
+  .rangee[data-inverse] {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .bloc {
-    min-height: 0;
-    padding-bottom: 72px;
-  }
-  .split[data-pret] .bloc:not([data-actif]) {
-    opacity: 1;
+  .rangee[data-inverse] .photoBloc {
+    order: 0;
   }
   .photoBloc {
-    position: relative;
-    display: block;
     aspect-ratio: 4 / 3;
-    overflow: hidden;
     margin-bottom: 28px;
     border-radius: 18px;
-    background: #090f1f;
-    container-type: inline-size;
-  }
-  .photoBloc img {
-    object-fit: cover;
+    clip-path: inset(0 round 18px);
   }
   /* La photo est moins haute : le nom en couvre une plus grande part, le
      voile du bas monte d'autant. */
@@ -306,22 +230,11 @@
     );
   }
   .nomBloc {
-    position: absolute;
     right: 24px;
     bottom: 22px;
     left: 24px;
-    z-index: 2;
-    margin: 0;
-    text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
-    font-size: min(38px, 7.6cqi);
-    font-weight: 500;
-    line-height: 1.08;
-    letter-spacing: -0.037em;
-    color: #ffffff;
   }
   .titre {
-    padding-top: 0;
-    border-top: 0;
     font-size: clamp(30px, 5.4vw, 44px);
   }
 }
@@ -343,23 +256,17 @@
   }
 }
 
-/* Sans mouvement : rien ne glisse ni ne s'éteint ; la photo et le nom
-   changent d'un coup. */
+/* Sans mouvement : la photo ne grandit pas, la flèche n'avance pas. */
 @media (prefers-reduced-motion: reduce) {
-  .photo,
-  .nom,
-  .traits span,
-  .bloc,
+  .photoBloc,
+  .photoBloc img,
   .bouton svg {
     transition: none;
   }
-  .photo {
+  .rangee:hover .photoBloc img {
     transform: none;
   }
-  .nom {
-    transform: none;
-  }
-  .split[data-pret] .bloc:not([data-actif]) {
-    opacity: 1;
+  .rangee:hover .photoBloc {
+    clip-path: inset(0 round 22px);
   }
 }

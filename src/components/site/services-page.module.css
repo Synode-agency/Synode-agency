@@ -149,7 +149,6 @@
 /* Ouverte. */
 .carte[data-ouvert] {
   border-color: var(--in-bord-survol);
-  border-radius: 48px;
   background: var(--in-carte-survol);
 }
 .carte[data-ouvert] :is(.photo, .carteTexte) {
@@ -163,7 +162,6 @@
 @media (hover: hover) and (pointer: fine) {
   .carte:hover {
     border-color: var(--in-bord-survol);
-    border-radius: 48px;
     background: var(--in-carte-survol);
   }
   .carte:hover :is(.photo, .carteTexte) {

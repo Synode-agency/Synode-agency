@@ -222,9 +222,8 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   border-radius: 16px;
-  transition:
-    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  clip-path: inset(0 round 16px);
+  transition: clip-path 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 /* Le voile bleu nuit qui monte du bas, sous le titre (celui de l'accueil). */
 .serviceVisuel::after {
@@ -425,30 +424,21 @@
   }
 }
 
-/* L'ARRONDI AU SURVOL (28/11/2026, demande d'Antonino : « le même effet
-   que les réalisations de l'accueil », sur toutes les cartes) : les coins
-   s'arrondissent nettement (36px sur ces cartes plus petites, 28px dans la liste) et la carte grandit à peine (1,02), en 0,5s.
-   À la souris ; le même effet au clavier ; sans mouvement, seuls les coins
-   s'arrondissent. */
+/* LE PASSE-PARTOUT AU SURVOL (28/11/2026, demande d'Antonino : plus de
+   coins qui s'arrondissent, trop proche d'In The Pocket) : la photo se
+   retire de quelques pixels dans un fin cadre, comme une image qu'on
+   encadre, et s'approche à peine. Les coins de la carte ne bougent pas.
+   À la souris ; le même effet au clavier ; sans mouvement, rien ne bouge. */
 @media (hover: hover) and (pointer: fine) {
   .service:hover .serviceVisuel {
-    border-radius: 36px;
-    transform: scale(1.02);
+    clip-path: inset(7px round 10px);
   }
 }
 .service:focus-visible .serviceVisuel {
-  border-radius: 36px;
-  transform: scale(1.02);
-}
-@container (max-width: 649px) {
-  .service:hover .serviceVisuel,
-  .service:focus-visible .serviceVisuel {
-    border-radius: 28px;
-  }
+  clip-path: inset(7px round 10px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .service:hover .serviceVisuel,
-  .service:focus-visible .serviceVisuel {
-    transform: none;
+  .serviceVisuel {
+    transition: none;
   }
 }

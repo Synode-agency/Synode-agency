@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -20,74 +20,47 @@ export type ServiceBloc = {
   deliverables: readonly string[];
 };
 
-/* Un service devient actif quand le haut de son bloc passe au-dessus de
-   55 % de la hauteur de l'écran. */
-const SEUIL = 0.55;
-
 /**
- * LES QUATRE SERVICES DE LA PAGE SERVICES (27/11/2026, fiche d'Antonino).
+ * LES QUATRE SERVICES DE LA PAGE SERVICES, EN RANGÉES ALTERNÉES
+ * (28/11/2026, maquette « Page Services 2 » choisie par Antonino ; une
+ * photo qui restait à l'écran pendant que les textes défilaient avant,
+ * jugée trop difficile à comprendre).
  *
- * Sur ordinateur (dès 1025px), deux colonnes sur la grille de 12 : à
- * gauche, une boîte photo qui reste à l'écran (`sticky`) ; à droite, les
- * quatre blocs. Le service actif (le dernier bloc dont le haut a passé
- * 55 % de l'écran) choisit la photo (fondu et léger zoom arrière), le nom
- * posé dessus, le trait allongé sous la boîte, et éclaire son bloc ; les
- * autres restent à demi éteints.
+ * Sur ordinateur (dès 1025px), une rangée par service : sa photo, avec son
+ * nom posé dessus, d'un côté, ses textes de l'autre ; la photo passe à
+ * droite un service sur deux. Rien ne reste fixe au défilement.
  *
- * Sous 1025px, une colonne : chaque bloc porte sa propre photo, au-dessus
- * de son titre, sans boîte fixe ni bloc éteint.
+ * Sous 1025px, une colonne : la photo au-dessus des textes, comme avant.
  *
  * Chaque bloc (format « A », choisi par Antonino le 27/11/2026) : le titre,
  * une phrase, trois livrables entre de fins filets, le bouton.
  *
- * Sans script, tout est lisible : le premier service est actif, les blocs
- * restent pleins (`data-pret` n'est posé que par le script). Sans
- * mouvement (`prefers-reduced-motion`), rien ne glisse ni ne s'éteint.
+ * Au défilement, les rangées montent l'une après l'autre, quand on les
+ * voit (`data-rv-groupe`, `data-rv-vue`, voir `scroll-reveal.tsx`) ; la
+ * rangée visée par une ancre (`#ia`) n'est jamais masquée.
  */
 export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]; button: string }) {
   const racineRef = useRef<HTMLDivElement>(null);
-  const [actif, setActif] = useState(0);
 
   useEffect(() => {
     const racine = racineRef.current;
     if (!racine) return;
-    const blocs = Array.from(racine.querySelectorAll<HTMLElement>("article"));
-    racine.setAttribute("data-pret", "");
-    let raf = 0;
-    const mesure = () => {
-      raf = 0;
-      const limite = window.innerHeight * SEUIL;
-      let n = 0;
-      blocs.forEach((bloc, i) => {
-        if (bloc.getBoundingClientRect().top < limite) n = i;
-      });
-      setActif(n);
-    };
-    const demander = () => {
-      if (!raf) raf = requestAnimationFrame(mesure);
-    };
-    mesure();
     // L'ARRIVÉE PAR UNE ANCRE (`/services#ia`, depuis le menu d'une autre
     // page) : le navigateur se place sur le bloc avant que « Notre
     // approche », au-dessus, ait pris sa hauteur (son calage, les polices) ;
     // on se recale sur le bloc une fois la page posée.
-    const cible = blocs.find((bloc) => `#${bloc.id}` === decodeURIComponent(window.location.hash));
-    const recaler = () => cible?.scrollIntoView({ behavior: "instant", block: "start" });
-    let actifRecalage = Boolean(cible);
-    if (cible) {
-      requestAnimationFrame(recaler);
-      document.fonts?.ready.then(() => {
-        if (actifRecalage) requestAnimationFrame(recaler);
-      });
-    }
-    window.addEventListener("scroll", demander, { passive: true });
-    window.addEventListener("resize", demander);
+    const cible = Array.from(racine.querySelectorAll<HTMLElement>("article")).find(
+      (bloc) => `#${bloc.id}` === decodeURIComponent(window.location.hash),
+    );
+    if (!cible) return;
+    let actif = true;
+    const recaler = () => cible.scrollIntoView({ behavior: "instant", block: "start" });
+    requestAnimationFrame(recaler);
+    document.fonts?.ready.then(() => {
+      if (actif) requestAnimationFrame(recaler);
+    });
     return () => {
-      actifRecalage = false;
-      window.removeEventListener("scroll", demander);
-      window.removeEventListener("resize", demander);
-      cancelAnimationFrame(raf);
-      racine.removeAttribute("data-pret");
+      actif = false;
     };
   }, []);
 
@@ -100,51 +73,21 @@ export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]
     ));
 
   return (
-    /* À l'arrivée, le bloc entier monte par le bas quand on le voit
-       (`ScrollReveal`, 28/11/2026, demande d'Antonino), puis garde sa propre
-       animation (la photo, les blocs qui s'éclairent). L'arrivée par une
-       ancre (`#ia`) ne glisse pas : `ScrollReveal` montre d'emblée le bloc
-       qui contient la cible. */
-    <div ref={racineRef} className={s.split} data-rv-bloc="bottom" data-rv-vue="">
-      {/* La boîte qui reste à l'écran (ordinateur), décorative : chaque
-          bloc porte déjà son titre. */}
-      <div className={s.visuel} aria-hidden="true">
-        <div className={s.boite}>
-          {items.map((item, i) => (
-            <Image
-              key={item.anchor}
-              className={s.photo}
-              data-actif={i === actif ? "" : undefined}
-              src={item.image}
-              alt=""
-              fill
-              sizes="(min-width: 1025px) 42vw, 1px"
-            />
-          ))}
-          <div className={s.noms}>
-            {items.map((item, i) => (
-              <p key={item.anchor} className={s.nom} data-actif={i === actif ? "" : undefined}>
-                {deuxLignes(item.name)}
-              </p>
-            ))}
+    <div ref={racineRef} className={s.rangees} data-rv-groupe="bottom" data-rv-vue="">
+      {items.map((item, i) => (
+        <article
+          key={item.anchor}
+          id={item.anchor}
+          className={s.rangee}
+          data-inverse={i % 2 === 1 ? "" : undefined}
+        >
+          {/* La photo du service, avec son nom posé dessus (décorative :
+              le titre du bloc le dit déjà). */}
+          <div className={s.photoBloc} aria-hidden="true">
+            <Image src={item.image} alt="" fill sizes="(max-width: 1024px) 92vw, 46vw" />
+            <p className={s.nomBloc}>{deuxLignes(item.name)}</p>
           </div>
-        </div>
-        <div className={s.traits}>
-          {items.map((item, i) => (
-            <span key={item.anchor} data-actif={i === actif ? "" : undefined} />
-          ))}
-        </div>
-      </div>
-
-      <div className={s.blocs}>
-        {items.map((item, i) => (
-          <article key={item.anchor} id={item.anchor} className={s.bloc} data-actif={i === actif ? "" : undefined}>
-            {/* Téléphone et tablette : la photo du bloc, au-dessus de son
-                titre, avec le nom posé dessus (décorative). */}
-            <div className={s.photoBloc} aria-hidden="true">
-              <Image src={item.image} alt="" fill sizes="(max-width: 1024px) 92vw, 1px" />
-              <p className={s.nomBloc}>{deuxLignes(item.name)}</p>
-            </div>
+          <div className={s.texteBloc}>
             <h3 className={s.titre}>
               {item.heading[0]}
               <em>{item.heading[1]}</em>
@@ -152,9 +95,9 @@ export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]
             {/* Un `\n` dans la phrase : un retour à la ligne voulu, dès
                 641px ; sur téléphone, la phrase s'enchaîne (une espace). */}
             <p className={s.phrase}>
-              {item.sentence.split("\n").map((morceau, i) => (
-                <Fragment key={i}>
-                  {i > 0 ? (
+              {item.sentence.split("\n").map((morceau, j) => (
+                <Fragment key={j}>
+                  {j > 0 ? (
                     <>
                       {" "}
                       <br className={s.retour} />
@@ -182,9 +125,9 @@ export function ServicesSplit({ items, button }: { items: readonly ServiceBloc[]
                 <ArrowRight aria-hidden />
               </span>
             </Link>
-          </article>
-        ))}
-      </div>
+          </div>
+        </article>
+      ))}
     </div>
   );
 }

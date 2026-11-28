@@ -1,96 +1,100 @@
 /* =====================================================================
-   LES QUATRE SERVICES DE L'ACCUEIL, EN PHOTOS (25/11/2026, fiche
-   d'Antonino). Isolé dans ce module.
+   LES QUATRE SERVICES DE L'ACCUEIL (28/11/2026, demandes d'Antonino).
+   Isolé dans ce module.
+   - Sur ordinateur : LES QUATRE CARTES SUR UNE LIGNE (deux par ligne entre
+     1025 et 1399px), de l'air autour des textes. Au survol, la photo
+     s'assombrit, le titre et la ligne courte montent et les livrables et
+     le bouton se déplient en dessous.
+   - Sur tablette et téléphone : LA PILE (chaque carte reste en haut de
+     l'écran et la suivante se pose dessus), avec le titre, la ligne courte
+     et la flèche dans un cercle.
    ===================================================================== */
 
-/* Quatre colonnes de même largeur, au même écart sous le titre de la
-   section que l'accordéon d'avant. */
-.grille {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px;
-  margin-top: clamp(56px, 6vw, 88px);
+.pile {
+  margin: clamp(56px, 6vw, 88px) 0 0;
+  padding: 0 0 clamp(32px, 6vh, 72px);
+  list-style: none;
 }
 
-/* Une carte : un lien, sans fond, sans bordure, sans ombre. */
-.carte {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  color: #ffffff;
-  text-decoration: none;
-  transition: opacity 0.5s ease;
+/* La pile (tablette et téléphone) : chaque carte reste en haut de
+   l'écran, sous la barre, 22px plus bas que la précédente (`--i`, son
+   rang). */
+.place {
+  position: sticky;
+  top: calc(var(--header-h) + 24px + var(--i) * 22px);
+  height: clamp(420px, calc(100svh - var(--header-h) - 160px), 560px);
+  margin-bottom: 56px;
 }
-/* La photo, éclaircie (25/11/2026, fiche d'Antonino). Sans contour : le
-   liseré bleu du départ est retiré à sa demande (25/11/2026). */
-.photo {
+.place:last-child {
+  margin-bottom: 0;
+}
+
+/* La carte : un lien, la photo en fond, aux coins arrondis. Une ombre
+   douce vers le haut détache, dans la pile, chaque carte de celle qu'elle
+   recouvre. */
+.carte {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #0b1424;
-  /* Ses couches à part (la photo, le voile, le titre) : Safari peint
-     sinon la photo arrondie par-dessus le titre. */
-  isolation: isolate;
-  transition:
-    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.photo img {
-  z-index: 0;
-  display: block;
-  width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* Les photos d'origine, comme dans les cartes du menu ☰ (26/11/2026,
-     demande d'Antonino : sur fond blanc, plus besoin de les éclaircir). */
-  transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  border-radius: 20px;
+  background: #0b1424;
+  color: #ffffff;
+  text-decoration: none;
+  /* Ses couches à part (la photo, le voile, les textes) : Safari peint
+     sinon la photo arrondie par-dessus les textes. */
+  isolation: isolate;
+  box-shadow: 0 -18px 40px rgb(9 15 31 / 16%);
 }
-/* LE TITRE ET LA LIGNE COURTE, SUR LA PHOTO (28/11/2026, maquette « C »
-   choisie par Antonino) : en bas à gauche, en blanc, sur un voile bleu
-   nuit qui monte du bas (le même que celui des photos de la page
-   Services), avec une ombre douce sous les lettres. */
-.photo::after {
-  content: "";
+.image {
+  z-index: 0;
+  object-fit: cover;
+  transition:
+    transform 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+    filter 0.6s ease;
+}
+
+/* Le voile bleu nuit qui monte du bas, sous les textes (le même que celui
+   des photos du site). */
+.voile {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    to top,
-    rgb(9 15 31 / 70%) 0%,
-    rgb(9 15 31 / 40%) 35%,
-    rgb(9 15 31 / 10%) 70%
-  );
+  background: linear-gradient(to top, rgb(9 15 31 / 74%) 0%, rgb(9 15 31 / 40%) 38%, rgb(9 15 31 / 8%) 72%);
   pointer-events: none;
 }
-.legende {
+
+/* Le bloc des textes, posé en bas à gauche. */
+.contenu {
   position: absolute;
   right: 22px;
-  bottom: 20px;
+  bottom: 22px;
   left: 22px;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+.legende {
   display: flex;
   flex-direction: column;
   text-shadow: 0 1px 16px rgb(9 15 31 / 55%);
 }
 .titre {
   font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  color: #ffffff;
   text-wrap: balance;
 }
 .texte {
   margin-top: 6px;
-  font-family: var(--font-manrope), var(--font-sans), sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.45;
   color: #c9d3e2;
 }
-/* La flèche dans un cercle, en haut à droite ; pleine au survol. */
+
+/* La flèche dans un cercle, en haut à droite (tablette et téléphone). */
 .rond {
   position: absolute;
   top: 16px;
@@ -98,11 +102,10 @@
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border: 1px solid rgb(255 255 255 / 45%);
   border-radius: 999px;
-  color: #ffffff;
   transition:
     background-color 0.3s ease,
     border-color 0.3s ease,
@@ -113,17 +116,188 @@
   height: 14px;
 }
 
-/* Le survol : la photo visée s'éclaire et s'agrandit, les autres
-   s'atténuent. À la souris seulement (au doigt, rien ne change). */
-@media (hover: hover) and (pointer: fine) {
-  .grille:hover .carte {
-    opacity: 0.4;
+/* Ce qui se déplie : seulement sur ordinateur. */
+.depli {
+  display: none;
+}
+
+/* ---- ORDINATEUR (dès 1025px) ---- */
+@media (min-width: 1025px) {
+  .pile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 0;
   }
-  .grille .carte:hover {
+  .place {
+    position: static;
+    height: auto;
+    margin-bottom: 0;
+  }
+  .carte {
+    height: 350px;
+    border-radius: 20px;
+    box-shadow: none;
+  }
+  /* LA PHOTO S'ASSOMBRIT AU SURVOL SEULEMENT (28/11/2026, demande
+     d'Antonino) : au repos, la photo telle quelle, sous le voile du bas ;
+     dépliée, un filtre et un second voile, dense, pour lire les textes. */
+  .carte::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(to top, rgb(9 15 31 / 90%) 0%, rgb(9 15 31 / 70%) 50%, rgb(9 15 31 / 45%) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .rond {
+    display: none;
+  }
+  /* DE L'AIR AUTOUR DES TEXTES (même demande) : 30px de chaque côté. */
+  .contenu {
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+  }
+  .titre {
+    font-size: clamp(20px, 1.55vw, 23px);
+    line-height: 1.15;
+  }
+  .texte {
+    font-size: 14px;
+  }
+  /* LE DÉPLI : une rangée de grille qui passe de 0 à sa hauteur ; le bloc
+     des textes étant posé en bas, le titre et la ligne courte montent
+     d'autant. Le contenu apparaît en fondu, un instant après. */
+  .depli {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .depliInterieur {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .livrables {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid rgb(255 255 255 / 16%);
+  }
+  .livrables li {
+    padding: 7px 0;
+    border-top: 1px solid rgb(255 255 255 / 16%);
+    font-size: 13px;
+    line-height: 1.4;
+    color: #c9d3e2;
+  }
+  /* Le bouton, en pilule. */
+  .bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    margin-top: 18px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0b1424;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  .bouton svg {
+    width: 14px;
+    height: 14px;
+  }
+  /* Déplié : au survol, au focus du clavier ; et toujours sur un écran
+     sans survol (tactile). */
+  .carte:is(:hover, :focus-visible) .depli {
+    grid-template-rows: 1fr;
+  }
+  .carte:is(:hover, :focus-visible) .image {
+    filter: brightness(0.55) saturate(0.85);
+  }
+  .carte:is(:hover, :focus-visible)::after {
     opacity: 1;
   }
-  .carte:hover .photo img {
-    transform: scale(1.06);
+  .carte:is(:hover, :focus-visible) .depliInterieur {
+    opacity: 1;
+    transition: opacity 0.4s ease 0.15s;
+  }
+}
+/* Les quatre sur une ligne dès 1400px (plus étroites en dessous, leurs
+   textes dépliés ne tiendraient plus) : des cartes plus hautes, pour que
+   tout tienne une fois déplié. */
+@media (min-width: 1400px) {
+  .pile {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .carte {
+    height: 400px;
+  }
+}
+@media (min-width: 1025px) and (hover: none) {
+  .depli {
+    grid-template-rows: 1fr;
+  }
+  .depliInterieur {
+    opacity: 1;
+  }
+  .image {
+    filter: brightness(0.55) saturate(0.85);
+  }
+  .carte::after {
+    opacity: 1;
+  }
+}
+
+/* ---- Tablette : un peu plus haute, le titre un peu plus grand ---- */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .place {
+    height: 480px;
+  }
+  .contenu {
+    right: 32px;
+    bottom: 30px;
+    left: 32px;
+  }
+  .titre {
+    font-size: 30px;
+  }
+  .rond {
+    top: 22px;
+    right: 22px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ---- Téléphone : la pile, plus serrée, juste sous la barre ---- */
+@media (max-width: 639px) {
+  .place {
+    top: calc(var(--header-h) + 12px + var(--i) * 14px);
+    height: 440px;
+    margin-bottom: 32px;
+  }
+}
+
+/* LE SURVOL : la photo s'approche à peine et s'assombrit (plus haut) ; le
+   bouton (ou le cercle) se remplit. PAS DE PASSE-PARTOUT ICI (28/11/2026,
+   demande d'Antonino) : sur ces cartes sombres, le cadre laissé par la
+   photo se lisait comme une bordure noire ; toute la photo s'assombrit,
+   jusqu'aux bords. Les coins ne bougent pas. À la souris ; au clavier, le
+   contour bleu et le dépli. */
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover .image {
+    transform: scale(1.03);
+  }
+  .carte:hover .bouton {
+    background: #e4ebf7;
   }
   .carte:hover .rond {
     border-color: #ffffff;
@@ -131,83 +305,20 @@
     color: #0b1424;
   }
 }
-/* Le même effet au clavier. La carte visée doit peser plus lourd que la
-   règle d'atténuation (son `:has()` compte comme deux classes). */
-.grille:has(.carte:focus-visible) .carte {
-  opacity: 0.4;
-}
-.grille:has(.carte:focus-visible) .carte:focus-visible {
-  opacity: 1;
-  outline: none;
-}
-.carte:focus-visible .photo {
+.carte:focus-visible {
   outline: 2px solid #4a78c8;
   outline-offset: 4px;
 }
-.carte:focus-visible .photo img {
-  transform: scale(1.06);
-}
 
-/* Tablette : deux colonnes. */
-@media (max-width: 1023px) {
-  .grille {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-}
-/* Téléphone : UNE COLONNE (28/11/2026, maquette « C » choisie par
-   Antonino ; une grille 2 × 2 avant, trop petite sur un vrai iPhone) :
-   une photo pleine largeur par service, en 4:3, le titre en 24px. */
-@media (max-width: 639px) {
-  .grille {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-  }
-  .photo {
-    aspect-ratio: 4 / 3;
-    border-radius: 20px;
-  }
-  .legende {
-    right: 20px;
-    bottom: 18px;
-    left: 20px;
-  }
-  .titre {
-    font-size: 24px;
-    line-height: 1.1;
-    letter-spacing: -0.035em;
-  }
-}
-
-/* Sans mouvement : pas d'agrandissement ; l'atténuation des autres cartes
-   et l'éclairage de la photo visée restent. */
+/* Sans mouvement : tout se déplie d'un coup, la photo ne bouge pas. */
 @media (prefers-reduced-motion: reduce) {
-  .photo img,
-  .carte:hover .photo img,
-  .carte:focus-visible .photo img {
+  .image,
+  .carte:hover .image {
     transform: none;
-    transition: filter 0.6s ease;
+    transition: none;
   }
-}
-
-/* L'ARRONDI AU SURVOL (28/11/2026, demande d'Antonino : « le même effet
-   que les réalisations de l'accueil », sur toutes les cartes) : les coins
-   s'arrondissent nettement et la carte grandit à peine (1,02), en 0,5s.
-   À la souris ; le même effet au clavier ; sans mouvement, seuls les coins
-   s'arrondissent. */
-@media (hover: hover) and (pointer: fine) {
-  .carte:hover .photo {
-    border-radius: 48px;
-    transform: scale(1.02);
-  }
-}
-.carte:focus-visible .photo {
-  border-radius: 48px;
-  transform: scale(1.02);
-}
-@media (prefers-reduced-motion: reduce) {
-  .carte:hover .photo,
-  .carte:focus-visible .photo {
-    transform: none;
+  .depli,
+  .depliInterieur {
+    transition: none;
   }
 }

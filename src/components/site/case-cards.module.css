@@ -153,9 +153,8 @@
   /* Un contexte à part, pour que les coins arrondis découpent bien
      l'illustration animée pendant l'agrandissement (Safari compris). */
   isolation: isolate;
-  transition:
-    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  clip-path: inset(0 round 16px);
+  transition: clip-path 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .showText {
@@ -206,15 +205,18 @@
    l'autre projet ne change pas (l'assombrissement essayé avant est retiré
    à sa demande). À la souris seulement (au doigt, rien ne change) ; le
    même effet au clavier. */
+/* LE PASSE-PARTOUT AU SURVOL (28/11/2026, demande d'Antonino : plus de
+   coins qui s'arrondissent, trop proche d'In The Pocket) : la photo se
+   retire de quelques pixels dans un fin cadre, comme une image qu'on
+   encadre, et s'approche à peine. Les coins de la carte ne bougent pas.
+   À la souris ; le même effet au clavier ; sans mouvement, rien ne bouge. */
 @media (hover: hover) and (pointer: fine) {
   .showRow:hover .showVisual {
-    border-radius: 48px;
-    transform: scale(1.02);
+    clip-path: inset(12px round 10px);
   }
 }
 .showRow:has(:focus-visible) .showVisual {
-  border-radius: 48px;
-  transform: scale(1.02);
+  clip-path: inset(12px round 10px);
 }
 
 /* Écran étroit : un projet sous l'autre. */
@@ -232,9 +234,7 @@
   .showSummary {
     transition: none;
   }
-  /* Sans mouvement : pas d'agrandissement, seuls les coins s'arrondissent. */
-  .showRow:hover .showVisual,
-  .showRow:has(:focus-visible) .showVisual {
-    transform: none;
+  .showVisual {
+    transition: none;
   }
 }

@@ -102,7 +102,7 @@ function titleLine(line: string, accents: readonly string[]): ReactNode[] {
  * `alternating`) : aucune ne force sa couleur.
  */
 export function HomePage({ locale }: { locale: Locale }) {
-  const { site, home, about } = getContent(locale);
+  const { site, home, about, services } = getContent(locale);
   const fr = locale === "fr";
   /* LES DONNÉES STRUCTURÉES (brief, section 10) : le site, et l'agence en
      `ProfessionalService`, avec sa ville et son pays mais sans adresse de
@@ -240,9 +240,11 @@ export function HomePage({ locale }: { locale: Locale }) {
           />
           <p className="section-etiquette">{home.services.etiquette}</p>
         </div>
-        {/* Les quatre services en photos (25/11/2026, fiche d'Antonino) :
-            une grille, sans fond de carte ; l'en-tête ne change pas. */}
-        <ServicesGrid locale={locale} services={home.services} />
+        {/* Les quatre services en cartes empilées (28/11/2026, maquette
+            « A2 » choisie par Antonino) : sur ordinateur, chaque carte
+            porte aussi la phrase, les livrables et le bouton de son service
+            sur la page Services (`services.items`). */}
+        <ServicesGrid locale={locale} services={home.services} details={services.items} bouton={services.list.button} />
       </Band>
 
       <Band id="realisations" className={`rf-section ${accentFont.variable}`}>

@@ -215,9 +215,9 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
+  clip-path: inset(0 round 20px);
   transition:
-    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-radius 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    clip-path 0.6s cubic-bezier(0.23, 1, 0.32, 1),
     opacity 0.5s ease;
 }
 .visuel::after {
@@ -315,24 +315,79 @@
   }
 }
 
-/* L'ARRONDI AU SURVOL (28/11/2026, demande d'Antonino : « le même effet
-   que les réalisations de l'accueil », sur toutes les cartes) : les coins
-   s'arrondissent nettement et la carte grandit à peine (1,02), en 0,5s.
-   À la souris ; le même effet au clavier ; sans mouvement, seuls les coins
-   s'arrondissent. */
+/* LE PASSE-PARTOUT AU SURVOL (28/11/2026, demande d'Antonino : plus de
+   coins qui s'arrondissent, trop proche d'In The Pocket) : la photo se
+   retire de quelques pixels dans un fin cadre, comme une image qu'on
+   encadre, et s'approche à peine. Les coins de la carte ne bougent pas.
+   À la souris ; le même effet au clavier ; sans mouvement, rien ne bouge. */
 @media (hover: hover) and (pointer: fine) {
   .carte:hover .visuel {
-    border-radius: 48px;
-    transform: scale(1.02);
+    clip-path: inset(8px round 12px);
   }
 }
 .carte:focus-visible .visuel {
-  border-radius: 48px;
-  transform: scale(1.02);
+  clip-path: inset(8px round 12px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .carte:hover .visuel,
-  .carte:focus-visible .visuel {
-    transform: none;
+  .visuel {
+    transition: opacity 0.2s ease;
+  }
+}
+
+/* LA PHRASE AU SURVOL (28/11/2026, demande d'Antonino) : au survol d'une
+   carte, sa photo s'assombrit et, sous le titre et la ligne courte, qui
+   montent, se déplie la phrase du service (celle de la page Services ;
+   l'accueil, lui, montre les livrables). Une rangée de grille qui passe de
+   0 à sa hauteur, puis le texte en fondu. À la souris ; le même effet au
+   clavier ; au doigt, la carte mène simplement au service. */
+.depli {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.depliInterieur {
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.phrase {
+  display: block;
+  padding-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #dfe6f1;
+  text-wrap: pretty;
+}
+.visuel img {
+  transition: filter 0.5s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .carte:hover .depli {
+    grid-template-rows: 1fr;
+  }
+  .carte:hover .depliInterieur {
+    opacity: 1;
+    transition: opacity 0.4s ease 0.12s;
+  }
+  .carte:hover .visuel img {
+    filter: brightness(0.5);
+  }
+}
+.carte:focus-visible .depli {
+  grid-template-rows: 1fr;
+}
+.carte:focus-visible .depliInterieur {
+  opacity: 1;
+}
+.carte:focus-visible .visuel img {
+  filter: brightness(0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .depli,
+  .depliInterieur,
+  .visuel img {
+    transition: none;
   }
 }

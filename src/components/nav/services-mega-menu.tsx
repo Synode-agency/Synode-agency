@@ -184,6 +184,13 @@ export function ServicesMegaMenu({
                 <span className={s.legende}>
                   <span className={s.titre}>{service.title}</span>
                   <span className={s.texte}>{service.text}</span>
+                  {/* La phrase du service, qui se déplie au survol : le
+                      titre et la ligne courte montent (28/11/2026). */}
+                  <span className={s.depli}>
+                    <span className={s.depliInterieur}>
+                      <span className={s.phrase}>{service.phrase}</span>
+                    </span>
+                  </span>
                 </span>
               </NavLink>
             ))}

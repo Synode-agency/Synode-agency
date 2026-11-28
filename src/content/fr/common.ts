@@ -1,5 +1,6 @@
 import { ROUTES } from "@/lib/routes";
 import { ctaLabel } from "../cta";
+import { services } from "./services";
 
 /* Le menu du haut : l'accueil et trois pages, le bouton mène à Contact
    (brief, 4.2). « Accueil » ajouté le 25/11/2026 (demande d'Antonino) : au
@@ -16,6 +17,11 @@ const nav = [
 const footerNav = [...nav, { href: ROUTES.contact, label: "Contact" }] as const;
 
 /** Le socle commun : nom, contact, menu, bouton, pied de page et appel final. */
+/* La phrase d'un service (celle de la page Services), pour le menu
+   « Services » de la barre, où elle apparaît au survol (28/11/2026). Le
+   retour à la ligne voulu pour la page Services n'y a pas sa place. */
+const phraseDe = (key: string) => services.items.find((item) => item.key === key)?.sentence.replace(/\n/g, " ") ?? "";
+
 export const site = {
   name: "Synode",
   email: "contact@synode-agency.com",
@@ -38,10 +44,10 @@ export const site = {
      téléphone). Les quatre services y sont les mêmes, avec leur photo (celle
      des cartes de l'accueil) et son cadrage (`focus`). */
   menuServices: [
-    { key: "software", title: "Développement logiciel", text: "Logiciels de bureau, web et SaaS", image: "/images/services/service-logiciel.webp", focus: "50% 55%" },
-    { key: "ai", title: "Intelligence artificielle & automatisation", text: "Automatisations, assistants IA", image: "/images/services/service-ia.webp", focus: "55% 38%" },
-    { key: "connect", title: "Intégration & systèmes connectés", text: "CRM, ERP, facturation, API", image: "/images/services/service-integration.webp", focus: "62% 52%" },
-    { key: "web", title: "Sites web & applications mobiles", text: "Sites, iPhone et Android", image: "/images/services/service-web.webp", focus: "45% 42%" },
+    { key: "software", title: "Développement logiciel", text: "Logiciels de bureau, web et SaaS", image: "/images/services/service-logiciel.webp", focus: "50% 55%", phrase: phraseDe("software") },
+    { key: "ai", title: "Intelligence artificielle & automatisation", text: "Automatisations, assistants IA", image: "/images/services/service-ia.webp", focus: "55% 38%", phrase: phraseDe("ai") },
+    { key: "connect", title: "Intégration & systèmes connectés", text: "CRM, ERP, facturation, API", image: "/images/services/service-integration.webp", focus: "62% 52%", phrase: phraseDe("connect") },
+    { key: "web", title: "Sites web & applications mobiles", text: "Sites, iPhone et Android", image: "/images/services/service-web.webp", focus: "45% 42%", phrase: phraseDe("web") },
   ] as const,
   menuOpen: "Ouvrir le menu",
   /* La petite flèche à côté de « Services » : ouvre la liste des services
